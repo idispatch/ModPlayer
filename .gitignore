@@ -5,3 +5,9 @@
 .moc
 .obj
 *.gch
+arm
+x86
+Makefile
+Makefile.Release
+Makefile.Debug
+arm/o.le-v7-g/ModPlayer
