@@ -3,30 +3,148 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 
 device {
     CONFIG(debug, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/applicationui.cpp) \
-                 $$quote($$BASEDIR/src/main.cpp)
+        SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+                 $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/SongInfo.cpp) \
+                 $$quote($$BASEDIR/src/Unpacker.cpp) \
+                 $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/zip/JlCompress.cpp) \
+                 $$quote($$BASEDIR/src/zip/qioapi.cpp) \
+                 $$quote($$BASEDIR/src/zip/quaadler32.cpp) \
+                 $$quote($$BASEDIR/src/zip/quacrc32.cpp) \
+                 $$quote($$BASEDIR/src/zip/quagzipfile.cpp) \
+                 $$quote($$BASEDIR/src/zip/quaziodevice.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazip.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipdir.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipfile.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipfileinfo.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipnewinfo.cpp) \
+                 $$quote($$BASEDIR/src/zip/unzip.c) \
+                 $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/applicationui.hpp)
+        HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+                 $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/SongInfo.hpp) \
+                 $$quote($$BASEDIR/src/Unpacker.hpp) \
+                 $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/zip/JlCompress.h) \
+                 $$quote($$BASEDIR/src/zip/crypt.h) \
+                 $$quote($$BASEDIR/src/zip/ioapi.h) \
+                 $$quote($$BASEDIR/src/zip/quaadler32.h) \
+                 $$quote($$BASEDIR/src/zip/quachecksum32.h) \
+                 $$quote($$BASEDIR/src/zip/quacrc32.h) \
+                 $$quote($$BASEDIR/src/zip/quagzipfile.h) \
+                 $$quote($$BASEDIR/src/zip/quaziodevice.h) \
+                 $$quote($$BASEDIR/src/zip/quazip.h) \
+                 $$quote($$BASEDIR/src/zip/quazip_global.h) \
+                 $$quote($$BASEDIR/src/zip/quazipdir.h) \
+                 $$quote($$BASEDIR/src/zip/quazipfile.h) \
+                 $$quote($$BASEDIR/src/zip/quazipfileinfo.h) \
+                 $$quote($$BASEDIR/src/zip/quazipnewinfo.h) \
+                 $$quote($$BASEDIR/src/zip/unzip.h) \
+                 $$quote($$BASEDIR/src/zip/zip.h)
     }
 
     CONFIG(release, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/applicationui.cpp) \
-                 $$quote($$BASEDIR/src/main.cpp)
+        SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+                 $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/SongInfo.cpp) \
+                 $$quote($$BASEDIR/src/Unpacker.cpp) \
+                 $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/zip/JlCompress.cpp) \
+                 $$quote($$BASEDIR/src/zip/qioapi.cpp) \
+                 $$quote($$BASEDIR/src/zip/quaadler32.cpp) \
+                 $$quote($$BASEDIR/src/zip/quacrc32.cpp) \
+                 $$quote($$BASEDIR/src/zip/quagzipfile.cpp) \
+                 $$quote($$BASEDIR/src/zip/quaziodevice.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazip.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipdir.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipfile.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipfileinfo.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipnewinfo.cpp) \
+                 $$quote($$BASEDIR/src/zip/unzip.c) \
+                 $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/applicationui.hpp)
+        HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+                 $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/SongInfo.hpp) \
+                 $$quote($$BASEDIR/src/Unpacker.hpp) \
+                 $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/zip/JlCompress.h) \
+                 $$quote($$BASEDIR/src/zip/crypt.h) \
+                 $$quote($$BASEDIR/src/zip/ioapi.h) \
+                 $$quote($$BASEDIR/src/zip/quaadler32.h) \
+                 $$quote($$BASEDIR/src/zip/quachecksum32.h) \
+                 $$quote($$BASEDIR/src/zip/quacrc32.h) \
+                 $$quote($$BASEDIR/src/zip/quagzipfile.h) \
+                 $$quote($$BASEDIR/src/zip/quaziodevice.h) \
+                 $$quote($$BASEDIR/src/zip/quazip.h) \
+                 $$quote($$BASEDIR/src/zip/quazip_global.h) \
+                 $$quote($$BASEDIR/src/zip/quazipdir.h) \
+                 $$quote($$BASEDIR/src/zip/quazipfile.h) \
+                 $$quote($$BASEDIR/src/zip/quazipfileinfo.h) \
+                 $$quote($$BASEDIR/src/zip/quazipnewinfo.h) \
+                 $$quote($$BASEDIR/src/zip/unzip.h) \
+                 $$quote($$BASEDIR/src/zip/zip.h)
     }
 }
 
 simulator {
     CONFIG(debug, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/applicationui.cpp) \
-                 $$quote($$BASEDIR/src/main.cpp)
+        SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+                 $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/SongInfo.cpp) \
+                 $$quote($$BASEDIR/src/Unpacker.cpp) \
+                 $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/zip/JlCompress.cpp) \
+                 $$quote($$BASEDIR/src/zip/qioapi.cpp) \
+                 $$quote($$BASEDIR/src/zip/quaadler32.cpp) \
+                 $$quote($$BASEDIR/src/zip/quacrc32.cpp) \
+                 $$quote($$BASEDIR/src/zip/quagzipfile.cpp) \
+                 $$quote($$BASEDIR/src/zip/quaziodevice.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazip.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipdir.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipfile.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipfileinfo.cpp) \
+                 $$quote($$BASEDIR/src/zip/quazipnewinfo.cpp) \
+                 $$quote($$BASEDIR/src/zip/unzip.c) \
+                 $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/applicationui.hpp)
+        HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+                 $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/SongInfo.hpp) \
+                 $$quote($$BASEDIR/src/Unpacker.hpp) \
+                 $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/zip/JlCompress.h) \
+                 $$quote($$BASEDIR/src/zip/crypt.h) \
+                 $$quote($$BASEDIR/src/zip/ioapi.h) \
+                 $$quote($$BASEDIR/src/zip/quaadler32.h) \
+                 $$quote($$BASEDIR/src/zip/quachecksum32.h) \
+                 $$quote($$BASEDIR/src/zip/quacrc32.h) \
+                 $$quote($$BASEDIR/src/zip/quagzipfile.h) \
+                 $$quote($$BASEDIR/src/zip/quaziodevice.h) \
+                 $$quote($$BASEDIR/src/zip/quazip.h) \
+                 $$quote($$BASEDIR/src/zip/quazip_global.h) \
+                 $$quote($$BASEDIR/src/zip/quazipdir.h) \
+                 $$quote($$BASEDIR/src/zip/quazipfile.h) \
+                 $$quote($$BASEDIR/src/zip/quazipfileinfo.h) \
+                 $$quote($$BASEDIR/src/zip/quazipnewinfo.h) \
+                 $$quote($$BASEDIR/src/zip/unzip.h) \
+                 $$quote($$BASEDIR/src/zip/zip.h)
     }
 }
 
-INCLUDEPATH +=  $$quote($$BASEDIR/src)
+INCLUDEPATH +=  $$quote($$BASEDIR/src/zip) \
+         $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header
 

@@ -1,6 +1,7 @@
 .DS_Store
 *.o
 *.so
+*.qm
 *.bar
 .moc
 .obj

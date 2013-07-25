@@ -13,24 +13,27 @@ namespace bb
 }
 
 class QTranslator;
-
-/*!
- * @brief Application object
- *
- *
- */
+class Player;
 
 class ApplicationUI : public QObject
 {
     Q_OBJECT
 public:
     ApplicationUI(bb::cascades::Application *app);
-    virtual ~ApplicationUI() { }
+
+    Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
+
+    Player * player() const;
+Q_SIGNALS:
+    void playerChanged();
 private slots:
     void onSystemLanguageChanged();
 private:
+    void initTranslator();
+private:
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
+    Player * m_player;
 };
 
-#endif /* ApplicationUI_HPP_ */
+#endif
