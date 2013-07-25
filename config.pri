@@ -10,6 +10,40 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_669.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_abc.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_amf.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ams.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dbm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dmf.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dsm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_far.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_it.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_j2b.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mdl.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_med.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mid.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mod.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mt2.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mtm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_okt.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_pat.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_psm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ptm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_s3m.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_stm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ult.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_umx.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_wav.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_xm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/mmcmp.cpp) \
+                 $$quote($$BASEDIR/src/modplug/modplug.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_dsp.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_flt.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_fx.cpp) \
+                 $$quote($$BASEDIR/src/modplug/sndfile.cpp) \
+                 $$quote($$BASEDIR/src/modplug/sndmix.cpp) \
                  $$quote($$BASEDIR/src/zip/JlCompress.cpp) \
                  $$quote($$BASEDIR/src/zip/qioapi.cpp) \
                  $$quote($$BASEDIR/src/zip/quaadler32.cpp) \
@@ -30,6 +64,13 @@ device {
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/modplug/config.h) \
+                 $$quote($$BASEDIR/src/modplug/it_defs.h) \
+                 $$quote($$BASEDIR/src/modplug/load_pat.h) \
+                 $$quote($$BASEDIR/src/modplug/modplug.h) \
+                 $$quote($$BASEDIR/src/modplug/sndfile.h) \
+                 $$quote($$BASEDIR/src/modplug/stdafx.h) \
+                 $$quote($$BASEDIR/src/modplug/tables.h) \
                  $$quote($$BASEDIR/src/zip/JlCompress.h) \
                  $$quote($$BASEDIR/src/zip/crypt.h) \
                  $$quote($$BASEDIR/src/zip/ioapi.h) \
@@ -56,6 +97,40 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_669.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_abc.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_amf.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ams.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dbm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dmf.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dsm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_far.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_it.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_j2b.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mdl.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_med.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mid.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mod.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mt2.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mtm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_okt.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_pat.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_psm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ptm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_s3m.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_stm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ult.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_umx.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_wav.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_xm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/mmcmp.cpp) \
+                 $$quote($$BASEDIR/src/modplug/modplug.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_dsp.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_flt.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_fx.cpp) \
+                 $$quote($$BASEDIR/src/modplug/sndfile.cpp) \
+                 $$quote($$BASEDIR/src/modplug/sndmix.cpp) \
                  $$quote($$BASEDIR/src/zip/JlCompress.cpp) \
                  $$quote($$BASEDIR/src/zip/qioapi.cpp) \
                  $$quote($$BASEDIR/src/zip/quaadler32.cpp) \
@@ -76,6 +151,13 @@ device {
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/modplug/config.h) \
+                 $$quote($$BASEDIR/src/modplug/it_defs.h) \
+                 $$quote($$BASEDIR/src/modplug/load_pat.h) \
+                 $$quote($$BASEDIR/src/modplug/modplug.h) \
+                 $$quote($$BASEDIR/src/modplug/sndfile.h) \
+                 $$quote($$BASEDIR/src/modplug/stdafx.h) \
+                 $$quote($$BASEDIR/src/modplug/tables.h) \
                  $$quote($$BASEDIR/src/zip/JlCompress.h) \
                  $$quote($$BASEDIR/src/zip/crypt.h) \
                  $$quote($$BASEDIR/src/zip/ioapi.h) \
@@ -104,6 +186,40 @@ simulator {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_669.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_abc.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_amf.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ams.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dbm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dmf.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_dsm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_far.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_it.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_j2b.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mdl.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_med.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mid.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mod.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mt2.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_mtm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_okt.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_pat.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_psm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ptm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_s3m.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_stm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_ult.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_umx.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_wav.cpp) \
+                 $$quote($$BASEDIR/src/modplug/load_xm.cpp) \
+                 $$quote($$BASEDIR/src/modplug/mmcmp.cpp) \
+                 $$quote($$BASEDIR/src/modplug/modplug.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_dsp.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_flt.cpp) \
+                 $$quote($$BASEDIR/src/modplug/snd_fx.cpp) \
+                 $$quote($$BASEDIR/src/modplug/sndfile.cpp) \
+                 $$quote($$BASEDIR/src/modplug/sndmix.cpp) \
                  $$quote($$BASEDIR/src/zip/JlCompress.cpp) \
                  $$quote($$BASEDIR/src/zip/qioapi.cpp) \
                  $$quote($$BASEDIR/src/zip/quaadler32.cpp) \
@@ -124,6 +240,13 @@ simulator {
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/modplug/config.h) \
+                 $$quote($$BASEDIR/src/modplug/it_defs.h) \
+                 $$quote($$BASEDIR/src/modplug/load_pat.h) \
+                 $$quote($$BASEDIR/src/modplug/modplug.h) \
+                 $$quote($$BASEDIR/src/modplug/sndfile.h) \
+                 $$quote($$BASEDIR/src/modplug/stdafx.h) \
+                 $$quote($$BASEDIR/src/modplug/tables.h) \
                  $$quote($$BASEDIR/src/zip/JlCompress.h) \
                  $$quote($$BASEDIR/src/zip/crypt.h) \
                  $$quote($$BASEDIR/src/zip/ioapi.h) \
@@ -144,6 +267,7 @@ simulator {
 }
 
 INCLUDEPATH +=  $$quote($$BASEDIR/src/zip) \
+         $$quote($$BASEDIR/src/modplug) \
          $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header

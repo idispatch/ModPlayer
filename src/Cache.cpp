@@ -150,14 +150,14 @@ void Cache::remove(QString const& fileName) {
     }
 }
 
-QDebug operator << (QDebug dbg, const Cache &c)
-{
-    dbg << "(Cache: currentFiles=" << c.currentFiles()
+QDebug operator << (QDebug dbg, const Cache &c) {
+    dbg.nospace()
+        << "(Cache: currentFiles=" << c.currentFiles()
         << ", currentSize=" << c.currentSize()
         << ", maxFiles=" << c.maxFiles()
         << ", maxSize=" << c.maxSize()
         << ", files=" << c.files()
         << ", filesNameFilters=" << c.fileNameFilters()
         << ")";
-    return dbg;
+    return dbg.space();
 }

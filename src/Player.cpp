@@ -25,12 +25,15 @@ void Player::initCache() {
     qmlRegisterUncreatableType<Cache>("player", 1, 0, "Cache", "");
     QStringList fileNameFilters;
     fileNameFilters << "*.mod"
+                    << "*.mt2"
+                    << "*.mtm"
                     << "*.s3m"
                     << "*.it"
                     << "*.stm"
                     << "*.xm"
                     << "*.669"
-                    << "*.oct";
+                    << "*.oct"
+                    << "*.okt";
     qDebug() << *m_cache;
     m_cache->setFileNameFilters(fileNameFilters);
     qDebug() << *m_cache;
