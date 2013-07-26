@@ -13,7 +13,8 @@ class Player : public QObject {
     Q_OBJECT
     Q_ENUMS(State)
 public:
-    enum State {
+    enum State
+    {
         Stopped = 0,
         Playing = 1,
         Paused = 2,
@@ -52,6 +53,10 @@ private slots:
     void downloadStarted(int modId);
     void downloadFinished(QString fileName);
     void downloadFailure(int modId);
+
+    void paused();
+    void playing();
+    void stopped();
 private:
     Q_DISABLE_COPY(Player)
 

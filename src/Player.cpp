@@ -60,15 +60,29 @@ void Player::initDownloader() {
 
 void Player::initModule() {
     qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
+    connect(m_module,
+            SIGNAL(playing()),
+            this,
+            SLOT(playing()));
+    connect(m_module,
+            SIGNAL(paused()),
+            this,
+            SLOT(paused()));
+    connect(m_module,
+            SIGNAL(stopped()),
+            this,
+            SLOT(stopped()));
 }
 
 void Player::changeStatus(State state, QString const& statusText) {
-    if(m_state != state) {
+    if(m_state != state)
+    {
         m_state = state;
         qDebug() << "State changed, new state" << m_state;
         emit stateChanged();
     }
-    if(m_statusText != statusText) {
+    if(m_statusText != statusText)
+    {
         m_statusText = statusText;
         qDebug() << m_statusText;
         emit statusTextChanged();
@@ -85,13 +99,17 @@ void Player::downloadFinished(QString fileName) {
     changeStatus(Preparing, QString("Unpacking song %1").arg(name));
 
     QString newFile = m_unpacker->unpackFile(fileName);
-    if(QFile::remove(fileName)) {
+    if(QFile::remove(fileName))
+    {
         qDebug() << "Deleted" << fileName;
-    } else {
+    }
+    else
+    {
         qDebug() << "Failed to delete" << fileName;
     }
 
-    if(newFile.isEmpty()) {
+    if(newFile.isEmpty())
+    {
         qDebug() << "There is no unpacked file returned";
 
         changeStatus(Stopped, QString("Failed to prepare song %1").arg(name));
@@ -131,9 +149,13 @@ SongModule * Player::currentSong() const {
 }
 
 void Player::beginPlay(QString const& fileName) {
+    qDebug() << "Player::beginPlay";
     stop();
-    if(m_module->load(fileName)) {
-        if(m_module->play()) {
+    qDebug() << "Module loading...";
+    if(m_module->load(fileName))
+    {
+        if(m_module->play())
+        {
             changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
         }
     }
@@ -142,15 +164,21 @@ void Player::beginPlay(QString const& fileName) {
 void Player::play(QVariant value) {
     qDebug() << "Playing" << value;
 
-    if(value.type() == QVariant::Int) {
+    if(value.type() == QVariant::Int)
+    {
         playByModuleId(value.toInt());
-    } else if(value.type() == QVariant::String) {
+    }
+    else if(value.type() == QVariant::String)
+    {
         QString valueString = value.toString();
         bool parseableInt = false;
         int modId = valueString.toInt(&parseableInt, 10);
-        if(parseableInt) {
+        if(parseableInt)
+        {
             playByModuleId(modId);
-        } else {
+        }
+        else
+        {
             playByModuleFileName(valueString);
         }
     }
@@ -159,9 +187,12 @@ void Player::play(QVariant value) {
 void Player::playByModuleFileName(QString const& fileName) {
     qDebug() << "Playing module file name=" << fileName;
 
-    if(m_cache->exists(fileName)) {
+    if(m_cache->exists(fileName))
+    {
         beginPlay(fileName);
-    } else {
+    }
+    else
+    {
         QString name = fileNameOnly(fileName);
         changeStatus(Resolving, QString("Resolving %1").arg(name));
     }
@@ -175,22 +206,25 @@ void Player::playByModuleId(int modId) {
 }
 
 void Player::stop() {
-    if(state() == Playing) {
-        m_module->stop();
-        changeStatus(Stopped, "Stopped");
-    }
+    m_module->stop();
 }
 
 void Player::pause() {
-    if(state() == Playing) {
-        m_module->pause();
-        changeStatus(Paused, QString("Paused %1").arg(m_module->fileName()));
-    }
+    m_module->pause();
 }
 
 void Player::resume() {
-    if(state() == Paused) {
-        m_module->resume();
-        changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
-    }
+    m_module->resume();
+}
+
+void Player::paused() {
+    changeStatus(Paused, QString("Paused %1").arg(m_module->fileName()));
+}
+
+void Player::playing() {
+    changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
+}
+
+void Player::stopped() {
+    changeStatus(Stopped, "Stopped");
 }

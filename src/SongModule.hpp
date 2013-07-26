@@ -92,14 +92,18 @@ public:
     QString lengthTimeString() const;
     void setLength(int value);
 
-    bool load(QString const& fileName);
+    Q_INVOKABLE bool load(QString const& fileName);
     Q_INVOKABLE bool play();
     Q_INVOKABLE bool stop();
     Q_INVOKABLE bool pause();
     Q_INVOKABLE bool resume();
-    void unload();
+    Q_INVOKABLE bool unload();
 
 Q_SIGNALS:
+    void playing();
+    void stopped();
+    void paused();
+
     void songLoadedChanged();
 
     void fileSizeChanged();

@@ -13,22 +13,25 @@ typedef struct _ModPlugFile ModPlugFile;
 
 class ModPlayback : public QThread {
     Q_OBJECT
-
-    enum State {
+public:
+    enum State
+    {
         Idle,      /* no module loaded and not playing, thread loop is running */
         Loading,   /* module (un)loaded and not playing, thread loop is running */
         Loaded,    /* module loaded and stopped */
         Unloading, /* module loaded and requested to unload */
         Playing,   /* module loaded and playing */
+        Stopping,  /* module loaded and playing, requested to stop */
         Paused,    /* module loaded and paused */
-        //Seeking,   /* module loaded and seeking */
-        //Rewinding, /* module loaded and rewinding */
+        Rewinding, /* module loaded and rewinding */
         Exiting,   /* exit requested */
         Exit       /* no module loaded and exited thread loop */
     };
-public:
+
     ModPlayback(QObject * parent = 0);
     virtual ~ModPlayback();
+
+    State state();
 
     void run();
     void stopThread();
@@ -52,6 +55,7 @@ private:
     void stopAudioDevice();
     void closePlayback();
     void waitWhile(State state);
+    void changeState(State state);
 private:
     QMutex m_mutex;
     QWaitCondition m_cond;
