@@ -7,6 +7,8 @@
 struct _ModPlugFile;
 typedef struct _ModPlugFile ModPlugFile;
 
+class ModPlayback;
+
 class SongModule : public QObject {
     Q_OBJECT
 
@@ -49,6 +51,7 @@ public:
     void setChannels(int value);
 
     bool load(QString const& fileName);
+    bool play();
     void unload();
 
 Q_SIGNALS:
@@ -63,6 +66,8 @@ Q_SIGNALS:
     void samplesChanged();
     void channelsChanged();
 private:
+    Q_DISABLE_COPY(SongModule)
+
     static QString fileNameOnly(QString const& fileName);
 private:
     QString m_fileFullPath;
@@ -76,6 +81,7 @@ private:
     int m_samples;
 
     ModPlugFile* m_modPlug;
+    ModPlayback * m_playback;
 };
 
 Q_DECLARE_METATYPE(SongModule*);

@@ -1,5 +1,7 @@
-#include "SongModule.hpp"
 #include "modplug.h"
+
+#include "SongModule.hpp"
+#include "ModPlayback.hpp"
 
 #include <QFile>
 #include <QFileInfo>
@@ -11,10 +13,14 @@ SongModule::SongModule(QObject *parent)
    m_channels(0),
    m_patterns(0),
    m_samples(0),
-   m_modPlug(NULL) {
+   m_modPlug(NULL),
+   m_playback(NULL) {
 }
 
 SongModule::~SongModule() {
+    if(m_playback!=NULL) {
+        //m_playback
+    }
     if(m_modPlug!=NULL) {
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
@@ -106,6 +112,18 @@ QString SongModule::fileNameOnly(QString const& fileName) {
     QFile file(fileName);
     QFileInfo fileInfo(file.fileName());
     return fileInfo.fileName();
+}
+
+bool SongModule::play() {
+    if(songLoaded()) {
+        if(m_playback == NULL || m_playback->isFinished()) {
+            m_playback = new ModPlayback(m_modPlug, this);
+            m_playback->start(QThread::NormalPriority);
+        }
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool SongModule::load(QString const& fileName) {

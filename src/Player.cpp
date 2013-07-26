@@ -125,11 +125,12 @@ SongModule * Player::currentSong() const {
 void Player::doPlay(QString const& fileName) {
     stop();
     if(m_module->load(fileName)) {
-        m_state = Playing;
-        emit stateChanged();
+        if(m_module->play()) {
+            m_state = Playing;
+            emit stateChanged();
 
-        QString name = fileNameOnly(fileName);
-        changeStatus(QString("Playing %1").arg(name));
+            changeStatus(QString("Playing %1").arg(m_module->fileName()));
+        }
     }
 }
 

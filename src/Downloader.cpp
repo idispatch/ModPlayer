@@ -19,7 +19,7 @@ Downloader::Downloader(QObject * parent)
     connect(m_networkManager,
             SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),
             this,
-            SLOT(networkAccessibleChanged(QQNetworkAccessManager::NetworkAccessibility)));
+            SLOT(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
 }
 
 int Downloader::pendingDownloads() const {

@@ -5,6 +5,7 @@ device {
     CONFIG(debug, debug|release) {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
@@ -61,6 +62,7 @@ device {
 
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
@@ -94,6 +96,7 @@ device {
     CONFIG(release, debug|release) {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
@@ -150,6 +153,7 @@ device {
 
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
@@ -185,6 +189,7 @@ simulator {
     CONFIG(debug, debug|release) {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
@@ -241,6 +246,7 @@ simulator {
 
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \

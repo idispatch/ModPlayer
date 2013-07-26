@@ -45,6 +45,8 @@ Q_SIGNALS:
     void currentFilesChanged(int value);
     void filesChanged();
 private:
+    Q_DISABLE_COPY(Cache)
+
     void houseKeep();
     void initCache();
     void notifyCacheChanged(int oldFiles, qint64 oldSize);

@@ -32,6 +32,8 @@ public:
 
 Q_SIGNALS:
 private:
+    Q_DISABLE_COPY(SongInfo)
+
     QString m_fileName;
     QString m_title;
     QString m_hash;
