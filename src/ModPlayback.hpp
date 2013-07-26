@@ -36,7 +36,11 @@ private:
     int m_numDevices;
     int m_pcmFd;
 
+    bool m_playRequested;
     bool m_stopRequested;
+    bool m_pauseRequested;
+    bool m_resumeRequested;
+    bool m_rewindRequested;
 };
 
 #endif

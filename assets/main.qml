@@ -11,7 +11,7 @@ Page {
             
             TextField {
                 id: modId
-                text: ""
+                text: "60693"
                 hintText: "Module ID"
             }
             
@@ -26,10 +26,12 @@ Page {
             
             Label {
                 text: "File: " + app.player.currentSong.fileName
+                visible: app.player.currentSong.songLoaded
             }
             
             Label {
                 text: "Size: " + app.player.currentSong.fileSize + " bytes"
+                visible: app.player.currentSong.songLoaded
             }
             
             Divider {
@@ -38,59 +40,66 @@ Page {
             
             Label {
                 text: "Title: " + app.player.currentSong.title
-                visible: app.player.currentSong.title.length > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Description: " + app.player.currentSong.description
-                visible: app.player.currentSong.description.length > 0
+                visible: app.player.currentSong.songLoaded && app.player.currentSong.description.length > 0
+            }
+            Label {
+                text: "Length: " + app.player.currentSong.lengthTimeString
+                visible: app.player.currentSong.songLoaded
+            }
+            Divider {
+            
             }
             Label {
                 text: "Channels: " + app.player.currentSong.channels
-                visible: app.player.currentSong.channels > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Patterns: " + app.player.currentSong.patterns
-                visible: app.player.currentSong.patterns > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Samples: " + app.player.currentSong.samples
-                visible: app.player.currentSong.samples > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Instruments: " + app.player.currentSong.instruments
-                visible: app.player.currentSong.instruments > 0
+                visible: app.player.currentSong.songLoaded
             }
             Divider {}
             
             Label {
                 text: "Current Order: " + app.player.currentSong.currentOrder
-                visible: app.player.currentSong.currentOrder > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Current Pattern: " + app.player.currentSong.currentPattern
-                visible: app.player.currentSong.currentPattern > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Current Row: " + app.player.currentSong.currentRow
-                visible: app.player.currentSong.currentRow > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Current Speed: " + app.player.currentSong.currentSpeed
-                visible: app.player.currentSong.currentSpeed > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "Current Tempo: " + app.player.currentSong.currentTempo
-                visible: app.player.currentSong.currentTempo > 0
+                visible: app.player.currentSong.songLoaded
             }            
             Label {
                 //property alias playingChannels: app.player.currentSong.playingChannels
                 text: "Playing Channels: " + app.player.currentSong.playingChannels
-                visible: app.player.currentSong.playingChannels > 0
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 //property alias masterVolume: app.player.currentSong.masterVolume
                 text: "Master Volume: " + app.player.currentSong.masterVolume
-                visible: app.player.currentSong.masterVolume > 0
+                visible: app.player.currentSong.songLoaded
             }
             Divider {}
             Label {

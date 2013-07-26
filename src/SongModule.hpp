@@ -35,6 +35,7 @@ class SongModule : public QObject {
     Q_PROPERTY(int playingChannels READ playingChannels WRITE setPlayingChannels NOTIFY playingChannelsChanged FINAL)
 
     Q_PROPERTY(int length READ length WRITE setLength NOTIFY lengthChanged FINAL)
+    Q_PROPERTY(QString lengthTimeString READ lengthTimeString NOTIFY lengthTimeStringChanged FINAL)
 
 public:
     SongModule(QObject *parent = 0);
@@ -117,6 +118,7 @@ Q_SIGNALS:
     void masterVolumeChanged();
     void playingChannelsChanged();
     void lengthChanged();
+    void lengthTimeStringChanged();
 
 private slots:
     void onUpdateTimeout();
@@ -124,6 +126,9 @@ private:
     Q_DISABLE_COPY(SongModule)
 
     static QString fileNameOnly(QString const& fileName);
+
+    void startRefreshTimer();
+    void stopRefreshTimer();
 private:
     int m_fileSize;
 

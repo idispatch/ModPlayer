@@ -145,7 +145,11 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     QByteArray data = reply->readAll();
     reply->deleteLater();
 
-    QString diskPath = QDir::tempPath() + "/" + QString("%1.zip").arg(modId);
+    QString fileName = reply->request().url().toString(QUrl::None);
+    int pos = fileName.lastIndexOf('/');
+    fileName = fileName.mid(pos);
+
+    QString diskPath = QDir::tempPath() + "/" + fileName;
     qDebug() << "Saving file" << diskPath;
 
     QFile file(diskPath);
@@ -164,12 +168,6 @@ void Downloader::finishDownload(QNetworkReply * reply) {
         qDebug() << "Written bytes:" << writtenBytes;
         file.close();
         emit downloadFinished(file.fileName());
-        /*qDebug() << "Deleting file" << file.fileName();
-        if(file.remove()) {
-            qDebug() << "File" << file.fileName() << "deleted";
-        } else {
-            qDebug() << "Could not delete file" << file.fileName();
-        }*/
     } else {
         qDebug() << "Could not open file" << file.fileName();
         emit downloadFailure(modId);

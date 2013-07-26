@@ -62,39 +62,46 @@ void Player::initModule() {
     qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
 }
 
-void Player::changeStatus(QString const& text) {
-    if(text != m_statusText) {
-        m_statusText = text;
+void Player::changeStatus(State state, QString const& statusText) {
+    if(m_state != state) {
+        m_state = state;
+        emit stateChanged();
+    }
+    if(m_statusText != statusText) {
+        m_statusText = statusText;
+        qDebug() << m_statusText;
         emit statusTextChanged();
     }
 }
 
 void Player::downloadStarted(int modId) {
     Q_UNUSED(modId);
-    changeStatus(QString("Downloading song %1").arg(modId));
+    changeStatus(Preparing, "Downloading song");
 }
 
 void Player::downloadFinished(QString fileName) {
-    m_state = Preparing;
-    emit stateChanged();
-
     QString name = fileNameOnly(fileName);
-    changeStatus(QString("Unpacking song %1").arg(name));
+    changeStatus(Preparing, QString("Unpacking song %1").arg(name));
 
     QString newFile = m_unpacker->unpackFile(fileName);
-    QFile::remove(fileName);
+    if(QFile::remove(fileName)) {
+        qDebug() << "Deleted" << fileName;
+    } else {
+        qDebug() << "Failed to delete" << fileName;
+    }
 
     if(newFile.isEmpty()) {
-        m_state = Stopped;
-        emit stateChanged();
+        qDebug() << "There is no unpacked file returned";
 
-        changeStatus(QString("Failed to prepare song %1").arg(name));
+        changeStatus(Stopped, QString("Failed to prepare song %1").arg(name));
         return;
     }
 
-    changeStatus(QString("Caching song %1").arg(name));
+    changeStatus(Preparing, QString("Caching song %1").arg(name));
+
     m_cache->cache(newFile);
-    doPlay(newFile);
+
+    beginPlay(newFile);
 }
 
 void Player::downloadFailure(int modId) {
@@ -122,20 +129,18 @@ SongModule * Player::currentSong() const {
     return m_module;
 }
 
-void Player::doPlay(QString const& fileName) {
+void Player::beginPlay(QString const& fileName) {
     stop();
     if(m_module->load(fileName)) {
         if(m_module->play()) {
-            m_state = Playing;
-            emit stateChanged();
-
-            changeStatus(QString("Playing %1").arg(m_module->fileName()));
+            changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
         }
     }
 }
 
 void Player::play(QVariant value) {
     qDebug() << "Playing" << value;
+
     if(value.type() == QVariant::Int) {
         playByModuleId(value.toInt());
     } else if(value.type() == QVariant::String) {
@@ -152,43 +157,36 @@ void Player::play(QVariant value) {
 
 void Player::playByModuleFileName(QString const& fileName) {
     qDebug() << "Playing module file name=" << fileName;
+
     if(m_cache->exists(fileName)) {
-        doPlay(fileName);
+        beginPlay(fileName);
     } else {
         QString name = fileNameOnly(fileName);
-        changeStatus(QString("Resolving %1").arg(name));
+        changeStatus(Resolving, QString("Resolving %1").arg(name));
     }
 }
 
 void Player::playByModuleId(int modId) {
     qDebug() << "Playing module id=" << modId;
-    changeStatus(QString("Downloading song %1").arg(modId));
+
+    changeStatus(Downloading, "Downloading song");
     m_downloader->download(modId);
 }
 
 void Player::stop() {
     if(state() == Playing) {
-        m_state = Stopped;
-        emit stateChanged();
-
-        changeStatus("Stopped");
+        changeStatus(Stopped, "Stopped");
     }
 }
 
 void Player::pause() {
     if(state() == Playing) {
-        m_state = Paused;
-        emit stateChanged();
-
-        changeStatus("Paused");
+        changeStatus(Playing, QString("Paused %1").arg(m_module->fileName()));
     }
 }
 
 void Player::resume() {
     if(state() == Paused) {
-        m_state = Playing;
-        emit stateChanged();
-
-        changeStatus("Playing");
+        changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
     }
 }

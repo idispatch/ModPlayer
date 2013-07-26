@@ -8,30 +8,63 @@ Unpacker::Unpacker(QObject * parent)
     : QObject(parent) {
 }
 
-QString Unpacker::unpackFile(QString const& compressedFilePath) {
-    if(!compressedFilePath.endsWith(".zip")) {
-        qDebug() << "Not a Zip file:" << compressedFilePath;
-        return "";
-    } else {
-        qDebug() << "Contents of" << compressedFilePath;
-        QStringList list = JlCompress::getFileList(compressedFilePath);
-        qDebug() << list;
-        if(list.size() == 1) {
-            QString extractPath = QDir::homePath() + "/" + list[0];
-            if(QFile::exists(extractPath)) {
-                QFile::remove(extractPath);
-            }
-            QString newFile = JlCompress::extractFile(compressedFilePath, list[0], extractPath);
-            if(newFile.isEmpty()) {
-                qDebug() << "Failed to extract" << extractPath;
-            } else {
-                qDebug() << "Extracted" << newFile;
-            }
-            return newFile;
-        } else {
-            qDebug() << "Expects 1 file, found" << list.size();
-            return "";
-        }
+QString Unpacker::tempPath() const {
+    return QDir::tempPath();
+}
+QString Unpacker::cachePath() const {
+    return QDir::homePath();
+}
+
+QString Unpacker::unpackFile(QString const& compressedFile) {
+    QString newFile;
+    if(!compressedFile.endsWith(".zip"))
+    {
+        qDebug() << "Not a Zip file:" << compressedFile;
     }
+    else
+    {
+        do
+        {
+            qDebug() << "Contents of" << compressedFile;
+            QStringList list = JlCompress::getFileList(compressedFile);
+            qDebug() << list;
+
+            if(list.size() == 1)
+            {
+                QString newFileName = list.first();
+                QString newFileNameLowered = newFileName.toLower();
+                QString extractPath = cachePath() + "/" + newFileNameLowered;
+
+                if(QFile::exists(extractPath))
+                {
+                    qDebug() << "File" << extractPath << "exists, deleting";
+                    if(!QFile::remove(extractPath))
+                    {
+                        qDebug() << "Failed to delete file" << extractPath;
+                        break;
+                    }
+                    qDebug() << "File" << extractPath << "deleted";
+                }
+
+                newFile = JlCompress::extractFile(compressedFile,
+                                                  newFileName,
+                                                  extractPath);
+                if(newFile.isEmpty())
+                {
+                    qDebug() << "Failed to extract" << extractPath;
+                }
+                else
+                {
+                    qDebug() << "Successfully extracted" << newFile;
+                }
+            }
+            else
+            {
+                qDebug() << "Expects one file in Zip, found" << list;
+            }
+        }
+        while(false);
+    }
+    return newFile;
 }
 

@@ -32,9 +32,8 @@ SongModule::SongModule(QObject *parent)
 }
 
 SongModule::~SongModule() {
-    if(m_timer != NULL) {
-        m_timer->stop();
-    }
+    stopRefreshTimer();
+
     if(m_playback!=NULL) {
         m_playback->stopThread();
         m_playback->wait();
@@ -202,6 +201,7 @@ void SongModule::setLength(int value) {
     if(m_length != value) {
         m_length = value;
         emit lengthChanged();
+        emit lengthTimeStringChanged();
     }
 }
 
@@ -250,7 +250,7 @@ bool SongModule::play() {
             m_playback = new ModPlayback(m_modPlug, this);
             m_playback->start(QThread::NormalPriority);
 
-            m_timer->start(100);
+            startRefreshTimer();
         }
         return true;
     } else {
@@ -260,9 +260,7 @@ bool SongModule::play() {
 
 bool SongModule::stop() {
     if(songLoaded()) {
-        if(m_timer->isActive()) {
-            m_timer->stop();
-        }
+        stopRefreshTimer();
 
         if(m_playback != NULL) {
             m_playback->stopThread();
@@ -272,6 +270,18 @@ bool SongModule::stop() {
         return true;
     } else {
         return false;
+    }
+}
+
+void SongModule::startRefreshTimer() {
+    if(m_timer != NULL && !m_timer->isActive()) {
+        m_timer->start(50);
+    }
+}
+
+void SongModule::stopRefreshTimer() {
+    if(m_timer != NULL && m_timer->isActive()) {
+        m_timer->stop();
     }
 }
 
@@ -329,9 +339,7 @@ void SongModule::unload() {
             m_playback->wait();
         }
 
-        if(m_timer->isActive()) {
-            m_timer->stop();
-        }
+        stopRefreshTimer();
 
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;

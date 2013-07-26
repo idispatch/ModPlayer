@@ -15,6 +15,8 @@ class Player : public QObject {
 public:
     enum State {
         Stopped,
+        Resolving,
+        Downloading,
         Preparing,
         Playing,
         Paused
@@ -24,6 +26,7 @@ public:
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
+
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Downloader* downloader READ downloader FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
@@ -58,8 +61,8 @@ private:
     void initDownloader();
     void initModule();
 
-    void changeStatus(QString const& text);
-    void doPlay(QString const& fileName);
+    void changeStatus(State state, QString const& statusText);
+    void beginPlay(QString const& fileName);
 
     void playByModuleId(int modId);
     void playByModuleFileName(QString const& fileName);
