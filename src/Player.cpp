@@ -3,6 +3,7 @@
 #include "Cache.hpp"
 #include "Downloader.hpp"
 #include "Unpacker.hpp"
+#include "SongModule.hpp"
 
 Player::Player(QObject * parent)
     : QObject(parent),
@@ -10,9 +11,11 @@ Player::Player(QObject * parent)
       m_statusText("Stopped"),
       m_cache(new Cache(this)),
       m_downloader(new Downloader(this)),
-      m_unpacker(new Unpacker(this)) {
+      m_unpacker(new Unpacker(this)),
+      m_module(new SongModule(this)) {
     initCache();
     initDownloader();
+    initModule();
 }
 
 QString Player::fileNameOnly(QString const& fileName) {
@@ -55,6 +58,10 @@ void Player::initDownloader() {
             SLOT(downloadFailure(int)));
 }
 
+void Player::initModule() {
+    qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
+}
+
 void Player::changeStatus(QString const& text) {
     if(text != m_statusText) {
         m_statusText = text;
@@ -75,6 +82,8 @@ void Player::downloadFinished(QString fileName) {
     changeStatus(QString("Unpacking song %1").arg(name));
 
     QString newFile = m_unpacker->unpackFile(fileName);
+    QFile::remove(fileName);
+
     if(newFile.isEmpty()) {
         m_state = Stopped;
         emit stateChanged();
@@ -109,14 +118,19 @@ Downloader * Player::downloader() const {
     return m_downloader;
 }
 
+SongModule * Player::currentSong() const {
+    return m_module;
+}
+
 void Player::doPlay(QString const& fileName) {
     stop();
-    Q_UNUSED(fileName);
-    m_state = Playing;
-    emit stateChanged();
+    if(m_module->load(fileName)) {
+        m_state = Playing;
+        emit stateChanged();
 
-    QString name = fileNameOnly(fileName);
-    changeStatus(QString("Playing %1").arg(name));
+        QString name = fileNameOnly(fileName);
+        changeStatus(QString("Playing %1").arg(name));
+    }
 }
 
 void Player::play(QVariant value) {

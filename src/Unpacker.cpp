@@ -18,8 +18,15 @@ QString Unpacker::unpackFile(QString const& compressedFilePath) {
         qDebug() << list;
         if(list.size() == 1) {
             QString extractPath = QDir::homePath() + "/" + list[0];
+            if(QFile::exists(extractPath)) {
+                QFile::remove(extractPath);
+            }
             QString newFile = JlCompress::extractFile(compressedFilePath, list[0], extractPath);
-            qDebug() << "Extracted" << newFile;
+            if(newFile.isEmpty()) {
+                qDebug() << "Failed to extract" << extractPath;
+            } else {
+                qDebug() << "Extracted" << newFile;
+            }
             return newFile;
         } else {
             qDebug() << "Expects 1 file, found" << list.size();

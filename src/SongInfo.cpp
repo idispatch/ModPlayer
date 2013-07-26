@@ -18,14 +18,6 @@ SongInfo::SongInfo(const QString &fileName,
 {
 }
 
-SongInfo::SongInfo(const SongInfo& other)
-    : QObject(other.parent()) {
-    m_fileName = other.m_fileName;
-    m_title = other.m_title;
-    m_hash = other.m_hash;
-    m_modId = other.m_modId;
-}
-
 QString SongInfo::fileName() const {
     return m_fileName;
 }
@@ -57,4 +49,3 @@ void SongInfo::setHash(const QString &value) {
 void SongInfo::setModId(int value) {
     m_modId = value;
 }
-

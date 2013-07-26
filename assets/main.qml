@@ -13,6 +13,30 @@ Page {
             id: statusText
             text: app.player.statusText
         }
+        
+        Label {
+            text: "File: " + app.player.currentSong.fileName
+        }
+        Label {
+            text: "Title: " + app.player.currentSong.title
+        }
+
+        Label {
+            text: "Description: " + app.player.currentSong.description
+        }
+        Label {
+            text: "Channels: " + app.player.currentSong.channels
+        }
+        Label {
+            text: "Patterns: " + app.player.currentSong.patterns
+        }
+        Label {
+            text: "Samples: " + app.player.currentSong.samples
+        }
+        Label {
+            text: "Instruments: " + app.player.currentSong.instruments
+        }
+        
         Label {
             text: "Cached files: " + app.player.cache.currentFiles
         }

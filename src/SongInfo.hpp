@@ -13,7 +13,6 @@ class SongInfo : public QObject {
     Q_PROPERTY(int modId READ modId WRITE setModId FINAL)
 
 public:
-    SongInfo(const SongInfo& other);
     SongInfo(QObject *parent = 0);
     SongInfo(const QString &fileName,
              const QString &title,
@@ -39,6 +38,6 @@ private:
     int m_modId;
 };
 
-Q_DECLARE_METATYPE(SongInfo);
+Q_DECLARE_METATYPE(SongInfo*);
 
 #endif
