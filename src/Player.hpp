@@ -14,12 +14,12 @@ class Player : public QObject {
     Q_ENUMS(State)
 public:
     enum State {
-        Stopped,
-        Resolving,
-        Downloading,
-        Preparing,
-        Playing,
-        Paused
+        Stopped = 0,
+        Playing = 1,
+        Paused = 2,
+        Resolving = 100,
+        Downloading = 101,
+        Preparing = 102
     };
 
     Player(QObject * parent = 0);

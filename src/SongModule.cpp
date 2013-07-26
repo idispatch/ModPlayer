@@ -23,22 +23,24 @@ SongModule::SongModule(QObject *parent)
    m_playingChannels(0),
    m_length(0),
    m_modPlug(NULL),
-   m_playback(NULL),
+   m_playback(new ModPlayback(this)),
    m_timer(new QTimer(this)) {
     QTimer::connect(m_timer,
                     SIGNAL(timeout()),
                     this,
                     SLOT(onUpdateTimeout()));
+    m_playback->start(QThread::NormalPriority);
 }
 
 SongModule::~SongModule() {
     stopRefreshTimer();
 
-    if(m_playback!=NULL) {
+    if(m_playback!=NULL)
+    {
         m_playback->stopThread();
-        m_playback->wait();
     }
-    if(m_modPlug!=NULL) {
+    if(m_modPlug!=NULL)
+    {
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
     }
@@ -246,13 +248,8 @@ QString SongModule::fileNameOnly(QString const& fileName) {
 
 bool SongModule::play() {
     if(songLoaded()) {
-        if(m_playback == NULL || m_playback->isFinished()) {
-            m_playback = new ModPlayback(m_modPlug, this);
-            m_playback->start(QThread::NormalPriority);
-
-            startRefreshTimer();
-        }
-        return true;
+        startRefreshTimer();
+        return m_playback->play();
     } else {
         return false;
     }
@@ -261,13 +258,25 @@ bool SongModule::play() {
 bool SongModule::stop() {
     if(songLoaded()) {
         stopRefreshTimer();
+        return m_playback->stop();
+    } else {
+        return false;
+    }
+}
 
-        if(m_playback != NULL) {
-            m_playback->stopThread();
-            m_playback->wait();
-        }
+bool SongModule::pause() {
+    if(songLoaded()) {
+        stopRefreshTimer();
+        return m_playback->pause();
+    } else {
+        return false;
+    }
+}
 
-        return true;
+bool SongModule::resume() {
+    if(songLoaded()) {
+        startRefreshTimer();
+        return m_playback->resume();
     } else {
         return false;
     }
@@ -297,6 +306,9 @@ bool SongModule::load(QString const& fileName) {
         QByteArray data = fileIn.readAll();
         m_modPlug = ModPlug_Load(data.data(), data.size());
         if(m_modPlug != NULL) {
+
+            m_playback->load(m_modPlug);
+
             m_fileFullPath = fileName;
 
             setFileName(fileNameOnly(fileName));
@@ -334,10 +346,7 @@ bool SongModule::load(QString const& fileName) {
 void SongModule::unload() {
     if(m_modPlug!=NULL) {
 
-        if(m_playback!=NULL && m_playback->isRunning()) {
-            m_playback->stopThread();
-            m_playback->wait();
-        }
+        m_playback->unload();
 
         stopRefreshTimer();
 

@@ -1,4 +1,5 @@
 import bb.cascades 1.2
+import player 1.0
 
 Page {
     ScrollView {
@@ -130,6 +131,8 @@ Page {
                 }
                 Button {
                     text: "Play"
+                    //enabled: app.player.state == app.player.state.Stopped ||
+                    //         app.player.state == app.player.state.Paused
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
                     onClicked: {
@@ -138,10 +141,30 @@ Page {
                 }
                 Button {
                     text: "Stop"
+                    enabled: app.player.state == Player.Playing ||
+                             app.player.state == Player.Paused
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
                     onClicked: {
                         app.player.stop();
+                    }
+                }
+                Button {
+                    text: "Pause"
+                    enabled: app.player.state == Player.Playing
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Center
+                    onClicked: {
+                        app.player.pause();
+                    }
+                }
+                Button {
+                    text: "Resume"
+                    enabled: app.player.state == Player.Paused 
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Center
+                    onClicked: {
+                        app.player.resume();
                     }
                 }
             }

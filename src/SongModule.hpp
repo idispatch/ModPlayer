@@ -95,6 +95,8 @@ public:
     bool load(QString const& fileName);
     Q_INVOKABLE bool play();
     Q_INVOKABLE bool stop();
+    Q_INVOKABLE bool pause();
+    Q_INVOKABLE bool resume();
     void unload();
 
 Q_SIGNALS:

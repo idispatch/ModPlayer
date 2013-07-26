@@ -65,6 +65,7 @@ void Player::initModule() {
 void Player::changeStatus(State state, QString const& statusText) {
     if(m_state != state) {
         m_state = state;
+        qDebug() << "State changed, new state" << m_state;
         emit stateChanged();
     }
     if(m_statusText != statusText) {
@@ -175,18 +176,21 @@ void Player::playByModuleId(int modId) {
 
 void Player::stop() {
     if(state() == Playing) {
+        m_module->stop();
         changeStatus(Stopped, "Stopped");
     }
 }
 
 void Player::pause() {
     if(state() == Playing) {
-        changeStatus(Playing, QString("Paused %1").arg(m_module->fileName()));
+        m_module->pause();
+        changeStatus(Paused, QString("Paused %1").arg(m_module->fileName()));
     }
 }
 
 void Player::resume() {
     if(state() == Paused) {
+        m_module->resume();
         changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
     }
 }
