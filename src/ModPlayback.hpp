@@ -16,6 +16,7 @@ public:
                 QObject * parent = 0);
     virtual ~ModPlayback();
     void run();
+    void stopThread();
 Q_SIGNALS:
 private:
     Q_DISABLE_COPY(ModPlayback)
@@ -29,9 +30,13 @@ private:
     ModPlugFile * m_module;
     QByteArray m_audioBuffer;
     snd_pcm_t * m_playback_handle;
-    int m_fragmentSize;
+    bool m_bStereo;
+    int m_frequency;
+    int m_sampleBitSize;
     int m_numDevices;
     int m_pcmFd;
+
+    bool m_stopRequested;
 };
 
 #endif

@@ -1,10 +1,10 @@
 #include "ModPlayback.hpp"
 
 #include <string.h>
-#include <stdlib.h>
 #include <sys/select.h>
 #include <errno.h>
 #include <QDebug>
+#include <QVector>
 
 #include "modplug.h"
 
@@ -13,8 +13,12 @@ ModPlayback::ModPlayback(ModPlugFile * module,
     : QThread(parent),
       m_module(module),
       m_playback_handle(NULL),
+      m_bStereo(true),
+      m_frequency(44100),
+      m_sampleBitSize(16),
       m_numDevices(0),
-      m_pcmFd(-1) {
+      m_pcmFd(-1),
+      m_stopRequested(false) {
 }
 
 ModPlayback::~ModPlayback() {
@@ -24,9 +28,12 @@ ModPlayback::~ModPlayback() {
     }
 }
 
+void ModPlayback::stopThread() {
+    m_stopRequested = true;
+}
+
 void ModPlayback::run() {
-    qDebug() << "Entering thread";
-    qDebug() << "Preparing for playback...";
+    qDebug() << "Entering playback thread";
 
     if(!detectAudioDevice()) {
         qDebug() << "Failed to detect audio device for playback";
@@ -43,39 +50,39 @@ void ModPlayback::run() {
     }
 
     qDebug() << "Audio device playback initialized successfully";
+    qDebug() << "Starting playback loop";
 
-    while(1) {
-        fd_set wset;
-        FD_ZERO(&wset);
-        FD_SET(m_pcmFd, &wset);
-        int rc = select(1 + m_pcmFd, NULL, &wset, NULL, NULL);
+    while(!m_stopRequested) {
+
+        fd_set fdSet;
+        FD_ZERO(&fdSet);
+        FD_SET(m_pcmFd, &fdSet);
+
+        int rc = select(1 + m_pcmFd, NULL, &fdSet, NULL, NULL);
         if(rc == -1) {
-            if(errno == EINTR) {
-                rc = 0;
-                break;
+            if(errno == EINTR || errno == EAGAIN) {
+                continue;
             } else {
-                fprintf(stderr, "select: %s\n", strerror(errno));
-                rc = errno;
                 break;
             }
-        } else if FD_ISSET(m_pcmFd, &wset) {
+        } else if FD_ISSET(m_pcmFd, &fdSet) {
             if(!updateChunk()) {
-                break;
+                break; /* stopped or error */
             }
         } else {
-            fprintf(stderr, "select: unexpected return %d, pcm fd is not ready for write\n", rc);
             break;
         }
     }
 
-    qDebug() << "Stoping playback...";
+    qDebug() << "Stopping playback...";
     stopPlayback();
-    qDebug() << "Exiting thread";
+    qDebug() << "Exiting playback thread";
     exit(0);
 }
 
 bool ModPlayback::detectAudioDevice() {
-    qDebug() << "Detecting audio device for playback...";
+    int rc;
+    qDebug() << "Detecting available audio devices for playback...";
     int ncards = snd_cards();
     qDebug() << "Number of audio cards" << ncards;
 #if 0
@@ -91,31 +98,25 @@ bool ModPlayback::detectAudioDevice() {
         }
     }
 #endif
-    int ret_val;
-    int *cards = NULL, *devices  = NULL;
-    ret_val = m_numDevices = 32;
+    m_numDevices = 32; /* guess */
+    QVector<int> cards(m_numDevices);
+    QVector<int> devices(m_numDevices);
 
-    cards = (int*)malloc(sizeof(int) * m_numDevices);
-    devices = (int*)malloc(sizeof(int) * m_numDevices);
-    memset(cards, 0, sizeof(sizeof(int) * m_numDevices));
-    memset(devices, 0, sizeof(sizeof(int) * m_numDevices));
-    ret_val = snd_pcm_find(SND_PCM_FMT_S16_LE,
-                            &m_numDevices,
-                            cards,
-                            devices,
-                            SND_PCM_OPEN_PLAYBACK);
+    rc = snd_pcm_find(SND_PCM_FMT_S16_LE,
+                      &m_numDevices,
+                      cards.data(),
+                      devices.data(),
+                      SND_PCM_OPEN_PLAYBACK);
 
     qDebug() << "Found" << m_numDevices << "audio devices for playback";
 
-    free(cards);
-    free(devices);
-
-    return ret_val > 0 && m_numDevices > 0;
+    return rc > 0 && m_numDevices > 0;
 }
 
 bool ModPlayback::initPlayback() {
     int err;
-    int card, device;
+    int card;
+    int device;
 
     snd_pcm_format_t            pcm_format;
     snd_pcm_info_t              pcm_info;
@@ -127,10 +128,12 @@ bool ModPlayback::initPlayback() {
         return false;
     }
 
+    qDebug() << "Initializing selected audio device for playback...";
+
     memset(&pcm_format, 0, sizeof(pcm_format));
-    pcm_format.format = SND_PCM_SFMT_S16_LE;// : SND_PCM_SFMT_U8; // 16vs 8 bits
-    pcm_format.voices = 2; // stereo/mono
-    pcm_format.rate = 44100; // frequency
+    pcm_format.format = (m_sampleBitSize > 8 ? SND_PCM_SFMT_S16_LE : SND_PCM_SFMT_U8);
+    pcm_format.voices = (m_bStereo ? 2 : 1);
+    pcm_format.rate = m_frequency;
 
 #if 0
     /*
@@ -150,15 +153,14 @@ big_endian
             pcm_format.format);
 #endif
 
-    // GET
     if((err = snd_pcm_open_preferred(&m_playback_handle,
                                      &card,
                                      &device,
                                      SND_PCM_OPEN_PLAYBACK)) < 0) {
-        fprintf(stderr, "snd_pcm_open_preferred: %s\n", snd_strerror(err));
+        qDebug() << "Failed to open preferred PCM device:" << snd_strerror(err);
         return false;
     } else {
-        fprintf(stderr, "snd_pcm_open_preferred: success [card:%d, device:%d]\n", card, device);
+        qDebug() << "Opened preferred PCM device: card" << card << "device" << device;
     }
 
     // GET
@@ -178,15 +180,15 @@ big_endian
     }
 
     // GET
-    m_pcmFd = snd_pcm_file_descriptor(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+    m_pcmFd = snd_pcm_file_descriptor(m_playback_handle,
+                                      SND_PCM_CHANNEL_PLAYBACK);
 
+    /* Get information about a PCM channel's capabilities from a control handle */
     /* https://developer.blackberry.com/native/reference/bb10/audio_libref/topic/libs/snd_pcm_channel_info.html */
     memset(&channel_info, 0, sizeof(channel_info));
     channel_info.channel = SND_PCM_CHANNEL_PLAYBACK;
-
-    /* Get information about a PCM channel's capabilities from a control handle */
     if ((err = snd_pcm_plugin_info(m_playback_handle, &channel_info)) < 0) {
-        fprintf(stderr, "snd_ctl_pcm_plugin_info: %s\n", snd_strerror(err));
+        qDebug() << "Failed to get PCM plugin info:" << snd_strerror(err);
         return false;
     }
 
@@ -312,13 +314,15 @@ big_endian
 
     strcpy(channel_params.sw_mixer_subchn_name, "ModPlayer");
 
-    if ((err = snd_pcm_plugin_params(m_playback_handle, &channel_params)) < 0) {
-        fprintf(stderr, "snd_pcm_plugin_params: %s\n", snd_strerror(err));
+    if ((err = snd_pcm_plugin_params(m_playback_handle,
+                                     &channel_params)) < 0) {
+        qDebug() << "Failed to configure PCM plugin:" << snd_strerror(err);
         return false;
     }
 
-    if ((err = snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0) {
-        fprintf(stderr, "snd_pcm_plugin_prepare: %s\n", snd_strerror(err));
+    if ((err = snd_pcm_plugin_prepare(m_playback_handle,
+                                      SND_PCM_CHANNEL_PLAYBACK)) < 0) {
+        qDebug() << "Failed to prepare PCM plugin:" << snd_strerror(err);
         return false;
     }
 
@@ -327,13 +331,16 @@ big_endian
     channel_setup.mode = SND_PCM_MODE_BLOCK;
     channel_setup.channel = SND_PCM_CHANNEL_PLAYBACK;
 
-    if ((err = snd_pcm_plugin_setup(m_playback_handle, &channel_setup)) < 0) {
-        fprintf(stderr, "snd_pcm_plugin_setup: %s\n", snd_strerror(err));
+    if ((err = snd_pcm_plugin_setup(m_playback_handle,
+                                    &channel_setup)) < 0) {
+        qDebug() << "Failed to get PCM plugin configuration:" << snd_strerror(err);
         return false;
     }
 
+    qDebug() << "Creating" <<  channel_setup.buf.block.frag_size << "bytes audio buffer";
     m_audioBuffer.resize(channel_setup.buf.block.frag_size);
 
+    qDebug() << "Selected audio device was initialized successfully";
     return true;
 }
 
@@ -400,4 +407,3 @@ bool ModPlayback::updateChunk() {
     }
     return true;
 }
-
