@@ -42,8 +42,9 @@ Page {
         }
     }
     
-    onCreationCompleted: {
-        data = app.player.catalog.findSongsByFormatId(formatId)
+    function loadSongs() {
+        console.debug("Selecting songs by format: " + formatId + " (" + formatName + ")")
+        var data = app.player.catalog.findSongsByFormatId(formatId)
         songsByFormatList.dataModel = data
     }
 }

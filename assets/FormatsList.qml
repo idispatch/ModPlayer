@@ -27,6 +27,7 @@ Page {
                 var view = songsByFormatView.createObject()
                 view.formatId = chosenItem.id
                 view.formatName = chosenItem.name
+                view.loadSongs()
                 songFormatsNavigationPane.push(view)
             }
         }

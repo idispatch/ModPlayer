@@ -51,7 +51,7 @@ DataModel * Catalog::genres() {
 }
 
 DataModel * Catalog::findSongsByFormatId(int formatId) {
-    QString query = QString("SELECT id, name FROM songs WHERE format=%1 ORDER BY num_downloads").arg(formatId);
+    QString query = QString("SELECT id, fileName FROM songs WHERE format=%1 ORDER BY num_downloads").arg(formatId);
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     //dumpData(data);
     QStringList keys;
@@ -64,7 +64,7 @@ DataModel * Catalog::findSongsByFormatId(int formatId) {
 }
 
 DataModel * Catalog::findSongsByGenreId(int genreId) {
-    QString query = QString("SELECT id, name FROM songs WHERE genre=%1 ORDER BY num_downloads").arg(genreId);
+    QString query = QString("SELECT id, fileName FROM songs WHERE genre=%1 ORDER BY num_downloads").arg(genreId);
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     //dumpData(data);
     QStringList keys;
