@@ -6,8 +6,8 @@ Page {
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
+    
     Container {
-        id: root
         ListView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -23,8 +23,19 @@ Page {
             }
         
             onTriggered: {
-                console.debug(indexPath)
+                var chosenItem = dataModel.data(indexPath)
+                var view = songsByFormatView.createObject()
+                view.formatId = chosenItem.id
+                view.formatName = chosenItem.name
+                songFormatsNavigationPane.push(view)
             }
         }
     }
+    
+    attachedObjects: [
+        ComponentDefinition {
+            id: songsByFormatView
+            source: "SongsByFormat.qml"
+        }
+    ]
 }

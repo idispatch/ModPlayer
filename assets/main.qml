@@ -4,13 +4,31 @@ TabbedPane {
     id: rootTabbedPane
 
     Tab {
-        title: "Song Formats"
-        FormatsList {
+        title: "Formats"
+        description : "Song Formats"
+        NavigationPane {
+            id: songFormatsNavigationPane
+            FormatsList {
+            }
+            
+            onPopTransitionEnded: {
+                console.debug(page.objectName)
+                page.destroy()
+            }
         }
     }
     Tab {
         title: "Genres"
-        GenresList {
+        description : "Song Genres"
+        NavigationPane {
+            id: songGenresNavigationPane
+            GenresList {
+            }
+            
+            onPopTransitionEnded: {
+                console.debug(page.objectName)
+                page.destroy()
+            }
         }
     }
     

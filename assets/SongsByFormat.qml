@@ -1,17 +1,22 @@
 import bb.cascades 1.1
 
 Page {
-    titleBar: TitleBar {
-        title: qsTr("Select Songs by Genre")
-        appearance: TitleBarAppearance.Branded
-        kind: TitleBarKind.Default
-    }
+    property int formatId;
+    property string formatName;
+
+    objectName: "SongsByFormat" 
+    
     Container {
+        Label {
+            text: "Id: " + formatId
+        }
+        Label {
+            text: "Name: " + formatName
+        }
         ListView {
+            id: songsByFormatList
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
-            dataModel: app.player.catalog.genres
             
             listItemComponents: [
                 ListItemComponent {
@@ -31,17 +36,14 @@ Page {
             
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                var view = songsByGenreView.createObject()
-                view.genreId = chosenItem.id
-                view.genreName = chosenItem.name
-                songGenresNavigationPane.push(view)
+                console.debug("Id: " + chosenItem.id)
+                console.debug("Name: " + chosenItem.name)
             }
         }
     }
-    attachedObjects: [
-        ComponentDefinition {
-            id: songsByGenreView
-            source: "SongsByGenre.qml"
-        }
-    ]
+    
+    onCreationCompleted: {
+        data = app.player.catalog.findSongsByFormatId(formatId)
+        songsByFormatList.dataModel = data
+    }
 }

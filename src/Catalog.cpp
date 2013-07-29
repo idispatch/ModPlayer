@@ -34,7 +34,6 @@ void Catalog::dumpData(QVariantList const& data) {
 DataModel * Catalog::formats() {
     const char * query = "SELECT id, name, description FROM formats";
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
     QVariantListDataModel * model = new QVariantListDataModel(data);
     return model;
 }
@@ -42,7 +41,32 @@ DataModel * Catalog::formats() {
 DataModel * Catalog::genres() {
     const char * query = "SELECT id, name FROM genres";
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
+    QStringList keys;
+    keys << "name";
+    GroupDataModel * model = new GroupDataModel(keys);
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+    model->insertList(data);
+    return model;
+}
+
+DataModel * Catalog::findSongsByFormatId(int formatId) {
+    QString query = QString("SELECT id, name FROM songs WHERE format=%1 ORDER BY num_downloads").arg(formatId);
+    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    //dumpData(data);
+    QStringList keys;
+    keys << "name";
+    GroupDataModel * model = new GroupDataModel(keys);
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+    model->insertList(data);
+    return model;
+}
+
+DataModel * Catalog::findSongsByGenreId(int genreId) {
+    QString query = QString("SELECT id, name FROM songs WHERE genre=%1 ORDER BY num_downloads").arg(genreId);
+    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    //dumpData(data);
     QStringList keys;
     keys << "name";
     GroupDataModel * model = new GroupDataModel(keys);
