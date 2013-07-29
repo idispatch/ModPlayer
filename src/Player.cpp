@@ -1,5 +1,6 @@
 #include <QDeclarativeComponent>
 #include "Player.hpp"
+#include "Catalog.hpp"
 #include "Cache.hpp"
 #include "Downloader.hpp"
 #include "Unpacker.hpp"
@@ -9,10 +10,12 @@ Player::Player(QObject * parent)
     : QObject(parent),
       m_state(Stopped),
       m_statusText("Stopped"),
+      m_catalog(new Catalog(this)),
       m_cache(new Cache(this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
       m_module(new SongModule(this)) {
+    initCatalog();
     initCache();
     initDownloader();
     initModule();
@@ -22,6 +25,10 @@ QString Player::fileNameOnly(QString const& fileName) {
     QFile file(fileName);
     QFileInfo fileInfo(file.fileName());
     return fileInfo.fileName();
+}
+
+void Player::initCatalog() {
+    qmlRegisterUncreatableType<Catalog>("player", 1, 0, "Catalog", "");
 }
 
 void Player::initCache() {
@@ -134,6 +141,10 @@ Player::State Player::state() const {
 
 QString Player::statusText() const {
     return m_statusText;
+}
+
+Catalog * Player::catalog() const {
+    return m_catalog;
 }
 
 Cache * Player::cache() const {

@@ -13,13 +13,21 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(this)) {
-
     qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
+    m_app = app;
+    initApp();
+}
 
+void ApplicationUI::initApp() {
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
-    qml->setContextProperty("app", this);
-    AbstractPane *root = qml->createRootObject<AbstractPane>();
-    app->setScene(root);
+    //QmlDocument *qml = QmlDocument::create("asset:///FormatsList.qml").parent(this);
+    if (!qml->hasErrors()) {
+        qml->setContextProperty("app", this);
+        AbstractPane *appPage = qml->createRootObject<AbstractPane>();
+        if (appPage) {
+            Application::instance()->setScene(appPage);
+        }
+    }
 }
 
 void ApplicationUI::initTranslator() {

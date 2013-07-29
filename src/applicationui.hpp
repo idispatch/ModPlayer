@@ -29,10 +29,12 @@ Q_SIGNALS:
 private slots:
     void onSystemLanguageChanged();
 private:
+    void initApp();
     void initTranslator();
 private:
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
+    bb::cascades::Application * m_app;
     Player * m_player;
 };
 

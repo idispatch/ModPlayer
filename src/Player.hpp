@@ -5,6 +5,7 @@
 #include <QVariant>
 
 class Cache;
+class Catalog;
 class Downloader;
 class Unpacker;
 class SongModule;
@@ -29,6 +30,7 @@ public:
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
 
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
+    Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Downloader* downloader READ downloader FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
@@ -36,6 +38,7 @@ public:
     QString statusText() const;
 
     Cache * cache() const;
+    Catalog * catalog() const;
     Downloader * downloader() const;
     SongModule * currentSong() const;
 
@@ -48,6 +51,7 @@ Q_SIGNALS:
     void stateChanged();
     void statusTextChanged();
     void cacheChanged();
+    void catalogChanged();
     void currentSongChanged();
 private slots:
     void downloadStarted(int modId);
@@ -62,6 +66,7 @@ private:
 
     static QString fileNameOnly(QString const& fileName);
 
+    void initCatalog();
     void initCache();
     void initDownloader();
     void initModule();
@@ -75,6 +80,7 @@ private:
 private:
     State m_state;
     QString m_statusText;
+    Catalog * m_catalog;
     Cache * m_cache;
     Downloader * m_downloader;
     Unpacker * m_unpacker;
