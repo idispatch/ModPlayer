@@ -1,34 +1,12 @@
 #include "SongInfo.hpp"
 
 SongInfo::SongInfo(QObject *parent)
- : QObject(parent),
-   m_modId(0),
-   m_fileSize(0),
-   m_songLength(0),
-   m_downloads(0),
-   m_favourited(0),
-   m_score(0),
+ : SongBasicInfo(parent),
    m_patterns(0),
    m_orders(0),
    m_instruments(0),
    m_samples(0),
    m_channels(0) {
-}
-
-QString SongInfo::fileName() const {
-    return m_fileName;
-}
-
-void SongInfo::setFileName(const QString &value) {
-    m_fileName = value;
-}
-
-QString SongInfo::title() const {
-    return m_title;
-}
-
-void SongInfo::setTitle(const QString &value) {
-    m_title = value;
 }
 
 QString SongInfo::hash() const {
@@ -37,54 +15,6 @@ QString SongInfo::hash() const {
 
 void SongInfo::setHash(const QString &value) {
     m_hash = value;
-}
-
-int SongInfo::modId() const {
-    return m_modId;
-}
-
-void SongInfo::setModId(int value) {
-    m_modId = value;
-}
-
-int SongInfo::fileSize() const {
-    return m_fileSize;
-}
-
-void SongInfo::setFileSize(int value) {
-    m_fileSize = value;
-}
-
-int SongInfo::songLength() const {
-    return m_songLength;
-}
-
-void SongInfo::setSongLength(int value) {
-    m_songLength = value;
-}
-
-int SongInfo::downloads() const {
-    return m_downloads;
-}
-
-void SongInfo::setDownloads(int value) {
-    m_downloads = value;
-}
-
-int SongInfo::favourited() const {
-    return m_favourited;
-}
-
-void SongInfo::setFavourited(int value) {
-    m_favourited = value;
-}
-
-int SongInfo::score() const {
-    return m_score;
-}
-
-void SongInfo::setScore(int value) {
-    m_score = value;
 }
 
 QString SongInfo::format() const {

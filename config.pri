@@ -8,6 +8,7 @@ device {
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
@@ -66,6 +67,7 @@ device {
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
@@ -101,6 +103,7 @@ device {
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
@@ -159,6 +162,7 @@ device {
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
@@ -196,6 +200,7 @@ simulator {
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
@@ -254,6 +259,7 @@ simulator {
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \

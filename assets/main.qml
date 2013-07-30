@@ -34,10 +34,12 @@ TabbedPane {
     
     Menu.definition: MenuDefinition {
         settingsAction: SettingsActionItem {
+            property variant settingsViewObject;
             id: settingsActionItem
             title: "Settings";
             onTriggered : {
-                //Invoke.invokeExecute("","","invokeSettings");  // tab/page = "" : Current tab
+                settingsViewObject = settingsView.createObject()
+                settingsViewObject.open()
             }
         }
         
@@ -59,4 +61,12 @@ TabbedPane {
             }*/
         ] 
     }
+    
+    attachedObjects: [
+        ComponentDefinition {
+            id: settingsView
+            source: "Settings.qml"
+        }
+    ]
+
 }

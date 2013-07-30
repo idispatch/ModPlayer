@@ -3,19 +3,12 @@
 
 #include <QMetaType>
 #include <QObject>
+#include "SongBasicInfo.hpp"
 
-class SongInfo : public QObject {
+class SongInfo : public SongBasicInfo {
     Q_OBJECT
 
-    Q_PROPERTY(QString fileName READ fileName WRITE setFileName FINAL)
-    Q_PROPERTY(QString title READ title WRITE setTitle FINAL)
     Q_PROPERTY(QString hash READ hash WRITE setHash FINAL)
-    Q_PROPERTY(int modId READ modId WRITE setModId FINAL)
-    Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize FINAL)
-    Q_PROPERTY(int songLength READ songLength WRITE setSongLength FINAL)
-    Q_PROPERTY(int downloads READ downloads WRITE setDownloads FINAL)
-    Q_PROPERTY(int favourited READ favourited WRITE setFavourited FINAL)
-    Q_PROPERTY(int score READ score WRITE setScore FINAL)
     Q_PROPERTY(QString format READ format WRITE setFormat FINAL)
     Q_PROPERTY(QString tracker READ tracker WRITE setTracker FINAL)
     Q_PROPERTY(QString genre READ genre WRITE setGenre FINAL)
@@ -29,32 +22,8 @@ class SongInfo : public QObject {
 public:
     SongInfo(QObject *parent = 0);
 
-    QString fileName() const;
-    void setFileName(const QString &value);
-
-    QString title() const;
-    void setTitle(const QString &value);
-
     QString hash() const;
     void setHash(const QString &value);
-
-    int modId() const;
-    void setModId(int value);
-
-    int fileSize() const;
-    void setFileSize(int value);
-
-    int songLength() const;
-    void setSongLength(int value);
-
-    int downloads() const;
-    void setDownloads(int value);
-
-    int favourited() const;
-    void setFavourited(int value);
-
-    int score() const;
-    void setScore(int value);
 
     QString format() const;
     void setFormat(const QString &value);
@@ -82,21 +51,10 @@ public:
 
     int channels() const;
     void setChannels(int value);
-
-
-Q_SIGNALS:
 private:
     Q_DISABLE_COPY(SongInfo)
 
-    QString m_fileName;
-    QString m_title;
     QString m_hash;
-    int m_modId;
-    int m_fileSize;
-    int m_songLength;
-    int m_downloads;
-    int m_favourited;
-    int m_score;
     QString m_format;
     QString m_tracker;
     QString m_genre;
