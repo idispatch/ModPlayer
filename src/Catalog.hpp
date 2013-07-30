@@ -22,6 +22,9 @@ public:
 
     bb::cascades::DataModel * formats();
     bb::cascades::DataModel * genres();
+
+    Q_INVOKABLE bb::cascades::DataModel * findSongsByFormatId(int formatId);
+    Q_INVOKABLE bb::cascades::DataModel * findSongsByGenreId(int genreId);
 Q_SIGNALS:
     void formatsChanged();
     void genresChanged();
