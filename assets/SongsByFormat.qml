@@ -28,7 +28,8 @@ Page {
                 ListItemComponent {
                     type: "item"
                     StandardListItem {
-                        title: ListItemData.name
+                        title: ListItemData.title
+                        description: ListItemData.fileName
                         status: ListItemData.id
                     }
                 }

@@ -32,7 +32,16 @@ void Catalog::dumpData(QVariantList const& data) {
 }
 
 DataModel * Catalog::formats() {
-    const char * query = "SELECT id, name, description FROM formats";
+    const char * query =
+            "SELECT"
+            " formats.id AS id, "
+            " formats.name AS name, "
+            " formats.description AS description, "
+            " count(formats.id) AS count "
+            "FROM formats "
+            "INNER JOIN songs "
+            " ON songs.format=formats.id "
+            "GROUP BY formats.id";
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     QVariantListDataModel * model = new QVariantListDataModel(data);
     return model;
@@ -51,11 +60,22 @@ DataModel * Catalog::genres() {
 }
 
 DataModel * Catalog::findSongsByFormatId(int formatId) {
-    QString query = QString("SELECT id, fileName FROM songs WHERE format=%1 ORDER BY num_downloads").arg(formatId);
+    QString query = QString("SELECT"
+            " id AS id, "
+            " fileName AS fileName, "
+            " title AS title, "
+            " downloads AS downloads, "
+            " favourited AS favourited, "
+            " score AS score, "
+            " size AS size, "
+            " length AS length "
+            "FROM songs "
+            "WHERE format=%1 "
+            "ORDER BY downloads").arg(formatId);
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     //dumpData(data);
     QStringList keys;
-    keys << "name";
+    keys << "fileName" << "downloads";
     GroupDataModel * model = new GroupDataModel(keys);
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
