@@ -1,3 +1,4 @@
+# modid|filename|score|maxscore
 # http://modarchive.org/index.php?request=view_by_rating_comments&query=9&page=1#mods
 162099|0-kru.xm|9|10
 167510|0079_portaltothepast.xm|9|10

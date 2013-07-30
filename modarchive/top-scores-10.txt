@@ -1,3 +1,4 @@
+# modid|filename|score|maxscore
 # http://modarchive.org/index.php?request=view_by_rating_comments&query=10&page=1#mods
 59113|04f.xm|10|10
 59450|118in64.xm|10|10

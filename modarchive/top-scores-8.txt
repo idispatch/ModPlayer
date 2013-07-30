@@ -1,3 +1,4 @@
+# modid|filename|score|maxscore
 # http://modarchive.org/index.php?request=view_by_rating_comments&query=8&page=1#mods
 58782|0-fire.xm|8|10
 162098|0-insnej.xm|8|10

@@ -1,44 +1,57 @@
-CREATE TABLE genres (id INTEGER PRIMARY KEY, name TEXT);
+CREATE TABLE genres
+(
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL
+);
 
-CREATE TABLE formats (id INTEGER PRIMARY KEY, name TEXT, description TEXT);
+CREATE TABLE formats
+(
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL,
+	description TEXT NOT NULL
+);
 
-CREATE TABLE favourites (id INTEGER, date_added INT);
-
-CREATE TABLE playstats (id INTEGER, played_times INT);
 
 CREATE TABLE trackers
-(id INTEGER PRIMARY KEY AUTOINCREMENT,
- name TEXT);
+(
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL
+);
 
 CREATE TABLE songs
-(id INTEGER PRIMARY KEY AUTOINCREMENT,
- fileName TEXT,
- songName TEXT,
- format INT,
- length INT,
- tracker INT,
- genre INT,
- artist INT,
- size INT,
- mod_id INT,
- num_downloads INT,
- num_favourited INT,
- md5 TEXT,
- rating INT,
- info TEXT,
- created TEXT,
- patterns INT,
- orders INT,
- instruments INT,
- samples INT,
- channels INT,
- pattern_length INT);
+(
+	id INTEGER PRIMARY KEY,
+	fileName TEXT UNIQUE,
+	size INTEGER  NOT NULL,
+	title TEXT NOT NULL,
 
-CREATE UNIQUE INDEX IX_genres_name ON genres (name);
+	format INTEGER NOT NULL,
+	length INTEGER NOT NULL,
+	tracker INTEGER NOT NULL,
+	genre INTEGER,
+	artist INTEGER,
+
+	downloads INTEGER,
+	favourited INTEGER,
+	score INTEGER,
+
+	md5 TEXT NOT NULL,
+
+	patterns INTEGER NOT NULL,
+	orders INTEGER NOT NULL,
+	instruments INTEGER NOT NULL,
+	samples INTEGER NOT NULL,
+	channels INTEGER NOT NULL
+);
+
 CREATE UNIQUE INDEX IX_songs_fileName ON songs (fileName);
-CREATE INDEX IX_songs_md5 ON songs (md5);
-CREATE UNIQUE INDEX IX_trackers_name ON trackers (name);
-CREATE UNIQUE INDEX IX_formats_name ON formats (name);
+CREATE        INDEX IX_songs_title ON songs (title);
+CREATE        INDEX IX_songs_format ON songs (format);
+CREATE        INDEX IX_songs_genre ON songs (genre);
+CREATE        INDEX IX_songs_artist ON songs (artist);
+CREATE        INDEX IX_songs_score ON songs (score);
+CREATE        INDEX IX_songs_favourited ON songs (favourited);
+CREATE        INDEX IX_songs_downloads ON songs (downloads);
 
 INSERT INTO genres (id, name) VALUES (48, 'Alternative');
 INSERT INTO genres (id, name) VALUES (38, 'Gothic');
@@ -126,6 +139,6 @@ INSERT INTO formats (id, name, description) VALUES (7, 'OKT','Oktalyzer Module')
 INSERT INTO formats (id, name, description) VALUES (8, 'S3M','ScreamTracker 3 Module');
 INSERT INTO formats (id, name, description) VALUES (9, 'STM','Scream Tracker 2 Module');
 INSERT INTO formats (id, name, description) VALUES (10, 'XM','FastTracker 2 Module');
---INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Module');
---INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');
---INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/OGG Module');
+INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Module');
+INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');
+INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/OGG Module');
