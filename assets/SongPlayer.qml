@@ -14,12 +14,6 @@ Page {
             leftPadding: 20
             rightPadding: 20
             
-            TextField {
-                id: modId
-                text: "60693"
-                hintText: "Module ID"
-            }
-            
             Label {
                 id: statusText
                 text: app.player.statusText
@@ -140,7 +134,7 @@ Page {
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
                     onClicked: {
-                        app.player.play(modId.text);
+                        //app.player.play(modId.text);
                     }
                 }
                 Button {

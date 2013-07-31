@@ -149,7 +149,7 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     int pos = fileName.lastIndexOf('/');
     fileName = fileName.mid(pos);
 
-    QString diskPath = QDir::tempPath() + "/" + fileName;
+    QString diskPath = QDir::tempPath() + fileName;
     qDebug() << "Saving file" << diskPath;
 
     QFile file(diskPath);

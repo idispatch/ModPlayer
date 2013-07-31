@@ -15,13 +15,8 @@ Page {
         layout: StackLayout {
         
         }
-        ActivityIndicator {
+        ProgressIndicatorComponent {
             id: progress
-            visible: true
-            running: true
-            preferredWidth: 100
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
         }
         ListView {
             id: songs
@@ -50,7 +45,9 @@ Page {
     }
     
     function load() {
-        songs.dataModel = app.player.catalog.findMostFavouritedSongs()
+        if(songs.dataModel == null) {
+            songs.dataModel = app.player.catalog.findMostFavouritedSongs()
+        }
         progress.running = false
         progress.visible = false
         songs.visible = true

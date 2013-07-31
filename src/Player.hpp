@@ -64,6 +64,7 @@ private slots:
 private:
     Q_DISABLE_COPY(Player)
 
+    static QString joinPath(QString const& directory, QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
 
     void initCatalog();

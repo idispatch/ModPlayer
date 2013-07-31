@@ -21,6 +21,19 @@ Player::Player(QObject * parent)
     initModule();
 }
 
+QString Player::joinPath(QString const& directory, QString const& fileName) {
+    if(fileName.startsWith('/')) {
+        return fileName; // already absolute
+    }
+    QString result = directory;
+    if(directory.endsWith('/')) {
+        result += fileName;
+    } else {
+        result = result + "/" + fileName;
+    }
+    return result;
+}
+
 QString Player::fileNameOnly(QString const& fileName) {
     int pos = fileName.lastIndexOf('/');
     if(pos == -1) {
@@ -138,9 +151,10 @@ void Player::onDownloadFinished(QString fileName) {
         return;
     }
 
-    changeStatus(Preparing, QString("Caching song %1").arg(newFile));
+    QString file = fileNameOnly(newFile);
+    changeStatus(Preparing, QString("Caching song %1").arg(file));
 
-    m_cache->cache(newFile);
+    m_cache->cache(file);
 
     beginPlay(newFile);
 }
@@ -175,15 +189,22 @@ SongModule * Player::currentSong() const {
 }
 
 void Player::beginPlay(QString const& fileName) {
-    qDebug() << "Player::beginPlay";
     stop();
-    qDebug() << "Module loading...";
-    if(m_module->load(fileName))
+    QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
+    if(m_module->load(absoluteFileName))
     {
         if(m_module->play())
         {
             changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
         }
+        else
+        {
+            qDebug() << "Failed to play:" << absoluteFileName;
+        }
+    }
+    else
+    {
+        qDebug() << "Failed to load:" << absoluteFileName;
     }
 }
 

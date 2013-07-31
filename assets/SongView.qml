@@ -68,13 +68,15 @@ Page {
                 text: "Play"
                 horizontalAlignment: HorizontalAlignment.Center
                 topMargin: 40
-                onClicked: {
-                    var player = songPlayer.createObject()
-                    navigationPane.push(player)
-                    player.play(moduleId)
-                }
+                onClicked: play()
             }
         }
+    }
+    
+    function play() {
+        var player = songPlayer.createObject()
+        navigationPane.push(player)
+        player.play(moduleId)
     }
     
     function load(songId) {
@@ -112,7 +114,7 @@ Page {
              } 
              //imageSource: "asset:///images/menuicons/icon_account.png"    
              onTriggered: {
-                 app.player.play(moduleId)
+                 play()
              }
         }
     ]
