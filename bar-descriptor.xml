@@ -4,9 +4,9 @@
     <name>ModPlayer</name>
     <versionNumber>1.0.0</versionNumber>
     <buildId>1</buildId>
-    <versionLabel>1.0</versionLabel>
+    <!--<versionLabel>1.0</versionLabel>-->
     <description>The ModPlayer application</description>
-    <copyright>© 2013 Oleg Kosenkov</copyright>
+    <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
 
     <author>Oleg Kosenkov</author>
     <configuration name="Device-Debug">
@@ -18,15 +18,7 @@
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7/ModPlayer.so" entry="true" type="Qnx/Elf">ModPlayer.so</asset>
     </configuration>
-    <configuration name="Device-Profile">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm-p/o.le-v7-g/ModPlayer" entry="true" type="Qnx/Elf">ModPlayer</asset>
-    </configuration>
-    <configuration name="Simulator-Debug">
-       <platformArchitecture>x86</platformArchitecture>
-       <asset path="x86/o-g/ModPlayer" entry="true" type="Qnx/Elf">ModPlayer</asset>
-    </configuration>
-    
+
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
    

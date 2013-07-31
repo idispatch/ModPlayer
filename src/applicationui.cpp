@@ -59,6 +59,7 @@ void ApplicationUI::initPlayer() {
                  this,
                  SLOT(onCacheChanged()));
     Q_ASSERT(rc);
+    Q_UNUSED(rc);
 }
 
 void ApplicationUI::initTranslator() {
@@ -68,13 +69,14 @@ void ApplicationUI::initTranslator() {
                  this,
                  SLOT(onSystemLanguageChanged()));
     Q_ASSERT(rc);
+    Q_UNUSED(rc);
     onSystemLanguageChanged();
 }
 
 void ApplicationUI::onSystemLanguageChanged() {
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
     QString locale_string = QLocale().name();
-    QString file_name = QString("ZipTest_%1").arg(locale_string);
+    QString file_name = QString("ModPlayer_%1").arg(locale_string);
     if (m_pTranslator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }

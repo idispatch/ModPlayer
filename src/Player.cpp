@@ -85,6 +85,7 @@ void Player::initDownloader() {
                  this,
                  SLOT(onDownloadFailure(int)));
     Q_ASSERT(rc);
+    Q_UNUSED(rc);
 }
 
 void Player::initModule() {
@@ -107,6 +108,7 @@ void Player::initModule() {
                  this,
                  SLOT(onStopped()));
     Q_ASSERT(rc);
+    Q_UNUSED(rc);
 }
 
 void Player::changeStatus(State state, QString const& statusText) {

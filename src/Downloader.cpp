@@ -24,6 +24,7 @@ Downloader::Downloader(QObject * parent)
                  this,
                  SLOT(onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
     Q_ASSERT(rc);
+    Q_UNUSED(rc);
 }
 
 void Downloader::download(int modId) {

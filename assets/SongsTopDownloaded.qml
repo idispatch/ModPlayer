@@ -15,7 +15,7 @@ Page {
         layout: StackLayout {
             
         }
-        ProgressIndicatorComponent {
+        ProgressComponent {
             id: progress
         }
         ListView {

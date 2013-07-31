@@ -176,6 +176,7 @@ bool QuaZip::open(Mode mode, zlib_filefunc_def* ioApi)
       return false;
       break;
   }
+  return false;
 }
 
 void QuaZip::close()
@@ -191,7 +192,7 @@ void QuaZip::close()
     case mdCreate:
     case mdAppend:
     case mdAdd:
-      p->zipError=zipClose(p->zipFile_f, 
+      p->zipError=zipClose(p->zipFile_f,
           p->comment.isNull() ? NULL
           : p->commentCodec->fromUnicode(p->comment).constData());
       break;

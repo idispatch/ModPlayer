@@ -39,12 +39,12 @@ float MixFloatBuffer[MIXBUFFERSIZE*2];
 
 extern LONG gnDryROfsVol;
 extern LONG gnDryLOfsVol;
-extern LONG gnRvbROfsVol;
-extern LONG gnRvbLOfsVol;
+//extern LONG gnRvbROfsVol;
+//extern LONG gnRvbLOfsVol;
 
 // 4x256 taps polyphase FIR resampling filter
-extern short int gFastSinc[];
-extern short int gKaiserSinc[]; // 8-taps polyphase
+//extern short int gFastSinc[];
+//extern short int gKaiserSinc[]; // 8-taps polyphase
 /*
  *-----------------------------------------------------------------------------
  cubic spline interpolation doc,
@@ -673,8 +673,8 @@ typedef VOID (MPPASMCALL * LPMIXINTERFACE)(MODCHANNEL *, int *, int *);
 void MPPASMCALL X86_InitMixBuffer(int *pBuffer, UINT nSamples);
 void MPPASMCALL X86_EndChannelOfs(MODCHANNEL *pChannel, int *pBuffer, UINT nSamples);
 void MPPASMCALL X86_StereoFill(int *pBuffer, UINT nSamples, LPLONG lpROfs, LPLONG lpLOfs);
-void X86_StereoMixToFloat(const int *, float *, float *, UINT nCount);
-void X86_FloatToStereoMix(const float *pIn1, const float *pIn2, int *pOut, UINT nCount);
+//void X86_StereoMixToFloat(const int *, float *, float *, UINT nCount);
+//void X86_FloatToStereoMix(const float *pIn1, const float *pIn2, int *pOut, UINT nCount);
 
 /////////////////////////////////////////////////////
 // Mono samples functions

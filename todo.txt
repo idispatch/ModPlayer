@@ -9,6 +9,8 @@
 * Actions in song list, player
 * Main: Genres list
 * Main: Artists list
+* Main: recently played list
+* Main: my favourites list
 * Catalog personal - playcount (int), lastplayed (date/time), myfavourite(1/0)
 * Catalog - copy database to data, verify version
 * Catalog - return user objects in variants

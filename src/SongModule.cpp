@@ -17,7 +17,7 @@ SongModule::SongModule(QObject *parent) :
     bool rc;
     rc = connect(m_timer, SIGNAL(timeout()), this, SLOT(onUpdateTimeout()));
     Q_ASSERT(rc);
-
+    Q_UNUSED(rc);
     m_playback->start(QThread::NormalPriority);
 }
 
