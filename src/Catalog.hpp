@@ -25,6 +25,10 @@ public:
 
     Q_INVOKABLE bb::cascades::DataModel * findSongsByFormatId(int formatId);
     Q_INVOKABLE bb::cascades::DataModel * findSongsByGenreId(int genreId);
+
+    Q_INVOKABLE QString resolveFileNameById(int id);
+    Q_INVOKABLE QVariant resolveModuleById(int id);
+    Q_INVOKABLE QVariant resolveModuleByFileName(QString const& fileName);
 Q_SIGNALS:
     void formatsChanged();
     void genresChanged();

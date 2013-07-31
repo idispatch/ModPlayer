@@ -31,17 +31,16 @@ Page {
             
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                var view = songsByGenreView.createObject()
-                view.genreId = chosenItem.id
-                view.genreName = chosenItem.name
+                var view = songs.createObject()
+                view.loadSongsByGenre(chosenItem.id, chosenItem.name)
                 songGenresNavigationPane.push(view)
             }
         }
     }
     attachedObjects: [
         ComponentDefinition {
-            id: songsByGenreView
-            source: "SongsByGenre.qml"
+            id: songs
+            source: "SongsList.qml"
         }
     ]
 }

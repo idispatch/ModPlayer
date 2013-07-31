@@ -84,7 +84,7 @@ DataModel * Catalog::findSongsByFormatId(int formatId) {
 }
 
 DataModel * Catalog::findSongsByGenreId(int genreId) {
-    QString query = QString("SELECT id, fileName FROM songs WHERE genre=%1 ORDER BY num_downloads").arg(genreId);
+    QString query = QString("SELECT id, fileName FROM songs WHERE genre=%1 ORDER BY downloads").arg(genreId);
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     //dumpData(data);
     QStringList keys;
@@ -94,4 +94,101 @@ DataModel * Catalog::findSongsByGenreId(int genreId) {
     model->setSortedAscending(true);
     model->insertList(data);
     return model;
+}
+
+QString Catalog::resolveFileNameById(int id) {
+    qDebug() << "Resolving file name for module id" << id;
+    QString query = QString("SELECT fileName FROM songs WHERE id=%1").arg(id);
+    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    if(data.size() == 1)
+    {
+        QVariant const& first = data.first();
+        QMap<QString, QVariant> map = first.toMap();
+        return map["fileName"].toString();
+    }
+    else
+    {
+        qDebug() << "File name for module" << id << "cannot be resolved";
+        return "";
+    }
+}
+
+QVariant Catalog::resolveModuleById(int id) {
+    qDebug() << "Resolving module id" << id;
+    QString query = QString(
+            "SELECT"
+            " songs.id AS id,"
+            " fileName,"
+            " size, "
+            " songs.title AS title, "
+            " formats.name AS format, "
+            " length, "
+            " trackers.name AS tracker, "
+            " genre, "
+            " artist, "
+            " downloads, "
+            " favourited, "
+            " score, "
+            " md5, "
+            " patterns, "
+            " orders, "
+            " instruments, "
+            " samples, "
+            " channels "
+            "FROM songs "
+            "INNER JOIN trackers ON trackers.id=songs.tracker "
+            "INNER JOIN formats ON formats.id=songs.format "
+            "WHERE songs.id=%1").arg(id);
+    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    dumpData(data);
+    if(data.size() == 1)
+    {
+        QVariant const& first = data.first();
+        return first;
+    }
+    else
+    {
+        qDebug() << "Module" << id << "cannot be resolved";
+        return QVariant();
+    }
+}
+
+QVariant Catalog::resolveModuleByFileName(QString const& fileName) {
+    qDebug() << "Resolving module file name" << fileName;
+    QString query = QString(
+            "SELECT"
+            " songs.id AS id,"
+            " fileName,"
+            " size, "
+            " songs.title AS title, "
+            " formats.name AS format, "
+            " length, "
+            " trackers.name AS tracker, "
+            " genre, "
+            " artist, "
+            " downloads, "
+            " favourited, "
+            " score, "
+            " md5, "
+            " patterns, "
+            " orders, "
+            " instruments, "
+            " samples, "
+            " channels "
+            "FROM songs "
+            "INNER JOIN trackers ON trackers.id=songs.tracker "
+            "INNER JOIN formats ON formats.id=songs.format "
+            "WHERE songs.fileName='%1'").arg(fileName);
+    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    dumpData(data);
+    if(data.size() == 1)
+    {
+        QVariant const& first = data.first();
+        return first;
+    }
+    else
+    {
+        qDebug() << "Module file name" << fileName << "cannot be resolved";
+        return QVariant();
+    }
 }

@@ -24,19 +24,21 @@ Page {
         
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                var view = songsByFormatView.createObject()
-                view.formatId = chosenItem.id
-                view.formatName = chosenItem.name
-                view.loadSongs()
+                var view = songsList.createObject()
+                view.loadSongsByFormat(chosenItem.id, chosenItem.name)
                 songFormatsNavigationPane.push(view)
+                
+                console.debug("34274: " + app.player.catalog.resolveFileNameById(34274))
+                console.debug("34274: " + app.player.catalog.resolveModuleById(34274))
+                console.debug("111.mod: " + app.player.catalog.resolveModuleByFileName('111.mod'))
             }
         }
     }
     
     attachedObjects: [
         ComponentDefinition {
-            id: songsByFormatView
-            source: "SongsByFormat.qml"
+            id: songsList
+            source: "SongsList.qml"
         }
     ]
 }
