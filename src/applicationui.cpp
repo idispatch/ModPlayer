@@ -2,6 +2,8 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
+#include <bb/cascades/Container>
+#include <bb/cascades/SceneCover>
 
 #include "applicationui.hpp"
 #include "Player.hpp"
@@ -16,6 +18,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
     m_app = app;
     initApp();
+    initActiveCover();
     initPlayer();
 }
 
@@ -29,6 +32,17 @@ void ApplicationUI::initApp() {
         {
             Application::instance()->setScene(appPage);
         }
+    }
+}
+
+void ApplicationUI::initActiveCover() {
+    QmlDocument *qml = QmlDocument::create("asset:///Cover.qml").parent(this);
+    if (!qml->hasErrors())
+    {
+        qml->setContextProperty("app", this);
+        Container *coverContainer = qml->createRootObject<Container>();
+        SceneCover *sceneCover = SceneCover::create().content(coverContainer);
+        Application::instance()->setCover(sceneCover);
     }
 }
 

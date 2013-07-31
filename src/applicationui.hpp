@@ -39,6 +39,7 @@ private slots:
     void onCacheChanged();
 private:
     void initApp();
+    void initActiveCover();
     void initPlayer();
     void initTranslator();
 private:
