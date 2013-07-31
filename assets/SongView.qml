@@ -8,7 +8,6 @@ Page {
     property alias songFileName: songFileNameField.text
     property alias songTitle: songTitleField.text
     property alias songFileSize: songFileSizeField.text
-    //property alias songMD5: songMD5Field.text
     
     property alias songOrders: songOrdersField.text
     property alias songPatterns: songPatternsField.text
@@ -43,9 +42,6 @@ Page {
             Label {
                 id: songInCacheField
             }
-            /*Label {
-                id: songMD5Field
-            }*/
             Label {
                 id: songOrdersField
             }
@@ -60,15 +56,6 @@ Page {
             }
             Label {
                 id: songSamplesField
-            }
-            Divider {
-            }
-            
-            Button {
-                text: "Play"
-                horizontalAlignment: HorizontalAlignment.Center
-                topMargin: 40
-                onClicked: play()
             }
         }
     }
@@ -89,7 +76,6 @@ Page {
         songFileName = "File Name: " + song.fileName
         songTitle = "Title: " + song.title
         songFileSize = "File Size: " + song.size
-        //songMD5 = "MD5: " + song.md5
         
         songOrders = "Orders: " + song.orders
         songPatterns = "Patterns: " + song.patterns
@@ -105,17 +91,27 @@ Page {
         }
     ]
     
-    actions: [  
+    actions: [ 
         ActionItem {
              title: "Play"
              enabled: moduleId!=0
+             ActionBar.placement: ActionBarPlacement.OnBar
              shortcuts: Shortcut {
                  key: "p"
              } 
-             //imageSource: "asset:///images/menuicons/icon_account.png"    
              onTriggered: {
                  play()
              }
+        },
+        ActionItem {
+            title: "Favourite"
+            enabled: moduleId!=0
+            ActionBar.placement: ActionBarPlacement.OnBar
+            shortcuts: Shortcut {
+                key: "f"
+            } 
+            onTriggered: {
+            }
         }
     ]
 }

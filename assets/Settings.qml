@@ -36,6 +36,7 @@ Sheet {
                 bottomPadding: 20
                 
                 DropDown {
+                    id: output
                     title: "Output"
                     Option {
                         text: "Stereo"
@@ -49,6 +50,7 @@ Sheet {
                     }
                 }
                 DropDown {
+                    id: bitsPerSample
                     title: "Bits per Sample"
                     Option {
                         text: "8"
@@ -67,6 +69,7 @@ Sheet {
                     }
                 }
                 DropDown {
+                    id: frequency
                     title: "Frequency"
                     Option {
                         text: "44100 Hz"
@@ -88,6 +91,7 @@ Sheet {
                     }
                 }
                 DropDown {
+                    id: resampling
                     title: "Resampling"
                     Option {
                         text: "Nearest"
@@ -129,6 +133,7 @@ Sheet {
                     }
                     leftPadding: sheetConfig.groupSettingIndent
                     Slider {
+                        id: stereoSeparation
                         fromValue: 1
                         toValue: 256
                         value: 128
@@ -149,6 +154,7 @@ Sheet {
                     }
                     leftPadding: sheetConfig.groupSettingIndent
                     Slider {
+                        id: maximumMixingChannels
                         fromValue: 32
                         toValue: 256
                         value: 128
@@ -161,7 +167,7 @@ Sheet {
                 }
                 
                 CheckBox {
-                    id: reverb
+                    id: reverbEnabled
                     text: "Enable reverb"
                     checked: true
                 }
@@ -173,33 +179,35 @@ Sheet {
                     
                     Label {
                         text: "Reverb depth"
-                        enabled: reverb.checked
+                        enabled: reverbEnabled.checked
                     }
                     Label {
                         text: "Reverb level 0(quiet)-100(loud)"
                         textStyle {
                             base: smallTextStyle.style
                         }
-                        enabled: reverb.checked
+                        enabled: reverbEnabled.checked
                     }
                     Slider {
-                        enabled: reverb.checked
+                        id: reverbLevel
+                        enabled: reverbEnabled.checked
                         fromValue: 0
                         toValue: 100
                         value: 50
                     }
                     Label {
                         text: "Reverb delay"
-                        enabled: reverb.checked
+                        enabled: reverbEnabled.checked
                     }
                     Label {
                         text: "Reverb delay in ms, usually 40-200ms"
                         textStyle {
                             base: smallTextStyle.style
                         }
-                        enabled: reverb.checked
+                        enabled: reverbEnabled.checked
                     }
                     Slider {
+                        id: reverbDelay
                         enabled: reverb.checked
                         fromValue: 40
                         toValue: 200
@@ -213,7 +221,7 @@ Sheet {
                 }
                 
                 CheckBox {
-                    id: megabass
+                    id: megabassEnabled
                     text: "Enable megabass"
                     checked: true
                 }
@@ -225,23 +233,24 @@ Sheet {
                     leftPadding: sheetConfig.groupSettingIndent
                     Label {
                         text: "Bass amount"
-                        enabled: megabass.checked
+                        enabled: megabassEnabled.checked
                     }
                     Label {
                         text: "XBass level 0(quiet)-100(loud)"
                         textStyle {
                             base: smallTextStyle.style
                         }
-                        enabled: megabass.checked
+                        enabled: megabassEnabled.checked
                     }
                     Slider {
-                        enabled: megabass.checked
+                        id: megabassLevel
+                        enabled: megabassEnabled.checked
                         fromValue: 0
                         toValue: 100
                         value: 50
                     }
                     Label {
-                        enabled: megabass.checked
+                        enabled: megabassEnabled.checked
                         text: "Bass cutoff"
                     }
                     Label {
@@ -249,10 +258,11 @@ Sheet {
                         textStyle {
                             base: smallTextStyle.style
                         }
-                        enabled: megabass.checked
+                        enabled: megabassEnabled.checked
                     }
                     Slider {
-                        enabled: megabass.checked
+                        id: megabassCutoff
+                        enabled: megabassEnabled.checked
                         fromValue: 10
                         toValue: 100
                         value: 50
@@ -265,7 +275,7 @@ Sheet {
                 }
                 
                 CheckBox {
-                    id: surround
+                    id: surroundEnabled
                     text: "Enable surround sound"
                     checked: true
                 }
@@ -276,34 +286,36 @@ Sheet {
                     leftPadding: sheetConfig.groupSettingIndent
                     Label {
                         text: "Surrond depth"
-                        enabled: surround.checked
+                        enabled: surroundEnabled.checked
                     }
                     Label {
                         text: "Surround level 0(quiet) - 100(heavy)"
                         textStyle {
                             base: smallTextStyle.style
                         }
-                        enabled: surround.checked
+                        enabled: surroundEnabled.checked
                     }
                     Slider {
-                        enabled: surround.checked
+                        id: surroundLevel
+                        enabled: surroundEnabled.checked
                         fromValue: 0
                         toValue: 100
                         value: 50
                     }
                     Label {
                         text: "Surrond delay"
-                        enabled: surround.checked
+                        enabled: surroundEnabled.checked
                     }
                     Label {
                         text: "Surround delay in milliseconds, usually 5-40ms"
                         textStyle {
                             base: smallTextStyle.style
                         }
-                        enabled: surround.checked
+                        enabled: surroundEnabled.checked
                     }
                     Slider {
-                        enabled: surround.checked
+                        id: surroundDelay
+                        enabled: surroundEnabled.checked
                         fromValue: 5
                         toValue: 50
                         value: 20
@@ -320,6 +332,7 @@ Sheet {
                     text: "Enable oversampling"
                     checked: true
                 }
+                
                 CheckBox {
                     id: noiseReduction
                     text: "Enable noise reduction"

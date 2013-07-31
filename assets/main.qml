@@ -94,21 +94,6 @@ TabbedPane {
         }
         
         actions: [  
-            /*ActionItem {
-                title: "Play"
-                imageSource: "asset:///images/menuicons/icon_account.png"    
-                onTriggered: {
-                    Invoke.invokeExecute("","","invokeAccount");  // tab/page = "" : Current tab
-                }
-            },
-            ActionItem {
-                objectName: "appMenuInviteBBM"
-                title: "Invite"
-                imageSource: "asset:///images/menuicons/icon_bbm.png"
-                onTriggered: {
-                    BBMInvite.sendInvite();
-                }
-            }*/
         ] 
     }
     
