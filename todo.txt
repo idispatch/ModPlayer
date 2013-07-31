@@ -1,6 +1,7 @@
 * ActiveCover - design UI
 * Application icon
 * Action/Tab icons
+* Now Playing action
 * Database: playcount, lastplayed, my favourite
 * Database: Song list display song (downloads, score, playcount, lastplayed, favourite, my favourite)
 * Database: Schema - ScreamTracker

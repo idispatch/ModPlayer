@@ -8,7 +8,7 @@ Page {
     property alias songFileName: songFileNameField.text
     property alias songTitle: songTitleField.text
     property alias songFileSize: songFileSizeField.text
-    property alias songMD5: songMD5Field.text
+    //property alias songMD5: songMD5Field.text
     
     property alias songOrders: songOrdersField.text
     property alias songPatterns: songPatternsField.text
@@ -43,9 +43,9 @@ Page {
             Label {
                 id: songInCacheField
             }
-            Label {
+            /*Label {
                 id: songMD5Field
-            }
+            }*/
             Label {
                 id: songOrdersField
             }
@@ -89,7 +89,7 @@ Page {
         songFileName = "File Name: " + song.fileName
         songTitle = "Title: " + song.title
         songFileSize = "File Size: " + song.size
-        songMD5 = "MD5: " + song.md5
+        //songMD5 = "MD5: " + song.md5
         
         songOrders = "Orders: " + song.orders
         songPatterns = "Patterns: " + song.patterns

@@ -7,8 +7,8 @@
 
 Cache::Cache(QObject * parent)
     : QObject(parent) {
-    m_maxSize = 50*1024*1024;
-    m_maxFiles = 100;
+    m_maxSize = 100*1024*1024;
+    m_maxFiles = 200;
     initCache();
 }
 

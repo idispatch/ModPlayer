@@ -2,6 +2,9 @@ import bb.cascades 1.0
 import player 1.0
 
 Container {
+    id: root
+    property bool playing: app.player.currentSong.songLoaded && app.player.state == Player.Playing 
+    
     background: Color.LightGray
     
     horizontalAlignment: HorizontalAlignment.Fill
@@ -21,6 +24,10 @@ Container {
         Label {
             horizontalAlignment: HorizontalAlignment.Center
             text: "ModPlayer"
+            textStyle {
+                base: SystemDefaults.TextStyles.BodyText
+                fontWeight: FontWeight.Bold
+            }
         }
         Label {
             horizontalAlignment: HorizontalAlignment.Center
@@ -43,15 +50,14 @@ Container {
         }
         Label {
             horizontalAlignment: HorizontalAlignment.Center
-            visible: app.player.currentSong.songLoaded && app.player.state == Player.Playing
-            text: {
-                if(app.player.currentSong.songLoaded) {
-                    if(app.player.state == Player.Playing) {
-                        return app.player.currentSong.fileName;
-                    }
-                }
-                return "";
-            }
+            visible: root.playing
+            text: root.playing ? app.player.currentSong.title : ""
         }
+        Label {
+            horizontalAlignment: HorizontalAlignment.Center
+            visible: root.playing
+            text: root.playing ? "("+app.player.currentSong.fileName+")" : ""
+        }
+        
     }
 }
