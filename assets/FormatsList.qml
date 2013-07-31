@@ -29,9 +29,9 @@ Page {
                 view.loadSongsByFormat(chosenItem.id, chosenItem.name)
                 songFormatsNavigationPane.push(view)
                 
-                console.debug("34274: " + app.player.catalog.resolveFileNameById(34274))
-                console.debug("34274: " + app.player.catalog.resolveModuleById(34274))
-                console.debug("111.mod: " + app.player.catalog.resolveModuleByFileName('111.mod'))
+                //console.debug("34274: " + app.player.catalog.resolveFileNameById(34274))
+                //console.debug("34274: " + app.player.catalog.resolveModuleById(34274))
+                //console.debug("111.mod: " + app.player.catalog.resolveModuleByFileName('111.mod'))
             }
         }
     }

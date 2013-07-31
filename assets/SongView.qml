@@ -1,6 +1,9 @@
 import bb.cascades 1.1
 
 Page {
+    property int moduleId
+    property variant navigationPane 
+    
     property alias songId: songIdField.text
     property alias songFileName: songFileNameField.text
     property alias songTitle: songTitleField.text
@@ -52,10 +55,23 @@ Page {
         Label {
             id: songSamplesField
         }
+        Divider {
+        }
+        
+        Button {
+            text: "Play"
+            onClicked: {
+                var player = songPlayer.createObject()
+                navigationPane.push(player)
+                player.play(moduleId)
+            }
+        }
     }
     
     function load(songId) {
         var song = app.player.catalog.resolveModuleById(songId)
+        moduleId = song.id
+        
         songId = "ModID: " + song.id
         songFileName = "File Name: " + song.fileName
         songTitle = "Title: " + song.title
@@ -68,4 +84,11 @@ Page {
         songInstruments = "Instruments: " + song.instruments
         songSamples = "Samples: " + song.samples
     }
+    
+    attachedObjects: [
+        ComponentDefinition {
+            id: songPlayer
+            source: "SongPlayer.qml"
+        }
+    ]
 }
