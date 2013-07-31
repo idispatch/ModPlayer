@@ -1,16 +1,19 @@
-* ActiveCover
+* ActiveCover - design UI
 * Application icon
 * Action/Tab icons
-* Song list display song (downloads, score, playcount, lastplayed, favourite, my favourite)
-* Navigation pop from player screen
-* Settings sheet
+* Database: playcount, lastplayed, my favourite
+* Database: Song list display song (downloads, score, playcount, lastplayed, favourite, my favourite)
+* Database: Schema - ScreamTracker
+* Main: Navigation pop from player screen
+* Settings: Settings sheet
 * Actions in song list, player
-* Genres list
-* Artists list
+* Main: Genres list
+* Main: Artists list
 * Catalog personal - playcount (int), lastplayed (date/time), myfavourite(1/0)
 * Catalog - copy database to data, verify version
 * Catalog - return user objects in variants
-* Crashes in player?
+* Player: Crashes in player?
 * UI, bitmaps
-* LED display in player 
-* Equalizer in player
+* Player: LED display in player
+* Player: playback controls 
+* Player: Equalizer in player
