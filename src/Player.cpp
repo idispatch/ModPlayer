@@ -123,7 +123,7 @@ void Player::downloadFinished(QString fileName) {
         return;
     }
 
-    changeStatus(Preparing, QString("Caching song %1").arg(name));
+    changeStatus(Preparing, QString("Caching song %1").arg(newFile));
 
     m_cache->cache(newFile);
 
@@ -173,8 +173,6 @@ void Player::beginPlay(QString const& fileName) {
 }
 
 void Player::play(QVariant value) {
-    qDebug() << "Playing" << value;
-
     if(value.type() == QVariant::Int)
     {
         playByModuleId(value.toInt());
@@ -196,24 +194,37 @@ void Player::play(QVariant value) {
 }
 
 void Player::playByModuleFileName(QString const& fileName) {
-    qDebug() << "Playing module file name=" << fileName;
-
+    qDebug() << "Player::playByModuleFileName: Playing file named" << fileName;
     if(m_cache->exists(fileName))
     {
+        qDebug() << "File" << fileName << "is already in cache";
         beginPlay(fileName);
     }
     else
     {
+        qDebug() << "File" << fileName << "is not in cache";
+
         QString name = fileNameOnly(fileName);
         changeStatus(Resolving, QString("Resolving %1").arg(name));
+
+        int modId = m_catalog->resolveModuleIdByFileName(fileName);
+        m_downloader->download(modId);
     }
 }
 
 void Player::playByModuleId(int modId) {
-    qDebug() << "Playing module id=" << modId;
-
-    changeStatus(Downloading, "Downloading song");
-    m_downloader->download(modId);
+    qDebug() << "Player::playByModuleId: Playing module id" << modId;
+    QString fileName = m_catalog->resolveFileNameById(modId);
+    if(m_cache->exists(fileName)) {
+        qDebug() << "File" << fileName << "(id=" << modId << ") is already in cache";
+        beginPlay(fileName);
+    }
+    else
+    {
+        qDebug() << "File" << fileName << "(id=" << modId << ") is not in cache";
+        changeStatus(Downloading, "Downloading song");
+        m_downloader->download(modId);
+    }
 }
 
 void Player::stop() {

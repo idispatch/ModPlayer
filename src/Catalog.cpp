@@ -113,6 +113,23 @@ QString Catalog::resolveFileNameById(int id) {
     }
 }
 
+int Catalog::resolveModuleIdByFileName(QString const& fileName) {
+    qDebug() << "Resolving module id for file name " << fileName;
+    QString query = QString("SELECT id FROM songs WHERE fileName='%1'").arg(fileName);
+    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    if(data.size() == 1)
+    {
+        QVariant const& first = data.first();
+        QMap<QString, QVariant> map = first.toMap();
+        return map["id"].toInt();
+    }
+    else
+    {
+        qDebug() << "Module id for file name" << fileName << "cannot be resolved";
+        return 0;
+    }
+}
+
 QVariant Catalog::resolveModuleById(int id) {
     qDebug() << "Resolving module id" << id;
     QString query = QString(
