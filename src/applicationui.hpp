@@ -14,22 +14,32 @@ namespace bb
 
 class QTranslator;
 class Player;
+class Catalog;
+class Cache;
 
-class ApplicationUI : public QObject
-{
+class ApplicationUI : public QObject {
     Q_OBJECT
 public:
     ApplicationUI(bb::cascades::Application *app);
 
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
+    Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
+    Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
 
     Player * player() const;
+    Catalog * catalog() const;
+    Cache * cache() const;
 Q_SIGNALS:
     void playerChanged();
+    void catalogChanged();
+    void cacheChanged();
 private slots:
     void onSystemLanguageChanged();
+    void onCatalogChanged();
+    void onCacheChanged();
 private:
     void initApp();
+    void initPlayer();
     void initTranslator();
 private:
     QTranslator* m_pTranslator;

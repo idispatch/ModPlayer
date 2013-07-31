@@ -83,4 +83,19 @@ Page {
             source: "SongView.qml"
         }
     ]
+    
+    actions: [  
+        ActionItem {
+            title: "Play"
+            enabled: moduleId!=0
+            shortcuts: Shortcut {
+                key: "p"
+            } 
+            //imageSource: "asset:///images/menuicons/icon_account.png"    
+            onTriggered: {
+                var selected = songs.dataModel.data(songs.selected())
+                app.player.play(selected.id)
+            }
+        }
+    ]
 }

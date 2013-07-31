@@ -14,19 +14,21 @@ class Downloader : public QObject {
 public:
     Downloader(QObject *Player = 0);
 
-    Q_PROPERTY(int pendingDownloads READ pendingDownloads NOTIFY pendingDownloadsChanged FINAL)
+    Q_PROPERTY(int pendingDownloadCount READ pendingDownloadCount NOTIFY pendingDownloadCountChanged FINAL)
 
-    int pendingDownloads() const;
     Q_INVOKABLE void download(int modId);
+
+    int pendingDownloadCount() const;
+    QMap<QUrl, int> const& pendingDownloads() const;
 Q_SIGNALS:
-    void pendingDownloadsChanged(int count);
+    void pendingDownloadCountChanged();
     void downloadStarted(int modId);
     void downloadFinished(QString fileName);
     void downloadFailure(int modId);
 
 private slots:
-    void httpFinished(QNetworkReply * reply);
-    void networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a);
+    void onHttpFinished(QNetworkReply * reply);
+    void onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a);
 private:
     Q_DISABLE_COPY(Downloader)
     void handleRedirect(QNetworkReply * reply);
@@ -39,6 +41,6 @@ private:
 
 Q_DECLARE_METATYPE(Downloader*);
 
-QDebug operator << (QDebug dbg, const Downloader &d);
+QDebug operator << (QDebug dbg, Downloader const &d);
 
 #endif

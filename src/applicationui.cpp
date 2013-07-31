@@ -16,27 +16,44 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
     m_app = app;
     initApp();
+    initPlayer();
 }
 
 void ApplicationUI::initApp() {
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
-    //QmlDocument *qml = QmlDocument::create("asset:///FormatsList.qml").parent(this);
-    if (!qml->hasErrors()) {
+    if (!qml->hasErrors())
+    {
         qml->setContextProperty("app", this);
         AbstractPane *appPage = qml->createRootObject<AbstractPane>();
-        if (appPage) {
+        if (appPage)
+        {
             Application::instance()->setScene(appPage);
         }
     }
 }
 
+void ApplicationUI::initPlayer() {
+    bool rc;
+    rc = connect(m_player,
+                 SIGNAL(catalogChanged()),
+                 this,
+                 SLOT(onCatalogChanged()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_player,
+                 SIGNAL(cacheChanged()),
+                 this,
+                 SLOT(onCacheChanged()));
+    Q_ASSERT(rc);
+}
+
 void ApplicationUI::initTranslator() {
-    if(!QObject::connect(m_pLocaleHandler,
-                         SIGNAL(systemLanguageChanged()),
-                         this,
-                         SLOT(onSystemLanguageChanged()))) {
-        qWarning() << "Recovering from a failed connect()";
-    }
+    bool rc;
+    rc = connect(m_pLocaleHandler,
+                 SIGNAL(systemLanguageChanged()),
+                 this,
+                 SLOT(onSystemLanguageChanged()));
+    Q_ASSERT(rc);
     onSystemLanguageChanged();
 }
 
@@ -49,6 +66,22 @@ void ApplicationUI::onSystemLanguageChanged() {
     }
 }
 
+void ApplicationUI::onCatalogChanged() {
+    emit catalogChanged();
+}
+
+void ApplicationUI::onCacheChanged() {
+    emit cacheChanged();
+}
+
 Player * ApplicationUI::player() const {
     return m_player;
+}
+
+Catalog * ApplicationUI::catalog() const {
+    return m_player->catalog();
+}
+
+Cache * ApplicationUI::cache() const {
+    return m_player->cache();
 }

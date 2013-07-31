@@ -22,9 +22,12 @@ Player::Player(QObject * parent)
 }
 
 QString Player::fileNameOnly(QString const& fileName) {
-    QFile file(fileName);
-    QFileInfo fileInfo(file.fileName());
-    return fileInfo.fileName();
+    int pos = fileName.lastIndexOf('/');
+    if(pos == -1) {
+        return fileName;
+    } else {
+        return fileName.mid(pos + 1);
+    }
 }
 
 void Player::initCatalog() {
@@ -50,35 +53,47 @@ void Player::initCache() {
 }
 
 void Player::initDownloader() {
+    bool rc;
     qmlRegisterUncreatableType<Downloader>("player", 1, 0, "Downloader", "");
-    connect(m_downloader,
-            SIGNAL(downloadStarted(int)),
-            this,
-            SLOT(downloadStarted(int)));
-    connect(m_downloader,
-            SIGNAL(downloadFinished(QString)),
-            this,
-            SLOT(downloadFinished(QString)));
-    connect(m_downloader,
-            SIGNAL(downloadFailure(int)),
-            this,
-            SLOT(downloadFailure(int)));
+    rc = connect(m_downloader,
+                 SIGNAL(downloadStarted(int)),
+                 this,
+                 SLOT(onDownloadStarted(int)));
+    Q_ASSERT(rc);
+
+    rc = connect(m_downloader,
+                 SIGNAL(downloadFinished(QString)),
+                 this,
+                 SLOT(onDownloadFinished(QString)));
+    Q_ASSERT(rc);
+
+    rc = connect(m_downloader,
+                 SIGNAL(downloadFailure(int)),
+                 this,
+                 SLOT(onDownloadFailure(int)));
+    Q_ASSERT(rc);
 }
 
 void Player::initModule() {
+    bool rc;
     qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
-    connect(m_module,
-            SIGNAL(playing()),
-            this,
-            SLOT(playing()));
-    connect(m_module,
-            SIGNAL(paused()),
-            this,
-            SLOT(paused()));
-    connect(m_module,
-            SIGNAL(stopped()),
-            this,
-            SLOT(stopped()));
+    rc = connect(m_module,
+                 SIGNAL(playing()),
+                 this,
+                 SLOT(onPlaying()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_module,
+                 SIGNAL(paused()),
+                 this,
+                 SLOT(onPaused()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_module,
+                 SIGNAL(stopped()),
+                 this,
+                 SLOT(onStopped()));
+    Q_ASSERT(rc);
 }
 
 void Player::changeStatus(State state, QString const& statusText) {
@@ -96,12 +111,12 @@ void Player::changeStatus(State state, QString const& statusText) {
     }
 }
 
-void Player::downloadStarted(int modId) {
+void Player::onDownloadStarted(int modId) {
     Q_UNUSED(modId);
     changeStatus(Preparing, "Downloading song");
 }
 
-void Player::downloadFinished(QString fileName) {
+void Player::onDownloadFinished(QString fileName) {
     QString name = fileNameOnly(fileName);
     changeStatus(Preparing, QString("Unpacking song %1").arg(name));
 
@@ -130,7 +145,7 @@ void Player::downloadFinished(QString fileName) {
     beginPlay(newFile);
 }
 
-void Player::downloadFailure(int modId) {
+void Player::onDownloadFailure(int modId) {
     Q_UNUSED(modId);
     stop();
 }
@@ -239,14 +254,14 @@ void Player::resume() {
     m_module->resume();
 }
 
-void Player::paused() {
+void Player::onPaused() {
     changeStatus(Paused, QString("Paused %1").arg(m_module->fileName()));
 }
 
-void Player::playing() {
+void Player::onPlaying() {
     changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
 }
 
-void Player::stopped() {
+void Player::onStopped() {
     changeStatus(Stopped, "Stopped");
 }

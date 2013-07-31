@@ -1,4 +1,4 @@
-#ifndef CACHE_HPP_
+#ifndef CACHE_HPP_p
 #define CACHE_HPP_
 
 #include <QDebug>
@@ -9,6 +9,7 @@
 class Cache : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(QString cachePath READ cachePath FINAL)
     Q_PROPERTY(qint64 maxSize READ maxSize WRITE setMaxSize NOTIFY maxSizeChanged FINAL)
     Q_PROPERTY(int maxFiles READ maxFiles WRITE setMaxFiles NOTIFY maxFilesChanged FINAL)
     Q_PROPERTY(qint64 currentSize READ currentSize NOTIFY currentSizeChanged FINAL)
@@ -19,6 +20,7 @@ class Cache : public QObject {
 public:
     Cache(QObject *parent = 0);
 
+    QString cachePath() const;
     QStringList files() const;
 
     QStringList fileNameFilters() const;
@@ -47,6 +49,8 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(Cache)
 
+    QString absoluteFileName(QString const& fileName) const;
+    void remove(QFileInfo const& fileInfo);
     void houseKeep();
     void initCache();
     void notifyCacheChanged(int oldFiles, qint64 oldSize);
@@ -59,6 +63,6 @@ private:
 
 Q_DECLARE_METATYPE(Cache*);
 
-QDebug operator << (QDebug dbg, const Cache &c);
+QDebug operator << (QDebug dbg, Cache const &c);
 
 #endif

@@ -12,18 +12,18 @@ const int Downloader::InvalidModuleId = -1;
 Downloader::Downloader(QObject * parent)
     : QObject(parent),
       m_networkManager(new QNetworkAccessManager(this)) {
-    connect(m_networkManager,
-            SIGNAL(finished(QNetworkReply*)),
-            this,
-            SLOT(httpFinished(QNetworkReply*)));
-    connect(m_networkManager,
-            SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),
-            this,
-            SLOT(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
-}
+    bool rc;
+    rc = connect(m_networkManager,
+                 SIGNAL(finished(QNetworkReply*)),
+                 this,
+                 SLOT(onHttpFinished(QNetworkReply*)));
+    Q_ASSERT(rc);
 
-int Downloader::pendingDownloads() const {
-    return m_pendingDownloads.size();
+    rc = connect(m_networkManager,
+                 SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),
+                 this,
+                 SLOT(onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
+    Q_ASSERT(rc);
 }
 
 void Downloader::download(int modId) {
@@ -41,10 +41,10 @@ void Downloader::download(int modId) {
     m_networkManager->get(request);
 
     emit downloadStarted(modId);
-    emit pendingDownloadsChanged(pendingDownloads());
+    emit pendingDownloadCountChanged();
 }
 
-void Downloader::networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a) {
+void Downloader::onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a) {
     qDebug() << "Network accessible changed:" << a;
     if(a != QNetworkAccessManager::Accessible) {
         QList<int> pending = m_pendingDownloads.values();
@@ -55,7 +55,7 @@ void Downloader::networkAccessibleChanged(QNetworkAccessManager::NetworkAccessib
             emit downloadFailure(*i);
         }
         m_pendingDownloads.clear();
-        emit pendingDownloadsChanged(pendingDownloads());
+        emit pendingDownloadCountChanged();
     }
 }
 
@@ -85,12 +85,12 @@ void Downloader::handleRedirect(QNetworkReply * reply) {
             m_pendingDownloads.remove(originalURL);
         }
         emit downloadFailure(modId);
-        emit pendingDownloadsChanged(pendingDownloads());
+        emit pendingDownloadCountChanged();
         reply->deleteLater();
     }
 }
 
-void Downloader::httpFinished(QNetworkReply * reply) {
+void Downloader::onHttpFinished(QNetworkReply * reply) {
     QUrl originalURL = reply->request().url();
     int modId = m_pendingDownloads.value(originalURL, InvalidModuleId);
     if(modId != InvalidModuleId) {
@@ -121,7 +121,7 @@ void Downloader::httpFinished(QNetworkReply * reply) {
     m_pendingDownloads.remove(originalURL);
     reply->deleteLater();
     emit downloadFailure(modId);
-    emit pendingDownloadsChanged(pendingDownloads());
+    emit pendingDownloadCountChanged();
 }
 
 void Downloader::finishDownload(QNetworkReply * reply) {
@@ -132,13 +132,13 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     if(m_pendingDownloads.contains(originalURL)) {
         modId = m_pendingDownloads[originalURL];
         m_pendingDownloads.remove(originalURL);
-        emit pendingDownloadsChanged(pendingDownloads());
+        emit pendingDownloadCountChanged();
     } else {
         qDebug() << "Could not match download URL " << originalURL;
         reply->deleteLater();
         m_pendingDownloads.remove(originalURL);
         emit downloadFailure(modId);
-        emit pendingDownloadsChanged(pendingDownloads());
+        emit pendingDownloadCountChanged();
         return;
     }
 
@@ -173,3 +173,20 @@ void Downloader::finishDownload(QNetworkReply * reply) {
         emit downloadFailure(modId);
     }
 }
+
+int Downloader::pendingDownloadCount() const {
+    return m_pendingDownloads.size();
+}
+
+QMap<QUrl, int> const& Downloader::pendingDownloads() const {
+    return m_pendingDownloads;
+}
+
+QDebug operator << (QDebug dbg, Downloader const &c) {
+    dbg.nospace()
+        << "(Downloader: pending downloads="
+        << c.pendingDownloads()
+        << ")";
+    return dbg.space();
+}
+

@@ -54,13 +54,13 @@ Q_SIGNALS:
     void catalogChanged();
     void currentSongChanged();
 private slots:
-    void downloadStarted(int modId);
-    void downloadFinished(QString fileName);
-    void downloadFailure(int modId);
+    void onDownloadStarted(int modId);
+    void onDownloadFinished(QString fileName);
+    void onDownloadFailure(int modId);
 
-    void paused();
-    void playing();
-    void stopped();
+    void onPaused();
+    void onPlaying();
+    void onStopped();
 private:
     Q_DISABLE_COPY(Player)
 

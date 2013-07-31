@@ -4,29 +4,74 @@ TabbedPane {
     id: rootTabbedPane
 
     Tab {
+        id: formatsTab
         title: "Formats"
-        description : "Song Formats"
+        description : "Song By Module Format"
         NavigationPane {
             id: songFormatsNavigationPane
             FormatsList {
             }
             
             onPopTransitionEnded: {
-                console.debug(page.objectName)
                 page.destroy()
             }
         }
     }
     Tab {
+        id:  genresTab
         title: "Genres"
-        description : "Song Genres"
+        description : "Song By Genre"
         NavigationPane {
             id: songGenresNavigationPane
             GenresList {
             }
             
             onPopTransitionEnded: {
-                console.debug(page.objectName)
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id:  topDownloadsTab
+        title: "Downloads"
+        description : "Top Downloaded Songs"
+        NavigationPane {
+            id: songTopDownloadedNavigationPane
+            SongsTopDownloaded {
+                navigationPane: songTopDownloadedNavigationPane
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id:  topFavouritedTab
+        title: "Favourited"
+        description : "Top Favourited Songs"
+        NavigationPane {
+            id: songTopFavouritedNavigationPane
+            SongsTopFavourited {
+                navigationPane: songTopFavouritedNavigationPane
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id:  topScoredTab
+        title: "Scored"
+        description : "Top Scored Songs"
+        NavigationPane {
+            id: songTopScoredNavigationPane
+            SongsTopScored {
+                navigationPane: songTopScoredNavigationPane
+            }
+            
+            onPopTransitionEnded: {
                 page.destroy()
             }
         }

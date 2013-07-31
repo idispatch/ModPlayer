@@ -26,6 +26,10 @@ public:
     Q_INVOKABLE bb::cascades::DataModel * findSongsByFormatId(int formatId);
     Q_INVOKABLE bb::cascades::DataModel * findSongsByGenreId(int genreId);
 
+    Q_INVOKABLE bb::cascades::DataModel * findMostDownloadedSongs();
+    Q_INVOKABLE bb::cascades::DataModel * findMostFavouritedSongs();
+    Q_INVOKABLE bb::cascades::DataModel * findMostScoredSongs();
+
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
     Q_INVOKABLE QVariant resolveModuleById(int id);
@@ -35,7 +39,7 @@ Q_SIGNALS:
     void genresChanged();
 private:
     Q_DISABLE_COPY(Catalog)
-
+    void init();
     static void dumpData(QVariantList const& data);
 private:
     bb::data::SqlDataAccess * m_dataAccess;

@@ -16,54 +16,63 @@ Page {
     property alias songInstruments: songInstrumentsField.text
     property alias songSamples: songSamplesField.text
     
-    objectName: "SongView"
+    property alias songInCache: songInCacheField.text
     
-    Container {
-        layout: StackLayout {
-        }
-        
-        leftPadding: 20
-        rightPadding: 20
-        
-        Label {
-            id: songIdField
-        }
-        Label {
-            id: songFileNameField
-        }
-        Label {
-            id: songTitleField
-        }
-        Label {
-            id: songFileSizeField
-        }
-        Label {
-            id: songMD5Field
-        }
-        Label {
-            id: songOrdersField
-        }
-        Label {
-            id: songPatternsField
-        }
-        Label {
-            id: songChannelsField
-        }
-        Label {
-            id: songInstrumentsField
-        }
-        Label {
-            id: songSamplesField
-        }
-        Divider {
-        }
-        
-        Button {
-            text: "Play"
-            onClicked: {
-                var player = songPlayer.createObject()
-                navigationPane.push(player)
-                player.play(moduleId)
+    objectName: "SongView"
+
+    ScrollView {
+        Container {
+            layout: StackLayout {
+            }
+            
+            leftPadding: 20
+            rightPadding: 20
+            
+            Label {
+                id: songIdField
+            }
+            Label {
+                id: songFileNameField
+            }
+            Label {
+                id: songTitleField
+            }
+            Label {
+                id: songFileSizeField
+            }
+            Label {
+                id: songInCacheField
+            }
+            Label {
+                id: songMD5Field
+            }
+            Label {
+                id: songOrdersField
+            }
+            Label {
+                id: songPatternsField
+            }
+            Label {
+                id: songChannelsField
+            }
+            Label {
+                id: songInstrumentsField
+            }
+            Label {
+                id: songSamplesField
+            }
+            Divider {
+            }
+            
+            Button {
+                text: "Play"
+                horizontalAlignment: HorizontalAlignment.Center
+                topMargin: 40
+                onClicked: {
+                    var player = songPlayer.createObject()
+                    navigationPane.push(player)
+                    player.play(moduleId)
+                }
             }
         }
     }
@@ -73,6 +82,8 @@ Page {
         moduleId = song.id
         
         songId = "ModID: " + song.id
+        songInCache = "Cached: " + (app.cache.exists(song.fileName) ? "yes" : "no") 
+        
         songFileName = "File Name: " + song.fileName
         songTitle = "Title: " + song.title
         songFileSize = "File Size: " + song.size
@@ -89,6 +100,20 @@ Page {
         ComponentDefinition {
             id: songPlayer
             source: "SongPlayer.qml"
+        }
+    ]
+    
+    actions: [  
+        ActionItem {
+             title: "Play"
+             enabled: moduleId!=0
+             shortcuts: Shortcut {
+                 key: "p"
+             } 
+             //imageSource: "asset:///images/menuicons/icon_account.png"    
+             onTriggered: {
+                 app.player.play(moduleId)
+             }
         }
     ]
 }
