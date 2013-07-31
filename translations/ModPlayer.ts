@@ -8,4 +8,19 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

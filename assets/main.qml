@@ -88,8 +88,8 @@ TabbedPane {
             id: settingsActionItem
             title: "Settings";
             onTriggered : {
-                settingsViewObject = settingsView.createObject()
-                settingsViewObject.open()
+                var view = settingsView.createObject()
+                view.open()
             }
         }
         
