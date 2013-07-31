@@ -256,7 +256,7 @@ DataModel * Catalog::findMostDownloadedSongs() {
                 " size AS size, "
                 " length AS length "
                 "FROM songs "
-                "ORDER BY downloads DESCENDING");
+                "ORDER BY downloads DESC");
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     dumpData(data);
     QVariantListDataModel * model = new QVariantListDataModel(data);
@@ -274,7 +274,7 @@ DataModel * Catalog::findMostFavouritedSongs() {
                     " size AS size, "
                     " length AS length "
                     "FROM songs "
-                    "ORDER BY favourited DESCENDING");
+                    "ORDER BY favourited DESC, downloads DESC, score DESC");
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     dumpData(data);
     QVariantListDataModel * model = new QVariantListDataModel(data);
@@ -292,7 +292,7 @@ DataModel * Catalog::findMostScoredSongs() {
                         " size AS size, "
                         " length AS length "
                         "FROM songs "
-                        "ORDER BY score DESCENDING");
+                        "ORDER BY score DESC, downloads DESC, favourited DESC");
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     dumpData(data);
     QVariantListDataModel * model = new QVariantListDataModel(data);

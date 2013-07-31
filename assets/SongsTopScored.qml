@@ -12,8 +12,20 @@ Page {
     }
     
     Container {
+        layout: StackLayout {
+        
+        }
+        ActivityIndicator {
+            id: progress
+            visible: true
+            running: true
+            preferredWidth: 100
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+        }
         ListView {
             id: songs
+            visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
@@ -22,7 +34,7 @@ Page {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
-                        status: ListItemData.downloads
+                        status: ListItemData.score
                     }
                 }
             ]
@@ -39,6 +51,9 @@ Page {
     
     function load() {
         songs.dataModel = app.player.catalog.findMostScoredSongs()
+        progress.running = false
+        progress.visible = false
+        songs.visible = true
     }
     
     attachedObjects: [

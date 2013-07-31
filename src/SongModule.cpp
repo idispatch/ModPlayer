@@ -26,10 +26,13 @@ SongModule::SongModule(QObject *parent)
    m_modPlug(NULL),
    m_playback(new ModPlayback(this)),
    m_timer(new QTimer(this)) {
-    QTimer::connect(m_timer,
-                    SIGNAL(timeout()),
-                    this,
-                    SLOT(onUpdateTimeout()));
+    bool rc;
+    rc = connect(m_timer,
+                 SIGNAL(timeout()),
+                 this,
+                 SLOT(onUpdateTimeout()));
+    Q_ASSERT(rc);
+
     m_playback->start(QThread::NormalPriority);
 }
 

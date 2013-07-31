@@ -63,7 +63,6 @@ Page {
         this.mode = "format"
         this.formatId = formatId
         this.formatName = formatName
-        //console.debug("Selecting songs by format: " + this.formatId + " (" + this.formatName + ")")
         var data = app.player.catalog.findSongsByFormatId(formatId)
         songs.dataModel = data
     }
@@ -72,9 +71,8 @@ Page {
         this.mode = "genre"
         this.genreId = genreId
         this.genreName = genreName
-        //console.debug("Selecting songs by genre: " + this.genreId + " (" + this.genreName + ")")
-        //var data = app.player.catalog.findSongsByFormatId(formatId)
-        //songs.dataModel = data
+        var data = app.player.catalog.findSongsByGenreId(formatId)
+        songs.dataModel = data
     }
     
     attachedObjects: [
@@ -87,7 +85,6 @@ Page {
     actions: [  
         ActionItem {
             title: "Play"
-            enabled: moduleId!=0
             shortcuts: Shortcut {
                 key: "p"
             } 

@@ -1,11 +1,14 @@
 import bb.cascades 1.1
 
 Page {
+    property variant navigationPane
+    
     titleBar: TitleBar {
         title: qsTr("Select Songs by Genre")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
+    
     Container {
         ListView {
             horizontalAlignment: HorizontalAlignment.Fill
@@ -32,9 +35,9 @@ Page {
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songs.createObject()
+                view.navigationPane = navigationPane
                 view.loadSongsByGenre(chosenItem.id, chosenItem.name)
-                view.navigationPane = songGenresNavigationPane
-                songGenresNavigationPane.push(view)
+                navigationPane.push(view)
             }
         }
     }

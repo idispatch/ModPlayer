@@ -1,44 +1,43 @@
 import bb.cascades 1.1
 
 TabbedPane {
-    id: rootTabbedPane
-
     Tab {
         id: formatsTab
         title: "Formats"
-        description : "Song By Module Format"
+        description: "Songs By Module Format"
         NavigationPane {
-            id: songFormatsNavigationPane
             FormatsList {
+                navigationPane: parent
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
         }
     }
     Tab {
-        id:  genresTab
+        id: genresTab
         title: "Genres"
-        description : "Song By Genre"
+        description: "Songs By Genre"
         NavigationPane {
-            id: songGenresNavigationPane
             GenresList {
+                navigationPane: parent
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
         }
     }
     Tab {
-        id:  topDownloadsTab
+        id: topDownloadsTab
         title: "Downloads"
-        description : "Top Downloaded Songs"
+        description: "Top Downloaded Songs"
+        onTriggered: {
+            songsTopDownloadedView.load()
+        }
         NavigationPane {
-            id: songTopDownloadedNavigationPane
             SongsTopDownloaded {
-                navigationPane: songTopDownloadedNavigationPane
+                id: songsTopDownloadedView
+                navigationPane: parent
             }
             
             onPopTransitionEnded: {
@@ -47,13 +46,16 @@ TabbedPane {
         }
     }
     Tab {
-        id:  topFavouritedTab
+        id: topFavouritedTab
         title: "Favourited"
-        description : "Top Favourited Songs"
+        description: "Top Favourited Songs"
+        onTriggered: {
+            songTopFavouritedView.load()
+        }
         NavigationPane {
-            id: songTopFavouritedNavigationPane
             SongsTopFavourited {
-                navigationPane: songTopFavouritedNavigationPane
+                id: songTopFavouritedView
+                navigationPane: parent
             }
             
             onPopTransitionEnded: {
@@ -62,13 +64,16 @@ TabbedPane {
         }
     }
     Tab {
-        id:  topScoredTab
+        id: topScoredTab
         title: "Scored"
-        description : "Top Scored Songs"
+        description: "Top Scored Songs"
+        onTriggered: {
+            songTopScoredView.load()
+        }
         NavigationPane {
-            id: songTopScoredNavigationPane
             SongsTopScored {
-                navigationPane: songTopScoredNavigationPane
+                id: songTopScoredView
+                navigationPane: parent
             }
             
             onPopTransitionEnded: {
