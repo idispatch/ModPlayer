@@ -1,13 +1,14 @@
 import bb.cascades 1.1
 
 Page {
-    property int formatId;
-    property string formatName;
+    property int formatId
+    property string formatName
     
-    property int genreId;
-    property string genreName;
+    property int genreId
+    property string genreName
     
-    property string mode;
+    property string mode
+    property variant navigationPane
 
     objectName: "SongsList" 
     
@@ -50,8 +51,9 @@ Page {
             
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                console.debug("Id: " + chosenItem.id)
-                console.debug("Name: " + chosenItem.name)
+                var view = songView.createObject()
+                view.load(chosenItem.id)
+                navigationPane.push(view)
             }
         }
     }
@@ -60,7 +62,7 @@ Page {
         this.mode = "format"
         this.formatId = formatId
         this.formatName = formatName
-        console.debug("Selecting songs by format: " + this.formatId + " (" + this.formatName + ")")
+        //console.debug("Selecting songs by format: " + this.formatId + " (" + this.formatName + ")")
         var data = app.player.catalog.findSongsByFormatId(formatId)
         songs.dataModel = data
     }
@@ -69,8 +71,15 @@ Page {
         this.mode = "genre"
         this.genreId = genreId
         this.genreName = genreName
-        console.debug("Selecting songs by genre: " + this.genreId + " (" + this.genreName + ")")
+        //console.debug("Selecting songs by genre: " + this.genreId + " (" + this.genreName + ")")
         //var data = app.player.catalog.findSongsByFormatId(formatId)
         //songs.dataModel = data
     }
+    
+    attachedObjects: [
+        ComponentDefinition {
+            id: songView
+            source: "SongView.qml"
+        }
+    ]
 }

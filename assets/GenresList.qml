@@ -33,6 +33,7 @@ Page {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songs.createObject()
                 view.loadSongsByGenre(chosenItem.id, chosenItem.name)
+                view.navigationPane = songGenresNavigationPane
                 songGenresNavigationPane.push(view)
             }
         }

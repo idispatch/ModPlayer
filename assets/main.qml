@@ -68,5 +68,4 @@ TabbedPane {
             source: "Settings.qml"
         }
     ]
-
 }

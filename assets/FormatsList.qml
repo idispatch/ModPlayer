@@ -25,6 +25,7 @@ Page {
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songsList.createObject()
+                view.navigationPane = songFormatsNavigationPane
                 view.loadSongsByFormat(chosenItem.id, chosenItem.name)
                 songFormatsNavigationPane.push(view)
                 
