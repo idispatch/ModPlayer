@@ -2,62 +2,129 @@ import bb.cascades 1.0
 import player 1.0
 
 Container {
-    id: root
     property bool playing: app.player.currentSong.songLoaded && app.player.state == Player.Playing 
     
-    background: Color.LightGray
-    
+    background: back.imagePaint
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
-    
     layout: DockLayout {
     }
+    
+    attachedObjects: [
+        ImagePaintDefinition {
+            id: back
+            repeatPattern: RepeatPattern.Fill
+            imageSource: "asset:///images/cover.png"
+        },
+        ImagePaintDefinition {
+            id: titleTextBack
+            repeatPattern: RepeatPattern.Fill
+            imageSource: "asset:///images/cover_text_back.amd"
+        }
+    ]
 
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }
         
-        verticalAlignment: VerticalAlignment.Center
+        verticalAlignment: VerticalAlignment.Top
         horizontalAlignment: HorizontalAlignment.Center
         
-        Label {
-            horizontalAlignment: HorizontalAlignment.Center
-            text: "ModPlayer"
-            textStyle {
-                base: SystemDefaults.TextStyles.BodyText
-                fontWeight: FontWeight.Bold
-            }
-        }
-        Label {
-            horizontalAlignment: HorizontalAlignment.Center
-            text: {
-                if(app.player.currentSong.songLoaded) {
-                    var state = app.player.state;
-                    if(state == Player.Playing) {
-                        return "Playing";
-                    } else if (state == Player.Stopped) {
-                        return "Stopped";
-                    } else if (state == Player.Paused) {
-                        return "Paused";
-                    } else {
-                        return "";
-                    }
-                } else {
-                    return "Idle";
+        topPadding: 30
+        
+        Container {
+            background: titleTextBack.imagePaint
+            
+            leftPadding: 15
+            rightPadding: leftPadding
+            
+            topPadding: 5
+            bottomPadding: topPadding
+            
+            Label {
+                horizontalAlignment: HorizontalAlignment.Center
+                text: "ModPlayer"
+                textStyle {
+                    base: SystemDefaults.TextStyles.BodyText
+                    fontWeight: FontWeight.Bold
+                    color: Color.White
                 }
             }
         }
-        Label {
+        
+        Container {
+            background: titleTextBack.imagePaint
             horizontalAlignment: HorizontalAlignment.Center
-            visible: root.playing
-            text: root.playing ? app.player.currentSong.title : ""
-        }
-        Label {
-            horizontalAlignment: HorizontalAlignment.Center
-            visible: root.playing
-            text: root.playing ? "("+app.player.currentSong.fileName+")" : ""
+            
+            topMargin: 50
+            
+            leftPadding: 15
+            rightPadding: leftPadding
+            topPadding: 5
+            bottomPadding: topPadding
+            
+            Label {
+                text: {
+                    if(app.player.currentSong.songLoaded) {
+                        var state = app.player.state;
+                        if(state == Player.Playing) {
+                            return "Playing";
+                        } else if (state == Player.Stopped) {
+                            return "Stopped";
+                        } else if (state == Player.Paused) {
+                            return "Paused";
+                        } else {
+                            return "";
+                        }
+                    } else {
+                        return "Idle";
+                    }
+                }
+                textStyle {
+                    color: Color.White
+                }
+            }
         }
         
+        Container {
+            background: titleTextBack.imagePaint
+            horizontalAlignment: HorizontalAlignment.Center
+            
+            visible: playing
+            
+            leftPadding: 15
+            rightPadding: leftPadding
+            topPadding: 5
+            bottomPadding: topPadding
+        
+            Label {
+                text: playing ? app.player.currentSong.title : ""
+                textStyle {
+                    color: Color.White
+                }
+            }
+        }
+        
+        Container {
+            background: titleTextBack.imagePaint
+            horizontalAlignment: HorizontalAlignment.Center
+            visible: playing
+            
+            topMargin: 30
+            
+            leftPadding: 15
+            rightPadding: leftPadding
+            topPadding: 5
+            bottomPadding: topPadding
+
+            Label {
+                text: playing ? "("+app.player.currentSong.fileName+")" : ""
+                textStyle {
+                    color: Color.White
+                    fontSize: FontSize.XSmall
+                }
+            }
+        }
     }
 }

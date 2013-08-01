@@ -197,7 +197,9 @@ void Player::beginPlay(QString const& fileName) {
     {
         if(m_module->play())
         {
-            changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
+            QString file = m_module->fileName();
+            changeStatus(Playing, QString("Playing %1").arg(file));
+            m_catalog->play(file);
         }
         else
         {

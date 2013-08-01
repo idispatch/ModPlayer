@@ -34,6 +34,10 @@ public:
     Q_INVOKABLE QString resolveFileNameById(int id);
     Q_INVOKABLE QVariant resolveModuleById(int id);
     Q_INVOKABLE QVariant resolveModuleByFileName(QString const& fileName);
+
+    Q_INVOKABLE void addFavourite(QVariant const& song);
+    Q_INVOKABLE void removeFavourite(QVariant const& song);
+    Q_INVOKABLE void play(QVariant const& song);
 Q_SIGNALS:
     void formatsChanged();
     void genresChanged();

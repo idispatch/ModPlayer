@@ -1,9 +1,14 @@
 import bb.cascades 1.1
 import player 1.0
+import "functions.js" as Global
 
 Page {
+    property variant navigationPane
+    property variant currentSong
+    
     function play(song) {
-        app.player.play(song)
+        currentSong = song
+        app.player.play(currentSong)
     }
 
     ScrollView {
@@ -91,81 +96,86 @@ Page {
                 visible: app.player.currentSong.songLoaded
             }            
             Label {
-                //property alias playingChannels: app.player.currentSong.playingChannels
                 text: "Playing Channels: " + app.player.currentSong.playingChannels
                 visible: app.player.currentSong.songLoaded
             }
             Label {
-                //property alias masterVolume: app.player.currentSong.masterVolume
                 text: "Master Volume: " + app.player.currentSong.masterVolume
                 visible: app.player.currentSong.songLoaded
             }
-            Divider {}
-            Label {
-                text: "Cached songs: " + app.player.cache.currentFiles
-            }
-            Label {
-                text: {
-                    var x = app.player.cache.currentSize
-                    var s
-                    if(x < 1024) {
-                        s = x + " bytes"
-                    } else { 
-                        x /= 1024
-                        if(x < 1024) {
-                            s = x.toFixed(2) + " kB"
-                        } else {
-                            x /= 1024
-                            s = x.toFixed(2) + " MB"
-                        }
-                    }
-                    return "Used cache size: " + s 
-                }
-            }
-            Divider {}
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
-                }
-                Button {
-                    text: "Play"
-                    //enabled: app.player.state == app.player.state.Stopped ||
-                    //         app.player.state == app.player.state.Paused
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    onClicked: {
-                        //app.player.play(modId.text);
-                    }
-                }
-                Button {
-                    text: "Stop"
-                    enabled: app.player.state == Player.Playing ||
-                    app.player.state == Player.Paused
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    onClicked: {
-                        app.player.stop();
-                    }
-                }
-                Button {
-                    text: "Pause"
-                    enabled: app.player.state == Player.Playing
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    onClicked: {
-                        app.player.pause();
-                    }
-                }
-                Button {
-                    text: "Resume"
-                    enabled: app.player.state == Player.Paused 
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    onClicked: {
-                        app.player.resume();
-                    }
-                }
-            }
         }
     }
+    
+    actions: [
+        ActionItem {
+            id: playStop
+            title: {
+                if(app.player.state == Player.Playing) {
+                    return "Stop"
+                } else {
+                    return "Play"
+                }
+            }
+            enabled: app.player.currentSong.songLoaded
+            imageSource: {
+                if(app.player.state == Player.Playing) {
+                    return "asset:///images/icon_stop.png"
+                } else {
+                    return "asset:///images/icon_play.png"
+                }
+            }
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                if(app.player.state == Player.Playing) {
+                    app.player.stop()
+                } else {
+                    app.player.play(currentSong)
+                }
+            }
+        },
+        ActionItem {
+            id: pauseResume
+            title: {
+                if(app.player.state == Player.Paused) {
+                    return "Resume"
+                } else {
+                    return "Pause"
+                }
+            }
+            enabled: app.player.currentSong.songLoaded
+            imageSource: "asset:///images/icon_pause.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                if(app.player.state == Player.Paused) {
+                    app.player.resume()
+                } else if(app.player.state == Player.Playing) {
+                    app.player.pause()
+                }
+            }
+        }, 
+        ActionItem {
+            title: "Add to Favourites"
+            enabled: app.player.currentSong.songLoaded
+            imageSource: "asset:///images/icon_favorite.png"
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            shortcuts: Shortcut {
+                key: "f"
+            } 
+            onTriggered: {
+                app.catalog.addFavourite(currentSong)
+            }
+        },
+        ActionItem {
+            title: "Remove from Favourites"
+            enabled: app.player.currentSong.songLoaded
+            imageSource: "asset:///images/icon_favorite_off.png"
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            shortcuts: Shortcut {
+                key: "u"
+            } 
+            onTriggered: {
+                app.catalog.removeFavourite(currentSong)
+            }
+        }
+    ]
 }

@@ -26,7 +26,7 @@ Page {
         
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                var view = songsList.createObject()
+                var view = songList.createObject()
                 view.navigationPane = navigationPane
                 view.loadSongsByFormat(chosenItem.id, chosenItem.name)
                 navigationPane.push(view)
@@ -36,8 +36,30 @@ Page {
     
     attachedObjects: [
         ComponentDefinition {
-            id: songsList
+            id: songList
             source: "SongsList.qml"
+        }
+    ]
+    
+    actions: [ 
+        ActionItem {
+            title: "Player"
+            imageSource: "asset:///images/icon_player.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            shortcuts: Shortcut {
+                key: "p"
+            } 
+            onTriggered: {
+                var view = songPlayer.createObject(parent)
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
+            attachedObjects: [
+                ComponentDefinition {
+                    id: songPlayer
+                    source: "SongPlayer.qml"
+                }
+            ]
         }
     ]
 }

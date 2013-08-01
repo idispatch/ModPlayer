@@ -1,9 +1,9 @@
 import bb.cascades 1.1
 
 Page {
-    property variant navigationPane
+    objectName: "SongsTopScored"
     
-    objectName: "SongsTopScored" 
+    property variant navigationPane
     
     titleBar: TitleBar {
         title: "Top Scored Songs"
@@ -57,6 +57,28 @@ Page {
         ComponentDefinition {
             id: songView
             source: "SongView.qml"
+        }
+    ]
+    
+    actions: [ 
+        ActionItem {
+            title: "Player"
+            imageSource: "asset:///images/icon_player.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            shortcuts: Shortcut {
+                key: "p"
+            } 
+            onTriggered: {
+                var view = songPlayer.createObject(parent)
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
+            attachedObjects: [
+                ComponentDefinition {
+                    id: songPlayer
+                    source: "SongPlayer.qml"
+                }
+            ]
         }
     ]
 }

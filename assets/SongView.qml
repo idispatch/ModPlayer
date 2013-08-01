@@ -61,9 +61,16 @@ Page {
     }
     
     function play() {
-        var player = songPlayer.createObject()
-        navigationPane.push(player)
-        player.play(moduleId)
+        var view = songPlayer.createObject()
+        view.navigationPane = navigationPane 
+        navigationPane.push(view)
+        view.play(moduleId)
+    }
+    
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        view.navigationPane = navigationPane 
+        navigationPane.push(view)
     }
     
     function load(songId) {
@@ -94,6 +101,7 @@ Page {
     actions: [ 
         ActionItem {
              title: "Play"
+             imageSource: "asset:///images/icon_play.png"
              enabled: moduleId!=0
              ActionBar.placement: ActionBarPlacement.OnBar
              shortcuts: Shortcut {
@@ -104,13 +112,38 @@ Page {
              }
         },
         ActionItem {
-            title: "Favourite"
+            title: "Player"
+            imageSource: "asset:///images/icon_player.png"
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            shortcuts: Shortcut {
+                key: "n"
+            } 
+            onTriggered: {
+                showPlayer()
+            }
+        },
+        ActionItem {
+            title: "Add to Favourites"
+            imageSource: "asset:///images/icon_favorite.png"
             enabled: moduleId!=0
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.InOverflow
             shortcuts: Shortcut {
                 key: "f"
             } 
             onTriggered: {
+                app.catalog.addFavourite(moduleId)
+            }
+        },
+        ActionItem {
+            title: "Remove from Favourites"
+            imageSource: "asset:///images/icon_favorite_off.png"
+            enabled: moduleId!=0
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            shortcuts: Shortcut {
+                key: "u"
+            } 
+            onTriggered: {
+                app.catalog.removeFavourite(moduleId)
             }
         }
     ]

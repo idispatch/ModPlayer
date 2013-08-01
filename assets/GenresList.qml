@@ -34,17 +34,40 @@ Page {
             
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                var view = songs.createObject()
+                var view = songList.createObject()
                 view.navigationPane = navigationPane
                 view.loadSongsByGenre(chosenItem.id, chosenItem.name)
                 navigationPane.push(view)
             }
         }
     }
+    
     attachedObjects: [
         ComponentDefinition {
-            id: songs
+            id: songList
             source: "SongsList.qml"
+        }
+    ]
+    
+    actions: [ 
+        ActionItem {
+            title: "Player"
+            imageSource: "asset:///images/icon_player.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            shortcuts: Shortcut {
+                key: "p"
+            } 
+            onTriggered: {
+                var view = songPlayer.createObject(parent)
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
+            attachedObjects: [
+                ComponentDefinition {
+                    id: songPlayer
+                    source: "SongPlayer.qml"
+                }
+            ]
         }
     ]
 }

@@ -2,8 +2,7 @@ import bb.cascades 1.1
 import "functions.js" as Global
 
 Sheet {
-    id: sheetConfig
-    
+    id: seetingsRoot
     property int groupSettingIndent: 50
     property int dividerMargin: 30
     
@@ -14,13 +13,13 @@ Sheet {
             dismissAction: ActionItem {
                 title: qsTr("Close")
                 onTriggered: {
-                    sheetConfig.close();
+                    seetingsRoot.close();
                 }
             }
             acceptAction: ActionItem {
                 title: qsTr("Apply")
                 onTriggered: {
-                    sheetConfig.close();
+                    seetingsRoot.close();
                 }
             } 
         }
@@ -120,8 +119,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 Label {
@@ -131,7 +130,7 @@ Sheet {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
                     }
-                    leftPadding: sheetConfig.groupSettingIndent
+                    leftPadding: groupSettingIndent
                     Slider {
                         id: stereoSeparation
                         fromValue: 1
@@ -141,8 +140,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 Label {
@@ -152,7 +151,7 @@ Sheet {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
                     }
-                    leftPadding: sheetConfig.groupSettingIndent
+                    leftPadding: groupSettingIndent
                     Slider {
                         id: maximumMixingChannels
                         fromValue: 32
@@ -162,8 +161,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 CheckBox {
@@ -175,7 +174,7 @@ Sheet {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
                     }
-                    leftPadding: sheetConfig.groupSettingIndent
+                    leftPadding: groupSettingIndent
                     
                     Label {
                         text: "Reverb depth"
@@ -208,7 +207,7 @@ Sheet {
                     }
                     Slider {
                         id: reverbDelay
-                        enabled: reverb.checked
+                        enabled: reverbEnabled.checked
                         fromValue: 40
                         toValue: 200
                         value: 128
@@ -216,8 +215,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 CheckBox {
@@ -230,7 +229,7 @@ Sheet {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
                     }
-                    leftPadding: sheetConfig.groupSettingIndent
+                    leftPadding: groupSettingIndent
                     Label {
                         text: "Bass amount"
                         enabled: megabassEnabled.checked
@@ -270,8 +269,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 CheckBox {
@@ -283,7 +282,7 @@ Sheet {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
                     }
-                    leftPadding: sheetConfig.groupSettingIndent
+                    leftPadding: groupSettingIndent
                     Label {
                         text: "Surrond depth"
                         enabled: surroundEnabled.checked
@@ -323,8 +322,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 CheckBox {
@@ -340,8 +339,8 @@ Sheet {
                 }
                 
                 Divider {
-                    topMargin: sheetConfig.dividerMargin
-                    bottomMargin: sheetConfig.dividerMargin
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
                 }
                 
                 Label {

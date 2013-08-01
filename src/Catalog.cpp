@@ -298,3 +298,15 @@ DataModel * Catalog::findMostScoredSongs() {
     QVariantListDataModel * model = new QVariantListDataModel(data);
     return model;
 }
+
+void Catalog::addFavourite(QVariant const& song) {
+    qDebug() << "Adding favourite module id" << song;
+}
+
+void Catalog::removeFavourite(QVariant const& song) {
+    qDebug() << "Removing favourite module id" << song;
+}
+
+void Catalog::play(QVariant const& song) {
+    qDebug() << "Updating play count for module id" << song;
+}
