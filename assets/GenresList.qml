@@ -58,7 +58,7 @@ Page {
                 key: "p"
             } 
             onTriggered: {
-                var view = songPlayer.createObject(parent)
+                var view = songPlayer.createObject()
                 view.navigationPane = navigationPane
                 navigationPane.push(view)
             }
