@@ -22,7 +22,7 @@ Page {
             id: songs
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VertAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
             
             listItemComponents: [
                 ListItemComponent {
