@@ -73,7 +73,7 @@ enum _ModPlug_ResamplingMode
 typedef struct _ModPlug_Settings
 {
 	int mFlags;  /* One or more of the MODPLUG_ENABLE_* flags above, bitwise-OR'ed */
-	
+
 	/* Note that ModPlug always decodes sound at 44100kHz, 32 bit, stereo and then
 	 * down-mixes to the settings you choose. */
 	int mChannels;       /* Number of channels - 1 for mono or 2 for stereo */
@@ -83,7 +83,7 @@ typedef struct _ModPlug_Settings
 
 	int mStereoSeparation; /* Stereo separation, 1 - 256 */
 	int mMaxMixChannels; /* Maximum number of mixing channels (polyphony), 32 - 256 */
-	
+
 	int mReverbDepth;    /* Reverb level 0(quiet)-100(loud)      */
 	int mReverbDelay;    /* Reverb delay in ms, usually 40-200ms */
 	int mBassAmount;     /* XBass level 0(quiet)-100(loud)       */
@@ -136,6 +136,7 @@ char ModPlug_ExportIT(ModPlugFile* file, const char* filepath);
 
 unsigned int ModPlug_NumInstruments(ModPlugFile* file);
 unsigned int ModPlug_NumSamples(ModPlugFile* file);
+unsigned int ModPlug_NumOrders(ModPlugFile* file);
 unsigned int ModPlug_NumPatterns(ModPlugFile* file);
 unsigned int ModPlug_NumChannels(ModPlugFile* file);
 unsigned int ModPlug_SampleName(ModPlugFile* file, unsigned int qual, char* buff);
@@ -152,7 +153,7 @@ ModPlugNote* ModPlug_GetPattern(ModPlugFile* file, int pattern, unsigned int* nu
  * =================
  *
  * Use this callback if you want to 'modify' the mixed data of LibModPlug.
- * 
+ *
  * void proc(int* buffer,unsigned long channels,unsigned long nsamples) ;
  *
  * 'buffer': A buffer of mixed samples

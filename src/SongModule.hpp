@@ -22,6 +22,7 @@ class SongModule : public QObject {
 
     Q_PROPERTY(int instruments READ instruments WRITE setInstruments NOTIFY instrumentsChanged FINAL)
     Q_PROPERTY(int samples READ samples WRITE setSamples NOTIFY samplesChanged FINAL)
+    Q_PROPERTY(int orders READ orders WRITE setOrders NOTIFY ordersChanged FINAL)
     Q_PROPERTY(int patterns READ patterns WRITE setPatterns NOTIFY patternsChanged FINAL)
     Q_PROPERTY(int channels READ channels WRITE setChannels NOTIFY channelsChanged FINAL)
 
@@ -60,6 +61,9 @@ public:
 
     int samples() const;
     void setSamples(int value);
+
+    int orders() const;
+    void setOrders(int value);
 
     int patterns() const;
     void setPatterns(int value);
@@ -112,6 +116,7 @@ Q_SIGNALS:
     void fileNameChanged();
 
     void instrumentsChanged();
+    void ordersChanged();
     void patternsChanged();
     void samplesChanged();
     void channelsChanged();
@@ -145,6 +150,7 @@ private:
 
     int m_instruments;
     int m_channels;
+    int m_orders;
     int m_patterns;
     int m_samples;
 

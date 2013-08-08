@@ -219,6 +219,11 @@ unsigned int ModPlug_NumSamples(ModPlugFile* file)
 	return file->mSoundFile.m_nSamples;
 }
 
+unsigned int ModPlug_NumOrders(ModPlugFile* file)
+{
+    return file->mSoundFile.GetNumOrders();
+}
+
 unsigned int ModPlug_NumPatterns(ModPlugFile* file)
 {
 	return file->mSoundFile.GetNumPatterns();

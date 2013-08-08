@@ -9,10 +9,24 @@
 #include <QByteArray>
 
 SongModule::SongModule(QObject *parent) :
-        QObject(parent), m_fileSize(0), m_instruments(0), m_channels(0), m_patterns(0), m_samples(
-                0), m_currentOrder(0), m_currentPattern(0), m_currentRow(0), m_currentSpeed(0), m_currentTempo(
-                0), m_masterVolume(0), m_playingChannels(0), m_length(0), m_modPlug(NULL), m_playback(
-                new ModPlayback(this)), m_timer(new QTimer(this))
+        QObject(parent),
+        m_fileSize(0),
+        m_instruments(0),
+        m_channels(0),
+        m_orders(0),
+        m_patterns(0),
+        m_samples(0),
+        m_currentOrder(0),
+        m_currentPattern(0),
+        m_currentRow(0),
+        m_currentSpeed(0),
+        m_currentTempo(0),
+        m_masterVolume(0),
+        m_playingChannels(0),
+        m_length(0),
+        m_modPlug(NULL),
+        m_playback(new ModPlayback(this)),
+        m_timer(new QTimer(this))
 {
     bool rc;
     rc = connect(m_timer, SIGNAL(timeout()), this, SLOT(onUpdateTimeout()));
@@ -114,6 +128,19 @@ void SongModule::setChannels(int value)
     if (m_channels != value) {
         m_channels = value;
         emit channelsChanged();
+    }
+}
+
+int SongModule::orders() const
+{
+    return m_orders;
+}
+
+void SongModule::setOrders(int value)
+{
+    if (m_orders != value) {
+        m_orders = value;
+        emit ordersChanged();
     }
 }
 
@@ -356,6 +383,7 @@ bool SongModule::load(QString const& fileName)
                 setChannels(ModPlug_NumChannels(m_modPlug));
                 setSamples(ModPlug_NumSamples(m_modPlug));
                 setPatterns(ModPlug_NumPatterns(m_modPlug));
+                setOrders(ModPlug_NumOrders(m_modPlug));
 
                 setFileSize(data.size());
 
@@ -379,7 +407,8 @@ bool SongModule::load(QString const& fileName)
 
 bool SongModule::unload()
 {
-    if (m_modPlug != NULL) {
+    if (m_modPlug != NULL)
+    {
         m_playback->unload();
 
         stopRefreshTimer();
@@ -396,6 +425,7 @@ bool SongModule::unload()
         setChannels(0);
         setSamples(0);
         setPatterns(0);
+        setOrders(0);
 
         setFileSize(0);
 
@@ -415,32 +445,33 @@ bool SongModule::unload()
 
 void SongModule::onUpdateTimeout()
 {
-    switch (m_playback->state()) {
-        case ModPlayback::Idle:
-        case ModPlayback::Loading:
-        case ModPlayback::Loaded:
-        case ModPlayback::Unloading:
-        case ModPlayback::Stopping:
-        case ModPlayback::Exiting:
-        case ModPlayback::Exit:
-            setCurrentOrder(0);
-            setCurrentPattern(0);
-            setCurrentRow(0);
-            setCurrentSpeed(0);
-            setCurrentTempo(0);
-            setMasterVolume(0);
-            setPlayingChannels(0);
-            break;
-        case ModPlayback::Rewinding:
-        case ModPlayback::Playing:
-        case ModPlayback::Paused:
-            setCurrentOrder(ModPlug_GetCurrentOrder(m_modPlug));
-            setCurrentPattern(ModPlug_GetCurrentPattern(m_modPlug));
-            setCurrentRow(ModPlug_GetCurrentRow(m_modPlug));
-            setCurrentSpeed(ModPlug_GetCurrentSpeed(m_modPlug));
-            setCurrentTempo(ModPlug_GetCurrentTempo(m_modPlug));
-            setMasterVolume(ModPlug_GetMasterVolume(m_modPlug));
-            setPlayingChannels(ModPlug_GetPlayingChannels(m_modPlug));
-            break;
+    switch (m_playback->state())
+    {
+    case ModPlayback::Idle:
+    case ModPlayback::Loading:
+    case ModPlayback::Loaded:
+    case ModPlayback::Unloading:
+    case ModPlayback::Stopping:
+    case ModPlayback::Exiting:
+    case ModPlayback::Exit:
+        setCurrentOrder(0);
+        setCurrentPattern(0);
+        setCurrentRow(0);
+        setCurrentSpeed(0);
+        setCurrentTempo(0);
+        setMasterVolume(0);
+        setPlayingChannels(0);
+        break;
+    case ModPlayback::Rewinding:
+    case ModPlayback::Playing:
+    case ModPlayback::Paused:
+        setCurrentOrder(ModPlug_GetCurrentOrder(m_modPlug));
+        setCurrentPattern(ModPlug_GetCurrentPattern(m_modPlug));
+        setCurrentRow(ModPlug_GetCurrentRow(m_modPlug));
+        setCurrentSpeed(ModPlug_GetCurrentSpeed(m_modPlug));
+        setCurrentTempo(ModPlug_GetCurrentTempo(m_modPlug));
+        setMasterVolume(ModPlug_GetMasterVolume(m_modPlug));
+        setPlayingChannels(ModPlug_GetPlayingChannels(m_modPlug));
+        break;
     }
 }

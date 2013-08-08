@@ -123,7 +123,9 @@ BOOL CSoundFile::Create(LPCBYTE lpStream, DWORD dwMemLength)
 	memset(m_szNames, 0, sizeof(m_szNames));
 	memset(m_MixPlugins, 0, sizeof(m_MixPlugins));
 	ResetMidiCfg();
-	for (UINT npt=0; npt<MAX_PATTERNS; npt++) PatternSize[npt] = 64;
+	for (UINT npt=0; npt<MAX_PATTERNS; npt++) {
+	    PatternSize[npt] = 64;
+	}
 	for (UINT nch=0; nch<MAX_BASECHANNELS; nch++)
 	{
 		ChnSettings[nch].nPan = 128;
@@ -228,7 +230,7 @@ BOOL CSoundFile::Create(LPCBYTE lpStream, DWORD dwMemLength)
 		if (pins->nGlobalVol > 64) pins->nGlobalVol = 64;
 	}
 	// Check invalid instruments
-	while ((m_nInstruments > 0) && (!Headers[m_nInstruments])) 
+	while ((m_nInstruments > 0) && (!Headers[m_nInstruments]))
 		m_nInstruments--;
 	// Set default values
 	if (m_nSongPreAmp < 0x20) m_nSongPreAmp = 0x20;
@@ -244,7 +246,9 @@ BOOL CSoundFile::Create(LPCBYTE lpStream, DWORD dwMemLength)
 	m_nTickCount = m_nMusicSpeed;
 	m_nNextRow = 0;
 	m_nRow = 0;
-	if ((m_nRestartPos >= MAX_ORDERS) || (Order[m_nRestartPos] >= MAX_PATTERNS)) m_nRestartPos = 0;
+	if ((m_nRestartPos >= MAX_ORDERS) || (Order[m_nRestartPos] >= MAX_PATTERNS)) {
+	    m_nRestartPos = 0;
+	}
 	// Load plugins
 	if (gpMixPluginCreateProc)
 	{
@@ -273,15 +277,17 @@ BOOL CSoundFile::Create(LPCBYTE lpStream, DWORD dwMemLength)
 
 
 BOOL CSoundFile::Destroy()
-
 //------------------------
 {
 	int i;
-	for (i=0; i<MAX_PATTERNS; i++) if (Patterns[i])
-	{
-		FreePattern(Patterns[i]);
-		Patterns[i] = NULL;
+	for (i=0; i<MAX_PATTERNS; i++) {
+	    if (Patterns[i])
+	    {
+            FreePattern(Patterns[i]);
+            Patterns[i] = NULL;
+        }
 	}
+
 	m_nPatternNames = 0;
 	if (m_lpszPatternNames)
 	{
@@ -538,12 +544,26 @@ void CSoundFile::SetAGC(BOOL b)
 }
 
 
-UINT CSoundFile::GetNumPatterns() const
+UINT CSoundFile::GetNumOrders() const
 //-------------------------------------
 {
 	UINT i = 0;
 	while ((i < MAX_ORDERS) && (Order[i] < 0xFF)) i++;
 	return i;
+}
+
+UINT CSoundFile::GetNumPatterns() const
+//-------------------------------------
+{
+    UINT i = 0;
+    UINT result = 0;
+    for (; i<MAX_PATTERNS; i++) {
+        if (Patterns[i])
+        {
+            ++result;
+        }
+    }
+    return result;
 }
 
 

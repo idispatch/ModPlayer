@@ -15,6 +15,7 @@ namespace bb {
 
 class QSqlQuery;
 
+class SongInfo;
 class SongBasicInfo;
 
 class Catalog : public QObject {
@@ -58,11 +59,13 @@ private:
     void initCatalog();
     void initQMLTypes();
     void copyCatalogToDataFolder();
-    static void dumpData(QVariantList const& data);
+    SongInfo * selectSongInfo(QString const& whereClause);
     bb::cascades::DataModel * selectSongBasicInfo(QString const& whereClause,
                                                   QString const& orderByClause);
     static SongBasicInfo * readSongBasicInfo(QSqlQuery &sqlQuery,
                                              QObject *parent);
+    static SongInfo * readSongInfo(QSqlQuery &sqlQuery,
+                                   QObject *parent);
 private:
     bb::data::SqlDataAccess * m_dataAccess;
 };

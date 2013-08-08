@@ -62,6 +62,10 @@ Page {
                 visible: app.player.currentSong.songLoaded
             }
             Label {
+                text: "Orders: " + app.player.currentSong.orders
+                visible: app.player.currentSong.songLoaded
+            }
+            Label {
                 text: "Patterns: " + app.player.currentSong.patterns
                 visible: app.player.currentSong.songLoaded
             }

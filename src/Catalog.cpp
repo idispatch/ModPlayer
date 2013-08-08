@@ -17,8 +17,6 @@
 using namespace bb::data;
 using namespace bb::cascades;
 
-//#define DEBUG_CATALOG
-
 Catalog::Catalog(QObject * parent)
     : QObject(parent),
       m_dataAccess(NULL) {
@@ -64,24 +62,6 @@ void Catalog::copyCatalogToDataFolder() {
             qDebug() << "Failed to copy catalog - file does not exists";
         }
     }
-}
-
-void Catalog::dumpData(QVariantList const& data) {
-#if 0
-#ifdef DEBUG_CATALOG
-    int c = data.count();
-    for(int i = 0; i< c;++i){
-        QVariant v = data[i];
-        QMap<QString, QVariant> m = v.toMap();
-        QList<QString> keys = m.keys();
-        for(int j = keys.count() - 1; j>=0; --j){
-            qDebug() << keys[j] << ":" << m[keys[j]];
-        }
-    }
-#endif
-#else
-    Q_UNUSED(data);
-#endif
 }
 
 QString Catalog::catalogPath() const {
@@ -216,7 +196,6 @@ QString Catalog::resolveFileNameById(int id) {
             "FROM songs "
             "WHERE id=%1").arg(id);
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
     if(data.size() == 1)
     {
         QVariant const& first = data.first();
@@ -238,7 +217,6 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 #endif
     QString query = QString("SELECT id FROM songs WHERE fileName='%1'").arg(fileName);
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
     if(data.size() == 1)
     {
         QVariant const& first = data.first();
@@ -256,40 +234,15 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 
 QVariant Catalog::resolveModuleById(int id) {
 #ifdef DEBUG_CATALOG
-    qDebug() << "Resolving module id" << id;
+    qDebug() << "Resolving module" << id;
 #endif
-    QString query = QString(
-            "SELECT"
-            " songs.id AS id,"
-            " fileName,"
-            " size, "
-            " songs.title AS title, "
-            " formats.description AS format, "
-            " length, "
-            " trackers.name AS tracker, "
-            " genre, "
-            " artist, "
-            " downloads, "
-            " favourited, "
-            " score, "
-            " patterns, "
-            " orders, "
-            " instruments, "
-            " samples, "
-            " channels, "
-            " playCount, "
-            " lastPlayed, "
-            " myFavourite "
-            "FROM songs "
-            "INNER JOIN trackers ON trackers.id=songs.tracker "
-            "INNER JOIN formats ON formats.id=songs.format "
-            "WHERE songs.id=%1").arg(id);
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    if(data.size() == 1)
+    SongInfo * song = selectSongInfo(QString("WHERE songs.id=%1").arg(id));
+    if(song != NULL)
     {
-        QVariant const& first = data.first();
-        return first;
+#ifdef DEBUG_CATALOG
+        qDebug() << "Module resolved";
+#endif
+        return QVariant::fromValue(song);
     }
     else
     {
@@ -302,48 +255,68 @@ QVariant Catalog::resolveModuleById(int id) {
 
 QVariant Catalog::resolveModuleByFileName(QString const& fileName) {
 #ifdef DEBUG_CATALOG
-    qDebug() << "Resolving module file name" << fileName;
+    qDebug() << "Resolving module" << fileName;
 #endif
-    QString query = QString(
-            "SELECT"
-            " songs.id AS id,"
-            " fileName,"
-            " size, "
-            " songs.title AS title, "
-            " formats.description AS format, "
-            " length, "
-            " trackers.name AS tracker, "
-            " genre, "
-            " artist, "
-            " downloads, "
-            " favourited, "
-            " score, "
-            " patterns, "
-            " orders, "
-            " instruments, "
-            " samples, "
-            " channels, "
-            " playCount, "
-            " lastPlayed, "
-            " myFavourite "
-            "FROM songs "
-            "INNER JOIN trackers ON trackers.id=songs.tracker "
-            "INNER JOIN formats ON formats.id=songs.format "
-            "WHERE songs.fileName='%1'").arg(fileName);
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    if(data.size() == 1)
+    SongInfo * song = selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName));
+    if(song != NULL)
     {
-        QVariant const& first = data.first();
-        return first;
+#ifdef DEBUG_CATALOG
+        qDebug() << "Module resolved";
+#endif
+        return QVariant::fromValue(song);
     }
     else
     {
 #ifdef DEBUG_CATALOG
-        qDebug() << "Module file name" << fileName << "cannot be resolved";
+        qDebug() << "Module" << fileName << "cannot be resolved";
 #endif
         return QVariant();
     }
+}
+
+SongInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
+    int column       = 0;
+    int id           = sqlQuery.value(column++).toInt();
+    QString fileName = sqlQuery.value(column++).toString();
+    QString title    = sqlQuery.value(column++).toString();
+    int downloads    = sqlQuery.value(column++).toInt();
+    int favourited   = sqlQuery.value(column++).toInt();
+    int score        = sqlQuery.value(column++).toInt();
+    int size         = sqlQuery.value(column++).toInt();
+    int length       = sqlQuery.value(column++).toInt();
+    int playCount    = sqlQuery.value(column++).toInt();
+    int lastPlayed   = sqlQuery.value(column++).toInt();
+    int myFavourite  = sqlQuery.value(column++).toInt();
+    QString format   = sqlQuery.value(column++).toString();
+    QString tracker  = sqlQuery.value(column++).toString();
+    QString genre    = sqlQuery.value(column++).toString();
+    QString artist   = sqlQuery.value(column++).toString();
+    int patterns     = sqlQuery.value(column++).toInt();
+    int orders       = sqlQuery.value(column++).toInt();
+    int instruments  = sqlQuery.value(column++).toInt();
+    int samples      = sqlQuery.value(column++).toInt();
+    int channels     = sqlQuery.value(column++).toInt();
+    return new SongInfo(id,
+                        fileName,
+                        title,
+                        downloads,
+                        favourited,
+                        score,
+                        size,
+                        length,
+                        playCount,
+                        lastPlayed,
+                        myFavourite,
+                        format,
+                        tracker,
+                        genre,
+                        artist,
+                        patterns,
+                        orders,
+                        instruments,
+                        samples,
+                        channels,
+                        parent);
 }
 
 SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
@@ -371,6 +344,44 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
                              lastPlayed,
                              myFavourite,
                              parent);
+}
+
+SongInfo * Catalog::selectSongInfo(QString const& whereClause) {
+    QString query = QString(
+                "SELECT"
+                " songs.id AS id,"
+                " fileName,"
+                " songs.title as title,"
+                " downloads, "
+                " favourited, "
+                " score, "
+                " size, "
+                " length, "
+                " playCount, "
+                " lastPlayed, "
+                " myFavourite, "
+                " formats.description AS format, "
+                " trackers.name AS tracker, "
+                " genre, "
+                " artist, "
+                " patterns, "
+                " orders, "
+                " instruments, "
+                " samples, "
+                " channels "
+                "FROM songs"
+                " INNER JOIN trackers ON trackers.id=songs.tracker "
+                " INNER JOIN formats ON formats.id=songs.format ");
+    if(whereClause.length() > 0) {
+        query += whereClause;
+    }
+    SongInfo * song = NULL;
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        song = readSongInfo(sqlQuery, NULL); //TODO: leak
+    }
+    return song;
 }
 
 DataModel * Catalog::selectSongBasicInfo(QString const& whereClause,
@@ -436,47 +447,81 @@ DataModel * Catalog::findMostPlayedSongs() {
 
 void Catalog::addFavourite(QVariant const& song) {
     qDebug() << "Adding favourite module" << song;
-    QString query = QString("UPDATE songs SET myFavourite=1 ");
-    if(song.type() == QVariant::Int) {
+
+    QString query = QString("UPDATE songs SET myFavourite=myFavourite+1 ");
+    if(song.type() == QVariant::Int)
+    {
         query += QString("WHERE id=%1").arg(song.toInt());
-    } else if(song.type() == QVariant::String) {
-        query += QString("WHERE fileName='%1'").arg(song.toString());
-    } else {
-        qDebug() << "Type:" << song.type();
-        if(song.type() == qMetaTypeId<SongBasicInfo*>()) {
-            qDebug() << "Type: SongBasicInfo*";
-            SongBasicInfo * pInfo = song.value<SongBasicInfo*>();
-            qDebug() << pInfo;
-            query += QString("WHERE id=%1").arg(pInfo->modId());
-        } else if(song.type() == qMetaTypeId<SongInfo*>()) {
-            qDebug() << "Type: SongInfo*";
-            SongInfo * pInfo = song.value<SongInfo*>();
-            qDebug() << pInfo;
-            query += QString("WHERE id=%1").arg(pInfo->modId());
-        }
     }
-    m_dataAccess->execute(query);
+    else if(song.type() == QVariant::String)
+    {
+        query += QString("WHERE fileName='%1'").arg(song.toString());
+    }
+    else if((int)song.type() == (int)QMetaType::QObjectStar)
+    {
+        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(song.value<QObject*>());
+        query += QString("WHERE id=%1").arg(info->modId());
+    }
+    else
+    {
+        query = "";
+    }
+
+    if(query.length() > 0) {
+        m_dataAccess->execute(query);
+    }
 }
 
 void Catalog::removeFavourite(QVariant const& song) {
     qDebug() << "Removing favourite module" << song;
+
     QString query = QString("UPDATE songs SET myFavourite=0 ");
-    if(song.type() == QVariant::Int) {
+    if(song.type() == QVariant::Int)
+    {
         query += QString("WHERE id=%1").arg(song.toInt());
-    } else if(song.type() == QVariant::String) {
+    }
+    else if(song.type() == QVariant::String)
+    {
         query += QString("WHERE fileName='%1'").arg(song.toString());
     }
-    m_dataAccess->execute(query);
+    else if((int)song.type() == (int)QMetaType::QObjectStar)
+    {
+        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(song.value<QObject*>());
+        query += QString("WHERE id=%1").arg(info->modId());
+    }
+    else
+    {
+        query = "";
+    }
+
+    if(query.length() > 0) {
+        m_dataAccess->execute(query);
+    }
 }
 
 void Catalog::play(QVariant const& song) {
     qDebug() << "Updating play count for module" << song;
     uint now = QDateTime::currentDateTime().toTime_t();
     QString query = QString("UPDATE songs SET playCount=playCount+1, lastPlayed=%1 ").arg(now);
-    if(song.type() == QVariant::Int) {
+    if(song.type() == QVariant::Int)
+    {
         query += QString("WHERE id=%1").arg(song.toInt());
-    } else if(song.type() == QVariant::String) {
+    }
+    else if(song.type() == QVariant::String)
+    {
         query += QString("WHERE fileName='%1'").arg(song.toString());
     }
-    m_dataAccess->execute(query);
+    else if((int)song.type() == (int)QMetaType::QObjectStar)
+    {
+        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(song.value<QObject*>());
+        query += QString("WHERE id=%1").arg(info->modId());
+    }
+    else
+    {
+        query = "";
+    }
+
+    if(query.length() > 0) {
+        m_dataAccess->execute(query);
+    }
 }

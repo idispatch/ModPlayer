@@ -129,7 +129,7 @@ Page {
         var view = songPlayer.createObject()
         view.navigationPane = navigationPane 
         navigationPane.push(view)
-        view.play(song.id)
+        view.play(song.modId)
     }
     
     function showPlayer() {
@@ -141,7 +141,8 @@ Page {
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId)
         
-        songId = "ModID: " + song.id
+        songId = "ModID: " + song.modId
+        
         if(app.cache.exists(song.fileName)) {
             songInCache = "You have this song in the cache already"
         } else {

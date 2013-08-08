@@ -9,18 +9,40 @@
 class SongInfo : public SongBasicInfo {
     Q_OBJECT
 
-    Q_PROPERTY(QString format READ format WRITE setFormat FINAL)
-    Q_PROPERTY(QString tracker READ tracker WRITE setTracker FINAL)
-    Q_PROPERTY(QString genre READ genre WRITE setGenre FINAL)
-    Q_PROPERTY(QString artist READ artist WRITE setArtist FINAL)
-    Q_PROPERTY(int patterns READ patterns WRITE setPatterns FINAL)
-    Q_PROPERTY(int orders READ orders WRITE setOrders FINAL)
-    Q_PROPERTY(int instruments READ instruments WRITE setInstruments FINAL)
-    Q_PROPERTY(int samples READ samples WRITE setSamples FINAL)
-    Q_PROPERTY(int channels READ channels WRITE setChannels FINAL)
+    Q_PROPERTY(QString format READ format WRITE setFormat NOTIFY formatChanged FINAL)
+    Q_PROPERTY(QString tracker READ tracker WRITE setTracker NOTIFY trackerChanged FINAL)
+    Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged FINAL)
+    Q_PROPERTY(QString artist READ artist WRITE setArtist NOTIFY artistChanged FINAL)
+    Q_PROPERTY(int patterns READ patterns WRITE setPatterns NOTIFY patternsChanged FINAL)
+    Q_PROPERTY(int orders READ orders WRITE setOrders NOTIFY ordersChanged FINAL)
+    Q_PROPERTY(int instruments READ instruments WRITE setInstruments NOTIFY instrumentsChanged FINAL)
+    Q_PROPERTY(int samples READ samples WRITE setSamples NOTIFY samplesChanged FINAL)
+    Q_PROPERTY(int channels READ channels WRITE setChannels NOTIFY channelsChanged FINAL)
 
 public:
     SongInfo(QObject *parent = 0);
+    SongInfo(int id,
+             QString const& fileName,
+             QString const& title,
+             int downloads,
+             int favourited,
+             int score,
+             int size,
+             int length,
+             int playCount,
+             int lastPlayed,
+             bool myFavourite,
+             QString const& format,
+             QString const& tracker,
+             QString const& genre,
+             QString const& artist,
+             int patterns,
+             int orders,
+             int instruments,
+             int samples,
+             int channels,
+             QObject * parent = 0);
+    ~SongInfo();
 
     QString format() const;
     void setFormat(const QString &value);
@@ -48,6 +70,16 @@ public:
 
     int channels() const;
     void setChannels(int value);
+Q_SIGNALS:
+    void formatChanged();
+    void trackerChanged();
+    void genreChanged();
+    void artistChanged();
+    void patternsChanged();
+    void ordersChanged();
+    void instrumentsChanged();
+    void samplesChanged();
+    void channelsChanged();
 private:
     Q_DISABLE_COPY(SongInfo)
     QString m_format;
