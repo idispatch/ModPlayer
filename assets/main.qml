@@ -6,6 +6,7 @@ TabbedPane {
         title: "Formats"
         objectName: title
         description: "Songs By Module Format"
+        imageSource: "asset:///images/icon_format.png"
         NavigationPane {
             FormatsList {
                 id: songFormatsList
@@ -36,6 +37,7 @@ TabbedPane {
         id: topDownloadsTab
         title: "Downloads"
         objectName: title
+        imageSource: "asset:///images/icon_download.png"
         description: "Top Downloaded Songs"
         onTriggered: {
             songsTopDownloadedView.load()
@@ -75,6 +77,7 @@ TabbedPane {
         id: topScoredTab
         title: "Scored"
         objectName: title
+        imageSource: "asset:///images/icon_score.png"
         description: "Top Scored Songs"
         onTriggered: {
             songTopScoredView.load()
@@ -95,6 +98,7 @@ TabbedPane {
         id: recentlyPlayedTab
         title: "Recent"
         objectName: title
+        imageSource: "asset:///images/icon_recent.png"
         description: "Recently Played Songs"
         onTriggered: {
             songRecentlyPlayedView.load()
@@ -115,6 +119,7 @@ TabbedPane {
         id: mostPlayedTab
         title: "Most Played"
         objectName: title
+        imageSource: "asset:///images/icon_mostplayed.png"
         description: "Most Played Songs"
         onTriggered: {
             songMostPlayedView.load()
@@ -135,6 +140,7 @@ TabbedPane {
         id: myFavouriteTab
         title: "My Favourite"
         objectName: title
+        imageSource: "asset:///images/icon_myfavourite.png"
         description: "My Favourite Songs"
         onTriggered: {
             songMyFavouriteView.load()

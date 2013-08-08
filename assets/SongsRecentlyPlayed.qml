@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 Page {
     objectName: "SongsRecentlyPlayed"
@@ -29,7 +30,7 @@ Page {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
-                        status: ListItemData.lastPlayed
+                        status: Global.formatTimeStamp(ListItemData.lastPlayed)
                     }
                 }
             ]

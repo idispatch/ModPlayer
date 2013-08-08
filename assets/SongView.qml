@@ -180,7 +180,7 @@ Page {
             } else {
                 songPlayCount = "You played this song " + song.playCount + " times"
             }
-            songLastPlayed = song.lastPlayed
+            songLastPlayed = "Last played " + Global.formatTimeStamp(song.lastPlayed)
         } else {
             songPlayCount = "You did not play this song yet"
             songLastPlayed = ""
