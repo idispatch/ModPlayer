@@ -3,7 +3,7 @@ import bb.cascades 1.0
 ActionItem {
     property variant navigationPane
     
-    title: "Player"
+    title: "Now Playing"
     imageSource: "asset:///images/icon_player.png"
     ActionBar.placement: ActionBarPlacement.OnBar
     shortcuts: Shortcut {

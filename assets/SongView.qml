@@ -100,7 +100,7 @@ Page {
     
     actions: [ 
         ActionItem {
-            title: "Player"
+            title: "Now Playing"
             imageSource: "asset:///images/icon_player.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
             shortcuts: Shortcut {
