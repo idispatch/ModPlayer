@@ -14,8 +14,6 @@ Page {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
-            dataModel: app.player.catalog.genres
-            
             listItemComponents: [
                 ListItemComponent {
                     type: "header"
@@ -31,6 +29,10 @@ Page {
                     }
                 }
             ]
+            
+            onCreationCompleted: {
+                dataModel = app.player.catalog.genres
+            }
             
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
@@ -52,6 +54,9 @@ Page {
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane
+        },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
         } 
     ]
 }

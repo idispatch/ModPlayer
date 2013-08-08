@@ -14,8 +14,6 @@ Page {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
-            dataModel: app.player.catalog.formats
-            
             listItemComponents: ListItemComponent {
                 StandardListItem {
                     title: ListItemData.name
@@ -38,12 +36,18 @@ Page {
                     source: "SongsList.qml"
                 }
             ]
+            onCreationCompleted: {
+                dataModel = app.player.catalog.formats
+            }
         }
     }
     
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane
+        },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
         } 
     ]
 }

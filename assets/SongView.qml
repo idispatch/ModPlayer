@@ -100,18 +100,6 @@ Page {
     
     actions: [ 
         ActionItem {
-             title: "Play"
-             imageSource: "asset:///images/icon_play.png"
-             enabled: moduleId!=0
-             ActionBar.placement: ActionBarPlacement.OnBar
-             shortcuts: Shortcut {
-                 key: "p"
-             } 
-             onTriggered: {
-                 play()
-             }
-        },
-        ActionItem {
             title: "Player"
             imageSource: "asset:///images/icon_player.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
@@ -121,6 +109,21 @@ Page {
             onTriggered: {
                 showPlayer()
             }
+        },
+        ActionItem {
+            title: "Play"
+            imageSource: "asset:///images/icon_play.png"
+            enabled: moduleId!=0
+            ActionBar.placement: ActionBarPlacement.OnBar
+            shortcuts: Shortcut {
+                key: "p"
+            } 
+            onTriggered: {
+                play()
+            }
+        },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AddFavouriteActionItem {
             currentSong: parent.moduleId

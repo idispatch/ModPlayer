@@ -107,57 +107,8 @@ Page {
     }
     
     actions: [
-        ActionItem {
-            title: {
-                if(app.player.state == Player.Playing ||
-                   app.player.state == Player.Paused) {
-                    return "Stop"
-                } else {
-                    return "Play"
-                }
-            }
-            enabled: app.player.currentSong.songLoaded
-            imageSource: {
-                if(app.player.state == Player.Playing ||
-                   app.player.state == Player.Paused) {
-                    return "asset:///images/icon_stop.png"
-                } else {
-                    return "asset:///images/icon_play.png"
-                }
-            }
-            ActionBar.placement: ActionBarPlacement.OnBar
-            onTriggered: {
-                if(app.player.state == Player.Playing ||
-                   app.player.state == Player.Paused) {
-                    app.player.stop()
-                } else {
-                    app.player.play(currentSong)
-                }
-            }
-        },
-        ActionItem {
-            title: {
-                if(app.player.state == Player.Paused) {
-                    return "Resume"
-                } else {
-                    return "Pause"
-                }
-            }
-            enabled: {
-                return app.player.currentSong.songLoaded &&
-                        (app.player.state == Player.Paused || 
-                         app.player.state == Player.Playing);
-            } 
-            imageSource: "asset:///images/icon_pause.png"
-            ActionBar.placement: ActionBarPlacement.OnBar
-            onTriggered: {
-                if(app.player.state == Player.Paused) {
-                    app.player.resume()
-                } else if(app.player.state == Player.Playing) {
-                    app.player.pause()
-                }
-            }
-        }, 
+        PlayActionItem {},
+        PauseActionItem {}, 
         AddFavouriteActionItem {
             currentSong: app.player.currentSong.fileName
             enabled: app.player.currentSong.songLoaded

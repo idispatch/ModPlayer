@@ -22,7 +22,7 @@ Page {
             id: songs
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
+            verticalAlignment: VertAlignment.Fill
             
             listItemComponents: [
                 ListItemComponent {
@@ -63,6 +63,9 @@ Page {
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane
+        },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
         } 
     ]
 }

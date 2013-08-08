@@ -63,6 +63,9 @@ Page {
     actions: [ 
         PlayerActionItem {
             navigationPane: parent.navigationPane
+        },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
         }
     ]
 }
