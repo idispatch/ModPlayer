@@ -1,9 +1,10 @@
-import bb.cascades 1.1
+import bb.cascades 1.0
 
 TabbedPane {
     Tab {
         id: formatsTab
         title: "Formats"
+        objectName: title
         description: "Songs By Module Format"
         NavigationPane {
             FormatsList {
@@ -18,6 +19,7 @@ TabbedPane {
     Tab {
         id: genresTab
         title: "Genres"
+        objectName: title
         description: "Songs By Genre"
         imageSource: "asset:///images/icon_genre.png"
         NavigationPane {
@@ -33,6 +35,7 @@ TabbedPane {
     Tab {
         id: topDownloadsTab
         title: "Downloads"
+        objectName: title
         description: "Top Downloaded Songs"
         onTriggered: {
             songsTopDownloadedView.load()
@@ -51,6 +54,7 @@ TabbedPane {
     Tab {
         id: topFavouritedTab
         title: "Favourited"
+        objectName: title
         imageSource: "asset:///images/icon_heart.png"
         description: "Top Favourited Songs"
         onTriggered: {
@@ -70,6 +74,7 @@ TabbedPane {
     Tab {
         id: topScoredTab
         title: "Scored"
+        objectName: title
         description: "Top Scored Songs"
         onTriggered: {
             songTopScoredView.load()
@@ -86,12 +91,15 @@ TabbedPane {
         }
     }
     
+    onActiveTabChanged: {
+        console.log(activeTab.objectName)
+    } 
+    
     Menu.definition: MenuDefinition {
         helpAction: HelpActionItem {
             id: helpActionItem
             title: "Help"
             onTriggered: {
-                
             }
         }
         
@@ -102,13 +110,12 @@ TabbedPane {
                 var view = settingsView.createObject()
                 view.open()
             }
+            attachedObjects: [
+                ComponentDefinition {
+                    id: settingsView
+                    source: "Settings.qml"
+                }
+            ] 
         }
     }
-    
-    attachedObjects: [
-        ComponentDefinition {
-            id: settingsView
-            source: "Settings.qml"
-        }
-    ]
 }

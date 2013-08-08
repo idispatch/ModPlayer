@@ -1,4 +1,4 @@
-import bb.cascades 1.1
+import bb.cascades 1.0
 
 Page {
     property int moduleId
@@ -123,29 +123,11 @@ Page {
                 showPlayer()
             }
         },
-        ActionItem {
-            title: "Add to Favourites"
-            imageSource: "asset:///images/icon_favorite.png"
-            enabled: moduleId!=0
-            ActionBar.placement: ActionBarPlacement.InOverflow
-            shortcuts: Shortcut {
-                key: "f"
-            } 
-            onTriggered: {
-                app.catalog.addFavourite(moduleId)
-            }
+        AddFavouriteActionItem {
+            currentSong: parent.moduleId
         },
-        ActionItem {
-            title: "Remove from Favourites"
-            imageSource: "asset:///images/icon_favorite_off.png"
-            enabled: moduleId!=0
-            ActionBar.placement: ActionBarPlacement.InOverflow
-            shortcuts: Shortcut {
-                key: "u"
-            } 
-            onTriggered: {
-                app.catalog.removeFavourite(moduleId)
-            }
+        RemoveFavouriteActionItem {
+            currentSong: parent.moduleId
         }
     ]
 }

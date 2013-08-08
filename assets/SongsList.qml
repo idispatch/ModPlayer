@@ -1,4 +1,4 @@
-import bb.cascades 1.1
+import bb.cascades 1.0
 
 Page {
     property int formatId
@@ -83,25 +83,9 @@ Page {
         }
     ]
     
-    actions: [ 
-        ActionItem {
-            title: "Player"
-            imageSource: "asset:///images/icon_player.png"
-            ActionBar.placement: ActionBarPlacement.OnBar
-            shortcuts: Shortcut {
-                key: "p"
-            } 
-            onTriggered: {
-                var view = songPlayer.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-            }
-            attachedObjects: [
-                ComponentDefinition {
-                    id: songPlayer
-                    source: "SongPlayer.qml"
-                }
-            ]
-        }
+    actions: [
+        PlayerActionItem {
+            navigationPane: parent.navigationPane
+        } 
     ]
 }
