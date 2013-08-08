@@ -41,6 +41,13 @@ Page {
                 view.load(chosenItem.modId)
                 navigationPane.push(view)
             }
+            
+            attachedObjects: [
+                ComponentDefinition {
+                    id: songView
+                    source: "SongView.qml"
+                }
+            ]
         }
     }
     
@@ -52,13 +59,6 @@ Page {
         progress.visible = false
         songs.visible = true
     }
-    
-    attachedObjects: [
-        ComponentDefinition {
-            id: songView
-            source: "SongView.qml"
-        }
-    ]
     
     actions: [
         PlayerActionItem {

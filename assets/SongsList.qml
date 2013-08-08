@@ -53,10 +53,16 @@ Page {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
                 view.navigationPane = navigationPane
-                console.log("ModId: " + chosenItem.modId)
                 view.load(chosenItem.modId)
                 navigationPane.push(view)
             }
+            
+            attachedObjects: [
+                ComponentDefinition {
+                    id: songView
+                    source: "SongView.qml"
+                }
+            ]
         }
     }
     
@@ -75,13 +81,6 @@ Page {
         var data = app.player.catalog.findSongsByGenreId(genreId)
         songs.dataModel = data
     }
-    
-    attachedObjects: [
-        ComponentDefinition {
-            id: songView
-            source: "SongView.qml"
-        }
-    ]
     
     actions: [
         PlayerActionItem {

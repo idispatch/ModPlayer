@@ -31,15 +31,15 @@ Page {
                 view.loadSongsByFormat(chosenItem.id, chosenItem.name)
                 navigationPane.push(view)
             }
+            
+            attachedObjects: [
+                ComponentDefinition {
+                    id: songList
+                    source: "SongsList.qml"
+                }
+            ]
         }
     }
-    
-    attachedObjects: [
-        ComponentDefinition {
-            id: songList
-            source: "SongsList.qml"
-        }
-    ]
     
     actions: [
         PlayerActionItem {
