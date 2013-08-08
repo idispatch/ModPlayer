@@ -110,7 +110,8 @@ Page {
         ActionItem {
             id: playStop
             title: {
-                if(app.player.state == Player.Playing) {
+                if(app.player.state == Player.Playing ||
+                   app.player.state == Player.Paused) {
                     return "Stop"
                 } else {
                     return "Play"
@@ -118,7 +119,8 @@ Page {
             }
             enabled: app.player.currentSong.songLoaded
             imageSource: {
-                if(app.player.state == Player.Playing) {
+                if(app.player.state == Player.Playing ||
+                   app.player.state == Player.Paused) {
                     return "asset:///images/icon_stop.png"
                 } else {
                     return "asset:///images/icon_play.png"
@@ -126,7 +128,8 @@ Page {
             }
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
-                if(app.player.state == Player.Playing) {
+                if(app.player.state == Player.Playing ||
+                   app.player.state == Player.Paused) {
                     app.player.stop()
                 } else {
                     app.player.play(currentSong)
@@ -142,7 +145,11 @@ Page {
                     return "Pause"
                 }
             }
-            enabled: app.player.currentSong.songLoaded
+            enabled: {
+                return app.player.currentSong.songLoaded &&
+                        (app.player.state == Player.Paused || 
+                         app.player.state == Player.Playing);
+            } 
             imageSource: "asset:///images/icon_pause.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {

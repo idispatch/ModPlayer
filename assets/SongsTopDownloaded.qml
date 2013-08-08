@@ -40,7 +40,7 @@ Page {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
                 view.navigationPane = navigationPane
-                view.load(chosenItem.id)
+                view.load(chosenItem.modId)
                 navigationPane.push(view)
             }
         }

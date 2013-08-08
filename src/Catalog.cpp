@@ -1,6 +1,13 @@
 #include "Catalog.hpp"
+#include "SongFormat.hpp"
+#include "SongGenre.hpp"
+#include "SongBasicInfo.hpp"
 
 #include  <QDebug>
+
+#include  <QtSql/QSqlDatabase>
+#include  <QtSql/QSqlQuery>
+
 #include  <bb/data/SqlDataAccess>
 #include  <bb/data/DataSource>
 #include  <bb/cascades/GroupDataModel>
@@ -14,12 +21,16 @@ using namespace bb::cascades;
 Catalog::Catalog(QObject * parent)
     : QObject(parent),
       m_dataAccess(NULL) {
-    DataSource::registerQmlTypes();
     init();
 }
 
 void Catalog::init() {
     m_dataAccess = new SqlDataAccess("app/native/assets/catalog.sqlite", "catalog", this);
+
+    DataSource::registerQmlTypes();
+    qmlRegisterUncreatableType<SongFormat>("player", 1, 0, "SongFormat", "");
+    qmlRegisterUncreatableType<SongGenre>("player", 1, 0, "SongGenre", "");
+    qmlRegisterUncreatableType<SongBasicInfo>("player", 1, 0, "SongBasicInfo", "");
 }
 
 void Catalog::dumpData(QVariantList const& data) {
@@ -51,61 +62,104 @@ DataModel * Catalog::formats() {
             "INNER JOIN songs "
             " ON songs.format=formats.id "
             "GROUP BY formats.id";
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    QVariantListDataModel * model = new QVariantListDataModel(data);
+    typedef QListDataModel<SongFormat*> SongFormatsModel;
+    SongFormatsModel * model = new SongFormatsModel();
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        int column   = 0;
+        int id       = sqlQuery.value(column++).toInt();
+        QString name = sqlQuery.value(column++).toString();
+        QString desc = sqlQuery.value(column++).toString();
+        int count    = sqlQuery.value(column++).toInt();
+        model->append(new SongFormat(id, name, desc, count, model));
+    }
     return model;
 }
 
 DataModel * Catalog::genres() {
-    const char * query = "SELECT id, name FROM genres";
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    QStringList keys;
-    keys << "name";
-    GroupDataModel * model = new GroupDataModel(keys);
+    const char * query =
+            "SELECT"
+            " genres.id,"
+            " genres.name,"
+            " COUNT(songs.id) "
+            "FROM genres "
+            "LEFT JOIN songs "
+            " ON songs.genre=genres.id "
+            "GROUP BY genres.id";
+
+    typedef GroupDataModel SongGenresModel;
+
+    SongGenresModel * model = new SongGenresModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
-    model->insertList(data);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        int column   = 0;
+        int id       = sqlQuery.value(column++).toInt();
+        QString name = sqlQuery.value(column++).toString();
+        int count    = sqlQuery.value(column++).toInt();
+        model->insert(new SongGenre(id, name, count, model));
+    }
+
     return model;
 }
 
 DataModel * Catalog::findSongsByFormatId(int formatId) {
     QString query = QString("SELECT"
-            " id AS id, "
-            " fileName AS fileName, "
-            " title AS title, "
-            " downloads AS downloads, "
-            " favourited AS favourited, "
-            " score AS score, "
-            " size AS size, "
-            " length AS length "
-            "FROM songs "
-            "WHERE format=%1").arg(formatId);
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    QStringList keys;
-    keys << "fileName" << "downloads";
-    GroupDataModel * model = new GroupDataModel(keys);
+                            " id, "
+                            " fileName, "
+                            " title, "
+                            " downloads, "
+                            " favourited, "
+                            " score, "
+                            " size, "
+                            " length "
+                            "FROM songs "
+                            "WHERE format=%1").arg(formatId);
+    typedef GroupDataModel SongByFormatModel;
+
+    SongByFormatModel * model = new SongByFormatModel(QStringList() << "fileName"
+                                                                    << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
-    model->insertList(data);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        model->insert(readSongBasicInfo(sqlQuery, model));
+    }
+
     return model;
 }
 
 DataModel * Catalog::findSongsByGenreId(int genreId) {
     QString query = QString(
             "SELECT "
-            " id,"
-            " fileName "
+            " id, "
+            " fileName, "
+            " title, "
+            " downloads, "
+            " favourited, "
+            " score, "
+            " size, "
+            " length "
             "FROM songs "
             "WHERE genre=%1").arg(genreId);
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    QStringList keys;
-    keys << "name";
-    GroupDataModel * model = new GroupDataModel(keys);
+    typedef GroupDataModel SongByFormatModel;
+
+    SongByFormatModel * model = new SongByFormatModel(QStringList() << "fileName"
+                                                                    << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
-    model->insertList(data);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        model->insert(readSongBasicInfo(sqlQuery, model));
+    }
     return model;
 }
 
@@ -245,58 +299,81 @@ QVariant Catalog::resolveModuleByFileName(QString const& fileName) {
     }
 }
 
-DataModel * Catalog::findMostDownloadedSongs() {
-    QString query = QString("SELECT"
-                " id AS id, "
-                " fileName AS fileName, "
-                " title AS title, "
-                " downloads AS downloads, "
-                " favourited AS favourited, "
-                " score AS score, "
-                " size AS size, "
-                " length AS length "
-                "FROM songs "
-                "ORDER BY downloads DESC");
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    QVariantListDataModel * model = new QVariantListDataModel(data);
+SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
+    int column       = 0;
+    int id           = sqlQuery.value(column++).toInt();
+    QString fileName = sqlQuery.value(column++).toString();
+    QString title    = sqlQuery.value(column++).toString();
+    int downloads    = sqlQuery.value(column++).toInt();
+    int favourited   = sqlQuery.value(column++).toInt();
+    int score        = sqlQuery.value(column++).toInt();
+    int size         = sqlQuery.value(column++).toInt();
+    int length       = sqlQuery.value(column++).toInt();
+    return new SongBasicInfo(id,
+                             fileName,
+                             title,
+                             downloads,
+                             favourited,
+                             score,
+                             size,
+                             length,
+                             parent);
+}
+
+DataModel * Catalog::selectSongBasicInfoObjects(const char * query) {
+    typedef QListDataModel<SongBasicInfo*> SongMostDownloadedModel;
+    SongMostDownloadedModel * model = new SongMostDownloadedModel();
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        model->append(readSongBasicInfo(sqlQuery, model));
+    }
     return model;
+}
+
+DataModel * Catalog::findMostDownloadedSongs() {
+    const char * query = "SELECT"
+                         " id, "
+                         " fileName, "
+                         " title, "
+                         " downloads, "
+                         " favourited, "
+                         " score, "
+                         " size, "
+                         " length "
+                         "FROM songs "
+                         "ORDER BY downloads DESC";
+    return selectSongBasicInfoObjects(query);
 }
 
 DataModel * Catalog::findMostFavouritedSongs() {
-    QString query = QString("SELECT"
-                    " id AS id, "
-                    " fileName AS fileName, "
-                    " title AS title, "
-                    " downloads AS downloads, "
-                    " favourited AS favourited, "
-                    " score AS score, "
-                    " size AS size, "
-                    " length AS length "
-                    "FROM songs "
-                    "ORDER BY favourited DESC, downloads DESC, score DESC");
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    QVariantListDataModel * model = new QVariantListDataModel(data);
-    return model;
+    const char * query = "SELECT"
+                         " id, "
+                         " fileName, "
+                         " title, "
+                         " downloads, "
+                         " favourited, "
+                         " score, "
+                         " size, "
+                         " length "
+                         "FROM songs "
+                         "ORDER BY favourited DESC, downloads DESC, score DESC";
+    return selectSongBasicInfoObjects(query);
 }
 
 DataModel * Catalog::findMostScoredSongs() {
-    QString query = QString("SELECT"
-                        " id AS id, "
-                        " fileName AS fileName, "
-                        " title AS title, "
-                        " downloads AS downloads, "
-                        " favourited AS favourited, "
-                        " score AS score, "
-                        " size AS size, "
-                        " length AS length "
-                        "FROM songs "
-                        "ORDER BY score DESC, downloads DESC, favourited DESC");
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
-    dumpData(data);
-    QVariantListDataModel * model = new QVariantListDataModel(data);
-    return model;
+    const char * query = "SELECT"
+                         " id, "
+                         " fileName, "
+                         " title, "
+                         " downloads, "
+                         " favourited, "
+                         " score, "
+                         " size, "
+                         " length "
+                         "FROM songs "
+                         "ORDER BY score DESC, downloads DESC, favourited DESC";
+    return selectSongBasicInfoObjects(query);
 }
 
 void Catalog::addFavourite(QVariant const& song) {

@@ -7,17 +7,27 @@
 class SongBasicInfo : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(QString fileName READ fileName WRITE setFileName FINAL)
-    Q_PROPERTY(QString title READ title WRITE setTitle FINAL)
-    Q_PROPERTY(int modId READ modId WRITE setModId FINAL)
-    Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize FINAL)
-    Q_PROPERTY(int songLength READ songLength WRITE setSongLength FINAL)
-    Q_PROPERTY(int downloads READ downloads WRITE setDownloads FINAL)
-    Q_PROPERTY(int favourited READ favourited WRITE setFavourited FINAL)
-    Q_PROPERTY(int score READ score WRITE setScore FINAL)
+    Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
+    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
+    Q_PROPERTY(int modId READ modId WRITE setModId NOTIFY modIdChanged FINAL)
+    Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize NOTIFY fileSizeChanged FINAL)
+    Q_PROPERTY(int songLength READ songLength WRITE setSongLength NOTIFY songLengthChanged FINAL)
+    Q_PROPERTY(int downloads READ downloads WRITE setDownloads NOTIFY downloadsChanged FINAL)
+    Q_PROPERTY(int favourited READ favourited WRITE setFavourited NOTIFY favouritedChanged FINAL)
+    Q_PROPERTY(int score READ score WRITE setScore NOTIFY scoreChanged FINAL)
 
 public:
     SongBasicInfo(QObject *parent = 0);
+    SongBasicInfo(int id,
+                  QString const& fileName,
+                  QString const& title,
+                  int downloads,
+                  int favourited,
+                  int score,
+                  int size,
+                  int length,
+                  QObject * parent = 0);
+    ~SongBasicInfo();
 
     QString fileName() const;
     void setFileName(const QString &value);
@@ -43,6 +53,15 @@ public:
     int score() const;
     void setScore(int value);
 
+Q_SIGNALS:
+    void fileNameChanged();
+    void titleChanged();
+    void modIdChanged();
+    void fileSizeChanged();
+    void songLengthChanged();
+    void downloadsChanged();
+    void favouritedChanged();
+    void scoreChanged();
 private:
     Q_DISABLE_COPY(SongBasicInfo)
 

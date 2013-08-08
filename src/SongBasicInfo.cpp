@@ -1,4 +1,5 @@
 #include "SongBasicInfo.hpp"
+#include <QDebug>
 
 SongBasicInfo::SongBasicInfo(QObject *parent)
  : QObject(parent),
@@ -8,6 +9,30 @@ SongBasicInfo::SongBasicInfo(QObject *parent)
    m_downloads(0),
    m_favourited(0),
    m_score(0) {
+}
+
+SongBasicInfo::SongBasicInfo(int id,
+                             QString const& fileName,
+                             QString const& title,
+                             int downloads,
+                             int favourited,
+                             int score,
+                             int size,
+                             int length,
+                             QObject * parent)
+   : QObject(parent),
+     m_fileName(fileName),
+     m_title(title),
+     m_modId(id),
+     m_fileSize(size),
+     m_songLength(length),
+     m_downloads(downloads),
+     m_favourited(favourited),
+     m_score(score) {
+}
+
+SongBasicInfo::~SongBasicInfo() {
+    qDebug() << "SongBasicInfo::~SongBasicInfo()";
 }
 
 QString SongBasicInfo::fileName() const {

@@ -13,6 +13,10 @@ namespace bb {
     }
 }
 
+class QSqlQuery;
+
+class SongBasicInfo;
+
 class Catalog : public QObject {
     Q_OBJECT
     Q_PROPERTY(bb::cascades::DataModel * formats READ formats NOTIFY formatsChanged FINAL)
@@ -45,6 +49,9 @@ private:
     Q_DISABLE_COPY(Catalog)
     void init();
     static void dumpData(QVariantList const& data);
+    bb::cascades::DataModel * selectSongBasicInfoObjects(const char * query);
+    static SongBasicInfo * readSongBasicInfo(QSqlQuery &sqlQuery,
+                                             QObject *parent);
 private:
     bb::data::SqlDataAccess * m_dataAccess;
 };

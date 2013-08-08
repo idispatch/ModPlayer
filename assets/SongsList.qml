@@ -53,7 +53,8 @@ Page {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
                 view.navigationPane = navigationPane
-                view.load(chosenItem.id)
+                console.log("ModId: " + chosenItem.modId)
+                view.load(chosenItem.modId)
                 navigationPane.push(view)
             }
         }
@@ -71,7 +72,7 @@ Page {
         this.mode = "genre"
         this.genreId = genreId
         this.genreName = genreName
-        var data = app.player.catalog.findSongsByGenreId(formatId)
+        var data = app.player.catalog.findSongsByGenreId(genreId)
         songs.dataModel = data
     }
     

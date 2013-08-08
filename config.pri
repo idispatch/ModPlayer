@@ -9,6 +9,8 @@ device {
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
+                 $$quote($$BASEDIR/src/SongFormat.cpp) \
+                 $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
@@ -68,6 +70,8 @@ device {
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
+                 $$quote($$BASEDIR/src/SongFormat.hpp) \
+                 $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
@@ -104,6 +108,8 @@ device {
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
+                 $$quote($$BASEDIR/src/SongFormat.cpp) \
+                 $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongInfo.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
@@ -163,6 +169,8 @@ device {
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
+                 $$quote($$BASEDIR/src/SongFormat.hpp) \
+                 $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongInfo.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \

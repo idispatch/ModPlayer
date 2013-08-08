@@ -27,7 +27,7 @@ Page {
                     type: "item"
                     StandardListItem {
                         title: ListItemData.name
-                        status: ListItemData.id
+                        status: ListItemData.count
                     }
                 }
             ]

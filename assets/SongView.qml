@@ -74,6 +74,7 @@ Page {
     }
     
     function load(songId) {
+        console.log("load: " + songId);
         var song = app.player.catalog.resolveModuleById(songId)
         moduleId = song.id
         

@@ -1,6 +1,7 @@
 #ifndef SONGINFO_HPP_
 #define SONGINFO_HPP_
 
+#include <QDebug>
 #include <QMetaType>
 #include <QObject>
 #include "SongBasicInfo.hpp"
