@@ -26,6 +26,9 @@ def createSong(modid, filename):
 				'genre': None,
 				'artist': None,
 				'md5': None,
+				'playCount': None,
+				'lastPlayed': None,
+				'myFavourite': None,
 				'instruments': None,
 				'channels': None,
 				'orders': None,
@@ -279,6 +282,10 @@ def basicInfo():
 		if 'format' not in song or 'size' not in song:
 			print(song)
 			raise Exception
+		else:
+			song['playCount'] = 0
+			song['lastPlayed'] = 0
+			song['myFavourite'] = 0
 
 def createDatabase(databaseName):
 	connection = sqlite3.connect(databaseName)
@@ -327,8 +334,8 @@ def createDatabase(databaseName):
 
 		#print("Inserting %d (%s) = %s" % (modid, song['filename'], song))
 		cursor.execute('''INSERT INTO songs (id, fileName, size, title, format, length, tracker, genre,
- artist, downloads, favourited, score, md5, patterns, orders, instruments, samples, channels)
- VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+ artist, downloads, favourited, score, playCount, lastPlayed, myFavourite, patterns, orders, instruments, samples, channels)
+ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
 		(modid,
 		 song['filename'],
 		 song['size'],
@@ -341,7 +348,9 @@ def createDatabase(databaseName):
 		 song['downloads'],
 		 song['favourited'],
 		 song['score'],
-		 song['md5'],
+		 song['playCount'],
+		 song['lastPlayed'],
+		 song['myFavourite'],
 		 song['patterns'],
 		 song['orders'],
 		 song['instruments'],

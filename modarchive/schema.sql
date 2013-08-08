@@ -35,7 +35,9 @@ CREATE TABLE songs
 	favourited INTEGER,
 	score INTEGER,
 
-	md5 TEXT NOT NULL,
+	playCount INTEGER,
+	lastPlayed INTEGER,
+	myFavourite INTEGER,
 
 	patterns INTEGER NOT NULL,
 	orders INTEGER NOT NULL,
@@ -52,6 +54,9 @@ CREATE        INDEX IX_songs_artist ON songs (artist);
 CREATE        INDEX IX_songs_score ON songs (score);
 CREATE        INDEX IX_songs_favourited ON songs (favourited);
 CREATE        INDEX IX_songs_downloads ON songs (downloads);
+CREATE        INDEX IX_songs_playCount ON songs (playCount);
+CREATE        INDEX IX_songs_lastPlayed ON songs (lastPlayed);
+CREATE        INDEX IX_songs_myFavourite ON songs (myFavourite);
 
 INSERT INTO genres (id, name) VALUES (48, 'Alternative');
 INSERT INTO genres (id, name) VALUES (38, 'Gothic');
