@@ -115,13 +115,11 @@ void Player::changeStatus(State state, QString const& statusText) {
     if(m_state != state)
     {
         m_state = state;
-        qDebug() << "State changed, new state" << m_state;
         emit stateChanged();
     }
     if(m_statusText != statusText)
     {
         m_statusText = statusText;
-        qDebug() << m_statusText;
         emit statusTextChanged();
     }
 }
@@ -147,8 +145,9 @@ void Player::onDownloadFinished(QString fileName) {
 
     if(newFile.isEmpty())
     {
+#if 0
         qDebug() << "There is no unpacked file returned";
-
+#endif
         changeStatus(Stopped, QString("Failed to prepare song %1").arg(name));
         return;
     }
@@ -234,16 +233,21 @@ void Player::play(QVariant value) {
 }
 
 void Player::playByModuleFileName(QString const& fileName) {
+#if 0
     qDebug() << "Player::playByModuleFileName: Playing file named" << fileName;
+#endif
     if(m_cache->exists(fileName))
     {
+#if 0
         qDebug() << "File" << fileName << "is already in cache";
+#endif
         beginPlay(fileName);
     }
     else
     {
+#if 0
         qDebug() << "File" << fileName << "is not in cache";
-
+#endif
         QString name = fileNameOnly(fileName);
         changeStatus(Resolving, QString("Resolving %1").arg(name));
 
@@ -253,15 +257,21 @@ void Player::playByModuleFileName(QString const& fileName) {
 }
 
 void Player::playByModuleId(int modId) {
+#if 0
     qDebug() << "Player::playByModuleId: Playing module id" << modId;
+#endif
     QString fileName = m_catalog->resolveFileNameById(modId);
     if(m_cache->exists(fileName)) {
+#if 0
         qDebug() << "File" << fileName << "(id=" << modId << ") is already in cache";
+#endif
         beginPlay(fileName);
     }
     else
     {
+#if 0
         qDebug() << "File" << fileName << "(id=" << modId << ") is not in cache";
+#endif
         changeStatus(Downloading, "Downloading song");
         m_downloader->download(modId);
     }
@@ -280,7 +290,7 @@ void Player::resume() {
 }
 
 void Player::onPaused() {
-    changeStatus(Paused, QString("Paused %1").arg(m_module->fileName()));
+    changeStatus(Paused, "Paused");
 }
 
 void Player::onPlaying() {

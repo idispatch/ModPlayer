@@ -34,7 +34,7 @@ Page {
             }
             
             Label {
-                text: "Size: " + app.player.currentSong.fileSize + " bytes"
+                text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
                 visible: app.player.currentSong.songLoaded
             }
             

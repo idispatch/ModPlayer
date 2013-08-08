@@ -38,6 +38,10 @@ SongBasicInfo::SongBasicInfo(int id,
      m_playCount(playCount),
      m_lastPlayed(lastPlayed),
      m_myFavourite(myFavourite) {
+    m_title = m_title.trimmed();
+    if(m_title.length() == 0) {
+        m_title = m_fileName;
+    }
 }
 
 SongBasicInfo::~SongBasicInfo() {
@@ -61,8 +65,15 @@ QString SongBasicInfo::title() const {
 
 void SongBasicInfo::setTitle(const QString &value) {
     if(m_title != value) {
-        m_title = value;
-        emit titleChanged();
+        QString newTitle(value);
+        newTitle = newTitle.trimmed();
+        if(newTitle.length() == 0) {
+            newTitle = m_fileName;
+        }
+        if(newTitle != m_title) {
+            m_title = newTitle;
+            emit titleChanged();
+        }
     }
 }
 
