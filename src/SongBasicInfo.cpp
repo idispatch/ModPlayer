@@ -8,7 +8,10 @@ SongBasicInfo::SongBasicInfo(QObject *parent)
    m_songLength(0),
    m_downloads(0),
    m_favourited(0),
-   m_score(0) {
+   m_score(0),
+   m_playCount(0),
+   m_lastPlayed(0),
+   m_myFavourite(false) {
 }
 
 SongBasicInfo::SongBasicInfo(int id,
@@ -19,6 +22,9 @@ SongBasicInfo::SongBasicInfo(int id,
                              int score,
                              int size,
                              int length,
+                             int playCount,
+                             int lastPlayed,
+                             bool myFavourite,
                              QObject * parent)
    : QObject(parent),
      m_fileName(fileName),
@@ -28,7 +34,10 @@ SongBasicInfo::SongBasicInfo(int id,
      m_songLength(length),
      m_downloads(downloads),
      m_favourited(favourited),
-     m_score(score) {
+     m_score(score),
+     m_playCount(playCount),
+     m_lastPlayed(lastPlayed),
+     m_myFavourite(myFavourite) {
 }
 
 SongBasicInfo::~SongBasicInfo() {
@@ -40,7 +49,10 @@ QString SongBasicInfo::fileName() const {
 }
 
 void SongBasicInfo::setFileName(const QString &value) {
-    m_fileName = value;
+    if(m_fileName != value) {
+        m_fileName = value;
+        emit fileNameChanged();
+    }
 }
 
 QString SongBasicInfo::title() const {
@@ -48,7 +60,10 @@ QString SongBasicInfo::title() const {
 }
 
 void SongBasicInfo::setTitle(const QString &value) {
-    m_title = value;
+    if(m_title != value) {
+        m_title = value;
+        emit titleChanged();
+    }
 }
 
 int SongBasicInfo::modId() const {
@@ -56,7 +71,10 @@ int SongBasicInfo::modId() const {
 }
 
 void SongBasicInfo::setModId(int value) {
-    m_modId = value;
+    if(m_modId != value) {
+        m_modId = value;
+        emit modIdChanged();
+    }
 }
 
 int SongBasicInfo::fileSize() const {
@@ -64,7 +82,10 @@ int SongBasicInfo::fileSize() const {
 }
 
 void SongBasicInfo::setFileSize(int value) {
-    m_fileSize = value;
+    if(m_fileSize != value) {
+        m_fileSize = value;
+        emit fileSizeChanged();
+    }
 }
 
 int SongBasicInfo::songLength() const {
@@ -72,7 +93,10 @@ int SongBasicInfo::songLength() const {
 }
 
 void SongBasicInfo::setSongLength(int value) {
-    m_songLength = value;
+    if(m_songLength != value) {
+        m_songLength = value;
+        emit songLengthChanged();
+    }
 }
 
 int SongBasicInfo::downloads() const {
@@ -80,7 +104,10 @@ int SongBasicInfo::downloads() const {
 }
 
 void SongBasicInfo::setDownloads(int value) {
-    m_downloads = value;
+    if(m_downloads != value) {
+        m_downloads = value;
+        emit downloadsChanged();
+    }
 }
 
 int SongBasicInfo::favourited() const {
@@ -88,7 +115,10 @@ int SongBasicInfo::favourited() const {
 }
 
 void SongBasicInfo::setFavourited(int value) {
-    m_favourited = value;
+    if(m_favourited != value) {
+        m_favourited = value;
+        emit favouritedChanged();
+    }
 }
 
 int SongBasicInfo::score() const {
@@ -96,5 +126,41 @@ int SongBasicInfo::score() const {
 }
 
 void SongBasicInfo::setScore(int value) {
-    m_score = value;
+    if(m_score != value) {
+        m_score = value;
+        emit scoreChanged();
+    }
+}
+
+int SongBasicInfo::playCount() const {
+    return m_playCount;
+}
+
+void SongBasicInfo::setPlayCount(int value) {
+    if(m_playCount != value) {
+        m_playCount = value;
+        emit playCountChanged();
+    }
+}
+
+int SongBasicInfo::lastPlayed() const {
+    return m_lastPlayed;
+}
+
+void SongBasicInfo::setLastPlayed(int value) {
+    if(m_lastPlayed != value) {
+        m_lastPlayed = value;
+        emit lastPlayedChanged();
+    }
+}
+
+bool SongBasicInfo::myFavourite() const {
+    return m_myFavourite;
+}
+
+void SongBasicInfo::setMyFavourite(bool value) {
+    if(m_myFavourite != value) {
+        m_myFavourite = value;
+        emit myFavouriteChanged();
+    }
 }

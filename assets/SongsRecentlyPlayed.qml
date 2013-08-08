@@ -1,19 +1,19 @@
 import bb.cascades 1.0
 
 Page {
-    objectName: "SongsTopDownloaded"
-
+    objectName: "SongsRecentlyPlayed"
+    
     property variant navigationPane
-
+    
     titleBar: TitleBar {
-        title: "Top Downloaded Songs"
+        title: "Recently Played Songs"
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
     
     Container {
         layout: StackLayout {
-            
+        
         }
         ProgressComponent {
             id: progress
@@ -29,7 +29,7 @@ Page {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
-                        status: ListItemData.downloads
+                        status: ListItemData.lastPlayed
                     }
                 }
             ]
@@ -52,7 +52,7 @@ Page {
     }
     
     function load() {
-        songs.dataModel = app.player.catalog.findMostDownloadedSongs()
+        songs.dataModel = app.player.catalog.findRecentlyPlayedSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true
@@ -67,4 +67,3 @@ Page {
         } 
     ]
 }
-

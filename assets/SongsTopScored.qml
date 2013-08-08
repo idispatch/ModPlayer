@@ -52,9 +52,7 @@ Page {
     }
     
     function load() {
-        if(songs.dataModel == null) {
-            songs.dataModel = app.player.catalog.findMostScoredSongs()
-        }
+        songs.dataModel = app.player.catalog.findMostScoredSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true

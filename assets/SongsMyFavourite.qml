@@ -1,19 +1,19 @@
 import bb.cascades 1.0
 
 Page {
-    objectName: "SongsTopDownloaded"
-
+    objectName: "SongsMyFavourite"
+    
     property variant navigationPane
-
+    
     titleBar: TitleBar {
-        title: "Top Downloaded Songs"
+        title: "My Favourite Songs"
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
     
     Container {
         layout: StackLayout {
-            
+        
         }
         ProgressComponent {
             id: progress
@@ -29,7 +29,7 @@ Page {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
-                        status: ListItemData.downloads
+                        status: ListItemData.playCount
                     }
                 }
             ]
@@ -52,7 +52,7 @@ Page {
     }
     
     function load() {
-        songs.dataModel = app.player.catalog.findMostDownloadedSongs()
+        songs.dataModel = app.player.catalog.findMyFavouriteSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true
@@ -67,4 +67,3 @@ Page {
         } 
     ]
 }
-

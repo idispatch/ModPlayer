@@ -2,6 +2,7 @@
 #include "SongFormat.hpp"
 #include "SongGenre.hpp"
 #include "SongBasicInfo.hpp"
+#include "SongInfo.hpp"
 
 #include  <QDebug>
 
@@ -21,16 +22,48 @@ using namespace bb::cascades;
 Catalog::Catalog(QObject * parent)
     : QObject(parent),
       m_dataAccess(NULL) {
-    init();
+    initCatalog();
+    initQMLTypes();
 }
 
-void Catalog::init() {
-    m_dataAccess = new SqlDataAccess("app/native/assets/catalog.sqlite", "catalog", this);
+void Catalog::initCatalog() {
+    copyCatalogToDataFolder();
+    m_dataAccess = new SqlDataAccess(catalogPath(), "catalog", this);
+}
 
+void Catalog::initQMLTypes() {
     DataSource::registerQmlTypes();
     qmlRegisterUncreatableType<SongFormat>("player", 1, 0, "SongFormat", "");
     qmlRegisterUncreatableType<SongGenre>("player", 1, 0, "SongGenre", "");
     qmlRegisterUncreatableType<SongBasicInfo>("player", 1, 0, "SongBasicInfo", "");
+    qmlRegisterUncreatableType<SongInfo>("player", 1, 0, "SongInfo", "");
+}
+
+void Catalog::copyCatalogToDataFolder() {
+    QFile catalogFile(catalogPath());
+    if(!catalogFile.exists())
+    {
+        qDebug() << "Personal catalog does not exist at" << catalogFile.fileName();
+
+        QString appFolder(QDir::homePath());
+        appFolder.chop(4);
+        QString originalFileName = appFolder + "app/native/assets/catalog.sqlite";
+        QFile originalFile(originalFileName);
+
+        if(originalFile.exists())
+        {
+            qDebug() << "Original catalog is at" << originalFile.fileName();
+
+            if(!originalFile.copy(catalogFile.fileName()))
+            {
+                qDebug() << "Failed to copy catalog to path: " << catalogFile.fileName();
+            }
+        }
+        else
+        {
+            qDebug() << "Failed to copy catalog - file does not exists";
+        }
+    }
 }
 
 void Catalog::dumpData(QVariantList const& data) {
@@ -49,6 +82,10 @@ void Catalog::dumpData(QVariantList const& data) {
 #else
     Q_UNUSED(data);
 #endif
+}
+
+QString Catalog::catalogPath() const {
+    return QDir::homePath() + "/catalog.sqlite";
 }
 
 DataModel * Catalog::formats() {
@@ -116,7 +153,10 @@ DataModel * Catalog::findSongsByFormatId(int formatId) {
                             " favourited, "
                             " score, "
                             " size, "
-                            " length "
+                            " length, "
+                            " playCount, "
+                            " lastPlayed, "
+                            " myFavourite "
                             "FROM songs "
                             "WHERE format=%1").arg(formatId);
     typedef GroupDataModel SongByFormatModel;
@@ -145,7 +185,10 @@ DataModel * Catalog::findSongsByGenreId(int genreId) {
             " favourited, "
             " score, "
             " size, "
-            " length "
+            " length, "
+            " playCount, "
+            " lastPlayed, "
+            " myFavourite "
             "FROM songs "
             "WHERE genre=%1").arg(genreId);
     typedef GroupDataModel SongByFormatModel;
@@ -229,12 +272,14 @@ QVariant Catalog::resolveModuleById(int id) {
             " downloads, "
             " favourited, "
             " score, "
-            " md5, "
             " patterns, "
             " orders, "
             " instruments, "
             " samples, "
-            " channels "
+            " channels, "
+            " playCount, "
+            " lastPlayed, "
+            " myFavourite "
             "FROM songs "
             "INNER JOIN trackers ON trackers.id=songs.tracker "
             "INNER JOIN formats ON formats.id=songs.format "
@@ -273,12 +318,14 @@ QVariant Catalog::resolveModuleByFileName(QString const& fileName) {
             " downloads, "
             " favourited, "
             " score, "
-            " md5, "
             " patterns, "
             " orders, "
             " instruments, "
             " samples, "
-            " channels "
+            " channels, "
+            " playCount, "
+            " lastPlayed, "
+            " myFavourite "
             "FROM songs "
             "INNER JOIN trackers ON trackers.id=songs.tracker "
             "INNER JOIN formats ON formats.id=songs.format "
@@ -309,6 +356,9 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
     int score        = sqlQuery.value(column++).toInt();
     int size         = sqlQuery.value(column++).toInt();
     int length       = sqlQuery.value(column++).toInt();
+    int playCount    = sqlQuery.value(column++).toInt();
+    int lastPlayed   = sqlQuery.value(column++).toInt();
+    int myFavourite  = sqlQuery.value(column++).toInt();
     return new SongBasicInfo(id,
                              fileName,
                              title,
@@ -317,10 +367,33 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
                              score,
                              size,
                              length,
+                             playCount,
+                             lastPlayed,
+                             myFavourite,
                              parent);
 }
 
-DataModel * Catalog::selectSongBasicInfoObjects(const char * query) {
+DataModel * Catalog::selectSongBasicInfo(QString const& whereClause,
+                                         QString const& orderByClause) {
+    QString query("SELECT"
+                  " id, "
+                  " fileName, "
+                  " title, "
+                  " downloads, "
+                  " favourited, "
+                  " score, "
+                  " size, "
+                  " length, "
+                  " playCount, "
+                  " lastPlayed, "
+                  " myFavourite "
+                  "FROM songs ");
+    if(whereClause.length() > 0) {
+        query += whereClause;
+    }
+    if(orderByClause.length() > 0) {
+        query += orderByClause;
+    }
     typedef QListDataModel<SongBasicInfo*> SongMostDownloadedModel;
     SongMostDownloadedModel * model = new SongMostDownloadedModel();
     QSqlDatabase db = m_dataAccess->connection();
@@ -332,58 +405,78 @@ DataModel * Catalog::selectSongBasicInfoObjects(const char * query) {
 }
 
 DataModel * Catalog::findMostDownloadedSongs() {
-    const char * query = "SELECT"
-                         " id, "
-                         " fileName, "
-                         " title, "
-                         " downloads, "
-                         " favourited, "
-                         " score, "
-                         " size, "
-                         " length "
-                         "FROM songs "
-                         "ORDER BY downloads DESC";
-    return selectSongBasicInfoObjects(query);
+    return selectSongBasicInfo("",
+                               " ORDER BY downloads DESC ");
 }
 
 DataModel * Catalog::findMostFavouritedSongs() {
-    const char * query = "SELECT"
-                         " id, "
-                         " fileName, "
-                         " title, "
-                         " downloads, "
-                         " favourited, "
-                         " score, "
-                         " size, "
-                         " length "
-                         "FROM songs "
-                         "ORDER BY favourited DESC, downloads DESC, score DESC";
-    return selectSongBasicInfoObjects(query);
+    return selectSongBasicInfo("",
+                               " ORDER BY favourited DESC, downloads DESC, score DESC ");
 }
 
 DataModel * Catalog::findMostScoredSongs() {
-    const char * query = "SELECT"
-                         " id, "
-                         " fileName, "
-                         " title, "
-                         " downloads, "
-                         " favourited, "
-                         " score, "
-                         " size, "
-                         " length "
-                         "FROM songs "
-                         "ORDER BY score DESC, downloads DESC, favourited DESC";
-    return selectSongBasicInfoObjects(query);
+    return selectSongBasicInfo("",
+                               " ORDER BY score DESC, downloads DESC, favourited DESC ");
+}
+
+DataModel * Catalog::findRecentlyPlayedSongs() {
+    return selectSongBasicInfo(" WHERE lastPlayed>0 ",
+                               " ORDER BY lastPlayed DESC ");
+}
+
+DataModel * Catalog::findMyFavouriteSongs() {
+    return selectSongBasicInfo(" WHERE myFavourite>0 ",
+                               " ORDER BY playCount DESC, lastPlayed DESC ");
+}
+
+DataModel * Catalog::findMostPlayedSongs() {
+    return selectSongBasicInfo(" WHERE playCount>0 ",
+                               " ORDER BY playCount DESC, lastPlayed DESC ");
 }
 
 void Catalog::addFavourite(QVariant const& song) {
-    qDebug() << "Adding favourite module id" << song;
+    qDebug() << "Adding favourite module" << song;
+    QString query = QString("UPDATE songs SET myFavourite=1 ");
+    if(song.type() == QVariant::Int) {
+        query += QString("WHERE id=%1").arg(song.toInt());
+    } else if(song.type() == QVariant::String) {
+        query += QString("WHERE fileName='%1'").arg(song.toString());
+    } else {
+        qDebug() << "Type:" << song.type();
+        if(song.type() == qMetaTypeId<SongBasicInfo*>()) {
+            qDebug() << "Type: SongBasicInfo*";
+            SongBasicInfo * pInfo = song.value<SongBasicInfo*>();
+            qDebug() << pInfo;
+            query += QString("WHERE id=%1").arg(pInfo->modId());
+        } else if(song.type() == qMetaTypeId<SongInfo*>()) {
+            qDebug() << "Type: SongInfo*";
+            SongInfo * pInfo = song.value<SongInfo*>();
+            qDebug() << pInfo;
+            query += QString("WHERE id=%1").arg(pInfo->modId());
+        }
+    }
+    m_dataAccess->execute(query);
 }
 
 void Catalog::removeFavourite(QVariant const& song) {
-    qDebug() << "Removing favourite module id" << song;
+    qDebug() << "Removing favourite module" << song;
+    QString query = QString("UPDATE songs SET myFavourite=0 ");
+    if(song.type() == QVariant::Int) {
+        query += QString("WHERE id=%1").arg(song.toInt());
+    } else if(song.type() == QVariant::String) {
+        query += QString("WHERE fileName='%1'").arg(song.toString());
+    }
+    m_dataAccess->execute(query);
 }
 
 void Catalog::play(QVariant const& song) {
-    qDebug() << "Updating play count for module id" << song;
+    qDebug() << "Updating play count for module" << song;
+    uint now = QDateTime::currentDateTime().toTime_t();
+    QString query = QString("UPDATE songs SET playCount=playCount+1, lastPlayed=%1 ").arg(now);
+    if(song.type() == QVariant::Int) {
+        query += QString("WHERE id=%1").arg(song.toInt());
+    } else if(song.type() == QVariant::String) {
+        query += QString("WHERE fileName='%1'").arg(song.toString());
+    }
+    m_dataAccess->execute(query);
 }

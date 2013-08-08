@@ -91,6 +91,66 @@ TabbedPane {
         }
     }
     
+    Tab {
+        id: recentlyPlayedTab
+        title: "Recent"
+        objectName: title
+        description: "Recently Played Songs"
+        onTriggered: {
+            songRecentlyPlayedView.load()
+        }
+        NavigationPane {
+            SongsRecentlyPlayed {
+                id: songRecentlyPlayedView
+                navigationPane: parent
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    
+    Tab {
+        id: mostPlayedTab
+        title: "Most Played"
+        objectName: title
+        description: "Most Played Songs"
+        onTriggered: {
+            songMostPlayedView.load()
+        }
+        NavigationPane {
+            SongsMostPlayed {
+                id: songMostPlayedView
+                navigationPane: parent
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    
+    Tab {
+        id: myFavouriteTab
+        title: "My Favourite"
+        objectName: title
+        description: "My Favourite Songs"
+        onTriggered: {
+            songMyFavouriteView.load()
+        }
+        NavigationPane {
+            SongsMyFavourite {
+                id: songMyFavouriteView
+                navigationPane: parent
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    
     onActiveTabChanged: {
         console.log(activeTab.objectName)
     } 

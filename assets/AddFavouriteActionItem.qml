@@ -13,6 +13,7 @@ ActionItem {
     onTriggered: {
         if (currentSong != null) {
             app.catalog.addFavourite(currentSong)
+            currentSong.myFavourite = 1
         }
     }
 }

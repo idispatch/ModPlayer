@@ -15,6 +15,9 @@ class SongBasicInfo : public QObject {
     Q_PROPERTY(int downloads READ downloads WRITE setDownloads NOTIFY downloadsChanged FINAL)
     Q_PROPERTY(int favourited READ favourited WRITE setFavourited NOTIFY favouritedChanged FINAL)
     Q_PROPERTY(int score READ score WRITE setScore NOTIFY scoreChanged FINAL)
+    Q_PROPERTY(int playCount READ playCount WRITE setPlayCount NOTIFY playCountChanged FINAL)
+    Q_PROPERTY(int lastPlayed READ lastPlayed WRITE setLastPlayed NOTIFY lastPlayedChanged FINAL)
+    Q_PROPERTY(bool myFavourite READ myFavourite WRITE setMyFavourite NOTIFY myFavouriteChanged FINAL)
 
 public:
     SongBasicInfo(QObject *parent = 0);
@@ -26,6 +29,9 @@ public:
                   int score,
                   int size,
                   int length,
+                  int playCount,
+                  int lastPlayed,
+                  bool myFavourite,
                   QObject * parent = 0);
     ~SongBasicInfo();
 
@@ -53,6 +59,14 @@ public:
     int score() const;
     void setScore(int value);
 
+    int playCount() const;
+    void setPlayCount(int value);
+
+    int lastPlayed() const;
+    void setLastPlayed(int value);
+
+    bool myFavourite() const;
+    void setMyFavourite(bool value);
 Q_SIGNALS:
     void fileNameChanged();
     void titleChanged();
@@ -62,6 +76,9 @@ Q_SIGNALS:
     void downloadsChanged();
     void favouritedChanged();
     void scoreChanged();
+    void playCountChanged();
+    void lastPlayedChanged();
+    void myFavouriteChanged();
 private:
     Q_DISABLE_COPY(SongBasicInfo)
 
@@ -73,6 +90,9 @@ private:
     int m_downloads;
     int m_favourited;
     int m_score;
+    int m_playCount;
+    int m_lastPlayed;
+    bool m_myFavourite;
 };
 
 Q_DECLARE_METATYPE(SongBasicInfo*);

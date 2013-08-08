@@ -1,7 +1,8 @@
 import bb.cascades 1.0
 
 Page {
-    property int moduleId
+    property variant song
+    
     property variant navigationPane 
     
     property alias songId: songIdField.text
@@ -16,6 +17,10 @@ Page {
     property alias songSamples: songSamplesField.text
     
     property alias songInCache: songInCacheField.text
+    
+    property alias songPlayCount: songPlayCountField.text
+    property alias songLastPlayed: songLastPlayedField.text
+    property alias songMyFavorite: songMyFavouriteField.text
     
     objectName: "SongView"
 
@@ -57,6 +62,15 @@ Page {
             Label {
                 id: songSamplesField
             }
+            Label {
+                id: songPlayCountField
+            }
+            Label {
+                id: songLastPlayedField
+            }
+            Label {
+                id: songMyFavouriteField
+            }
         }
     }
     
@@ -64,7 +78,7 @@ Page {
         var view = songPlayer.createObject()
         view.navigationPane = navigationPane 
         navigationPane.push(view)
-        view.play(moduleId)
+        view.play(song.id)
     }
     
     function showPlayer() {
@@ -74,8 +88,7 @@ Page {
     }
     
     function load(songId) {
-        var song = app.player.catalog.resolveModuleById(songId)
-        moduleId = song.id
+        song = app.player.catalog.resolveModuleById(songId)
         
         songId = "ModID: " + song.id
         songInCache = "Cached: " + (app.cache.exists(song.fileName) ? "yes" : "no") 
@@ -89,6 +102,24 @@ Page {
         songChannels = "Channels: " + song.channels
         songInstruments = "Instruments: " + song.instruments
         songSamples = "Samples: " + song.samples
+        
+        if(song.playCount > 0) {
+            if(song.playCount == 1) {
+                songPlayCount = "You played this song once"
+            } else {
+                songPlayCount = "You played this song " + song.playCount + " times"
+            }
+            songLastPlayed = song.lastPlayed
+        } else {
+            songPlayCount = "You did not play this song yet"
+            songLastPlayed = ""
+        }
+        
+        if(song.myFavourite) {
+            songMyFavorite = "You liked this song"
+        } else {
+            songMyFavorite = ""
+        }
     }
     
     attachedObjects: [
@@ -113,7 +144,7 @@ Page {
         ActionItem {
             title: "Play"
             imageSource: "asset:///images/icon_play.png"
-            enabled: moduleId!=0
+            enabled: song != null
             ActionBar.placement: ActionBarPlacement.OnBar
             shortcuts: Shortcut {
                 key: "p"
@@ -126,10 +157,10 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AddFavouriteActionItem {
-            currentSong: parent.moduleId
+            currentSong: parent.song
         },
         RemoveFavouriteActionItem {
-            currentSong: parent.moduleId
+            currentSong: parent.song
         }
     ]
 }

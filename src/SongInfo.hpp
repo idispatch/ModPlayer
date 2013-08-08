@@ -9,7 +9,6 @@
 class SongInfo : public SongBasicInfo {
     Q_OBJECT
 
-    Q_PROPERTY(QString hash READ hash WRITE setHash FINAL)
     Q_PROPERTY(QString format READ format WRITE setFormat FINAL)
     Q_PROPERTY(QString tracker READ tracker WRITE setTracker FINAL)
     Q_PROPERTY(QString genre READ genre WRITE setGenre FINAL)
@@ -22,9 +21,6 @@ class SongInfo : public SongBasicInfo {
 
 public:
     SongInfo(QObject *parent = 0);
-
-    QString hash() const;
-    void setHash(const QString &value);
 
     QString format() const;
     void setFormat(const QString &value);
@@ -54,8 +50,6 @@ public:
     void setChannels(int value);
 private:
     Q_DISABLE_COPY(SongInfo)
-
-    QString m_hash;
     QString m_format;
     QString m_tracker;
     QString m_genre;

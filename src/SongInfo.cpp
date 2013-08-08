@@ -9,14 +9,6 @@ SongInfo::SongInfo(QObject *parent)
    m_channels(0) {
 }
 
-QString SongInfo::hash() const {
-    return m_hash;
-}
-
-void SongInfo::setHash(const QString &value) {
-    m_hash = value;
-}
-
 QString SongInfo::format() const {
     return m_format;
 }
