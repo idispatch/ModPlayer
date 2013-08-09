@@ -55,9 +55,6 @@ private:
 
     std::vector<std::vector<bool> > m_lcd;
     std::vector<std::vector<bb::cascades::ImageView*> > m_lcdView;
-
-    static unsigned char console_font_8x8[8*256];
-    static unsigned char console_font_6x8[8*256];
 };
 
 #endif /* LCD_HPP_ */

@@ -1,6 +1,7 @@
 #include "LCD.hpp"
+#include "lcd_fonts.hpp"
+
 #include <QDebug>
-#include <QElapsedTimer>
 #include <bb/cascades/Image>
 #include <bb/cascades/Container>
 #include <bb/cascades/ImageView>
@@ -171,9 +172,6 @@ void LCD::setText(QString const& text) {
 }
 
 void LCD::updateLCD() {
-    QElapsedTimer timer;
-    timer.start();
-
     const size_t numDots = m_columns * m_numLetters;
     int length = m_text.length();
     for(size_t row = 0; row < m_rows; ++row)
@@ -184,7 +182,7 @@ void LCD::updateLCD() {
             QChar letter = (index >= (unsigned)length) ? QChar(' ') : m_text[index];
 
             const unsigned ascii = (const unsigned)letter.toAscii();
-            const unsigned bitmask = console_font_6x8[ascii * m_rows + row];
+            const unsigned bitmask = lcd_font_6x8[ascii * m_rows + row];
             const unsigned shift = (col + m_scroll) % m_columns;
             const bool is_set = (bitmask & (0x80 >> shift));
 
@@ -196,8 +194,6 @@ void LCD::updateLCD() {
             }
         }
     }
-
-    qDebug() << "LCD:" << timer.nsecsElapsed() << "ns" << timer.elapsed() << "ms";
 }
 
 void LCD::onUpdateTimeout() {

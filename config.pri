@@ -7,7 +7,6 @@ device {
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/LCD.cpp) \
-                 $$quote($$BASEDIR/src/LCDFonts.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -17,6 +16,8 @@ device {
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
+                 $$quote($$BASEDIR/src/lcd_font_8x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
                  $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -79,6 +80,7 @@ device {
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
                  $$quote($$BASEDIR/src/modplug/it_defs.h) \
                  $$quote($$BASEDIR/src/modplug/load_pat.h) \
@@ -109,7 +111,6 @@ device {
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/LCD.cpp) \
-                 $$quote($$BASEDIR/src/LCDFonts.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -119,6 +120,8 @@ device {
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
+                 $$quote($$BASEDIR/src/lcd_font_8x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
                  $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -181,6 +184,7 @@ device {
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
                  $$quote($$BASEDIR/src/modplug/it_defs.h) \
                  $$quote($$BASEDIR/src/modplug/load_pat.h) \
