@@ -7,7 +7,7 @@
 
 #include "applicationui.hpp"
 #include "Player.hpp"
-#include "LCD.hpp"
+#include "LCDDisplay.hpp"
 
 using namespace bb::cascades;
 
@@ -17,7 +17,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(this)) {
     qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
-    qmlRegisterType<LCD>("player", 1, 0, "LCD");
+    qmlRegisterType<LCDDisplay>("player", 1, 0, "LCDDisplay");
     m_app = app;
     initApp();
     initActiveCover();

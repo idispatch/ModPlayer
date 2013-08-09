@@ -4,9 +4,11 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 device {
     CONFIG(debug, debug|release) {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+                 $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/LCD.cpp) \
+                 $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -68,9 +70,11 @@ device {
                  $$quote($$BASEDIR/src/zip/zip.c)
 
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+                 $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/LCD.hpp) \
+                 $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
@@ -108,9 +112,11 @@ device {
 
     CONFIG(release, debug|release) {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+                 $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/LCD.cpp) \
+                 $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -172,9 +178,11 @@ device {
                  $$quote($$BASEDIR/src/zip/zip.c)
 
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+                 $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/LCD.hpp) \
+                 $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \

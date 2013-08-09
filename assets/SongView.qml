@@ -151,7 +151,7 @@ Page {
         
         songFileName = "File Name: " + song.fileName
         songTitle = "Title: " + song.title
-        songFileSize = "File Size: " + Global.getSizeKb(song.size)
+        songFileSize = "File Size: " + Global.getSizeKb(song.fileSize)
         
         songFormat = "Format: " + song.format
         songTracker = "Tracker: " + song.tracker

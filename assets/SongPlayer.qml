@@ -27,7 +27,7 @@ Page {
             Divider {
             
             }
-            LCD {
+            LCDDisplay {
                 text: app.player.currentSong.title
             }
             Label {
