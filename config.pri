@@ -6,6 +6,7 @@ device {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/LCD.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -67,6 +68,7 @@ device {
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/LCD.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
@@ -105,6 +107,7 @@ device {
         SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/LCD.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -166,6 +169,7 @@ device {
         HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/LCD.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \

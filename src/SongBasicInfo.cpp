@@ -45,7 +45,7 @@ SongBasicInfo::SongBasicInfo(int id,
 }
 
 SongBasicInfo::~SongBasicInfo() {
-    qDebug() << "SongBasicInfo::~SongBasicInfo()";
+    //qDebug() << "SongBasicInfo::~SongBasicInfo()";
 }
 
 QString SongBasicInfo::fileName() const {

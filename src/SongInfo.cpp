@@ -54,7 +54,7 @@ SongInfo::SongInfo(int id,
 }
 
 SongInfo::~SongInfo() {
-    qDebug() << "SongInfo::~SongInfo()";
+    //qDebug() << "SongInfo::~SongInfo()";
 }
 
 QString SongInfo::format() const {

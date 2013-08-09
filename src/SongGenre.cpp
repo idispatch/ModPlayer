@@ -12,7 +12,7 @@ SongGenre::SongGenre(int id,
 }
 
 SongGenre::~SongGenre() {
-    qDebug() << "SongGenre::~SongGenre()";
+    //qDebug() << "SongGenre::~SongGenre()";
 }
 
 int SongGenre::id() const {

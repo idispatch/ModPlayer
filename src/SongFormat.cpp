@@ -14,7 +14,7 @@ SongFormat::SongFormat(int id,
 }
 
 SongFormat::~SongFormat() {
-    qDebug() << "SongFormat::~SongFormat()";
+    //qDebug() << "SongFormat::~SongFormat()";
 }
 
 int SongFormat::id() const {

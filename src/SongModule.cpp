@@ -32,7 +32,7 @@ SongModule::SongModule(QObject *parent) :
     rc = connect(m_timer, SIGNAL(timeout()), this, SLOT(onUpdateTimeout()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
-    m_playback->start(QThread::NormalPriority);
+    m_playback->start(QThread::HighPriority);
 }
 
 SongModule::~SongModule()
@@ -346,7 +346,7 @@ bool SongModule::resume()
 void SongModule::startRefreshTimer()
 {
     if (m_timer != NULL && !m_timer->isActive()) {
-        m_timer->start(50);
+        m_timer->start(100);
     }
 }
 

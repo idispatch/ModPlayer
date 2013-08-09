@@ -27,7 +27,9 @@ Page {
             Divider {
             
             }
-            
+            LCD {
+                text: app.player.currentSong.title
+            }
             Label {
                 text: "File: " + app.player.currentSong.fileName
                 visible: app.player.currentSong.songLoaded
