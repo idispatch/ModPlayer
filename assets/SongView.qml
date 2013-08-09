@@ -22,8 +22,6 @@ Page {
                     orientation: LayoutOrientation.TopToBottom
                 }
                 
-                
-                
                 leftPadding: 20
                 rightPadding: 20
                 topPadding: 20
@@ -32,131 +30,183 @@ Page {
                 visible: song != null
                 
                 Label {
-                    text: {
-                        if(song != null) {
-                            return "File Name: " + song.fileName
-                        }
-                        return "";
-                    }
+                    text: song != null ? "File Name: <b>" + song.fileName + "</b>" : ""
+                    textFormat: TextFormat.Html
                 }
                 Label {
-                    text: {
-                        if(song != null) {
-                            return "File Size: " + Global.getSizeKb(song.fileSize)
-                        }
-                        return "";
-                    }
+                    text: song != null ? "File Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
+                    textFormat: TextFormat.Html
                 }
                 Label {
-                    text: {
-                        if(song != null) {
-                            return "Title: " + song.title
-                        }
-                        return "";
-                    }
+                    text: song !== null ? "Title: <b>" + song.title + "</b>" : ""
+                    textFormat: TextFormat.Html
                 }
                 Label {
-                    text: {
-                        if(song != null) {
-                            return "Format: " + song.format
-                        }
-                        return "";
-                    }
+                    text: song != null ? "Format: " + song.format : ""
                 }
                 Label {
-                    text: {
-                        if(song != null) {
-                            return "Tracker: " + song.tracker
-                        }
-                        return "";
-                    }
+                    text: song != null ? "Tracker: " + song.tracker : ""
                 }
-                
+
                 Divider{}
-                
-                Label {
-                    text: {
-                        if(song!=null) {
-                            if(song.playCount > 0) {
-                                if(song.playCount == 1) {
-                                    return "You played this song once"
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    visible: song!=null
+                    ImageView {
+                        imageSource: "asset:///images/badge_played.png"
+                        verticalAlignment: VerticalAlignment.Center
+                        rightMargin: 5
+                    }
+                    Label {
+                        textFormat: TextFormat.Html
+                        text: {
+                            if(song!=null) {
+                                if(song.playCount > 0) {
+                                    if(song.playCount == 1) {
+                                        return "You played this song once"
+                                    }
+                                    return "You played this song <b>" + song.playCount + "</b> times"
                                 }
-                                return "You played this song " + song.playCount + " times"
+                                return "You did not play this song yet"
                             }
-                            return "You did not play this song yet"
+                            return "";
                         }
-                        return "";
                     }
                 }
-                Label {
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
                     visible: song!=null && song.playCount > 0
-                    text: {
-                        if(song!=null) {
-                            if(song.playCount > 0) {
-                                return "Last played " + Global.formatTimeStamp(song.lastPlayed)
+                    ImageView {
+                        imageSource: "asset:///images/badge_lastplayed.png"
+                        verticalAlignment: VerticalAlignment.Center
+                        rightMargin: 5
+                    }
+                    Label {
+                        text: {
+                            if(song!=null) {
+                                if(song.playCount > 0) {
+                                    return "Last played " + Global.formatTimeStamp(song.lastPlayed)
+                                }
                             }
+                            return "";
                         }
-                        return "";
                     }
                 }
-                Label {
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
                     visible: song!=null && song.myFavourite > 0
-                    text: {
-                        if(song != null) {
-                            if(song.myFavourite > 0) {
-                                return "You liked this song"
+                    ImageView {
+                        imageSource: "asset:///images/badge_myfavourite.png"
+                        verticalAlignment: VerticalAlignment.Center
+                        rightMargin: 5
+                    }
+                    Label {
+                        text: {
+                            if(song != null) {
+                                if(song.myFavourite > 0) {
+                                    return "You liked this song"
+                                }
                             }
+                            return ""
                         }
-                        return ""
                     }
                 }
                 Label {
                     visible: song!=null && app.cache.exists(song.fileName)
+                    textFormat: TextFormat.Html
                     text: {
                         if(song != null) {
                             if(app.cache.exists(song.fileName)) {
-                                return "You have this song in the cache already"
+                                return "<i>You have this song in the cache already</i>"
                             }
                         }
                         return "";
                     }
                 }
-                
+
                 Divider{}
-                
-                Label {
-                    text: {
-                        if(song != null) {
-                            return "Dowloaded " + song.downloads + " times by others"
-                        }
-                        return "";
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
                     }
-                }
-                Label {
-                    text: {
-                        if(song != null) {
-                            if(song.favourited > 0) {
-                                return "Favourited by " + song.favourited + " people"
+                    visible: song!=null
+                    ImageView {
+                        imageSource: "asset:///images/badge_downloads.png"
+                        visible: song!=null && song.downloads > 0
+                        verticalAlignment: VerticalAlignment.Center
+                        rightMargin: 5
+                    }
+                    Label {
+                        textFormat: TextFormat.Html
+                        text: {
+                            if(song != null) {
+                                if(song.downloads > 0) {
+                                    return "Dowloaded <b>" + song.downloads + "</b> times by others"
+                                }
                             }
-                            return "Not favourited by anyone yet"
+                            return "";
                         }
-                        return "";
                     }
                 }
-                Label {
-                    text: {
-                        if(song != null) {
-                            if(song.score > 0) {
-                                return "Rated " + song.score + " of 10 by others"
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    visible: song!=null
+                    ImageView {
+                        imageSource: "asset:///images/badge_favorites.png"
+                        visible: song != null && song.favourited > 0
+                        verticalAlignment: VerticalAlignment.Center
+                        rightMargin: 5
+                    }
+                    Label {
+                        textFormat: TextFormat.Html
+                        text: {
+                            if(song != null) {
+                                if(song.favourited > 0) {
+                                    return "Favourited by <b>" + song.favourited + "</b> people"
+                                }
+                                return "Not favourited by anyone yet"
                             }
-                            return "Not rated by anyone yet"
+                            return "";
                         }
-                        return "";
                     }
                 }
-                
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    visible: song!=null
+                    ImageView {
+                        imageSource: "asset:///images/badge_score.png"
+                        verticalAlignment: VerticalAlignment.Center
+                        rightMargin: 5
+                        visible: song!=null && song.score > 0
+                    }
+                    Label {
+                        textFormat: TextFormat.Html
+                        text: {
+                            if(song != null) {
+                                if(song.score > 0) {
+                                    return "Rated <b>" + song.score + "</b> of <b>10</b> by others"
+                                }
+                                return "Not rated by anyone yet"
+                            }
+                            return "";
+                        }
+                    }
+                }
+
                 Divider{}
-                
+
                 SongStatData {
                     songLoaded: true
                     songOrders: song == null ? -1 : song.orders

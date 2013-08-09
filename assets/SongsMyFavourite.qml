@@ -33,11 +33,6 @@ Page {
             
             listItemComponents: [
                 ListItemComponent {
-                    /*StandardListItem {
-                        title: ListItemData.title
-                        description: ListItemData.fileName
-                        status: ListItemData.playCount
-                    }*/
                     Container {
                         layout: StackLayout {
                             orientation: LayoutOrientation.LeftToRight
@@ -65,7 +60,7 @@ Page {
                                     }
                                 }
                                 ImageView {
-                                    imageSource: "asset:///images/image_play_count.png"
+                                    imageSource: "asset:///images/badge_played.png"
                                     verticalAlignment: VerticalAlignment.Center
                                 }
                                 Label {

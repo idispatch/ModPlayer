@@ -36,7 +36,7 @@ Page {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
-                        status: ListItemData.playCount
+                        status: ListItemData.playCount == 1 ? "once" : (ListItemData.playCount + " times")
                     }
                 }
             ]
