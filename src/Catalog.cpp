@@ -525,3 +525,20 @@ void Catalog::play(QVariant const& song) {
         m_dataAccess->execute(query);
     }
 }
+
+void Catalog::resetPlayCounts() {
+    qDebug() << "Reset play counts";
+    QString query = QString("UPDATE songs "
+                            "SET playCount=0,"
+                            "    lastPlayed=0 "
+                            "WHERE playCount>0 OR lastPlayed>0");
+    m_dataAccess->execute(query);
+}
+
+void Catalog::resetMyFavourites() {
+    qDebug() << "Reset my favourites";
+    QString query = QString("UPDATE songs "
+                            "SET myFavourite=0 "
+                            "WHERE myFavourite>0");
+    m_dataAccess->execute(query);
+}

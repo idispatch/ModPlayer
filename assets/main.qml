@@ -156,10 +156,6 @@ TabbedPane {
         }
     }
     
-    onActiveTabChanged: {
-        console.log(activeTab.objectName)
-    } 
-    
     Menu.definition: MenuDefinition {
         helpAction: HelpActionItem {
             id: helpActionItem

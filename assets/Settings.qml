@@ -34,6 +34,50 @@ Sheet {
                 topPadding: 20
                 bottomPadding: 20
                 
+                Label {
+                    text: "Cached songs: <b>" + app.player.cache.currentFiles + "</b>"
+                    textFormat: TextFormat.Html
+                }
+                Label {
+                    text: "Used cache size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
+                    textFormat: TextFormat.Html
+                }
+
+                Button {
+                    text: "Purge cache"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    topMargin: 40
+                    bottomMargin: 40
+                    onClicked: {
+                        app.cache.purge();
+                    }
+                }
+
+                Button {
+                    text: "Reset Play counts"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    topMargin: 40
+                    bottomMargin: 40
+                    onClicked: {
+                        app.catalog.resetPlayCounts();
+                    }
+                }
+
+                Button {
+                    text: "Reset My Favourites"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    topMargin: 40
+                    bottomMargin: 40
+                    onClicked: {
+                        app.catalog.resetMyFavourites();
+                    }
+                }
+
+                Divider {
+                    topMargin: dividerMargin
+                    bottomMargin: dividerMargin
+                }
+
                 DropDown {
                     id: output
                     title: "Output"
@@ -337,49 +381,14 @@ Sheet {
                     text: "Enable noise reduction"
                     checked: true
                 }
-                
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
-                
-                Label {
-                    text: "Cached songs: " + app.player.cache.currentFiles
-                    textStyle {
-                        base: boldTextStyle.style
-                    }
-                }
-                Label {
-                    text: "Used cache size: " + Global.getSizeKb(app.player.cache.currentSize)
-                    textStyle {
-                        base: boldTextStyle.style
-                    }
-                }
-                
-                Button {
-                    text:"Purge cache"
-                    horizontalAlignment: HorizontalAlignment.Center
-                    topMargin: 50
-                    bottomMargin: 50
-                    onClicked: {
-                        app.cache.purge();
-                    }
-                }
-                
+
                 attachedObjects: [
-                    TextStyleDefinition
-                    {
+                    TextStyleDefinition {
                         id: smallTextStyle
                         base: SystemDefaults.TextStyles.SmallText 
                         fontSize: FontSize.Small
                         fontStyle: FontStyle.Italic
                         color: Color.Gray
-                    },
-                    TextStyleDefinition
-                    {
-                        id: boldTextStyle
-                        base: SystemDefaults.TextStyles.BodyText
-                        fontWeight: FontWeight.Bold 
                     }
                 ]
             }

@@ -50,6 +50,9 @@ public:
     Q_INVOKABLE void addFavourite(QVariant const& song);
     Q_INVOKABLE void removeFavourite(QVariant const& song);
     Q_INVOKABLE void play(QVariant const& song);
+
+    Q_INVOKABLE void resetPlayCounts();
+    Q_INVOKABLE void resetMyFavourites();
 Q_SIGNALS:
     void catalogPathChanged();
     void formatsChanged();
