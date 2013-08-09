@@ -14,93 +14,63 @@ Page {
     ScrollView {
         Container {
             layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
             }
             
             leftPadding: 20
             rightPadding: 20
             
             Label {
-                id: statusText
                 text: app.player.statusText
             }
             
             Divider {
+                visible: app.player.currentSong.songLoaded
+            }
             
-            }
             LCDDisplay {
+                visible: app.player.currentSong.songLoaded
                 text: app.player.currentSong.title
-                visible: app.player.currentSong.songLoaded
             }
+            
             Label {
+                visible: app.player.currentSong.songLoaded
                 text: "File: " + app.player.currentSong.fileName
-                visible: app.player.currentSong.songLoaded
+                
             }
             Label {
-                text: "Description: " + app.player.currentSong.description
                 visible: app.player.currentSong.songLoaded && app.player.currentSong.description.length > 0
+                text: "Description: " + app.player.currentSong.description
             }
             Label {
+                visible: app.player.currentSong.songLoaded
                 text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
-                visible: app.player.currentSong.songLoaded
             }
             Label {
-                text: "Length: " + app.player.currentSong.lengthTimeString
                 visible: app.player.currentSong.songLoaded
+                text: "Length: " + app.player.currentSong.lengthTimeString
             }
             
             Divider {
+                visible: app.player.currentSong.songLoaded
             }
             
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
-                }
-                horizontalAlignment: HorizontalAlignment.Fill
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1.0
-                    
-                    }
-                    horizontalAlignment: HorizontalAlignment.Left
-                    Label {
-                        text: "Orders: " + app.player.currentSong.orders
-                        visible: app.player.currentSong.songLoaded
-                    }
-                    Label {
-                        text: "Patterns: " + app.player.currentSong.patterns
-                        visible: app.player.currentSong.songLoaded
-                    }
-                    Label {
-                        text: "Channels: " + app.player.currentSong.channels
-                        visible: app.player.currentSong.songLoaded
-                    }
-                }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1.0
-                    
-                    }
-                    horizontalAlignment: HorizontalAlignment.Left
-                    Label {
-                        text: "Instruments: " + app.player.currentSong.instruments
-                        visible: app.player.currentSong.songLoaded
-                    }
-                    Label {
-                        text: "Samples: " + app.player.currentSong.samples
-                        visible: app.player.currentSong.songLoaded
-                    }
-                }
+            SongStatData {
+                visible: app.player.currentSong.songLoaded
+                songLoaded: app.player.currentSong.songLoaded
+                songOrders: app.player.currentSong.orders
+                songChannels: app.player.currentSong.channels
+                songPatterns: app.player.currentSong.patterns
+                songInstruments: app.player.currentSong.instruments
+                songSamples: app.player.currentSong.samples
             }
 
-            Divider {}
+            Divider {
+                visible: app.player.currentSong.songLoaded
+            }
 
             SongPlayData {
+                visible: app.player.currentSong.songLoaded
                 songLoaded: app.player.currentSong.songLoaded
                 songOrder: app.player.currentSong.currentOrder
                 songPattern: app.player.currentSong.currentPattern
