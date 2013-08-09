@@ -29,23 +29,10 @@ Page {
             }
             LCDDisplay {
                 text: app.player.currentSong.title
+                visible: app.player.currentSong.songLoaded
             }
             Label {
                 text: "File: " + app.player.currentSong.fileName
-                visible: app.player.currentSong.songLoaded
-            }
-            
-            Label {
-                text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
-                visible: app.player.currentSong.songLoaded
-            }
-            
-            Divider {
-            
-            }
-            
-            Label {
-                text: "Title: " + app.player.currentSong.title
                 visible: app.player.currentSong.songLoaded
             }
             Label {
@@ -53,61 +40,75 @@ Page {
                 visible: app.player.currentSong.songLoaded && app.player.currentSong.description.length > 0
             }
             Label {
+                text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
+                visible: app.player.currentSong.songLoaded
+            }
+            Label {
                 text: "Length: " + app.player.currentSong.lengthTimeString
                 visible: app.player.currentSong.songLoaded
             }
+            
             Divider {
+            }
             
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                horizontalAlignment: HorizontalAlignment.Fill
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.TopToBottom
+                    }
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1.0
+                    
+                    }
+                    horizontalAlignment: HorizontalAlignment.Left
+                    Label {
+                        text: "Orders: " + app.player.currentSong.orders
+                        visible: app.player.currentSong.songLoaded
+                    }
+                    Label {
+                        text: "Patterns: " + app.player.currentSong.patterns
+                        visible: app.player.currentSong.songLoaded
+                    }
+                    Label {
+                        text: "Channels: " + app.player.currentSong.channels
+                        visible: app.player.currentSong.songLoaded
+                    }
+                }
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.TopToBottom
+                    }
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1.0
+                    
+                    }
+                    horizontalAlignment: HorizontalAlignment.Left
+                    Label {
+                        text: "Instruments: " + app.player.currentSong.instruments
+                        visible: app.player.currentSong.songLoaded
+                    }
+                    Label {
+                        text: "Samples: " + app.player.currentSong.samples
+                        visible: app.player.currentSong.songLoaded
+                    }
+                }
             }
-            Label {
-                text: "Channels: " + app.player.currentSong.channels
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Orders: " + app.player.currentSong.orders
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Patterns: " + app.player.currentSong.patterns
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Samples: " + app.player.currentSong.samples
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Instruments: " + app.player.currentSong.instruments
-                visible: app.player.currentSong.songLoaded
-            }
+
             Divider {}
-            
-            Label {
-                text: "Current Order: " + app.player.currentSong.currentOrder
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Current Pattern: " + app.player.currentSong.currentPattern
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Current Row: " + app.player.currentSong.currentRow
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Current Speed: " + app.player.currentSong.currentSpeed
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Current Tempo: " + app.player.currentSong.currentTempo
-                visible: app.player.currentSong.songLoaded
-            }            
-            Label {
-                text: "Playing Channels: " + app.player.currentSong.playingChannels
-                visible: app.player.currentSong.songLoaded
-            }
-            Label {
-                text: "Master Volume: " + app.player.currentSong.masterVolume
-                visible: app.player.currentSong.songLoaded
+
+            SongPlayData {
+                songLoaded: app.player.currentSong.songLoaded
+                songOrder: app.player.currentSong.currentOrder
+                songPattern: app.player.currentSong.currentPattern
+                songRow: app.player.currentSong.currentRow
+                songChannels: app.player.currentSong.playingChannels
+                songSpeed: app.player.currentSong.currentSpeed
+                songTempo: app.player.currentSong.currentTempo
+                songVolume: app.player.currentSong.masterVolume
             }
         }
     }

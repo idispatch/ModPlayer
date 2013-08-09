@@ -7,6 +7,7 @@ device {
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
@@ -72,6 +73,7 @@ device {
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
@@ -113,6 +115,7 @@ device {
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
@@ -178,6 +181,7 @@ device {
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \

@@ -21,9 +21,9 @@ class LCDDisplay : public bb::cascades::CustomControl
 public:
     LCDDisplay(bb::cascades::Container *parent = 0);
 
-    Q_PROPERTY(int numLetters READ numLetters WRITE setNumLetters)
-    Q_PROPERTY(int scroll READ scroll WRITE setScroll)
-    Q_PROPERTY(QString text READ text WRITE setText)
+    Q_PROPERTY(int numLetters READ numLetters WRITE setNumLetters FINAL)
+    Q_PROPERTY(int scroll READ scroll WRITE setScroll FINAL)
+    Q_PROPERTY(QString text READ text WRITE setText FINAL)
 
     int scroll() const;
     void setScroll(int value);

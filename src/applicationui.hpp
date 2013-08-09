@@ -38,6 +38,7 @@ private slots:
     void onCatalogChanged();
     void onCacheChanged();
 private:
+    void initTypes();
     void initApp();
     void initActiveCover();
     void initPlayer();

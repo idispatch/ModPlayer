@@ -8,6 +8,7 @@
 #include "applicationui.hpp"
 #include "Player.hpp"
 #include "LCDDisplay.hpp"
+#include "LCDDigits.hpp"
 
 using namespace bb::cascades;
 
@@ -16,12 +17,18 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(this)) {
-    qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
-    qmlRegisterType<LCDDisplay>("player", 1, 0, "LCDDisplay");
+
     m_app = app;
+    initTypes();
     initApp();
     initActiveCover();
     initPlayer();
+}
+
+void ApplicationUI::initTypes() {
+    qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
+    qmlRegisterType<LCDDisplay>("player", 1, 0, "LCDDisplay");
+    qmlRegisterType<LCDDigits>("player", 1, 0, "LCDDigits");
 }
 
 void ApplicationUI::initApp() {
