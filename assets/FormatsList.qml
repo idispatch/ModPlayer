@@ -18,7 +18,7 @@ Page {
                 StandardListItem {
                     title: ListItemData.name
                     description: ListItemData.description
-                    status: ListItemData.count
+                    status: ListItemData.count + " songs"
                 }
             }
         

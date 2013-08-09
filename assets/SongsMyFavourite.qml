@@ -26,10 +26,51 @@ Page {
             
             listItemComponents: [
                 ListItemComponent {
-                    StandardListItem {
+                    /*StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
                         status: ListItemData.playCount
+                    }*/
+                    Container {
+                        layout: StackLayout {
+                            orientation: LayoutOrientation.LeftToRight
+                        }
+                        
+                        Container {
+                            layout: StackLayout {
+                                orientation: LayoutOrientation.TopToBottom
+                            }
+                            Label {
+                                text: ListItemData.title
+                                textStyle {
+                                    fontSize: FontSize.Large
+                                }
+                            }
+                            Container {
+                                layout: StackLayout {
+                                    orientation: LayoutOrientation.LeftToRight
+                                }
+                                Label {
+                                    text: ListItemData.fileName
+                                    textStyle {
+                                        fontSize: FontSize.Small
+                                        color: Color.DarkGray
+                                    }
+                                }
+                                ImageView {
+                                    imageSource: "asset:///images/image_play_count.png"
+                                    verticalAlignment: VerticalAlignment.Center
+                                }
+                                Label {
+                                    text: ListItemData.playCount
+                                    textStyle {
+                                        fontSize: FontSize.Small
+                                        color: Color.DarkGray
+                                    }
+                                }
+                            }
+                            Divider{}
+                        }
                     }
                 }
             ]

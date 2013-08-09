@@ -1,6 +1,68 @@
 import bb.cascades 1.0
 
 TabbedPane {
+    activeTab: formatsTab 
+    Tab {
+        id: myFavouriteTab
+        title: "My Favourite"
+        objectName: title
+        imageSource: "asset:///images/icon_myfavourite.png"
+        description: "My Favourite Songs"
+        onTriggered: {
+            songMyFavouriteView.load()
+        }
+        NavigationPane {
+            SongsMyFavourite {
+                id: songMyFavouriteView
+                navigationPane: parent
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id: recentlyPlayedTab
+        title: "Recent"
+        objectName: title
+        imageSource: "asset:///images/icon_recent.png"
+        description: "Recently Played Songs"
+        onTriggered: {
+            songRecentlyPlayedView.load()
+        }
+        NavigationPane {
+            SongsRecentlyPlayed {
+                id: songRecentlyPlayedView
+                navigationPane: parent
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    
+    Tab {
+        id: mostPlayedTab
+        title: "Most Played"
+        objectName: title
+        imageSource: "asset:///images/icon_mostplayed.png"
+        description: "Most Played Songs"
+        onTriggered: {
+            songMostPlayedView.load()
+        }
+        NavigationPane {
+            SongsMostPlayed {
+                id: songMostPlayedView
+                navigationPane: parent
+            }
+            
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
     Tab {
         id: formatsTab
         title: "Formats"
@@ -85,69 +147,6 @@ TabbedPane {
         NavigationPane {
             SongsTopScored {
                 id: songTopScoredView
-                navigationPane: parent
-            }
-            
-            onPopTransitionEnded: {
-                page.destroy()
-            }
-        }
-    }
-    
-    Tab {
-        id: recentlyPlayedTab
-        title: "Recent"
-        objectName: title
-        imageSource: "asset:///images/icon_recent.png"
-        description: "Recently Played Songs"
-        onTriggered: {
-            songRecentlyPlayedView.load()
-        }
-        NavigationPane {
-            SongsRecentlyPlayed {
-                id: songRecentlyPlayedView
-                navigationPane: parent
-            }
-            
-            onPopTransitionEnded: {
-                page.destroy()
-            }
-        }
-    }
-    
-    Tab {
-        id: mostPlayedTab
-        title: "Most Played"
-        objectName: title
-        imageSource: "asset:///images/icon_mostplayed.png"
-        description: "Most Played Songs"
-        onTriggered: {
-            songMostPlayedView.load()
-        }
-        NavigationPane {
-            SongsMostPlayed {
-                id: songMostPlayedView
-                navigationPane: parent
-            }
-            
-            onPopTransitionEnded: {
-                page.destroy()
-            }
-        }
-    }
-    
-    Tab {
-        id: myFavouriteTab
-        title: "My Favourite"
-        objectName: title
-        imageSource: "asset:///images/icon_myfavourite.png"
-        description: "My Favourite Songs"
-        onTriggered: {
-            songMyFavouriteView.load()
-        }
-        NavigationPane {
-            SongsMyFavourite {
-                id: songMyFavouriteView
                 navigationPane: parent
             }
             

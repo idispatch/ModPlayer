@@ -7,6 +7,7 @@ device {
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/LCD.cpp) \
+                 $$quote($$BASEDIR/src/LCDFonts.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
@@ -108,6 +109,7 @@ device {
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/LCD.cpp) \
+                 $$quote($$BASEDIR/src/LCDFonts.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
