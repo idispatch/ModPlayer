@@ -27,6 +27,14 @@ Page {
     }
     
     Container {
+        background: back.imagePaint
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: back
+                repeatPattern: RepeatPattern.Fill
+                imageSource: "asset:///images/background.png"
+            }
+        ]
         ListView {
             id: songs
             horizontalAlignment: HorizontalAlignment.Fill

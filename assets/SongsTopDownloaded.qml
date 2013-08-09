@@ -13,8 +13,15 @@ Page {
     
     Container {
         layout: StackLayout {
-            
         }
+        background: back.imagePaint
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: back
+                repeatPattern: RepeatPattern.Fill
+                imageSource: "asset:///images/background.png"
+            }
+        ]
         ProgressComponent {
             id: progress
         }

@@ -10,6 +10,14 @@ Page {
     }
     
     Container {
+        background: back.imagePaint
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: back
+                repeatPattern: RepeatPattern.Fill
+                imageSource: "asset:///images/background.png"
+            }
+        ]
         ListView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
