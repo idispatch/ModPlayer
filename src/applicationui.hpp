@@ -19,12 +19,12 @@ class Cache;
 
 class ApplicationUI : public QObject {
     Q_OBJECT
-public:
-    ApplicationUI(bb::cascades::Application *app);
-
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
+public:
+    ApplicationUI(bb::cascades::Application *app);
+    ~ApplicationUI();
 
     Player * player() const;
     Catalog * catalog() const;
@@ -37,7 +37,9 @@ private slots:
     void onSystemLanguageChanged();
     void onCatalogChanged();
     void onCacheChanged();
+    void onAboutToQuit();
 private:
+    void initSignals();
     void initTypes();
     void initApp();
     void initActiveCover();

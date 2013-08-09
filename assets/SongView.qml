@@ -15,6 +15,8 @@ Page {
             
             leftPadding: 20
             rightPadding: 20
+            topPadding: 20
+            bottomPadding: 20
             
             visible: song != null
             

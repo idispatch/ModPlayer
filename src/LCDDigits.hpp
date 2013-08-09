@@ -29,6 +29,7 @@ public:
     void setNumber(int value);
     void resetNumber();
 
+    static void finalize();
 private:
     void createLCD();
 

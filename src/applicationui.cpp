@@ -17,12 +17,30 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(this)) {
-
     m_app = app;
+    initSignals();
     initTypes();
     initApp();
     initActiveCover();
     initPlayer();
+}
+
+ApplicationUI::~ApplicationUI() {
+    qDebug() << "ApplicationUI::~ApplicationUI()";
+}
+
+void ApplicationUI::initSignals() {
+    bool rc;
+    rc = connect(m_app,
+                 SIGNAL(aboutToQuit()),
+                 this,
+                 SLOT(onAboutToQuit()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+}
+
+void ApplicationUI::onAboutToQuit() {
+    LCDDigits::finalize();
 }
 
 void ApplicationUI::initTypes() {

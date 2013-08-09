@@ -29,7 +29,7 @@ Container {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
-        rightMargin: 50
+        rightMargin: 40
         Container {
             layout: DockLayout {
             }
@@ -110,7 +110,7 @@ Container {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
-        leftMargin: 50
+        leftMargin: 40
         Container {
             layout: DockLayout {
             }

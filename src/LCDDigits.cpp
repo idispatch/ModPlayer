@@ -18,7 +18,7 @@ LCDDigits::LCDDigits(Container *parent)
 }
 
 LCDDigits::~LCDDigits() {
-    qDebug() << "LCDDigits::~LCDDigits()";
+    //qDebug() << "LCDDigits::~LCDDigits()";
 }
 
 void LCDDigits::initImages() {
@@ -31,6 +31,18 @@ void LCDDigits::initImages() {
         imagesInitialized = true;
     }
 }
+
+void LCDDigits::finalize() {
+    if(imagesInitialized)
+    {
+        for(unsigned i = 0; i < 11; i++)
+        {
+            images[i] = Image();
+        }
+        imagesInitialized = false;
+    }
+}
+
 int LCDDigits::numDigits() const {
     return m_numDigits;
 }
