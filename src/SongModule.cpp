@@ -68,7 +68,11 @@ void SongModule::setFileName(const QString &value)
 
 QString SongModule::title() const
 {
-    return m_title;
+    if(m_title.length() == 0) {
+        return m_fileName;
+    } else {
+        return m_title;
+    }
 }
 
 void SongModule::setTitle(const QString &value)

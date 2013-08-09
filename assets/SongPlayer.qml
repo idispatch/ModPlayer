@@ -39,10 +39,16 @@ Page {
                     bottomPadding: 20
                     
                     LCDDisplay {
-                        text: app.player.currentSong.title
+                        text: {
+                            if(app.player.currentSong.title.length == 0) {
+                                return app.player.currentSong.fileName
+                            } else {
+                                return app.player.currentSong.title
+                            }
+                        }
                         horizontalAlignment: HorizontalAlignment.Center
                     }
-                    
+
                     Label {
                         text: "File: " + app.player.currentSong.fileName
                     }
@@ -56,7 +62,7 @@ Page {
                     Label {
                         text: "Length: " + app.player.currentSong.lengthTimeString
                     }
-                    
+
                     Divider {}
                     
                     SongStatData {

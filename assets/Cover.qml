@@ -3,13 +3,15 @@ import player 1.0
 
 Container {
     property bool playing: app.player.currentSong.songLoaded && app.player.state == Player.Playing 
-    
+
+    layout: StackLayout {
+        orientation: LayoutOrientation.TopToBottom
+    }
+
     background: back.imagePaint
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
-    layout: DockLayout {
-    }
-    
+
     attachedObjects: [
         ImagePaintDefinition {
             id: back
@@ -27,14 +29,13 @@ Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }
-        
-        verticalAlignment: VerticalAlignment.Top
+
         horizontalAlignment: HorizontalAlignment.Center
-        
         topPadding: 30
-        
+
         Container {
             background: titleTextBack.imagePaint
+            horizontalAlignment: HorizontalAlignment.Center
             
             leftPadding: 15
             rightPadding: leftPadding
@@ -65,6 +66,7 @@ Container {
             bottomPadding: topPadding
             
             Label {
+                horizontalAlignment: HorizontalAlignment.Center
                 text: {
                     if(app.player.currentSong.songLoaded) {
                         var state = app.player.state;
@@ -90,22 +92,23 @@ Container {
         Container {
             background: titleTextBack.imagePaint
             horizontalAlignment: HorizontalAlignment.Center
-            
+
             visible: playing
             
             leftPadding: 15
             rightPadding: leftPadding
             topPadding: 5
             bottomPadding: topPadding
-        
+
             Label {
+                horizontalAlignment: HorizontalAlignment.Center
                 text: playing ? app.player.currentSong.title : ""
                 textStyle {
                     color: Color.White
                 }
             }
         }
-        
+
         Container {
             background: titleTextBack.imagePaint
             horizontalAlignment: HorizontalAlignment.Center
@@ -119,6 +122,7 @@ Container {
             bottomPadding: topPadding
 
             Label {
+                horizontalAlignment: HorizontalAlignment.Center
                 text: playing ? "("+app.player.currentSong.fileName+")" : ""
                 textStyle {
                     color: Color.White
