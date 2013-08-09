@@ -3,133 +3,165 @@ import "functions.js" as Global
 
 Page {
     property variant song
-    
     property variant navigationPane 
-    
-    property alias songId: songIdField.text
-    property alias songFileName: songFileNameField.text
-    property alias songTitle: songTitleField.text
-    property alias songFileSize: songFileSizeField.text
-    property alias songTracker: songTrackerField.text
-    property alias songFormat: songFormatField.text
-    
-    property alias songOrders: songOrdersField.text
-    property alias songPatterns: songPatternsField.text
-    property alias songChannels: songChannelsField.text
-    property alias songInstruments: songInstrumentsField.text
-    property alias songSamples: songSamplesField.text
-    
-    property alias songDownloads: songDownloadsField.text
-    property alias songFavourited: songFavouritedField.text
-    property alias songScore: songScoreField.text
-    
-    property alias songInCache: songInCacheField.text
-    
-    property alias songPlayCount: songPlayCountField.text
-    property alias songLastPlayed: songLastPlayedField.text
-    property alias songMyFavorite: songMyFavouriteField.text
     
     objectName: "SongView"
 
     ScrollView {
         Container {
             layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
             }
             
             leftPadding: 20
             rightPadding: 20
             
+            visible: song != null
+            
             Label {
-                id: songIdField
-            }
-            Label {
-                id: songFileNameField
-            }
-            Label {
-                id: songFileSizeField
-            }
-            Label {
-                id: songTitleField
-            }
-            Label {
-                id: songFormatField
-            }
-            Label {
-                id: songTrackerField
-            }
-            Divider{}
-            Label {
-                id: songPlayCountField
-            }
-            Label {
-                id: songLastPlayedField
-            }
-            Label {
-                id: songMyFavouriteField
-            }
-            Label {
-                id: songInCacheField
-            }
-            Divider{}
-            Label {
-                id: songDownloadsField
-            }
-            Label {
-                id: songFavouritedField
-            }
-            Label {
-                id: songScoreField
-            }
-            Divider{}
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
+                text: {
+                    if(song != null) {
+                        return "File Name: " + song.fileName
+                    }
+                    return "";
                 }
-                horizontalAlignment: HorizontalAlignment.Fill
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
+            }
+            Label {
+                text: {
+                    if(song != null) {
+                        return "File Size: " + Global.getSizeKb(song.fileSize)
                     }
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1.0
-                    
-                    }
-                    horizontalAlignment: HorizontalAlignment.Left
-                    Label {
-                        id: songOrdersField
-                    }
-                    Label {
-                        id: songPatternsField
-                    }
-                    Label {
-                        id: songChannelsField
-                    }
+                    return "";
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
+            }
+            Label {
+                text: {
+                    if(song != null) {
+                        return "Title: " + song.title
                     }
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1.0
-                    
-                    }
-                    horizontalAlignment: HorizontalAlignment.Left
-                    Label {
-                        id: songInstrumentsField
-                    }
-                    Label {
-                        id: songSamplesField
-                    }
+                    return "";
                 }
+            }
+            Label {
+                text: {
+                    if(song != null) {
+                        return "Format: " + song.format
+                    }
+                    return "";
+                }
+            }
+            Label {
+                text: {
+                    if(song != null) {
+                        return "Tracker: " + song.tracker
+                    }
+                    return "";
+                }
+            }
+            
+            Divider{}
+            
+            Label {
+                text: {
+                    if(song!=null) {
+                        if(song.playCount > 0) {
+                            if(song.playCount == 1) {
+                                return "You played this song once"
+                            }
+                            return "You played this song " + song.playCount + " times"
+                        }
+                        return "You did not play this song yet"
+                    }
+                    return "";
+                }
+            }
+            Label {
+                visible: song!=null && song.playCount > 0
+                text: {
+                    if(song!=null) {
+                        if(song.playCount > 0) {
+                            return "Last played " + Global.formatTimeStamp(song.lastPlayed)
+                        }
+                    }
+                    return "";
+                }
+            }
+            Label {
+                visible: song!=null && song.myFavourite > 0
+                text: {
+                    if(song != null) {
+                        if(song.myFavourite > 0) {
+                            return "You liked this song"
+                        }
+                    }
+                    return ""
+                }
+            }
+            Label {
+                visible: song!=null && app.cache.exists(song.fileName)
+                text: {
+                    if(song != null) {
+                        if(app.cache.exists(song.fileName)) {
+                            return "You have this song in the cache already"
+                        }
+                    }
+                    return "";
+                }
+            }
+            
+            Divider{}
+
+            Label {
+                text: {
+                    if(song != null) {
+                        return "Dowloaded " + song.downloads + " times by others"
+                    }
+                    return "";
+                }
+            }
+            Label {
+                text: {
+                    if(song != null) {
+                        if(song.favourited > 0) {
+                            return "Favourited by " + song.favourited + " people"
+                        }
+                        return "Not favourited by anyone yet"
+                    }
+                    return "";
+                }
+            }
+            Label {
+                text: {
+                    if(song != null) {
+                        if(song.score > 0) {
+                            return "Rated " + song.score + " of 10 by others"
+                        }
+                        return "Not rated by anyone yet"
+                    }
+                    return "";
+                }
+            }
+            
+            Divider{}
+            
+            SongStatData {
+                songLoaded: true
+                songOrders: song == null ? -1 : song.orders
+                songChannels: song == null ? -1 : song.channels
+                songPatterns: song == null ? -1 : song.patterns
+                songInstruments: song == null ? -1 : song.instruments
+                songSamples: song == null ? -1 : song.samples
             }
         }
     }
     
     function play() {
-        var view = songPlayer.createObject()
-        view.navigationPane = navigationPane 
-        navigationPane.push(view)
-        view.play(song.modId)
+        if(song!=null) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane 
+            navigationPane.push(view)
+            view.play(song.modId)
+        }
     }
     
     function showPlayer() {
@@ -140,58 +172,6 @@ Page {
     
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId)
-        
-        songId = "ModID: " + song.modId
-        
-        if(app.cache.exists(song.fileName)) {
-            songInCache = "You have this song in the cache already"
-        } else {
-            songInCache = "You don't have this song in the cache yet"
-        }
-        
-        songFileName = "File Name: " + song.fileName
-        songTitle = "Title: " + song.title
-        songFileSize = "File Size: " + Global.getSizeKb(song.fileSize)
-        
-        songFormat = "Format: " + song.format
-        songTracker = "Tracker: " + song.tracker
-        
-        songDownloads = "Dowloaded " + song.downloads + " times by others"
-        if(song.favourited > 0) {
-            songFavourited = "Favourited by " + song.favourited + " people"
-        } else {
-            songFavourited = "Not favourited by anyone yet"
-        }
-        
-        if(song.score > 0) {
-            songScore = "Rated " + song.score + " of 10 by others"
-        } else {
-            songScore = "Not rated by anyone yet"
-        }
-        
-        songOrders = "Orders: " + song.orders
-        songPatterns = "Patterns: " + song.patterns
-        songChannels = "Channels: " + song.channels
-        songInstruments = "Instruments: " + song.instruments
-        songSamples = "Samples: " + song.samples
-        
-        if(song.playCount > 0) {
-            if(song.playCount == 1) {
-                songPlayCount = "You played this song once"
-            } else {
-                songPlayCount = "You played this song " + song.playCount + " times"
-            }
-            songLastPlayed = "Last played " + Global.formatTimeStamp(song.lastPlayed)
-        } else {
-            songPlayCount = "You did not play this song yet"
-            songLastPlayed = ""
-        }
-        
-        if(song.myFavourite) {
-            songMyFavorite = "You liked this song"
-        } else {
-            songMyFavorite = ""
-        }
     }
     
     attachedObjects: [

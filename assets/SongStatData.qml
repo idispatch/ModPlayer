@@ -2,7 +2,7 @@ import bb.cascades 1.0
 import player 1.0
 
 Container {
-    id: songPlayData
+    id: songStatData
     
     layout: StackLayout {
         orientation: LayoutOrientation.LeftToRight
@@ -10,14 +10,13 @@ Container {
     
     property real lcd_scale: 0.5
     property bool songLoaded: true
-
-    property alias songOrder: lcdOrder.number
-    property alias songPattern: lcdPattern.number
-    property alias songRow: lcdRow.number
+    
+    property alias songOrders: lcdOrders.number
+    property alias songPatterns: lcdPatterns.number
     property alias songChannels: lcdChannels.number
-    property alias songVolume: lcdVolume.number
-    property alias songSpeed: lcdSpeed.number
-    property alias songTempo: lcdTempo.number
+    
+    property alias songInstruments: lcdInstruments.number
+    property alias songSamples: lcdSamples.number
     
     visible: songLoaded
     horizontalAlignment: HorizontalAlignment.Fill
@@ -35,17 +34,17 @@ Container {
             }
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
-                text: "Order"
+                text: "Orders"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdOrder
+                id: lcdOrders
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
+                scaleX: songStatData.lcd_scale
+                scaleY: songStatData.lcd_scale
             }
         }
         Container {
@@ -53,35 +52,17 @@ Container {
             }
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
-                text: "Pattern"
+                text: "Patterns"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdPattern
+                id: lcdPatterns
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
-            }
-        }
-        Container {
-            layout: DockLayout {
-            }
-            horizontalAlignment: HorizontalAlignment.Fill
-            Label {
-                text: "Row"
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Left
-            }
-            LCDDigits {
-                id: lcdRow
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Right
-                numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
+                scaleX: songStatData.lcd_scale
+                scaleY: songStatData.lcd_scale
             }
         }
         Container {
@@ -98,8 +79,8 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
+                scaleX: songStatData.lcd_scale
+                scaleY: songStatData.lcd_scale
             }
         }
     }
@@ -116,17 +97,17 @@ Container {
             }
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
-                text: "Speed"
+                text: "Instruments"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdSpeed
+                id: lcdInstruments
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
+                scaleX: songStatData.lcd_scale
+                scaleY: songStatData.lcd_scale
             }
         }
         Container {
@@ -134,35 +115,17 @@ Container {
             }
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
-                text: "Tempo"
+                text: "Samples"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdTempo
+                id: lcdSamples
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
-            }
-        }
-        Container {
-            layout: DockLayout {
-            }
-            horizontalAlignment: HorizontalAlignment.Fill
-            Label {
-                text: "Volume"
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Left
-            }
-            LCDDigits {
-                id: lcdVolume
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Right
-                numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
+                scaleX: songStatData.lcd_scale
+                scaleY: songStatData.lcd_scale
             }
         }
     }
