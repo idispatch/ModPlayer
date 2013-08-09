@@ -73,6 +73,7 @@ void LCDDisplay::createLCD(){
                                   .rightMargin(0)
                                   .loadEffect(ImageViewLoadEffect::None)
                                   .scalingMethod(ScalingMethod::None)
+                                  .implicitLayoutAnimations(false)
                                   .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
     m_rootContainer->add(view);
 
@@ -154,8 +155,7 @@ void LCDDisplay::setScroll(int value) {
         m_scroll = value;
         Control * view = m_rootContainer->at(0);
         AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(view->layoutProperties());
-        //p->setPositionX(-m_scroll * m_image_on.width());
-        p->setPositionX(-m_scroll * 8);
+        p->setPositionX(-m_scroll * m_image_on.width());
     }
 }
 
