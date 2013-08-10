@@ -10,6 +10,12 @@ class Downloader;
 class Unpacker;
 class SongModule;
 
+namespace bb {
+    namespace multimedia {
+        class NowPlayingConnection;
+    }
+}
+
 class Player : public QObject {
     Q_OBJECT
     Q_ENUMS(State)
@@ -61,6 +67,12 @@ private slots:
     void onPaused();
     void onPlaying();
     void onStopped();
+
+    void onNowPlayingAcquired();
+    void onNowPlayingRevoked();
+    void onNowPlayingPlay();
+    void onNowPlayingStop();
+    void onNowPlayingPause();
 private:
     Q_DISABLE_COPY(Player)
 
@@ -71,6 +83,7 @@ private:
     void initCache();
     void initDownloader();
     void initModule();
+    void initNowPlaying();
 
     void changeStatus(State state, QString const& statusText);
     void beginPlay(QString const& fileName);
@@ -86,6 +99,7 @@ private:
     Downloader * m_downloader;
     Unpacker * m_unpacker;
     SongModule * m_module;
+    bb::multimedia::NowPlayingConnection * m_nowPlaying;
 };
 
 Q_DECLARE_METATYPE(Player*);

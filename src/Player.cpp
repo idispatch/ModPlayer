@@ -1,10 +1,13 @@
 #include <QDeclarativeComponent>
+#include <bb/multimedia/NowPlayingConnection>
 #include "Player.hpp"
 #include "Catalog.hpp"
 #include "Cache.hpp"
 #include "Downloader.hpp"
 #include "Unpacker.hpp"
 #include "SongModule.hpp"
+
+using namespace bb::multimedia;
 
 Player::Player(QObject * parent)
     : QObject(parent),
@@ -14,11 +17,13 @@ Player::Player(QObject * parent)
       m_cache(new Cache(this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
-      m_module(new SongModule(this)) {
+      m_module(new SongModule(this)),
+      m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     initCatalog();
     initCache();
     initDownloader();
     initModule();
+    initNowPlaying();
 }
 
 QString Player::joinPath(QString const& directory, QString const& fileName) {
@@ -111,6 +116,40 @@ void Player::initModule() {
     Q_UNUSED(rc);
 }
 
+void Player::initNowPlaying() {
+    bool rc;
+    rc = connect(m_nowPlaying,
+                 SIGNAL(acquired()),
+                 this,
+                 SLOT(onNowPlayingAcquired()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_nowPlaying,
+                 SIGNAL(revoked()),
+                 this,
+                 SLOT(onNowPlayingRevoked()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_nowPlaying,
+                 SIGNAL(pause()),
+                 this,
+                 SLOT(onNowPlayingPause()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_nowPlaying,
+                 SIGNAL(play()),
+                 this,
+                 SLOT(onNowPlayingPlay()));
+    Q_ASSERT(rc);
+
+    rc = connect(m_nowPlaying,
+                 SIGNAL(stop()),
+                 this,
+                 SLOT(onNowPlayingStop()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+}
+
 void Player::changeStatus(State state, QString const& statusText) {
     if(m_state != state)
     {
@@ -165,6 +204,41 @@ void Player::onDownloadFailure(int modId) {
     stop();
 }
 
+void Player::onNowPlayingAcquired() {
+    qDebug() << "Player::onNowPlayingAcquired";
+    m_nowPlaying->setDuration(180000);
+    m_nowPlaying->setPosition(0);
+    QVariantMap metadata;
+
+    metadata[MetaData::Title] = m_module->fileName();
+    metadata[MetaData::Artist] = m_module->title();
+
+    m_nowPlaying->setOverlayStyle(OverlayStyle::Fancy);
+    m_nowPlaying->setNextEnabled(false);
+    m_nowPlaying->setPreviousEnabled(false);
+    m_nowPlaying->setMetaData(metadata);
+    //m_nowPlaying->setIconUrl(QUrl("file://%1/app/native/assets/artwork.png").arg(QDir::currentPath()));
+}
+
+void Player::onNowPlayingRevoked() {
+    qDebug() << "Player::onNowPlayingRevoked";
+}
+
+void Player::onNowPlayingPlay() {
+    qDebug() << "Player::onNowPlayingPlay";
+    resume();
+}
+
+void Player::onNowPlayingStop() {
+    qDebug() << "Player::onNowPlayingStop";
+    stop();
+}
+
+void Player::onNowPlayingPause() {
+    qDebug() << "Player::onNowPlayingPause";
+    pause();
+}
+
 Player::State Player::state() const {
     return m_state;
 }
@@ -199,6 +273,8 @@ void Player::beginPlay(QString const& fileName) {
             QString file = m_module->fileName();
             changeStatus(Playing, QString("Playing %1").arg(file));
             m_catalog->play(file);
+
+            m_nowPlaying->acquire();
         }
         else
         {
@@ -291,12 +367,15 @@ void Player::resume() {
 
 void Player::onPaused() {
     changeStatus(Paused, "Paused");
+    m_nowPlaying->setMediaState(MediaState::Paused);
 }
 
 void Player::onPlaying() {
     changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
+    m_nowPlaying->setMediaState(MediaState::Started);
 }
 
 void Player::onStopped() {
     changeStatus(Stopped, "Stopped");
+    m_nowPlaying->setMediaState(MediaState::Stopped);
 }
