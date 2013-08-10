@@ -24,6 +24,21 @@ Player::Player(QObject * parent)
     initDownloader();
     initModule();
     initNowPlaying();
+    initData();
+}
+
+void Player::initData() {
+    QString appFolder(QDir::homePath());
+    appFolder.chop(4);
+    QString imagesDir = appFolder + "app/native/assets/images";
+    m_formatIdToIconUrlMap[1] = QUrl(QString("file://") + joinPath(imagesDir, "icon_mod.png"));
+    m_formatIdToIconUrlMap[2] = QUrl(QString("file://") + joinPath(imagesDir, "icon_669.png"));
+    m_formatIdToIconUrlMap[3] = QUrl(QString("file://") + joinPath(imagesDir, "icon_it.png"));
+    m_formatIdToIconUrlMap[4] = QUrl(QString("file://") + joinPath(imagesDir, "icon_med.png"));
+    m_formatIdToIconUrlMap[5] = QUrl(QString("file://") + joinPath(imagesDir, "icon_mtm.png"));
+    m_formatIdToIconUrlMap[8] = QUrl(QString("file://") + joinPath(imagesDir, "icon_s3m.png"));
+    m_formatIdToIconUrlMap[9] = QUrl(QString("file://") + joinPath(imagesDir, "icon_stm.png"));
+    m_formatIdToIconUrlMap[10] = QUrl(QString("file://") + joinPath(imagesDir, "icon_xm.png"));
 }
 
 QString Player::joinPath(QString const& directory, QString const& fileName) {
@@ -213,7 +228,7 @@ void Player::updateNowPlaying() {
     m_nowPlaying->setNextEnabled(false);
     m_nowPlaying->setPreviousEnabled(false);
     m_nowPlaying->setMetaData(metadata);
-    //m_nowPlaying->setIconUrl(QUrl("file://%1/app/native/assets/artwork.png").arg(QDir::currentPath()));
+    m_nowPlaying->setIconUrl(m_formatIdToIconUrlMap[m_module->formatId()]);
 }
 
 void Player::onNowPlayingAcquired() {

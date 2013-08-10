@@ -4,6 +4,7 @@
 SongBasicInfo::SongBasicInfo(QObject *parent)
  : QObject(parent),
    m_modId(0),
+   m_formatId(0),
    m_fileSize(0),
    m_songLength(0),
    m_downloads(0),
@@ -17,6 +18,7 @@ SongBasicInfo::SongBasicInfo(QObject *parent)
 SongBasicInfo::SongBasicInfo(int id,
                              QString const& fileName,
                              QString const& title,
+                             int format,
                              int downloads,
                              int favourited,
                              int score,
@@ -30,6 +32,7 @@ SongBasicInfo::SongBasicInfo(int id,
      m_fileName(fileName),
      m_title(title),
      m_modId(id),
+     m_formatId(format),
      m_fileSize(size),
      m_songLength(length),
      m_downloads(downloads),
@@ -85,6 +88,17 @@ void SongBasicInfo::setModId(int value) {
     if(m_modId != value) {
         m_modId = value;
         emit modIdChanged();
+    }
+}
+
+int SongBasicInfo::formatId() const {
+    return m_formatId;
+}
+
+void SongBasicInfo::setFormatId(int value) {
+    if(m_formatId != value) {
+        m_formatId = value;
+        emit formatIdChanged();
     }
 }
 

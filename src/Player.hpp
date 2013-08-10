@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QMap>
+#include <QUrl>
 
 class Cache;
 class Catalog;
@@ -79,6 +81,7 @@ private:
     static QString joinPath(QString const& directory, QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
 
+    void initData();
     void initCatalog();
     void initCache();
     void initDownloader();
@@ -94,6 +97,7 @@ private:
     void updateNowPlaying();
 private:
     State m_state;
+    QMap<int, QUrl> m_formatIdToIconUrlMap;
     QString m_statusText;
     Catalog * m_catalog;
     Cache * m_cache;

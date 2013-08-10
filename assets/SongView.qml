@@ -29,18 +29,45 @@ Page {
                 
                 visible: song != null
                 
-                Label {
-                    text: song != null ? "File Name: <b>" + song.fileName + "</b>" : ""
-                    textFormat: TextFormat.Html
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    ImageView {
+                        verticalAlignment: VerticalAlignment.Center
+                        imageSource: "asset:///images/icon_" + formatToIcon[song.formatId] + ".png"
+                        property variant formatToIcon: {
+                            1: "mod",
+                            2: "669",
+                            3: "it",
+                            4: "med",
+                            5: "mtm",
+                            6: "oct",
+                            7: "okt",
+                            8: "s3m",
+                            9: "stm",
+                            10: "xm"
+                        }
+                    }
+                    Container {
+                        layout: StackLayout {
+                            orientation: LayoutOrientation.TopToBottom
+                        }
+                        Label {
+                            text: song != null ? "File Name: <b>" + song.fileName + "</b>" : ""
+                            textFormat: TextFormat.Html
+                        }
+                        Label {
+                            text: song != null ? "File Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
+                            textFormat: TextFormat.Html
+                        }
+                        Label {
+                            text: song !== null ? "Title: <b>" + song.title + "</b>" : ""
+                            textFormat: TextFormat.Html
+                        }
+                    }
                 }
-                Label {
-                    text: song != null ? "File Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
-                    textFormat: TextFormat.Html
-                }
-                Label {
-                    text: song !== null ? "Title: <b>" + song.title + "</b>" : ""
-                    textFormat: TextFormat.Html
-                }
+                
                 Label {
                     text: song != null ? "Format: " + song.format : ""
                 }

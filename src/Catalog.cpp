@@ -129,6 +129,7 @@ DataModel * Catalog::findSongsByFormatId(int formatId) {
                             " id, "
                             " fileName, "
                             " title, "
+                            " format, "
                             " downloads, "
                             " favourited, "
                             " score, "
@@ -161,6 +162,7 @@ DataModel * Catalog::findSongsByGenreId(int genreId) {
             " id, "
             " fileName, "
             " title, "
+            " format, "
             " downloads, "
             " favourited, "
             " score, "
@@ -279,6 +281,7 @@ SongInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int id           = sqlQuery.value(column++).toInt();
     QString fileName = sqlQuery.value(column++).toString();
     QString title    = sqlQuery.value(column++).toString();
+    int formatId     = sqlQuery.value(column++).toInt();
     int downloads    = sqlQuery.value(column++).toInt();
     int favourited   = sqlQuery.value(column++).toInt();
     int score        = sqlQuery.value(column++).toInt();
@@ -299,6 +302,7 @@ SongInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     return new SongInfo(id,
                         fileName,
                         title,
+                        formatId,
                         downloads,
                         favourited,
                         score,
@@ -324,6 +328,7 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
     int id           = sqlQuery.value(column++).toInt();
     QString fileName = sqlQuery.value(column++).toString();
     QString title    = sqlQuery.value(column++).toString();
+    int format       = sqlQuery.value(column++).toInt();
     int downloads    = sqlQuery.value(column++).toInt();
     int favourited   = sqlQuery.value(column++).toInt();
     int score        = sqlQuery.value(column++).toInt();
@@ -335,6 +340,7 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
     return new SongBasicInfo(id,
                              fileName,
                              title,
+                             format,
                              downloads,
                              favourited,
                              score,
@@ -352,6 +358,7 @@ SongInfo * Catalog::selectSongInfo(QString const& whereClause) {
                 " songs.id AS id,"
                 " fileName,"
                 " songs.title as title,"
+                " format AS formatId, "
                 " downloads, "
                 " favourited, "
                 " score, "
@@ -390,6 +397,7 @@ DataModel * Catalog::selectSongBasicInfo(QString const& whereClause,
                   " id, "
                   " fileName, "
                   " title, "
+                  " format, "
                   " downloads, "
                   " favourited, "
                   " score, "

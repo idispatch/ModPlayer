@@ -48,6 +48,28 @@ SongModule::~SongModule()
     }
 }
 
+int SongModule::formatId() const
+{
+    if(m_fileName.endsWith(".mod")) {
+        return 1;
+    } else if(m_fileName.endsWith(".669")) {
+        return 2;
+    } else if(m_fileName.endsWith(".it")) {
+        return 3;
+    } else if(m_fileName.endsWith(".med")) {
+        return 4;
+    } else if(m_fileName.endsWith(".mtm")) {
+        return 5;
+    } else if(m_fileName.endsWith(".s3m")) {
+        return 8;
+    } else if(m_fileName.endsWith(".stm")) {
+        return 9;
+    } else if(m_fileName.endsWith(".xm")) {
+        return 10;
+    }
+    return 0;
+}
+
 bool SongModule::songLoaded() const
 {
     return m_modPlug != NULL;

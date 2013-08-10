@@ -12,6 +12,7 @@ class SongBasicInfo : public QObject {
     Q_PROPERTY(int modId READ modId WRITE setModId NOTIFY modIdChanged FINAL)
     Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize NOTIFY fileSizeChanged FINAL)
     Q_PROPERTY(int songLength READ songLength WRITE setSongLength NOTIFY songLengthChanged FINAL)
+    Q_PROPERTY(int formatId READ formatId WRITE setFormatId NOTIFY formatIdChanged FINAL)
     Q_PROPERTY(int downloads READ downloads WRITE setDownloads NOTIFY downloadsChanged FINAL)
     Q_PROPERTY(int favourited READ favourited WRITE setFavourited NOTIFY favouritedChanged FINAL)
     Q_PROPERTY(int score READ score WRITE setScore NOTIFY scoreChanged FINAL)
@@ -24,6 +25,7 @@ public:
     SongBasicInfo(int id,
                   QString const& fileName,
                   QString const& title,
+                  int format,
                   int downloads,
                   int favourited,
                   int score,
@@ -50,6 +52,9 @@ public:
     int songLength() const;
     void setSongLength(int value);
 
+    int formatId() const;
+    void setFormatId(int value);
+
     int downloads() const;
     void setDownloads(int value);
 
@@ -71,6 +76,7 @@ Q_SIGNALS:
     void fileNameChanged();
     void titleChanged();
     void modIdChanged();
+    void formatIdChanged();
     void fileSizeChanged();
     void songLengthChanged();
     void downloadsChanged();
@@ -85,6 +91,7 @@ private:
     QString m_fileName;
     QString m_title;
     int m_modId;
+    int m_formatId;
     int m_fileSize;
     int m_songLength;
     int m_downloads;

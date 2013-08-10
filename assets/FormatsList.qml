@@ -27,6 +27,7 @@ Page {
                     title: ListItemData.name
                     description: ListItemData.description
                     status: ListItemData.count + " songs"
+                    imageSource: "asset:///images/icon_" + ListItemData.name.toLowerCase() + ".png"
                 }
             }
         

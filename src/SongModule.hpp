@@ -38,6 +38,7 @@ class SongModule : public QObject {
     Q_PROPERTY(int length READ length WRITE setLength NOTIFY lengthChanged FINAL)
     Q_PROPERTY(QString lengthTimeString READ lengthTimeString NOTIFY lengthTimeStringChanged FINAL)
 
+    Q_PROPERTY(int formatId READ formatId FINAL)
 public:
     SongModule(QObject *parent = 0);
     virtual ~SongModule();
@@ -55,6 +56,8 @@ public:
 
     QString fileName() const;
     void setFileName(const QString &value);
+
+    int formatId() const;
 
     int instruments() const;
     void setInstruments(int value);

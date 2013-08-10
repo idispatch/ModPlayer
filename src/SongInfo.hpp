@@ -24,6 +24,7 @@ public:
     SongInfo(int id,
              QString const& fileName,
              QString const& title,
+             int formatId,
              int downloads,
              int favourited,
              int score,
