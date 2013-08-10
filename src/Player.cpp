@@ -201,8 +201,7 @@ void Player::onDownloadFailure(int modId) {
     stop();
 }
 
-void Player::onNowPlayingAcquired() {
-    qDebug() << "Player::onNowPlayingAcquired";
+void Player::updateNowPlaying() {
     m_nowPlaying->setDuration(180000);
     m_nowPlaying->setPosition(0);
     QVariantMap metadata;
@@ -215,6 +214,11 @@ void Player::onNowPlayingAcquired() {
     m_nowPlaying->setPreviousEnabled(false);
     m_nowPlaying->setMetaData(metadata);
     //m_nowPlaying->setIconUrl(QUrl("file://%1/app/native/assets/artwork.png").arg(QDir::currentPath()));
+}
+
+void Player::onNowPlayingAcquired() {
+    qDebug() << "Player::onNowPlayingAcquired";
+    updateNowPlaying();
 }
 
 void Player::onNowPlayingRevoked() {
@@ -275,7 +279,11 @@ void Player::beginPlay(QString const& fileName) {
             changeStatus(Playing, QString("Playing %1").arg(file));
             m_catalog->play(file);
 
-            m_nowPlaying->acquire();
+            if(!m_nowPlaying->isAcquired()) {
+                m_nowPlaying->acquire();
+            } else {
+                updateNowPlaying();
+            }
         }
         else
         {

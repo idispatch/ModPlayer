@@ -91,6 +91,7 @@ private:
     void playByModuleId(int modId);
     void playByModuleFileName(QString const& fileName);
 
+    void updateNowPlaying();
 private:
     State m_state;
     QString m_statusText;
