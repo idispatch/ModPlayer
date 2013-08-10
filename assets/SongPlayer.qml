@@ -49,18 +49,44 @@ Page {
                         horizontalAlignment: HorizontalAlignment.Center
                     }
 
-                    Label {
-                        text: "File: " + app.player.currentSong.fileName
-                    }
-                    Label {
-                        visible: app.player.currentSong.description.length > 0
-                        text: "Description: " + app.player.currentSong.description
-                    }
-                    Label {
-                        text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
-                    }
-                    Label {
-                        text: "Length: " + app.player.currentSong.lengthTimeString
+                    Container {
+                        layout: StackLayout {
+                            orientation: LayoutOrientation.LeftToRight
+                        }
+                        ImageView {
+                            verticalAlignment: VerticalAlignment.Center
+                            imageSource: "asset:///images/icon_" + formatToIcon[song.formatId] + ".png"
+                            property variant formatToIcon: {
+                                1: "mod",
+                                2: "669",
+                                3: "it",
+                                4: "med",
+                                5: "mtm",
+                                6: "oct",
+                                7: "okt",
+                                8: "s3m",
+                                9: "stm",
+                                10: "xm"
+                            }
+                        }
+                        Container {
+                            layout: StackLayout {
+                                orientation: LayoutOrientation.TopToBottom
+                            }
+                            Label {
+                                text: "File: " + app.player.currentSong.fileName
+                            }
+                            Label {
+                                visible: app.player.currentSong.description.length > 0
+                                text: "Description: " + app.player.currentSong.description
+                            }
+                            Label {
+                                text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
+                            }
+                            Label {
+                                text: "Length: " + app.player.currentSong.lengthTimeString
+                            }
+                        }
                     }
 
                     Divider {}
