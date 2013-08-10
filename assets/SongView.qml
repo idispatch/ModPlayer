@@ -148,6 +148,7 @@ Page {
                 Label {
                     visible: song!=null && app.cache.exists(song.fileName)
                     textFormat: TextFormat.Html
+                    horizontalAlignment: HorizontalAlignment.Center
                     text: {
                         if(song != null) {
                             if(app.cache.exists(song.fileName)) {
