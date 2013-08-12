@@ -1,0 +1,43 @@
+# genre 45 = Comedy
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=45&request=search&search_type=genre&page=1#mods
+42316|45|epz2m1.it|
+154559|45|angry.xm|
+35095|45|canospam.s3m|3
+39631|45|dmc_deck-the-halls.it|3
+35259|45|cartoon.it|6
+42317|45|epz2m10.it|
+34348|45|avkado.xm|
+38121|45|bong.xm|3
+38526|45|dirtbags.xm|7
+32374|45|allways.xm|7
+155871|45|caveman.stm|6
+87215|45|dobranocki.mod|5
+42319|45|epz2m2.it|
+40772|45|eatgorby.xm|4
+125880|45|brosseur_koach_mix.mod|3
+39719|45|bz_rap.it|
+37804|45|devices.mod|1
+35137|45|bamse.xm|5
+80075|45|2_stupid_dogs.mod|
+39462|45|burp_fart.it|5
+40199|45|cutie1.mod|7
+161289|45|algar_-_commando_mouth_remix.xm|
+69219|45|avis_anders_visesang.s3m|2
+60993|45|3founder.xm|7
+104208|45|banana_boat.mod|6
+41453|45|dtaytk.xm|
+34115|45|aspirine.mod|7
+36920|45|chocoborun.mod|5
+41707|45|dush-choco.it|
+82231|45|eskimo4.mod|3
+39646|45|dmc_wth.it|
+34030|45|artsun.it|
+168797|45|02_-_aplaudid_gilipollas.xm|
+33239|45|aldino.mod|
+157333|45|balrog_-_poop_corn.xm|4
+64656|45|barbie.xm|4
+34654|45|ctgoblin.s3m|9
+34178|45|atlantis.it|
+41778|45|em2.mod|8
+34897|45|backbeat.mod|2

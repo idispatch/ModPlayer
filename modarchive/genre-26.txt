@@ -1,0 +1,14 @@
+# genre 26 = R & B
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=26&request=search&search_type=genre&page=1#mods
+168689|26|liftyasoul.xm|
+39882|26|crunch.it|
+34209|26|atojazz_lofi.xm|
+160111|26|gto_-_rap.mod|9
+162598|26|jm_after_hours.it|
+41689|26|fearless.xm|8
+45638|26|infernal.xm|
+140499|26|echo_sound.xm|8
+66997|26|m0d_-_evil_ate_my_pie.ahx|8
+168705|26|liftyver20.xm|7
+64841|26|bizness.it|8

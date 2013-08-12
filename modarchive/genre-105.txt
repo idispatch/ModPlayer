@@ -1,0 +1,7 @@
+# genre 105 = Bluegrass
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=105&request=search&search_type=genre&page=1#mods
+63824|105|wvl_trbl.xm|10
+174122|105|rockytop.xm|
+144405|105|hillbilly_billyboy.xm|9
+167540|105|robric503.xm|

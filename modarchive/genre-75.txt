@@ -1,0 +1,15 @@
+# genre 75 = Swing
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=75&request=search&search_type=genre&page=1#mods
+102636|75|humble_down_theroad.mod|8
+160071|75|wltrs_-_bliss.xm|8
+137098|75|whats_the_catch.xm|8
+32324|75|_1marble.mtm|8
+34929|75|backtoth.mod|1
+45178|75|ilytail.it|3
+55671|75|schwing.mod|
+50083|75|mdsw8bit.it|9
+159203|75|wltrs_-_jinglejazz.xm|8
+62333|75|swing.it|6
+54272|75|schwing.mod|7
+62363|75|swingveg.it|7

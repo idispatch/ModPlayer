@@ -1,0 +1,13 @@
+# genre 76 = Vocal Montage
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=76&request=search&search_type=genre&page=1#mods
+154562|76|banankex.xm|
+72719|76|paranska_ukolebavka.s3m|2
+115443|76|vigilante_the_bad_version.mod|2
+62462|76|symbiaht.mod|7
+60186|76|stoopid1.xm|2
+36993|76|death1.mod|2
+62471|76|symouth.xm|4
+72196|76|helpless_automaton.s3m|6
+60664|76|vocal.xm|3
+127974|76|mercedes-benz.mod|1

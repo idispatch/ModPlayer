@@ -1,0 +1,33 @@
+# genre 64 = Trance - Hard
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=64&request=search&search_type=genre&page=1#mods
+50037|64|neu-ht1.xm|7
+134990|64|land_of_imagination.xm|
+110748|64|mind_control-.mod|4
+62780|64|timewyrm13.it|6
+169097|64|noisy_abdul_-_moonlight.mod|8
+59726|64|17.mod|6
+35112|64|bam-etic.xm|6
+172961|64|miafan2010_-_the_quest_to_equestria_hard_trance_version.it|6
+54809|64|phright.xm|7
+169835|64|saga_musix_-_10000m_below_sea_level.it|7
+68459|64|sy_lolat.it|8
+163280|64|void_pointer_-_psychos.it|9
+145124|64|hyperspaced_mav.xm|8
+165641|64|mcf_kijk_omhoog.xm|
+164757|64|j_rook_-_hardtrance.xm|8
+55425|64|plasmawea.xm|9
+154803|64|cts-atkp.xm|9
+152441|64|p3t3_2k.xm|5
+162336|64|mcf_promise_me.xm|
+36938|64|bj_infor.it|8
+51868|64|ntx_untg.xm|5
+154691|64|nznd-tlife.it|
+154683|64|nznd-ftg.it|
+64541|64|twins.mod|6
+171113|64|inf_sinf.xm|
+118422|64|furry-7091c.mod|10
+54770|64|ren.xm|6
+50004|64|md-nrg.xm|6
+35306|64|bass_explosion.it|8
+48668|64|m_what.xm|2

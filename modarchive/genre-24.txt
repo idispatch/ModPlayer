@@ -1,0 +1,7 @@
+# genre 24 = Ska
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=24&request=search&search_type=genre&page=1#mods
+65150|24|happyska.xm|
+173636|24|pnq-hang.it|9
+65483|24|woodshoes.xm|
+91629|24|nopower.mod|3

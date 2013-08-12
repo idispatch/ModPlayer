@@ -1,0 +1,32 @@
+# genre 35 = Punk
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=35&request=search&search_type=genre&page=1#mods
+59157|35|vaderkva.xm|
+171932|35|greenday_-_american_idiot.it|
+62818|35|yf-punk.it|
+43858|35|go_lucky.xm|
+45845|35|insane.it|
+44828|35|icq_punk.it|
+47419|35|kaizsu_-_the_offspring.xm|3
+47380|35|kaizsu_-_kaikki_imee.xm|2
+41449|35|elecheav.xm|7
+40629|35|e1m1.it|
+51424|35|mgmht8.it|2
+35274|35|basket.s3m|5
+154574|35|smo_bit.xm|
+47525|35|kattastr.xm|6
+37471|35|bleakf.xm|
+53039|35|pakaste.xm|7
+58142|35|spheria.it|
+58411|35|splbooze.mod|7
+43907|35|gocart.xm|3
+42358|35|fjolt.xm|
+35879|35|beallyou.it|
+64090|35|zorg_finalcntdwn.xm|
+64730|35|hyo-ic.it|7
+50477|35|olof_win.xm|
+46995|35|hyo-conf.it|
+42796|35|galen.xm|
+48362|35|kuperjanov.it|
+46999|35|hyo-day.it|
+47061|35|hyo-ignore.it|

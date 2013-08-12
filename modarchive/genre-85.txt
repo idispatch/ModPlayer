@@ -1,0 +1,25 @@
+# genre 85 = Trance - Progressive
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=85&request=search&search_type=genre&page=1#mods
+172960|85|miafan2010_-_the_quest_to_equestria.it|
+172939|85|miafan2010_-_aryx_trance_mix.it|
+172938|85|miafan2010_-_aryx_remix_2012.it|
+172928|85|miafan2010_-_loves_in_bloom_remix.it|
+59113|85|04f.xm|10
+172922|85|miafan2010_-_civilize.it|
+54177|85|rchii_13.it|9
+143338|85|naked_reality.xm|7
+140673|85|deadly_injection.xm|9
+45005|85|hb_wave.it|10
+141293|85|search_of_mind.xm|6
+137871|85|mix_98.xm|
+58961|85|01anb.xm|6
+143280|85|tiara.xm|10
+163142|85|xmt8.xm|
+172984|85|miafan2010_-_the_aryx_experience.it|
+173023|85|hagre2.mod|9
+148421|85|addlib.xm|8
+169620|85|xqe_move.xm|
+169604|85|trinity.it|8
+33260|85|alien.s3m|8
+163141|85|xmt7.xm|

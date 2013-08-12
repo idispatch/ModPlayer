@@ -142,7 +142,7 @@ INSERT INTO formats (id, name, description) VALUES (5, 'MTM','MultiTracker Modul
 INSERT INTO formats (id, name, description) VALUES (6, 'OCT','OctaMED Module');
 INSERT INTO formats (id, name, description) VALUES (7, 'OKT','Oktalyzer Module');
 INSERT INTO formats (id, name, description) VALUES (8, 'S3M','ScreamTracker 3 Module');
-INSERT INTO formats (id, name, description) VALUES (9, 'STM','Scream Tracker 2 Module');
+INSERT INTO formats (id, name, description) VALUES (9, 'STM','ScreamTracker 2 Module');
 INSERT INTO formats (id, name, description) VALUES (10, 'XM','FastTracker 2 Module');
 INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Module');
 INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');

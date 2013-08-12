@@ -1,0 +1,37 @@
+# genre 30 = Jazz - Acid
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=30&request=search&search_type=genre&page=1#mods
+122064|30|acid_jazz_part2.mod|8
+33699|30|anu_acid.it|10
+45111|30|jazzmeup.xm|4
+122063|30|acid_jazz_part1.mod|8
+85777|30|jimmy_2.mod|7
+57611|30|snowglin.it|8
+58986|30|v-bacidb.xm|7
+35277|30|dawn.mod|8
+33717|30|anu_vert.it|8
+32824|30|acidjazz.mod|8
+51583|30|midnight_.xm|
+38118|30|bones_skulls.mod|
+135164|30|anemophobia.xm|9
+141679|30|anal_catharsis.xm|9
+62626|30|xm-orng.xm|7
+121115|30|arc-moist.mod|7
+94734|30|_give_me_a_light_.mod|8
+65804|30|tinojazz.mod|6
+134387|30|a_rose_of_gold.xm|9
+87186|30|jazzfunk.mod|9
+172338|30|jk_chasingtheswing.xm|8
+167717|30|ctrix_-_thanksroy_2008.mod|9
+47645|30|keufon.it|6
+167712|30|ctrix_-_lemonfunk_evoke_2006.mod|10
+103582|30|damn_motherfucker.mod|7
+155834|30|blasa-under_my_skin.it|
+155842|30|blasa-groovy_solution.it|
+139072|30|scrutiny.xm|10
+155830|30|blasa-signals.it|
+37357|30|blasa_mood.it|
+49957|30|mcl-some.it|7
+166338|30|lamb_-_midnight.xm|
+38831|30|dj_khan-taksim_square.xm|
+162274|30|trip_-_horizon.mod|9

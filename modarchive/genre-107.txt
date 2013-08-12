@@ -1,0 +1,41 @@
+# genre 107 = Easy Listening 
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=107&request=search&search_type=genre&page=1#mods
+165651|107|jogeir_liljedahl_-_infinity.mod|7
+169643|107|jk_road.it|9
+142018|107|the_dancing_queen.xm|9
+156510|107|fountain_of_sighs.it|
+169647|107|a-lin_variete.it|7
+165819|107|lamb_-_among_the_stars.xm|8
+168723|107|takeawalk.xm|
+43097|107|ezstreet.xm|
+73250|107|do_you_like_intros.s3m|8
+158227|107|bernard_sumner_-_military.mod|7
+63924|107|zk_fdrag.xm|6
+165434|107|lamb_-_setting_sun.xm|8
+104794|107|taste_of_your_tears.mod|9
+126786|107|dilemma_magnaruxius.mod|10
+169044|107|horizonsfree.xm|
+154161|107|unseen_face.xm|9
+168101|107|prophet_-_hallucination.mod|10
+172691|107|icemoon.it|8
+99785|107|trivia_titletune.mod|9
+170256|107|alpha_c_-_platonia.it|
+169484|107|jk_lonelysoul.xm|9
+1317|107|sed-bob8.xm|7
+162628|107|d-ambie2.xm|8
+168451|107|69392-tonight_i_need_a_friend.xm|8
+164315|107|killroy_-_dreaming_of_you.mod|6
+48489|107|m-wings.mod|6
+168455|107|82910-ocean2.xm|8
+88813|107|whalesvoyage2-planet8.mod|5
+167919|107|pix_llby.it|
+67478|107|drax-repeating_patterns.xm|9
+65260|107|songbird.mod|8
+165804|107|lamb_-_lightbeam.xm|
+163904|107|shytan_-_helenas_theme.it|8
+75402|107|tomato_soup.mod|6
+103414|107|my_little_oliphant.mod|9
+153629|107|always_remember.xm|8
+49635|107|nb_past.it|9
+34390|107|awarness.mod|7

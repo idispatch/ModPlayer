@@ -1,0 +1,49 @@
+# genre 11 = Electronic - Progressive
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=11&request=search&search_type=genre&page=1#mods
+# http://modarchive.org/index.php?query=11&request=search&search_type=genre&page=2#mods
+171895|11|bong_can.xm|9
+40440|11|dreaming.xm|6
+80254|11|charismofdark.mod|10
+55324|11|savagery.it|9
+162781|11|gliuk.it|
+33819|11|apocalyp.mod|8
+104266|11|hold.mod|10
+55648|11|schizoid.mod|6
+169148|11|diving_into_space_16_kb_version.xm|7
+134569|11|atbia3.xm|8
+142211|11|passesoftuningin.xm|8
+162917|11|pip-heavypvc.it|
+169422|11|atk!_one.it|8
+37312|11|blasa_futuresound.it|
+169426|11|atk!_up.xm|
+37334|11|deliver.it|7
+123757|11|hoodlum_crack02.mod|9
+154879|11|darkmind_-_fly.it|8
+137868|11|forgot_the_time.xm|
+171134|11|inf_gvah.xm|
+160866|11|elfan_-_in_meinem_komputer.xm|9
+161783|11|tm_emplosion.xm|6
+51055|11|orbflowr.mod|7
+166521|11|pip-hannibaugh.it|
+72101|11|out_on_the_town.s3m|10
+35110|11|bam-beli.xm|4
+161781|11|tweeter_-_melancholy.xm|8
+159043|11|ckx.it|10
+166499|11|pip-misunderestimation.it|
+61721|11|wc_tranc.mod|6
+168916|11|barnabs.xm|
+163613|11|bass_system-suprematist.it|
+133754|11|insane_reality_bnd.xm|7
+68762|11|mythe_blaster.xm|
+42805|11|exc_ecl.xm|8
+155839|11|bsman2-arena3.xm|
+32563|11|a0d_prog.xm|6
+135052|11|the_beat.xm|
+157345|11|wltrs_-_sunset.xm|8
+169572|11|_0012e.xm|
+145090|11|fluff.xm|8
+165794|11|lamb_-_mind_validator.xm|
+68561|11|goto80-ter4.mod|8
+158521|11|ylikulju_-_track8.s3m|7
+169416|11|atk!_und.xm|

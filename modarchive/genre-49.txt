@@ -1,0 +1,13 @@
+# genre 49 = Religious
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=49&request=search&search_type=genre&page=1#mods
+61181|49|vr_icsoylf.xm|
+144025|49|horizon-highquality.xm|10
+35576|49|bd_cally.xm|4
+64614|49|liftonhi2.it|2
+41400|49|farewell_tear.xm|8
+161278|49|algar_-_symphonysickness2.xm|
+44827|49|harikris.xm|
+46562|49|howdeepisthefatherslove.it|
+34996|49|bagpipe.mod|6
+43520|49|ghof.xm|5

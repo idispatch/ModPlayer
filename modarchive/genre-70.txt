@@ -1,0 +1,21 @@
+# genre 70 = Trance - Tribal
+# modid|genre|filename|score
+# http://modarchive.org/index.php?query=70&request=search&search_type=genre&page=1#mods
+169765|70|inca.it|
+62468|70|whatislo.mod|7
+106749|70|vitz_-_urban_decay.med|
+54185|70|rchii_s.it|
+154775|70|mdg-trib.xm|
+169973|70|chiva.it|
+34459|70|axel-opr.mod|5
+165865|70|trimcrop.it|
+169975|70|shiva.it|
+32994|70|afrihunt.it|6
+59859|70|whenrise.xm|8
+59309|70|vaporf.xm|8
+171619|70|sumerion_artifacts.it|
+169601|70|trillium-b.it|
+169600|70|trillium-c.it|
+169602|70|trillium-a.it|
+49634|70|lvraidnu.it|9
+169158|70|sunart.it|
