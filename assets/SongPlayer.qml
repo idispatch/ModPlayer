@@ -3,6 +3,8 @@ import player 1.0
 import "functions.js" as Global
 
 Page {
+    id: songPlayer
+    
     property variant navigationPane
     property variant currentSong
 
@@ -53,15 +55,8 @@ Page {
                         layout: StackLayout {
                             orientation: LayoutOrientation.LeftToRight
                         }
-                        ImageView {
-                            verticalAlignment: VerticalAlignment.Center
-                            imageSource: app.getIconPath(song)
-                            preferredHeight: 128
-                            preferredWidth: 128
-                            minHeight: preferredHeight
-                            maxHeight: preferredHeight
-                            minWidth: preferredWidth 
-                            maxWidth: preferredWidth
+                        SongIconView {
+                            song: songPlayer.currentSong
                         }
                         Container {
                             layout: StackLayout {
@@ -78,7 +73,7 @@ Page {
                                 text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
                             }
                             Label {
-                                text: "Length: " + app.player.currentSong.lengthTimeString
+                                text: "Length: " + app.player.currentSong.songLengthText
                             }
                         }
                     }

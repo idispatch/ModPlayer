@@ -13,6 +13,7 @@ class SongInfo : public SongBasicInfo {
     Q_PROPERTY(QString tracker READ tracker WRITE setTracker NOTIFY trackerChanged FINAL)
     Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged FINAL)
     Q_PROPERTY(QString artist READ artist WRITE setArtist NOTIFY artistChanged FINAL)
+
     Q_PROPERTY(int patterns READ patterns WRITE setPatterns NOTIFY patternsChanged FINAL)
     Q_PROPERTY(int orders READ orders WRITE setOrders NOTIFY ordersChanged FINAL)
     Q_PROPERTY(int instruments READ instruments WRITE setInstruments NOTIFY instrumentsChanged FINAL)
@@ -44,6 +45,7 @@ public:
              int channels,
              QObject * parent = 0);
     ~SongInfo();
+    SongInfo& operator = (SongInfo const&);
 
     QString format() const;
     void setFormat(const QString &value);
@@ -82,7 +84,6 @@ Q_SIGNALS:
     void samplesChanged();
     void channelsChanged();
 private:
-    Q_DISABLE_COPY(SongInfo)
     QString m_format;
     QString m_tracker;
     QString m_genre;

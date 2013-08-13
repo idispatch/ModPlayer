@@ -38,3 +38,18 @@ function formatTimeStamp(unix_timestamp) {
            (day_diff < 365 && Math.ceil( day_diff / 12 ) + " months ago") ||
            ("long ago " + day_diff);
 }
+
+var entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+//'"': '&quot;',
+//"'": '&#39;',
+//"/": '&#x2F;'
+};
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}

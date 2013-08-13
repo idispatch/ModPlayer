@@ -36,7 +36,7 @@ public:
     void run();
     void stopThread();
 
-    Q_INVOKABLE bool load(QString const& fileName);
+    Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();
 
     Q_INVOKABLE bool play();
@@ -56,7 +56,7 @@ private:
 
     bool detectAudioDevice();
     bool initPlayback();
-    int  updateChunk(ModPlugFile * module);
+    int  updateChunk();
     void stopAudioDevice();
     void closePlayback();
     void changeState(State state);
@@ -65,6 +65,7 @@ private:
     {
         NoCommand = 0,
         ExitCommand,
+        ConfigureCommand,
         LoadCommand,
         UnloadCommand,
         PlayCommand,
@@ -79,9 +80,10 @@ private:
     State m_state;
     Command m_command;
     QString m_pendingFileName;
+    SongInfo m_pendingSong;
 
     QByteArray m_audioBuffer;
-    SongModule * m_song;
+    SongModule m_song;
 
     /* Device audio channel configuration */
     bool m_bStereo;

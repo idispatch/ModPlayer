@@ -59,6 +59,22 @@ SongInfo::~SongInfo() {
     //qDebug() << "SongInfo::~SongInfo()";
 }
 
+SongInfo& SongInfo::operator = (SongInfo const& other) {
+    if(this != &other) {
+        SongBasicInfo::operator = (other);
+        setFormat(other.format());
+        setTracker(other.tracker());
+        setGenre(other.genre());
+        setArtist(other.artist());
+        setPatterns(other.patterns());
+        setOrders(other.orders());
+        setInstruments(other.instruments());
+        setSamples(other.samples());
+        setChannels(other.channels());
+    }
+    return *this;
+}
+
 QString SongInfo::format() const {
     return m_format;
 }

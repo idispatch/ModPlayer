@@ -2,6 +2,8 @@ import bb.cascades 1.0
 import "functions.js" as Global
 
 Page {
+    id: songView
+    
     property variant song
     property variant navigationPane 
 
@@ -33,15 +35,8 @@ Page {
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
                     }
-                    ImageView {
-                        verticalAlignment: VerticalAlignment.Center
-                        imageSource: app.getIconPath(song)
-                        preferredHeight: 128
-                        preferredWidth: 128
-                        minHeight: preferredHeight
-                        maxHeight: preferredHeight
-                        minWidth: preferredWidth 
-                        maxWidth: preferredWidth
+                    SongIconView {
+                        song: songView.song
                     }
                     Container {
                         layout: StackLayout {
@@ -56,7 +51,11 @@ Page {
                             textFormat: TextFormat.Html
                         }
                         Label {
-                            text: song !== null ? "Title: <b>" + song.title + "</b>" : ""
+                            text: song != null ? "Song Length: <b>" + song.songLengthText + "</b>" : ""
+                            textFormat: TextFormat.Html
+                        }
+                        Label {
+                            text: song != null ? "Title: <b>" + Global.escapeHtml(song.title) + "</b>" : ""
                             textFormat: TextFormat.Html
                         }
                     }
@@ -246,7 +245,7 @@ Page {
             var view = songPlayer.createObject()
             view.navigationPane = navigationPane 
             navigationPane.push(view)
-            view.play(song.modId)
+            view.play(song)
         }
     }
     

@@ -309,46 +309,12 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
     }
 }
 
-QVariant Catalog::resolveModuleById(int id) {
-#ifdef DEBUG_CATALOG
-    qDebug() << "Resolving module" << id;
-#endif
-    SongInfo * song = selectSongInfo(QString("WHERE songs.id=%1").arg(id));
-    if(song != NULL)
-    {
-#ifdef DEBUG_CATALOG
-        qDebug() << "Module resolved";
-#endif
-        return QVariant::fromValue(song);
-    }
-    else
-    {
-#ifdef DEBUG_CATALOG
-        qDebug() << "Module" << id << "cannot be resolved";
-#endif
-        return QVariant();
-    }
+SongInfo * Catalog::resolveModuleById(int id) {
+    return selectSongInfo(QString("WHERE songs.id=%1").arg(id));
 }
 
-QVariant Catalog::resolveModuleByFileName(QString const& fileName) {
-#ifdef DEBUG_CATALOG
-    qDebug() << "Resolving module" << fileName;
-#endif
-    SongInfo * song = selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName));
-    if(song != NULL)
-    {
-#ifdef DEBUG_CATALOG
-        qDebug() << "Module resolved";
-#endif
-        return QVariant::fromValue(song);
-    }
-    else
-    {
-#ifdef DEBUG_CATALOG
-        qDebug() << "Module" << fileName << "cannot be resolved";
-#endif
-        return QVariant();
-    }
+SongInfo * Catalog::resolveModuleByFileName(QString const& fileName) {
+    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName));
 }
 
 SongInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {

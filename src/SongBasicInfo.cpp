@@ -51,6 +51,24 @@ SongBasicInfo::~SongBasicInfo() {
     //qDebug() << "SongBasicInfo::~SongBasicInfo()";
 }
 
+SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
+    if(this != & other) {
+        setFileName(other.fileName());
+        setTitle(other.title());
+        setModId(other.modId());
+        setFormatId(other.formatId());
+        setFileSize(other.fileSize());
+        setSongLength(other.songLength());
+        setDownloads(other.downloads());
+        setFavourited(other.favourited());
+        setScore(other.score());
+        setPlayCount(other.playCount());
+        setLastPlayed(other.lastPlayed());
+        setMyFavourite(other.myFavourite());
+    }
+    return *this;
+}
+
 QString SongBasicInfo::fileName() const {
     return m_fileName;
 }
@@ -117,10 +135,18 @@ int SongBasicInfo::songLength() const {
     return m_songLength;
 }
 
+QString SongBasicInfo::songLengthText() const {
+    int totalSeconds = songLength() / 1000;
+    int seconds = totalSeconds % 60;
+    int minutes = totalSeconds / 60;
+    return QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+}
+
 void SongBasicInfo::setSongLength(int value) {
     if(m_songLength != value) {
         m_songLength = value;
         emit songLengthChanged();
+        emit songLengthTextChanged();
     }
 }
 

@@ -13,7 +13,7 @@ ModPlayback::ModPlayback(QObject * parent)
       m_mutex(QMutex::NonRecursive),
       m_state(Exit),
       m_command(NoCommand),
-      m_song(new SongModule(this)),
+      m_song(NULL),
       m_bStereo(true),
       m_frequency(44100),
       m_sampleBitSize(16),
@@ -46,8 +46,11 @@ void ModPlayback::configure(bool bStereo,
     if(!configChanged) {
         return;
     }
-    stopAudioDevice();
-    initPlayback();
+    m_command = LoadCommand;
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
 }
 
 void ModPlayback::closePlayback() {
@@ -58,11 +61,6 @@ void ModPlayback::closePlayback() {
     }
     m_pcmFd = -1;
     m_audioBuffer.resize(0);
-    if(m_song != NULL) {
-        m_song->setParent(0);
-        delete m_song;
-        m_song = NULL;
-    }
 }
 
 void ModPlayback::stopAudioDevice() {
@@ -77,14 +75,13 @@ void ModPlayback::stopAudioDevice() {
     m_audioBuffer.resize(0);
     m_numDevices = 0;
     m_pcmFd = -1;
-    if(m_song != NULL) {
-        m_song->rewind();
-    }
+    m_song.rewind();
 }
 
 void ModPlayback::changeState(State state) {
     QMutexLocker locker(&m_mutex);
     m_state = state;
+    m_cond.wakeAll();
 }
 
 void ModPlayback::stopThread() {
@@ -93,7 +90,7 @@ void ModPlayback::stopThread() {
         {
             QMutexLocker locker(&m_mutex);
             m_command = ExitCommand;
-            m_cond.wakeOne();
+            m_cond.wakeAll();
         }
         QThread::wait(); // wait till thread is stopped
     }
@@ -105,57 +102,78 @@ ModPlayback::State ModPlayback::state() {
 }
 
 SongModule* ModPlayback::currentSong() {
-    QMutexLocker locker(&m_mutex);
-    return m_song;
+    return &m_song;
 }
 
-bool ModPlayback::load(QString const& fileName) {
+bool ModPlayback::load(SongInfo const& info, QString const& fileName) {
     QMutexLocker locker(&m_mutex);
     m_command = LoadCommand;
     m_pendingFileName = fileName;
-    m_cond.wakeOne();
+    m_pendingSong = info;
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
 bool ModPlayback::unload() {
     QMutexLocker locker(&m_mutex);
     m_command = UnloadCommand;
-    m_cond.wakeOne();
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
 bool ModPlayback::play() {
     QMutexLocker locker(&m_mutex);
     m_command = PlayCommand;
-    m_cond.wakeOne();
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
 bool ModPlayback::stop() {
     QMutexLocker locker(&m_mutex);
     m_command = StopCommand;
-    m_cond.wakeOne();
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
 bool ModPlayback::pause() {
     QMutexLocker locker(&m_mutex);
     m_command = PauseCommand;
-    m_cond.wakeOne();
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
 bool ModPlayback::resume() {
     QMutexLocker locker(&m_mutex);
     m_command = ResumeCommand;
-    m_cond.wakeOne();
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
 bool ModPlayback::rewind() {
     QMutexLocker locker(&m_mutex);
     m_command = RewindCommand;
-    m_cond.wakeOne();
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
     return true;
 }
 
@@ -205,38 +223,49 @@ void ModPlayback::run() {
         case ExitCommand:
             m_command = NoCommand;
             m_state = Exiting;
+            m_cond.wakeAll();
             emit stopped();
+            continue;
+        case ConfigureCommand:
+            m_command = NoCommand;
+            stopAudioDevice();
+            initPlayback();
+            m_cond.wakeAll();
             continue;
         case LoadCommand:
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
-                if(m_song->load(m_pendingFileName)) {
+                if(m_song.load(m_pendingFileName)) {
                     m_state = Loaded;
+                    m_song.assignInfo(m_pendingSong);
                 } else {
                     m_state = Idle;
                 }
                 m_pendingFileName = "";
                 emit stopped();
             }
+            m_cond.wakeAll();
             continue;
         case UnloadCommand:
             m_command = NoCommand;
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                m_song->unload();
+                m_song.unload();
                 m_state = Idle;
                 emit stopped();
             }
+            m_cond.wakeAll();
             continue;
         case RewindCommand:
             m_command = NoCommand;
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                m_song->rewind();
+                m_song.rewind();
             }
+            m_cond.wakeAll();
             continue;
         case PlayCommand:
             m_command = NoCommand;
@@ -244,6 +273,7 @@ void ModPlayback::run() {
                 m_state = Playing;
                 emit playing();
             }
+            m_cond.wakeAll();
             continue;
         case StopCommand:
             m_command = NoCommand;
@@ -251,6 +281,7 @@ void ModPlayback::run() {
                 m_state = Loaded;
                 emit stopped();
             }
+            m_cond.wakeAll();
             continue;
         case PauseCommand:
             m_command = NoCommand;
@@ -258,6 +289,7 @@ void ModPlayback::run() {
                 m_state = Paused;
                 emit paused();
             }
+            m_cond.wakeAll();
             continue;
         case ResumeCommand:
             m_command = NoCommand;
@@ -265,6 +297,7 @@ void ModPlayback::run() {
                 m_state = Playing;
                 emit playing();
             }
+            m_cond.wakeAll();
             continue;
         }
         m_mutex.unlock();
@@ -290,7 +323,7 @@ void ModPlayback::run() {
         default:
             if FD_ISSET(m_pcmFd, &fdSet)
             {
-                int endOfSongOrError = updateChunk(*m_song);
+                int endOfSongOrError = updateChunk();
                 if(endOfSongOrError == 0) // End of song
                 {
                     changeState(Loaded);
@@ -587,17 +620,20 @@ big_endian
     return true;
 }
 
-int ModPlayback::updateChunk(ModPlugFile * module) {
+int ModPlayback::updateChunk() {
     int err;
     int numWritten;
     int bytesGenerated;
 
-    bytesGenerated = ModPlug_Read(module,
+    bytesGenerated = ModPlug_Read(m_song,
                                   m_audioBuffer.data(),
                                   m_audioBuffer.size());
     if(bytesGenerated == 0) {
+        m_song.update(true);
         return 0;
     }
+
+    m_song.update();
 
     numWritten = snd_pcm_plugin_write(m_playback_handle,
                                       m_audioBuffer.data(),
@@ -607,6 +643,7 @@ int ModPlayback::updateChunk(ModPlugFile * module) {
         if(numWritten == -EINVAL)
         {
             qDebug() << "Failed to write PCM plugin: error=" << errno << "," << strerror(errno);
+            m_song.update(true);
             return -1;
         }
     }
@@ -623,6 +660,7 @@ int ModPlayback::updateChunk(ModPlugFile * module) {
                      << err
                      << ","
                      << snd_strerror(err);
+            m_song.update(true);
             return -1;
         }
         else
@@ -636,6 +674,7 @@ int ModPlayback::updateChunk(ModPlugFile * module) {
                              << err
                              << ","
                              << snd_strerror(err);
+                    m_song.update(true);
                     return -1;
                 }
                 else
@@ -649,6 +688,7 @@ int ModPlayback::updateChunk(ModPlugFile * module) {
                                  << numWritten
                                  << ", wanted="
                                  << bytesGenerated;
+                        m_song.update(true);
                         return -1;
                     }
                 }
@@ -656,6 +696,7 @@ int ModPlayback::updateChunk(ModPlugFile * module) {
             else
             {
                 qDebug() << "Failed to write to PCM plugin: status=" << status.status;
+                m_song.update(true);
                 return -1;
             }
         }

@@ -36,7 +36,7 @@ Player::~Player() {
 
 void Player::initData() {
     QString appFolder(QDir::homePath());
-    appFolder.chop(4);
+    appFolder.chop(4); // remove data directory from end
     QString imagesDir = appFolder + "app/native/assets/images";
     m_formatIdToIconUrlMap[1] = QUrl(QString("file://") + joinPath(imagesDir, "icon_mod.png"));
     m_formatIdToIconUrlMap[2] = QUrl(QString("file://") + joinPath(imagesDir, "icon_669.png"));
@@ -121,7 +121,7 @@ void Player::initDownloader() {
 
 void Player::initPlayback() {
     qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
-    qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Playback", "");
+    qmlRegisterUncreatableType<ModPlayback>("player", 1, 0, "Playback", "");
     bool rc;
     rc = connect(m_playback,
                  SIGNAL(playing()),
@@ -302,30 +302,43 @@ SongModule * Player::currentSong() const {
 }
 
 void Player::beginPlay(QString const& fileName) {
-    stop();
-    QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
-    if(m_playback->load(absoluteFileName))
+    qDebug() << "beginPlay:" << fileName;
+    QString fileNamePart = fileNameOnly(fileName);
+    qDebug() << "beginPlay:" << fileNamePart;
+    SongInfo * info = m_catalog->resolveModuleByFileName(fileNamePart);
+    if(info != NULL)
     {
-        if(m_playback->play())
+        qDebug() << "beginPlay:" << info;
+        QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
+        if(m_playback->load(*info, absoluteFileName))
         {
-            QString file = currentSong()->fileName();
-            changeStatus(Playing, QString("Playing %1").arg(file));
-            m_catalog->play(file);
+            if(m_playback->play())
+            {
+                QString file = currentSong()->fileName();
+                changeStatus(Playing, QString("Playing %1").arg(file));
+                m_catalog->play(file);
 
-            if(!m_nowPlaying->isAcquired()) {
-                m_nowPlaying->acquire();
-            } else {
-                updateNowPlaying();
+                if(!m_nowPlaying->isAcquired()) {
+                    m_nowPlaying->acquire();
+                } else {
+                    updateNowPlaying();
+                }
+            }
+            else
+            {
+                qDebug() << "Failed to play:" << absoluteFileName;
             }
         }
         else
         {
-            qDebug() << "Failed to play:" << absoluteFileName;
+            qDebug() << "Failed to load:" << absoluteFileName;
         }
+
+        delete info;
     }
     else
     {
-        qDebug() << "Failed to load:" << absoluteFileName;
+        qDebug() << "Failed to resolve:" << fileNamePart;
     }
 }
 
@@ -346,6 +359,14 @@ void Player::play(QVariant value) {
         else
         {
             playByModuleFileName(valueString);
+        }
+    }
+    else {
+        qDebug() << "play:" << value;
+        SongInfo * info = qobject_cast<SongInfo*>(value.value<QObject*>());
+        qDebug() << "play:" << info;
+        if(info != 0) {
+            playByModuleFileName(info->fileName());
         }
     }
 }

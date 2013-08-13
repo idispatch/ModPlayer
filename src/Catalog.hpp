@@ -48,8 +48,8 @@ public:
 
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
-    Q_INVOKABLE QVariant resolveModuleById(int id);
-    Q_INVOKABLE QVariant resolveModuleByFileName(QString const& fileName);
+    Q_INVOKABLE SongInfo * resolveModuleById(int id);
+    Q_INVOKABLE SongInfo * resolveModuleByFileName(QString const& fileName);
 
     Q_INVOKABLE void addFavourite(QVariant const& song);
     Q_INVOKABLE void removeFavourite(QVariant const& song);

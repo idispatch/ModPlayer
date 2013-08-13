@@ -7,11 +7,14 @@
 class SongBasicInfo : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(int modId READ modId WRITE setModId NOTIFY modIdChanged FINAL)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
-    Q_PROPERTY(int modId READ modId WRITE setModId NOTIFY modIdChanged FINAL)
+
     Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize NOTIFY fileSizeChanged FINAL)
     Q_PROPERTY(int songLength READ songLength WRITE setSongLength NOTIFY songLengthChanged FINAL)
+    Q_PROPERTY(QString songLengthText READ songLengthText NOTIFY songLengthTextChanged FINAL)
+
     Q_PROPERTY(int formatId READ formatId WRITE setFormatId NOTIFY formatIdChanged FINAL)
     Q_PROPERTY(int downloads READ downloads WRITE setDownloads NOTIFY downloadsChanged FINAL)
     Q_PROPERTY(int favourited READ favourited WRITE setFavourited NOTIFY favouritedChanged FINAL)
@@ -21,7 +24,7 @@ class SongBasicInfo : public QObject {
     Q_PROPERTY(bool myFavourite READ myFavourite WRITE setMyFavourite NOTIFY myFavouriteChanged FINAL)
 
 public:
-    SongBasicInfo(QObject *parent = 0);
+    SongBasicInfo(QObject *parent);
     SongBasicInfo(int id,
                   QString const& fileName,
                   QString const& title,
@@ -36,6 +39,7 @@ public:
                   bool myFavourite,
                   QObject * parent = 0);
     ~SongBasicInfo();
+    SongBasicInfo& operator = (SongBasicInfo const& other);
 
     QString fileName() const;
     void setFileName(const QString &value);
@@ -50,6 +54,7 @@ public:
     void setFileSize(int value);
 
     int songLength() const;
+    QString songLengthText() const;
     void setSongLength(int value);
 
     int formatId() const;
@@ -79,6 +84,7 @@ Q_SIGNALS:
     void formatIdChanged();
     void fileSizeChanged();
     void songLengthChanged();
+    void songLengthTextChanged();
     void downloadsChanged();
     void favouritedChanged();
     void scoreChanged();
@@ -86,8 +92,6 @@ Q_SIGNALS:
     void lastPlayedChanged();
     void myFavouriteChanged();
 private:
-    Q_DISABLE_COPY(SongBasicInfo)
-
     QString m_fileName;
     QString m_title;
     int m_modId;
