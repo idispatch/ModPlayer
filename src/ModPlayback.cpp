@@ -11,51 +11,91 @@
 ModPlayback::ModPlayback(QObject * parent)
     : QThread(parent),
       m_mutex(QMutex::NonRecursive),
-      m_state(Idle),
-      m_module(NULL),
-      m_playback_handle(NULL),
+      m_state(Exit),
+      m_command(NoCommand),
+      m_song(new SongModule(this)),
       m_bStereo(true),
       m_frequency(44100),
       m_sampleBitSize(16),
       m_numDevices(0),
-      m_pcmFd(-1) {
+      m_pcmFd(-1),
+      m_playback_handle(NULL) {
 }
 
 ModPlayback::~ModPlayback() {
-    closePlayback();
+    closePlayback(); // called from playback thread only
+}
+
+void ModPlayback::configure(bool bStereo,
+                            int frequency,
+                            int sampleBitSize) {
+    bool configChanged = false;
+    QMutexLocker locker(&m_mutex); // called from user thread
+    if(m_bStereo != bStereo) {
+        m_bStereo = bStereo;
+        configChanged = true;
+    }
+    if(m_frequency != frequency) {
+        m_frequency = frequency;
+        configChanged = true;
+    }
+    if(m_sampleBitSize != sampleBitSize) {
+        m_sampleBitSize = sampleBitSize;
+        configChanged = true;
+    }
+    if(!configChanged) {
+        return;
+    }
+    stopAudioDevice();
+    initPlayback();
 }
 
 void ModPlayback::closePlayback() {
+    // called from playback thread only
     if(m_playback_handle != NULL) {
         snd_pcm_close(m_playback_handle);
         m_playback_handle = NULL;
     }
     m_pcmFd = -1;
     m_audioBuffer.resize(0);
-    m_module = NULL;
+    if(m_song != NULL) {
+        m_song->setParent(0);
+        delete m_song;
+        m_song = NULL;
+    }
 }
 
-void ModPlayback::waitWhile(State state) {
-    do {
-        m_cond.wait(&m_mutex);
-    } while(m_state == state);
+void ModPlayback::stopAudioDevice() {
+    // called from playback or user thread
+    // when called from user rhread must be in locked state
+    if(m_playback_handle != NULL)
+    {
+        snd_pcm_playback_drain(m_playback_handle);
+        snd_pcm_close(m_playback_handle);
+        m_playback_handle = NULL;
+    }
+    m_audioBuffer.resize(0);
+    m_numDevices = 0;
+    m_pcmFd = -1;
+    if(m_song != NULL) {
+        m_song->rewind();
+    }
 }
 
 void ModPlayback::changeState(State state) {
-    if(m_state != state)
-    {
-        m_state = state;
-        m_cond.wakeOne();
-    }
+    QMutexLocker locker(&m_mutex);
+    m_state = state;
 }
 
 void ModPlayback::stopThread() {
     if(isRunning())
     {
-        QMutexLocker locker(&m_mutex);
-        changeState(Exiting);
-        waitWhile(Exiting);
-        wait(); // wait till thread is stopped
+        {
+            QMutexLocker locker(&m_mutex);
+            m_command = ExitCommand;
+            m_cond.wakeOne();
+        }
+        QThread::wait(); // wait till thread is stopped
     }
 }
 
@@ -64,210 +104,78 @@ ModPlayback::State ModPlayback::state() {
     return m_state;
 }
 
-bool ModPlayback::load(ModPlugFile * module) {
+SongModule* ModPlayback::currentSong() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-    case Loaded:
-    case Playing:
-    case Paused:
-        m_module = module;
-        changeState(Loading);
-        waitWhile(Loading);
-        break;
-    case Rewinding:
-    case Unloading:
-    case Stopping:
-    case Loading:
-        waitWhile(m_state);
-        m_module = module;
-        changeState(Loading);
-        waitWhile(Loading);
-        break;
-    case Exiting:
-    case Exit:
-        m_module = NULL;
-        return false;
-    }
+    return m_song;
+}
+
+bool ModPlayback::load(QString const& fileName) {
+    QMutexLocker locker(&m_mutex);
+    m_command = LoadCommand;
+    m_pendingFileName = fileName;
+    m_cond.wakeOne();
     return true;
 }
 
 bool ModPlayback::unload() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-        break;
-    case Loaded:
-        m_module = NULL;
-        changeState(Unloading);
-        break;
-    case Unloading:
-        break; /* do nothing */
-    case Loading:
-    case Stopping:
-    case Playing:
-    case Rewinding:
-    case Paused:
-        waitWhile(m_state);
-        m_module = NULL;
-        changeState(Unloading);
-        waitWhile(Unloading);
-        break;
-    case Exiting:
-    case Exit:
-        m_module = NULL;
-        break;
-    }
+    m_command = UnloadCommand;
+    m_cond.wakeOne();
     return true;
 }
 
 bool ModPlayback::play() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-    case Unloading:
-    case Exiting:
-    case Exit:
-        return false; // no module
-    case Loading:
-    case Stopping:
-    case Rewinding:
-        waitWhile(m_state);
-        changeState(Playing);
-        break;
-    case Loaded:
-    case Paused:
-        changeState(Playing);
-        break;
-    case Playing:
-        break; // already
-    }
+    m_command = PlayCommand;
+    m_cond.wakeOne();
     return true;
 }
 
 bool ModPlayback::stop() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-    case Loading:
-    case Loaded:
-    case Unloading:
-    case Stopping:
-        break;
-    case Playing:
-    case Paused:
-        changeState(Loaded);
-        break;
-    case Rewinding:
-        waitWhile(Rewinding);
-        changeState(Loaded);
-        break;
-    case Exiting:
-    case Exit:
-        return false; // exiting
-    }
+    m_command = StopCommand;
+    m_cond.wakeOne();
     return true;
 }
 
 bool ModPlayback::pause() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-    case Loading:
-    case Loaded:
-    case Unloading:
-    case Stopping:
-        return false;
-    case Playing:
-        changeState(Paused);
-        break;
-    case Paused:
-        break;
-    case Rewinding:
-        waitWhile(Rewinding);
-        changeState(Paused);
-        break;
-    case Exiting:
-    case Exit:
-        return false; // exiting
-    }
+    m_command = PauseCommand;
+    m_cond.wakeOne();
     return true;
 }
 
 bool ModPlayback::resume() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-    case Loading:
-    case Loaded:
-    case Unloading:
-    case Playing:
-    case Rewinding:
-    case Stopping:
-        return false;
-    case Paused:
-        changeState(Playing);
-        break;
-    case Exiting:
-    case Exit:
-        return false; // exiting
-    }
+    m_command = ResumeCommand;
+    m_cond.wakeOne();
     return true;
 }
 
 bool ModPlayback::rewind() {
     QMutexLocker locker(&m_mutex);
-    switch(m_state) {
-    case Idle:
-    case Unloading:
-    case Exiting:
-    case Exit:
-        return false; // no module
-    case Rewinding:
-        break;
-    case Loading:
-    case Stopping:
-        waitWhile(m_state);
-        changeState(Rewinding);
-        break;
-    case Loaded:
-    case Paused:
-    case Playing:
-        changeState(Rewinding);
-        break;
-    }
-    return true;
-}
-
-bool ModPlayback::seek(int msec) {
-    Q_UNUSED(msec);
+    m_command = RewindCommand;
+    m_cond.wakeOne();
     return true;
 }
 
 void ModPlayback::run() {
-    ModPlugFile * module = NULL;
-
     qDebug() << "Entering playback thread";
-    {
-        QMutexLocker locker(&m_mutex);
-        changeState(Idle);
-    }
+    changeState(Idle);
 
     if(!detectAudioDevice()) {
-        QMutexLocker locker(&m_mutex);
         changeState(Exit);
         qDebug() << "Failed to detect audio device for playback";
-        exit(1);
+        QThread::exit(1);
         return;
     }
 
     qDebug() << "Audio device detected successfully";
 
     if(!initPlayback()) {
-        QMutexLocker locker(&m_mutex);
         changeState(Exit);
         qDebug() << "Failed to initialize audio device for playback";
-        exit(2);
+        QThread::exit(2);
         return;
     }
 
@@ -275,59 +183,90 @@ void ModPlayback::run() {
     qDebug() << "Starting playback loop";
 
     m_mutex.lock();
-    while(m_state != Exit)
+    while(m_state != Exit && m_state != Exiting)
     {
-        switch(m_state)
+        switch(m_command)
         {
-        case Idle:
-        case Paused:
-            waitWhile(m_state);
-            continue;
-        case Loaded:
-            qDebug() << "Seeking to beginning";
-            ModPlug_Seek(module, 0);
-            waitWhile(m_state);
-            continue;
-        case Loading:
-            module = m_module;
-            ModPlug_Seek(module, 0);
-            changeState(Loaded);
-            continue;
-        case Unloading:
-            module = NULL;
-            changeState(Idle);
-            continue;
-        case Rewinding:
-            if(module != NULL)
+        case NoCommand:
+            switch(m_state)
             {
-                ModPlug_Seek(module, 0);
-                changeState(Loaded); // TODO: playing?
+            case Idle:
+            case Paused:
+            case Loaded:
+                m_cond.wait(&m_mutex);
+                continue;
+            case Playing: // go playing
+                break;
+            case Exit:
+            case Exiting:
+                continue;
             }
-            else
-            {
-                changeState(Idle);
-            }
+            break;
+        case ExitCommand:
+            m_command = NoCommand;
+            m_state = Exiting;
+            emit stopped();
             continue;
-        case Stopping:
-            if(module != NULL)
-            {
-                ModPlug_Seek(module, 0);
-                changeState(Loaded);
-            }
-            else
-            {
-                changeState(Idle);
+        case LoadCommand:
+            m_command = NoCommand;
+            if(m_state != Exiting &&
+               m_state != Exit) {
+                if(m_song->load(m_pendingFileName)) {
+                    m_state = Loaded;
+                } else {
+                    m_state = Idle;
+                }
+                m_pendingFileName = "";
+                emit stopped();
             }
             continue;
-        case Exiting:
-            changeState(Exit);
-            continue; // will exit the loop
-        case Exit:
-            continue; // will exit the loop
-        case Playing:
-            break; // go play
+        case UnloadCommand:
+            m_command = NoCommand;
+            if(m_state == Loaded ||
+               m_state == Paused ||
+               m_state == Playing) {
+                m_song->unload();
+                m_state = Idle;
+                emit stopped();
+            }
+            continue;
+        case RewindCommand:
+            m_command = NoCommand;
+            if(m_state == Loaded ||
+               m_state == Paused ||
+               m_state == Playing) {
+                m_song->rewind();
+            }
+            continue;
+        case PlayCommand:
+            m_command = NoCommand;
+            if(m_state == Loaded || m_state == Paused) {
+                m_state = Playing;
+                emit playing();
+            }
+            continue;
+        case StopCommand:
+            m_command = NoCommand;
+            if(m_state == Playing || m_state == Paused) {
+                m_state = Loaded;
+                emit stopped();
+            }
+            continue;
+        case PauseCommand:
+            m_command = NoCommand;
+            if(m_state == Playing) {
+                m_state = Paused;
+                emit paused();
+            }
+            continue;
+        case ResumeCommand:
+            m_command = NoCommand;
+            if(m_state == Paused) {
+                m_state = Playing;
+                emit playing();
+            }
+            continue;
         }
-
         m_mutex.unlock();
 
         fd_set fdSet;
@@ -342,28 +281,22 @@ void ModPlayback::run() {
             break;
         case -1: // Error
             {
-                QMutexLocker locker(&m_mutex);
                 if(errno != EINTR && errno != EAGAIN)
                 {
                     changeState(Exit);
-                    module = NULL;
                 }
             }
             break;
         default:
             if FD_ISSET(m_pcmFd, &fdSet)
             {
-                int endOfSongOrError = updateChunk(module);
-                if(endOfSongOrError == 0) // End of song:
+                int endOfSongOrError = updateChunk(*m_song);
+                if(endOfSongOrError == 0) // End of song
                 {
-                    ModPlug_Seek(module, 0);
-                    QMutexLocker locker(&m_mutex);
                     changeState(Loaded);
                 }
                 else if(endOfSongOrError < 0) // Error in song
                 {
-                    module = NULL;
-                    QMutexLocker locker(&m_mutex);
                     changeState(Idle);
                 }
             }
@@ -371,17 +304,14 @@ void ModPlayback::run() {
         } // switch
 
         m_mutex.lock();
-    } // while
+    } // while loop
 
-    changeState(Exit);
     m_mutex.unlock();
-
-    module = NULL;
-
     qDebug() << "Stopping playback...";
     stopAudioDevice();
     qDebug() << "Exiting playback thread";
-    exit(0);
+    changeState(Exit);
+    QThread::exit(0);
 }
 
 bool ModPlayback::detectAudioDevice() {
@@ -435,7 +365,19 @@ bool ModPlayback::initPlayback() {
     qDebug() << "Initializing selected audio device for playback...";
 
     memset(&pcm_format, 0, sizeof(pcm_format));
-    pcm_format.format = (m_sampleBitSize > 8 ? SND_PCM_SFMT_S16_LE : SND_PCM_SFMT_U8);
+    switch(m_sampleBitSize)
+    {
+    case 8:
+        pcm_format.format = SND_PCM_SFMT_U8;
+        break;
+    case 32:
+        pcm_format.format = SND_PCM_SFMT_S32_LE;
+        break;
+    case 16:
+    default:
+        pcm_format.format = SND_PCM_SFMT_S16_LE;
+        break;
+    }
     pcm_format.voices = (m_bStereo ? 2 : 1);
     pcm_format.rate = m_frequency;
 
@@ -643,18 +585,6 @@ big_endian
 
     qDebug() << "Selected audio device was initialized successfully";
     return true;
-}
-
-void ModPlayback::stopAudioDevice() {
-    if(m_playback_handle != NULL)
-    {
-        snd_pcm_playback_drain(m_playback_handle);
-        snd_pcm_close(m_playback_handle);
-        m_playback_handle = NULL;
-    }
-    m_audioBuffer.resize(0);
-    m_numDevices = 0;
-    m_pcmFd = -1;
 }
 
 int ModPlayback::updateChunk(ModPlugFile * module) {

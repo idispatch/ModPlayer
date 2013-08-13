@@ -7,45 +7,50 @@
 #include <QWaitCondition>
 #include <QByteArray>
 #include <sys/asoundlib.h>
-
-struct _ModPlugFile;
-typedef struct _ModPlugFile ModPlugFile;
+#include "SongModule.hpp"
 
 class ModPlayback : public QThread {
     Q_OBJECT
+    Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 public:
     enum State
     {
         Idle,      /* no module loaded and not playing, thread loop is running */
-        Loading,   /* module (un)loaded and not playing, thread loop is running */
         Loaded,    /* module loaded and stopped */
-        Unloading, /* module loaded and requested to unload */
         Playing,   /* module loaded and playing */
-        Stopping,  /* module loaded and playing, requested to stop */
         Paused,    /* module loaded and paused */
-        Rewinding, /* module loaded and rewinding */
-        Exiting,   /* exit requested */
-        Exit       /* no module loaded and exited thread loop */
+        Exiting,   /* currently exiting */
+        Exit       /* no module loaded and thread loop exited */
     };
 
-    ModPlayback(QObject * parent = 0);
+    ModPlayback(QObject * parent);
     virtual ~ModPlayback();
 
+    void configure(bool bStereo,
+                   int frequency,
+                   int sampleBitSize);
+
     State state();
+    SongModule* currentSong();
 
     void run();
     void stopThread();
 
-    bool load(ModPlugFile * module);
-    bool unload();
+    Q_INVOKABLE bool load(QString const& fileName);
+    Q_INVOKABLE bool unload();
 
-    bool play();
-    bool stop();
-    bool pause();
-    bool resume();
-    bool rewind();
-    bool seek(int msec);
+    Q_INVOKABLE bool play();
+    Q_INVOKABLE bool stop();
+    Q_INVOKABLE bool pause();
+    Q_INVOKABLE bool resume();
+    Q_INVOKABLE bool rewind();
 Q_SIGNALS:
+    void currentSongChanged(); // will never be emitted because song is created once
+
+    /* Playback state changes */
+    void playing();
+    void stopped();
+    void paused();
 private:
     Q_DISABLE_COPY(ModPlayback)
 
@@ -54,23 +59,41 @@ private:
     int  updateChunk(ModPlugFile * module);
     void stopAudioDevice();
     void closePlayback();
-    void waitWhile(State state);
     void changeState(State state);
 private:
+    enum Command
+    {
+        NoCommand = 0,
+        ExitCommand,
+        LoadCommand,
+        UnloadCommand,
+        PlayCommand,
+        StopCommand,
+        PauseCommand,
+        ResumeCommand,
+        RewindCommand
+    };
+
     QMutex m_mutex;
     QWaitCondition m_cond;
     State m_state;
+    Command m_command;
+    QString m_pendingFileName;
 
-    ModPlugFile * m_module;
     QByteArray m_audioBuffer;
-    snd_pcm_t * m_playback_handle;
+    SongModule * m_song;
 
+    /* Device audio channel configuration */
     bool m_bStereo;
     int m_frequency;
     int m_sampleBitSize;
 
+    /* Device audio subsystem */
     int m_numDevices;
     int m_pcmFd;
+    snd_pcm_t * m_playback_handle;
 };
+
+Q_DECLARE_METATYPE(ModPlayback*);
 
 #endif

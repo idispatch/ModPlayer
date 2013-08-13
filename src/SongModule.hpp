@@ -3,12 +3,9 @@
 
 #include <QMetaType>
 #include <QObject>
-#include <QTimer>
 
 struct _ModPlugFile;
 typedef struct _ModPlugFile ModPlugFile;
-
-class ModPlayback;
 
 class SongModule : public QObject {
     Q_OBJECT
@@ -40,7 +37,7 @@ class SongModule : public QObject {
 
     Q_PROPERTY(int formatId READ formatId FINAL)
 public:
-    SongModule(QObject *parent = 0);
+    SongModule(QObject *parent);
     virtual ~SongModule();
 
     bool songLoaded() const;
@@ -100,17 +97,11 @@ public:
     void setLength(int value);
 
     Q_INVOKABLE bool load(QString const& fileName);
-    Q_INVOKABLE bool play();
-    Q_INVOKABLE bool stop();
-    Q_INVOKABLE bool pause();
-    Q_INVOKABLE bool resume();
     Q_INVOKABLE bool unload();
+    Q_INVOKABLE bool rewind();
 
+    operator ModPlugFile* ();
 Q_SIGNALS:
-    void playing();
-    void stopped();
-    void paused();
-
     void songLoadedChanged();
 
     void fileSizeChanged();
@@ -135,14 +126,10 @@ Q_SIGNALS:
     void lengthTimeStringChanged();
 
 private slots:
-    void onUpdateTimeout();
 private:
     Q_DISABLE_COPY(SongModule)
 
     static QString fileNameOnly(QString const& fileName);
-
-    void startRefreshTimer();
-    void stopRefreshTimer();
 private:
     int m_fileSize;
 
@@ -167,8 +154,6 @@ private:
     int m_length;
 
     ModPlugFile* m_modPlug;
-    ModPlayback * m_playback;
-    QTimer * m_timer;
 };
 
 Q_DECLARE_METATYPE(SongModule*);

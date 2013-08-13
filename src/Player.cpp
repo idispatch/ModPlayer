@@ -6,6 +6,7 @@
 #include "Downloader.hpp"
 #include "Unpacker.hpp"
 #include "SongModule.hpp"
+#include "ModPlayback.hpp"
 
 using namespace bb::multimedia;
 
@@ -17,14 +18,20 @@ Player::Player(QObject * parent)
       m_cache(new Cache(this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
-      m_module(new SongModule(this)),
+      m_playback(new ModPlayback(this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     initCatalog();
     initCache();
     initDownloader();
-    initModule();
+    initPlayback();
     initNowPlaying();
     initData();
+}
+
+Player::~Player() {
+    if (m_playback != NULL) {
+        m_playback->stopThread();
+    }
 }
 
 void Player::initData() {
@@ -112,27 +119,30 @@ void Player::initDownloader() {
     Q_UNUSED(rc);
 }
 
-void Player::initModule() {
-    bool rc;
+void Player::initPlayback() {
     qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
-    rc = connect(m_module,
+    qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Playback", "");
+    bool rc;
+    rc = connect(m_playback,
                  SIGNAL(playing()),
                  this,
                  SLOT(onPlaying()));
     Q_ASSERT(rc);
 
-    rc = connect(m_module,
+    rc = connect(m_playback,
                  SIGNAL(paused()),
                  this,
                  SLOT(onPaused()));
     Q_ASSERT(rc);
 
-    rc = connect(m_module,
+    rc = connect(m_playback,
                  SIGNAL(stopped()),
                  this,
                  SLOT(onStopped()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
+
+    m_playback->start(QThread::HighPriority);
 }
 
 void Player::initNowPlaying() {
@@ -225,14 +235,14 @@ void Player::updateNowPlaying() {
     m_nowPlaying->setPosition(0);
     QVariantMap metadata;
 
-    metadata[MetaData::Title] = m_module->fileName();
-    metadata[MetaData::Artist] = m_module->title();
+    metadata[MetaData::Title] = currentSong()->fileName();
+    metadata[MetaData::Artist] = currentSong()->title();
 
     m_nowPlaying->setOverlayStyle(OverlayStyle::Fancy);
     m_nowPlaying->setNextEnabled(false);
     m_nowPlaying->setPreviousEnabled(false);
     m_nowPlaying->setMetaData(metadata);
-    m_nowPlaying->setIconUrl(getIconPathByFormatId(m_module->formatId()));
+    m_nowPlaying->setIconUrl(getIconPathByFormatId(currentSong()->formatId()));
 }
 
 void Player::onNowPlayingAcquired() {
@@ -249,7 +259,7 @@ void Player::onNowPlayingPlay() {
     if(state() == Paused) {
         resume();
     } else if(state() == Stopped) {
-        m_module->play();
+        m_playback->play();
     }
 }
 
@@ -283,18 +293,22 @@ Downloader * Player::downloader() const {
     return m_downloader;
 }
 
+ModPlayback * Player::playback() const {
+    return m_playback;
+}
+
 SongModule * Player::currentSong() const {
-    return m_module;
+    return m_playback->currentSong();
 }
 
 void Player::beginPlay(QString const& fileName) {
     stop();
     QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
-    if(m_module->load(absoluteFileName))
+    if(m_playback->load(absoluteFileName))
     {
-        if(m_module->play())
+        if(m_playback->play())
         {
-            QString file = m_module->fileName();
+            QString file = currentSong()->fileName();
             changeStatus(Playing, QString("Playing %1").arg(file));
             m_catalog->play(file);
 
@@ -363,16 +377,22 @@ void Player::playByModuleId(int modId) {
     }
 }
 
+void Player::configure(bool bStereo,
+                       int frequency,
+                       int sampleBitSize) {
+    m_playback->configure(bStereo, frequency, sampleBitSize);
+}
+
 void Player::stop() {
-    m_module->stop();
+    m_playback->stop();
 }
 
 void Player::pause() {
-    m_module->pause();
+    m_playback->pause();
 }
 
 void Player::resume() {
-    m_module->resume();
+    m_playback->resume();
 }
 
 void Player::onPaused() {
@@ -381,7 +401,7 @@ void Player::onPaused() {
 }
 
 void Player::onPlaying() {
-    changeStatus(Playing, QString("Playing %1").arg(m_module->fileName()));
+    changeStatus(Playing, QString("Playing %1").arg(currentSong()->fileName()));
     m_nowPlaying->setMediaState(MediaState::Started);
 }
 

@@ -11,6 +11,7 @@ class Catalog;
 class Downloader;
 class Unpacker;
 class SongModule;
+class ModPlayback;
 
 namespace bb {
     namespace multimedia {
@@ -32,7 +33,8 @@ public:
         Preparing = 102
     };
 
-    Player(QObject * parent = 0);
+    Player(QObject * parent);
+    ~Player();
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
@@ -40,6 +42,7 @@ public:
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Downloader* downloader READ downloader FINAL)
+    Q_PROPERTY(ModPlayback* playback READ playback NOTIFY playbackChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
     State state() const;
@@ -48,13 +51,17 @@ public:
     Cache * cache() const;
     Catalog * catalog() const;
     Downloader * downloader() const;
+    ModPlayback * playback() const;
     SongModule * currentSong() const;
 
     Q_INVOKABLE void play(QVariant value); /* loads and plays */
     Q_INVOKABLE void stop(); /* stops but not unloads */
-
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
+
+    Q_INVOKABLE void configure(bool bStereo,
+                               int frequency,
+                               int sampleBitSize);
 
     QUrl getIconPathByFormatId(int formatId) const;
 Q_SIGNALS:
@@ -62,16 +69,20 @@ Q_SIGNALS:
     void statusTextChanged();
     void cacheChanged();
     void catalogChanged();
+    void playbackChanged();
     void currentSongChanged();
 private slots:
+    /* For Downloader */
     void onDownloadStarted(int modId);
     void onDownloadFinished(QString fileName);
     void onDownloadFailure(int modId);
 
+    /* For ModPlayback */
     void onPaused();
     void onPlaying();
     void onStopped();
 
+    /* For NowPlayingConnection */
     void onNowPlayingAcquired();
     void onNowPlayingRevoked();
     void onNowPlayingPlay();
@@ -87,7 +98,7 @@ private:
     void initCatalog();
     void initCache();
     void initDownloader();
-    void initModule();
+    void initPlayback();
     void initNowPlaying();
 
     void changeStatus(State state, QString const& statusText);
@@ -105,7 +116,7 @@ private:
     Cache * m_cache;
     Downloader * m_downloader;
     Unpacker * m_unpacker;
-    SongModule * m_module;
+    ModPlayback * m_playback;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
 };
 

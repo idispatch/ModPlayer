@@ -1,7 +1,6 @@
 #include "modplug.h"
 
 #include "SongModule.hpp"
-#include "ModPlayback.hpp"
 
 #include <QDebug>
 #include <QFile>
@@ -24,24 +23,17 @@ SongModule::SongModule(QObject *parent) :
         m_masterVolume(0),
         m_playingChannels(0),
         m_length(0),
-        m_modPlug(NULL),
-        m_playback(new ModPlayback(this)),
-        m_timer(new QTimer(this))
-{
-    bool rc;
+        m_modPlug(NULL) {
+        //m_timer(new QTimer(this))
+    /*bool rc;
     rc = connect(m_timer, SIGNAL(timeout()), this, SLOT(onUpdateTimeout()));
     Q_ASSERT(rc);
-    Q_UNUSED(rc);
-    m_playback->start(QThread::HighPriority);
+    Q_UNUSED(rc);*/
 }
 
 SongModule::~SongModule()
 {
-    stopRefreshTimer();
-
-    if (m_playback != NULL) {
-        m_playback->stopThread();
-    }
+    //stopRefreshTimer();
     if (m_modPlug != NULL) {
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
@@ -316,7 +308,7 @@ QString SongModule::fileNameOnly(QString const& fileName)
     return fileInfo.fileName();
 }
 
-bool SongModule::play()
+/*bool SongModule::play()
 {
     if (songLoaded()) {
         startRefreshTimer();
@@ -382,7 +374,7 @@ void SongModule::stopRefreshTimer()
         m_timer->stop();
     }
 }
-
+*/
 bool SongModule::load(QString const& fileName)
 {
     if (fileName == m_fileFullPath) {
@@ -396,35 +388,33 @@ bool SongModule::load(QString const& fileName)
         QByteArray data = fileIn.readAll();
         m_modPlug = ModPlug_Load(data.data(), data.size());
         if (m_modPlug != NULL) {
-            if (m_playback->load(m_modPlug)) {
-                m_fileFullPath = fileName;
+            m_fileFullPath = fileName;
 
-                setFileName(fileNameOnly(fileName));
-                setTitle(ModPlug_GetName(m_modPlug));
+            setFileName(fileNameOnly(fileName));
+            setTitle(ModPlug_GetName(m_modPlug));
 
-                const char * description = ModPlug_GetMessage(m_modPlug);
-                setDescription(description ? description : "");
+            const char * description = ModPlug_GetMessage(m_modPlug);
+            setDescription(description ? description : "");
 
-                setInstruments(ModPlug_NumInstruments(m_modPlug));
-                setChannels(ModPlug_NumChannels(m_modPlug));
-                setSamples(ModPlug_NumSamples(m_modPlug));
-                setPatterns(ModPlug_NumPatterns(m_modPlug));
-                setOrders(ModPlug_NumOrders(m_modPlug));
+            setInstruments(ModPlug_NumInstruments(m_modPlug));
+            setChannels(ModPlug_NumChannels(m_modPlug));
+            setSamples(ModPlug_NumSamples(m_modPlug));
+            setPatterns(ModPlug_NumPatterns(m_modPlug));
+            setOrders(ModPlug_NumOrders(m_modPlug));
 
-                setFileSize(data.size());
+            setFileSize(data.size());
 
-                setCurrentOrder(ModPlug_GetCurrentOrder(m_modPlug));
-                setCurrentPattern(ModPlug_GetCurrentPattern(m_modPlug));
-                setCurrentRow(ModPlug_GetCurrentRow(m_modPlug));
-                setCurrentSpeed(ModPlug_GetCurrentSpeed(m_modPlug));
-                setCurrentTempo(ModPlug_GetCurrentTempo(m_modPlug));
-                setMasterVolume(ModPlug_GetMasterVolume(m_modPlug));
-                setPlayingChannels(ModPlug_GetPlayingChannels(m_modPlug));
-                setLength(ModPlug_GetLength(m_modPlug));
+            setCurrentOrder(ModPlug_GetCurrentOrder(m_modPlug));
+            setCurrentPattern(ModPlug_GetCurrentPattern(m_modPlug));
+            setCurrentRow(ModPlug_GetCurrentRow(m_modPlug));
+            setCurrentSpeed(ModPlug_GetCurrentSpeed(m_modPlug));
+            setCurrentTempo(ModPlug_GetCurrentTempo(m_modPlug));
+            setMasterVolume(ModPlug_GetMasterVolume(m_modPlug));
+            setPlayingChannels(ModPlug_GetPlayingChannels(m_modPlug));
+            setLength(ModPlug_GetLength(m_modPlug));
 
-                emit songLoadedChanged();
-                return true;
-            }
+            emit songLoadedChanged();
+            return true;
         }
         unload();
     }
@@ -435,9 +425,9 @@ bool SongModule::unload()
 {
     if (m_modPlug != NULL)
     {
-        m_playback->unload();
+        /*m_playback->unload();
 
-        stopRefreshTimer();
+        stopRefreshTimer();*/
 
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
@@ -469,6 +459,26 @@ bool SongModule::unload()
     return true;
 }
 
+bool SongModule::rewind() {
+    if(m_modPlug != NULL)
+    {
+        ModPlug_Seek(m_modPlug, 0);
+        setCurrentOrder(ModPlug_GetCurrentOrder(m_modPlug));
+        setCurrentPattern(ModPlug_GetCurrentPattern(m_modPlug));
+        setCurrentRow(ModPlug_GetCurrentRow(m_modPlug));
+        setCurrentSpeed(ModPlug_GetCurrentSpeed(m_modPlug));
+        setCurrentTempo(ModPlug_GetCurrentTempo(m_modPlug));
+        setMasterVolume(ModPlug_GetMasterVolume(m_modPlug));
+        setPlayingChannels(ModPlug_GetPlayingChannels(m_modPlug));
+        return true;
+    }
+    return false;
+}
+
+SongModule::operator ModPlugFile* () {
+    return m_modPlug;
+}
+/*
 void SongModule::onUpdateTimeout()
 {
     switch (m_playback->state())
@@ -501,3 +511,4 @@ void SongModule::onUpdateTimeout()
         break;
     }
 }
+*/
