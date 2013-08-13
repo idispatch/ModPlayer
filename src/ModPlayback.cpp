@@ -220,6 +220,54 @@ void ModPlayback::run() {
             m_config = m_pendingConfig;
             stopAudioDevice();
             initPlayback();
+            {
+                ModPlug_Settings settings;
+                memset(&settings, 0, sizeof(settings));
+
+                settings.mFlags = 0;
+                if(m_config.oversamplingEnabled()) {
+                    settings.mFlags |= MODPLUG_ENABLE_OVERSAMPLING;
+                }
+                if(m_config.noiseReductionEnabled()) {
+                    settings.mFlags |= MODPLUG_ENABLE_NOISE_REDUCTION;
+                }
+                if(m_config.reverbEnabled()) {
+                    settings.mFlags |= MODPLUG_ENABLE_REVERB;
+                }
+                if(m_config.bassEnabled()) {
+                    settings.mFlags |= MODPLUG_ENABLE_MEGABASS;
+                }
+                if(m_config.surroundEnabled()) {
+                    settings.mFlags |= MODPLUG_ENABLE_SURROUND;
+                }
+
+                settings.mChannels = m_config.stereo() ? 2 : 1;
+                settings.mBits = m_config.sampleSize();
+                settings.mFrequency = m_config.frequency();
+                settings.mResamplingMode = m_config.resamplingMode();
+
+                settings.mStereoSeparation = m_config.stereoSeparation();
+                settings.mMaxMixChannels = m_config.maximumMixingChannels();
+
+                settings.mReverbDepth = m_config.reverbLevel();
+                settings.mReverbDelay = m_config.reverbDelay();
+
+                settings.mBassAmount = m_config.bassLevel();
+                settings.mBassRange = m_config.bassCutOff();
+
+                settings.mSurroundDepth = m_config.surroundLevel();
+                settings.mSurroundDelay = m_config.surroundDelay();
+
+                settings.mLoopCount = 0;
+
+                ModPlug_SetSettings(&settings);
+
+                /*if(m_song.songLoaded()) {
+                    QString fileName = m_song.fileName();
+                    m_song.unload();
+                    m_song.load(fileName);
+                }*/
+            }
             m_cond.wakeAll();
             continue;
         case LoadCommand:

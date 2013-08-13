@@ -97,6 +97,8 @@ int PlaybackConfig::frequency() const {
 }
 
 void PlaybackConfig::setFrequency(int value) {
+    if(!(value == 11025 || value == 22050 || value == 44100))
+        return;
     if(m_frequency != value) {
         m_frequency = value;
         emit frequencyChanged();
@@ -108,6 +110,8 @@ int PlaybackConfig::sampleSize() const {
 }
 
 void PlaybackConfig::setSampleSize(int value) {
+    if(!(value == 8 || value == 16 || value == 32))
+        return;
     if(m_sampleSize != value) {
         m_sampleSize = value;
         emit sampleSizeChanged();
@@ -119,6 +123,8 @@ int PlaybackConfig::resamplingMode() const {
 }
 
 void PlaybackConfig::setResamplingMode(int value) {
+    if(value < 0 || value > 3)
+        return;
     if(m_resamplingMode != value) {
         m_resamplingMode = value;
         emit resamplingModeChanged();
@@ -130,6 +136,8 @@ int PlaybackConfig::stereoSeparation() const {
 }
 
 void PlaybackConfig::setStereoSeparation(int value) {
+    if(value < 1) value = 1;
+    if(value > 256) value = 256;
     if(m_stereoSeparation != value) {
         m_stereoSeparation = value;
         emit stereoSeparationChanged();
@@ -141,6 +149,8 @@ int PlaybackConfig::maximumMixingChannels() const {
 }
 
 void PlaybackConfig::setMaximumMixingChannels(int value) {
+    if(value < 32) value = 32;
+    if(value > 256) value = 256;
     if(m_maximumMixingChannels != value) {
         m_maximumMixingChannels = value;
         emit maximumMixingChannelsChanged();
