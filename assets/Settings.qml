@@ -91,12 +91,12 @@ Sheet {
                     Option {
                         text: "Stereo"
                         value: 1
-                        selected: true
+                        selected: settingsRoot.configuration.stereo == true 
                     }
                     Option {
                         text: "Mono"
                         value: 0
-                        selected: false
+                        selected: settingsRoot.configuration.stereo == false 
                     }
                     
                     onSelectedValueChanged: {
@@ -109,15 +109,17 @@ Sheet {
                     Option {
                         text: "8"
                         value: 8
+                        selected: settingsRoot.configuration.sampleSize == value
                     }
                     Option {
                         text: "16"
                         value: 16
-                        selected: true
+                        selected: settingsRoot.configuration.sampleSize == value
                     }
                     Option {
                         text: "32"
                         value: 32
+                        selected: settingsRoot.configuration.sampleSize == value
                     }
                     
                     onSelectedValueChanged: {
@@ -131,19 +133,19 @@ Sheet {
                         text: "44100 Hz"
                         description: "44100 Hz sampling rate"
                         value: 44100
-                        selected: true
+                        selected: settingsRoot.configuration.frequency == value
                     }
                     Option {
                         text: "22050 Hz"
                         description: "22050 Hz sampling rate"
                         value: 22050
-                        selected: false
+                        selected: settingsRoot.configuration.frequency == value
                     }
                     Option {
                         text: "11025 Hz"
                         description: "11025 Hz sampling rate"
                         value: 11025
-                        selected: false
+                        selected: settingsRoot.configuration.frequency == value
                     }
                     onSelectedValueChanged: {
                         settingsRoot.configuration.frequency = selectedValue
@@ -156,25 +158,25 @@ Sheet {
                         text: "Nearest"
                         description: "No interpolation (very fast)"
                         value: 0
-                        selected: true
+                        selected: settingsRoot.configuration.resamplingMode == value
                     }
                     Option {
                         text: "Liner"
                         description: "Linear interpolation (fast, good quality)"
                         value: 1
-                        selected: false
+                        selected: settingsRoot.configuration.resamplingMode == value
                     }
                     Option {
                         text: "Spline"
                         description: "Cubic spline interpolation (high quality)"
                         value: 2
-                        selected: false
+                        selected: settingsRoot.configuration.resamplingMode == value
                     }
                     Option {
                         text: "FIR"
                         description: "8-tap fir filter (extremely high quality)"
                         value: 3
-                        selected: false
+                        selected: settingsRoot.configuration.resamplingMode == value
                     }
                     onSelectedValueChanged: {
                         settingsRoot.configuration.resamplingMode = selectedValue
