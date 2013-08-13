@@ -154,6 +154,8 @@ void LCDDigits::createLCD() {
                                       .bottomMargin(0)
                                       .leftMargin(0)
                                       .rightMargin(0)
+                                      .preferredWidth(32)
+                                      .preferredHeight(44)
                                       .loadEffect(ImageViewLoadEffect::None)
                                       .scalingMethod(ScalingMethod::Fill)
                                       .implicitLayoutAnimations(false)

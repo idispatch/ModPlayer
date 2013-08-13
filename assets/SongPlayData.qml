@@ -8,7 +8,6 @@ Container {
         orientation: LayoutOrientation.LeftToRight
     }
     
-    property real lcd_scale: 0.5
     property bool songLoaded: true
 
     property alias songOrder: lcdOrder.number
@@ -44,8 +43,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
         Container {
@@ -62,8 +59,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
         Container {
@@ -80,8 +75,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
         Container {
@@ -98,8 +91,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
     }
@@ -125,8 +116,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
         Container {
@@ -143,8 +132,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
         Container {
@@ -161,8 +148,6 @@ Container {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
-                scaleX: songPlayData.lcd_scale
-                scaleY: songPlayData.lcd_scale
             }
         }
     }
