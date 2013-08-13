@@ -13,6 +13,7 @@
 class ModPlayback : public QThread {
     Q_OBJECT
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
+    Q_PROPERTY(PlaybackConfig* configuration READ configuration NOTIFY configurationChanged FINAL)
 public:
     enum State
     {
@@ -29,11 +30,12 @@ public:
 
     State state();
     SongModule* currentSong();
+    PlaybackConfig* configuration();
 
     void run();
     void stopThread();
 
-    Q_INVOKABLE void configure(QVariant const& setup);
+    Q_INVOKABLE void configure();
 
     Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();
@@ -45,6 +47,7 @@ public:
     Q_INVOKABLE bool rewind();
 Q_SIGNALS:
     void currentSongChanged(); // will never be emitted because song is created once
+    void configurationChanged(); // will never be emitted because song is created once
 
     /* Playback state changes */
     void playing();
@@ -86,11 +89,6 @@ private:
 
     QByteArray m_audioBuffer;
     SongModule m_song;
-
-    /* Device audio channel configuration */
-    bool m_bStereo;
-    int m_frequency;
-    int m_sampleBitSize;
 
     /* Device audio subsystem */
     int m_numDevices;

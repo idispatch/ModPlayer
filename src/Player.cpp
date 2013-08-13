@@ -6,6 +6,7 @@
 #include "Downloader.hpp"
 #include "Unpacker.hpp"
 #include "SongModule.hpp"
+#include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
 
 using namespace bb::multimedia;
@@ -122,6 +123,7 @@ void Player::initDownloader() {
 void Player::initPlayback() {
     qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
     qmlRegisterUncreatableType<ModPlayback>("player", 1, 0, "Playback", "");
+    qmlRegisterUncreatableType<PlaybackConfig>("player", 1, 0, "PlaybackConfig", "");
     bool rc;
     rc = connect(m_playback,
                  SIGNAL(playing()),

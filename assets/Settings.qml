@@ -6,9 +6,9 @@ Sheet {
     id: settingsRoot
     property int groupSettingIndent: 50
     property int dividerMargin: 30
+    property variant configuration: app.player.playback.configuration
     
     onClosed: {
-        console.log("destroying settings sheet")
         settingsRoot.destroy()
     }
     
@@ -25,26 +25,7 @@ Sheet {
             acceptAction: ActionItem {
                 title: qsTr("Apply")
                 onTriggered: {
-                    var setup =  {
-                            'output': output.selectedValue,
-                            'bits-per-sample': bitsPerSample.selectedValue,
-                            'frequency': frequency.selectedValue,
-                            'resampling': resampling.selectedValue,
-                            'stereo-separation': stereoSeparation.value,
-                            'maximum-mixing-channels': maximumMixingChannels.value,
-                            'reverb': reverbEnabled.checked,
-                            'reverb-depth': reverbLevel.value,
-                            'reverb-delay': reverbDelay.value,
-                            'bass': megabassEnabled.checked,
-                            'bass-amount' : megabassLevel.value,
-                            'bass-cutoff': megabassCutoff.value,
-                            'surround': surroundEnabled.checked,
-                            'surround-depth': surroundLevel.value,
-                            'surround-delay': surroundDelay.value,
-                            'oversampling': oversampling.checked,
-                            'noise-reduction': noiseReduction.checked
-                        };
-                    app.player.playback.configure(setup)
+                    app.player.playback.configure()
                     settingsRoot.close();
                 }
             } 
@@ -115,6 +96,7 @@ Sheet {
                     Option {
                         text: "Mono"
                         value: 0
+                        selected: false
                     }
                 }
                 DropDown {
@@ -202,7 +184,7 @@ Sheet {
                         id: stereoSeparation
                         fromValue: 1
                         toValue: 256
-                        value: 128
+                        value: settingsRoot.configuration.stereoSeparation
                     }
                 }
                 
@@ -223,7 +205,7 @@ Sheet {
                         id: maximumMixingChannels
                         fromValue: 32
                         toValue: 256
-                        value: 128
+                        value: settingsRoot.configuration.maximumMixingChannels
                     }
                 }
                 
@@ -235,7 +217,7 @@ Sheet {
                 CheckBox {
                     id: reverbEnabled
                     text: "Enable reverb"
-                    checked: true
+                    checked: settingsRoot.configuration.reverbEnabled
                 }
                 Container {
                     layout: StackLayout {
@@ -259,7 +241,7 @@ Sheet {
                         enabled: reverbEnabled.checked
                         fromValue: 0
                         toValue: 100
-                        value: 50
+                        value: settingsRoot.configuration.reverbLevel
                     }
                     Label {
                         text: "Reverb delay"
@@ -277,7 +259,7 @@ Sheet {
                         enabled: reverbEnabled.checked
                         fromValue: 40
                         toValue: 200
-                        value: 128
+                        value: settingsRoot.configuration.reverbDelay
                     }
                 }
                 
@@ -289,7 +271,7 @@ Sheet {
                 CheckBox {
                     id: megabassEnabled
                     text: "Enable megabass"
-                    checked: true
+                    checked: settingsRoot.configuration.bassEnabled
                 }
                 
                 Container {
@@ -313,7 +295,7 @@ Sheet {
                         enabled: megabassEnabled.checked
                         fromValue: 0
                         toValue: 100
-                        value: 50
+                        value: settingsRoot.configuration.bassLevel
                     }
                     Label {
                         enabled: megabassEnabled.checked
@@ -331,7 +313,7 @@ Sheet {
                         enabled: megabassEnabled.checked
                         fromValue: 10
                         toValue: 100
-                        value: 50
+                        value: settingsRoot.configuration.bassCutOff
                     }
                 }
                 
@@ -343,7 +325,7 @@ Sheet {
                 CheckBox {
                     id: surroundEnabled
                     text: "Enable surround sound"
-                    checked: true
+                    checked: settingsRoot.configuration.surroundEnabled
                 }
                 Container {
                     layout: StackLayout {
@@ -366,7 +348,7 @@ Sheet {
                         enabled: surroundEnabled.checked
                         fromValue: 0
                         toValue: 100
-                        value: 50
+                        value: settingsRoot.configuration.surroundLevel
                     }
                     Label {
                         text: "Surrond delay"
@@ -384,7 +366,7 @@ Sheet {
                         enabled: surroundEnabled.checked
                         fromValue: 5
                         toValue: 50
-                        value: 20
+                        value: settingsRoot.configuration.surroundDelay
                     }
                 }
                 
@@ -396,13 +378,13 @@ Sheet {
                 CheckBox {
                     id: oversampling
                     text: "Enable oversampling"
-                    checked: true
+                    checked: settingsRoot.configuration.oversamplingEnabled
                 }
                 
                 CheckBox {
                     id: noiseReduction
                     text: "Enable noise reduction"
-                    checked: true
+                    checked: settingsRoot.configuration.noiseReductionEnabled
                 }
 
                 attachedObjects: [

@@ -76,6 +76,7 @@ bool PlaybackConfig::operator == (PlaybackConfig const& other) {
            oversamplingEnabled() == other.oversamplingEnabled() &&
            noiseReductionEnabled() == other.noiseReductionEnabled();
 }
+
 bool PlaybackConfig::operator != (PlaybackConfig const& other) {
     return !(*this == other);
 }

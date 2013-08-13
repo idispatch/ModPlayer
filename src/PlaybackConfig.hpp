@@ -22,7 +22,7 @@ class PlaybackConfig : public QObject {
 
     Q_PROPERTY(bool bassEnabled READ bassEnabled WRITE setBassEnabled NOTIFY bassEnabledChanged FINAL)
     Q_PROPERTY(int bassLevel READ bassLevel WRITE setBassLevel NOTIFY bassLevelChanged FINAL)
-    Q_PROPERTY(int bussCutOff READ bassCutOff WRITE setBassCutOff NOTIFY bassCutOffChanged FINAL)
+    Q_PROPERTY(int bassCutOff READ bassCutOff WRITE setBassCutOff NOTIFY bassCutOffChanged FINAL)
 
     Q_PROPERTY(bool surroundEnabled READ surroundEnabled WRITE setSurroundEnabled NOTIFY surroundEnabledChanged FINAL)
     Q_PROPERTY(int surroundLevel READ surroundLevel WRITE setSurroundLevel NOTIFY surroundLevelChanged FINAL)
