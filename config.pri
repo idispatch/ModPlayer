@@ -12,6 +12,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
+                 $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
@@ -80,6 +81,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
+                 $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
@@ -124,6 +126,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
+                 $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
@@ -192,6 +195,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
+                 $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongFormat.hpp) \

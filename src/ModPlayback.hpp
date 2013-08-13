@@ -8,6 +8,7 @@
 #include <QByteArray>
 #include <sys/asoundlib.h>
 #include "SongModule.hpp"
+#include "PlaybackConfig.hpp"
 
 class ModPlayback : public QThread {
     Q_OBJECT
@@ -72,6 +73,9 @@ private:
         ResumeCommand,
         RewindCommand
     };
+
+    PlaybackConfig m_config;
+    PlaybackConfig m_pendingConfig;
 
     QMutex m_mutex;
     QWaitCondition m_cond;

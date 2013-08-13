@@ -162,6 +162,7 @@ void ModPlayback::closePlayback() {
 void ModPlayback::stopAudioDevice() {
     // called from playback or user thread
     // when called from user rhread must be in locked state
+    qDebug() << "->ModPlayback::stopAudioDevice";
     if(m_playback_handle != NULL)
     {
         snd_pcm_playback_drain(m_playback_handle);
@@ -169,9 +170,9 @@ void ModPlayback::stopAudioDevice() {
         m_playback_handle = NULL;
     }
     m_audioBuffer.resize(0);
-    m_numDevices = 0;
     m_pcmFd = -1;
     m_song.rewind();
+    qDebug() << "<-ModPlayback::stopAudioDevice";
 }
 
 void ModPlayback::changeState(State state) {
@@ -487,11 +488,12 @@ bool ModPlayback::initPlayback() {
     snd_pcm_channel_params_t    channel_params;
     snd_pcm_channel_setup_t     channel_setup;
 
+    qDebug() << "Initializing selected audio device for playback...";
+
     if(m_numDevices == 0) {
+        qDebug() << "No audio devices available!";
         return false;
     }
-
-    qDebug() << "Initializing selected audio device for playback...";
 
     memset(&pcm_format, 0, sizeof(pcm_format));
     switch(m_sampleBitSize)
