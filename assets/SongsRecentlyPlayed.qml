@@ -32,25 +32,15 @@ Page {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
+            property variant app_ref: app
+            
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
                         status: Global.formatTimeStamp(ListItemData.lastPlayed)
-                        imageSource: "asset:///images/icon_" + formatToIcon[ListItemData.formatId] + ".png"
-                        property variant formatToIcon: {
-                            1: "mod",
-                            2: "669",
-                            3: "it",
-                            4: "med",
-                            5: "mtm",
-                            6: "oct",
-                            7: "okt",
-                            8: "s3m",
-                            9: "stm",
-                            10: "xm"
-                        }
+                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
                     }
                 }
             ]

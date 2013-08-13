@@ -46,7 +46,6 @@ void ApplicationUI::onAboutToQuit() {
 }
 
 QUrl ApplicationUI::getIconPath(QVariant value) const {
-    //qDebug() << "ApplicationUI::getIconPath" << value;
     if(value.type() == QVariant::Int) {
         return m_player->getIconPathByFormatId(value.toInt());
     } else if((int)value.type() == (int)QMetaType::QObjectStar) {
