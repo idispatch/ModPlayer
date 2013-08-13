@@ -3,6 +3,7 @@
 #include "SongGenre.hpp"
 #include "SongBasicInfo.hpp"
 #include "SongInfo.hpp"
+#include "Artist.hpp"
 
 #include  <QDebug>
 
@@ -35,6 +36,7 @@ void Catalog::initQMLTypes() {
     qmlRegisterUncreatableType<SongGenre>("player", 1, 0, "SongGenre", "");
     qmlRegisterUncreatableType<SongBasicInfo>("player", 1, 0, "SongBasicInfo", "");
     qmlRegisterUncreatableType<SongInfo>("player", 1, 0, "SongInfo", "");
+    qmlRegisterUncreatableType<Artist>("player", 1, 0, "Artist", "");
 }
 
 void Catalog::copyCatalogToDataFolder() {
@@ -99,7 +101,7 @@ DataModel * Catalog::genres() {
             "SELECT"
             " genres.id,"
             " genres.name,"
-            " COUNT(songs.id) "
+            " COUNT(songs.id) AS count "
             "FROM genres "
             "LEFT JOIN songs "
             " ON songs.genre=genres.id "
@@ -121,6 +123,47 @@ DataModel * Catalog::genres() {
         model->insert(new SongGenre(id, name, count, model));
     }
 
+    return model;
+}
+
+DataModel * Catalog::artists() {
+    const char * query =
+            "SELECT"
+            " artists.id,"
+            " artists.name,"
+            " artists.score,"
+            " artists.downloads,"
+            " artists.rating,"
+            " COUNT(songs.id) AS count "
+            "FROM artists "
+            "LEFT JOIN songs "
+            " ON songs.artist=artists.id "
+            "GROUP BY artists.id";
+
+    typedef GroupDataModel SongGenresModel;
+
+    SongGenresModel * model = new SongGenresModel(QStringList() << "name");
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        int column    = 0;
+        int id        = sqlQuery.value(column++).toInt();
+        QString name  = sqlQuery.value(column++).toString();
+        int score     = sqlQuery.value(column++).toInt();
+        int downloads = sqlQuery.value(column++).toInt();
+        int rating    = sqlQuery.value(column++).toInt();
+        int count     = sqlQuery.value(column++).toInt();
+        model->insert(new Artist(id,
+                                 name,
+                                 score,
+                                 downloads,
+                                 rating,
+                                 count,
+                                 model));
+    }
     return model;
 }
 
@@ -173,6 +216,38 @@ DataModel * Catalog::findSongsByGenreId(int genreId) {
             " myFavourite "
             "FROM songs "
             "WHERE genre=%1").arg(genreId);
+    typedef GroupDataModel SongByFormatModel;
+
+    SongByFormatModel * model = new SongByFormatModel(QStringList() << "fileName"
+                                                                    << "downloads");
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        model->insert(readSongBasicInfo(sqlQuery, model));
+    }
+    return model;
+}
+
+DataModel * Catalog::findSongsByArtistId(int artistId) {
+    QString query = QString(
+            "SELECT "
+            " id, "
+            " fileName, "
+            " title, "
+            " format, "
+            " downloads, "
+            " favourited, "
+            " score, "
+            " size, "
+            " length, "
+            " playCount, "
+            " lastPlayed, "
+            " myFavourite "
+            "FROM songs "
+            "WHERE artist=%1").arg(artistId);
     typedef GroupDataModel SongByFormatModel;
 
     SongByFormatModel * model = new SongByFormatModel(QStringList() << "fileName"

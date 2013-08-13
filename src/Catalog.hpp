@@ -17,12 +17,14 @@ class QSqlQuery;
 
 class SongInfo;
 class SongBasicInfo;
+class Artist;
 
 class Catalog : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString catalogPath READ catalogPath NOTIFY catalogPathChanged FINAL)
     Q_PROPERTY(bb::cascades::DataModel * formats READ formats NOTIFY formatsChanged FINAL)
     Q_PROPERTY(bb::cascades::DataModel * genres READ genres NOTIFY genresChanged FINAL)
+    Q_PROPERTY(bb::cascades::DataModel * artists READ artists NOTIFY artistsChanged FINAL)
 public:
     Catalog(QObject * parent = 0);
 
@@ -30,9 +32,11 @@ public:
 
     bb::cascades::DataModel * formats();
     bb::cascades::DataModel * genres();
+    bb::cascades::DataModel * artists();
 
     Q_INVOKABLE bb::cascades::DataModel * findSongsByFormatId(int formatId);
     Q_INVOKABLE bb::cascades::DataModel * findSongsByGenreId(int genreId);
+    Q_INVOKABLE bb::cascades::DataModel * findSongsByArtistId(int artistId);
 
     Q_INVOKABLE bb::cascades::DataModel * findMostDownloadedSongs();
     Q_INVOKABLE bb::cascades::DataModel * findMostFavouritedSongs();
@@ -57,6 +61,7 @@ Q_SIGNALS:
     void catalogPathChanged();
     void formatsChanged();
     void genresChanged();
+    void artistsChanged();
 private:
     Q_DISABLE_COPY(Catalog)
     void initCatalog();

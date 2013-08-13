@@ -3,10 +3,12 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 
 device {
     CONFIG(debug, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+        SOURCES +=  $$quote($$BASEDIR/src/Artist.cpp) \
+                 $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/ItemGroupBase.cpp) \
                  $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
@@ -69,10 +71,12 @@ device {
                  $$quote($$BASEDIR/src/zip/unzip.c) \
                  $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/Artist.hpp) \
+                 $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
@@ -111,10 +115,12 @@ device {
     }
 
     CONFIG(release, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/Cache.cpp) \
+        SOURCES +=  $$quote($$BASEDIR/src/Artist.cpp) \
+                 $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/ItemGroupBase.cpp) \
                  $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
@@ -177,10 +183,12 @@ device {
                  $$quote($$BASEDIR/src/zip/unzip.c) \
                  $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/Cache.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/Artist.hpp) \
+                 $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \

@@ -2,6 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name>ArtistsList</name>
+    <message>
+        <source>Select Songs by Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GenresList</name>
     <message>
         <source>Select Songs by Genre</source>

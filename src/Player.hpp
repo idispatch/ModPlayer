@@ -55,6 +55,8 @@ public:
 
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
+
+    QUrl getIconPathByFormatId(int formatId) const;
 Q_SIGNALS:
     void stateChanged();
     void statusTextChanged();

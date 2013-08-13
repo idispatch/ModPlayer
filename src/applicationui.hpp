@@ -2,6 +2,8 @@
 #define ApplicationUI_HPP_
 
 #include <QObject>
+#include <QVariant>
+#include <QUrl>
 
 namespace bb
 {
@@ -29,6 +31,8 @@ public:
     Player * player() const;
     Catalog * catalog() const;
     Cache * cache() const;
+
+    Q_INVOKABLE QUrl getIconPath(QVariant value) const;
 Q_SIGNALS:
     void playerChanged();
     void catalogChanged();

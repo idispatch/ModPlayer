@@ -96,6 +96,22 @@ TabbedPane {
         }
     }
     Tab {
+        id: artistsTab
+        title: "Artists"
+        objectName: title
+        description: "Songs By Artist"
+        //imageSource: "asset:///images/icon_genre.png"
+        NavigationPane {
+            ArtistsList {
+                id: songArtistsList
+                navigationPane: parent
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
         id: topDownloadsTab
         title: "Downloads"
         objectName: title

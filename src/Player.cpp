@@ -41,6 +41,10 @@ void Player::initData() {
     m_formatIdToIconUrlMap[10] = QUrl(QString("file://") + joinPath(imagesDir, "icon_xm.png"));
 }
 
+QUrl Player::getIconPathByFormatId(int formatId) const {
+    return m_formatIdToIconUrlMap[formatId];
+}
+
 QString Player::joinPath(QString const& directory, QString const& fileName) {
     if(fileName.startsWith('/')) {
         return fileName; // already absolute
@@ -228,7 +232,7 @@ void Player::updateNowPlaying() {
     m_nowPlaying->setNextEnabled(false);
     m_nowPlaying->setPreviousEnabled(false);
     m_nowPlaying->setMetaData(metadata);
-    m_nowPlaying->setIconUrl(m_formatIdToIconUrlMap[m_module->formatId()]);
+    m_nowPlaying->setIconUrl(getIconPathByFormatId(m_module->formatId()));
 }
 
 void Player::onNowPlayingAcquired() {

@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import player 1.0
 
 Page {
     property int formatId
@@ -6,6 +7,9 @@ Page {
     
     property int genreId
     property string genreName
+    
+    property int artistId
+    property string artistName
     
     property string mode
     property variant navigationPane
@@ -19,6 +23,9 @@ Page {
             }
             if(mode == 'genre') {
                 return genreName + " Songs";
+            }
+            if(mode == 'artist') {
+                return "Songs by " + artistName;
             }
             return "All Songs"
         }
@@ -37,6 +44,8 @@ Page {
         ]
         ListView {
             id: songs
+            property variant app_ref: app
+            
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
@@ -52,20 +61,8 @@ Page {
                     StandardListItem {
                         title: ListItemData.title
                         description: ListItemData.fileName
-                        status: ListItemData.downloads
-                        imageSource: "asset:///images/icon_" + formatToIcon[ListItemData.formatId] + ".png"
-                        property variant formatToIcon: {
-                            1: "mod",
-                            2: "669",
-                            3: "it",
-                            4: "med",
-                            5: "mtm",
-                            6: "oct",
-                            7: "okt",
-                            8: "s3m",
-                            9: "stm",
-                            10: "xm"
-                        }
+                        status: ListItemData.downloads + " downloads"
+                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
                     }
                 }
             ]
@@ -86,7 +83,7 @@ Page {
             ]
         }
     }
-    
+
     function loadSongsByFormat(formatId, formatName) {
         this.mode = "format"
         this.formatId = formatId
@@ -94,7 +91,7 @@ Page {
         var data = app.player.catalog.findSongsByFormatId(formatId)
         songs.dataModel = data
     }
-    
+
     function loadSongsByGenre(genreId, genreName) {
         this.mode = "genre"
         this.genreId = genreId
@@ -103,6 +100,14 @@ Page {
         songs.dataModel = data
     }
     
+    function loadSongsByArtist(artistId, artistName) {
+        this.mode = "artist"
+        this.artistId = artistId
+        this.artistName = artistName
+        var data = app.player.catalog.findSongsByArtistId(artistId)
+        songs.dataModel = data
+    }
+
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane

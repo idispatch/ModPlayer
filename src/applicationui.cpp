@@ -9,6 +9,8 @@
 #include "Player.hpp"
 #include "LCDDisplay.hpp"
 #include "LCDDigits.hpp"
+#include "SongBasicInfo.hpp"
+#include "SongModule.hpp"
 
 using namespace bb::cascades;
 
@@ -41,6 +43,23 @@ void ApplicationUI::initSignals() {
 
 void ApplicationUI::onAboutToQuit() {
     LCDDigits::finalize();
+}
+
+QUrl ApplicationUI::getIconPath(QVariant value) const {
+    //qDebug() << "ApplicationUI::getIconPath" << value;
+    if(value.type() == QVariant::Int) {
+        return m_player->getIconPathByFormatId(value.toInt());
+    } else if((int)value.type() == (int)QMetaType::QObjectStar) {
+        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(value.value<QObject*>());
+        if(info != NULL) {
+            return m_player->getIconPathByFormatId(info->formatId());
+        }
+        SongModule * module = qobject_cast<SongModule*>(value.value<QObject*>());
+        if(module != NULL) {
+            return m_player->getIconPathByFormatId(module->formatId());
+        }
+    }
+    return QUrl();
 }
 
 void ApplicationUI::initTypes() {
