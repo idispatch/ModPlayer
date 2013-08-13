@@ -93,7 +93,7 @@ QString SongModule::title() const
     if(m_title.length() == 0) {
         return m_fileName;
     } else {
-        return m_title;
+        return m_title.trimmed();
     }
 }
 
