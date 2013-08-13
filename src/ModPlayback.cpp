@@ -26,30 +26,126 @@ ModPlayback::~ModPlayback() {
     closePlayback(); // called from playback thread only
 }
 
-void ModPlayback::configure(bool bStereo,
-                            int frequency,
-                            int sampleBitSize) {
+void ModPlayback::configure(QVariant const& setup) {
     bool configChanged = false;
-    QMutexLocker locker(&m_mutex); // called from user thread
-    if(m_bStereo != bStereo) {
-        m_bStereo = bStereo;
-        configChanged = true;
+
+    bool bStereo = true;
+    int frequency = 44100;
+    int sampleBitSize = 16;
+    int resampling = 2;
+    int stereoSeparation = 128;
+    int maximumMixingChannels = 128;
+
+    bool reverbEnabled = true;
+    int reverbLevel = 50;
+    int reverbDelay = 128;
+
+    bool bassEnabled = true;
+    int bassLevel = 50;
+    int bassCutoff = 50;
+
+    bool surroundEnabled = true;
+    int surroundLevel = 50;
+    int surroundDelay = 20;
+
+    bool enableOversampling = true;
+    bool enableNoiseReduction = true;
+
+    QVariantMap setupValues = setup.value<QVariantMap>();
+    if(setupValues.contains("output")) {
+        bStereo = setupValues["output"].value<int>();
+        qDebug() << "stereo:" << bStereo;
     }
-    if(m_frequency != frequency) {
-        m_frequency = frequency;
-        configChanged = true;
+    if(setupValues.contains("bits-per-sample")) {
+        sampleBitSize = setupValues["bits-per-sample"].value<int>();
+        qDebug() << "sample size:" << sampleBitSize;
     }
-    if(m_sampleBitSize != sampleBitSize) {
-        m_sampleBitSize = sampleBitSize;
-        configChanged = true;
+    if(setupValues.contains("frequency")) {
+        frequency = setupValues["frequency"].value<int>();
+        qDebug() << "frequency:" << frequency;
     }
-    if(!configChanged) {
-        return;
+    if(setupValues.contains("resampling")) {
+        resampling = setupValues["resampling"].value<int>();
+        qDebug() << "resampling:" << resampling;
     }
-    m_command = LoadCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
+
+    if(setupValues.contains("stereo-separation")) {
+        stereoSeparation = setupValues["stereo-separation"].value<int>();
+        qDebug() << "stereo-separation:" << stereoSeparation;
+    }
+
+    if(setupValues.contains("maximum-mixing-channels")) {
+        maximumMixingChannels = setupValues["maximum-mixing-channels"].value<int>();
+        qDebug() << "maximum-mixing-channels:" << maximumMixingChannels;
+    }
+
+    if(setupValues.contains("oversampling")) {
+        enableOversampling = setupValues["oversampling"].value<bool>();
+        qDebug() << "oversampling:" << enableOversampling;
+    }
+
+    if(setupValues.contains("noise-reduction")) {
+        enableNoiseReduction = setupValues["noise-reduction"].value<bool>();
+        qDebug() << "noise-reduction:" << enableNoiseReduction;
+    }
+
+    if(setupValues.contains("reverb")) {
+        reverbEnabled = setupValues["reverb"].value<bool>();
+        qDebug() << "reverb:" << reverbEnabled;
+    }
+
+    if(setupValues.contains("reverb-depth")) {
+        reverbLevel = setupValues["reverb-depth"].value<int>();
+        qDebug() << "reverb-depth:" << reverbLevel;
+    }
+
+    if(setupValues.contains("reverb-delay")) {
+        reverbDelay = setupValues["reverb-depth"].value<int>();
+        qDebug() << "reverb-depth:" << reverbLevel;
+    }
+
+    if(setupValues.contains("bass")) {
+        bassEnabled = setupValues["bass"].value<bool>();
+        qDebug() << "bass:" << bassEnabled;
+    }
+
+    if(setupValues.contains("surround")) {
+        surroundEnabled = setupValues["surround"].value<bool>();
+        qDebug() << "surround:" << surroundEnabled;
+    }
+
+
+/*                                'bass-amount' : megabassLevel.value,
+                                'bass-cutoff': megabassCutoff.value,
+                                'surround-depth': surroundLevel.value,
+                                'surround-delay': surroundDelay.value,
+*/
+
+    {
+        QMutexLocker locker(&m_mutex); // called from user thread
+        if(m_bStereo != bStereo) {
+            m_bStereo = bStereo;
+            configChanged = true;
+        }
+        if(m_frequency != frequency) {
+            m_frequency = frequency;
+            configChanged = true;
+        }
+        if(m_sampleBitSize != sampleBitSize) {
+            m_sampleBitSize = sampleBitSize;
+            configChanged = true;
+        }
+        if(!configChanged) {
+            return;
+        }
+
+        qDebug() << "Reconfiguring playback";
+
+        m_command = ConfigureCommand;
+        m_cond.wakeAll();
+        while(m_command != NoCommand) {
+            m_cond.wait(&m_mutex);
+        }
     }
 }
 
@@ -236,9 +332,9 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
+                m_song.assignInfo(m_pendingSong);
                 if(m_song.load(m_pendingFileName)) {
                     m_state = Loaded;
-                    m_song.assignInfo(m_pendingSong);
                 } else {
                     m_state = Idle;
                 }

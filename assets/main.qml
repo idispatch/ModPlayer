@@ -1,6 +1,7 @@
 import bb.cascades 1.0
 
 TabbedPane {
+    id: mainTabPane
     activeTab: formatsTab 
     Tab {
         id: myFavouriteTab
@@ -173,18 +174,17 @@ TabbedPane {
     }
     
     Menu.definition: MenuDefinition {
-        helpAction: HelpActionItem {
+        /*helpAction: HelpActionItem {
             id: helpActionItem
             title: "Help"
             onTriggered: {
             }
-        }
-        
+        }*/
         settingsAction: SettingsActionItem {
             id: settingsActionItem
             title: "Settings";
             onTriggered : {
-                var view = settingsView.createObject()
+                var view = settingsView.createObject(mainTabPane)
                 view.open()
             }
             attachedObjects: [

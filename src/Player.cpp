@@ -398,12 +398,6 @@ void Player::playByModuleId(int modId) {
     }
 }
 
-void Player::configure(bool bStereo,
-                       int frequency,
-                       int sampleBitSize) {
-    m_playback->configure(bStereo, frequency, sampleBitSize);
-}
-
 void Player::stop() {
     m_playback->stop();
 }

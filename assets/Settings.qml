@@ -1,10 +1,16 @@
 import bb.cascades 1.0
 import "functions.js" as Global
+import player 1.0
 
 Sheet {
-    id: seetingsRoot
+    id: settingsRoot
     property int groupSettingIndent: 50
     property int dividerMargin: 30
+    
+    onClosed: {
+        console.log("destroying settings sheet")
+        settingsRoot.destroy()
+    }
     
     Page {
         titleBar: TitleBar {
@@ -13,13 +19,33 @@ Sheet {
             dismissAction: ActionItem {
                 title: qsTr("Close")
                 onTriggered: {
-                    seetingsRoot.close();
+                    settingsRoot.close();
                 }
             }
             acceptAction: ActionItem {
                 title: qsTr("Apply")
                 onTriggered: {
-                    seetingsRoot.close();
+                    var setup =  {
+                            'output': output.selectedValue,
+                            'bits-per-sample': bitsPerSample.selectedValue,
+                            'frequency': frequency.selectedValue,
+                            'resampling': resampling.selectedValue,
+                            'stereo-separation': stereoSeparation.value,
+                            'maximum-mixing-channels': maximumMixingChannels.value,
+                            'reverb': reverbEnabled.checked,
+                            'reverb-depth': reverbLevel.value,
+                            'reverb-delay': reverbDelay.value,
+                            'bass': megabassEnabled.checked,
+                            'bass-amount' : megabassLevel.value,
+                            'bass-cutoff': megabassCutoff.value,
+                            'surround': surroundEnabled.checked,
+                            'surround-depth': surroundLevel.value,
+                            'surround-delay': surroundDelay.value,
+                            'oversampling': oversampling.checked,
+                            'noise-reduction': noiseReduction.checked
+                        };
+                    app.player.playback.configure(setup)
+                    settingsRoot.close();
                 }
             } 
         }
@@ -83,13 +109,12 @@ Sheet {
                     title: "Output"
                     Option {
                         text: "Stereo"
-                        value: 2
+                        value: 1
                         selected: true
                     }
                     Option {
                         text: "Mono"
-                        value: 1
-                        selected: false
+                        value: 0
                     }
                 }
                 DropDown {
@@ -98,7 +123,6 @@ Sheet {
                     Option {
                         text: "8"
                         value: 8
-                        selected: false
                     }
                     Option {
                         text: "16"
@@ -108,7 +132,6 @@ Sheet {
                     Option {
                         text: "32"
                         value: 32
-                        selected: false
                     }
                 }
                 DropDown {
@@ -225,7 +248,7 @@ Sheet {
                         enabled: reverbEnabled.checked
                     }
                     Label {
-                        text: "Reverb level 0(quiet)-100(loud)"
+                        text: "Reverb level (quiet - loud)"
                         textStyle {
                             base: smallTextStyle.style
                         }
@@ -243,7 +266,7 @@ Sheet {
                         enabled: reverbEnabled.checked
                     }
                     Label {
-                        text: "Reverb delay in ms, usually 40-200ms"
+                        text: "Reverb delay amount"
                         textStyle {
                             base: smallTextStyle.style
                         }
@@ -279,7 +302,7 @@ Sheet {
                         enabled: megabassEnabled.checked
                     }
                     Label {
-                        text: "XBass level 0(quiet)-100(loud)"
+                        text: "XBass level (quiet - loud)"
                         textStyle {
                             base: smallTextStyle.style
                         }
@@ -297,7 +320,7 @@ Sheet {
                         text: "Bass cutoff"
                     }
                     Label {
-                        text: "XBass cutoff in Hz 10-100"
+                        text: "XBass cutoff amount"
                         textStyle {
                             base: smallTextStyle.style
                         }
@@ -332,7 +355,7 @@ Sheet {
                         enabled: surroundEnabled.checked
                     }
                     Label {
-                        text: "Surround level 0(quiet) - 100(heavy)"
+                        text: "Surround level (quiet - heavy)"
                         textStyle {
                             base: smallTextStyle.style
                         }
@@ -350,7 +373,7 @@ Sheet {
                         enabled: surroundEnabled.checked
                     }
                     Label {
-                        text: "Surround delay in milliseconds, usually 5-40ms"
+                        text: "Surround delay amount"
                         textStyle {
                             base: smallTextStyle.style
                         }

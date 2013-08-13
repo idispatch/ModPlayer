@@ -36,7 +36,7 @@ function formatTimeStamp(unix_timestamp) {
            (day_diff < 7 && day_diff + " days ago") ||
            (day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago") ||
            (day_diff < 365 && Math.ceil( day_diff / 12 ) + " months ago") ||
-           ("long ago " + day_diff);
+           ("long ago");
 }
 
 var entityMap = {

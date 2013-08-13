@@ -26,15 +26,13 @@ public:
     ModPlayback(QObject * parent);
     virtual ~ModPlayback();
 
-    void configure(bool bStereo,
-                   int frequency,
-                   int sampleBitSize);
-
     State state();
     SongModule* currentSong();
 
     void run();
     void stopThread();
+
+    Q_INVOKABLE void configure(QVariant const& setup);
 
     Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();

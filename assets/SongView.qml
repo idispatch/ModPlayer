@@ -246,6 +246,8 @@ Page {
             view.navigationPane = navigationPane 
             navigationPane.push(view)
             view.play(song)
+            song.playCount = song.playCount + 1
+            song.lastPlayed = Date().getTime() / 1000 
         }
     }
     

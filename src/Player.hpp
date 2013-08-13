@@ -59,10 +59,6 @@ public:
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
 
-    Q_INVOKABLE void configure(bool bStereo,
-                               int frequency,
-                               int sampleBitSize);
-
     QUrl getIconPathByFormatId(int formatId) const;
 Q_SIGNALS:
     void stateChanged();
