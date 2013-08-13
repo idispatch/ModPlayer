@@ -1,3 +1,12 @@
+CREATE TABLE artists
+(
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL,
+	score INT,
+	downloads INT,
+	rating INT
+);
+
 CREATE TABLE genres
 (
 	id INTEGER PRIMARY KEY,
@@ -45,6 +54,11 @@ CREATE TABLE songs
 	samples INTEGER NOT NULL,
 	channels INTEGER NOT NULL
 );
+
+CREATE UNIQUE INDEX IX_artists_name ON artists (name);
+CREATE        INDEX IX_artists_score ON artists (score);
+CREATE        INDEX IX_artists_downloads ON artists (downloads);
+CREATE        INDEX IX_artists_rating ON artists (rating);
 
 CREATE UNIQUE INDEX IX_songs_fileName ON songs (fileName);
 CREATE        INDEX IX_songs_title ON songs (title);
@@ -133,6 +147,7 @@ INSERT INTO genres (id, name) VALUES (26, 'R & B');
 INSERT INTO genres (id, name) VALUES (27, 'Reggae');
 INSERT INTO genres (id, name) VALUES (24, 'Ska');
 INSERT INTO genres (id, name) VALUES (25, 'Soul');
+INSERT INTO genres (id, name) VALUES (0, '- N/A -');
 
 INSERT INTO formats (id, name, description) VALUES (1, 'MOD', 'Amiga Module');
 INSERT INTO formats (id, name, description) VALUES (2, '669', '669 Mod Composer Module');
