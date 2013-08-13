@@ -98,6 +98,10 @@ Sheet {
                         value: 0
                         selected: false
                     }
+                    
+                    onSelectedValueChanged: {
+                        settingsRoot.configuration.stereo = (selectedValue == 1)
+                    }
                 }
                 DropDown {
                     id: bitsPerSample
@@ -114,6 +118,10 @@ Sheet {
                     Option {
                         text: "32"
                         value: 32
+                    }
+                    
+                    onSelectedValueChanged: {
+                        settingsRoot.configuration.sampleSize = selectedValue
                     }
                 }
                 DropDown {
@@ -136,6 +144,9 @@ Sheet {
                         description: "11025 Hz sampling rate"
                         value: 11025
                         selected: false
+                    }
+                    onSelectedValueChanged: {
+                        settingsRoot.configuration.frequency = selectedValue
                     }
                 }
                 DropDown {
@@ -164,6 +175,9 @@ Sheet {
                         description: "8-tap fir filter (extremely high quality)"
                         value: 3
                         selected: false
+                    }
+                    onSelectedValueChanged: {
+                        settingsRoot.configuration.resamplingMode = selectedValue
                     }
                 }
                 
