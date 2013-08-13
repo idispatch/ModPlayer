@@ -36,6 +36,12 @@ Page {
                     ImageView {
                         verticalAlignment: VerticalAlignment.Center
                         imageSource: app.getIconPath(song)
+                        preferredHeight: 128
+                        preferredWidth: 128
+                        minHeight: preferredHeight
+                        maxHeight: preferredHeight
+                        minWidth: preferredWidth 
+                        maxWidth: preferredWidth
                     }
                     Container {
                         layout: StackLayout {
