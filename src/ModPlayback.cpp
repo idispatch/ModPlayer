@@ -450,12 +450,9 @@ big_endian
     int fmt = snd_pcm_build_linear_format(16, 0, 0);
 #endif
 
-#if 0
-    fprintf(stderr, "PCM format: voices: %d, rate: %d, format: %d\n",
-            pcm_format.voices,
-            pcm_format.rate,
-            pcm_format.format);
-#endif
+    qDebug() << "PCM format: voices:" << pcm_format.voices
+             << ", rate:" << pcm_format.rate
+             << ", format:" << pcm_format.format;
 
     if((err = snd_pcm_open_preferred(&m_playback_handle,
                                      &card,
@@ -469,18 +466,16 @@ big_endian
 
     // GET
     if(snd_pcm_info(m_playback_handle, &pcm_info) != -1) {
-#if 0
-        fprintf(stderr, "type:  %d\n", pcm_info.type);
-        fprintf(stderr, "flags: %d\n", pcm_info.flags);
-        fprintf(stderr, "id:    %s\n", pcm_info.id);
-        fprintf(stderr, "name:  %s\n", pcm_info.name);
-        fprintf(stderr, "playback:  %d\n", pcm_info.playback + 1);
-        fprintf(stderr, "capture:  %d\n", pcm_info.capture + 1);
-        fprintf(stderr, "card:  %d\n", pcm_info.card);
-        fprintf(stderr, "device:  %d\n", pcm_info.device);
-        fprintf(stderr, "shared_card:  %d\n", pcm_info.shared_card);
-        fprintf(stderr, "shared_device:  %d\n", pcm_info.shared_device);
-#endif
+        qDebug() << "type:" << pcm_info.type;
+        qDebug() << "flags:" << pcm_info.flags;
+        qDebug() << "id:" << pcm_info.id;
+        qDebug() << "name:" << pcm_info.name;
+        qDebug() << "playback:" << pcm_info.playback + 1;
+        qDebug() << "capture:" << pcm_info.capture + 1;
+        qDebug() << "card:" << pcm_info.card;
+        qDebug() << "device:" << pcm_info.device;
+        qDebug() << "shared_card:" << pcm_info.shared_card;
+        qDebug() << "shared_device:" << pcm_info.shared_device;
     }
 
     // GET
@@ -496,18 +491,18 @@ big_endian
         return false;
     }
 
-#if 0
-    fprintf(stderr, "PCM channel info for device %d:\n", device);
-    fprintf(stderr, "subdevice:  %d\n", channel_info.subdevice);
-    fprintf(stderr, "subname:    %s\n", channel_info.subname);
-    fprintf(stderr, "channel:    %d\n", channel_info.channel);
-    fprintf(stderr, "flags:      %d\n", channel_info.flags);
-    fprintf(stderr, "formats:    %d\n", channel_info.formats);
+
+    qDebug() << "PCM channel info for device" << device << ":";
+    qDebug() << "subdevice:" << channel_info.subdevice;
+    qDebug() << "subname:" << channel_info.subname;
+    qDebug() << "channel:" << channel_info.channel;
+    qDebug() << "flags:" << channel_info.flags;
+    qDebug() << "formats:" << channel_info.formats;
 #define DUMP_FORMAT(x) \
     if(channel_info.formats & x) { \
-        fprintf(stderr, " +format:      " #x "\n"); \
+        qDebug() << " +format:" << #x; \
     } else { \
-        fprintf(stderr, " -format:      " #x "\n"); \
+        qDebug() << " -format:" << #x; \
     }
 
     DUMP_FORMAT(SND_PCM_FMT_U8)
@@ -538,13 +533,13 @@ big_endian
     DUMP_FORMAT(SND_PCM_FMT_MPEG)
     DUMP_FORMAT(SND_PCM_FMT_SPECIAL)
 
-    fprintf(stderr, "rates:      %d\n", channel_info.rates);
+    qDebug() << "rates:" << channel_info.rates;
 
 #define DUMP_RATE(x) \
     if(channel_info.rates & x) { \
-        fprintf(stderr, " +rate:      " #x "\n"); \
+        qDebug() << " +rate:" << #x; \
     } else { \
-        fprintf(stderr, " -rate:      " #x "\n"); \
+        qDebug() << " -rate:" << #x; \
     }
 
     DUMP_RATE(SND_PCM_RATE_8000)
@@ -560,16 +555,15 @@ big_endian
     DUMP_RATE(SND_PCM_RATE_192000)
 #undef DUMP_RATE
 
-    fprintf(stderr, "min_rate:   %d\n", channel_info.min_rate);
-    fprintf(stderr, "max_rate:   %d\n", channel_info.max_rate);
-    fprintf(stderr, "min_voices: %d\n", channel_info.min_voices);
-    fprintf(stderr, "max_voices: %d\n", channel_info.max_voices);
-    fprintf(stderr, "max_buffer_size: %d\n", channel_info.max_buffer_size);
-    fprintf(stderr, "min_fragment_size: %d\n", channel_info.min_fragment_size);
-    fprintf(stderr, "max_fragment_size: %d\n", channel_info.max_fragment_size);
-    fprintf(stderr, "fragment_align: %d\n", channel_info.fragment_align);
-    fprintf(stderr, "fifo_size:  %d\n", channel_info.fifo_size);
-#endif
+    qDebug() << "min_rate:" << channel_info.min_rate;
+    qDebug() << "max_rate:" << channel_info.max_rate;
+    qDebug() << "min_voices:" << channel_info.min_voices;
+    qDebug() << "max_voices:" << channel_info.max_voices;
+    qDebug() << "max_buffer_size:" << channel_info.max_buffer_size;
+    qDebug() << "min_fragment_size:" << channel_info.min_fragment_size;
+    qDebug() << "max_fragment_size:" << channel_info.max_fragment_size;
+    qDebug() << "fragment_align:" << channel_info.fragment_align;
+    qDebug() << "fifo_size:" << channel_info.fifo_size;
 
     if (channel_info.min_rate > pcm_format.rate ||
         channel_info.max_rate < pcm_format.rate ||
