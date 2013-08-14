@@ -79,7 +79,13 @@ Page {
                     }
 
                     Divider {}
-                    
+
+                    SongOtherStats {
+                        song: songPlayer.currentSong
+                    }
+
+                    Divider {}
+
                     SongStatData {
                         songLoaded: app.player.currentSong.songLoaded
                         songOrders: app.player.currentSong.orders
