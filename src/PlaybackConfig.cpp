@@ -398,6 +398,25 @@ void PlaybackConfig::setNoiseReductionEnabled(bool value) {
     }
 }
 
-QDebug operator << (QDebug dbg, PlaybackConfig const &) {
+QDebug operator << (QDebug dbg, PlaybackConfig const & config) {
+    dbg.nospace() << "(PlaybackConfig: "
+            << "stereo=" << config.stereo()
+            << ", sampleSize=" << config.sampleSize()
+            << ", frequency=" << config.frequency()
+            << ", resampling=" << config.resamplingMode()
+            << ", stereoSeparation=" << config.stereoSeparation()
+            << ", maximumChannels=" << config.maximumMixingChannels()
+            << ", oversampling=" << config.oversamplingEnabled()
+            << ", noiseReduction=" << config.noiseReductionEnabled()
+            << ", reverbEnabled=" << config.reverbEnabled()
+            << ", reverbLevel=" << config.reverbLevel()
+            << ", reverbDelay=" << config.reverbDelay()
+            << ", bassEnabled=" << config.bassEnabled()
+            << ", bassLevel=" << config.bassLevel()
+            << ", bassCutOff=" << config.bassCutOff()
+            << ", surroundEnabled=" << config.surroundEnabled()
+            << ", surroundLevel=" << config.surroundLevel()
+            << ", surroundDelay=" << config.surroundDelay()
+            << ")";
     return dbg.space();
 }

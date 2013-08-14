@@ -5,7 +5,6 @@ import "functions.js" as Global
 Sheet {
     id: settingsRoot
     property int groupSettingIndent: 50
-    property int dividerMargin: 30
     property variant configuration: app.player.playback.configuration
 
     onClosed: {
@@ -42,16 +41,22 @@ Sheet {
                 bottomPadding: 20
                 
                 Label {
-                    text: "Cached songs: <b>" + app.player.cache.currentFiles + "</b>"
+                    text: qsTr("Cache")
+                    horizontalAlignment: HorizontalAlignment.Center
+                    textStyle.base: SystemDefaults.TextStyles.TitleText
+                    textStyle.fontWeight: FontWeight.Bold
+                }
+                Label {
+                    text: "Songs: <b>" + app.player.cache.currentFiles + "</b>"
                     textFormat: TextFormat.Html
                 }
                 Label {
-                    text: "Used cache size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
+                    text: "Used size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
                     textFormat: TextFormat.Html
                 }
 
                 Button {
-                    text: "Purge cache"
+                    text: qsTr("Purge cache")
                     horizontalAlignment: HorizontalAlignment.Center
                     topMargin: 40
                     bottomMargin: 40
@@ -59,9 +64,21 @@ Sheet {
                         app.cache.purge();
                     }
                 }
-
+                
+                Divider {
+                    topMargin: 30
+                    bottomMargin: topMargin
+                }
+                
+                Label {
+                    text: qsTr("Personal")
+                    horizontalAlignment: HorizontalAlignment.Center
+                    textStyle.base: SystemDefaults.TextStyles.TitleText
+                    textStyle.fontWeight: FontWeight.Bold
+                }
+                
                 Button {
-                    text: "Reset Play counts"
+                    text: qsTr("Reset Play Counts")
                     horizontalAlignment: HorizontalAlignment.Center
                     topMargin: 40
                     bottomMargin: 40
@@ -71,7 +88,7 @@ Sheet {
                 }
 
                 Button {
-                    text: "Reset My Favourites"
+                    text: qsTr("Reset My Favourites")
                     horizontalAlignment: HorizontalAlignment.Center
                     topMargin: 40
                     bottomMargin: 40
@@ -81,20 +98,27 @@ Sheet {
                 }
 
                 Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
+                    topMargin: 30
+                    bottomMargin: topMargin
                 }
 
+                Label {
+                    text: qsTr("Mixer Configuration")
+                    horizontalAlignment: HorizontalAlignment.Center
+                    textStyle.base: SystemDefaults.TextStyles.TitleText
+                    textStyle.fontWeight: FontWeight.Bold
+                }
+                
                 DropDown {
                     id: output
-                    title: "Output"
+                    title: qsTr("Output")
                     Option {
-                        text: "Stereo"
+                        text: qsTr("Stereo")
                         value: 1
                         selected: settingsRoot.configuration.stereo == true 
                     }
                     Option {
-                        text: "Mono"
+                        text: qsTr("Mono")
                         value: 0
                         selected: settingsRoot.configuration.stereo == false 
                     }
@@ -106,7 +130,7 @@ Sheet {
 
                 DropDown {
                     id: bitsPerSample
-                    title: "Bits per Sample"
+                    title: qsTr("Bits per Sample")
                     Option {
                         text: "8"
                         value: 8
@@ -130,22 +154,22 @@ Sheet {
 
                 DropDown {
                     id: frequency
-                    title: "Frequency"
+                    title: qsTr("Frequency")
                     Option {
                         text: "44100 Hz"
-                        description: "44100 Hz sampling rate"
+                        description: qsTr("44100 Hz sampling rate")
                         value: 44100
                         selected: settingsRoot.configuration.frequency == value
                     }
                     Option {
                         text: "22050 Hz"
-                        description: "22050 Hz sampling rate"
+                        description: qsTr("22050 Hz sampling rate")
                         value: 22050
                         selected: settingsRoot.configuration.frequency == value
                     }
                     Option {
                         text: "11025 Hz"
-                        description: "11025 Hz sampling rate"
+                        description: qsTr("11025 Hz sampling rate")
                         value: 11025
                         selected: settingsRoot.configuration.frequency == value
                     }
@@ -156,28 +180,28 @@ Sheet {
 
                 DropDown {
                     id: resampling
-                    title: "Resampling"
+                    title: qsTr("Resampling")
                     Option {
-                        text: "Nearest"
-                        description: "No interpolation (very fast)"
+                        text: qsTr("Nearest")
+                        description: qsTr("No interpolation (very fast)")
                         value: 0
                         selected: settingsRoot.configuration.resamplingMode == value
                     }
                     Option {
-                        text: "Liner"
-                        description: "Linear interpolation (fast, good quality)"
+                        text: qsTr("Liner")
+                        description: qsTr("Linear interpolation (fast, good quality)")
                         value: 1
                         selected: settingsRoot.configuration.resamplingMode == value
                     }
                     Option {
-                        text: "Spline"
-                        description: "Cubic spline interpolation (high quality)"
+                        text: qsTr("Spline")
+                        description: qsTr("Cubic spline interpolation (high quality)")
                         value: 2
                         selected: settingsRoot.configuration.resamplingMode == value
                     }
                     Option {
-                        text: "FIR"
-                        description: "8-tap fir filter (extremely high quality)"
+                        text: qsTr("FIR")
+                        description: qsTr("8-tap fir filter (extremely high quality)")
                         value: 3
                         selected: settingsRoot.configuration.resamplingMode == value
                     }
@@ -186,13 +210,9 @@ Sheet {
                     }
                 }
 
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
-
                 Label {
-                    text: "Stereo separation"
+                    text: qsTr("Stereo Separation")
+                    textStyle.fontSize: FontSize.Large
                 }
                 Container {
                     layout: StackLayout {
@@ -209,14 +229,10 @@ Sheet {
                         }
                     }
                 }
-
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
                 
                 Label {
-                    text: "Maximum number of mixing channels"
+                    text: qsTr("Mixing Channels")
+                    textStyle.fontSize: FontSize.Large
                 }
                 Container {
                     layout: StackLayout {
@@ -234,14 +250,9 @@ Sheet {
                     }
                 }
 
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
-
                 CheckBox {
                     id: oversampling
-                    text: "Enable oversampling"
+                    text: qsTr("Enable Oversampling")
                     checked: settingsRoot.configuration.oversamplingEnabled
                     onCheckedChanged: {
                         settingsRoot.configuration.oversamplingEnabled = oversampling.checked
@@ -250,7 +261,7 @@ Sheet {
 
                 CheckBox {
                     id: noiseReduction
-                    text: "Enable noise reduction"
+                    text: qsTr("Enable Noise Reduction")
                     checked: settingsRoot.configuration.noiseReductionEnabled
                     onCheckedChanged: {
                         settingsRoot.configuration.noiseReductionEnabled = noiseReduction.checked
@@ -259,7 +270,7 @@ Sheet {
 
                 CheckBox {
                     id: reverbEnabled
-                    text: "Enable reverb"
+                    text: qsTr("Enable Reverb")
                     checked: settingsRoot.configuration.reverbEnabled
                     onCheckedChanged: {
                         settingsRoot.configuration.reverbEnabled = reverbEnabled.checked
@@ -273,19 +284,14 @@ Sheet {
                     leftPadding: groupSettingIndent
 
                     Label {
-                        text: "Reverb depth"
-                        enabled: reverbEnabled.checked
-                    }
-                    Label {
-                        text: "Reverb level (quiet - loud)"
-                        textStyle {
-                            base: smallTextStyle.style
-                        }
-                        enabled: reverbEnabled.checked
+                        text: qsTr("Reverb Depth")
+                        visible: reverbEnabled.checked
+                        textStyle.fontStyle: FontStyle.Italic
+                        textStyle.fontWeight: FontWeight.W100
                     }
                     Slider {
                         id: reverbLevel
-                        enabled: reverbEnabled.checked
+                        visible: reverbEnabled.checked
                         fromValue: 0
                         toValue: 100
                         value: settingsRoot.configuration.reverbLevel
@@ -294,19 +300,14 @@ Sheet {
                         }
                     }
                     Label {
-                        text: "Reverb delay"
-                        enabled: reverbEnabled.checked
-                    }
-                    Label {
-                        text: "Reverb delay amount"
-                        textStyle {
-                            base: smallTextStyle.style
-                        }
-                        enabled: reverbEnabled.checked
+                        text: qsTr("Reverb Delay")
+                        visible: reverbEnabled.checked
+                        textStyle.fontStyle: FontStyle.Italic
+                        textStyle.fontWeight: FontWeight.W100
                     }
                     Slider {
                         id: reverbDelay
-                        enabled: reverbEnabled.checked
+                        visible: reverbEnabled.checked
                         fromValue: 40
                         toValue: 200
                         value: settingsRoot.configuration.reverbDelay
@@ -316,14 +317,9 @@ Sheet {
                     }
                 }
 
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
-
                 CheckBox {
                     id: megabassEnabled
-                    text: "Enable megabass"
+                    text: qsTr("Enable MegaBass")
                     checked: settingsRoot.configuration.bassEnabled
                     onCheckedChanged: {
                         settingsRoot.configuration.bassEnabled = megabassEnabled.checked
@@ -336,19 +332,14 @@ Sheet {
                     }
                     leftPadding: groupSettingIndent
                     Label {
-                        text: "Bass amount"
-                        enabled: megabassEnabled.checked
-                    }
-                    Label {
-                        text: "XBass level (quiet - loud)"
-                        textStyle {
-                            base: smallTextStyle.style
-                        }
-                        enabled: megabassEnabled.checked
+                        text: qsTr("Bass Amount")
+                        visible: megabassEnabled.checked
+                        textStyle.fontStyle: FontStyle.Italic
+                        textStyle.fontWeight: FontWeight.W100
                     }
                     Slider {
                         id: megabassLevel
-                        enabled: megabassEnabled.checked
+                        visible: megabassEnabled.checked
                         fromValue: 0
                         toValue: 100
                         value: settingsRoot.configuration.bassLevel
@@ -357,19 +348,14 @@ Sheet {
                         }
                     }
                     Label {
-                        enabled: megabassEnabled.checked
-                        text: "Bass cutoff"
-                    }
-                    Label {
-                        text: "XBass cutoff amount"
-                        textStyle {
-                            base: smallTextStyle.style
-                        }
-                        enabled: megabassEnabled.checked
+                        text: qsTr("Bass Cutoff")
+                        visible: megabassEnabled.checked
+                        textStyle.fontStyle: FontStyle.Italic
+                        textStyle.fontWeight: FontWeight.W100
                     }
                     Slider {
                         id: megabassCutoff
-                        enabled: megabassEnabled.checked
+                        visible: megabassEnabled.checked
                         fromValue: 10
                         toValue: 100
                         value: settingsRoot.configuration.bassCutOff
@@ -379,14 +365,9 @@ Sheet {
                     }
                 }
 
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
-
                 CheckBox {
                     id: surroundEnabled
-                    text: "Enable surround sound"
+                    text: qsTr("Enable Surround Sound")
                     checked: settingsRoot.configuration.surroundEnabled
                     onCheckedChanged: {
                         settingsRoot.configuration.surroundEnabled = surroundEnabled.checked
@@ -398,19 +379,14 @@ Sheet {
                     }
                     leftPadding: groupSettingIndent
                     Label {
-                        text: "Surrond depth"
-                        enabled: surroundEnabled.checked
-                    }
-                    Label {
-                        text: "Surround level (quiet - heavy)"
-                        textStyle {
-                            base: smallTextStyle.style
-                        }
-                        enabled: surroundEnabled.checked
+                        text: qsTr("Surrond Depth")
+                        visible: surroundEnabled.checked
+                        textStyle.fontStyle: FontStyle.Italic
+                        textStyle.fontWeight: FontWeight.W100
                     }
                     Slider {
                         id: surroundLevel
-                        enabled: surroundEnabled.checked
+                        visible: surroundEnabled.checked
                         fromValue: 0
                         toValue: 100
                         value: settingsRoot.configuration.surroundLevel
@@ -419,19 +395,14 @@ Sheet {
                         }
                     }
                     Label {
-                        text: "Surrond delay"
-                        enabled: surroundEnabled.checked
-                    }
-                    Label {
-                        text: "Surround delay amount"
-                        textStyle {
-                            base: smallTextStyle.style
-                        }
-                        enabled: surroundEnabled.checked
+                        text: qsTr("Surrond Delay")
+                        visible: surroundEnabled.checked
+                        textStyle.fontStyle: FontStyle.Italic
+                        textStyle.fontWeight: FontWeight.W100
                     }
                     Slider {
                         id: surroundDelay
-                        enabled: surroundEnabled.checked
+                        visible: surroundEnabled.checked
                         fromValue: 5
                         toValue: 50
                         value: settingsRoot.configuration.surroundDelay
@@ -440,21 +411,6 @@ Sheet {
                         }
                     }
                 }
-
-                Divider {
-                    topMargin: dividerMargin
-                    bottomMargin: dividerMargin
-                }
-
-                attachedObjects: [
-                    TextStyleDefinition {
-                        id: smallTextStyle
-                        base: SystemDefaults.TextStyles.SmallText 
-                        fontSize: FontSize.Small
-                        fontStyle: FontStyle.Italic
-                        color: Color.Gray
-                    }
-                ]
             }
         }
     }
