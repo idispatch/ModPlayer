@@ -69,7 +69,7 @@ Sheet {
                     textFormat: TextFormat.Html
                     topMargin: 0
                     bottomMargin: topMargin
-                    text: qsTr("<p>Song cache on you device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size growth too large.</p>")
+                    text: qsTr("<p>Song cache on you device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.</p>")
                 }
                 Label {
                     multiline: true
@@ -118,7 +118,7 @@ Sheet {
                     textFormat: TextFormat.Html
                     topMargin: 0
                     bottomMargin: topMargin
-                    text: qsTr("<p><b>ModPlayer</b> is using the <a href='http://www.modplug.com/'>modplug</a> library, one of the best libraries to provide high quality tracker song modules mixing and playback.</p>" )
+                    text: qsTr("<p><b>ModPlayer</b> is using the <a href='http://www.modplug.com/'>modplug</a> library, one of the best libraries that provides high quality tracker song modules mixing and playback.</p>" )
                 }
                 Label {
                     multiline: true
