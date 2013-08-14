@@ -29,11 +29,11 @@ public:
 
     State state();
     SongModule* currentSong();
-    PlaybackConfig* getConfiguration();
 
     void run();
     void stopThread();
 
+    Q_INVOKABLE PlaybackConfig* getConfiguration();
     Q_INVOKABLE void configure();
 
     Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
