@@ -1,7 +1,0 @@
-# genre 103 = Grunge
-# modid|genre|filename|score
-# http://modarchive.org/index.php?query=103&request=search&search_type=genre&page=1#mods
-48235|103|lithium.669|6
-121297|103|i_can_feel_her_body_.mod|10
-167728|103|imfallingdown.xm|8
-149271|103|hardstyle.xm|10

@@ -1,8 +1,0 @@
-# genre 99 = Electronic - IDM
-# modid|genre|filename|score
-# http://modarchive.org/index.php?query=99&request=search&search_type=genre&page=1#mods
-168575|99|go_to_sleep.xm|10
-166086|99|lamb_-_mus_hinther_oom.xm|
-166986|99|ash_nightwork.it|3
-167014|99|ash_emoflow.it|4
-148452|99|a_shogun_named_paul.xm|9
