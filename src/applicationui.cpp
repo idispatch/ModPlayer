@@ -5,7 +5,8 @@
 #include <bb/cascades/Container>
 #include <bb/cascades/SceneCover>
 
-#include  <bb/data/DataSource>
+#include <bb/data/DataSource>
+#include <bb/system/InvokeManager>
 
 #include "applicationui.hpp"
 #include "Player.hpp"
@@ -24,6 +25,7 @@
 
 using namespace bb::data;
 using namespace bb::cascades;
+using namespace bb::system;
 
 const char * ApplicationUI::QmlNamespace = "player";
 
@@ -191,4 +193,22 @@ Catalog * ApplicationUI::catalog() const {
 
 Cache * ApplicationUI::cache() const {
     return m_player->cache();
+}
+
+void ApplicationUI::emailAuthor() {
+    qDebug() << "Sending email to author";
+
+    QUrl url = QUrl("mailto:oleg@kosenkov.ca");
+    QList<QPair<QString, QString> > query;
+    query << QPair<QString, QString>("subject", "ModPlayer")
+          << QPair<QString, QString>("body", "Hello, ModPlayer Author!");
+    url.setQueryItems(query);
+
+    InvokeManager invokeManager;
+    InvokeRequest request;
+    request.setTarget("sys.pim.uib.email.hybridcomposer");
+    request.setAction("bb.action.SENDEMAIL");
+    request.setMimeType("text/plain");
+    request.setUri(url);
+    invokeManager.invoke(request);
 }

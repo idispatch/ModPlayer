@@ -174,12 +174,13 @@ TabbedPane {
     }
     
     Menu.definition: MenuDefinition {
-        /*helpAction: HelpActionItem {
+        helpAction: HelpActionItem {
             id: helpActionItem
-            title: "Help"
+            title: qsTr("Help")
             onTriggered: {
             }
-        }*/
+        }
+        
         settingsAction: SettingsActionItem {
             id: settingsActionItem
             title: qsTr("Settings")
@@ -194,5 +195,14 @@ TabbedPane {
                 }
             ] 
         }
+        actions: [
+            ActionItem {
+                title: qsTr("Email Author")
+                imageSource: "asset:///images/actions/icon_email.png"
+                onTriggered: {
+                    app.emailAuthor()
+                }
+            }
+        ]
     }
 }

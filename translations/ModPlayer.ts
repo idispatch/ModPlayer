@@ -422,5 +422,13 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Email Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
