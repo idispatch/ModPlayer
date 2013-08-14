@@ -56,11 +56,9 @@ public:
     void setPlayingChannels(int value);
 
     Q_INVOKABLE void update(bool endOfSong = false);
-    Q_INVOKABLE bool load(QString const& fileName);
+    Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();
     Q_INVOKABLE bool rewind();
-
-    SongModule& assignInfo(SongInfo const& other);
 
     operator ModPlugFile* ();
 Q_SIGNALS:
@@ -81,6 +79,7 @@ private:
     Q_DISABLE_COPY(SongModule)
 
     static QString fileNameOnly(QString const& fileName);
+    void assignInfo(SongInfo const& other);
 private:
     QString m_fileFullPath;
     QString m_description;

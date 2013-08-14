@@ -43,15 +43,15 @@ Page {
                             orientation: LayoutOrientation.TopToBottom
                         }
                         Label {
-                            text: song != null ? "File Name: <b>" + song.fileName + "</b>" : ""
+                            text: song != null ? "File: <b>" + song.fileName + "</b>" : ""
                             textFormat: TextFormat.Html
                         }
                         Label {
-                            text: song != null ? "File Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
+                            text: song != null ? "Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
                             textFormat: TextFormat.Html
                         }
                         Label {
-                            text: song != null ? "Song Length: <b>" + song.songLengthText + "</b>" : ""
+                            text: song != null ? "Length: <b>" + song.songLengthText + "</b>" : ""
                             textFormat: TextFormat.Html
                         }
                         Label {

@@ -143,13 +143,19 @@ QString SongModule::fileNameOnly(QString const& fileName)
     return fileInfo.fileName();
 }
 
-bool SongModule::load(QString const& fileName)
+bool SongModule::load(SongInfo const& info, QString const& fileName)
 {
     if (m_fileFullPath == fileName) {
         return true;
     }
 
-    unload();
+    bool songWasLoaded = false;
+    if(m_modPlug != NULL) {
+        songWasLoaded = true;
+        ModPlug_Unload(m_modPlug);
+        m_modPlug = NULL;
+    }
+    m_fileFullPath = "";
 
     QFile fileIn(fileName);
     if (fileIn.open(QFile::ReadOnly)) {
@@ -157,6 +163,8 @@ bool SongModule::load(QString const& fileName)
         m_modPlug = ModPlug_Load(data.data(), data.size());
         if (m_modPlug != NULL) {
             m_fileFullPath = fileName;
+
+            assignInfo(info);
 
             setFileName(fileNameOnly(fileName));
             setTitle(ModPlug_GetName(m_modPlug));
@@ -171,12 +179,17 @@ bool SongModule::load(QString const& fileName)
             setOrders(ModPlug_NumOrders(m_modPlug));
 
             setFileSize(data.size());
+            setSongLength(ModPlug_GetLength(m_modPlug));
 
             update();
 
             emit songLoadedChanged();
         } else {
             unload();
+        }
+    } else {
+        if(songWasLoaded) {
+            emit songLoadedChanged();
         }
     }
     return songLoaded();
@@ -220,11 +233,11 @@ bool SongModule::rewind() {
     return false;
 }
 
-SongModule& SongModule::assignInfo(SongInfo const& other) {
+void SongModule::assignInfo(SongInfo const& other) {
     setModId(other.modId());
     setFormatId(other.formatId());
     setFileSize(other.fileSize());
-    //setSongLength(other.songLength());
+    setSongLength(other.songLength());
 
     setDownloads(other.downloads());
     setFavourited(other.favourited());
@@ -237,7 +250,6 @@ SongModule& SongModule::assignInfo(SongInfo const& other) {
     setTracker(other.tracker());
     setGenre(other.genre());
     setArtist(other.artist());
-    return *this;
 }
 
 void SongModule::update(bool endOfSong) {

@@ -51,7 +51,6 @@ void ModPlayback::closePlayback() {
 void ModPlayback::stopAudioDevice() {
     // called from playback or user thread
     // when called from user thread must be in locked state
-    qDebug() << "->ModPlayback::stopAudioDevice";
     if(m_playback_handle != NULL)
     {
         snd_pcm_playback_drain(m_playback_handle);
@@ -61,7 +60,6 @@ void ModPlayback::stopAudioDevice() {
     m_audioBuffer.resize(0);
     m_pcmFd = -1;
     m_song.rewind();
-    qDebug() << "<-ModPlayback::stopAudioDevice";
 }
 
 void ModPlayback::changeState(State state) {
@@ -283,8 +281,7 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
-                m_song.assignInfo(m_pendingSong);
-                if(m_song.load(m_pendingFileName)) {
+                if(m_song.load(m_pendingSong, m_pendingFileName)) {
                     m_state = Loaded;
                 } else {
                     m_state = Idle;
@@ -374,10 +371,12 @@ void ModPlayback::run() {
                 if(endOfSongOrError == 0) // End of song
                 {
                     changeState(Loaded);
+                    emit stopped();
                 }
                 else if(endOfSongOrError < 0) // Error in song
                 {
                     changeState(Idle);
+                    emit stopped();
                 }
             }
             break;
@@ -399,19 +398,17 @@ bool ModPlayback::detectAudioDevice() {
     qDebug() << "Detecting available audio devices for playback...";
     int ncards = snd_cards();
     qDebug() << "Number of audio cards" << ncards;
-#if 0
     char buffer[256];
     for(int i = 0; i < ncards; ++i) {
         rc = snd_card_get_name(i, buffer, sizeof(buffer));
         if(rc != -1) {
-            fprintf(stderr, "Card %d name: %s\n", i, buffer);
+            qDebug() << "Card" << i << "name:" << buffer;
         }
         rc = snd_card_get_longname (i, buffer, sizeof(buffer));
         if(rc != -1) {
-            fprintf(stderr, "Card %d long name: %s\n", i, buffer);
+            qDebug() << "Card" << i << "long name:" << buffer;
         }
     }
-#endif
     m_numDevices = 32; /* guess */
     QVector<int> cards(m_numDevices);
     QVector<int> devices(m_numDevices);

@@ -6,7 +6,7 @@ PlaybackConfig::PlaybackConfig(QObject *parent)
       m_bStereo(true),
       m_frequency(44100),
       m_sampleSize(16),
-      m_resamplingMode(2),
+      m_resamplingMode(3),
       m_stereoSeparation(128),
       m_maximumMixingChannels(128),
       m_reverbEnabled(true),
