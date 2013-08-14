@@ -178,7 +178,15 @@ TabbedPane {
             id: helpActionItem
             title: qsTr("Help")
             onTriggered: {
+                var view = helpView.createObject(mainTabPane)
+                view.open()
             }
+            attachedObjects: [
+                ComponentDefinition {
+                    id: helpView
+                    source: "Help.qml"
+                }
+            ]
         }
         
         settingsAction: SettingsActionItem {
@@ -195,6 +203,7 @@ TabbedPane {
                 }
             ] 
         }
+
         actions: [
             ActionItem {
                 title: qsTr("Email Author")
