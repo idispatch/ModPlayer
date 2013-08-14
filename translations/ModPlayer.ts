@@ -44,10 +44,6 @@
 <context>
     <name>Help</name>
     <message>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -105,6 +101,10 @@
     </message>
     <message>
         <source>&lt;p&gt;The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you also don&apos;t have to download it again.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ModPlayer Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
