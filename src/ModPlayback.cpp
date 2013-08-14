@@ -216,11 +216,19 @@ void ModPlayback::run() {
             emit stopped();
             continue;
         case ConfigureCommand:
-            m_command = NoCommand;
-            m_config = m_pendingConfig;
-            stopAudioDevice();
-            initPlayback();
             {
+                m_command = NoCommand;
+                m_config = m_pendingConfig;
+                QString fileName;
+                if(m_song.songLoaded()) {
+                    fileName = m_song.fileName();
+                    m_song.unload();
+                    m_state = Idle;
+                }
+
+                stopAudioDevice();
+                initPlayback();
+
                 ModPlug_Settings settings;
                 memset(&settings, 0, sizeof(settings));
 
@@ -262,13 +270,11 @@ void ModPlayback::run() {
 
                 ModPlug_SetSettings(&settings);
 
-                /*if(m_song.songLoaded()) {
-                    QString fileName = m_song.fileName();
-                    m_song.unload();
+                /*if(fileName.length() > 0) {
                     m_song.load(fileName);
                 }*/
+                m_cond.wakeAll();
             }
-            m_cond.wakeAll();
             continue;
         case LoadCommand:
             m_command = NoCommand;

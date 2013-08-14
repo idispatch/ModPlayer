@@ -145,7 +145,7 @@ QString SongModule::fileNameOnly(QString const& fileName)
 
 bool SongModule::load(QString const& fileName)
 {
-    if (fileName == m_fileFullPath) {
+    if (m_fileFullPath == fileName) {
         return true;
     }
 
@@ -189,7 +189,8 @@ bool SongModule::unload()
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
 
-        m_fileFullPath.clear();
+        m_fileFullPath = "";
+
         setFileName("");
         setTitle("");
         setDescription("");

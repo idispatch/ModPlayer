@@ -248,7 +248,6 @@ void Player::updateNowPlaying() {
 }
 
 void Player::onNowPlayingAcquired() {
-    qDebug() << "Player::onNowPlayingAcquired";
     updateNowPlaying();
 }
 
@@ -257,7 +256,6 @@ void Player::onNowPlayingRevoked() {
 }
 
 void Player::onNowPlayingPlay() {
-    qDebug() << "Player::onNowPlayingPlay";
     if(state() == Paused) {
         resume();
     } else if(state() == Stopped) {
@@ -266,12 +264,10 @@ void Player::onNowPlayingPlay() {
 }
 
 void Player::onNowPlayingStop() {
-    qDebug() << "Player::onNowPlayingStop";
     stop();
 }
 
 void Player::onNowPlayingPause() {
-    qDebug() << "Player::onNowPlayingPause";
     pause();
 }
 
@@ -304,13 +300,10 @@ SongModule * Player::currentSong() const {
 }
 
 void Player::beginPlay(QString const& fileName) {
-    qDebug() << "beginPlay:" << fileName;
     QString fileNamePart = fileNameOnly(fileName);
-    qDebug() << "beginPlay:" << fileNamePart;
     SongInfo * info = m_catalog->resolveModuleByFileName(fileNamePart);
     if(info != NULL)
     {
-        qDebug() << "beginPlay:" << info;
         QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
         if(m_playback->load(*info, absoluteFileName))
         {
@@ -364,9 +357,7 @@ void Player::play(QVariant value) {
         }
     }
     else {
-        qDebug() << "play:" << value;
         SongInfo * info = qobject_cast<SongInfo*>(value.value<QObject*>());
-        qDebug() << "play:" << info;
         if(info != 0) {
             playByModuleFileName(info->fileName());
         }
