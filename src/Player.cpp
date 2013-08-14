@@ -38,7 +38,7 @@ Player::~Player() {
 void Player::initData() {
     QString appFolder(QDir::homePath());
     appFolder.chop(4); // remove data directory from end
-    QString imagesDir = appFolder + "app/native/assets/images";
+    QString imagesDir = appFolder + "app/native/assets/images/formats";
     m_formatIdToIconUrlMap[1] = QUrl(QString("file://") + joinPath(imagesDir, "icon_mod.png"));
     m_formatIdToIconUrlMap[2] = QUrl(QString("file://") + joinPath(imagesDir, "icon_669.png"));
     m_formatIdToIconUrlMap[3] = QUrl(QString("file://") + joinPath(imagesDir, "icon_it.png"));

@@ -42,10 +42,7 @@ function formatTimeStamp(unix_timestamp) {
 var entityMap = {
     "&": "&amp;",
     "<": "&lt;",
-    ">": "&gt;",
-//'"': '&quot;',
-//"'": '&#39;',
-//"/": '&#x2F;'
+    ">": "&gt;"
 };
 
 function escapeHtml(string) {

@@ -7,7 +7,7 @@ TabbedPane {
         id: myFavouriteTab
         title: "My Favourite"
         objectName: title
-        imageSource: "asset:///images/icon_myfavourite.png"
+        imageSource: "asset:///images/actions/icon_myfavourite.png"
         description: "My Favourite Songs"
         onTriggered: {
             songMyFavouriteView.load()
@@ -27,7 +27,7 @@ TabbedPane {
         id: recentlyPlayedTab
         title: "Recent"
         objectName: title
-        imageSource: "asset:///images/icon_recent.png"
+        imageSource: "asset:///images/actions/icon_recent.png"
         description: "Recently Played Songs"
         onTriggered: {
             songRecentlyPlayedView.load()
@@ -48,7 +48,7 @@ TabbedPane {
         id: mostPlayedTab
         title: "Most Played"
         objectName: title
-        imageSource: "asset:///images/icon_mostplayed.png"
+        imageSource: "asset:///images/actions/icon_mostplayed.png"
         description: "Most Played Songs"
         onTriggered: {
             songMostPlayedView.load()
@@ -69,7 +69,7 @@ TabbedPane {
         title: "Formats"
         objectName: title
         description: "Songs By Module Format"
-        imageSource: "asset:///images/icon_format.png"
+        imageSource: "asset:///images/actions/icon_format.png"
         NavigationPane {
             FormatsList {
                 id: songFormatsList
@@ -85,7 +85,7 @@ TabbedPane {
         title: "Genres"
         objectName: title
         description: "Songs By Genre"
-        imageSource: "asset:///images/icon_genre.png"
+        imageSource: "asset:///images/actions/icon_genres.png"
         NavigationPane {
             GenresList {
                 id: songGenresList
@@ -101,7 +101,7 @@ TabbedPane {
         title: "Artists"
         objectName: title
         description: "Songs By Artist"
-        //imageSource: "asset:///images/icon_genre.png"
+        imageSource: "asset:///images/actions/icon_artists.png"
         NavigationPane {
             ArtistsList {
                 id: songArtistsList
@@ -116,7 +116,7 @@ TabbedPane {
         id: topDownloadsTab
         title: "Downloads"
         objectName: title
-        imageSource: "asset:///images/icon_download.png"
+        imageSource: "asset:///images/actions/icon_downloads.png"
         description: "Top Downloaded Songs"
         onTriggered: {
             songsTopDownloadedView.load()
@@ -136,7 +136,7 @@ TabbedPane {
         id: topFavouritedTab
         title: "Favourited"
         objectName: title
-        imageSource: "asset:///images/icon_heart.png"
+        imageSource: "asset:///images/actions/icon_favourite.png"
         description: "Top Favourited Songs"
         onTriggered: {
             songTopFavouritedView.load()
@@ -156,7 +156,7 @@ TabbedPane {
         id: topScoredTab
         title: "Scored"
         objectName: title
-        imageSource: "asset:///images/icon_score.png"
+        imageSource: "asset:///images/actions/icon_score.png"
         description: "Top Scored Songs"
         onTriggered: {
             songTopScoredView.load()

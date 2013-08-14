@@ -15,10 +15,12 @@ Page {
             ImagePaintDefinition {
                 id: back
                 repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/background.png"
+                imageSource: "asset:///images/backgrounds/background.png"
             }
         ]
         ListView {
+            property variant app_ref: app
+            
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
@@ -27,7 +29,7 @@ Page {
                     title: ListItemData.name
                     description: ListItemData.description
                     status: ListItemData.count + " songs"
-                    imageSource: "asset:///images/icon_" + ListItemData.name.toLowerCase() + ".png"
+                    imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
                 }
             }
         

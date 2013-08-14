@@ -4,7 +4,7 @@ ActionItem {
     property variant navigationPane
     
     title: "Now Playing"
-    imageSource: "asset:///images/icon_player.png"
+    imageSource: "asset:///images/actions/icon_nowplaying.png"
     ActionBar.placement: ActionBarPlacement.OnBar
     shortcuts: Shortcut {
         key: "p"

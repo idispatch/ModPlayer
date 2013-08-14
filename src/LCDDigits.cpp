@@ -26,7 +26,7 @@ void LCDDigits::initImages() {
     {
         for(unsigned i = 0; i < 11; i++)
         {
-            images[i] = Image(QUrl(QString("asset:///images/lcd-%1.png").arg(i)));
+            images[i] = Image(QUrl(QString("asset:///images/lcd/lcd-%1.png").arg(i)));
         }
         imagesInitialized = true;
     }

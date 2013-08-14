@@ -16,12 +16,12 @@ Container {
         ImagePaintDefinition {
             id: back
             repeatPattern: RepeatPattern.Fill
-            imageSource: "asset:///images/cover.png"
+            imageSource: "asset:///images/cover/cover.png"
         },
         ImagePaintDefinition {
             id: titleTextBack
             repeatPattern: RepeatPattern.Fill
-            imageSource: "asset:///images/cover_text_back.amd"
+            imageSource: "asset:///images/cover/cover_text_back.amd"
         }
     ]
 

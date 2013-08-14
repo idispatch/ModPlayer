@@ -4,7 +4,7 @@ ActionItem {
     property variant currentSong
     
     title: "Add to Favourites"
-    imageSource: "asset:///images/icon_favorite.png"
+    imageSource: "asset:///images/actions/icon_like.png"
     enabled: currentSong != null
     ActionBar.placement: ActionBarPlacement.InOverflow
     shortcuts: Shortcut {

@@ -22,7 +22,6 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
-                 $$quote($$BASEDIR/src/lcd_font_8x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
                  $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -136,7 +135,6 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
-                 $$quote($$BASEDIR/src/lcd_font_8x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
                  $$quote($$BASEDIR/src/modplug/load_669.cpp) \

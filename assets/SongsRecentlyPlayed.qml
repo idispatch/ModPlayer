@@ -20,7 +20,7 @@ Page {
             ImagePaintDefinition {
                 id: back
                 repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/background.png"
+                imageSource: "asset:///images/backgrounds/background.png"
             }
         ]
         ProgressComponent {

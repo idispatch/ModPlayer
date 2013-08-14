@@ -5,7 +5,7 @@ ActionItem {
     property variant currentSong
     
     title: "Remove from Favourites"
-    imageSource: "asset:///images/icon_favorite_off.png"
+    imageSource: "asset:///images/actions/icon_unlike.png"
     enabled: currentSong != null
     ActionBar.placement: ActionBarPlacement.InOverflow
     shortcuts: Shortcut {

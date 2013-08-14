@@ -14,7 +14,7 @@ Page {
             ImagePaintDefinition {
                 id: back
                 repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/background.png"
+                imageSource: "asset:///images/backgrounds/background.png"
             }
         ]
         
@@ -76,7 +76,7 @@ Page {
                     }
                     visible: song!=null
                     ImageView {
-                        imageSource: "asset:///images/badge_played.png"
+                        imageSource: "asset:///images/badges/badge_played.png"
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
                     }
@@ -102,7 +102,7 @@ Page {
                     }
                     visible: song!=null && song.playCount > 0
                     ImageView {
-                        imageSource: "asset:///images/badge_lastplayed.png"
+                        imageSource: "asset:///images/badges/badge_lastplayed.png"
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
                     }
@@ -123,7 +123,7 @@ Page {
                     }
                     visible: song!=null && song.myFavourite > 0
                     ImageView {
-                        imageSource: "asset:///images/badge_myfavourite.png"
+                        imageSource: "asset:///images/badges/badge_myfavourite.png"
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
                     }
@@ -160,7 +160,7 @@ Page {
                     }
                     visible: song!=null
                     ImageView {
-                        imageSource: "asset:///images/badge_downloads.png"
+                        imageSource: "asset:///images/badges/badge_downloads.png"
                         visible: song!=null && song.downloads > 0
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
@@ -183,7 +183,7 @@ Page {
                     }
                     visible: song!=null
                     ImageView {
-                        imageSource: "asset:///images/badge_favorites.png"
+                        imageSource: "asset:///images/badges/badge_favourite.png"
                         visible: song != null && song.favourited > 0
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
@@ -207,7 +207,7 @@ Page {
                     }
                     visible: song!=null
                     ImageView {
-                        imageSource: "asset:///images/badge_score.png"
+                        imageSource: "asset:///images/badges/badge_score.png"
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
                         visible: song!=null && song.score > 0
@@ -271,7 +271,7 @@ Page {
     actions: [ 
         ActionItem {
             title: "Now Playing"
-            imageSource: "asset:///images/icon_player.png"
+            imageSource: "asset:///images/actions/icon_nowplaying.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
             shortcuts: Shortcut {
                 key: "n"
@@ -282,7 +282,7 @@ Page {
         },
         ActionItem {
             title: "Play"
-            imageSource: "asset:///images/icon_play.png"
+            imageSource: "asset:///images/actions/icon_play.png"
             enabled: song != null
             ActionBar.placement: ActionBarPlacement.OnBar
             shortcuts: Shortcut {

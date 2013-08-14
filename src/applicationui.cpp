@@ -11,6 +11,7 @@
 #include "LCDDigits.hpp"
 #include "SongBasicInfo.hpp"
 #include "SongModule.hpp"
+#include "SongFormat.hpp"
 
 using namespace bb::cascades;
 
@@ -56,6 +57,10 @@ QUrl ApplicationUI::getIconPath(QVariant value) const {
         SongModule * module = qobject_cast<SongModule*>(value.value<QObject*>());
         if(module != NULL) {
             return m_player->getIconPathByFormatId(module->formatId());
+        }
+        SongFormat * format = qobject_cast<SongFormat*>(value.value<QObject*>());
+        if(format != NULL) {
+            return m_player->getIconPathByFormatId(format->id());
         }
     }
     return QUrl();

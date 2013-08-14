@@ -14,9 +14,9 @@ ActionItem {
     imageSource: {
         if(app.player.state == Player.Playing ||
            app.player.state == Player.Paused) {
-            return "asset:///images/icon_stop.png"
+            return "asset:///images/actions/icon_stop.png"
         } else {
-            return "asset:///images/icon_play.png"
+            return "asset:///images/actions/icon_play.png"
         }
     }
     ActionBar.placement: ActionBarPlacement.OnBar
