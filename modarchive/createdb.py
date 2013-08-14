@@ -5,10 +5,12 @@ import os
 import sys
 import sqlite3
 
+artists = {}  # aidid -> artist object
 songs = {}  # modid -> song object
 names = {}  # fileName -> song object
 hashes = {} # fileName -> md5 hash
 trackers = {}
+missing_files = {}
 
 formats = {
 		'.mod':1,
@@ -54,52 +56,63 @@ def fileExists(fileName):
 def skipSongByExtension(fileName):
 	return fileName.endswith('.mo3') or fileName.endswith('.ahx') or fileName.endswith('.hvl')
 
-def createSong(modid, filename):
-	if skipSongByExtension(filename):
+def createArtist(aid, name):
+	if aid in artists:
+		return artists[aid]
+	artists[aid] = {'name':         name.strip(),
+					'id':           int(aid),
+					'songs':        {},
+					'score':        None,
+					'downloads':    None,
+					'rating':       None,
+					'avgdownloads': None}
+	return artists[aid]
+
+def createSong(modid, fileName):
+	fileName = fileName.lower()
+	if skipSongByExtension(fileName):
 		return None
-	fullFileName = fileExists(filename)
+	fullFileName = fileExists(fileName)
 	if not fullFileName:
+		missing_files[modid] = fileName
+		print("!!! Skipping %s (%d) - file does not exist" % (fileName, modid))
 		return None
 	if modid in songs:
 		song = songs[modid]
 	else:
-		song = {'id': modid,
-				'filename': filename,
-				'size': None,
-				'title': None,
-				'format': None,
-				'tracker': None,
-				'downloads': None,
-				'favourited': None,
-				'score': None,
-				'genre': None,
-				'artist': None,
-				'md5': None,
-				'playCount': 0,
-				'lastPlayed': 0,
+		song = {'id':          int(modid),
+				'filename':    fileName,
+				'size':        None,
+				'title':       None,
+				'format':      None,
+				'tracker':     None,
+				'downloads':   None,
+				'favourited':  None,
+				'score':       None,
+				'genre':       0,
+				'artist':      0,
+				'playCount':   0,
+				'lastPlayed':  0,
 				'myFavourite': 0,
 				'instruments': None,
-				'channels': None,
-				'orders': None,
-				'samples': None,
-				'patterns': None,
-				'length': None
+				'channels':    None,
+				'orders':      None,
+				'samples':     None,
+				'patterns':    None,
+				'length':      None
 				}
-
 		statinfo = os.stat(fullFileName)
 		song['size'] = statinfo.st_size
 		for name, fmtid in formats.items():
-			if filename.endswith(name):
+			if fileName.endswith(name):
 				song['format'] = fmtid
 				break
-
 		songs[modid] = song
-		if filename in names:
-			print("!!! Name %s already exists" % filename)
+		if fileName in names:
+			print("!!! Name %s already exists; existing id=%d, new id=%d" % (fileName, names[fileName]['id'], modid))
 		else:
-			names[filename] = song
+			names[fileName] = song
 	return song
-
 
 def read1000downloads():
 	lines = open('top-1000-downloads.txt','r').readlines()
@@ -108,35 +121,27 @@ def read1000downloads():
 		if line[0] == '#':
 			continue
 		x = line.split('|')
-		modid, filename, downloads = x
+		modid, fileName, downloads = x
 		modid = int(modid)
-		song = createSong(modid, filename)
+		song = createSong(modid, fileName.lower())
 		if song:
 			song['downloads'] = int(downloads)
 
 def readGenres():
-	for i in range(1,150):
-		fileName = 'genre-%d.txt' % i
-		if not os.path.exists(fileName):
+	lines = open('genres.txt','r').readlines()
+	for line in lines:
+		line = line.rstrip()
+		if line[0] == '#':
 			continue
-		lines = open(fileName,'r').readlines()
-		for line in lines:
-			line = line.rstrip()
-			if line[0] == '#':
-				continue
-			x = line.split('|')
-			try:
-				modid, genre, filename, score = x
-			except:
-				print(x)
-				raise
-			modid = int(modid)
-			genre = int(genre)
-			song = createSong(modid, filename)
-			if song:
-				song['genre'] = int(genre)
-				if score:
-					song['score'] = int(score)
+		x = line.split('|')
+		modid, genre, fileName, score = x
+		modid = int(modid)
+		genre = int(genre)
+		song = createSong(modid, fileName.lower())
+		if song:
+			song['genre'] = int(genre)
+			if score:
+				song['score'] = int(score)
 
 def read1000scores():
 	lines = open('top-1000-score.txt','r').readlines()
@@ -145,29 +150,25 @@ def read1000scores():
 		if line[0] == '#':
 			continue
 		x = line.split('|')
-		modid, filename, downloads = x
+		modid, fileName, downloads = x
 		modid = int(modid)
-		song = createSong(modid, filename)
+		song = createSong(modid, fileName.lower())
 		if song:
 			song['downloads'] = int(downloads)
 
 def readScores():
-	for score in (10,9,8,7,6,5,4,3,2,1):
-		scoreFile = ('top-scores-%d.txt' % score)
-		if not os.path.exists(scoreFile):
+	lines = open('top-scores.txt','r').readlines()
+	for line in lines:
+		line = line.rstrip()
+		if line[0] == '#':
 			continue
-		lines = open(scoreFile,'r').readlines()
-		for line in lines:
-			line = line.rstrip()
-			if line[0] == '#':
-				continue
-			x = line.split('|')
-			modid, filename, score, total = x
-			modid = int(modid)
-			score = int(score)
-			song = createSong(modid, filename)
-			if song:
-				song['score'] = score
+		x = line.split('|')
+		modid, fileName, score, total = x
+		modid = int(modid)
+		score = int(score)
+		song = createSong(modid, fileName.lower())
+		if song:
+			song['score'] = score
 
 def readFavourited():
 	favouritedFileName = 'top-favourited.txt'
@@ -179,14 +180,15 @@ def readFavourited():
 		if line[0] == '#':
 			continue
 		x = line.split('|')
-		modid, filename, favourited = x
+		modid, fileName, favourited = x
 		modid = int(modid)
 		favourited = int(favourited)
-		song = createSong(modid, filename)
+		song = createSong(modid, fileName.lower())
 		if song:
 			song['favourited'] = favourited
 
 def readMD5():
+	return
 	for md5 in ('mod/md5.txt',
 				'it/md5.txt',
 				's3m/md5.txt',
@@ -204,16 +206,16 @@ def readMD5():
 			line = line.rstrip()
 			if line[0] == '#':
 				continue
-			filename = line[line.find('  ') + 2:]
-			filehash = line[:line.find(' ')]
-			hashes[filename] = filehash
+			fileName = line[line.find('  ') + 2:]
+			fileHash = line[:line.find(' ')]
+			hashes[fileName] = fileHash
 	for modid in songs.keys():
 		song = songs[modid]
-		filename = song['filename']
-		if filename not in hashes:
-			print("*** No MD5: %s" % filename)
+		fileName = song['filename']
+		if fileName not in hashes:
+			print("*** No MD5: %s" % fileName)
 		else:
-			song['md5'] = hashes[filename]
+			song['md5'] = hashes[fileName]
 
 def readSongInfo():
 	LOADING = re.compile('^Loading (.+)\\.\\.\\. \\(\\d+ of \\d+\\)$')
@@ -314,45 +316,50 @@ def createDatabase(databaseName):
 	for tracker, tracker_id in trackers.items():
 		cursor.execute('''INSERT INTO trackers (id, name) VALUES (?,?)''',
 			(tracker_id, tracker))
+	connection.commit()
 
+	numArtistsInserted = 0
+	for aid, artist in artists.items():
+		name = artist['name']
+		score = int(artist['score'])
+		downloads = int(artist['downloads'])
+		rating = int(artist['rating'])
+		name = name.strip()
+		cursor.execute('''INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,?,?,?)''',
+						(aid, name, score, downloads, rating))
+		numArtistsInserted += 1
 	connection.commit()
 
 	numSongsInserted = 0
-
 	for modid, song in songs.items():
-		filename = song['filename']
+		fileName = song['filename']
 		title = song['title']
 		size = song['size']
 		length = song['length']
 
 		if not size:
-			print("NOT inserting %d (%s) - size is empty" % (modid, filename))
+			print("!!! NOT inserting %d (%s) - size is empty" % (modid, fileName))
 			continue
 
 		if not length:
-			print("NOT inserting %d (%s) - length is empty" % (modid, filename))
+			print("!!! NOT inserting %d (%s) - length is empty" % (modid, fileName))
 			continue
 
 		if not title:
-			song['title'] = filename
+			song['title'] = fileName
 
-		if song['md5'] is None:
-			print("NOT inserting %d (%s) - no MD5" % (modid, filename))
+		if not (fileName.endswith('.669') or
+				fileName.endswith('.it') or
+				fileName.endswith('.med') or
+				fileName.endswith('.mod') or
+				fileName.endswith('.mtm') or
+				fileName.endswith('.okt') or
+				fileName.endswith('.oct') or
+				fileName.endswith('.s3m') or
+				fileName.endswith('.stm') or
+				fileName.endswith('.xm')):
 			continue
 
-		if not (filename.endswith('.669') or
-				filename.endswith('.it') or
-				filename.endswith('.med') or
-				filename.endswith('.mod') or
-				filename.endswith('.mtm') or
-				filename.endswith('.okt') or
-				filename.endswith('.oct') or
-				filename.endswith('.s3m') or
-				filename.endswith('.stm') or
-				filename.endswith('.xm')):
-			continue
-
-		#print("Inserting %d (%s) = %s" % (modid, song['filename'], song))
 		cursor.execute('''INSERT INTO songs (id, fileName, size, title, format, length, tracker, genre,
  artist, downloads, favourited, score, playCount, lastPlayed, myFavourite, patterns, orders, instruments, samples, channels)
  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
@@ -378,12 +385,72 @@ def createDatabase(databaseName):
 		 song['channels']))
 
 		numSongsInserted += 1
-
-	print("Inserted songs: %d" % numSongsInserted)
 	connection.commit()
+
+	print("Inserted artists: %d" % numArtistsInserted)
+	print("Inserted songs  : %d" % numSongsInserted)
+	print("Missing songs   : %d" % len(missing_files))
+
 	cursor.close()
 	connection.close()
 
+	missing = '\n'.join(['%s|%s' % (modid, fileName) for modid, fileName in missing_files.items()])
+	missing = '# modid|filename\n' + missing
+	open('missing-songs.txt','w').write(missing)
+
+def readArtists():
+	lines = open('artists.txt','r').readlines()
+	for line in lines:
+		line = line.rstrip()
+		if line[0] == '#':
+			continue
+		x = line.split('|')
+		if len(x)!=2:
+			print(line)
+			raise
+		aid, name = x
+		artist = createArtist(int(aid), name)
+
+	lines = open('top-artists.txt','r').readlines()
+	for line in lines:
+		line = line.rstrip()
+		if line[0] == '#':
+			continue
+		x = line.split('|')
+		aid, name, score, downloads, rating, avgdownloads = x
+		artist = createArtist(int(aid), name)
+		artist['name'] = name
+		artist['score'] = int(score)
+		artist['downloads'] = int(downloads)
+		artist['rating'] = int(rating)
+		artist['avgdownloads'] = int(avgdownloads)
+
+	lines = open('songs-by-artist.txt','r').readlines()
+	for line in lines:
+		line = line.rstrip()
+		if line[0] == '#':
+			continue
+		x = line.split('|')
+		aid, songid, fileName, score = x
+		aid = int(aid)
+		songid = int(songid)
+		score = None if score == 'Unrated' else int(score)
+		if '*' in fileName:
+			continue
+		song = createSong(songid, fileName)
+		if not song:
+			continue
+		song['artist'] = aid
+		artists[aid]['songs'][song['id']] = song
+		if song['score'] is None:
+			song['score'] = score
+		if song['score'] is not None and score is not None and score != song['score']:
+			print('*** Different score for song %s: %s and %s' % (song['id'], song['score'], score))
+			song['score'] = max(song['score'], score)
+
+	for aid in list(artists.keys()):
+		if not artists[aid]['songs']:
+			del artists[aid]
 
 if __name__ == '__main__':
 	if len(sys.argv) < 2:
@@ -396,6 +463,7 @@ if __name__ == '__main__':
 	readGenres()        # genre-xxx.txt:            # modid|genre|filename|score
 	readScores()        # top-scores-xxx.txt:       # modid|filename|score|maxscore
 	readFavourited()    # top-favourited.txt:       # modid|filename|favourited
+	readArtists()
 	readMD5()
 	readSongInfo()
 

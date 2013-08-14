@@ -1,7 +1,0 @@
-# genre 102 = Fusion
-# modid|genre|filename|score
-# http://modarchive.org/index.php?query=102&request=search&search_type=genre&page=1#mods
-105070|102|loch_detros.mod|7
-161789|102|tm_-_song2a.xm|6
-167918|102|pix_r162.it|8
-169762|102|electronic_experiment.it|5

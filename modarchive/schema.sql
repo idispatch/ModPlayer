@@ -149,6 +149,8 @@ INSERT INTO genres (id, name) VALUES (24, 'Ska');
 INSERT INTO genres (id, name) VALUES (25, 'Soul');
 INSERT INTO genres (id, name) VALUES (0, '- N/A -');
 
+INSERT INTO artists (id, name) VALUES (0, '- N/A -');
+
 INSERT INTO formats (id, name, description) VALUES (1, 'MOD', 'Amiga Module');
 INSERT INTO formats (id, name, description) VALUES (2, '669', '669 Mod Composer Module');
 INSERT INTO formats (id, name, description) VALUES (3, 'IT', 'Impulse Tracker Module');
