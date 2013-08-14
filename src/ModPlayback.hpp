@@ -77,6 +77,8 @@ private:
         RewindCommand
     };
 
+    void configure_audio();
+
     PlaybackConfig m_config;
     PlaybackConfig m_pendingConfig;
 
