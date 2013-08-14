@@ -13,6 +13,7 @@
 class ModPlayback : public QThread {
     Q_OBJECT
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
+    Q_PROPERTY(PlaybackConfig* configuration READ configuration NOTIFY configurationChanged FINAL)
 public:
     enum State
     {
@@ -29,11 +30,11 @@ public:
 
     State state();
     SongModule* currentSong();
+    PlaybackConfig* configuration();
 
     void run();
     void stopThread();
 
-    Q_INVOKABLE PlaybackConfig* getConfiguration();
     Q_INVOKABLE void configure();
 
     Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
@@ -79,7 +80,6 @@ private:
     void configure_audio();
 
     PlaybackConfig m_config;
-    PlaybackConfig m_pendingConfig;
 
     QMutex m_mutex;
     QWaitCondition m_cond;

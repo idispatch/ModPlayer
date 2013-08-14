@@ -1,12 +1,12 @@
 import bb.cascades 1.0
-import "functions.js" as Global
 import player 1.0
+import "functions.js" as Global
 
 Sheet {
     id: settingsRoot
     property int groupSettingIndent: 50
     property int dividerMargin: 30
-    property variant configuration: app.player.playback.getConfiguration()
+    property variant configuration: app.player.playback.configuration
 
     onClosed: {
         settingsRoot.destroy()

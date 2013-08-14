@@ -17,7 +17,7 @@ ModPlayback::ModPlayback(QObject * parent)
       m_numDevices(0),
       m_pcmFd(-1),
       m_playback_handle(NULL) {
-    m_pendingConfig = m_config;
+    m_config.configureModPlug();
 }
 
 ModPlayback::~ModPlayback() {
@@ -26,7 +26,8 @@ ModPlayback::~ModPlayback() {
 
 void ModPlayback::configure() {
     QMutexLocker locker(&m_mutex); // called from user thread
-    if(m_config == m_pendingConfig) {
+    if(!m_config.isAudioReconfigurationRequired()) {
+        qDebug() << "No audio reconfiguring required";
         return;
     }
     qDebug() << "Reconfiguring playback";
@@ -49,7 +50,7 @@ void ModPlayback::closePlayback() {
 
 void ModPlayback::stopAudioDevice() {
     // called from playback or user thread
-    // when called from user rhread must be in locked state
+    // when called from user thread must be in locked state
     qDebug() << "->ModPlayback::stopAudioDevice";
     if(m_playback_handle != NULL)
     {
@@ -82,7 +83,6 @@ void ModPlayback::stopThread() {
 }
 
 ModPlayback::State ModPlayback::state() {
-    QMutexLocker locker(&m_mutex);
     return m_state;
 }
 
@@ -90,9 +90,8 @@ SongModule* ModPlayback::currentSong() {
     return &m_song;
 }
 
-PlaybackConfig* ModPlayback::getConfiguration() {
-    m_pendingConfig = m_config;
-    return &m_pendingConfig;
+PlaybackConfig* ModPlayback::configuration() {
+    return &m_config;
 }
 
 bool ModPlayback::load(SongInfo const& info, QString const& fileName) {
@@ -170,7 +169,7 @@ bool ModPlayback::rewind() {
 void ModPlayback::configure_audio() {
     QString fileName;
 
-    if(m_config.audioReconfigurationRequired(m_pendingConfig)) {
+    if(m_config.isAudioReconfigurationRequired()) {
         stopAudioDevice();
         initPlayback();
         if(m_song.songLoaded()) {
@@ -179,8 +178,6 @@ void ModPlayback::configure_audio() {
             m_state = Idle;
         }
     }
-
-    m_config = m_pendingConfig;
 
     ModPlug_Settings settings;
     memset(&settings, 0, sizeof(settings));

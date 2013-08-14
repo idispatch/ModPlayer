@@ -1,4 +1,5 @@
 #include "PlaybackConfig.hpp"
+#include "modplug.h"
 
 PlaybackConfig::PlaybackConfig(QObject *parent)
     : QObject(parent),
@@ -24,64 +25,7 @@ PlaybackConfig::PlaybackConfig(QObject *parent)
 PlaybackConfig::~PlaybackConfig() {
 }
 
-PlaybackConfig& PlaybackConfig::operator = (PlaybackConfig const& other) {
-    if(this != &other) {
-        setStereo(other.stereo());
-        setFrequency(other.frequency());
-        setSampleSize(other.sampleSize());
-
-        setResamplingMode(other.resamplingMode());
-        setStereoSeparation(other.stereoSeparation());
-        setMaximumMixingChannels(other.maximumMixingChannels());
-
-        setReverbEnabled(other.reverbEnabled());
-        setReverbDelay(other.reverbDelay());
-        setReverbLevel(other.reverbLevel());
-
-        setBassEnabled(other.bassEnabled());
-        setBassLevel(other.bassLevel());
-        setBassCutOff(other.bassCutOff());
-
-        setSurroundEnabled(other.surroundEnabled());
-        setSurroundDelay(other.surroundDelay());
-        setSurroundLevel(other.surroundLevel());
-
-        setOversamplingEnabled(other.oversamplingEnabled());
-        setNoiseReductionEnabled(other.noiseReductionEnabled());
-    }
-    return *this;
-}
-
-bool PlaybackConfig::operator == (PlaybackConfig const& other) {
-    return stereo() == other.stereo() &&
-           sampleSize() == other.sampleSize() &&
-           frequency() == other.frequency() &&
-
-           resamplingMode() == other.resamplingMode() &&
-           stereoSeparation() == other.stereoSeparation() &&
-           maximumMixingChannels() == other.maximumMixingChannels() &&
-
-           reverbEnabled() == other.reverbEnabled() &&
-           reverbDelay() == other.reverbDelay() &&
-           reverbLevel() == other.reverbLevel() &&
-
-           bassEnabled() == other.bassEnabled() &&
-           bassLevel() == other.bassLevel() &&
-           bassCutOff() == other.bassCutOff() &&
-
-           surroundEnabled() == other.surroundEnabled() &&
-           surroundDelay() == other.surroundDelay() &&
-           surroundLevel() == other.surroundLevel() &&
-
-           oversamplingEnabled() == other.oversamplingEnabled() &&
-           noiseReductionEnabled() == other.noiseReductionEnabled();
-}
-
-bool PlaybackConfig::operator != (PlaybackConfig const& other) {
-    return !(*this == other);
-}
-
-bool PlaybackConfig::audioReconfigurationRequired(PlaybackConfig const& other) const {
+bool PlaybackConfig::isAudioReconfigurationRequired() const {
     // All options will take effect immediately, except for:
     //   * channels
     //   * bits-per-sample
@@ -89,10 +33,54 @@ bool PlaybackConfig::audioReconfigurationRequired(PlaybackConfig const& other) c
     //   * loop count
     // Those options which don't take effect immediately will take effect
     // the next time you load a song
-    return maximumMixingChannels() != other.maximumMixingChannels() ||
-           sampleSize() != other.sampleSize() ||
-           frequency() != other.frequency() ||
-           stereo() != other.stereo();
+    ModPlug_Settings settings;
+    ModPlug_GetSettings(&settings);
+    return settings.mChannels != (stereo() ? 2 : 1) ||
+           settings.mBits != sampleSize() ||
+           settings.mFrequency != frequency();
+}
+
+void PlaybackConfig::configureModPlug() {
+    ModPlug_Settings settings;
+    memset(&settings, 0, sizeof(settings));
+
+    settings.mFlags = 0;
+    if(oversamplingEnabled()) {
+        settings.mFlags |= MODPLUG_ENABLE_OVERSAMPLING;
+    }
+    if(noiseReductionEnabled()) {
+        settings.mFlags |= MODPLUG_ENABLE_NOISE_REDUCTION;
+    }
+    if(reverbEnabled()) {
+        settings.mFlags |= MODPLUG_ENABLE_REVERB;
+    }
+    if(bassEnabled()) {
+        settings.mFlags |= MODPLUG_ENABLE_MEGABASS;
+    }
+    if(surroundEnabled()) {
+        settings.mFlags |= MODPLUG_ENABLE_SURROUND;
+    }
+
+    settings.mChannels = stereo() ? 2 : 1;
+    settings.mBits = sampleSize();
+    settings.mFrequency = frequency();
+    settings.mResamplingMode = resamplingMode();
+
+    settings.mStereoSeparation = stereoSeparation();
+    settings.mMaxMixChannels = maximumMixingChannels();
+
+    settings.mReverbDepth = reverbLevel();
+    settings.mReverbDelay = reverbDelay();
+
+    settings.mBassAmount = bassLevel();
+    settings.mBassRange = bassCutOff();
+
+    settings.mSurroundDepth = surroundLevel();
+    settings.mSurroundDelay = surroundDelay();
+
+    settings.mLoopCount = 0;
+
+    ModPlug_SetSettings(&settings);
 }
 
 bool PlaybackConfig::stereo() const {
@@ -102,6 +90,7 @@ bool PlaybackConfig::stereo() const {
 void PlaybackConfig::setStereo(bool value) {
     if(m_bStereo != value) {
         m_bStereo = value;
+        // Not applying immediately
         emit stereoChanged();
     }
 }
@@ -115,6 +104,7 @@ void PlaybackConfig::setFrequency(int value) {
         return;
     if(m_frequency != value) {
         m_frequency = value;
+        // Not applying immediately
         emit frequencyChanged();
     }
 }
@@ -128,6 +118,7 @@ void PlaybackConfig::setSampleSize(int value) {
         return;
     if(m_sampleSize != value) {
         m_sampleSize = value;
+        // Not applying immediately
         emit sampleSizeChanged();
     }
 }
@@ -141,6 +132,12 @@ void PlaybackConfig::setResamplingMode(int value) {
         return;
     if(m_resamplingMode != value) {
         m_resamplingMode = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mResamplingMode = resamplingMode();
+        ModPlug_SetSettings(&settings);
+
         emit resamplingModeChanged();
     }
 }
@@ -154,6 +151,12 @@ void PlaybackConfig::setStereoSeparation(int value) {
     if(value > 256) value = 256;
     if(m_stereoSeparation != value) {
         m_stereoSeparation = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mStereoSeparation = stereoSeparation();
+        ModPlug_SetSettings(&settings);
+
         emit stereoSeparationChanged();
     }
 }
@@ -167,6 +170,12 @@ void PlaybackConfig::setMaximumMixingChannels(int value) {
     if(value > 256) value = 256;
     if(m_maximumMixingChannels != value) {
         m_maximumMixingChannels = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mMaxMixChannels = maximumMixingChannels();
+        ModPlug_SetSettings(&settings);
+
         emit maximumMixingChannelsChanged();
     }
 }
@@ -178,6 +187,16 @@ bool PlaybackConfig::reverbEnabled() const {
 void PlaybackConfig::setReverbEnabled(bool value) {
     if(m_reverbEnabled != value) {
         m_reverbEnabled = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        if(reverbEnabled()) {
+            settings.mFlags |= MODPLUG_ENABLE_REVERB;
+        } else {
+            settings.mFlags &= ~MODPLUG_ENABLE_REVERB;
+        }
+        ModPlug_SetSettings(&settings);
+
         emit reverbEnabledChanged();
     }
 }
@@ -187,8 +206,16 @@ int PlaybackConfig::reverbLevel() const {
 }
 
 void PlaybackConfig::setReverbLevel(int value) {
+    if(value < 0) value = 0;
+    if(value > 100) value = 100;
     if(m_reverbLevel != value) {
         m_reverbLevel = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mReverbDepth = reverbLevel();
+        ModPlug_SetSettings(&settings);
+
         emit reverbEnabledChanged();
     }
 }
@@ -198,8 +225,16 @@ int PlaybackConfig::reverbDelay() const {
 }
 
 void PlaybackConfig::setReverbDelay(int value) {
+    if(value < 0) value = 0;
+    if(value > 400) value = 400;
     if(m_reverbDelay != value) {
         m_reverbDelay = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mReverbDelay = reverbDelay();
+        ModPlug_SetSettings(&settings);
+
         emit reverbDelayChanged();
     }
 }
@@ -211,6 +246,16 @@ bool PlaybackConfig::bassEnabled() const {
 void PlaybackConfig::setBassEnabled(bool value) {
     if(m_bassEnabled != value) {
         m_bassEnabled = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        if(bassEnabled()) {
+            settings.mFlags |= MODPLUG_ENABLE_MEGABASS;
+        } else {
+            settings.mFlags &= ~MODPLUG_ENABLE_MEGABASS;
+        }
+        ModPlug_SetSettings(&settings);
+
         emit bassEnabledChanged();
     }
 }
@@ -220,8 +265,16 @@ int PlaybackConfig::bassLevel() const {
 }
 
 void PlaybackConfig::setBassLevel(int value) {
+    if(value < 0) value = 0;
+    if(value > 100) value = 100;
     if(m_bassLevel != value) {
         m_bassLevel = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mBassAmount = bassLevel();
+        ModPlug_SetSettings(&settings);
+
         emit bassLevelChanged();
     }
 }
@@ -231,8 +284,16 @@ int PlaybackConfig::bassCutOff() const {
 }
 
 void PlaybackConfig::setBassCutOff(int value) {
+    if(value < 10) value = 10;
+    if(value > 100) value = 100;
     if(m_bassCutoff != value) {
         m_bassCutoff = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mBassRange = bassCutOff();
+        ModPlug_SetSettings(&settings);
+
         emit bassCutOffChanged();
     }
 }
@@ -243,6 +304,16 @@ bool PlaybackConfig::surroundEnabled() const {
 void PlaybackConfig::setSurroundEnabled(bool value) {
     if(m_surroundEnabled != value) {
         m_surroundEnabled = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        if(bassEnabled()) {
+            settings.mFlags |= MODPLUG_ENABLE_SURROUND;
+        } else {
+            settings.mFlags &= ~MODPLUG_ENABLE_SURROUND;
+        }
+        ModPlug_SetSettings(&settings);
+
         emit surroundEnabledChanged();
     }
 }
@@ -252,8 +323,16 @@ int PlaybackConfig::surroundLevel() const {
 }
 
 void PlaybackConfig::setSurroundLevel(int value) {
+    if(value < 0) value = 0;
+    if(value > 100) value = 100;
     if(m_surroundLevel != value) {
         m_surroundLevel = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mSurroundDepth = surroundLevel();
+        ModPlug_SetSettings(&settings);
+
         emit surroundLevelChanged();
     }
 }
@@ -263,8 +342,16 @@ int PlaybackConfig::surroundDelay() const {
 }
 
 void PlaybackConfig::setSurroundDelay(int value) {
+    if(value < 5) value = 5;
+    if(value > 100) value = 100;
     if(m_surroundDelay != value) {
         m_surroundDelay = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        settings.mSurroundDelay = surroundDelay();
+        ModPlug_SetSettings(&settings);
+
         emit surroundDelayChanged();
     }
 }
@@ -276,6 +363,16 @@ bool PlaybackConfig::oversamplingEnabled() const {
 void PlaybackConfig::setOversamplingEnabled(bool value) {
     if(m_oversamplingEnabled != value) {
         m_oversamplingEnabled = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        if(bassEnabled()) {
+            settings.mFlags |= MODPLUG_ENABLE_OVERSAMPLING;
+        } else {
+            settings.mFlags &= ~MODPLUG_ENABLE_OVERSAMPLING;
+        }
+        ModPlug_SetSettings(&settings);
+
         emit oversamplingEnabledChanged();
     }
 }
@@ -287,6 +384,16 @@ bool PlaybackConfig::noiseReductionEnabled() const {
 void PlaybackConfig::setNoiseReductionEnabled(bool value) {
     if(m_noiseReductionEnabled != value) {
         m_noiseReductionEnabled = value;
+
+        ModPlug_Settings settings;
+        ModPlug_GetSettings(&settings);
+        if(bassEnabled()) {
+            settings.mFlags |= MODPLUG_ENABLE_NOISE_REDUCTION;
+        } else {
+            settings.mFlags &= ~MODPLUG_ENABLE_NOISE_REDUCTION;
+        }
+        ModPlug_SetSettings(&settings);
+
         emit noiseReductionEnabledChanged();
     }
 }

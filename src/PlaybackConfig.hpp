@@ -34,11 +34,8 @@ public:
     PlaybackConfig(QObject *parent = 0);
     ~PlaybackConfig();
 
-    PlaybackConfig& operator = (PlaybackConfig const&);
-    bool operator == (PlaybackConfig const&);
-    bool operator != (PlaybackConfig const&);
-
-    bool audioReconfigurationRequired(PlaybackConfig const& other) const;
+    bool isAudioReconfigurationRequired() const;
+    void configureModPlug();
 
     bool stereo() const;
     void setStereo(bool);
@@ -114,6 +111,7 @@ Q_SIGNALS:
     void oversamplingEnabledChanged();
     void noiseReductionEnabledChanged();
 private:
+    Q_DISABLE_COPY(PlaybackConfig)
     bool m_bStereo;
     int m_frequency;
     int m_sampleSize;
