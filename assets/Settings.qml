@@ -229,26 +229,6 @@ Sheet {
                         }
                     }
                 }
-                
-                Label {
-                    text: qsTr("Mixing Channels")
-                    textStyle.fontSize: FontSize.Large
-                }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
-                    leftPadding: groupSettingIndent
-                    Slider {
-                        id: maximumMixingChannels
-                        fromValue: 32
-                        toValue: 256
-                        value: settingsRoot.configuration.maximumMixingChannels
-                        onValueChanged: {
-                            settingsRoot.configuration.maximumMixingChannels = maximumMixingChannels.value
-                        }
-                    }
-                }
 
                 CheckBox {
                     id: oversampling

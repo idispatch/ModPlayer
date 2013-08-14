@@ -169,9 +169,5 @@
         <source>Surrond Delay</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Mixing Channels</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>
