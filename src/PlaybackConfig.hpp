@@ -38,6 +38,8 @@ public:
     bool operator == (PlaybackConfig const&);
     bool operator != (PlaybackConfig const&);
 
+    bool audioReconfigurationRequired(PlaybackConfig const& other) const;
+
     bool stereo() const;
     void setStereo(bool);
 

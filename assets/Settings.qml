@@ -6,12 +6,12 @@ Sheet {
     id: settingsRoot
     property int groupSettingIndent: 50
     property int dividerMargin: 30
-    property variant configuration: app.player.playback.configuration
-    
+    property variant configuration: app.player.playback.getConfiguration()
+
     onClosed: {
         settingsRoot.destroy()
     }
-    
+
     Page {
         titleBar: TitleBar {
             title: qsTr("Configuration")
@@ -35,7 +35,7 @@ Sheet {
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
+
                 leftPadding: 30
                 rightPadding: 30
                 topPadding: 20
@@ -103,6 +103,7 @@ Sheet {
                         settingsRoot.configuration.stereo = (selectedValue == 1)
                     }
                 }
+
                 DropDown {
                     id: bitsPerSample
                     title: "Bits per Sample"
@@ -126,6 +127,7 @@ Sheet {
                         settingsRoot.configuration.sampleSize = selectedValue
                     }
                 }
+
                 DropDown {
                     id: frequency
                     title: "Frequency"
@@ -151,6 +153,7 @@ Sheet {
                         settingsRoot.configuration.frequency = selectedValue
                     }
                 }
+
                 DropDown {
                     id: resampling
                     title: "Resampling"
@@ -182,12 +185,12 @@ Sheet {
                         settingsRoot.configuration.resamplingMode = selectedValue
                     }
                 }
-                
+
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
                 }
-                
+
                 Label {
                     text: "Stereo separation"
                 }
@@ -201,9 +204,12 @@ Sheet {
                         fromValue: 1
                         toValue: 256
                         value: settingsRoot.configuration.stereoSeparation
+                        onValueChanged: {
+                            settingsRoot.configuration.stereoSeparation = value
+                        }
                     }
                 }
-                
+
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
@@ -222,25 +228,32 @@ Sheet {
                         fromValue: 32
                         toValue: 256
                         value: settingsRoot.configuration.maximumMixingChannels
+                        onValueChanged: {
+                            settingsRoot.configuration.maximumMixingChannels = value
+                        }
                     }
                 }
-                
+
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
                 }
-                
+
                 CheckBox {
                     id: reverbEnabled
                     text: "Enable reverb"
                     checked: settingsRoot.configuration.reverbEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.reverbEnabled = value
+                    }
                 }
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
                     }
                     leftPadding: groupSettingIndent
-                    
+
                     Label {
                         text: "Reverb depth"
                         enabled: reverbEnabled.checked
@@ -258,6 +271,9 @@ Sheet {
                         fromValue: 0
                         toValue: 100
                         value: settingsRoot.configuration.reverbLevel
+                        onValueChanged: {
+                            settingsRoot.configuration.reverbLevel = value
+                        }
                     }
                     Label {
                         text: "Reverb delay"
@@ -276,20 +292,26 @@ Sheet {
                         fromValue: 40
                         toValue: 200
                         value: settingsRoot.configuration.reverbDelay
+                        onValueChanged: {
+                            settingsRoot.configuration.reverbDelay = value
+                        }
                     }
                 }
-                
+
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
                 }
-                
+
                 CheckBox {
                     id: megabassEnabled
                     text: "Enable megabass"
                     checked: settingsRoot.configuration.bassEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.bassEnabled = checked
+                    }
                 }
-                
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom
@@ -312,6 +334,9 @@ Sheet {
                         fromValue: 0
                         toValue: 100
                         value: settingsRoot.configuration.bassLevel
+                        onValueChanged: {
+                            settingsRoot.configuration.bassLevel = value
+                        }
                     }
                     Label {
                         enabled: megabassEnabled.checked
@@ -330,18 +355,24 @@ Sheet {
                         fromValue: 10
                         toValue: 100
                         value: settingsRoot.configuration.bassCutOff
+                        onValueChanged: {
+                            settingsRoot.configuration.bassCutOff = value
+                        }
                     }
                 }
-                
+
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
                 }
-                
+
                 CheckBox {
                     id: surroundEnabled
                     text: "Enable surround sound"
                     checked: settingsRoot.configuration.surroundEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.surroundEnabled = value
+                    }
                 }
                 Container {
                     layout: StackLayout {
@@ -365,6 +396,9 @@ Sheet {
                         fromValue: 0
                         toValue: 100
                         value: settingsRoot.configuration.surroundLevel
+                        onValueChanged: {
+                            settingsRoot.configuration.surroundLevel = value
+                        }
                     }
                     Label {
                         text: "Surrond delay"
@@ -383,24 +417,33 @@ Sheet {
                         fromValue: 5
                         toValue: 50
                         value: settingsRoot.configuration.surroundDelay
+                        onValueChanged: {
+                            settingsRoot.configuration.surroundDelay = value
+                        }
                     }
                 }
-                
+
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
                 }
-                
+
                 CheckBox {
                     id: oversampling
                     text: "Enable oversampling"
                     checked: settingsRoot.configuration.oversamplingEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.oversamplingEnabled = value
+                    }
                 }
-                
+
                 CheckBox {
                     id: noiseReduction
                     text: "Enable noise reduction"
                     checked: settingsRoot.configuration.noiseReductionEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.noiseReductionEnabled = value
+                    }
                 }
 
                 attachedObjects: [

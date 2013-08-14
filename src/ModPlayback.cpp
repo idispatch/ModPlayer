@@ -90,7 +90,8 @@ SongModule* ModPlayback::currentSong() {
     return &m_song;
 }
 
-PlaybackConfig* ModPlayback::configuration() {
+PlaybackConfig* ModPlayback::getConfiguration() {
+    m_pendingConfig = m_config;
     return &m_pendingConfig;
 }
 
@@ -167,16 +168,19 @@ bool ModPlayback::rewind() {
 }
 
 void ModPlayback::configure_audio() {
-    m_config = m_pendingConfig;
     QString fileName;
-    if(m_song.songLoaded()) {
-        fileName = m_song.fileName();
-        m_song.unload();
-        m_state = Idle;
+
+    if(m_config.audioReconfigurationRequired(m_pendingConfig)) {
+        stopAudioDevice();
+        initPlayback();
+        if(m_song.songLoaded()) {
+            fileName = m_song.fileName();
+            m_song.unload();
+            m_state = Idle;
+        }
     }
 
-    stopAudioDevice();
-    initPlayback();
+    m_config = m_pendingConfig;
 
     ModPlug_Settings settings;
     memset(&settings, 0, sizeof(settings));
@@ -218,6 +222,7 @@ void ModPlayback::configure_audio() {
     settings.mLoopCount = 0;
 
     ModPlug_SetSettings(&settings);
+
     /*if(fileName.length() > 0) {
         m_song.load(fileName);
     }*/

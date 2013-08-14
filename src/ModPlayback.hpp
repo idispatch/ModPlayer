@@ -13,7 +13,6 @@
 class ModPlayback : public QThread {
     Q_OBJECT
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
-    Q_PROPERTY(PlaybackConfig* configuration READ configuration NOTIFY configurationChanged FINAL)
 public:
     enum State
     {
@@ -30,7 +29,7 @@ public:
 
     State state();
     SongModule* currentSong();
-    PlaybackConfig* configuration();
+    PlaybackConfig* getConfiguration();
 
     void run();
     void stopThread();

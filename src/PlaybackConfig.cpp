@@ -81,6 +81,20 @@ bool PlaybackConfig::operator != (PlaybackConfig const& other) {
     return !(*this == other);
 }
 
+bool PlaybackConfig::audioReconfigurationRequired(PlaybackConfig const& other) const {
+    // All options will take effect immediately, except for:
+    //   * channels
+    //   * bits-per-sample
+    //   * sampling rate
+    //   * loop count
+    // Those options which don't take effect immediately will take effect
+    // the next time you load a song
+    return maximumMixingChannels() != other.maximumMixingChannels() ||
+           sampleSize() != other.sampleSize() ||
+           frequency() != other.frequency() ||
+           stereo() != other.stereo();
+}
+
 bool PlaybackConfig::stereo() const {
     return m_bStereo;
 }
