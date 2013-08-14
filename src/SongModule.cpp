@@ -175,11 +175,11 @@ bool SongModule::load(QString const& fileName)
             update();
 
             emit songLoadedChanged();
-            return true;
+        } else {
+            unload();
         }
-        unload();
     }
-    return false;
+    return songLoaded();
 }
 
 bool SongModule::unload()
