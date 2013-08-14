@@ -3,8 +3,6 @@
 #include <QFile>
 #include <QDebug>
 
-//#define DEBUG_CACHE
-
 Cache::Cache(QObject * parent)
     : QObject(parent) {
     m_maxSize = 100*1024*1024;
@@ -13,9 +11,6 @@ Cache::Cache(QObject * parent)
 }
 
 void Cache::initCache() {
-#ifdef DEBUG_CACHE
-    qDebug() << "Cache::initCache: filters size=" << m_fileNameFilters.size();
-#endif
     if(!m_fileNameFilters.empty())
     {
         QString diskPath = cachePath();

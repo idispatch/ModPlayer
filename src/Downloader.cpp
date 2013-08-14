@@ -6,13 +6,20 @@
 #include <QByteArray>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
+#include <bb/system/InvokeManager>
 
 const int Downloader::InvalidModuleId = -1;
 
+using namespace bb::system;
+
+const QString Downloader::ModArchiveSite = QString("http://modarchive.org/data/downloads.php?moduleid=%1");
+
 Downloader::Downloader(QObject * parent)
     : QObject(parent),
-      m_networkManager(new QNetworkAccessManager(this)) {
+      m_networkManager(new QNetworkAccessManager(this)),
+      m_networkConfigurationManager(new QNetworkConfigurationManager(this)) {
     bool rc;
+    Q_UNUSED(rc);
     rc = connect(m_networkManager,
                  SIGNAL(finished(QNetworkReply*)),
                  this,
@@ -24,39 +31,85 @@ Downloader::Downloader(QObject * parent)
                  this,
                  SLOT(onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
     Q_ASSERT(rc);
-    Q_UNUSED(rc);
+
+    rc = connect(m_networkConfigurationManager,
+                 SIGNAL(onlineStateChanged(bool)),
+                 this,
+                 SLOT(onOnlineStateChanged(bool)));
+    Q_ASSERT(rc);
 }
 
-void Downloader::download(int modId) {
-    QString url = QString("http://modarchive.org/data/downloads.php?moduleid=%1").arg(modId);
-    if(m_pendingDownloads.contains(url)) {
-        qDebug() << "Already downloading" << url;
-        return;
-    }
-
-    m_pendingDownloads.insert(url, modId);
-    qDebug() << "Starting downloading" << url;
-
-    QNetworkRequest request;
-    request.setUrl(QUrl(url));
-    m_networkManager->get(request);
-
-    emit downloadStarted(modId);
-    emit pendingDownloadCountChanged();
+void Downloader::openNetworkConfiguration()
+{
+    qDebug() << "Opening Network Configuration";
+    InvokeManager invokeManager;
+    InvokeRequest request;
+    request.setTarget("sys.settings.target");
+    request.setAction("bb.action.OPEN");
+    request.setMimeType("settings/view");
+    request.setUri(QUrl("settings://networkconnections"));
+    invokeManager.invoke(request);
 }
 
-void Downloader::onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a) {
-    qDebug() << "Network accessible changed:" << a;
-    if(a != QNetworkAccessManager::Accessible) {
-        QList<int> pending = m_pendingDownloads.values();
+bool Downloader::isNetworkAvailable() const {
+    QNetworkConfigurationManager mgr;
+    QList<QNetworkConfiguration> active = mgr.allConfigurations(QNetworkConfiguration::Active);
+    return active.count();
+}
+
+void Downloader::cancelAllPendingDownloads() {
+    QList<int> pending = m_pendingDownloads.values();
+    if(pending.size() > 0)
+    {
+        qDebug() << "Canceling" << pending.size() << "downloads";
         QList<int>::const_iterator i;
-        for(i = pending.begin();
-            i != pending.end();
-            i++) {
+        for(i = pending.begin(); i != pending.end(); ++i)
+        {
             emit downloadFailure(*i);
         }
         m_pendingDownloads.clear();
         emit pendingDownloadCountChanged();
+    }
+}
+
+void Downloader::onOnlineStateChanged(bool isOnline) {
+    if(!isOnline)
+    {
+        cancelAllPendingDownloads();
+    }
+}
+
+void Downloader::download(int modId) {
+    if(!isNetworkAvailable())
+    {
+        openNetworkConfiguration();
+        emit downloadFailure(modId);
+    }
+    else
+    {
+        QString url = ModArchiveSite.arg(modId);
+        if(m_pendingDownloads.contains(url)) {
+            qDebug() << "Already downloading" << url;
+        }
+        else
+        {
+            m_pendingDownloads.insert(url, modId);
+            //qDebug() << "Starting downloading" << url;
+
+            QNetworkRequest request = QNetworkRequest(QUrl(url));
+            m_networkManager->get(request);
+
+            emit downloadStarted(modId);
+            emit pendingDownloadCountChanged();
+        }
+    }
+}
+
+void Downloader::onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a) {
+    qDebug() << "Network accessible changed to" << a;
+    if(a != QNetworkAccessManager::Accessible)
+    {
+        cancelAllPendingDownloads();
     }
 }
 
@@ -65,14 +118,17 @@ void Downloader::handleRedirect(QNetworkReply * reply) {
     QUrl redirectURL = redirect.toUrl();
     QUrl originalURL = reply->request().url();
 
-    if(!redirectURL.isEmpty() && redirectURL != originalURL) {
-        qDebug() << "Redirected from" << originalURL << "to" << redirectURL;
-
+    if(!redirectURL.isEmpty() && redirectURL != originalURL)
+    {
+        //qDebug() << "Redirected from" << originalURL << "to" << redirectURL;
         int modId = m_pendingDownloads.value(originalURL, InvalidModuleId);
-        if(modId == InvalidModuleId) {
+        if(modId == InvalidModuleId)
+        {
             emit downloadFailure(modId);
             reply->deleteLater();
-        } else {
+        }
+        else
+        {
             m_pendingDownloads.remove(originalURL);
             m_pendingDownloads.insert(redirectURL, modId);
 
@@ -80,9 +136,12 @@ void Downloader::handleRedirect(QNetworkReply * reply) {
             request.setUrl(QUrl(redirectURL));
             m_networkManager->get(request);
         }
-    } else {
+    }
+    else
+    {
         int modId = m_pendingDownloads.value(originalURL, InvalidModuleId);
-        if(modId != InvalidModuleId) {
+        if(modId != InvalidModuleId)
+        {
             m_pendingDownloads.remove(originalURL);
         }
         emit downloadFailure(modId);
@@ -93,22 +152,27 @@ void Downloader::handleRedirect(QNetworkReply * reply) {
 
 void Downloader::onHttpFinished(QNetworkReply * reply) {
     QUrl originalURL = reply->request().url();
+
     int modId = m_pendingDownloads.value(originalURL, InvalidModuleId);
-    if(modId != InvalidModuleId) {
+    if(modId != InvalidModuleId)
+    {
         qDebug() << "Received reply for module" << modId << "from" << originalURL;
-    } else {
+    }
+    else
+    {
         qDebug() << "Could not match download URL " << originalURL;
         reply->deleteLater();
         emit downloadFailure(modId);
         return;
     }
 
-    if (reply->error() == QNetworkReply::NoError) {
+    if (reply->error() == QNetworkReply::NoError)
+    {
         QVariant statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-        qDebug() << "URL=" << reply->request().url();
-        qDebug() << "HTTP status=" << statusCode;
-
-        switch(statusCode.toInt()) {
+        //qDebug() << "URL=" << reply->request().url();
+        //qDebug() << "HTTP status=" << statusCode;
+        switch(statusCode.toInt())
+        {
         case 302:
             handleRedirect(reply);
             return;
@@ -117,24 +181,29 @@ void Downloader::onHttpFinished(QNetworkReply * reply) {
             return;
         }
     }
-
-    qDebug() << "Could not download module" << modId << "from" << originalURL;
-    m_pendingDownloads.remove(originalURL);
-    reply->deleteLater();
-    emit downloadFailure(modId);
-    emit pendingDownloadCountChanged();
+    else
+    {
+        qDebug() << "Could not download module" << modId << "from" << originalURL;
+        m_pendingDownloads.remove(originalURL);
+        reply->deleteLater();
+        emit downloadFailure(modId);
+        emit pendingDownloadCountChanged();
+    }
 }
 
 void Downloader::finishDownload(QNetworkReply * reply) {
     QUrl originalURL = reply->request().url();
-    qDebug() << "Reading reply from" << originalURL << "(bytes=" << reply->size() << ")";
+    //qDebug() << "Reading reply from" << originalURL << "(bytes=" << reply->size() << ")";
 
     int modId = InvalidModuleId;
-    if(m_pendingDownloads.contains(originalURL)) {
+    if(m_pendingDownloads.contains(originalURL))
+    {
         modId = m_pendingDownloads[originalURL];
         m_pendingDownloads.remove(originalURL);
         emit pendingDownloadCountChanged();
-    } else {
+    }
+    else
+    {
         qDebug() << "Could not match download URL " << originalURL;
         reply->deleteLater();
         m_pendingDownloads.remove(originalURL);
@@ -154,22 +223,29 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     qDebug() << "Saving file" << diskPath;
 
     QFile file(diskPath);
-    if(file.exists()) {
+    if(file.exists())
+    {
         qDebug() << "File" << diskPath << "already exists";
-        if(file.remove()) {
+        if(file.remove())
+        {
             qDebug() << "Deleted file" << diskPath;
-        } else {
+        }
+        else
+        {
             qDebug() << "Failed to delete file" << diskPath;
             emit downloadFailure(modId);
         }
     }
 
-    if(file.open(QIODevice::WriteOnly)) {
+    if(file.open(QIODevice::WriteOnly))
+    {
         qint64 writtenBytes = file.write(data);
         qDebug() << "Written bytes:" << writtenBytes;
         file.close();
         emit downloadFinished(file.fileName());
-    } else {
+    }
+    else
+    {
         qDebug() << "Could not open file" << file.fileName();
         emit downloadFailure(modId);
     }
@@ -185,7 +261,7 @@ QMap<QUrl, int> const& Downloader::pendingDownloads() const {
 
 QDebug operator << (QDebug dbg, Downloader const &c) {
     dbg.nospace()
-        << "(Downloader: pending downloads="
+        << "(Downloader: pending="
         << c.pendingDownloads()
         << ")";
     return dbg.space();

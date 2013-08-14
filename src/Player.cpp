@@ -14,7 +14,7 @@ using namespace bb::multimedia;
 Player::Player(QObject * parent)
     : QObject(parent),
       m_state(Stopped),
-      m_statusText("Stopped"),
+      m_statusText(tr("Stopped")),
       m_catalog(new Catalog(this)),
       m_cache(new Cache(this)),
       m_downloader(new Downloader(this)),
@@ -196,12 +196,12 @@ void Player::changeStatus(State state, QString const& statusText) {
 
 void Player::onDownloadStarted(int modId) {
     Q_UNUSED(modId);
-    changeStatus(Preparing, "Downloading song");
+    changeStatus(Preparing, tr("Downloading song"));
 }
 
 void Player::onDownloadFinished(QString fileName) {
     QString name = fileNameOnly(fileName);
-    changeStatus(Preparing, QString("Unpacking song %1").arg(name));
+    changeStatus(Preparing, QString(tr("Unpacking song %1")).arg(name));
 
     QString newFile = m_unpacker->unpackFile(fileName);
     if(QFile::remove(fileName))
@@ -215,12 +215,12 @@ void Player::onDownloadFinished(QString fileName) {
 
     if(newFile.isEmpty())
     {
-        changeStatus(Stopped, QString("Failed to prepare song %1").arg(name));
+        changeStatus(Stopped, QString(tr("Failed to prepare song %1")).arg(name));
         return;
     }
 
     QString file = fileNameOnly(newFile);
-    changeStatus(Preparing, QString("Caching song %1").arg(file));
+    changeStatus(Preparing, QString(tr("Caching song %1")).arg(file));
 
     m_cache->cache(file);
 
@@ -229,6 +229,7 @@ void Player::onDownloadFinished(QString fileName) {
 
 void Player::onDownloadFailure(int modId) {
     Q_UNUSED(modId);
+    changeStatus(Stopped, tr("Failed to download song"));
     stop();
 }
 
@@ -252,13 +253,15 @@ void Player::onNowPlayingAcquired() {
 }
 
 void Player::onNowPlayingRevoked() {
-    qDebug() << "Player::onNowPlayingRevoked";
 }
 
 void Player::onNowPlayingPlay() {
-    if(state() == Paused) {
+    if(state() == Paused)
+    {
         resume();
-    } else if(state() == Stopped) {
+    }
+    else if(state() == Stopped)
+    {
         m_playback->play();
     }
 }
@@ -310,7 +313,7 @@ void Player::beginPlay(QString const& fileName) {
             if(m_playback->play())
             {
                 QString file = currentSong()->fileName();
-                changeStatus(Playing, QString("Playing %1").arg(file));
+                changeStatus(Playing, QString(tr("Playing %1")).arg(file));
                 m_catalog->play(file);
 
                 if(!m_nowPlaying->isAcquired()) {
@@ -372,7 +375,7 @@ void Player::playByModuleFileName(QString const& fileName) {
     else
     {
         QString name = fileNameOnly(fileName);
-        changeStatus(Resolving, QString("Resolving %1").arg(name));
+        changeStatus(Resolving, QString(tr("Resolving %1")).arg(name));
 
         int modId = m_catalog->resolveModuleIdByFileName(fileName);
         m_downloader->download(modId);
@@ -386,7 +389,7 @@ void Player::playByModuleId(int modId) {
     }
     else
     {
-        changeStatus(Downloading, "Downloading song");
+        changeStatus(Downloading, tr("Downloading song"));
         m_downloader->download(modId);
     }
 }
@@ -404,16 +407,16 @@ void Player::resume() {
 }
 
 void Player::onPaused() {
-    changeStatus(Paused, "Paused");
+    changeStatus(Paused, tr("Paused"));
     m_nowPlaying->setMediaState(MediaState::Paused);
 }
 
 void Player::onPlaying() {
-    changeStatus(Playing, QString("Playing %1").arg(currentSong()->fileName()));
+    changeStatus(Playing, QString(tr("Playing %1")).arg(currentSong()->fileName()));
     m_nowPlaying->setMediaState(MediaState::Started);
 }
 
 void Player::onStopped() {
-    changeStatus(Stopped, "Stopped");
+    changeStatus(Stopped, tr("Stopped"));
     m_nowPlaying->setMediaState(MediaState::Stopped);
 }

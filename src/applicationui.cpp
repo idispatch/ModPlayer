@@ -15,6 +15,8 @@
 
 using namespace bb::cascades;
 
+const char * ApplicationUI::QmlNamespace = "player";
+
 ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     : QObject(app),
       m_pTranslator(new QTranslator(this)),
@@ -29,7 +31,6 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
 }
 
 ApplicationUI::~ApplicationUI() {
-    qDebug() << "ApplicationUI::~ApplicationUI()";
 }
 
 void ApplicationUI::initSignals() {
@@ -47,19 +48,25 @@ void ApplicationUI::onAboutToQuit() {
 }
 
 QUrl ApplicationUI::getIconPath(QVariant value) const {
-    if(value.type() == QVariant::Int) {
+    if(value.type() == QVariant::Int)
+    {
         return m_player->getIconPathByFormatId(value.toInt());
-    } else if((int)value.type() == (int)QMetaType::QObjectStar) {
+    }
+    else if((int)value.type() == (int)QMetaType::QObjectStar)
+    {
         SongBasicInfo * info = qobject_cast<SongBasicInfo*>(value.value<QObject*>());
-        if(info != NULL) {
+        if(info != NULL)
+        {
             return m_player->getIconPathByFormatId(info->formatId());
         }
         SongModule * module = qobject_cast<SongModule*>(value.value<QObject*>());
-        if(module != NULL) {
+        if(module != NULL)
+        {
             return m_player->getIconPathByFormatId(module->formatId());
         }
         SongFormat * format = qobject_cast<SongFormat*>(value.value<QObject*>());
-        if(format != NULL) {
+        if(format != NULL)
+        {
             return m_player->getIconPathByFormatId(format->id());
         }
     }
@@ -67,9 +74,9 @@ QUrl ApplicationUI::getIconPath(QVariant value) const {
 }
 
 void ApplicationUI::initTypes() {
-    qmlRegisterUncreatableType<Player>("player", 1, 0, "Player", "");
-    qmlRegisterType<LCDDisplay>("player", 1, 0, "LCDDisplay");
-    qmlRegisterType<LCDDigits>("player", 1, 0, "LCDDigits");
+    qmlRegisterUncreatableType<Player>(QmlNamespace, 1, 0, "Player", "");
+    qmlRegisterType<LCDDisplay>(QmlNamespace, 1, 0, "LCDDisplay");
+    qmlRegisterType<LCDDigits>(QmlNamespace, 1, 0, "LCDDigits");
 }
 
 void ApplicationUI::initApp() {
@@ -125,9 +132,9 @@ void ApplicationUI::initTranslator() {
 
 void ApplicationUI::onSystemLanguageChanged() {
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
-    QString locale_string = QLocale().name();
-    QString file_name = QString("ModPlayer_%1").arg(locale_string);
-    if (m_pTranslator->load(file_name, "app/native/qm")) {
+    QString localeString = QLocale().name();
+    QString fileName = QString("ModPlayer_%1").arg(localeString);
+    if (m_pTranslator->load(fileName, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
 }

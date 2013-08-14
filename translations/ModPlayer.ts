@@ -9,9 +9,110 @@
     </message>
 </context>
 <context>
+    <name>Cover</name>
+    <message>
+        <source>Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FormatsList</name>
+    <message>
+        <source>Select Songs by Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GenresList</name>
     <message>
         <source>Select Songs by Genre</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PauseActionItem</name>
+    <message>
+        <source>Resume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PlayActionItem</name>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Player</name>
+    <message>
+        <source>Paused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unpacking song %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to prepare song %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Caching song %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playing %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolving %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to download song</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PlayerActionItem</name>
+    <message>
+        <source>Now Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RemoveFavouriteActionItem</name>
+    <message>
+        <source>Remove from Favourites</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -167,6 +268,158 @@
     </message>
     <message>
         <source>Surrond Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongView</name>
+    <message>
+        <source>You played this song once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You did not play this song yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You liked this song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have this song in the cache already</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not favourited by anyone yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not rated by anyone yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Now Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsMostPlayed</name>
+    <message>
+        <source>Most Played Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsMyFavourite</name>
+    <message>
+        <source>My Favourite Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsRecentlyPlayed</name>
+    <message>
+        <source>Recently Played Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsTopDownloaded</name>
+    <message>
+        <source>Top Downloaded Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsTopFavourited</name>
+    <message>
+        <source>Top Favourited Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsTopScored</name>
+    <message>
+        <source>Top Scored Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <source>My Favourite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Favourite Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recently Played Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Most Played</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Most Played Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Formats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs By Module Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Genres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs By Genre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs By Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Downloaded Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favourited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Favourited Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scored</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Scored Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

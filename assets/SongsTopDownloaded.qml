@@ -6,7 +6,7 @@ Page {
     property variant navigationPane
 
     titleBar: TitleBar {
-        title: "Top Downloaded Songs"
+        title: qsTr("Top Downloaded Songs")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }

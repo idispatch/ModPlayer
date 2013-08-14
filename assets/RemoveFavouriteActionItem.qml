@@ -4,7 +4,7 @@ import player 1.0
 ActionItem {
     property variant currentSong
     
-    title: "Remove from Favourites"
+    title: qsTr("Remove from Favourites")
     imageSource: "asset:///images/actions/icon_unlike.png"
     enabled: currentSong != null
     ActionBar.placement: ActionBarPlacement.InOverflow

@@ -3,7 +3,7 @@ import bb.cascades 1.0
 ActionItem {
     property variant navigationPane
     
-    title: "Now Playing"
+    title: qsTr("Now Playing")
     imageSource: "asset:///images/actions/icon_nowplaying.png"
     ActionBar.placement: ActionBarPlacement.OnBar
     shortcuts: Shortcut {

@@ -7,7 +7,7 @@ Page {
     property variant navigationPane
     
     titleBar: TitleBar {
-        title: "Recently Played Songs"
+        title: qsTr("Recently Played Songs")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }

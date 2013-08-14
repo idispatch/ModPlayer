@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QUrl>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkConfigurationManager>
 
 class QNetworkReply;
 
@@ -29,12 +30,18 @@ Q_SIGNALS:
 private slots:
     void onHttpFinished(QNetworkReply * reply);
     void onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a);
+    void onOnlineStateChanged(bool isOnline);
 private:
     Q_DISABLE_COPY(Downloader)
     void handleRedirect(QNetworkReply * reply);
     void finishDownload(QNetworkReply * reply);
+    void openNetworkConfiguration();
+    bool isNetworkAvailable() const;
+    void cancelAllPendingDownloads();
 private:
+    static const QString ModArchiveSite;
     QNetworkAccessManager * m_networkManager;
+    QNetworkConfigurationManager * m_networkConfigurationManager;
     QMap<QUrl, int> m_pendingDownloads;
     static const int InvalidModuleId;
 };

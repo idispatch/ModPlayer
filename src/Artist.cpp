@@ -15,7 +15,6 @@ Artist::Artist(int id,
 }
 
 Artist::~Artist() {
-    //qDebug() << "Artist::~Artist()";
 }
 
 int Artist::score() const {

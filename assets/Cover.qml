@@ -71,16 +71,16 @@ Container {
                     if(app.player.currentSong.songLoaded) {
                         var state = app.player.state;
                         if(state == Player.Playing) {
-                            return "Playing";
+                            return qsTr("Playing")
                         } else if (state == Player.Stopped) {
-                            return "Stopped";
+                            return qsTr("Stopped")
                         } else if (state == Player.Paused) {
-                            return "Paused";
+                            return qsTr("Paused")
                         } else {
-                            return "";
+                            return ""
                         }
                     } else {
-                        return "Idle";
+                        return qsTr("Idle")
                     }
                 }
                 textStyle {

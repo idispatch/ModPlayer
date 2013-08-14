@@ -4,7 +4,7 @@ Page {
     property variant navigationPane
     
     titleBar: TitleBar {
-        title: "Select Songs by Format"
+        title: qsTr("Select Songs by Format")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }

@@ -4,9 +4,9 @@ import player 1.0
 ActionItem {
     title: {
         if(app.player.state == Player.Paused) {
-            return "Resume"
+            return qsTr("Resume")
         } else {
-            return "Pause"
+            return qsTr("Pause")
         }
     }
     enabled: {

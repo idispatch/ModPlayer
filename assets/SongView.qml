@@ -86,11 +86,11 @@ Page {
                             if(song!=null) {
                                 if(song.playCount > 0) {
                                     if(song.playCount == 1) {
-                                        return "You played this song once"
+                                        return qsTr("You played this song once")
                                     }
                                     return "You played this song <b>" + song.playCount + "</b> times"
                                 }
-                                return "You did not play this song yet"
+                                return qsTr("You did not play this song yet")
                             }
                             return "";
                         }
@@ -131,7 +131,7 @@ Page {
                         text: {
                             if(song != null) {
                                 if(song.myFavourite > 0) {
-                                    return "You liked this song"
+                                    return qsTr("You liked this song")
                                 }
                             }
                             return ""
@@ -145,7 +145,7 @@ Page {
                     text: {
                         if(song != null) {
                             if(app.cache.exists(song.fileName)) {
-                                return "<i>You have this song in the cache already</i>"
+                                return "<i>" + qsTr("You have this song in the cache already") + "</i>"
                             }
                         }
                         return "";
@@ -195,7 +195,7 @@ Page {
                                 if(song.favourited > 0) {
                                     return "Favourited by <b>" + song.favourited + "</b> people"
                                 }
-                                return "Not favourited by anyone yet"
+                                return qsTr("Not favourited by anyone yet")
                             }
                             return "";
                         }
@@ -219,7 +219,7 @@ Page {
                                 if(song.score > 0) {
                                     return "Rated <b>" + song.score + "</b> of <b>10</b> by others"
                                 }
-                                return "Not rated by anyone yet"
+                                return qsTr("Not rated by anyone yet")
                             }
                             return "";
                         }
@@ -247,7 +247,7 @@ Page {
             navigationPane.push(view)
             view.play(song)
             song.playCount = song.playCount + 1
-            song.lastPlayed = Date().getTime() / 1000 
+            song.lastPlayed = (new Date()).getTime() / 1000 
         }
     }
     
@@ -270,7 +270,7 @@ Page {
     
     actions: [ 
         ActionItem {
-            title: "Now Playing"
+            title: qsTr("Now Playing")
             imageSource: "asset:///images/actions/icon_nowplaying.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
             shortcuts: Shortcut {

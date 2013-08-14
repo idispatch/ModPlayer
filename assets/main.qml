@@ -5,10 +5,10 @@ TabbedPane {
     activeTab: formatsTab 
     Tab {
         id: myFavouriteTab
-        title: "My Favourite"
+        title: qsTr("My Favourite")
         objectName: title
         imageSource: "asset:///images/actions/icon_myfavourite.png"
-        description: "My Favourite Songs"
+        description: qsTr("My Favourite Songs")
         onTriggered: {
             songMyFavouriteView.load()
         }
@@ -25,10 +25,10 @@ TabbedPane {
     }
     Tab {
         id: recentlyPlayedTab
-        title: "Recent"
+        title: qsTr("Recent")
         objectName: title
         imageSource: "asset:///images/actions/icon_recent.png"
-        description: "Recently Played Songs"
+        description: qsTr("Recently Played Songs")
         onTriggered: {
             songRecentlyPlayedView.load()
         }
@@ -46,10 +46,10 @@ TabbedPane {
     
     Tab {
         id: mostPlayedTab
-        title: "Most Played"
+        title: qsTr("Most Played")
         objectName: title
         imageSource: "asset:///images/actions/icon_mostplayed.png"
-        description: "Most Played Songs"
+        description: qsTr("Most Played Songs")
         onTriggered: {
             songMostPlayedView.load()
         }
@@ -66,9 +66,9 @@ TabbedPane {
     }
     Tab {
         id: formatsTab
-        title: "Formats"
+        title: qsTr("Formats")
         objectName: title
-        description: "Songs By Module Format"
+        description: qsTr("Songs By Module Format")
         imageSource: "asset:///images/actions/icon_format.png"
         NavigationPane {
             FormatsList {
@@ -82,9 +82,9 @@ TabbedPane {
     }
     Tab {
         id: genresTab
-        title: "Genres"
+        title: qsTr("Genres")
         objectName: title
-        description: "Songs By Genre"
+        description: qsTr("Songs By Genre")
         imageSource: "asset:///images/actions/icon_genres.png"
         NavigationPane {
             GenresList {
@@ -98,9 +98,9 @@ TabbedPane {
     }
     Tab {
         id: artistsTab
-        title: "Artists"
+        title: qsTr("Artists")
         objectName: title
-        description: "Songs By Artist"
+        description: qsTr("Songs By Artist")
         imageSource: "asset:///images/actions/icon_artists.png"
         NavigationPane {
             ArtistsList {
@@ -114,10 +114,10 @@ TabbedPane {
     }
     Tab {
         id: topDownloadsTab
-        title: "Downloads"
+        title: qsTr("Downloads")
         objectName: title
         imageSource: "asset:///images/actions/icon_downloads.png"
-        description: "Top Downloaded Songs"
+        description: qsTr("Top Downloaded Songs")
         onTriggered: {
             songsTopDownloadedView.load()
         }
@@ -134,10 +134,10 @@ TabbedPane {
     }
     Tab {
         id: topFavouritedTab
-        title: "Favourited"
+        title: qsTr("Favourited")
         objectName: title
         imageSource: "asset:///images/actions/icon_favourite.png"
-        description: "Top Favourited Songs"
+        description: qsTr("Top Favourited Songs")
         onTriggered: {
             songTopFavouritedView.load()
         }
@@ -154,10 +154,10 @@ TabbedPane {
     }
     Tab {
         id: topScoredTab
-        title: "Scored"
+        title: qsTr("Scored")
         objectName: title
         imageSource: "asset:///images/actions/icon_score.png"
-        description: "Top Scored Songs"
+        description: qsTr("Top Scored Songs")
         onTriggered: {
             songTopScoredView.load()
         }
@@ -182,7 +182,7 @@ TabbedPane {
         }*/
         settingsAction: SettingsActionItem {
             id: settingsActionItem
-            title: "Settings";
+            title: qsTr("Settings")
             onTriggered : {
                 var view = settingsView.createObject(mainTabPane)
                 view.open()

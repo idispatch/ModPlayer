@@ -33,6 +33,8 @@ public:
     Cache * cache() const;
 
     Q_INVOKABLE QUrl getIconPath(QVariant value) const;
+
+    static const char * QmlNamespace;
 Q_SIGNALS:
     void playerChanged();
     void catalogChanged();

@@ -5,9 +5,9 @@ ActionItem {
     title: {
         if(app.player.state == Player.Playing ||
            app.player.state == Player.Paused) {
-            return "Stop"
+            return qsTr("Stop")
         } else {
-            return "Play"
+            return qsTr("Play")
         }
     }
     enabled: app.player.currentSong.songLoaded
