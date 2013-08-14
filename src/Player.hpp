@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <QMap>
 #include <QUrl>
+#include <QSettings>
 
 class Cache;
 class Catalog;
@@ -33,7 +34,7 @@ public:
         Preparing = 102
     };
 
-    Player(QObject * parent);
+    Player(QSettings &settings, QObject * parent);
     ~Player();
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
@@ -91,7 +92,6 @@ private:
     static QString fileNameOnly(QString const& fileName);
 
     void initData();
-    void initCatalog();
     void initCache();
     void initDownloader();
     void initPlayback();
@@ -105,6 +105,7 @@ private:
 
     void updateNowPlaying();
 private:
+    QSettings &m_settings;
     State m_state;
     QMap<int, QUrl> m_formatIdToIconUrlMap;
     QString m_statusText;

@@ -23,8 +23,10 @@ function formatTimeStamp(unix_timestamp) {
     var date = new Date(unix_timestamp * 1000);
     var diff = (((new Date()).getTime() - date.getTime()) / 1000);
     var day_diff = Math.floor(diff / 86400);
-    if(isNaN(day_diff) || day_diff < 0)
+    if(isNaN(day_diff))
         return "N/A";
+    if(day_diff < 0)
+        return "just now";
     return day_diff == 0 && (
            diff < 60 && "just now" ||
            diff < 120 && "1 minute ago" ||

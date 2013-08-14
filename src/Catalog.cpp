@@ -22,21 +22,11 @@ Catalog::Catalog(QObject * parent)
     : QObject(parent),
       m_dataAccess(NULL) {
     initCatalog();
-    initQMLTypes();
 }
 
 void Catalog::initCatalog() {
     copyCatalogToDataFolder();
     m_dataAccess = new SqlDataAccess(catalogPath(), "catalog", this);
-}
-
-void Catalog::initQMLTypes() {
-    DataSource::registerQmlTypes();
-    qmlRegisterUncreatableType<SongFormat>("player", 1, 0, "SongFormat", "");
-    qmlRegisterUncreatableType<SongGenre>("player", 1, 0, "SongGenre", "");
-    qmlRegisterUncreatableType<SongBasicInfo>("player", 1, 0, "SongBasicInfo", "");
-    qmlRegisterUncreatableType<SongInfo>("player", 1, 0, "SongInfo", "");
-    qmlRegisterUncreatableType<Artist>("player", 1, 0, "Artist", "");
 }
 
 void Catalog::copyCatalogToDataFolder() {

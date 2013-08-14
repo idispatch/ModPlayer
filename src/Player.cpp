@@ -11,17 +11,17 @@
 
 using namespace bb::multimedia;
 
-Player::Player(QObject * parent)
+Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
+      m_settings(settings),
       m_state(Stopped),
       m_statusText(tr("Stopped")),
       m_catalog(new Catalog(this)),
       m_cache(new Cache(this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
-      m_playback(new ModPlayback(this)),
+      m_playback(new ModPlayback(settings, this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
-    initCatalog();
     initCache();
     initDownloader();
     initPlayback();
@@ -75,14 +75,10 @@ QString Player::fileNameOnly(QString const& fileName) {
     }
 }
 
-void Player::initCatalog() {
-    qmlRegisterUncreatableType<Catalog>("player", 1, 0, "Catalog", "");
-}
-
 void Player::initCache() {
-    qmlRegisterUncreatableType<Cache>("player", 1, 0, "Cache", "");
     QStringList fileNameFilters;
     fileNameFilters << "*.mod"
+                    << "*.med"
                     << "*.mt2"
                     << "*.mtm"
                     << "*.s3m"
@@ -99,7 +95,6 @@ void Player::initCache() {
 
 void Player::initDownloader() {
     bool rc;
-    qmlRegisterUncreatableType<Downloader>("player", 1, 0, "Downloader", "");
     rc = connect(m_downloader,
                  SIGNAL(downloadStarted(int)),
                  this,
@@ -121,9 +116,6 @@ void Player::initDownloader() {
 }
 
 void Player::initPlayback() {
-    qmlRegisterUncreatableType<SongModule>("player", 1, 0, "Module", "");
-    qmlRegisterUncreatableType<ModPlayback>("player", 1, 0, "Playback", "");
-    qmlRegisterUncreatableType<PlaybackConfig>("player", 1, 0, "PlaybackConfig", "");
     bool rc;
     rc = connect(m_playback,
                  SIGNAL(playing()),

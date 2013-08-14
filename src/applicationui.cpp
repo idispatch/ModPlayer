@@ -5,6 +5,8 @@
 #include <bb/cascades/Container>
 #include <bb/cascades/SceneCover>
 
+#include  <bb/data/DataSource>
+
 #include "applicationui.hpp"
 #include "Player.hpp"
 #include "LCDDisplay.hpp"
@@ -12,7 +14,15 @@
 #include "SongBasicInfo.hpp"
 #include "SongModule.hpp"
 #include "SongFormat.hpp"
+#include "SongGenre.hpp"
+#include "Artist.hpp"
+#include "PlaybackConfig.hpp"
+#include "Cache.hpp"
+#include "Catalog.hpp"
+#include "Downloader.hpp"
+#include "ModPlayback.hpp"
 
+using namespace bb::data;
 using namespace bb::cascades;
 
 const char * ApplicationUI::QmlNamespace = "player";
@@ -21,10 +31,10 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     : QObject(app),
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
-      m_player(new Player(this)) {
+      m_player(new Player(m_settings, this)) {
     m_app = app;
-    initSignals();
     initTypes();
+    initSignals();
     initApp();
     initActiveCover();
     initPlayer();
@@ -45,6 +55,12 @@ void ApplicationUI::initSignals() {
 
 void ApplicationUI::onAboutToQuit() {
     LCDDigits::finalize();
+    if(m_player != 0) {
+        m_player->setParent(0);
+        delete m_player;
+        m_player = 0;
+    }
+    m_settings.sync();
 }
 
 QUrl ApplicationUI::getIconPath(QVariant value) const {
@@ -74,9 +90,27 @@ QUrl ApplicationUI::getIconPath(QVariant value) const {
 }
 
 void ApplicationUI::initTypes() {
-    qmlRegisterUncreatableType<Player>(QmlNamespace, 1, 0, "Player", "");
-    qmlRegisterType<LCDDisplay>(QmlNamespace, 1, 0, "LCDDisplay");
-    qmlRegisterType<LCDDigits>(QmlNamespace, 1, 0, "LCDDigits");
+    DataSource::registerQmlTypes();
+
+    const int versionMajor = 1, versionMinor = 0;
+
+    qmlRegisterUncreatableType<Player>(QmlNamespace, versionMajor, versionMinor, "Player", "");
+    qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");
+    qmlRegisterType<LCDDigits>(QmlNamespace, versionMajor, versionMinor, "LCDDigits");
+
+    qmlRegisterUncreatableType<Catalog>(QmlNamespace, versionMajor, versionMinor, "Catalog", "");
+    qmlRegisterUncreatableType<Cache>(QmlNamespace, versionMajor, versionMinor, "Cache", "");
+    qmlRegisterUncreatableType<Downloader>(QmlNamespace, versionMajor, versionMinor, "Downloader", "");
+
+    qmlRegisterUncreatableType<SongModule>(QmlNamespace, versionMajor, versionMinor, "Module", "");
+    qmlRegisterUncreatableType<ModPlayback>(QmlNamespace, versionMajor, versionMinor, "Playback", "");
+    qmlRegisterUncreatableType<PlaybackConfig>(QmlNamespace, versionMajor, versionMinor, "PlaybackConfig", "");
+
+    qmlRegisterUncreatableType<SongFormat>(QmlNamespace, versionMajor, versionMinor, "SongFormat", "");
+    qmlRegisterUncreatableType<SongGenre>(QmlNamespace, versionMajor, versionMinor, "SongGenre", "");
+    qmlRegisterUncreatableType<SongBasicInfo>(QmlNamespace, versionMajor, versionMinor, "SongBasicInfo", "");
+    qmlRegisterUncreatableType<SongInfo>(QmlNamespace, versionMajor, versionMinor, "SongInfo", "");
+    qmlRegisterUncreatableType<Artist>(QmlNamespace, versionMajor, versionMinor, "Artist", "");
 }
 
 void ApplicationUI::initApp() {
@@ -133,7 +167,7 @@ void ApplicationUI::initTranslator() {
 void ApplicationUI::onSystemLanguageChanged() {
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
     QString localeString = QLocale().name();
-    QString fileName = QString("ModPlayer_%1").arg(localeString);
+    QString fileName = QString("ModPlayer_%versionMinor").arg(localeString);
     if (m_pTranslator->load(fileName, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }

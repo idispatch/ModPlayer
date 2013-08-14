@@ -8,8 +8,9 @@
 
 #include "modplug.h"
 
-ModPlayback::ModPlayback(QObject * parent)
+ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
     : QThread(parent),
+      m_settings(settings),
       m_mutex(QMutex::NonRecursive),
       m_state(Exit),
       m_command(NoCommand),
@@ -17,17 +18,72 @@ ModPlayback::ModPlayback(QObject * parent)
       m_numDevices(0),
       m_pcmFd(-1),
       m_playback_handle(NULL) {
-    m_config.configureModPlug();
+    loadSettings();
 }
 
 ModPlayback::~ModPlayback() {
+    saveSettings();
     closePlayback(); // called from playback thread only
+}
+
+void ModPlayback::loadSettings() {
+    m_config.setStereo(m_settings.value("stereo", true).toBool());
+    m_config.setSampleSize(m_settings.value("sampleSize", 16).toInt());
+    m_config.setFrequency(m_settings.value("frequency", 44100).toInt());
+
+    m_config.setResamplingMode(m_settings.value("resamplingMode", 3).toInt());
+    m_config.setStereoSeparation(m_settings.value("stereoSeparation", 128).toInt());
+    m_config.setMaximumMixingChannels(m_settings.value("mixingChannels", 128).toInt());
+
+    m_config.setReverbEnabled(m_settings.value("reverbEnabled", true).toBool());
+    m_config.setReverbLevel(m_settings.value("reverbLevel", 50).toInt());
+    m_config.setReverbDelay(m_settings.value("reverbDelay", 128).toInt());
+
+    m_config.setBassEnabled(m_settings.value("bassEnabled", true).toBool());
+    m_config.setBassLevel(m_settings.value("bassLevel", 50).toInt());
+    m_config.setBassCutOff(m_settings.value("bassCutOff", 50).toInt());
+
+    m_config.setSurroundEnabled(m_settings.value("surroundEnabled", true).toBool());
+    m_config.setSurroundLevel(m_settings.value("surroundLevel", 50).toInt());
+    m_config.setSurroundDelay(m_settings.value("surroundDelay", 20).toInt());
+
+    m_config.setOversamplingEnabled(m_settings.value("oversamplingEnabled", true).toBool());
+    m_config.setNoiseReductionEnabled(m_settings.value("noiseReductionEnabled", true).toBool());
+
+    m_config.configureModPlug();
+}
+
+void ModPlayback::saveSettings() {
+    m_settings.setValue("stereo", m_config.stereo());
+    m_settings.setValue("sampleSize", m_config.sampleSize());
+    m_settings.setValue("frequency", m_config.frequency());
+
+    m_settings.setValue("resamplingMode", m_config.resamplingMode());
+    m_settings.setValue("stereoSeparation", m_config.stereoSeparation());
+    m_settings.setValue("mixingChannels", m_config.maximumMixingChannels());
+
+    m_settings.setValue("reverbEnabled", m_config.reverbEnabled());
+    m_settings.setValue("reverbLevel", m_config.reverbLevel());
+    m_settings.setValue("reverbDelay", m_config.reverbDelay());
+
+    m_settings.setValue("bassEnabled", m_config.bassEnabled());
+    m_settings.setValue("bassLevel", m_config.bassLevel());
+    m_settings.setValue("bassCutOff", m_config.bassCutOff());
+
+    m_settings.setValue("surroundEnabled", m_config.surroundEnabled());
+    m_settings.setValue("surroundLevel", m_config.surroundLevel());
+    m_settings.setValue("surroundDelay", m_config.surroundDelay());
+
+    m_settings.setValue("oversamplingEnabled", m_config.oversamplingEnabled());
+    m_settings.setValue("noiseReductionEnabled", m_config.noiseReductionEnabled());
+
+    m_settings.sync();
 }
 
 void ModPlayback::configure() {
     QMutexLocker locker(&m_mutex); // called from user thread
     if(!m_config.isAudioReconfigurationRequired()) {
-        qDebug() << "No audio reconfiguring required";
+        qDebug() << "No audio reconfiguration required";
         return;
     }
     qDebug() << "Reconfiguring playback";
@@ -235,6 +291,8 @@ void ModPlayback::configure_audio() {
         m_song.load(m_pendingSong, fileName);
         qDebug() << "Song module" << fileName << "reloaded";
     }
+
+    saveSettings();
 }
 
 void ModPlayback::run() {

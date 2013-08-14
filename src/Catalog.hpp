@@ -65,7 +65,6 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(Catalog)
     void initCatalog();
-    void initQMLTypes();
     void copyCatalogToDataFolder();
     SongInfo * selectSongInfo(QString const& whereClause);
     bb::cascades::DataModel * selectSongBasicInfo(QString const& whereClause,

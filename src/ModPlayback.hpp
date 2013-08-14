@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include <QByteArray>
+#include <QSettings>
 #include <sys/asoundlib.h>
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
@@ -25,7 +26,7 @@ public:
         Exit       /* no module loaded and thread loop exited */
     };
 
-    ModPlayback(QObject * parent);
+    ModPlayback(QSettings &settings, QObject * parent);
     virtual ~ModPlayback();
 
     State state();
@@ -77,10 +78,13 @@ private:
         RewindCommand
     };
 
+    void loadSettings();
+    void saveSettings();
     void configure_audio();
 
     PlaybackConfig m_config;
 
+    QSettings &m_settings;
     QMutex m_mutex;
     QWaitCondition m_cond;
     State m_state;

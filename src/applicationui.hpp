@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVariant>
 #include <QUrl>
+#include <QSettings>
 
 namespace bb
 {
@@ -52,6 +53,7 @@ private:
     void initPlayer();
     void initTranslator();
 private:
+    QSettings m_settings;
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     bb::cascades::Application * m_app;
