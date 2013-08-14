@@ -168,12 +168,18 @@ void ModPlayback::configure_audio() {
     QString fileName;
 
     if(m_config.isAudioReconfigurationRequired()) {
+        qDebug() << "Audio reconfiguration required";
+        qDebug() << "Stopping audio device";
         stopAudioDevice();
+        qDebug() << "Stopped audio device";
+        qDebug() << "Initializing audio playback";
         initPlayback();
+        qDebug() << "Audio playback initialized";
         if(m_song.songLoaded()) {
+            qDebug() << "Unloading song module";
             fileName = m_song.fileName();
             m_song.unload();
-            m_state = Idle;
+            qDebug() << "Song module unloaded";
         }
     }
 
@@ -218,9 +224,11 @@ void ModPlayback::configure_audio() {
 
     ModPlug_SetSettings(&settings);
 
-    /*if(fileName.length() > 0) {
-        m_song.load(fileName);
-    }*/
+    if(fileName.length() > 0) {
+        qDebug() << "Reloading song module";
+        m_song.load(m_pendingSong, fileName);
+        qDebug() << "Song module reloaded";
+    }
 }
 
 void ModPlayback::run() {
@@ -274,8 +282,10 @@ void ModPlayback::run() {
             continue;
         case ConfigureCommand:
             m_command = NoCommand;
-            configure_audio();
             m_cond.wakeAll();
+            m_mutex.unlock();
+            configure_audio();
+            m_mutex.lock();
             continue;
         case LoadCommand:
             m_command = NoCommand;
@@ -357,11 +367,10 @@ void ModPlayback::run() {
         case 0: // Timeout
             break;
         case -1: // Error
+            if(errno != EINTR && errno != EAGAIN)
             {
-                if(errno != EINTR && errno != EAGAIN)
-                {
-                    changeState(Exit);
-                }
+                changeState(Exit);
+                emit stopped();
             }
             break;
         default:
@@ -486,6 +495,7 @@ big_endian
 
     // GET
     if(snd_pcm_info(m_playback_handle, &pcm_info) != -1) {
+#if 0
         qDebug() << "type:" << pcm_info.type;
         qDebug() << "flags:" << pcm_info.flags;
         qDebug() << "id:" << pcm_info.id;
@@ -496,6 +506,7 @@ big_endian
         qDebug() << "device:" << pcm_info.device;
         qDebug() << "shared_card:" << pcm_info.shared_card;
         qDebug() << "shared_device:" << pcm_info.shared_device;
+#endif
     }
 
     // GET
@@ -511,7 +522,7 @@ big_endian
         return false;
     }
 
-
+#if 0
     qDebug() << "PCM channel info for device" << device << ":";
     qDebug() << "subdevice:" << channel_info.subdevice;
     qDebug() << "subname:" << channel_info.subname;
@@ -584,6 +595,7 @@ big_endian
     qDebug() << "max_fragment_size:" << channel_info.max_fragment_size;
     qDebug() << "fragment_align:" << channel_info.fragment_align;
     qDebug() << "fifo_size:" << channel_info.fifo_size;
+#endif
 
     if (channel_info.min_rate > pcm_format.rate ||
         channel_info.max_rate < pcm_format.rate ||

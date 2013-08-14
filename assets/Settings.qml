@@ -240,6 +240,24 @@ Sheet {
                 }
 
                 CheckBox {
+                    id: oversampling
+                    text: "Enable oversampling"
+                    checked: settingsRoot.configuration.oversamplingEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.oversamplingEnabled = oversampling.checked
+                    }
+                }
+
+                CheckBox {
+                    id: noiseReduction
+                    text: "Enable noise reduction"
+                    checked: settingsRoot.configuration.noiseReductionEnabled
+                    onCheckedChanged: {
+                        settingsRoot.configuration.noiseReductionEnabled = noiseReduction.checked
+                    }
+                }
+
+                CheckBox {
                     id: reverbEnabled
                     text: "Enable reverb"
                     checked: settingsRoot.configuration.reverbEnabled
@@ -426,24 +444,6 @@ Sheet {
                 Divider {
                     topMargin: dividerMargin
                     bottomMargin: dividerMargin
-                }
-
-                CheckBox {
-                    id: oversampling
-                    text: "Enable oversampling"
-                    checked: settingsRoot.configuration.oversamplingEnabled
-                    onCheckedChanged: {
-                        settingsRoot.configuration.oversamplingEnabled = oversampling.checked
-                    }
-                }
-
-                CheckBox {
-                    id: noiseReduction
-                    text: "Enable noise reduction"
-                    checked: settingsRoot.configuration.noiseReductionEnabled
-                    onCheckedChanged: {
-                        settingsRoot.configuration.noiseReductionEnabled = noiseReduction.checked
-                    }
                 }
 
                 attachedObjects: [
