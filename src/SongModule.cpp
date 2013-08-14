@@ -32,6 +32,11 @@ bool SongModule::songLoaded() const
     return m_modPlug != NULL;
 }
 
+QString SongModule::absoluteFileName() const
+{
+    return m_absoluteFileName;
+}
+
 QString SongModule::description() const
 {
     return m_description;
@@ -39,8 +44,9 @@ QString SongModule::description() const
 
 void SongModule::setDescription(const QString &value)
 {
-    if (m_description != value) {
-        m_description = value;
+    QString description = value.trimmed();
+    if (m_description != description) {
+        m_description = description;
         emit descriptionChanged();
     }
 }
@@ -145,8 +151,8 @@ QString SongModule::fileNameOnly(QString const& fileName)
 
 bool SongModule::load(SongInfo const& info, QString const& fileName)
 {
-    if (m_fileFullPath == fileName) {
-        return true;
+    if (m_absoluteFileName == fileName) {
+        return true; // not loading the same song twice
     }
 
     bool songWasLoaded = false;
@@ -155,14 +161,14 @@ bool SongModule::load(SongInfo const& info, QString const& fileName)
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
     }
-    m_fileFullPath = "";
+    m_absoluteFileName = ""; // no song loaded
 
     QFile fileIn(fileName);
     if (fileIn.open(QFile::ReadOnly)) {
         QByteArray data = fileIn.readAll();
         m_modPlug = ModPlug_Load(data.data(), data.size());
         if (m_modPlug != NULL) {
-            m_fileFullPath = fileName;
+            m_absoluteFileName = fileName;
 
             assignInfo(info);
 
@@ -202,7 +208,7 @@ bool SongModule::unload()
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
 
-        m_fileFullPath = "";
+        m_absoluteFileName = ""; // no song loaded
 
         setFileName("");
         setTitle("");

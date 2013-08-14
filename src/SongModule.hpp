@@ -14,6 +14,7 @@ class SongModule : public SongInfo {
     Q_PROPERTY(bool songLoaded READ songLoaded NOTIFY songLoadedChanged FINAL)
 
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged FINAL)
+    Q_PROPERTY(QString absoluteFileName READ absoluteFileName NOTIFY absoluteFileNameChanged FINAL)
 
     Q_PROPERTY(int currentOrder READ currentOrder WRITE setCurrentOrder NOTIFY currentOrderChanged FINAL)
     Q_PROPERTY(int currentPattern READ currentPattern WRITE setCurrentPattern NOTIFY currentPatternChanged FINAL)
@@ -33,6 +34,8 @@ public:
 
     QString description() const;
     void setDescription(const QString &value);
+
+    QString absoluteFileName() const;
 
     int currentOrder() const;
     void setCurrentOrder(int value);
@@ -65,7 +68,7 @@ Q_SIGNALS:
     void songLoadedChanged();
 
     void descriptionChanged();
-
+    void absoluteFileNameChanged();
     void currentOrderChanged();
     void currentPatternChanged();
     void currentRowChanged();
@@ -81,7 +84,7 @@ private:
     static QString fileNameOnly(QString const& fileName);
     void assignInfo(SongInfo const& other);
 private:
-    QString m_fileFullPath;
+    QString m_absoluteFileName;
     QString m_description;
 
     int m_currentOrder;

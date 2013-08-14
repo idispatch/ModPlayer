@@ -172,15 +172,21 @@ void ModPlayback::configure_audio() {
         qDebug() << "Stopping audio device";
         stopAudioDevice();
         qDebug() << "Stopped audio device";
+
         qDebug() << "Initializing audio playback";
         initPlayback();
         qDebug() << "Audio playback initialized";
+
         if(m_song.songLoaded()) {
-            qDebug() << "Unloading song module";
-            fileName = m_song.fileName();
+            fileName = m_song.absoluteFileName();
+            qDebug() << "Unloading song module" << fileName;
             m_song.unload();
-            qDebug() << "Song module unloaded";
+            qDebug() << "Song module" << fileName << "unloaded";
+        } else {
+            qDebug() << "Song module is not loaded";
         }
+    } else {
+        qDebug() << "No audio reconfiguration required";
     }
 
     ModPlug_Settings settings;
@@ -225,9 +231,9 @@ void ModPlayback::configure_audio() {
     ModPlug_SetSettings(&settings);
 
     if(fileName.length() > 0) {
-        qDebug() << "Reloading song module";
+        qDebug() << "Reloading song module" << fileName;
         m_song.load(m_pendingSong, fileName);
-        qDebug() << "Song module reloaded";
+        qDebug() << "Song module" << fileName << "reloaded";
     }
 }
 
@@ -283,9 +289,9 @@ void ModPlayback::run() {
         case ConfigureCommand:
             m_command = NoCommand;
             m_cond.wakeAll();
-            m_mutex.unlock();
+            //m_mutex.unlock();
             configure_audio();
-            m_mutex.lock();
+            //m_mutex.lock();
             continue;
         case LoadCommand:
             m_command = NoCommand;
