@@ -205,7 +205,7 @@ Sheet {
                         toValue: 256
                         value: settingsRoot.configuration.stereoSeparation
                         onValueChanged: {
-                            settingsRoot.configuration.stereoSeparation = value
+                            settingsRoot.configuration.stereoSeparation = stereoSeparation.value
                         }
                     }
                 }
@@ -229,7 +229,7 @@ Sheet {
                         toValue: 256
                         value: settingsRoot.configuration.maximumMixingChannels
                         onValueChanged: {
-                            settingsRoot.configuration.maximumMixingChannels = value
+                            settingsRoot.configuration.maximumMixingChannels = maximumMixingChannels.value
                         }
                     }
                 }
@@ -244,7 +244,7 @@ Sheet {
                     text: "Enable reverb"
                     checked: settingsRoot.configuration.reverbEnabled
                     onCheckedChanged: {
-                        settingsRoot.configuration.reverbEnabled = value
+                        settingsRoot.configuration.reverbEnabled = reverbEnabled.checked
                     }
                 }
 
@@ -272,7 +272,7 @@ Sheet {
                         toValue: 100
                         value: settingsRoot.configuration.reverbLevel
                         onValueChanged: {
-                            settingsRoot.configuration.reverbLevel = value
+                            settingsRoot.configuration.reverbLevel = reverbLevel.value
                         }
                     }
                     Label {
@@ -293,7 +293,7 @@ Sheet {
                         toValue: 200
                         value: settingsRoot.configuration.reverbDelay
                         onValueChanged: {
-                            settingsRoot.configuration.reverbDelay = value
+                            settingsRoot.configuration.reverbDelay = reverbDelay.value
                         }
                     }
                 }
@@ -308,7 +308,7 @@ Sheet {
                     text: "Enable megabass"
                     checked: settingsRoot.configuration.bassEnabled
                     onCheckedChanged: {
-                        settingsRoot.configuration.bassEnabled = checked
+                        settingsRoot.configuration.bassEnabled = megabassEnabled.checked
                     }
                 }
 
@@ -335,7 +335,7 @@ Sheet {
                         toValue: 100
                         value: settingsRoot.configuration.bassLevel
                         onValueChanged: {
-                            settingsRoot.configuration.bassLevel = value
+                            settingsRoot.configuration.bassLevel = megabassLevel.value
                         }
                     }
                     Label {
@@ -356,7 +356,7 @@ Sheet {
                         toValue: 100
                         value: settingsRoot.configuration.bassCutOff
                         onValueChanged: {
-                            settingsRoot.configuration.bassCutOff = value
+                            settingsRoot.configuration.bassCutOff = megabassCutoff.value
                         }
                     }
                 }
@@ -371,7 +371,7 @@ Sheet {
                     text: "Enable surround sound"
                     checked: settingsRoot.configuration.surroundEnabled
                     onCheckedChanged: {
-                        settingsRoot.configuration.surroundEnabled = value
+                        settingsRoot.configuration.surroundEnabled = surroundEnabled.checked
                     }
                 }
                 Container {
@@ -397,7 +397,7 @@ Sheet {
                         toValue: 100
                         value: settingsRoot.configuration.surroundLevel
                         onValueChanged: {
-                            settingsRoot.configuration.surroundLevel = value
+                            settingsRoot.configuration.surroundLevel = surroundLevel.value
                         }
                     }
                     Label {
@@ -418,7 +418,7 @@ Sheet {
                         toValue: 50
                         value: settingsRoot.configuration.surroundDelay
                         onValueChanged: {
-                            settingsRoot.configuration.surroundDelay = value
+                            settingsRoot.configuration.surroundDelay = surroundDelay.value
                         }
                     }
                 }
@@ -433,7 +433,7 @@ Sheet {
                     text: "Enable oversampling"
                     checked: settingsRoot.configuration.oversamplingEnabled
                     onCheckedChanged: {
-                        settingsRoot.configuration.oversamplingEnabled = value
+                        settingsRoot.configuration.oversamplingEnabled = oversampling.checked
                     }
                 }
 
@@ -442,7 +442,7 @@ Sheet {
                     text: "Enable noise reduction"
                     checked: settingsRoot.configuration.noiseReductionEnabled
                     onCheckedChanged: {
-                        settingsRoot.configuration.noiseReductionEnabled = value
+                        settingsRoot.configuration.noiseReductionEnabled = noiseReduction.checked
                     }
                 }
 
