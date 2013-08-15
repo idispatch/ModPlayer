@@ -48,7 +48,6 @@ SongBasicInfo::SongBasicInfo(int id,
 }
 
 SongBasicInfo::~SongBasicInfo() {
-    //qDebug() << "SongBasicInfo::~SongBasicInfo()";
 }
 
 SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
@@ -85,16 +84,15 @@ QString SongBasicInfo::title() const {
 }
 
 void SongBasicInfo::setTitle(const QString &value) {
-    if(m_title != value) {
-        QString newTitle(value);
-        newTitle = newTitle.trimmed();
-        if(newTitle.length() == 0) {
-            newTitle = m_fileName;
-        }
-        if(newTitle != m_title) {
-            m_title = newTitle;
-            emit titleChanged();
-        }
+    QString newTitle(value);
+    newTitle = newTitle.trimmed();
+    if(newTitle.length() == 0) {
+        newTitle = m_fileName;
+    }
+    if(m_title != newTitle) {
+
+        m_title = newTitle;
+        emit titleChanged();
     }
 }
 

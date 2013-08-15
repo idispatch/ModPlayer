@@ -25,7 +25,7 @@ ActionItem {
            app.player.state == Player.Paused) {
             app.player.stop()
         } else {
-            app.player.play(currentSong)
+            app.player.play(app.player.currentSong)
         }
     }
 }

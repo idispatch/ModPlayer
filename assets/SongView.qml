@@ -61,11 +61,8 @@ Page {
                     }
                 }
                 
-                Label {
-                    text: song != null ? "Format: " + song.format : ""
-                }
-                Label {
-                    text: song != null ? "Tracker: " + song.tracker : ""
+                SongExtendedData {
+                    song: songView.song
                 }
 
                 Divider{}

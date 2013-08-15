@@ -102,7 +102,7 @@ Container {
 
             Label {
                 horizontalAlignment: HorizontalAlignment.Center
-                text: playing ? app.player.currentSong.title : ""
+                text: app.player.currentSong.title
                 textStyle {
                     color: Color.White
                 }

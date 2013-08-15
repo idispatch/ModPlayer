@@ -387,29 +387,31 @@ SongInfo * Catalog::selectSongInfo(QString const& whereClause) {
     QString query = QString(
                 "SELECT"
                 " songs.id AS id,"
-                " fileName,"
+                " songs.fileName AS fileName,"
                 " songs.title as title,"
-                " format AS formatId, "
-                " downloads, "
-                " favourited, "
-                " score, "
-                " size, "
-                " length, "
-                " playCount, "
-                " lastPlayed, "
-                " myFavourite, "
+                " songs.format AS formatId, "
+                " songs.downloads AS downloads, "
+                " songs.favourited AS favourited, "
+                " songs.score AS score, "
+                " songs.size AS size, "
+                " songs.length AS length, "
+                " songs.playCount AS playCount, "
+                " songs.lastPlayed AS lastPlayed, "
+                " songs.myFavourite AS myFavourite, "
                 " formats.description AS format, "
                 " trackers.name AS tracker, "
-                " genre, "
-                " artist, "
-                " patterns, "
-                " orders, "
-                " instruments, "
-                " samples, "
-                " channels "
+                " genres.name AS genre, "
+                " artists.name AS artist, "
+                " songs.patterns AS patterns, "
+                " songs.orders AS orders, "
+                " songs.instruments AS instruments, "
+                " songs.samples AS samples, "
+                " songs.channels AS channels "
                 "FROM songs"
                 " INNER JOIN trackers ON trackers.id=songs.tracker "
-                " INNER JOIN formats ON formats.id=songs.format ");
+                " INNER JOIN formats ON formats.id=songs.format "
+                " INNER JOIN artists ON artists.id=songs.artist "
+                " INNER JOIN genres ON genres.id=songs.genre ");
     if(whereClause.length() > 0) {
         query += whereClause;
     }
@@ -417,9 +419,9 @@ SongInfo * Catalog::selectSongInfo(QString const& whereClause) {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
-        song = readSongInfo(sqlQuery, NULL); //TODO: leak
+        song = readSongInfo(sqlQuery, NULL);
     }
-    return song;
+    return song; // return an object with no parent
 }
 
 DataModel * Catalog::selectSongBasicInfo(QString const& whereClause,
