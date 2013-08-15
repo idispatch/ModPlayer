@@ -2,8 +2,6 @@ import bb.cascades 1.0
 import player 1.0
 
 Container {
-    id: songPlayData
-
     property variant song
 
     layout: StackLayout {

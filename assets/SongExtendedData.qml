@@ -2,7 +2,6 @@ import bb.cascades 1.0
 import "functions.js" as Global
 
 Container {
-    id: songExtendedData
     layout: StackLayout {
         orientation: LayoutOrientation.TopToBottom
     }
@@ -10,23 +9,23 @@ Container {
     property variant song
 
     Label {
-        visible: songExtendedData.song != null && songExtendedData.song.artist.length > 0
-        text: songExtendedData.song != null ? "Artist: <b>" + Global.escapeHtml(songExtendedData.song.artist) + "</b>" : ""
+        visible: song != null && song.artist.length > 0
+        text: song != null ? "Artist: <b>" + Global.escapeHtml(song.artist) + "</b>" : ""
         textFormat: TextFormat.Html
     }
     Label {
-        visible: songExtendedData.song != null && songExtendedData.song.genre.length > 0
-        text: songExtendedData.song != null ? "Genre: <b>" + songExtendedData.song.genre + "</b>" : ""
+        visible: song != null && song.genre.length > 0
+        text: song != null ? "Genre: <b>" + song.genre + "</b>" : ""
         textFormat: TextFormat.Html
     }
     Label {
-        visible: songExtendedData.song != null
-        text: songExtendedData.song != null ? "Format: " + songExtendedData.song.format : ""
+        visible: song != null
+        text: song != null ? "Format: " + song.format : ""
         textFormat: TextFormat.Html
     }
     Label {
-        visible: songExtendedData.song != null
-        text: songExtendedData.song != null ? "Tracker: " + songExtendedData.song.tracker : ""
+        visible: song != null
+        text: song != null ? "Tracker: " + song.tracker : ""
         textFormat: TextFormat.Html
     }
 }
