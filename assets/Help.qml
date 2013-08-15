@@ -62,14 +62,14 @@ Sheet {
                     textFormat: TextFormat.Html
                     topMargin: 20
                     bottomMargin: topMargin
-                    text: qsTr("The <b>ModPlayer</b> allows you to listen to the songs you liked while you are <i>offline</i> when the song is <i>already in cache</i>, you also don't have to download it again.")
+                    text: qsTr("The <b>ModPlayer</b> allows you to listen to the songs you liked while you are <i>offline</i> when the song is <i>already in cache</i>, you don't have to download it again.")
                 }
                 Label {
                     multiline: true
                     textFormat: TextFormat.Html
                     topMargin: 20
                     bottomMargin: topMargin
-                    text: qsTr("Song cache on you device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.")
+                    text: qsTr("The song cache on your device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.")
                 }
                 Label {
                     multiline: true
@@ -83,7 +83,7 @@ Sheet {
                     textFormat: TextFormat.Html
                     topMargin: 20
                     bottomMargin: topMargin
-                    text: qsTr("You can configure <b>ModPlayer</b> various options, such as <i>mixing frequency</i>, <i>stereo/mono</i> playback, <i>mixer quality</i> and more.")
+                    text: qsTr("You can configure various options of <b>ModPlayer</b>, such as <i>mixing frequency</i>, <i>stereo/mono</i> playback, <i>mixer quality</i> and more.")
                 }
                 Label {
                     multiline: true
@@ -104,7 +104,7 @@ Sheet {
                     textFormat: TextFormat.Html
                     topMargin: 20
                     bottomMargin: topMargin
-                    text: qsTr("There is thousands of songs <b>ModPlayer</b> has in its library, and I hope you will enjoy some songs. A good start is to look in <i>\"Downloads\"</i>, <i>\"Favourited\"</i> and <i>\"Scored\"</i> tabs." )
+                    text: qsTr("There are thousands of songs <b>ModPlayer</b> has in its library, and I hope you will enjoy many songs. A good start is to look in <i>\"Downloads\"</i>, <i>\"Favourited\"</i> and <i>\"Scored\"</i> tabs." )
                 }
                 Label {
                     multiline: true
