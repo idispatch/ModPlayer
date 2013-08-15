@@ -10,15 +10,15 @@ class Cache : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(QString cachePath READ cachePath FINAL)
-    Q_PROPERTY(qint64 maxSize READ maxSize WRITE setMaxSize NOTIFY maxSizeChanged FINAL)
+    Q_PROPERTY(int maxSize READ maxSize WRITE setMaxSize NOTIFY maxSizeChanged FINAL)
     Q_PROPERTY(int maxFiles READ maxFiles WRITE setMaxFiles NOTIFY maxFilesChanged FINAL)
-    Q_PROPERTY(qint64 currentSize READ currentSize NOTIFY currentSizeChanged FINAL)
+    Q_PROPERTY(int currentSize READ currentSize NOTIFY currentSizeChanged FINAL)
     Q_PROPERTY(int currentFiles READ currentFiles NOTIFY currentFilesChanged FINAL)
     Q_PROPERTY(QStringList files READ files NOTIFY filesChanged FINAL)
     Q_PROPERTY(QStringList fileNameFilters READ fileNameFilters WRITE setFileNameFilters FINAL)
 
 public:
-    Cache(QObject *parent = 0);
+    Cache(int maxSize, int maxFiles, QObject *parent = 0);
 
     QString cachePath() const;
     QStringList files() const;
@@ -26,14 +26,14 @@ public:
     QStringList fileNameFilters() const;
     void setFileNameFilters(QStringList const& value);
 
-    qint64 maxSize() const;
+    int maxSize() const;
+    void setMaxSize(int size);
+
     int maxFiles() const;
-
-    qint64 currentSize() const;
-    int currentFiles() const;
-
-    void setMaxSize(qint64 size);
     void setMaxFiles(int size);
+
+    int currentSize() const;
+    int currentFiles() const;
 
     Q_INVOKABLE void purge();
     Q_INVOKABLE void cache(QString const& fileName);
@@ -41,10 +41,10 @@ public:
     Q_INVOKABLE void remove(QString const& fileName);
 
 Q_SIGNALS:
-    void maxSizeChanged(qint64 value);
-    void maxFilesChanged(int value);
-    void currentSizeChanged(qint64 value);
-    void currentFilesChanged(int value);
+    void maxSizeChanged();
+    void maxFilesChanged();
+    void currentSizeChanged();
+    void currentFilesChanged();
     void filesChanged();
 private:
     Q_DISABLE_COPY(Cache)
@@ -53,7 +53,7 @@ private:
     void remove(QFileInfo const& fileInfo);
     void houseKeep();
     void initCache();
-    void notifyCacheChanged(int oldFiles, qint64 oldSize);
+    void notifyCacheChanged(int oldFiles, int oldSize);
 private:
     QStringList m_fileNameFilters;
     QFileInfoList m_files;

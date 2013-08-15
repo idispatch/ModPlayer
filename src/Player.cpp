@@ -17,7 +17,9 @@ Player::Player(QSettings &settings, QObject * parent)
       m_state(Stopped),
       m_statusText(tr("Stopped")),
       m_catalog(new Catalog(this)),
-      m_cache(new Cache(this)),
+      m_cache(new Cache(m_settings.value("cache/maxSize", 100 * 1024 * 1024).toInt(),
+                        m_settings.value("cache/maxSongs", 200).toInt(),
+                        this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
       m_playback(new ModPlayback(settings, this)),
@@ -29,6 +31,8 @@ Player::Player(QSettings &settings, QObject * parent)
 }
 
 Player::~Player() {
+    m_settings.setValue("cache/maxSize", m_cache->maxSize());
+    m_settings.setValue("cache/maxFiles", m_cache->maxFiles());
     if (m_playback != NULL) {
         m_playback->stopThread();
     }

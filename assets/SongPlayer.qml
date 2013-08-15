@@ -14,12 +14,18 @@ Page {
                 imageSource: "asset:///images/backgrounds/background.png"
             }
         ]
+        horizontalAlignment: HorizontalAlignment.Fill
+        verticalAlignment: VerticalAlignment.Fill
+
         ScrollView {
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
+
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+
                 leftPadding: 20
                 rightPadding: 20
                 

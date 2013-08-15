@@ -337,6 +337,14 @@
         <source>Surrond Delay</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Maximum Songs: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Cache Size: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongOtherStats</name>

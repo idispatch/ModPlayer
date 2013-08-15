@@ -3,10 +3,10 @@
 #include <QFile>
 #include <QDebug>
 
-Cache::Cache(QObject * parent)
-    : QObject(parent) {
-    m_maxSize = 100*1024*1024;
-    m_maxFiles = 200;
+Cache::Cache(int maxSize, int maxFiles, QObject * parent)
+    : QObject(parent),
+      m_maxSize(maxSize),
+      m_maxFiles(maxFiles) {
     initCache();
 }
 
@@ -47,15 +47,15 @@ QStringList Cache::fileNameFilters() const {
     return m_fileNameFilters;
 }
 
-void Cache::notifyCacheChanged(int oldFiles, qint64 oldSize) {
+void Cache::notifyCacheChanged(int oldFiles, int oldSize) {
     int newFiles = currentFiles();
-    qint64 newSize = currentSize();
+    int newSize = currentSize();
 
     if(oldFiles != newFiles) {
-        emit currentFilesChanged(newFiles);
+        emit currentFilesChanged();
     }
     if(oldSize != newSize) {
-        emit currentSizeChanged(newSize);
+        emit currentSizeChanged();
     }
 
     if(oldFiles != newFiles || oldSize != newSize) {
@@ -67,7 +67,7 @@ void Cache::setFileNameFilters(QStringList const& value) {
     if(value != m_fileNameFilters)
     {
         int oldFiles = currentFiles();
-        qint64 oldSize = currentSize();
+        int oldSize = currentSize();
 
         m_fileNameFilters = value;
         initCache();
@@ -76,7 +76,7 @@ void Cache::setFileNameFilters(QStringList const& value) {
     }
 }
 
-qint64 Cache::maxSize() const {
+int Cache::maxSize() const {
     return m_maxSize;
 }
 
@@ -84,8 +84,8 @@ int Cache::maxFiles() const {
     return m_maxFiles;
 }
 
-qint64 Cache::currentSize() const {
-    qint64 totalSize = 0;
+int Cache::currentSize() const {
+    int totalSize = 0;
     for(int i = 0; i < m_files.size(); i++) {
         totalSize += m_files[i].size();
     }
@@ -96,7 +96,7 @@ int Cache::currentFiles() const {
     return m_files.size();
 }
 
-void Cache::setMaxSize(qint64 size) {
+void Cache::setMaxSize(int size) {
     if(m_maxSize != size)
     {
         int oldMaxSize = m_maxSize;
@@ -105,7 +105,7 @@ void Cache::setMaxSize(qint64 size) {
         {
             houseKeep();
         }
-        emit maxSizeChanged(m_maxSize);
+        emit maxSizeChanged();
     }
 }
 
@@ -118,7 +118,7 @@ void Cache::setMaxFiles(int size) {
         {
             houseKeep();
         }
-        emit maxFilesChanged(m_maxFiles);
+        emit maxFilesChanged();
     }
 }
 
@@ -130,7 +130,7 @@ void Cache::purge() {
 }
 
 void Cache::houseKeep() {
-    qint64 totalSize = currentSize();
+    int totalSize = currentSize();
     int totalFiles = currentFiles();
     while(totalFiles > 0 && (totalSize > maxSize() ||
                              totalFiles > maxFiles()))
@@ -155,7 +155,7 @@ void Cache::cache(QString const& fileName) {
     {
         if(fileInfo.exists()) {
             int oldFiles = currentFiles();
-            qint64 oldSize = currentSize();
+            int oldSize = currentSize();
 
             m_files.append(fileInfo);
             houseKeep();
@@ -191,8 +191,8 @@ void Cache::remove(QString const& fileName) {
         QFileInfo fileInfo(absoluteFilePath);
         m_files.removeOne(fileInfo);
 
-        emit currentFilesChanged(currentFiles());
-        emit currentSizeChanged(currentSize());
+        emit currentFilesChanged();
+        emit currentSizeChanged();
         emit filesChanged();
     }
 }

@@ -25,10 +25,13 @@ Sheet {
                 title: qsTr("Apply")
                 onTriggered: {
                     app.player.playback.configure()
+                    app.cache.maxSize = Math.round(maxCacheSize.value)
+                    app.cache.maxFiles = Math.round(maxCacheSongs.value) 
                     settingsRoot.close();
                 }
             } 
         }
+
         ScrollView {
             Container {
                 layout: StackLayout {
@@ -39,7 +42,7 @@ Sheet {
                 rightPadding: 30
                 topPadding: 20
                 bottomPadding: 20
-                
+
                 Label {
                     text: qsTr("Cache")
                     horizontalAlignment: HorizontalAlignment.Center
@@ -47,12 +50,44 @@ Sheet {
                     textStyle.fontWeight: FontWeight.Bold
                 }
                 Label {
-                    text: "Songs: <b>" + app.player.cache.currentFiles + "</b>"
+                    text: "Cached Songs: <b>" + app.player.cache.currentFiles + "</b>"
                     textFormat: TextFormat.Html
                 }
                 Label {
-                    text: "Used size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
+                    text: "Used Cache Size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
                     textFormat: TextFormat.Html
+                }
+                
+                Label {
+                    text: qsTr("Maximum Songs: ") + Math.round(maxCacheSongs.value)
+                }
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.TopToBottom
+                    }
+                    leftPadding: groupSettingIndent
+                    Slider {
+                        id: maxCacheSongs
+                        fromValue: 5
+                        toValue: 500
+                        value: app.cache.maxFiles
+                    }
+                }
+
+                Label {
+                    text: qsTr("Maximum Cache Size: ") + Global.getSizeKb(Math.round(maxCacheSize.value)) 
+                }
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.TopToBottom
+                    }
+                    leftPadding: groupSettingIndent
+                    Slider {
+                        id: maxCacheSize
+                        fromValue: 5 * 1024 * 1024
+                        toValue: 400 * 1024 * 1024
+                        value: app.cache.maxSize
+                    }
                 }
 
                 Button {
