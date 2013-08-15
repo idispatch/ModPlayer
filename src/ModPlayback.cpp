@@ -27,55 +27,55 @@ ModPlayback::~ModPlayback() {
 }
 
 void ModPlayback::loadSettings() {
-    m_config.setStereo(m_settings.value("stereo", true).toBool());
-    m_config.setSampleSize(m_settings.value("sampleSize", 16).toInt());
-    m_config.setFrequency(m_settings.value("frequency", 44100).toInt());
+    m_config.setStereo(m_settings.value("mixer/stereo", true).toBool());
+    m_config.setSampleSize(m_settings.value("mixer/sampleSize", 16).toInt());
+    m_config.setFrequency(m_settings.value("mixer/frequency", 44100).toInt());
 
-    m_config.setResamplingMode(m_settings.value("resamplingMode", 3).toInt());
-    m_config.setStereoSeparation(m_settings.value("stereoSeparation", 128).toInt());
-    m_config.setMaximumMixingChannels(m_settings.value("mixingChannels", 128).toInt());
+    m_config.setResamplingMode(m_settings.value("mixer/resamplingMode", 3).toInt());
+    m_config.setStereoSeparation(m_settings.value("mixer/stereoSeparation", 128).toInt());
+    m_config.setMaximumMixingChannels(m_settings.value("mixer/mixingChannels", 128).toInt());
 
-    m_config.setReverbEnabled(m_settings.value("reverbEnabled", true).toBool());
-    m_config.setReverbLevel(m_settings.value("reverbLevel", 50).toInt());
-    m_config.setReverbDelay(m_settings.value("reverbDelay", 128).toInt());
+    m_config.setReverbEnabled(m_settings.value("mixer/reverbEnabled", true).toBool());
+    m_config.setReverbLevel(m_settings.value("mixer/reverbLevel", 50).toInt());
+    m_config.setReverbDelay(m_settings.value("mixer/reverbDelay", 128).toInt());
 
-    m_config.setBassEnabled(m_settings.value("bassEnabled", true).toBool());
-    m_config.setBassLevel(m_settings.value("bassLevel", 50).toInt());
-    m_config.setBassCutOff(m_settings.value("bassCutOff", 50).toInt());
+    m_config.setBassEnabled(m_settings.value("mixer/bassEnabled", true).toBool());
+    m_config.setBassLevel(m_settings.value("mixer/bassLevel", 50).toInt());
+    m_config.setBassCutOff(m_settings.value("mixer/bassCutOff", 50).toInt());
 
-    m_config.setSurroundEnabled(m_settings.value("surroundEnabled", true).toBool());
-    m_config.setSurroundLevel(m_settings.value("surroundLevel", 50).toInt());
-    m_config.setSurroundDelay(m_settings.value("surroundDelay", 20).toInt());
+    m_config.setSurroundEnabled(m_settings.value("mixer/surroundEnabled", true).toBool());
+    m_config.setSurroundLevel(m_settings.value("mixer/surroundLevel", 50).toInt());
+    m_config.setSurroundDelay(m_settings.value("mixer/surroundDelay", 20).toInt());
 
-    m_config.setOversamplingEnabled(m_settings.value("oversamplingEnabled", true).toBool());
-    m_config.setNoiseReductionEnabled(m_settings.value("noiseReductionEnabled", true).toBool());
+    m_config.setOversamplingEnabled(m_settings.value("mixer/oversamplingEnabled", true).toBool());
+    m_config.setNoiseReductionEnabled(m_settings.value("mixer/noiseReductionEnabled", true).toBool());
 
     m_config.configureModPlug();
 }
 
 void ModPlayback::saveSettings() {
-    m_settings.setValue("stereo", m_config.stereo());
-    m_settings.setValue("sampleSize", m_config.sampleSize());
-    m_settings.setValue("frequency", m_config.frequency());
+    m_settings.setValue("mixer/stereo", m_config.stereo());
+    m_settings.setValue("mixer/sampleSize", m_config.sampleSize());
+    m_settings.setValue("mixer/frequency", m_config.frequency());
 
-    m_settings.setValue("resamplingMode", m_config.resamplingMode());
-    m_settings.setValue("stereoSeparation", m_config.stereoSeparation());
-    m_settings.setValue("mixingChannels", m_config.maximumMixingChannels());
+    m_settings.setValue("mixer/resamplingMode", m_config.resamplingMode());
+    m_settings.setValue("mixer/stereoSeparation", m_config.stereoSeparation());
+    m_settings.setValue("mixer/mixingChannels", m_config.maximumMixingChannels());
 
-    m_settings.setValue("reverbEnabled", m_config.reverbEnabled());
-    m_settings.setValue("reverbLevel", m_config.reverbLevel());
-    m_settings.setValue("reverbDelay", m_config.reverbDelay());
+    m_settings.setValue("mixer/reverbEnabled", m_config.reverbEnabled());
+    m_settings.setValue("mixer/reverbLevel", m_config.reverbLevel());
+    m_settings.setValue("mixer/reverbDelay", m_config.reverbDelay());
 
-    m_settings.setValue("bassEnabled", m_config.bassEnabled());
-    m_settings.setValue("bassLevel", m_config.bassLevel());
-    m_settings.setValue("bassCutOff", m_config.bassCutOff());
+    m_settings.setValue("mixer/bassEnabled", m_config.bassEnabled());
+    m_settings.setValue("mixer/bassLevel", m_config.bassLevel());
+    m_settings.setValue("mixer/bassCutOff", m_config.bassCutOff());
 
-    m_settings.setValue("surroundEnabled", m_config.surroundEnabled());
-    m_settings.setValue("surroundLevel", m_config.surroundLevel());
-    m_settings.setValue("surroundDelay", m_config.surroundDelay());
+    m_settings.setValue("mixer/surroundEnabled", m_config.surroundEnabled());
+    m_settings.setValue("mixer/surroundLevel", m_config.surroundLevel());
+    m_settings.setValue("mixer/surroundDelay", m_config.surroundDelay());
 
-    m_settings.setValue("oversamplingEnabled", m_config.oversamplingEnabled());
-    m_settings.setValue("noiseReductionEnabled", m_config.noiseReductionEnabled());
+    m_settings.setValue("mixer/oversamplingEnabled", m_config.oversamplingEnabled());
+    m_settings.setValue("mixer/noiseReductionEnabled", m_config.noiseReductionEnabled());
 
     m_settings.sync();
 }
@@ -86,7 +86,6 @@ void ModPlayback::configure() {
         qDebug() << "No audio reconfiguration required";
         return;
     }
-    qDebug() << "Reconfiguring playback";
     m_command = ConfigureCommand;
     m_cond.wakeAll();
     while(m_command != NoCommand) {
@@ -397,6 +396,7 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state == Playing || m_state == Paused) {
                 m_state = Loaded;
+                m_song.rewind();
                 emit stopped();
             }
             m_cond.wakeAll();
