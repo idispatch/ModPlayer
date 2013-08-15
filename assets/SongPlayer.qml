@@ -9,8 +9,8 @@ Page {
     property variant currentSong
 
     function play(song) {
-        currentSong = song
-        app.player.play(currentSong)
+        songPlayer.currentSong = song
+        app.player.play(songPlayer.currentSong)
     }
 
     Container {
