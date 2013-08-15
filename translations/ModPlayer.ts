@@ -489,7 +489,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Twit!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -497,7 +505,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Help</source>
+        <source>BBM</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

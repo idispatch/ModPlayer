@@ -34,6 +34,8 @@ public:
     Cache * cache() const;
 
     Q_INVOKABLE void emailAuthor();
+    Q_INVOKABLE void twit();
+    Q_INVOKABLE void bbm();
 
     static const char * QmlNamespace;
 Q_SIGNALS:

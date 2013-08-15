@@ -206,6 +206,20 @@ TabbedPane {
 
         actions: [
             ActionItem {
+                title: qsTr("Twit!")
+                imageSource: "asset:///images/actions/icon_twitter.png"
+                onTriggered: {
+                    app.twit()
+                }
+            },
+            ActionItem {
+                title: qsTr("BBM")
+                imageSource: "asset:///images/actions/icon_bbm.png"
+                onTriggered: {
+                    app.bbm()
+                }
+            },
+            ActionItem {
                 title: qsTr("Email Author")
                 imageSource: "asset:///images/actions/icon_email.png"
                 onTriggered: {

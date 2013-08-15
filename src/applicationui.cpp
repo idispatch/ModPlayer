@@ -186,3 +186,24 @@ void ApplicationUI::emailAuthor() {
     request.setUri(url);
     invokeManager.invoke(request);
 }
+
+void ApplicationUI::twit() {
+    InvokeManager invokeManager;
+    InvokeRequest request;
+    request.setTarget("Twitter");
+    request.setAction("bb.action.SHARE");
+    request.setMimeType("text/plain");
+    request.setUri(QUrl("data://"));
+    request.setData("Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!");
+    invokeManager.invoke(request);
+}
+
+void ApplicationUI::bbm() {
+    InvokeManager invokeManager;
+    InvokeRequest request;
+    request.setTarget("sys.bbm.sharehandler");
+    request.setAction("bb.action.SHARE");
+    request.setMimeType("text/plain");
+    request.setData("Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!");
+    invokeManager.invoke(request);
+}
