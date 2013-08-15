@@ -26,31 +26,12 @@ Player::Player(QSettings &settings, QObject * parent)
     initDownloader();
     initPlayback();
     initNowPlaying();
-    initData();
 }
 
 Player::~Player() {
     if (m_playback != NULL) {
         m_playback->stopThread();
     }
-}
-
-void Player::initData() {
-    QString appFolder(QDir::homePath());
-    appFolder.chop(4); // remove data directory from end
-    QString imagesDir = appFolder + "app/native/assets/images/formats";
-    m_formatIdToIconUrlMap[1] = QUrl(QString("file://") + joinPath(imagesDir, "icon_mod.png"));
-    m_formatIdToIconUrlMap[2] = QUrl(QString("file://") + joinPath(imagesDir, "icon_669.png"));
-    m_formatIdToIconUrlMap[3] = QUrl(QString("file://") + joinPath(imagesDir, "icon_it.png"));
-    m_formatIdToIconUrlMap[4] = QUrl(QString("file://") + joinPath(imagesDir, "icon_med.png"));
-    m_formatIdToIconUrlMap[5] = QUrl(QString("file://") + joinPath(imagesDir, "icon_mtm.png"));
-    m_formatIdToIconUrlMap[8] = QUrl(QString("file://") + joinPath(imagesDir, "icon_s3m.png"));
-    m_formatIdToIconUrlMap[9] = QUrl(QString("file://") + joinPath(imagesDir, "icon_stm.png"));
-    m_formatIdToIconUrlMap[10] = QUrl(QString("file://") + joinPath(imagesDir, "icon_xm.png"));
-}
-
-QUrl Player::getIconPathByFormatId(int formatId) const {
-    return m_formatIdToIconUrlMap[formatId];
 }
 
 QString Player::joinPath(QString const& directory, QString const& fileName) {
@@ -95,44 +76,32 @@ void Player::initCache() {
 
 void Player::initDownloader() {
     bool rc;
-    rc = connect(m_downloader,
-                 SIGNAL(downloadStarted(int)),
-                 this,
-                 SLOT(onDownloadStarted(int)));
+    rc = QObject::connect(m_downloader, SIGNAL(downloadStarted(int)),
+                          this,         SLOT(onDownloadStarted(int)));
     Q_ASSERT(rc);
 
-    rc = connect(m_downloader,
-                 SIGNAL(downloadFinished(QString)),
-                 this,
-                 SLOT(onDownloadFinished(QString)));
+    rc = QObject::connect(m_downloader, SIGNAL(downloadFinished(QString)),
+                          this,         SLOT(onDownloadFinished(QString)));
     Q_ASSERT(rc);
 
-    rc = connect(m_downloader,
-                 SIGNAL(downloadFailure(int)),
-                 this,
-                 SLOT(onDownloadFailure(int)));
+    rc = QObject::connect(m_downloader, SIGNAL(downloadFailure(int)),
+                          this,         SLOT(onDownloadFailure(int)));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }
 
 void Player::initPlayback() {
     bool rc;
-    rc = connect(m_playback,
-                 SIGNAL(playing()),
-                 this,
-                 SLOT(onPlaying()));
+    rc = QObject::connect(m_playback, SIGNAL(playing()),
+                          this,       SLOT(onPlaying()));
     Q_ASSERT(rc);
 
-    rc = connect(m_playback,
-                 SIGNAL(paused()),
-                 this,
-                 SLOT(onPaused()));
+    rc = QObject::connect(m_playback, SIGNAL(paused()),
+                          this,       SLOT(onPaused()));
     Q_ASSERT(rc);
 
-    rc = connect(m_playback,
-                 SIGNAL(stopped()),
-                 this,
-                 SLOT(onStopped()));
+    rc = QObject::connect(m_playback, SIGNAL(stopped()),
+                          this,       SLOT(onStopped()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
@@ -141,34 +110,24 @@ void Player::initPlayback() {
 
 void Player::initNowPlaying() {
     bool rc;
-    rc = connect(m_nowPlaying,
-                 SIGNAL(acquired()),
-                 this,
-                 SLOT(onNowPlayingAcquired()));
+    rc = QObject::connect(m_nowPlaying, SIGNAL(acquired()),
+                          this,         SLOT(onNowPlayingAcquired()));
     Q_ASSERT(rc);
 
-    rc = connect(m_nowPlaying,
-                 SIGNAL(revoked()),
-                 this,
-                 SLOT(onNowPlayingRevoked()));
+    rc = QObject::connect(m_nowPlaying, SIGNAL(revoked()),
+                          this,         SLOT(onNowPlayingRevoked()));
     Q_ASSERT(rc);
 
-    rc = connect(m_nowPlaying,
-                 SIGNAL(pause()),
-                 this,
-                 SLOT(onNowPlayingPause()));
+    rc = QObject::connect(m_nowPlaying, SIGNAL(pause()),
+                          this,         SLOT(onNowPlayingPause()));
     Q_ASSERT(rc);
 
-    rc = connect(m_nowPlaying,
-                 SIGNAL(play()),
-                 this,
-                 SLOT(onNowPlayingPlay()));
+    rc = QObject::connect(m_nowPlaying, SIGNAL(play()),
+                          this,         SLOT(onNowPlayingPlay()));
     Q_ASSERT(rc);
 
-    rc = connect(m_nowPlaying,
-                 SIGNAL(stop()),
-                 this,
-                 SLOT(onNowPlayingStop()));
+    rc = QObject::connect(m_nowPlaying, SIGNAL(stop()),
+                          this,         SLOT(onNowPlayingStop()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }
@@ -237,7 +196,7 @@ void Player::updateNowPlaying() {
     m_nowPlaying->setNextEnabled(false);
     m_nowPlaying->setPreviousEnabled(false);
     m_nowPlaying->setMetaData(metadata);
-    m_nowPlaying->setIconUrl(getIconPathByFormatId(currentSong()->formatId()));
+    m_nowPlaying->setIconUrl(currentSong()->iconPath());
 }
 
 void Player::onNowPlayingAcquired() {

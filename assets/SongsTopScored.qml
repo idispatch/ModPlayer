@@ -2,15 +2,15 @@ import bb.cascades 1.0
 
 Page {
     objectName: "SongsTopScored"
-    
+
     property variant navigationPane
-    
+
     titleBar: TitleBar {
         title: qsTr("Top Scored Songs")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
+
     Container {
         layout: StackLayout {
         }
@@ -27,24 +27,22 @@ Page {
         }
         ListView {
             id: songs
-            
+
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
-            property variant app_ref: app
-            
+
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
-                        title: ListItemData.title
-                        description: ListItemData.fileName
-                        status: ListItemData.score + " of 10"
-                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
+                        title: ListItem.data.title
+                        description: ListItem.data.fileName
+                        status: ListItem.data.score + " of 10"
+                        imageSource: ListItem.data.iconPath
                     }
                 }
             ]
-            
+
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
@@ -52,7 +50,7 @@ Page {
                 view.load(chosenItem.modId)
                 navigationPane.push(view)
             }
-            
+
             attachedObjects: [
                 ComponentDefinition {
                     id: songView
@@ -61,14 +59,14 @@ Page {
             ]
         }
     }
-    
+
     function load() {
         songs.dataModel = app.player.catalog.findMostScoredSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true
     }
-    
+
     actions: [ 
         PlayerActionItem {
             navigationPane: parent.navigationPane

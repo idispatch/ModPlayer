@@ -36,7 +36,7 @@ Page {
                         orientation: LayoutOrientation.LeftToRight
                     }
                     SongIconView {
-                        song: songView.song
+                        song: songView.song != null ? songView.song : null
                     }
                     Container {
                         layout: StackLayout {
@@ -62,7 +62,7 @@ Page {
                 }
                 
                 SongExtendedData {
-                    song: songView.song
+                    song: songView.song != null ? songView.song : null
                 }
 
                 Divider{}
@@ -152,18 +152,13 @@ Page {
                 Divider{}
 
                 SongOtherStats {
-                    song: songView.song
+                    song: songView != null ? songView.song : null
                 }
 
                 Divider{}
 
                 SongStatData {
-                    songLoaded: true
-                    songOrders: song == null ? -1 : song.orders
-                    songChannels: song == null ? -1 : song.channels
-                    songPatterns: song == null ? -1 : song.patterns
-                    songInstruments: song == null ? -1 : song.instruments
-                    songSamples: song == null ? -1 : song.samples
+                    song: songView != null ? songView.song : null
                 }
             }
         }

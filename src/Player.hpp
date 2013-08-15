@@ -59,8 +59,6 @@ public:
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
-
-    QUrl getIconPathByFormatId(int formatId) const;
 Q_SIGNALS:
     void stateChanged();
     void statusTextChanged();
@@ -91,7 +89,6 @@ private:
     static QString joinPath(QString const& directory, QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
 
-    void initData();
     void initCache();
     void initDownloader();
     void initPlayback();

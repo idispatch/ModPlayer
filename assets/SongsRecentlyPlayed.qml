@@ -31,16 +31,14 @@ Page {
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
-            property variant app_ref: app
-            
+
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
-                        title: ListItemData.title
-                        description: ListItemData.fileName
+                        title: ListItem.data.title
+                        description: ListItem.data.fileName
                         status: Global.formatTimeStamp(ListItemData.lastPlayed)
-                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
+                        imageSource: ListItem.data.iconPath
                     }
                 }
             ]

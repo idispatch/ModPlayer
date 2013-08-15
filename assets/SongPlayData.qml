@@ -3,24 +3,16 @@ import player 1.0
 
 Container {
     id: songPlayData
-    
+
+    property variant song
+
     layout: StackLayout {
         orientation: LayoutOrientation.LeftToRight
     }
-    
-    property bool songLoaded: true
 
-    property alias songOrder: lcdOrder.number
-    property alias songPattern: lcdPattern.number
-    property alias songRow: lcdRow.number
-    property alias songChannels: lcdChannels.number
-    property alias songVolume: lcdVolume.number
-    property alias songSpeed: lcdSpeed.number
-    property alias songTempo: lcdTempo.number
-    
-    visible: songLoaded
+    visible: song != null && song.songLoaded
     horizontalAlignment: HorizontalAlignment.Fill
-    
+
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
@@ -30,8 +22,7 @@ Container {
         }
         rightMargin: 40
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Order"
@@ -39,15 +30,14 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdOrder
+                number: song != null ? song.currentOrder : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Pattern"
@@ -55,15 +45,14 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdPattern
+                number: song != null ? song.currentPattern : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Row"
@@ -71,15 +60,14 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdRow
+                number: song != null ? song.currentRow : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Channels"
@@ -87,7 +75,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdChannels
+                number: song != null ? song.playingChannels : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
@@ -103,8 +91,7 @@ Container {
         }
         leftMargin: 40
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Speed"
@@ -112,15 +99,14 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdSpeed
+                number: song != null ? song.currentSpeed : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Tempo"
@@ -128,15 +114,14 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdTempo
+                number: song != null ? song.currentTempo : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Volume"
@@ -144,7 +129,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdVolume
+                number: song != null ? song.masterVolume : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3

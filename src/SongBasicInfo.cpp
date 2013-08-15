@@ -1,4 +1,5 @@
 #include "SongBasicInfo.hpp"
+#include "SongFormat.hpp"
 #include <QDebug>
 
 SongBasicInfo::SongBasicInfo(QObject *parent)
@@ -29,9 +30,9 @@ SongBasicInfo::SongBasicInfo(int id,
                              bool myFavourite,
                              QObject * parent)
    : QObject(parent),
+     m_modId(id),
      m_fileName(fileName),
      m_title(title),
-     m_modId(id),
      m_formatId(format),
      m_fileSize(size),
      m_songLength(length),
@@ -52,9 +53,9 @@ SongBasicInfo::~SongBasicInfo() {
 
 SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
     if(this != & other) {
+        setModId(other.modId());
         setFileName(other.fileName());
         setTitle(other.title());
-        setModId(other.modId());
         setFormatId(other.formatId());
         setFileSize(other.fileSize());
         setSongLength(other.songLength());
@@ -115,7 +116,12 @@ void SongBasicInfo::setFormatId(int value) {
     if(m_formatId != value) {
         m_formatId = value;
         emit formatIdChanged();
+        emit iconPathChanged();
     }
+}
+
+QUrl SongBasicInfo::iconPath() const {
+    return SongFormat::getIconPath(m_formatId);
 }
 
 int SongBasicInfo::fileSize() const {

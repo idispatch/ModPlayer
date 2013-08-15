@@ -47,10 +47,10 @@ ApplicationUI::~ApplicationUI() {
 
 void ApplicationUI::initSignals() {
     bool rc;
-    rc = connect(m_app,
-                 SIGNAL(aboutToQuit()),
-                 this,
-                 SLOT(onAboutToQuit()));
+    rc = QObject::connect(m_app,
+                          SIGNAL(aboutToQuit()),
+                          this,
+                          SLOT(onAboutToQuit()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }
@@ -63,32 +63,6 @@ void ApplicationUI::onAboutToQuit() {
         m_player = 0;
     }
     m_settings.sync();
-}
-
-QUrl ApplicationUI::getIconPath(QVariant value) const {
-    if(value.type() == QVariant::Int)
-    {
-        return m_player->getIconPathByFormatId(value.toInt());
-    }
-    else if((int)value.type() == (int)QMetaType::QObjectStar)
-    {
-        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(value.value<QObject*>());
-        if(info != NULL)
-        {
-            return m_player->getIconPathByFormatId(info->formatId());
-        }
-        SongModule * module = qobject_cast<SongModule*>(value.value<QObject*>());
-        if(module != NULL)
-        {
-            return m_player->getIconPathByFormatId(module->formatId());
-        }
-        SongFormat * format = qobject_cast<SongFormat*>(value.value<QObject*>());
-        if(format != NULL)
-        {
-            return m_player->getIconPathByFormatId(format->id());
-        }
-    }
-    return QUrl();
 }
 
 void ApplicationUI::initTypes() {
@@ -141,26 +115,26 @@ void ApplicationUI::initActiveCover() {
 
 void ApplicationUI::initPlayer() {
     bool rc;
-    rc = connect(m_player,
-                 SIGNAL(catalogChanged()),
-                 this,
-                 SLOT(onCatalogChanged()));
+    rc = QObject::connect(m_player,
+                          SIGNAL(catalogChanged()),
+                          this,
+                          SLOT(onCatalogChanged()));
     Q_ASSERT(rc);
 
-    rc = connect(m_player,
-                 SIGNAL(cacheChanged()),
-                 this,
-                 SLOT(onCacheChanged()));
+    rc = QObject::connect(m_player,
+                          SIGNAL(cacheChanged()),
+                          this,
+                          SLOT(onCacheChanged()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }
 
 void ApplicationUI::initTranslator() {
     bool rc;
-    rc = connect(m_pLocaleHandler,
-                 SIGNAL(systemLanguageChanged()),
-                 this,
-                 SLOT(onSystemLanguageChanged()));
+    rc = QObject::connect(m_pLocaleHandler,
+                          SIGNAL(systemLanguageChanged()),
+                          this,
+                          SLOT(onSystemLanguageChanged()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
     onSystemLanguageChanged();

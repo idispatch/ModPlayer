@@ -33,7 +33,6 @@ public:
     Catalog * catalog() const;
     Cache * cache() const;
 
-    Q_INVOKABLE QUrl getIconPath(QVariant value) const;
     Q_INVOKABLE void emailAuthor();
 
     static const char * QmlNamespace;

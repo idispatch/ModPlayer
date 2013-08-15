@@ -30,20 +30,18 @@ Page {
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
-            property variant app_ref: app
-            
+
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
-                        title: ListItemData.title
-                        description: ListItemData.fileName
-                        status: ListItemData.favourited + " times"
-                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
+                        title: ListItem.data.title
+                        description: ListItem.data.fileName
+                        status: ListItem.data.favourited + " times"
+                        imageSource: ListItem.data.iconPath
                     }
                 }
             ]
-            
+
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
@@ -51,7 +49,7 @@ Page {
                 view.load(chosenItem.modId)
                 navigationPane.push(view)
             }
-            
+
             attachedObjects: [
                 ComponentDefinition {
                     id: songView
@@ -60,14 +58,14 @@ Page {
             ]
         }
     }
-    
+
     function load() {
         songs.dataModel = app.player.catalog.findMostFavouritedSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true
     }
-    
+
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane

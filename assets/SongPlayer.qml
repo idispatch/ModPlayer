@@ -79,26 +79,13 @@ Page {
                     Divider {}
 
                     SongStatData {
-                        songLoaded: app.player.currentSong.songLoaded
-                        songOrders: app.player.currentSong.orders
-                        songChannels: app.player.currentSong.channels
-                        songPatterns: app.player.currentSong.patterns
-                        songInstruments: app.player.currentSong.instruments
-                        songSamples: app.player.currentSong.samples
+                        song: app.player.currentSong
                     }
                     
                     Divider {}
                     
                     SongPlayData {
-                        visible: app.player.currentSong.songLoaded
-                        songLoaded: app.player.currentSong.songLoaded
-                        songOrder: app.player.currentSong.currentOrder
-                        songPattern: app.player.currentSong.currentPattern
-                        songRow: app.player.currentSong.currentRow
-                        songChannels: app.player.currentSong.playingChannels
-                        songSpeed: app.player.currentSong.currentSpeed
-                        songTempo: app.player.currentSong.currentTempo
-                        songVolume: app.player.currentSong.masterVolume
+                        song: app.player.currentSong
                     }
                     
                     Divider {

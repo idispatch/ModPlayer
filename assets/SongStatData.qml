@@ -2,24 +2,15 @@ import bb.cascades 1.0
 import player 1.0
 
 Container {
-    id: songStatData
+    property variant song
     
     layout: StackLayout {
         orientation: LayoutOrientation.LeftToRight
     }
-    
-    property bool songLoaded: true
-    
-    property alias songOrders: lcdOrders.number
-    property alias songPatterns: lcdPatterns.number
-    property alias songChannels: lcdChannels.number
-    
-    property alias songInstruments: lcdInstruments.number
-    property alias songSamples: lcdSamples.number
-    
-    visible: songLoaded
+
+    visible: song != null
     horizontalAlignment: HorizontalAlignment.Fill
-    
+
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
@@ -29,8 +20,7 @@ Container {
         }
         rightMargin: 50
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Orders"
@@ -38,7 +28,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdOrders
+                number: song!=null ? song.orders : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
@@ -54,7 +44,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdPatterns
+                number: song!=null ? song.patterns : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
@@ -70,7 +60,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdChannels
+                number: song!=null ? song.channels : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
@@ -95,7 +85,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdInstruments
+                number: song!=null ? song.instruments : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3
@@ -111,7 +101,7 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Left
             }
             LCDDigits {
-                id: lcdSamples
+                number: song!=null ? song.samples : -1
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Right
                 numDigits: 3

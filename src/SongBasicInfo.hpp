@@ -3,6 +3,7 @@
 
 #include <QMetaType>
 #include <QObject>
+#include <QUrl>
 
 class SongBasicInfo : public QObject {
     Q_OBJECT
@@ -10,6 +11,7 @@ class SongBasicInfo : public QObject {
     Q_PROPERTY(int modId READ modId WRITE setModId NOTIFY modIdChanged FINAL)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
+    Q_PROPERTY(QUrl iconPath READ iconPath NOTIFY iconPathChanged FINAL)
 
     Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize NOTIFY fileSizeChanged FINAL)
     Q_PROPERTY(int songLength READ songLength WRITE setSongLength NOTIFY songLengthChanged FINAL)
@@ -60,6 +62,8 @@ public:
     int formatId() const;
     void setFormatId(int value);
 
+    QUrl iconPath() const;
+
     int downloads() const;
     void setDownloads(int value);
 
@@ -82,6 +86,7 @@ Q_SIGNALS:
     void titleChanged();
     void modIdChanged();
     void formatIdChanged();
+    void iconPathChanged();
     void fileSizeChanged();
     void songLengthChanged();
     void songLengthTextChanged();
@@ -92,9 +97,9 @@ Q_SIGNALS:
     void lastPlayedChanged();
     void myFavouriteChanged();
 private:
+    int m_modId;
     QString m_fileName;
     QString m_title;
-    int m_modId;
     int m_formatId;
     int m_fileSize;
     int m_songLength;

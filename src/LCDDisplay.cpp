@@ -27,10 +27,8 @@ LCDDisplay::LCDDisplay(Container *parent)
       m_wiggle(0),
       m_wiggleDirection(1) {
     bool rc;
-    rc = connect(m_timer,
-                 SIGNAL(timeout()),
-                 this,
-                 SLOT(onUpdateTimeout()));
+    rc = QObject::connect(m_timer, SIGNAL(timeout()),
+                          this,    SLOT(onUpdateTimeout()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 

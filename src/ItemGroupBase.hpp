@@ -7,7 +7,6 @@
 
 class ItemGroupBase : public QObject {
     Q_OBJECT
-
     Q_PROPERTY(int id READ id NOTIFY idChanged FINAL)
     Q_PROPERTY(QString name READ name NOTIFY nameChanged FINAL)
     Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)

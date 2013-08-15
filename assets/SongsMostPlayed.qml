@@ -31,15 +31,13 @@ Page {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
-            property variant app_ref: app
-            
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
-                        title: ListItemData.title
-                        description: ListItemData.fileName
-                        status: ListItemData.playCount == 1 ? "once" : (ListItemData.playCount + " times")
-                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
+                        title: ListItem.data.title
+                        description: ListItem.data.fileName
+                        status: ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times")
+                        imageSource: ListItem.data.iconPath
                     }
                 }
             ]

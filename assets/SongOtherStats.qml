@@ -14,7 +14,7 @@ Container {
         visible: songStatsRoot.song!=null
         ImageView {
             imageSource: "asset:///images/badges/badge_downloads.png"
-            visible: songStatsRoot.song.downloads > 0
+            visible: songStatsRoot.song != null && songStatsRoot.song.downloads > 0
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
@@ -37,7 +37,7 @@ Container {
         visible: songStatsRoot.song!=null
         ImageView {
             imageSource: "asset:///images/badges/badge_favourite.png"
-            visible: songStatsRoot.song.favourited > 0
+            visible: songStatsRoot.song !=null && songStatsRoot.song.favourited > 0
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
@@ -63,7 +63,7 @@ Container {
             imageSource: "asset:///images/badges/badge_score.png"
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
-            visible: songStatsRoot.song.score > 0
+            visible: songStatsRoot.song != null && songStatsRoot.song.score > 0
         }
         Label {
             textFormat: TextFormat.Html

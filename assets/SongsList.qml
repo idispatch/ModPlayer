@@ -44,7 +44,6 @@ Page {
         ]
         ListView {
             id: songs
-            property variant app_ref: app
             
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -59,10 +58,10 @@ Page {
                 ListItemComponent {
                     type: "item"
                     StandardListItem {
-                        title: ListItemData.title
-                        description: ListItemData.fileName
-                        status: ListItemData.downloads + " downloads"
-                        imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
+                        title: ListItem.data.title
+                        description: ListItem.data.fileName
+                        status: ListItem.data.downloads + " downloads"
+                        imageSource: ListItem.data.iconPath
                     }
                 }
             ]

@@ -19,17 +19,15 @@ Page {
             }
         ]
         ListView {
-            property variant app_ref: app
-            
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             
             listItemComponents: ListItemComponent {
                 StandardListItem {
-                    title: ListItemData.name
-                    description: ListItemData.description
-                    status: ListItemData.count + " songs"
-                    imageSource: ListItem.view.app_ref.getIconPath(ListItemData)
+                    title: ListItem.data.name
+                    description: ListItem.data.description
+                    status: ListItem.data.count + " songs"
+                    imageSource: ListItem.data.iconPath
                 }
             }
         
