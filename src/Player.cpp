@@ -18,7 +18,7 @@ Player::Player(QSettings &settings, QObject * parent)
       m_statusText(tr("Stopped")),
       m_catalog(new Catalog(this)),
       m_cache(new Cache(m_settings.value("cache/maxSize", 100 * 1024 * 1024).toInt(),
-                        m_settings.value("cache/maxSongs", 200).toInt(),
+                        m_settings.value("cache/maxFiles", 200).toInt(),
                         this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),

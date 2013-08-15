@@ -139,13 +139,21 @@ Page {
                     visible: song!=null && app.cache.exists(song.fileName)
                     textFormat: TextFormat.Html
                     horizontalAlignment: HorizontalAlignment.Center
-                    text: {
+                    text: getLabelText()
+                    function getLabelText() {
                         if(song != null) {
                             if(app.cache.exists(song.fileName)) {
                                 return "<i>" + qsTr("You have this song in the cache already") + "</i>"
                             }
                         }
                         return "";
+                    }
+                    function currentCacheFilesChanged() {
+                        visible = song!=null && app.cache.exists(song.fileName)
+                        text = getLabelText()
+                    }
+                    onCreationCompleted: {
+                        app.cache.currentFilesChanged.connect(currentCacheFilesChanged)
                     }
                 }
 
