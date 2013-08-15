@@ -177,7 +177,7 @@ Page {
             var view = songPlayer.createObject()
             view.navigationPane = navigationPane 
             navigationPane.push(view)
-            view.play(song)
+            app.player.play(song)
             song.playCount = song.playCount + 1
             song.lastPlayed = (new Date()).getTime() / 1000 
         }

@@ -3,15 +3,7 @@ import player 1.0
 import "functions.js" as Global
 
 Page {
-    id: songPlayer
-    
     property variant navigationPane
-    property variant currentSong
-
-    function play(song) {
-        songPlayer.currentSong = song
-        app.player.play(songPlayer.currentSong)
-    }
 
     Container {
         background: back.imagePaint
@@ -56,7 +48,7 @@ Page {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         SongIconView {
-                            song: songPlayer.currentSong
+                            song: app.player.currentSong
                         }
                         Container {
                             layout: StackLayout {
@@ -81,7 +73,7 @@ Page {
                     Divider {}
 
                     SongOtherStats {
-                        song: songPlayer.currentSong
+                        song: app.player.currentSong
                     }
 
                     Divider {}
