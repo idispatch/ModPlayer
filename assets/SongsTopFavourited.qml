@@ -2,18 +2,16 @@ import bb.cascades 1.0
 
 Page {
     objectName: "SongsTopFavourited"
-    
+
     property variant navigationPane
-    
+
     titleBar: TitleBar {
         title: qsTr("Top Favourited Songs")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
+
     Container {
-        layout: StackLayout {
-        }
         background: back.imagePaint
         attachedObjects: [
             ImagePaintDefinition {

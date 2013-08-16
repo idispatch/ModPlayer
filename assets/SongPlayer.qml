@@ -3,8 +3,6 @@ import player 1.0
 import "functions.js" as Global
 
 Page {
-    property variant navigationPane
-
     Container {
         background: back.imagePaint
         attachedObjects: [
@@ -18,26 +16,18 @@ Page {
         verticalAlignment: VerticalAlignment.Fill
 
         ScrollView {
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
-
+            VerticalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
 
                 leftPadding: 20
                 rightPadding: 20
-                
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
-                    
+
+                VerticalContainer {
                     visible: app.player.currentSong.songLoaded
                     topPadding: 20
                     bottomPadding: 20
-                    
+
                     LCDDisplay {
                         text: {
                             if(app.player.currentSong.title.length == 0) {
@@ -49,17 +39,11 @@ Page {
                         horizontalAlignment: HorizontalAlignment.Center
                     }
 
-                    Container {
-                        layout: StackLayout {
-                            orientation: LayoutOrientation.LeftToRight
-                        }
+                    HorizontalContainer {
                         SongIconView {
                             song: app.player.currentSong
                         }
-                        Container {
-                            layout: StackLayout {
-                                orientation: LayoutOrientation.TopToBottom
-                            }
+                        VerticalContainer {
                             Label {
                                 text: "File: " + app.player.currentSong.fileName
                             }

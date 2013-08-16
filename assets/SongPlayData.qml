@@ -1,20 +1,13 @@
 import bb.cascades 1.0
 import player 1.0
 
-Container {
+HorizontalContainer {
     property variant song
-
-    layout: StackLayout {
-        orientation: LayoutOrientation.LeftToRight
-    }
 
     visible: song != null && song.songLoaded
     horizontalAlignment: HorizontalAlignment.Fill
 
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
+    VerticalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
@@ -80,10 +73,7 @@ Container {
             }
         }
     }
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
+    VerticalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }

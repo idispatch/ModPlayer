@@ -18,10 +18,7 @@ Page {
             }
         ]
         ScrollView {
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
+            VerticalContainer {
 
                 leftPadding: 20
                 rightPadding: 20
@@ -30,17 +27,12 @@ Page {
 
                 visible: song != null
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
+                HorizontalContainer {
                     SongIconView {
                         song: songView.song != null ? songView.song : null
                     }
-                    Container {
-                        layout: StackLayout {
-                            orientation: LayoutOrientation.TopToBottom
-                        }
+
+                    VerticalContainer {
                         Label {
                             text: song != null ? "File: <b>" + song.fileName + "</b>" : ""
                             textFormat: TextFormat.Html
@@ -66,10 +58,7 @@ Page {
 
                 Divider{}
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
+                HorizontalContainer {
                     visible: song!=null
                     ImageView {
                         imageSource: "asset:///images/badges/badge_played.png"
@@ -102,10 +91,7 @@ Page {
                     }
                 }
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
+                HorizontalContainer {
                     visible: song!=null && song.playCount > 0
                     ImageView {
                         imageSource: "asset:///images/badges/badge_lastplayed.png"
@@ -129,10 +115,7 @@ Page {
                     }
                 }
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
+                HorizontalContainer {
                     visible: song!=null && song.myFavourite > 0
                     ImageView {
                         imageSource: "asset:///images/badges/badge_myfavourite.png"
@@ -198,7 +181,6 @@ Page {
 
     function showPlayer() {
         var view = songPlayer.createObject()
-        view.navigationPane = navigationPane 
         navigationPane.push(view)
     }
 

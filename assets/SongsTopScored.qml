@@ -12,8 +12,6 @@ Page {
     }
 
     Container {
-        layout: StackLayout {
-        }
         background: back.imagePaint
         attachedObjects: [
             ImagePaintDefinition {

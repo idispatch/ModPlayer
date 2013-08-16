@@ -2,11 +2,11 @@ import bb.cascades 1.0
 
 Sheet {
     id: helpRoot
-    
+
     onClosed: {
         helpRoot.destroy()
     }
-    
+
     Page {
         titleBar: TitleBar {
             title: qsTr("ModPlayer Help")
@@ -19,16 +19,13 @@ Sheet {
             }
         }
         ScrollView {
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
-                
+            VertcialContainer {
+
                 leftPadding: 30
                 rightPadding: 30
                 topPadding: 20
                 bottomPadding: 20
-                
+
                 Label {
                     multiline: true
                     textFormat: TextFormat.Html

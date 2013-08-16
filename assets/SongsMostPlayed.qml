@@ -2,15 +2,15 @@ import bb.cascades 1.0
 
 Page {
     objectName: "SongsMostPlayed"
-    
+
     property variant navigationPane
-    
+
     titleBar: TitleBar {
         title: qsTr("Most Played Songs")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
+
     Container {
         background: back.imagePaint
         attachedObjects: [
@@ -20,8 +20,6 @@ Page {
                 imageSource: "asset:///images/backgrounds/background.png"
             }
         ]
-        layout: StackLayout {
-        }
         ProgressComponent {
             id: progress
         }
@@ -30,7 +28,6 @@ Page {
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
@@ -41,7 +38,6 @@ Page {
                     }
                 }
             ]
-            
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
@@ -49,7 +45,6 @@ Page {
                 view.load(chosenItem.id)
                 navigationPane.push(view)
             }
-            
             attachedObjects: [
                 ComponentDefinition {
                     id: songView
@@ -58,14 +53,14 @@ Page {
             ]
         }
     }
-    
+
     function load() {
         songs.dataModel = app.player.catalog.findMostPlayedSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true
     }
-    
+
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane

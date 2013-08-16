@@ -1,15 +1,9 @@
 import bb.cascades 1.0
 
-Container {
+VerticalContainer {
     property variant song
      
-    layout: StackLayout {
-        orientation: LayoutOrientation.TopToBottom
-    }
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
-        }
+    HorizontalContainer {
         visible: song!=null
         ImageView {
             imageSource: "asset:///images/badges/badge_downloads.png"
@@ -29,10 +23,7 @@ Container {
             }
         }
     }
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
-        }
+    HorizontalContainer {
         visible: song!=null
         ImageView {
             imageSource: "asset:///images/badges/badge_favourite.png"
@@ -53,10 +44,7 @@ Container {
             }
         }
     }
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
-        }
+    HorizontalContainer {
         visible: song!=null
         ImageView {
             imageSource: "asset:///images/badges/badge_score.png"

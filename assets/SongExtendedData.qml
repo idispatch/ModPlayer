@@ -1,10 +1,7 @@
 import bb.cascades 1.0
 import "functions.js" as Global
 
-Container {
-    layout: StackLayout {
-        orientation: LayoutOrientation.TopToBottom
-    }
+VerticalContainer {
 
     property variant song
 

@@ -1,20 +1,13 @@
 import bb.cascades 1.0
 import player 1.0
 
-Container {
+HorizontalContainer {
     property variant song
-    
-    layout: StackLayout {
-        orientation: LayoutOrientation.LeftToRight
-    }
 
     visible: song != null
     horizontalAlignment: HorizontalAlignment.Fill
 
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
+    VerticalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
@@ -35,8 +28,7 @@ Container {
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Patterns"
@@ -51,8 +43,7 @@ Container {
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Channels"
@@ -67,17 +58,13 @@ Container {
             }
         }
     }
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
+    VerticalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
         leftMargin: 50
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Instruments"
@@ -92,8 +79,7 @@ Container {
             }
         }
         Container {
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
             Label {
                 text: "Samples"

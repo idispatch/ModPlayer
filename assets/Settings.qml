@@ -33,10 +33,7 @@ Sheet {
         }
 
         ScrollView {
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
+            VerticalContainer {
 
                 leftPadding: 30
                 rightPadding: 30
@@ -61,10 +58,7 @@ Sheet {
                 Label {
                     text: qsTr("Maximum Songs: ") + Math.round(maxCacheSongs.value)
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                VerticalContainer {
                     leftPadding: groupSettingIndent
                     Slider {
                         id: maxCacheSongs
@@ -77,10 +71,7 @@ Sheet {
                 Label {
                     text: qsTr("Maximum Cache Size: ") + Global.getSizeKb(Math.round(maxCacheSize.value)) 
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                VerticalContainer {
                     leftPadding: groupSettingIndent
                     Slider {
                         id: maxCacheSize
@@ -249,10 +240,7 @@ Sheet {
                     text: qsTr("Stereo Separation")
                     textStyle.fontSize: FontSize.Large
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                VerticalContainer {
                     leftPadding: groupSettingIndent
                     Slider {
                         id: stereoSeparation
@@ -292,10 +280,7 @@ Sheet {
                     }
                 }
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                VerticalContainer {
                     leftPadding: groupSettingIndent
 
                     Label {
@@ -341,10 +326,7 @@ Sheet {
                     }
                 }
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                VerticalContainer {
                     leftPadding: groupSettingIndent
                     Label {
                         text: qsTr("Bass Amount")
@@ -388,10 +370,7 @@ Sheet {
                         settingsRoot.configuration.surroundEnabled = surroundEnabled.checked
                     }
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                VerticalContainer {
                     leftPadding: groupSettingIndent
                     Label {
                         text: qsTr("Surrond Depth")

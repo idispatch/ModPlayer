@@ -1,12 +1,8 @@
 import bb.cascades 1.0
 import player 1.0
 
-Container {
+VerticalContainer {
     property bool playing: app.player.currentSong.songLoaded && app.player.state == Player.Playing 
-
-    layout: StackLayout {
-        orientation: LayoutOrientation.TopToBottom
-    }
 
     background: back.imagePaint
     horizontalAlignment: HorizontalAlignment.Fill
@@ -25,10 +21,7 @@ Container {
         }
     ]
 
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
+    VerticalContainer {
 
         horizontalAlignment: HorizontalAlignment.Center
         topPadding: 30
@@ -53,18 +46,18 @@ Container {
                 }
             }
         }
-        
+
         Container {
             background: titleTextBack.imagePaint
             horizontalAlignment: HorizontalAlignment.Center
-            
+
             topMargin: 50
-            
+
             leftPadding: 15
             rightPadding: leftPadding
             topPadding: 5
             bottomPadding: topPadding
-            
+
             Label {
                 horizontalAlignment: HorizontalAlignment.Center
                 text: {
@@ -94,7 +87,7 @@ Container {
             horizontalAlignment: HorizontalAlignment.Center
 
             visible: playing
-            
+
             leftPadding: 15
             rightPadding: leftPadding
             topPadding: 5
@@ -113,9 +106,9 @@ Container {
             background: titleTextBack.imagePaint
             horizontalAlignment: HorizontalAlignment.Center
             visible: playing
-            
+
             topMargin: 30
-            
+
             leftPadding: 15
             rightPadding: leftPadding
             topPadding: 5

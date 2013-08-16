@@ -10,10 +10,8 @@ Page {
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
+
     Container {
-        layout: StackLayout {
-        }
         background: back.imagePaint
         attachedObjects: [
             ImagePaintDefinition {
@@ -30,7 +28,6 @@ Page {
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-
             listItemComponents: [
                 ListItemComponent {
                     StandardListItem {
@@ -41,7 +38,6 @@ Page {
                     }
                 }
             ]
-
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
@@ -49,7 +45,6 @@ Page {
                 view.load(chosenItem.id)
                 navigationPane.push(view)
             }
-
             attachedObjects: [
                 ComponentDefinition {
                     id: songView
@@ -58,14 +53,14 @@ Page {
             ]
         }
     }
-    
+
     function load() {
         songs.dataModel = app.player.catalog.findMostDownloadedSongs()
         progress.running = false
         progress.visible = false
         songs.visible = true
     }
-    
+
     actions: [
         PlayerActionItem {
             navigationPane: parent.navigationPane
