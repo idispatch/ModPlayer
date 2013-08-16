@@ -10,6 +10,9 @@ GroupContainer {
             song: songMainInfo.song != null ? songMainInfo.song : null
         }
         VerticalContainer {
+            layoutProperties: StackLayoutProperties {
+                spaceQuota: 10
+            }
             Label {
                 text: song != null ? "File: <b>" + song.fileName + "</b>" : ""
                 textFormat: TextFormat.Html

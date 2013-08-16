@@ -11,12 +11,12 @@ HorizontalContainer {
     bottomMargin: 16
 
     GroupContainer {
+        layoutProperties: StackLayoutProperties {
+            spaceQuota: 10
+        }
+        rightMargin:20
         VerticalContainer {
-            layoutProperties: StackLayoutProperties {
-                spaceQuota: 1.0
-            }
             horizontalAlignment: HorizontalAlignment.Fill
-            rightMargin: 40
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
@@ -80,10 +80,11 @@ HorizontalContainer {
         }
     }
     GroupContainer {
+        layoutProperties: StackLayoutProperties {
+            spaceQuota: 10
+        }
         VerticalContainer {
-            layoutProperties: StackLayoutProperties {
-                spaceQuota: 1.0
-            }
+            horizontalAlignment: HorizontalAlignment.Fill
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill

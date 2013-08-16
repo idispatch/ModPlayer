@@ -15,23 +15,20 @@ Page {
                 bottomPadding: 20
 
                 visible: song != null
+                horizontalAlignment: HorizontalAlignment.Fill
 
                 SongMainInfo {
                     song: songView.song != null ? songView.song : null
                 }
-
                 SongExtendedInfo {
                     song: songView.song != null ? songView.song : null
                 }
-
                 SongPersonalInfo {
                     song: songView != null ? songView.song : null
                 }
-
                 SongPublicInfo {
                     song: songView != null ? songView.song : null
                 }
-
                 SongParametersInfo {
                     song: songView != null ? songView.song : null
                 }
