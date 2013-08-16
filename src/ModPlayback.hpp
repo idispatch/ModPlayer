@@ -38,7 +38,7 @@ public:
 
     Q_INVOKABLE void configure();
 
-    Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
+    Q_INVOKABLE bool load(SongExtendedInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();
 
     Q_INVOKABLE bool play();
@@ -90,7 +90,7 @@ private:
     State m_state;
     Command m_command;
     QString m_pendingFileName;
-    SongInfo m_pendingSong;
+    SongExtendedInfo m_pendingSong;
 
     QByteArray m_audioBuffer;
     SongModule m_song;

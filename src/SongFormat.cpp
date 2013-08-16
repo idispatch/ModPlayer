@@ -54,8 +54,7 @@ QUrl SongFormat::getIconPath(int formatId) {
     case 13:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mo3"));
     default:
-        qDebug() << "Could not find icon for format id:" << formatId;
-        return QUrl();
+        return QUrl(QString("%1/icon_unknown.png").arg(icons));
     }
 }
 

@@ -2,7 +2,7 @@
 #define CATALOG_HPP_
 
 #include <QObject>
-#include <QVariantList>
+#include <QVariant>
 
 namespace bb {
     namespace cascades {
@@ -14,9 +14,8 @@ namespace bb {
 }
 
 class QSqlQuery;
-
-class SongInfo;
 class SongBasicInfo;
+class SongExtendedInfo;
 class Artist;
 
 class Catalog : public QObject {
@@ -48,12 +47,12 @@ public:
 
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
-    Q_INVOKABLE SongInfo * resolveModuleById(int id);
-    Q_INVOKABLE SongInfo * resolveModuleByFileName(QString const& fileName);
+    Q_INVOKABLE SongExtendedInfo * resolveModuleById(int id);
+    Q_INVOKABLE SongExtendedInfo * resolveModuleByFileName(QString const& fileName);
 
-    Q_INVOKABLE void addFavourite(QVariant const& song);
-    Q_INVOKABLE void removeFavourite(QVariant const& song);
-    Q_INVOKABLE void play(QVariant const& song);
+    Q_INVOKABLE void addFavourite(QVariant value);
+    Q_INVOKABLE void removeFavourite(QVariant value);
+    Q_INVOKABLE void play(QVariant value);
 
     Q_INVOKABLE void resetPlayCounts();
     Q_INVOKABLE void resetMyFavourites();
@@ -66,13 +65,17 @@ private:
     Q_DISABLE_COPY(Catalog)
     void initCatalog();
     void copyCatalogToDataFolder();
-    SongInfo * selectSongInfo(QString const& whereClause);
+
+    SongExtendedInfo * selectSongInfo(QString const& whereClause);
+
     bb::cascades::DataModel * selectSongBasicInfo(QString const& whereClause,
                                                   QString const& orderByClause);
+
     static SongBasicInfo * readSongBasicInfo(QSqlQuery &sqlQuery,
                                              QObject *parent);
-    static SongInfo * readSongInfo(QSqlQuery &sqlQuery,
-                                   QObject *parent);
+
+    static SongExtendedInfo * readSongInfo(QSqlQuery &sqlQuery,
+                                           QObject *parent);
 private:
     bb::data::SqlDataAccess * m_dataAccess;
 };

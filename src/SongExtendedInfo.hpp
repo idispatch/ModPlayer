@@ -1,12 +1,12 @@
-#ifndef SONGINFO_HPP_
-#define SONGINFO_HPP_
+#ifndef SONGEXTENDEDINFO_HPP_
+#define SONGEXTENDEDINFO_HPP_
 
 #include <QDebug>
 #include <QMetaType>
 #include <QObject>
 #include "SongBasicInfo.hpp"
 
-class SongInfo : public SongBasicInfo {
+class SongExtendedInfo : public SongBasicInfo {
     Q_OBJECT
 
     Q_PROPERTY(QString format READ format WRITE setFormat NOTIFY formatChanged FINAL)
@@ -21,31 +21,31 @@ class SongInfo : public SongBasicInfo {
     Q_PROPERTY(int channels READ channels WRITE setChannels NOTIFY channelsChanged FINAL)
 
 public:
-    SongInfo(QObject *parent = 0);
-    SongInfo(int id,
-             QString const& fileName,
-             QString const& title,
-             int formatId,
-             int downloads,
-             int favourited,
-             int score,
-             int size,
-             int length,
-             int playCount,
-             int lastPlayed,
-             bool myFavourite,
-             QString const& format,
-             QString const& tracker,
-             QString const& genre,
-             QString const& artist,
-             int patterns,
-             int orders,
-             int instruments,
-             int samples,
-             int channels,
-             QObject * parent = 0);
-    ~SongInfo();
-    SongInfo& operator = (SongInfo const&);
+    SongExtendedInfo(QObject *parent = 0);
+    SongExtendedInfo(int id,
+                     QString const& fileName,
+                     QString const& title,
+                     int formatId,
+                     int downloads,
+                     int favourited,
+                     int score,
+                     int size,
+                     int length,
+                     int playCount,
+                     int lastPlayed,
+                     int myFavourite,
+                     QString const& format,
+                     QString const& tracker,
+                     QString const& genre,
+                     QString const& artist,
+                     int patterns,
+                     int orders,
+                     int instruments,
+                     int samples,
+                     int channels,
+                     QObject * parent = 0);
+    ~SongExtendedInfo();
+    SongExtendedInfo& operator = (SongExtendedInfo const&);
 
     QString format() const;
     void setFormat(const QString &value);
@@ -95,6 +95,6 @@ private:
     int m_channels;
 };
 
-Q_DECLARE_METATYPE(SongInfo*);
+Q_DECLARE_METATYPE(SongExtendedInfo*);
 
 #endif

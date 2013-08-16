@@ -4,7 +4,7 @@
 
 SongBasicInfo::SongBasicInfo(QObject *parent)
  : QObject(parent),
-   m_modId(0),
+   m_id(0),
    m_formatId(0),
    m_fileSize(0),
    m_songLength(0),
@@ -27,10 +27,10 @@ SongBasicInfo::SongBasicInfo(int id,
                              int length,
                              int playCount,
                              int lastPlayed,
-                             bool myFavourite,
+                             int myFavourite,
                              QObject * parent)
    : QObject(parent),
-     m_modId(id),
+     m_id(id),
      m_fileName(fileName),
      m_title(title),
      m_formatId(format),
@@ -53,7 +53,7 @@ SongBasicInfo::~SongBasicInfo() {
 
 SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
     if(this != & other) {
-        setModId(other.modId());
+        setId(other.id());
         setFileName(other.fileName());
         setTitle(other.title());
         setFormatId(other.formatId());
@@ -97,14 +97,14 @@ void SongBasicInfo::setTitle(const QString &value) {
     }
 }
 
-int SongBasicInfo::modId() const {
-    return m_modId;
+int SongBasicInfo::id() const {
+    return m_id;
 }
 
-void SongBasicInfo::setModId(int value) {
-    if(m_modId != value) {
-        m_modId = value;
-        emit modIdChanged();
+void SongBasicInfo::setId(int value) {
+    if(m_id != value) {
+        m_id = value;
+        emit idChanged();
     }
 }
 
@@ -209,11 +209,11 @@ void SongBasicInfo::setLastPlayed(int value) {
     }
 }
 
-bool SongBasicInfo::myFavourite() const {
+int SongBasicInfo::myFavourite() const {
     return m_myFavourite;
 }
 
-void SongBasicInfo::setMyFavourite(bool value) {
+void SongBasicInfo::setMyFavourite(int value) {
     if(m_myFavourite != value) {
         m_myFavourite = value;
         emit myFavouriteChanged();

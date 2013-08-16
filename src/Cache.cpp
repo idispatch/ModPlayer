@@ -3,11 +3,17 @@
 #include <QFile>
 #include <QDebug>
 
-Cache::Cache(int maxSize, int maxFiles, QObject * parent)
+Cache::Cache(QSettings &settings, QObject * parent)
     : QObject(parent),
-      m_maxSize(maxSize),
-      m_maxFiles(maxFiles) {
+      m_settings(settings),
+      m_maxSize(m_settings.value("cache/maxSize", 100 * 1024 * 1024).toInt()),
+      m_maxFiles(m_settings.value("cache/maxFiles", 200).toInt()) {
     initCache();
+}
+
+Cache::~Cache() {
+    m_settings.setValue("cache/maxSize", maxSize());
+    m_settings.setValue("cache/maxFiles", maxFiles());
 }
 
 void Cache::initCache() {

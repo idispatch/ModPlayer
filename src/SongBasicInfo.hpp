@@ -8,7 +8,7 @@
 class SongBasicInfo : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(int modId READ modId WRITE setModId NOTIFY modIdChanged FINAL)
+    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged FINAL)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
     Q_PROPERTY(QUrl iconPath READ iconPath NOTIFY iconPathChanged FINAL)
@@ -23,7 +23,7 @@ class SongBasicInfo : public QObject {
     Q_PROPERTY(int score READ score WRITE setScore NOTIFY scoreChanged FINAL)
     Q_PROPERTY(int playCount READ playCount WRITE setPlayCount NOTIFY playCountChanged FINAL)
     Q_PROPERTY(int lastPlayed READ lastPlayed WRITE setLastPlayed NOTIFY lastPlayedChanged FINAL)
-    Q_PROPERTY(bool myFavourite READ myFavourite WRITE setMyFavourite NOTIFY myFavouriteChanged FINAL)
+    Q_PROPERTY(int myFavourite READ myFavourite WRITE setMyFavourite NOTIFY myFavouriteChanged FINAL)
 
 public:
     SongBasicInfo(QObject *parent);
@@ -38,7 +38,7 @@ public:
                   int length,
                   int playCount,
                   int lastPlayed,
-                  bool myFavourite,
+                  int myFavourite,
                   QObject * parent = 0);
     ~SongBasicInfo();
     SongBasicInfo& operator = (SongBasicInfo const& other);
@@ -49,8 +49,8 @@ public:
     QString title() const;
     void setTitle(const QString &value);
 
-    int modId() const;
-    void setModId(int value);
+    int id() const;
+    void setId(int value);
 
     int fileSize() const;
     void setFileSize(int value);
@@ -79,12 +79,12 @@ public:
     int lastPlayed() const;
     void setLastPlayed(int value);
 
-    bool myFavourite() const;
-    void setMyFavourite(bool value);
+    int myFavourite() const;
+    void setMyFavourite(int value);
 Q_SIGNALS:
     void fileNameChanged();
     void titleChanged();
-    void modIdChanged();
+    void idChanged();
     void formatIdChanged();
     void iconPathChanged();
     void fileSizeChanged();
@@ -97,7 +97,7 @@ Q_SIGNALS:
     void lastPlayedChanged();
     void myFavouriteChanged();
 private:
-    int m_modId;
+    int m_id;
     QString m_fileName;
     QString m_title;
     int m_formatId;
@@ -108,7 +108,7 @@ private:
     int m_score;
     int m_playCount;
     int m_lastPlayed;
-    bool m_myFavourite;
+    int m_myFavourite;
 };
 
 Q_DECLARE_METATYPE(SongBasicInfo*);

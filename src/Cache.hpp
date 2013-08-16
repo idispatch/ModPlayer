@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QObject>
+#include <QSettings>
 #include <QStringList>
 #include <QFileInfoList>
 
@@ -18,7 +19,8 @@ class Cache : public QObject {
     Q_PROPERTY(QStringList fileNameFilters READ fileNameFilters WRITE setFileNameFilters FINAL)
 
 public:
-    Cache(int maxSize, int maxFiles, QObject *parent = 0);
+    Cache(QSettings &settings, QObject *parent = 0);
+    ~Cache();
 
     QString cachePath() const;
     QStringList files() const;
@@ -55,6 +57,7 @@ private:
     void initCache();
     void notifyCacheChanged(int oldFiles, int oldSize);
 private:
+    QSettings &m_settings;
     QStringList m_fileNameFilters;
     QFileInfoList m_files;
     int m_maxSize;

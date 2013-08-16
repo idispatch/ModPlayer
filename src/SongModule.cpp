@@ -8,7 +8,7 @@
 #include <QByteArray>
 
 SongModule::SongModule(QObject *parent)
-    : SongInfo(parent),
+    : SongExtendedInfo(parent),
       m_currentOrder(0),
       m_currentPattern(0),
       m_currentRow(0),
@@ -149,7 +149,7 @@ QString SongModule::fileNameOnly(QString const& fileName)
     return fileInfo.fileName();
 }
 
-bool SongModule::load(SongInfo const& info, QString const& fileName)
+bool SongModule::load(SongExtendedInfo const& info, QString const& fileName)
 {
     if (m_absoluteFileName == fileName) {
         return true; // not loading the same song twice
@@ -239,8 +239,8 @@ bool SongModule::rewind() {
     return false;
 }
 
-void SongModule::assignInfo(SongInfo const& other) {
-    setModId(other.modId());
+void SongModule::assignInfo(SongExtendedInfo const& other) {
+    setId(other.id());
     setFormatId(other.formatId());
     setFileSize(other.fileSize());
     setSongLength(other.songLength());

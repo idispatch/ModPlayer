@@ -147,7 +147,7 @@ PlaybackConfig* ModPlayback::configuration() {
     return &m_config;
 }
 
-bool ModPlayback::load(SongInfo const& info, QString const& fileName) {
+bool ModPlayback::load(SongExtendedInfo const& info, QString const& fileName) {
     QMutexLocker locker(&m_mutex);
     m_command = LoadCommand;
     m_pendingFileName = fileName;

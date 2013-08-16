@@ -14,7 +14,6 @@ ActionItem {
     onTriggered: {
         if (currentSong != null) {
             app.catalog.removeFavourite(currentSong)
-            currentSong.myFavourite = 0
         }
     }
 }

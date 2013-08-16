@@ -68,9 +68,9 @@ Q_SIGNALS:
     void currentSongChanged();
 private slots:
     /* For Downloader */
-    void onDownloadStarted(int modId);
+    void onDownloadStarted(int id);
     void onDownloadFinished(QString fileName);
-    void onDownloadFailure(int modId);
+    void onDownloadFailure(int id);
 
     /* For ModPlayback */
     void onPaused();
@@ -97,7 +97,7 @@ private:
     void changeStatus(State state, QString const& statusText);
     void beginPlay(QString const& fileName);
 
-    void playByModuleId(int modId);
+    void playByModuleId(int id);
     void playByModuleFileName(QString const& fileName);
 
     void updateNowPlaying();

@@ -3,7 +3,7 @@ import "functions.js" as Global
 
 Page {
     id: songView
-    
+
     property variant song
     property variant navigationPane 
 
@@ -17,20 +17,19 @@ Page {
                 imageSource: "asset:///images/backgrounds/background.png"
             }
         ]
-        
         ScrollView {
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
+
                 leftPadding: 20
                 rightPadding: 20
                 topPadding: 20
                 bottomPadding: 20
-                
+
                 visible: song != null
-                
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
@@ -60,7 +59,7 @@ Page {
                         }
                     }
                 }
-                
+
                 SongExtendedData {
                     song: songView.song != null ? songView.song : null
                 }
@@ -78,6 +77,7 @@ Page {
                         rightMargin: 5
                     }
                     Label {
+                        id: playCountField
                         textFormat: TextFormat.Html
                         text: {
                             if(song!=null) {
@@ -92,7 +92,16 @@ Page {
                             return "";
                         }
                     }
+                    function songInfoChanged(){
+                        if(song.id == app.player.currentSong.id) {
+                            song.playCount = app.player.currentSong.playCount
+                        }
+                    }
+                    onCreationCompleted: {
+                        app.player.currentSong.playCountChanged.connect(songInfoChanged)
+                    }
                 }
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
@@ -104,16 +113,22 @@ Page {
                         rightMargin: 5
                     }
                     Label {
-                        text: {
-                            if(song!=null) {
-                                if(song.playCount > 0) {
-                                    return "Last played " + Global.formatTimeStamp(song.lastPlayed)
-                                }
-                            }
-                            return "";
+                        text: song!=null && song.playCount > 0 ? 
+                                "Last played " + Global.formatTimeStamp(song.lastPlayed) : 
+                                 ""
+                    }
+                    function songInfoChanged(){
+                        if(song.id == app.player.currentSong.id) {
+                            song.playCount = app.player.currentSong.playCount
+                            song.lastPlayed = app.player.currentSong.lastPlayed
                         }
                     }
+                    onCreationCompleted: {
+                        app.player.currentSong.playCountChanged.connect(songInfoChanged)
+                        app.player.currentSong.lastPlayedChanged.connect(songInfoChanged)
+                    }
                 }
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
@@ -125,16 +140,18 @@ Page {
                         rightMargin: 5
                     }
                     Label {
-                        text: {
-                            if(song != null) {
-                                if(song.myFavourite > 0) {
-                                    return qsTr("You liked this song")
-                                }
-                            }
-                            return ""
+                        text: song != null && song.myFavourite > 0 ? qsTr("You liked this song") : ""
+                    }
+                    function songFavouriteChanged(){
+                        if(song.id == app.player.currentSong.id) {
+                            song.myFavourite = app.player.currentSong.myFavourite
                         }
                     }
+                    onCreationCompleted: {
+                        app.player.currentSong.myFavouriteChanged.connect(songFavouriteChanged)
+                    }
                 }
+
                 Label {
                     visible: song!=null && app.cache.exists(song.fileName)
                     textFormat: TextFormat.Html
@@ -174,32 +191,28 @@ Page {
 
     function play() {
         if(song!=null) {
-            var view = songPlayer.createObject()
-            view.navigationPane = navigationPane 
-            navigationPane.push(view)
+            showPlayer()
             app.player.play(song)
-            song.playCount = song.playCount + 1
-            song.lastPlayed = (new Date()).getTime() / 1000 
         }
     }
-    
+
     function showPlayer() {
         var view = songPlayer.createObject()
         view.navigationPane = navigationPane 
         navigationPane.push(view)
     }
-    
+
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId)
     }
-    
+
     attachedObjects: [
         ComponentDefinition {
             id: songPlayer
             source: "SongPlayer.qml"
         }
     ]
-    
+
     actions: [ 
         ActionItem {
             title: qsTr("Now Playing")
@@ -228,10 +241,10 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AddFavouriteActionItem {
-            currentSong: parent.song
+            currentSong: song
         },
         RemoveFavouriteActionItem {
-            currentSong: parent.song
+            currentSong: song
         }
     ]
 }

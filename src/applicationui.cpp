@@ -13,6 +13,7 @@
 #include "LCDDisplay.hpp"
 #include "LCDDigits.hpp"
 #include "SongBasicInfo.hpp"
+#include "SongExtendedInfo.hpp"
 #include "SongModule.hpp"
 #include "SongFormat.hpp"
 #include "SongGenre.hpp"
@@ -86,7 +87,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<SongFormat>(QmlNamespace, versionMajor, versionMinor, "SongFormat", "");
     qmlRegisterUncreatableType<SongGenre>(QmlNamespace, versionMajor, versionMinor, "SongGenre", "");
     qmlRegisterUncreatableType<SongBasicInfo>(QmlNamespace, versionMajor, versionMinor, "SongBasicInfo", "");
-    qmlRegisterUncreatableType<SongInfo>(QmlNamespace, versionMajor, versionMinor, "SongInfo", "");
+    qmlRegisterUncreatableType<SongExtendedInfo>(QmlNamespace, versionMajor, versionMinor, "SongExtendedInfo", "");
     qmlRegisterUncreatableType<Artist>(QmlNamespace, versionMajor, versionMinor, "Artist", "");
 }
 

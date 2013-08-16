@@ -109,11 +109,11 @@ Page {
         PlayActionItem {},
         PauseActionItem {}, 
         AddFavouriteActionItem {
-            currentSong: app.player.currentSong.fileName
+            currentSong: app.player.currentSong
             enabled: app.player.currentSong.songLoaded
         },
         RemoveFavouriteActionItem {
-            currentSong: app.player.currentSong.fileName
+            currentSong: app.player.currentSong
             enabled: app.player.currentSong.songLoaded
         }
     ]

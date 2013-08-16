@@ -2,7 +2,7 @@
 #include "SongFormat.hpp"
 #include "SongGenre.hpp"
 #include "SongBasicInfo.hpp"
-#include "SongInfo.hpp"
+#include "SongExtendedInfo.hpp"
 #include "Artist.hpp"
 
 #include  <QDebug>
@@ -299,15 +299,15 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
     }
 }
 
-SongInfo * Catalog::resolveModuleById(int id) {
+SongExtendedInfo * Catalog::resolveModuleById(int id) {
     return selectSongInfo(QString("WHERE songs.id=%1").arg(id));
 }
 
-SongInfo * Catalog::resolveModuleByFileName(QString const& fileName) {
+SongExtendedInfo * Catalog::resolveModuleByFileName(QString const& fileName) {
     return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName));
 }
 
-SongInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
+SongExtendedInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int column       = 0;
     int id           = sqlQuery.value(column++).toInt();
     QString fileName = sqlQuery.value(column++).toString();
@@ -330,7 +330,8 @@ SongInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int instruments  = sqlQuery.value(column++).toInt();
     int samples      = sqlQuery.value(column++).toInt();
     int channels     = sqlQuery.value(column++).toInt();
-    return new SongInfo(id,
+    return new SongExtendedInfo(
+                        id,
                         fileName,
                         title,
                         formatId,
@@ -383,7 +384,7 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
                              parent);
 }
 
-SongInfo * Catalog::selectSongInfo(QString const& whereClause) {
+SongExtendedInfo * Catalog::selectSongInfo(QString const& whereClause) {
     QString query = QString(
                 "SELECT"
                 " songs.id AS id,"
@@ -415,7 +416,7 @@ SongInfo * Catalog::selectSongInfo(QString const& whereClause) {
     if(whereClause.length() > 0) {
         query += whereClause;
     }
-    SongInfo * song = NULL;
+    SongExtendedInfo * song = NULL;
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
@@ -486,89 +487,45 @@ DataModel * Catalog::findMostPlayedSongs() {
                                " ORDER BY playCount DESC, lastPlayed DESC ");
 }
 
-void Catalog::addFavourite(QVariant const& song) {
-    qDebug() << "Adding favourite module" << song;
-
-    QString query = QString("UPDATE songs SET myFavourite=myFavourite+1 ");
-    if(song.type() == QVariant::Int)
-    {
-        query += QString("WHERE id=%1").arg(song.toInt());
-    }
-    else if(song.type() == QVariant::String)
-    {
-        query += QString("WHERE fileName='%1'").arg(song.toString());
-    }
-    else if((int)song.type() == (int)QMetaType::QObjectStar)
-    {
-        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(song.value<QObject*>());
-        query += QString("WHERE id=%1").arg(info->modId());
-    }
-    else
-    {
-        query = "";
-    }
-
-    if(query.length() > 0) {
+void Catalog::addFavourite(QVariant value) {
+    SongExtendedInfo * info = qobject_cast<SongExtendedInfo*>(value.value<QObject*>());
+    if(info != 0) {
+        qDebug() << "Adding favourite module" << info->fileName();
+        QString query = QString("UPDATE songs SET myFavourite=myFavourite+1 WHERE id=%1").arg(info->id());
         m_dataAccess->execute(query);
+        info->setMyFavourite(info->myFavourite() + 1);
+    } else {
+        qDebug() << "Catalog::addFavourite: invalid value=" << value;
     }
 }
 
-void Catalog::removeFavourite(QVariant const& song) {
-    qDebug() << "Removing favourite module" << song;
-
-    QString query = QString("UPDATE songs SET myFavourite=0 ");
-    if(song.type() == QVariant::Int)
-    {
-        query += QString("WHERE id=%1").arg(song.toInt());
-    }
-    else if(song.type() == QVariant::String)
-    {
-        query += QString("WHERE fileName='%1'").arg(song.toString());
-    }
-    else if((int)song.type() == (int)QMetaType::QObjectStar)
-    {
-        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(song.value<QObject*>());
-        query += QString("WHERE id=%1").arg(info->modId());
-    }
-    else
-    {
-        query = "";
-    }
-
-    if(query.length() > 0) {
+void Catalog::removeFavourite(QVariant value) {
+    SongExtendedInfo * info = qobject_cast<SongExtendedInfo*>(value.value<QObject*>());
+    if(info != 0) {
+        qDebug() << "Removing favourite module" << info->fileName();
+        QString query = QString("UPDATE songs SET myFavourite=0 WHERE id=%1").arg(info->id());
         m_dataAccess->execute(query);
+        info->setMyFavourite(0);
+    } else {
+        qDebug() << "Catalog::removeFavourite: invalid value=" << value;
     }
 }
 
-void Catalog::play(QVariant const& song) {
-    qDebug() << "Updating play count for module" << song;
-    uint now = QDateTime::currentDateTime().toTime_t();
-    QString query = QString("UPDATE songs SET playCount=playCount+1, lastPlayed=%1 ").arg(now);
-    if(song.type() == QVariant::Int)
-    {
-        query += QString("WHERE id=%1").arg(song.toInt());
-    }
-    else if(song.type() == QVariant::String)
-    {
-        query += QString("WHERE fileName='%1'").arg(song.toString());
-    }
-    else if((int)song.type() == (int)QMetaType::QObjectStar)
-    {
-        SongBasicInfo * info = qobject_cast<SongBasicInfo*>(song.value<QObject*>());
-        query += QString("WHERE id=%1").arg(info->modId());
-    }
-    else
-    {
-        query = "";
-    }
-
-    if(query.length() > 0) {
+void Catalog::play(QVariant value) {
+    SongExtendedInfo * info = qobject_cast<SongExtendedInfo*>(value.value<QObject*>());
+    if(info != 0) {
+        uint now = QDateTime::currentDateTime().toTime_t();
+        QString query = QString("UPDATE songs SET playCount=playCount+1, lastPlayed=%1 WHERE id=%1").arg(now).arg(info->id());
         m_dataAccess->execute(query);
+        qDebug() << "Updating play count and last played for song" << info->fileName();
+        info->setPlayCount(info->playCount() + 1);
+        info->setLastPlayed(now);
+    } else {
+        qDebug() << "Catalog::play: invalid value=" << value;
     }
 }
 
 void Catalog::resetPlayCounts() {
-    qDebug() << "Reset play counts";
     QString query = QString("UPDATE songs "
                             "SET playCount=0,"
                             "    lastPlayed=0 "
@@ -577,7 +534,6 @@ void Catalog::resetPlayCounts() {
 }
 
 void Catalog::resetMyFavourites() {
-    qDebug() << "Reset my favourites";
     QString query = QString("UPDATE songs "
                             "SET myFavourite=0 "
                             "WHERE myFavourite>0");

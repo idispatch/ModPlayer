@@ -3,12 +3,12 @@
 
 #include <QMetaType>
 #include <QObject>
-#include "SongInfo.hpp"
+#include "SongExtendedInfo.hpp"
 
 struct _ModPlugFile;
 typedef struct _ModPlugFile ModPlugFile;
 
-class SongModule : public SongInfo {
+class SongModule : public SongExtendedInfo {
     Q_OBJECT
 
     Q_PROPERTY(bool songLoaded READ songLoaded NOTIFY songLoadedChanged FINAL)
@@ -59,7 +59,7 @@ public:
     void setPlayingChannels(int value);
 
     Q_INVOKABLE void update(bool endOfSong = false);
-    Q_INVOKABLE bool load(SongInfo const& info, QString const& fileName);
+    Q_INVOKABLE bool load(SongExtendedInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();
     Q_INVOKABLE bool rewind();
 
@@ -82,7 +82,7 @@ private:
     Q_DISABLE_COPY(SongModule)
 
     static QString fileNameOnly(QString const& fileName);
-    void assignInfo(SongInfo const& other);
+    void assignInfo(SongExtendedInfo const& other);
 private:
     QString m_absoluteFileName;
     QString m_description;

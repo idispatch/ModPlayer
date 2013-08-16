@@ -17,15 +17,15 @@ public:
 
     Q_PROPERTY(int pendingDownloadCount READ pendingDownloadCount NOTIFY pendingDownloadCountChanged FINAL)
 
-    Q_INVOKABLE void download(int modId);
+    Q_INVOKABLE void download(int id);
 
     int pendingDownloadCount() const;
     QMap<QUrl, int> const& pendingDownloads() const;
 Q_SIGNALS:
     void pendingDownloadCountChanged();
-    void downloadStarted(int modId);
+    void downloadStarted(int id);
     void downloadFinished(QString fileName);
-    void downloadFailure(int modId);
+    void downloadFailure(int id);
 
 private slots:
     void onHttpFinished(QNetworkReply * reply);
