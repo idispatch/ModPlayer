@@ -19,7 +19,7 @@ Sheet {
             }
         }
         ScrollView {
-            VertcialContainer {
+            VerticalContainer {
 
                 leftPadding: 30
                 rightPadding: 30
