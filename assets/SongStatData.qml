@@ -7,11 +7,22 @@ HorizontalContainer {
     visible: song != null
     horizontalAlignment: HorizontalAlignment.Fill
 
+    topMargin: 16
+    bottomMargin: 16
+
     VerticalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
-        rightMargin: 50
+
+        background: backgroundImagePaint.imagePaint
+        rightMargin: 40
+
+        topPadding: 12
+        bottomPadding: 12
+        leftPadding: 16
+        rightPadding: 16
+
         Container {
             layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
@@ -62,7 +73,13 @@ HorizontalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
-        leftMargin: 50
+        background: backgroundImagePaint.imagePaint
+
+        topPadding: 12
+        bottomPadding: 12
+        leftPadding: 16
+        rightPadding: 16
+
         Container {
             layout: DockLayout {}
             horizontalAlignment: HorizontalAlignment.Fill
@@ -94,4 +111,11 @@ HorizontalContainer {
             }
         }
     }
+    attachedObjects: [
+        ImagePaintDefinition {
+            id: backgroundImagePaint
+            repeatPattern: RepeatPattern.Fill
+            imageSource: "asset:///images/backgrounds/container_back.amd"
+        }
+    ]
 }

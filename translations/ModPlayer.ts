@@ -358,7 +358,7 @@
     </message>
 </context>
 <context>
-    <name>SongView</name>
+    <name>SongPersonalData</name>
     <message>
         <source>You played this song once</source>
         <translation type="unfinished"></translation>
@@ -375,6 +375,9 @@
         <source>You have this song in the cache already</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>SongView</name>
     <message>
         <source>Now Playing</source>
         <translation type="unfinished"></translation>

@@ -66,19 +66,12 @@ Page {
                         song: app.player.currentSong
                     }
 
-                    Divider {}
-
                     SongStatData {
                         song: app.player.currentSong
                     }
-                    
-                    Divider {}
-                    
+
                     SongPlayData {
                         song: app.player.currentSong
-                    }
-                    
-                    Divider {
                     }
                 }
                 

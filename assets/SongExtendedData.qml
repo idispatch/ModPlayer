@@ -2,7 +2,6 @@ import bb.cascades 1.0
 import "functions.js" as Global
 
 VerticalContainer {
-
     property variant song
 
     Label {

@@ -2,7 +2,19 @@ import bb.cascades 1.0
 
 VerticalContainer {
     property variant song
-     
+
+    background: backgroundImagePaint.imagePaint
+
+    topPadding: 12
+    bottomPadding: 12
+    leftPadding: 16
+    rightPadding: 16
+
+    horizontalAlignment: HorizontalAlignment.Fill
+
+    topMargin: 16
+    bottomMargin: 16
+
     HorizontalContainer {
         visible: song!=null
         ImageView {
@@ -65,4 +77,11 @@ VerticalContainer {
             }
         }
     }
+    attachedObjects: [
+        ImagePaintDefinition {
+            id: backgroundImagePaint
+            repeatPattern: RepeatPattern.Fill
+            imageSource: "asset:///images/backgrounds/container_back.amd"
+        }
+    ]
 }
