@@ -5,7 +5,7 @@ Page {
     id: songListPage
     property int formatId
     property string formatName
-    
+
     property int genreId
     property string genreName
     
@@ -15,8 +15,6 @@ Page {
     property string mode
     property variant navigationPane
 
-    objectName: "SongList" 
-    
     titleBar: TitleBar {
         title: {
             if(mode == 'format') {
@@ -33,39 +31,52 @@ Page {
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    Container {
-        background: back.imagePaint
-        attachedObjects: [
-            ImagePaintDefinition {
-                id: back
-                repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/backgrounds/background.png"
-            }
-        ]
+    ViewContainer {
         ListView {
             id: songs
-            
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
+            topPadding: 20
+            bottomPadding: topPadding
+            leftPadding: 10
+            rightPadding: leftPadding
             listItemComponents: [
                 ListItemComponent {
                     type: "header"
-                    Header {
-                        title: ListItemData
+                    Label {
+                        text: ListItem.data
+                        textStyle.fontWeight: FontWeight.Bold
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.White
                     }
                 },
                 ListItemComponent {
                     type: "item"
-                    StandardListItem {
+                    ModPlayerListItem {
                         title: ListItem.data.title
                         description: ListItem.data.fileName
-                        status: ListItem.data.downloads + " downloads"
+                        upperStatus: {
+                            if(ListItem.data.score > 0) {
+                                return "score " + ListItem.data.score + " of 10"
+                            }
+                            return ""
+                        }
+                        middleStatus: {
+                            if(ListItem.data.favourited > 0) {
+                                return "favourited " + ListItem.data.favourited + " times"
+                            }
+                            return ""
+                        } 
+                        lowerStatus: {
+                            if(ListItem.data.downloads > 0) {
+                                return ListItem.data.downloads + " downloads"
+                            }
+                            return ""
+                        }  
                         imageSource: ListItem.data.iconPath
                     }
                 }
             ]
-            
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songView.createObject()
@@ -73,7 +84,6 @@ Page {
                 view.load(chosenItem.id)
                 navigationPane.push(view)
             }
-            
             attachedObjects: [
                 ComponentDefinition {
                     id: songView
@@ -98,7 +108,7 @@ Page {
         var data = app.player.catalog.findSongsByGenreId(genreId)
         songs.dataModel = data
     }
-    
+
     function loadSongsByArtist(artistId, artistName) {
         this.mode = "artist"
         this.artistId = artistId

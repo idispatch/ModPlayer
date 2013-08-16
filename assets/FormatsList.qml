@@ -8,28 +8,22 @@ Page {
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    Container {
-        background: back.imagePaint
-        attachedObjects: [
-            ImagePaintDefinition {
-                id: back
-                repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/backgrounds/background.png"
-            }
-        ]
+    ViewContainer {
         ListView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
+            topPadding: 20
+            bottomPadding: topPadding
+            leftPadding: 10
+            rightPadding: leftPadding
             listItemComponents: ListItemComponent {
-                StandardListItem {
+                ModPlayerListItem {
                     title: ListItem.data.name
                     description: ListItem.data.description
-                    status: ListItem.data.count + " songs"
+                    middleStatus: ListItem.data.count + " songs"
                     imageSource: ListItem.data.iconPath
                 }
             }
-        
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
@@ -49,7 +43,6 @@ Page {
             }
         }
     }
-    
     actions: [
         PlayerActionItem {
             navigationPane: formatsPage.navigationPane

@@ -4,7 +4,6 @@ import "functions.js" as Global
 Page {
     id: personalSongListPage
     property variant navigationPane
-    
     titleBar: TitleBar {
         title: {
             if(songs.mode == "recent") return qsTr("Recently Played Songs")
@@ -51,12 +50,12 @@ Page {
                             var mode = ListItem.view.mode
                             if(mode == "topDownloads") {
                                 if(ListItem.data.score > 0) {
-                                    return "score: " + ListItem.data.score + " of 10"
+                                    return "score " + ListItem.data.score + " of 10"
                                 }
                             }
                             if(mode == "topFavourited") {
                                 if(ListItem.data.score > 0) {
-                                    return "score: " + ListItem.data.score + " of 10"
+                                    return "score " + ListItem.data.score + " of 10"
                                 }
                             }
                             if(mode == "topScored") {
