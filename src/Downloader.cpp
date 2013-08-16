@@ -20,22 +20,16 @@ Downloader::Downloader(QObject * parent)
       m_networkConfigurationManager(new QNetworkConfigurationManager(this)) {
     bool rc;
     Q_UNUSED(rc);
-    rc = QObject::connect(m_networkManager,
-                          SIGNAL(finished(QNetworkReply*)),
-                          this,
-                          SLOT(onHttpFinished(QNetworkReply*)));
+    rc = QObject::connect(m_networkManager, SIGNAL(finished(QNetworkReply*)),
+                          this,             SLOT(onHttpFinished(QNetworkReply*)));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(m_networkManager,
-                          SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),
-                          this,
-                          SLOT(onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
+    rc = QObject::connect(m_networkManager, SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),
+                          this,             SLOT(onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(m_networkConfigurationManager,
-                          SIGNAL(onlineStateChanged(bool)),
-                          this,
-                          SLOT(onOnlineStateChanged(bool)));
+    rc = QObject::connect(m_networkConfigurationManager, SIGNAL(onlineStateChanged(bool)),
+                          this,                          SLOT(onOnlineStateChanged(bool)));
     Q_ASSERT(rc);
 }
 

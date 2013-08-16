@@ -12,8 +12,10 @@ Cache::Cache(QSettings &settings, QObject * parent)
 }
 
 Cache::~Cache() {
-    m_settings.setValue("cache/maxSize", maxSize());
-    m_settings.setValue("cache/maxFiles", maxFiles());
+    m_settings.beginGroup("cache");
+    m_settings.setValue("maxSize", maxSize());
+    m_settings.setValue("maxFiles", maxFiles());
+    m_settings.endGroup();
 }
 
 void Cache::initCache() {

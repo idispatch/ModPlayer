@@ -335,7 +335,7 @@ void Player::play(QVariant value) {
         }
     }
     else {
-        SongExtendedInfo * info = qobject_cast<SongExtendedInfo*>(value.value<QObject*>());
+        SongExtendedInfo * info = songExtendedInfo(value);
         if(info != 0) {
             playByModuleFileName(info->fileName());
         }

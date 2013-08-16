@@ -66,7 +66,6 @@ Page {
                         rightMargin: 5
                     }
                     Label {
-                        id: playCountField
                         textFormat: TextFormat.Html
                         text: {
                             if(song!=null) {
@@ -92,25 +91,26 @@ Page {
                 }
 
                 HorizontalContainer {
-                    visible: song!=null && song.playCount > 0
+                    visible: song!=null && song.lastPlayed > 0
                     ImageView {
                         imageSource: "asset:///images/badges/badge_lastplayed.png"
                         verticalAlignment: VerticalAlignment.Center
                         rightMargin: 5
                     }
                     Label {
-                        text: song!=null && song.playCount > 0 ? 
+                        text: song!=null && song.lastPlayed > 0 ? 
                                 "Last played " + Global.formatTimeStamp(song.lastPlayed) : 
                                  ""
                     }
                     function songInfoChanged(){
+                        console.log('!!! songInfoChanged ' + app.player.currentSong.id)
                         if(song.id == app.player.currentSong.id) {
-                            song.playCount = app.player.currentSong.playCount
+                            console.log('!!! songInfoChanged for this object ' + app.player.currentSong.id)
                             song.lastPlayed = app.player.currentSong.lastPlayed
+                            console.log('!!! last Played: ' + Global.formatTimeStamp(song.lastPlayed))
                         }
                     }
                     onCreationCompleted: {
-                        app.player.currentSong.playCountChanged.connect(songInfoChanged)
                         app.player.currentSong.lastPlayedChanged.connect(songInfoChanged)
                     }
                 }

@@ -1,8 +1,10 @@
 #ifndef SONGBASICINFO_HPP_
 #define SONGBASICINFO_HPP_
 
+#include <QDebug>
 #include <QMetaType>
 #include <QObject>
+#include <QVariant>
 #include <QUrl>
 
 class SongBasicInfo : public QObject {
@@ -21,6 +23,7 @@ class SongBasicInfo : public QObject {
     Q_PROPERTY(int downloads READ downloads WRITE setDownloads NOTIFY downloadsChanged FINAL)
     Q_PROPERTY(int favourited READ favourited WRITE setFavourited NOTIFY favouritedChanged FINAL)
     Q_PROPERTY(int score READ score WRITE setScore NOTIFY scoreChanged FINAL)
+
     Q_PROPERTY(int playCount READ playCount WRITE setPlayCount NOTIFY playCountChanged FINAL)
     Q_PROPERTY(int lastPlayed READ lastPlayed WRITE setLastPlayed NOTIFY lastPlayedChanged FINAL)
     Q_PROPERTY(int myFavourite READ myFavourite WRITE setMyFavourite NOTIFY myFavouriteChanged FINAL)
@@ -112,5 +115,13 @@ private:
 };
 
 Q_DECLARE_METATYPE(SongBasicInfo*);
+
+inline SongBasicInfo* songBasicInfo(QVariant const& value) {
+    SongBasicInfo *result = qobject_cast<SongBasicInfo*>(value.value<QObject*>());
+    if(result == 0) {
+        qDebug() << "!!! Could not cast" << value << "to SongBasicInfo*";
+    }
+    return result;
+}
 
 #endif

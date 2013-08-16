@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QMetaType>
 #include <QObject>
+#include <QVariant>
 #include "SongBasicInfo.hpp"
 
 class SongExtendedInfo : public SongBasicInfo {
@@ -96,5 +97,13 @@ private:
 };
 
 Q_DECLARE_METATYPE(SongExtendedInfo*);
+
+inline SongExtendedInfo* songExtendedInfo(QVariant const& value) {
+    SongExtendedInfo *result = qobject_cast<SongExtendedInfo*>(value.value<QObject*>());
+    if(result == 0) {
+        qDebug() << "!!! Could not cast" << value << "to SongExtendedInfo*";
+    }
+    return result;
+}
 
 #endif

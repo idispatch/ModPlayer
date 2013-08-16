@@ -48,10 +48,8 @@ ApplicationUI::~ApplicationUI() {
 
 void ApplicationUI::initSignals() {
     bool rc;
-    rc = QObject::connect(m_app,
-                          SIGNAL(aboutToQuit()),
-                          this,
-                          SLOT(onAboutToQuit()));
+    rc = QObject::connect(m_app, SIGNAL(aboutToQuit()),
+                          this,  SLOT(onAboutToQuit()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }
@@ -69,6 +67,21 @@ void ApplicationUI::onAboutToQuit() {
 
 void ApplicationUI::initTypes() {
     DataSource::registerQmlTypes();
+
+    qRegisterMetaType<Artist*>();
+    qRegisterMetaType<Cache*>();
+    qRegisterMetaType<Catalog*>();
+    qRegisterMetaType<Downloader*>();
+    qRegisterMetaType<ItemGroupBase*>();
+    qRegisterMetaType<LCDDigits*>();
+    qRegisterMetaType<ModPlayback*>();
+    qRegisterMetaType<PlaybackConfig*>();
+    qRegisterMetaType<Player*>();
+    qRegisterMetaType<SongBasicInfo*>();
+    qRegisterMetaType<SongExtendedInfo*>();
+    qRegisterMetaType<SongModule*>();
+    qRegisterMetaType<SongFormat*>();
+    qRegisterMetaType<SongGenre*>();
 
     const int versionMajor = 1, versionMinor = 0;
 
@@ -117,26 +130,20 @@ void ApplicationUI::initActiveCover() {
 
 void ApplicationUI::initPlayer() {
     bool rc;
-    rc = QObject::connect(m_player,
-                          SIGNAL(catalogChanged()),
-                          this,
-                          SLOT(onCatalogChanged()));
+    rc = QObject::connect(m_player, SIGNAL(catalogChanged()),
+                          this,     SLOT(onCatalogChanged()));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(m_player,
-                          SIGNAL(cacheChanged()),
-                          this,
-                          SLOT(onCacheChanged()));
+    rc = QObject::connect(m_player, SIGNAL(cacheChanged()),
+                          this,     SLOT(onCacheChanged()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }
 
 void ApplicationUI::initTranslator() {
     bool rc;
-    rc = QObject::connect(m_pLocaleHandler,
-                          SIGNAL(systemLanguageChanged()),
-                          this,
-                          SLOT(onSystemLanguageChanged()));
+    rc = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()),
+                          this,             SLOT(onSystemLanguageChanged()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
     onSystemLanguageChanged();
