@@ -1,87 +1,58 @@
 import bb.cascades 1.0
 import player 1.0
-import "functions.js" as Global
 
 Page {
-    Container {
-        background: back.imagePaint
-        attachedObjects: [
-            ImagePaintDefinition {
-                id: back
-                repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/backgrounds/background.png"
-            }
-        ]
-        horizontalAlignment: HorizontalAlignment.Fill
-        verticalAlignment: VerticalAlignment.Fill
-
+    ViewContainer {
         ScrollView {
             VerticalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-
                 leftPadding: 20
                 rightPadding: 20
-
                 VerticalContainer {
                     visible: app.player.currentSong.songLoaded
                     topPadding: 20
                     bottomPadding: 20
-
-                    LCDDisplay {
-                        text: {
-                            if(app.player.currentSong.title.length == 0) {
-                                return app.player.currentSong.fileName
-                            } else {
-                                return app.player.currentSong.title
-                            }
-                        }
+                    Container {
+                        background: Color.White
+                        leftPadding: 1
+                        rightPadding: leftPadding
+                        topPadding: 1
+                        bottomPadding: topPadding
                         horizontalAlignment: HorizontalAlignment.Center
-                    }
-
-                    HorizontalContainer {
-                        SongIconView {
-                            song: app.player.currentSong
-                        }
-                        VerticalContainer {
-                            Label {
-                                text: "File: " + app.player.currentSong.fileName
+                        LCDDisplay {
+                            text: {
+                                if(app.player.currentSong.title.length == 0) {
+                                    return app.player.currentSong.fileName
+                                } else {
+                                    return app.player.currentSong.title
+                                }
                             }
-                            Label {
-                                visible: app.player.currentSong.description.length > 0
-                                text: "Description: " + app.player.currentSong.description
-                            }
-                            Label {
-                                text: "Size: " + Global.getSizeKb(app.player.currentSong.fileSize)
-                            }
-                            Label {
-                                text: "Length: " + app.player.currentSong.songLengthText
-                            }
+                            horizontalAlignment: HorizontalAlignment.Center
                         }
                     }
-
-                    Divider {}
-
+                    SongMainInfo {
+                        song: app.player.currentSong
+                    }
                     SongOtherStats {
                         song: app.player.currentSong
                     }
-
                     SongStatData {
                         song: app.player.currentSong
                     }
-
                     SongPlayData {
                         song: app.player.currentSong
                     }
                 }
-                
                 Label {
                     text: app.player.statusText
+                    textStyle.fontWeight: FontWeight.Bold
+                    textStyle.fontSize: FontSize.Large
+                    textStyle.color: Color.White
                 }
             }
         }
     }
-    
     actions: [
         PlayActionItem {},
         PauseActionItem {}, 
