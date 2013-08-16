@@ -1,14 +1,13 @@
 import bb.cascades 1.0
 
 Page {
+    id: formatsPage
     property variant navigationPane
-    
     titleBar: TitleBar {
         title: qsTr("Select Songs by Format")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
     Container {
         background: back.imagePaint
         attachedObjects: [
@@ -53,7 +52,7 @@ Page {
     
     actions: [
         PlayerActionItem {
-            navigationPane: parent.navigationPane
+            navigationPane: formatsPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

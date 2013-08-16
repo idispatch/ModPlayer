@@ -70,9 +70,10 @@ TabbedPane {
         description: qsTr("Songs By Module Format")
         imageSource: "asset:///images/actions/icon_format.png"
         NavigationPane {
+            id: formatsNavigationPane
             FormatsList {
                 id: songFormatsList
-                navigationPane: parent
+                navigationPane: formatsNavigationPane
             }
             onPopTransitionEnded: {
                 page.destroy()
@@ -86,9 +87,10 @@ TabbedPane {
         description: qsTr("Songs By Genre")
         imageSource: "asset:///images/actions/icon_genres.png"
         NavigationPane {
+            id: genresNavigationPane 
             GenresList {
                 id: songGenresList
-                navigationPane: parent
+                navigationPane: genresNavigationPane
             }
             onPopTransitionEnded: {
                 page.destroy()
@@ -102,9 +104,10 @@ TabbedPane {
         description: qsTr("Songs By Artist")
         imageSource: "asset:///images/actions/icon_artists.png"
         NavigationPane {
+            id: artistsNavigationPane
             ArtistsList {
                 id: songArtistsList
-                navigationPane: parent
+                navigationPane: artistsNavigationPane
             }
             onPopTransitionEnded: {
                 page.destroy()

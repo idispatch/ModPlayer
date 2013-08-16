@@ -2,6 +2,7 @@ import bb.cascades 1.0
 import player 1.0
 
 Page {
+    id: songListPage
     property int formatId
     property string formatName
     
@@ -32,7 +33,6 @@ Page {
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
     Container {
         background: back.imagePaint
         attachedObjects: [
@@ -109,7 +109,7 @@ Page {
 
     actions: [
         PlayerActionItem {
-            navigationPane: parent.navigationPane
+            navigationPane: songListPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

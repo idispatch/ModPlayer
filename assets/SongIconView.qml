@@ -10,8 +10,8 @@ ImageView {
     loadEffect: ImageViewLoadEffect.FadeZoom
     preferredHeight: 128
     preferredWidth: 128
-    minHeight: preferredHeight
-    maxHeight: preferredHeight
-    minWidth: preferredWidth 
-    maxWidth: preferredWidth
+    minHeight: 128
+    maxHeight: 128
+    minWidth: 128 
+    maxWidth: 128
 }

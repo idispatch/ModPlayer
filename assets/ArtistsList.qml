@@ -1,47 +1,44 @@
 import bb.cascades 1.0
 
 Page {
+    id: artistsPage
     property variant navigationPane
-    
     titleBar: TitleBar {
         title: qsTr("Select Songs by Artist")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
-    Container {
-        background: back.imagePaint
-        attachedObjects: [
-            ImagePaintDefinition {
-                id: back
-                repeatPattern: RepeatPattern.Fill
-                imageSource: "asset:///images/backgrounds/background.png"
-            }
-        ]
+    ViewContainer {
         ListView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            
+            topPadding: 20
+            bottomPadding: topPadding
+            leftPadding: 10
+            rightPadding: leftPadding
             listItemComponents: [
                 ListItemComponent {
                     type: "header"
-                    Header {
-                        title: ListItemData
+                    Label {
+                        text: ListItem.data
+                        textStyle.fontWeight: FontWeight.Bold
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.White
                     }
                 },
                 ListItemComponent {
                     type: "item"
-                    StandardListItem {
+                    ModPlayerListItem {
                         title: ListItemData.name
-                        status: ListItemData.count + " songs"
+                        upperStatus: ListItemData.count + " songs"
+                        middleStatus: "score: " + ListItemData.score + " of 10"
+                        lowerStatus: "rating: " + ListItemData.rating
                     }
                 }
             ]
-            
             onCreationCompleted: {
                 dataModel = app.player.catalog.artists
             }
-            
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
@@ -49,7 +46,6 @@ Page {
                 view.loadSongsByArtist(chosenItem.id, chosenItem.name)
                 navigationPane.push(view)
             }
-            
             attachedObjects: [
                 ComponentDefinition {
                     id: songList
@@ -58,10 +54,9 @@ Page {
             ]
         }
     }
-    
     actions: [
         PlayerActionItem {
-            navigationPane: parent.navigationPane
+            navigationPane: artistsPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

@@ -16,14 +16,17 @@ GroupContainer {
         HorizontalContainer {
             ImageView {
                 id: imageView
+                visible: image != null
                 horizontalAlignment: HorizontalAlignment.Left
                 verticalAlignment: VerticalAlignment.Center
+                scalingMethod: ScalingMethod.Fill
+                loadEffect: ImageViewLoadEffect.FadeZoom
                 preferredWidth: 128
                 preferredHeight: 128
-                minWidth: preferredWidth
-                maxWidth: minWidth
-                minHeight: preferredHeight
-                maxHeight: minHeight
+                minWidth: 128
+                maxWidth: 128
+                minHeight: 128
+                maxHeight: 128
             }
             HorizontalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
@@ -38,21 +41,20 @@ GroupContainer {
                     rightPadding: 20
                     Label {
                         id: titleField
-                        text: "Title"
+                        visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
                         textStyle.base: SystemDefaults.TextStyles.PrimaryText
                         textStyle.color: Color.Black
                     }
                     Label {
                         id: descriptionField
-                        text: "Description"
+                        visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
                         textStyle.base: SystemDefaults.TextStyles.BodyText
                         textStyle.fontWeight: FontWeight.W100
                         textStyle.color: Color.Black
                     }
                 }
-                
                 VerticalContainer {
                     layout: StackLayout {
                         orientation: LayoutOrientation.TopToBottom

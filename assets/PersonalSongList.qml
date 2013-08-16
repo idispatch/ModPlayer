@@ -2,6 +2,7 @@ import bb.cascades 1.0
 import "functions.js" as Global
 
 Page {
+    id: personalSongListPage
     property variant navigationPane
     
     titleBar: TitleBar {
@@ -39,21 +40,52 @@ Page {
                         upperStatus: {
                             var mode = ListItem.view.mode
                             if(mode == "recent") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                            if(mode == "myFavourite") return (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                            if(mode == "mostPlayed") return (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                            if(mode == "topFavourited") return ListItem.data.favourited + " times"
+                            if(mode == "myFavourite") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                            if(mode == "mostPlayed") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                            if(mode == "topFavourited") return "favourited " + ListItem.data.favourited + " times"
                             if(mode == "topScored") return ListItem.data.score + " of 10"
                             if(mode == "topDownloads") return ListItem.data.downloads + " downloads"
                             return ""
                         }
+                        middleStatus: {
+                            var mode = ListItem.view.mode
+                            if(mode == "topDownloads") {
+                                if(ListItem.data.score > 0) {
+                                    return "score: " + ListItem.data.score + " of 10"
+                                }
+                            }
+                            if(mode == "topFavourited") {
+                                if(ListItem.data.score > 0) {
+                                    return "score: " + ListItem.data.score + " of 10"
+                                }
+                            }
+                            if(mode == "topScored") {
+                                if(ListItem.data.downloads > 0) {
+                                    return ListItem.data.downloads + " downloads"
+                                }
+                            }
+                            return ""
+                        }
                         lowerStatus: {
                             var mode = ListItem.view.mode
-                            if(mode == "recent") return (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                            if(mode == "recent") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                             if(mode == "myFavourite") return Global.formatTimeStamp(ListItem.data.lastPlayed)
                             if(mode == "mostPlayed") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                            if(mode == "topFavourited") return ""
-                            if(mode == "topScored") return ""
-                            if(mode == "topDownloads") return ""
+                            if(mode == "topFavourited") {
+                                if(ListItem.data.downloads > 0) {
+                                    return ListItem.data.downloads + " downloads"
+                                }
+                            }
+                            if(mode == "topScored") {
+                                if(ListItem.data.favourited > 0) {
+                                    return "favourited " + ListItem.data.favourited + " times"
+                                }
+                            }
+                            if(mode == "topDownloads") {
+                                if(ListItem.data.favourited > 0) {
+                                    return "favourited " + ListItem.data.favourited + " times"
+                                }
+                            }
                             return ""
                         }
                         imageSource: ListItem.data.iconPath
@@ -107,7 +139,7 @@ Page {
     }
     actions: [
         PlayerActionItem {
-            navigationPane: parent.navigationPane
+            navigationPane: personalSongListPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
