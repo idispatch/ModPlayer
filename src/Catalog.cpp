@@ -523,7 +523,12 @@ void Catalog::play(QVariant value) {
                                                                                            .arg(info->lastPlayed())
                                                                                            .arg(info->id());
         m_dataAccess->execute(query);
-        qDebug() << "Updating play count and last played for song" << info->fileName();
+        qDebug() << "Updating play count="
+                 << info->playCount()
+                 << ", last played="
+                 << info->lastPlayed()
+                 << "for song"
+                 << info->fileName();
     } else {
         qDebug() << "!!! Catalog::play: invalid value=" << value;
     }

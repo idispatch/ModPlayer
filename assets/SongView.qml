@@ -80,13 +80,13 @@ Page {
                             return "";
                         }
                     }
-                    function songInfoChanged(){
+                    function songPlayCountChanged(){
                         if(song.id == app.player.currentSong.id) {
                             song.playCount = app.player.currentSong.playCount
                         }
                     }
                     onCreationCompleted: {
-                        app.player.currentSong.playCountChanged.connect(songInfoChanged)
+                        app.player.currentSong.playCountChanged.connect(songPlayCountChanged)
                     }
                 }
 
@@ -102,16 +102,13 @@ Page {
                                 "Last played " + Global.formatTimeStamp(song.lastPlayed) : 
                                  ""
                     }
-                    function songInfoChanged(){
-                        console.log('!!! songInfoChanged ' + app.player.currentSong.id)
+                    function songLastPlayedChanged(){
                         if(song.id == app.player.currentSong.id) {
-                            console.log('!!! songInfoChanged for this object ' + app.player.currentSong.id)
                             song.lastPlayed = app.player.currentSong.lastPlayed
-                            console.log('!!! last Played: ' + Global.formatTimeStamp(song.lastPlayed))
                         }
                     }
                     onCreationCompleted: {
-                        app.player.currentSong.lastPlayedChanged.connect(songInfoChanged)
+                        app.player.currentSong.lastPlayedChanged.connect(songLastPlayedChanged)
                     }
                 }
 

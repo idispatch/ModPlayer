@@ -285,8 +285,7 @@ void Player::beginPlay(QString const& fileName) {
             {
                 QString file = currentSong()->fileName();
                 changeStatus(Playing, QString(tr("Playing %1")).arg(file));
-                QVariant song = QVariant::fromValue(info);
-                m_catalog->play(song);
+                m_catalog->play(QVariant::fromValue(static_cast<QObject*>(currentSong())));
 
                 if(!m_nowPlaying->isAcquired())
                 {
