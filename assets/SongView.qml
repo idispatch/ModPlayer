@@ -20,19 +20,19 @@ Page {
                     song: songView.song != null ? songView.song : null
                 }
 
-                SongExtendedData {
+                SongExtendedInfo {
                     song: songView.song != null ? songView.song : null
                 }
 
-                SongPersonalData {
+                SongPersonalInfo {
                     song: songView != null ? songView.song : null
                 }
 
-                SongOtherStats {
+                SongPublicInfo {
                     song: songView != null ? songView.song : null
                 }
 
-                SongStatData {
+                SongParametersInfo {
                     song: songView != null ? songView.song : null
                 }
             }
@@ -54,19 +54,12 @@ Page {
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId)
     }
-
     attachedObjects: [
         ComponentDefinition {
             id: songPlayer
             source: "SongPlayer.qml"
-        },
-        ImagePaintDefinition {
-            id: background
-            repeatPattern: RepeatPattern.Fill
-            imageSource: "asset:///images/backgrounds/container_back.amd"
         }
     ]
-
     actions: [ 
         ActionItem {
             title: qsTr("Now Playing")

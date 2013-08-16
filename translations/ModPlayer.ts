@@ -347,18 +347,7 @@
     </message>
 </context>
 <context>
-    <name>SongOtherStats</name>
-    <message>
-        <source>Not favourited by anyone yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not rated by anyone yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongPersonalData</name>
+    <name>SongPersonalInfo</name>
     <message>
         <source>You played this song once</source>
         <translation type="unfinished"></translation>
@@ -373,6 +362,17 @@
     </message>
     <message>
         <source>You have this song in the cache already</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongPublicInfo</name>
+    <message>
+        <source>Not favourited by anyone yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not rated by anyone yet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

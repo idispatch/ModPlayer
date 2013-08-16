@@ -11,6 +11,7 @@ Page {
                 rightPadding: 20
                 VerticalContainer {
                     visible: app.player.currentSong.songLoaded
+                    horizontalAlignment: HorizontalAlignment.Fill
                     topPadding: 20
                     bottomPadding: 20
                     Container {
@@ -34,13 +35,13 @@ Page {
                     SongMainInfo {
                         song: app.player.currentSong
                     }
-                    SongOtherStats {
+                    SongPublicInfo {
                         song: app.player.currentSong
                     }
-                    SongStatData {
+                    SongParametersInfo {
                         song: app.player.currentSong
                     }
-                    SongPlayData {
+                    SongDynamicInfo {
                         song: app.player.currentSong
                     }
                 }
