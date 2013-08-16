@@ -10,14 +10,14 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_myfavourite.png"
         description: qsTr("My Favourite Songs")
         onTriggered: {
-            songMyFavouriteView.load()
+            songMyFavouriteView.loadMyFavouriteSongs()
         }
         NavigationPane {
-            SongsMyFavourite {
+            id: myFavouriteNavigationPane
+            PersonalSongList {
                 id: songMyFavouriteView
-                navigationPane: parent
+                navigationPane: myFavouriteNavigationPane
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
@@ -30,20 +30,19 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_recent.png"
         description: qsTr("Recently Played Songs")
         onTriggered: {
-            songRecentlyPlayedView.load()
+            songRecentlyPlayedView.loadRecentlyPlayedSongs()
         }
         NavigationPane {
-            SongsRecentlyPlayed {
+            id: recentlyPlayedNavigationPane 
+            PersonalSongList {
                 id: songRecentlyPlayedView
-                navigationPane: parent
+                navigationPane: recentlyPlayedNavigationPane
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
         }
     }
-    
     Tab {
         id: mostPlayedTab
         title: qsTr("Most Played")
@@ -51,14 +50,14 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_mostplayed.png"
         description: qsTr("Most Played Songs")
         onTriggered: {
-            songMostPlayedView.load()
+            songMostPlayedView.loadMostPlayedSongs()
         }
         NavigationPane {
-            SongsMostPlayed {
+            id: mostPlayedNavigationPane
+            PersonalSongList {
                 id: songMostPlayedView
-                navigationPane: parent
+                navigationPane: mostPlayedNavigationPane
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
@@ -119,14 +118,14 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_downloads.png"
         description: qsTr("Top Downloaded Songs")
         onTriggered: {
-            songsTopDownloadedView.load()
+            songsTopDownloadedView.loadMostDownloadedSongs()
         }
         NavigationPane {
-            SongsTopDownloaded {
+            id: topDownloadsNavigationPane
+            PersonalSongList {
                 id: songsTopDownloadedView
-                navigationPane: parent
+                navigationPane: topDownloadsNavigationPane
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
@@ -139,14 +138,14 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_favourite.png"
         description: qsTr("Top Favourited Songs")
         onTriggered: {
-            songTopFavouritedView.load()
+            songTopFavouritedView.loadMostFavouritedSongs()
         }
         NavigationPane {
-            SongsTopFavourited {
+            id: topFavouritedNavigationPane
+            PersonalSongList {
                 id: songTopFavouritedView
-                navigationPane: parent
+                navigationPane: topFavouritedNavigationPane
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
@@ -159,20 +158,19 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_score.png"
         description: qsTr("Top Scored Songs")
         onTriggered: {
-            songTopScoredView.load()
+            songTopScoredView.loadMostScoredSongs()
         }
         NavigationPane {
-            SongsTopScored {
+            id: topScoredNavigationPane
+            PersonalSongList {
                 id: songTopScoredView
-                navigationPane: parent
+                navigationPane: topScoredNavigationPane
             }
-            
             onPopTransitionEnded: {
                 page.destroy()
             }
         }
     }
-    
     Menu.definition: MenuDefinition {
         helpAction: HelpActionItem {
             id: helpActionItem

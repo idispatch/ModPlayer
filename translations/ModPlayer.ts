@@ -120,6 +120,33 @@
     </message>
 </context>
 <context>
+    <name>PersonalSongList</name>
+    <message>
+        <source>Recently Played Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Favourite Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Most Played Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Favourited Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Scored Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Downloaded Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PlayActionItem</name>
     <message>
         <source>Stop</source>
@@ -380,48 +407,6 @@
     <name>SongView</name>
     <message>
         <source>Now Playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsMostPlayed</name>
-    <message>
-        <source>Most Played Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsMyFavourite</name>
-    <message>
-        <source>My Favourite Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsRecentlyPlayed</name>
-    <message>
-        <source>Recently Played Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsTopDownloaded</name>
-    <message>
-        <source>Top Downloaded Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsTopFavourited</name>
-    <message>
-        <source>Top Favourited Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsTopScored</name>
-    <message>
-        <source>Top Scored Songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
