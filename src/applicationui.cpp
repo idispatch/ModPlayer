@@ -56,6 +56,7 @@ void ApplicationUI::initSignals() {
 }
 
 void ApplicationUI::onAboutToQuit() {
+    m_settings.setValue("library/version", 1);
     LCDDigits::finalize();
     if(m_player != 0) {
         m_player->setParent(0);
