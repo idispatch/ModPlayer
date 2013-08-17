@@ -22,6 +22,7 @@ GroupContainer {
                     }
                     return "";
                 }
+                textStyle.color: Color.Black
             }
         }
         HorizontalContainer {
@@ -43,6 +44,7 @@ GroupContainer {
                     }
                     return "";
                 }
+                textStyle.color: Color.Black
             }
         }
         HorizontalContainer {
@@ -55,6 +57,7 @@ GroupContainer {
             }
             Label {
                 textFormat: TextFormat.Html
+                textStyle.color: Color.Black
                 text: {
                     if(song != null) {
                         if(song.score > 0) {

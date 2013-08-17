@@ -1,125 +1,107 @@
 import bb.cascades 1.0
 import player 1.0
 
-VerticalContainer {
-    property bool playing: app.player.currentSong.songLoaded && app.player.state == Player.Playing 
-
-    background: back.imagePaint
-    horizontalAlignment: HorizontalAlignment.Fill
-    verticalAlignment: VerticalAlignment.Fill
-
-    attachedObjects: [
-        ImagePaintDefinition {
-            id: back
-            repeatPattern: RepeatPattern.Fill
-            imageSource: "asset:///images/cover/cover.png"
-        },
-        ImagePaintDefinition {
-            id: titleTextBack
-            repeatPattern: RepeatPattern.Fill
-            imageSource: "asset:///images/cover/cover_text_back.amd"
-        }
-    ]
-
+ViewContainer {
     VerticalContainer {
-
-        horizontalAlignment: HorizontalAlignment.Center
-        topPadding: 30
-
-        Container {
-            background: titleTextBack.imagePaint
-            horizontalAlignment: HorizontalAlignment.Center
-            
-            leftPadding: 15
-            rightPadding: leftPadding
-            
-            topPadding: 5
-            bottomPadding: topPadding
-            
-            Label {
-                horizontalAlignment: HorizontalAlignment.Center
-                text: "ModPlayer"
-                textStyle {
-                    base: SystemDefaults.TextStyles.BodyText
-                    fontWeight: FontWeight.Bold
-                    color: Color.White
-                }
+        horizontalAlignment: HorizontalAlignment.Fill
+        verticalAlignment: VerticalAlignment.Fill
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: titleTextBack
+                repeatPattern: RepeatPattern.Fill
+                imageSource: "asset:///images/cover/cover_text_back.amd"
             }
-        }
-
-        Container {
-            background: titleTextBack.imagePaint
+        ]
+        VerticalContainer {
             horizontalAlignment: HorizontalAlignment.Center
-
-            topMargin: 50
-
-            leftPadding: 15
-            rightPadding: leftPadding
-            topPadding: 5
-            bottomPadding: topPadding
-
-            Label {
+            topPadding: 30
+            Container {
+                background: titleTextBack.imagePaint
                 horizontalAlignment: HorizontalAlignment.Center
-                text: {
-                    if(app.player.currentSong.songLoaded) {
-                        var state = app.player.state;
-                        if(state == Player.Playing) {
-                            return qsTr("Playing")
-                        } else if (state == Player.Stopped) {
-                            return qsTr("Stopped")
-                        } else if (state == Player.Paused) {
-                            return qsTr("Paused")
-                        } else {
-                            return ""
-                        }
-                    } else {
-                        return qsTr("Idle")
+                
+                leftPadding: 15
+                rightPadding: leftPadding
+                
+                topPadding: 5
+                bottomPadding: topPadding
+                
+                Label {
+                    horizontalAlignment: HorizontalAlignment.Center
+                    text: "ModPlayer"
+                    textStyle {
+                        base: SystemDefaults.TextStyles.BodyText
+                        fontWeight: FontWeight.Bold
+                        color: Color.White
                     }
                 }
-                textStyle {
-                    color: Color.White
+            }
+            Container {
+                background: titleTextBack.imagePaint
+                horizontalAlignment: HorizontalAlignment.Center
+                topMargin: 35
+                leftPadding: 15
+                rightPadding: leftPadding
+                topPadding: 5
+                bottomPadding: topPadding
+                Label {
+                    horizontalAlignment: HorizontalAlignment.Center
+                    text: {
+                        if(app.player.currentSong.songLoaded) {
+                            var state = app.player.state;
+                            if(state == Player.Playing) {
+                                return qsTr("Playing")
+                            } else if (state == Player.Stopped) {
+                                return qsTr("Stopped")
+                            } else if (state == Player.Paused) {
+                                return qsTr("Paused")
+                            } else {
+                                return ""
+                            }
+                        } else {
+                            return qsTr("Idle")
+                        }
+                    }
+                    textStyle.color: Color.White
                 }
             }
-        }
-        
-        Container {
-            background: titleTextBack.imagePaint
-            horizontalAlignment: HorizontalAlignment.Center
-
-            visible: playing
-
-            leftPadding: 15
-            rightPadding: leftPadding
-            topPadding: 5
-            bottomPadding: topPadding
-
-            Label {
+            Container {
+                background: titleTextBack.imagePaint
                 horizontalAlignment: HorizontalAlignment.Center
-                text: app.player.currentSong.title
-                textStyle {
-                    color: Color.White
+                visible: {
+                    return app.player.currentSong.songLoaded && 
+                            (app.player.state == Player.Playing || 
+                             app.player.state == Player.Paused || 
+                             state == Player.Stopped);
+                } 
+                leftPadding: 15
+                rightPadding: leftPadding
+                topPadding: 5
+                bottomPadding: topPadding
+                Label {
+                    horizontalAlignment: HorizontalAlignment.Center
+                    text: visible ? app.player.currentSong.title : ""
+                    textStyle.color: Color.White
                 }
             }
-        }
-
-        Container {
-            background: titleTextBack.imagePaint
-            horizontalAlignment: HorizontalAlignment.Center
-            visible: playing
-
-            topMargin: 30
-
-            leftPadding: 15
-            rightPadding: leftPadding
-            topPadding: 5
-            bottomPadding: topPadding
-
-            Label {
+            Container {
+                background: titleTextBack.imagePaint
                 horizontalAlignment: HorizontalAlignment.Center
-                text: playing ? "("+app.player.currentSong.fileName+")" : ""
-                textStyle {
-                    color: Color.White
-                    fontSize: FontSize.XSmall
+                visible: {
+                    return app.player.currentSong.songLoaded && 
+                    (app.player.state == Player.Playing || 
+                    app.player.state == Player.Paused || 
+                    state == Player.Stopped);
+                }
+                topMargin: 30
+                leftPadding: 15
+                rightPadding: leftPadding
+                topPadding: 5
+                bottomPadding: topPadding
+                Label {
+                    horizontalAlignment: HorizontalAlignment.Center
+                    text: visible ? "("+app.player.currentSong.fileName+")" : ""
+                    textStyle.color: Color.White
+                    textStyle.fontSize: FontSize.XSmall
                 }
             }
         }

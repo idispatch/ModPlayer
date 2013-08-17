@@ -24,6 +24,7 @@ HorizontalContainer {
                     text: "Order"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.currentOrder : -1
@@ -39,6 +40,7 @@ HorizontalContainer {
                     text: "Pattern"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.currentPattern : -1
@@ -54,6 +56,7 @@ HorizontalContainer {
                     text: "Row"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.currentRow : -1
@@ -69,6 +72,7 @@ HorizontalContainer {
                     text: "Channels"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.playingChannels : -1
@@ -92,6 +96,7 @@ HorizontalContainer {
                     text: "Speed"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.currentSpeed : -1
@@ -107,6 +112,7 @@ HorizontalContainer {
                     text: "Tempo"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.currentTempo : -1
@@ -122,6 +128,7 @@ HorizontalContainer {
                     text: "Volume"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song != null ? song.masterVolume : -1

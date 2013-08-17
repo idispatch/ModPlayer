@@ -25,6 +25,7 @@ HorizontalContainer {
                     text: "Orders"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song!=null ? song.orders : -1
@@ -40,6 +41,7 @@ HorizontalContainer {
                     text: "Patterns"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song!=null ? song.patterns : -1
@@ -55,6 +57,7 @@ HorizontalContainer {
                     text: "Channels"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song!=null ? song.channels : -1
@@ -78,6 +81,7 @@ HorizontalContainer {
                     text: "Instruments"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song!=null ? song.instruments : -1
@@ -93,6 +97,7 @@ HorizontalContainer {
                     text: "Samples"
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
+                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song!=null ? song.samples : -1

@@ -25,6 +25,7 @@ GroupContainer {
                 }
                 return "";
             }
+            textStyle.color: Color.Black
         }
         function songPlayCountChanged(){
             if(song.id == app.player.currentSong.id) {
@@ -46,6 +47,7 @@ GroupContainer {
             text: song!=null && song.lastPlayed > 0 ? 
             "Last played " + Global.formatTimeStamp(song.lastPlayed) : 
             ""
+            textStyle.color: Color.Black
         }
         function songLastPlayedChanged(){
             if(song.id == app.player.currentSong.id) {
@@ -65,6 +67,7 @@ GroupContainer {
         }
         Label {
             text: song != null && song.myFavourite > 0 ? qsTr("You liked this song") : ""
+            textStyle.color: Color.Black
         }
         function songFavouriteChanged(){
             if(song.id == app.player.currentSong.id) {
@@ -79,6 +82,7 @@ GroupContainer {
         visible: song!=null && app.cache.exists(song.fileName)
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
+        textStyle.color: Color.Black
         text: getLabelText()
         function getLabelText() {
             if(song != null) {

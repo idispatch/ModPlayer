@@ -46,18 +46,22 @@ Sheet {
                             horizontalAlignment: HorizontalAlignment.Center
                             textStyle.base: SystemDefaults.TextStyles.TitleText
                             textStyle.fontWeight: FontWeight.Bold
+                            textStyle.color: Color.Black
                         }
                         Label {
                             text: "Cached Songs: <b>" + app.player.cache.currentFiles + "</b>"
                             textFormat: TextFormat.Html
+                            textStyle.color: Color.Black
                         }
                         Label {
                             text: "Used Cache Size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
                             textFormat: TextFormat.Html
+                            textStyle.color: Color.Black
                         }
                         
                         Label {
                             text: qsTr("Maximum Songs: ") + Math.round(maxCacheSongs.value)
+                            textStyle.color: Color.Black
                         }
                         VerticalContainer {
                             leftPadding: groupSettingIndent
@@ -70,7 +74,8 @@ Sheet {
                             }
                         }
                         Label {
-                            text: qsTr("Maximum Cache Size: ") + Global.getSizeKb(Math.round(maxCacheSize.value)) 
+                            text: qsTr("Maximum Cache Size: ") + Global.getSizeKb(Math.round(maxCacheSize.value))
+                            textStyle.color: Color.Black 
                         }
                         VerticalContainer {
                             leftPadding: groupSettingIndent
@@ -102,6 +107,7 @@ Sheet {
                             horizontalAlignment: HorizontalAlignment.Center
                             textStyle.base: SystemDefaults.TextStyles.TitleText
                             textStyle.fontWeight: FontWeight.Bold
+                            textStyle.color: Color.Black
                         }
                         
                         Button {
@@ -134,6 +140,7 @@ Sheet {
                             horizontalAlignment: HorizontalAlignment.Center
                             textStyle.base: SystemDefaults.TextStyles.TitleText
                             textStyle.fontWeight: FontWeight.Bold
+                            textStyle.color: Color.Black
                         }
                         DropDown {
                             id: output
@@ -235,6 +242,7 @@ Sheet {
                         Label {
                             text: qsTr("Stereo Separation")
                             textStyle.fontSize: FontSize.Large
+                            textStyle.color: Color.Black
                         }
                         VerticalContainer {
                             leftPadding: groupSettingIndent
@@ -281,6 +289,7 @@ Sheet {
                                 visible: reverbEnabled.checked
                                 textStyle.fontStyle: FontStyle.Italic
                                 textStyle.fontWeight: FontWeight.W100
+                                textStyle.color: Color.Black
                             }
                             Slider {
                                 id: reverbLevel
@@ -297,6 +306,7 @@ Sheet {
                                 visible: reverbEnabled.checked
                                 textStyle.fontStyle: FontStyle.Italic
                                 textStyle.fontWeight: FontWeight.W100
+                                textStyle.color: Color.Black
                             }
                             Slider {
                                 id: reverbDelay
@@ -325,6 +335,7 @@ Sheet {
                                 visible: megabassEnabled.checked
                                 textStyle.fontStyle: FontStyle.Italic
                                 textStyle.fontWeight: FontWeight.W100
+                                textStyle.color: Color.Black
                             }
                             Slider {
                                 id: megabassLevel
@@ -341,6 +352,7 @@ Sheet {
                                 visible: megabassEnabled.checked
                                 textStyle.fontStyle: FontStyle.Italic
                                 textStyle.fontWeight: FontWeight.W100
+                                textStyle.color: Color.Black
                             }
                             Slider {
                                 id: megabassCutoff
@@ -369,6 +381,7 @@ Sheet {
                                 visible: surroundEnabled.checked
                                 textStyle.fontStyle: FontStyle.Italic
                                 textStyle.fontWeight: FontWeight.W100
+                                textStyle.color: Color.Black
                             }
                             Slider {
                                 id: surroundLevel
@@ -385,6 +398,7 @@ Sheet {
                                 visible: surroundEnabled.checked
                                 textStyle.fontStyle: FontStyle.Italic
                                 textStyle.fontWeight: FontWeight.W100
+                                textStyle.color: Color.Black
                             }
                             Slider {
                                 id: surroundDelay

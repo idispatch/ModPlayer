@@ -9,6 +9,8 @@
     <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
 
     <author>Oleg Kosenkov</author>
+    <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
+    <category>core.media</category>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/ModPlayer" entry="true" type="Qnx/Elf">ModPlayer</asset>
@@ -42,4 +44,5 @@
     <permission system="true">run_native</permission>
     <permission>access_internet</permission>
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
+    <env var="CASCADES_THEME" value="bright"/>
 </qnx>
