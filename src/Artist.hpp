@@ -17,7 +17,7 @@ public:
            int downloads,
            int rating,
            int count,
-           QObject *parent = 0);
+           QObject *parent);
     ~Artist();
 
     int score() const;

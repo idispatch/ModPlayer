@@ -24,7 +24,7 @@ class SongExtendedInfo : public SongBasicInfo,
     Q_PROPERTY(int channels READ channels WRITE setChannels NOTIFY channelsChanged FINAL)
 
 public:
-    SongExtendedInfo(QObject *parent = 0);
+    SongExtendedInfo(QObject *parent);
     SongExtendedInfo(int id,
                      QString const& fileName,
                      QString const& title,
@@ -46,7 +46,7 @@ public:
                      int instruments,
                      int samples,
                      int channels,
-                     QObject * parent = 0);
+                     QObject * parent);
     ~SongExtendedInfo();
     SongExtendedInfo& operator = (SongExtendedInfo const&);
 

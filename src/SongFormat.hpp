@@ -15,7 +15,7 @@ public:
                QString const& name,
                QString const& description,
                int count,
-               QObject *parent = 0);
+               QObject *parent);
     ~SongFormat();
     QString const& description() const;
     QUrl iconPath() const;

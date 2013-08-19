@@ -44,7 +44,7 @@ public:
                   int playCount,
                   int lastPlayed,
                   int myFavourite,
-                  QObject * parent = 0);
+                  QObject * parent);
     ~SongBasicInfo();
     SongBasicInfo& operator = (SongBasicInfo const& other);
 

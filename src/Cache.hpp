@@ -21,7 +21,7 @@ class Cache : public QObject,
     Q_PROPERTY(QStringList fileNameFilters READ fileNameFilters WRITE setFileNameFilters FINAL)
 
 public:
-    Cache(QSettings &settings, QObject *parent = 0);
+    Cache(QSettings &settings, QObject *parent);
     ~Cache();
 
     QString cachePath() const;

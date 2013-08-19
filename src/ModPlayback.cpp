@@ -15,10 +15,12 @@ int InstanceCounter<ModPlayback>::s_maxCount;
 
 ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
     : QThread(parent),
+      m_config(NULL),
       m_settings(settings),
       m_mutex(QMutex::NonRecursive),
       m_state(Exit),
       m_command(NoCommand),
+      m_pendingSong(NULL),
       m_song(NULL),
       m_numDevices(0),
       m_pcmFd(-1),

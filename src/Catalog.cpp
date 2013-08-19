@@ -69,7 +69,7 @@ Catalog::formats() {
             "INNER JOIN songs "
             " ON songs.format=formats.id "
             "GROUP BY formats.id";
-    ArrayDataModel * model = new ArrayDataModel();
+    ArrayDataModel * model = new ArrayDataModel(NULL);
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
@@ -94,7 +94,7 @@ Catalog::genres() {
             "LEFT JOIN songs "
             " ON songs.genre=genres.id "
             "GROUP BY genres.id";
-    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name", NULL);
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -125,7 +125,7 @@ Catalog::artists() {
             "LEFT JOIN songs "
             " ON songs.artist=artists.id "
             "GROUP BY artists.id";
-    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name", NULL);
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -168,7 +168,8 @@ Catalog::findSongsByFormatId(int formatId) {
                             "FROM songs "
                             "WHERE format=%1").arg(formatId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads");
+                                                              << "downloads",
+                                                NULL);
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -200,7 +201,8 @@ Catalog::findSongsByGenreId(int genreId) {
             "FROM songs "
             "WHERE genre=%1").arg(genreId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads");
+                                                              << "downloads",
+                                                NULL);
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -231,7 +233,8 @@ Catalog::findSongsByArtistId(int artistId) {
             "FROM songs "
             "WHERE artist=%1").arg(artistId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads");
+                                                              << "downloads",
+                                                NULL);
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -445,7 +448,7 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
     if(orderByClause.length() > 0) {
         query += orderByClause;
     }
-    ArrayDataModel * model = new ArrayDataModel();
+    ArrayDataModel * model = new ArrayDataModel(NULL);
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
@@ -456,19 +459,19 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
 
 ArrayDataModel*
 Catalog::findMostDownloadedSongs() {
-    return selectSongBasicInfo("",
+    return selectSongBasicInfo(" WHERE downloads>0 ",
                                " ORDER BY downloads DESC ");
 }
 
 ArrayDataModel*
 Catalog::findMostFavouritedSongs() {
-    return selectSongBasicInfo("",
+    return selectSongBasicInfo(" WHERE favourited>0 ",
                                " ORDER BY favourited DESC, downloads DESC, score DESC ");
 }
 
 ArrayDataModel*
 Catalog::findMostScoredSongs() {
-    return selectSongBasicInfo("",
+    return selectSongBasicInfo(" WHERE score>0 ",
                                " ORDER BY score DESC, downloads DESC, favourited DESC ");
 }
 

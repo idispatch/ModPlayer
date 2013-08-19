@@ -33,7 +33,7 @@ class PlaybackConfig : public QObject,
     Q_PROPERTY(bool oversamplingEnabled READ oversamplingEnabled WRITE setOversamplingEnabled NOTIFY oversamplingEnabledChanged FINAL)
     Q_PROPERTY(bool noiseReductionEnabled READ noiseReductionEnabled WRITE setNoiseReductionEnabled NOTIFY noiseReductionEnabledChanged FINAL)
 public:
-    PlaybackConfig(QObject *parent = 0);
+    PlaybackConfig(QObject *parent);
     ~PlaybackConfig();
 
     bool isAudioReconfigurationRequired() const;

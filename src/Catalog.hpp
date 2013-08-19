@@ -31,7 +31,7 @@ class Catalog : public QObject,
     Q_PROPERTY(bb::cascades::GroupDataModel* genres READ genres NOTIFY genresChanged FINAL)
     Q_PROPERTY(bb::cascades::GroupDataModel* artists READ artists NOTIFY artistsChanged FINAL)
 public:
-    Catalog(QObject * parent = 0);
+    Catalog(QObject * parent);
 
     QString catalogPath() const;
 

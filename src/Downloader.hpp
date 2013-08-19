@@ -15,7 +15,7 @@ class Downloader : public QObject,
                    public InstanceCounter<Downloader> {
     Q_OBJECT
 public:
-    Downloader(QObject *Player = 0);
+    Downloader(QObject *Player);
 
     Q_PROPERTY(int pendingDownloadCount READ pendingDownloadCount NOTIFY pendingDownloadCountChanged FINAL)
 

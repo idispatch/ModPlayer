@@ -11,7 +11,7 @@ public:
     SongGenre(int id,
               QString const& name,
               int count,
-              QObject *parent = 0);
+              QObject *parent);
     ~SongGenre();
 
     using InstanceCounter<SongGenre>::getInstanceCount;

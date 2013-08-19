@@ -16,7 +16,7 @@ public:
     ItemGroupBase(int id,
                   QString const& name,
                   int count,
-                  QObject *parent = 0);
+                  QObject *parent);
     ~ItemGroupBase();
     int id() const;
     QString const& name() const;
