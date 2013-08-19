@@ -86,6 +86,9 @@ public:
 
     int myFavourite() const;
     void setMyFavourite(int value);
+
+    using InstanceCounter<SongBasicInfo>::getInstanceCount;
+    using InstanceCounter<SongBasicInfo>::getMaxInstanceCount;
 Q_SIGNALS:
     void fileNameChanged();
     void titleChanged();

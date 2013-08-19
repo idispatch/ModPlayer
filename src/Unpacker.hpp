@@ -17,6 +17,9 @@ public:
 
     QString tempPath() const;
     QString cachePath() const;
+
+    using InstanceCounter<Unpacker>::getInstanceCount;
+    using InstanceCounter<Unpacker>::getMaxInstanceCount;
 Q_SIGNALS:
 private:
     Q_DISABLE_COPY(Unpacker)

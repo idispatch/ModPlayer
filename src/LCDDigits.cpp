@@ -8,6 +8,11 @@ using namespace bb::cascades;
 bool LCDDigits::imagesInitialized = false;
 Image LCDDigits::images[11];
 
+template<>
+int InstanceCounter<LCDDigits>::s_count;
+template<>
+int InstanceCounter<LCDDigits>::s_maxCount;
+
 LCDDigits::LCDDigits(Container *parent)
     : CustomControl(parent),
       m_rootContainer(NULL),
@@ -18,7 +23,6 @@ LCDDigits::LCDDigits(Container *parent)
 }
 
 LCDDigits::~LCDDigits() {
-    //qDebug() << "LCDDigits::~LCDDigits()";
 }
 
 void LCDDigits::initImages() {

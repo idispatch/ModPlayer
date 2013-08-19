@@ -2,6 +2,11 @@
 #include <QDebug>
 #include <QDir>
 
+template<>
+int InstanceCounter<SongFormat>::s_count;
+template<>
+int InstanceCounter<SongFormat>::s_maxCount;
+
 SongFormat::SongFormat(int id,
                        QString const& name,
                        QString const& description,

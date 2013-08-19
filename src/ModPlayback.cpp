@@ -8,6 +8,11 @@
 
 #include "modplug.h"
 
+template<>
+int InstanceCounter<ModPlayback>::s_count;
+template<>
+int InstanceCounter<ModPlayback>::s_maxCount;
+
 ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
     : QThread(parent),
       m_settings(settings),

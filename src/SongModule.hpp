@@ -68,6 +68,7 @@ public:
     operator ModPlugFile* ();
 
     using InstanceCounter<SongModule>::getInstanceCount;
+    using InstanceCounter<SongModule>::getMaxInstanceCount;
 Q_SIGNALS:
     void songLoadedChanged();
 

@@ -25,6 +25,7 @@ public:
     int rating() const;
 
     using InstanceCounter<Artist>::getInstanceCount;
+    using InstanceCounter<Artist>::getMaxInstanceCount;
 Q_SIGNALS:
     void scoreChanged();
     void downloadsChanged();

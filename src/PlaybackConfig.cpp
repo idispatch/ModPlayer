@@ -1,6 +1,11 @@
 #include "PlaybackConfig.hpp"
 #include "modplug.h"
 
+template<>
+int InstanceCounter<PlaybackConfig>::s_count;
+template<>
+int InstanceCounter<PlaybackConfig>::s_maxCount;
+
 PlaybackConfig::PlaybackConfig(QObject *parent)
     : QObject(parent),
       m_bStereo(true),

@@ -61,6 +61,9 @@ public:
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
+
+    using InstanceCounter<Player>::getInstanceCount;
+    using InstanceCounter<Player>::getMaxInstanceCount;
 Q_SIGNALS:
     void stateChanged();
     void statusTextChanged();

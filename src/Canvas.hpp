@@ -24,6 +24,9 @@ public:
     void blit(int x, int y, bb::ImageData const& from);
 
     static bb::ImageData loadImageData(const char * url);
+
+    using InstanceCounter<Canvas>::getInstanceCount;
+    using InstanceCounter<Canvas>::getMaxInstanceCount;
 private:
     Q_DISABLE_COPY(Canvas)
     bb::ImageData m_img;

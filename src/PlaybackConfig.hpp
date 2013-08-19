@@ -89,6 +89,9 @@ public:
 
     bool noiseReductionEnabled() const;
     void setNoiseReductionEnabled(bool);
+
+    using InstanceCounter<PlaybackConfig>::getInstanceCount;
+    using InstanceCounter<PlaybackConfig>::getMaxInstanceCount;
 Q_SIGNALS:
     void stereoChanged();
     void frequencyChanged();

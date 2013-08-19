@@ -78,6 +78,7 @@ public:
     void setChannels(int value);
 
     using InstanceCounter<SongExtendedInfo>::getInstanceCount;
+    using InstanceCounter<SongExtendedInfo>::getMaxInstanceCount;
 Q_SIGNALS:
     void formatChanged();
     void trackerChanged();

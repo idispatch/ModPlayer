@@ -11,6 +11,11 @@
 
 using namespace bb::multimedia;
 
+template<>
+int InstanceCounter<Player>::s_count;
+template<>
+int InstanceCounter<Player>::s_maxCount;
+
 Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_settings(settings),

@@ -7,6 +7,11 @@
 #include <QFileInfo>
 #include <QByteArray>
 
+template<>
+int InstanceCounter<SongModule>::s_count;
+template<>
+int InstanceCounter<SongModule>::s_maxCount;
+
 SongModule::SongModule(QObject *parent)
     : SongExtendedInfo(parent),
       m_currentOrder(0),

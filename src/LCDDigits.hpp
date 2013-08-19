@@ -32,6 +32,9 @@ public:
     void resetNumber();
 
     static void finalize();
+
+    using InstanceCounter<LCDDigits>::getInstanceCount;
+    using InstanceCounter<LCDDigits>::getMaxInstanceCount;
 private:
     void createLCD();
 

@@ -36,6 +36,8 @@ public:
     QString const& text() const;
     void setText(QString const& text);
 
+    using InstanceCounter<LCDDisplay>::getInstanceCount;
+    using InstanceCounter<LCDDisplay>::getMaxInstanceCount;
 private slots:
     void onUpdateTimeout();
 private:

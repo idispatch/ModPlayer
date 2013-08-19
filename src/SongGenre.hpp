@@ -15,6 +15,7 @@ public:
     ~SongGenre();
 
     using InstanceCounter<SongGenre>::getInstanceCount;
+    using InstanceCounter<SongGenre>::getMaxInstanceCount;
 Q_SIGNALS:
 private:
     Q_DISABLE_COPY(SongGenre)

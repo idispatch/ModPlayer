@@ -3,6 +3,11 @@
 #include <QFile>
 #include <QDebug>
 
+template<>
+int InstanceCounter<Cache>::s_count;
+template<>
+int InstanceCounter<Cache>::s_maxCount;
+
 Cache::Cache(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_settings(settings),

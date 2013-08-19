@@ -23,6 +23,9 @@ public:
 
     int pendingDownloadCount() const;
     QMap<QUrl, int> const& pendingDownloads() const;
+
+    using InstanceCounter<Downloader>::getInstanceCount;
+    using InstanceCounter<Downloader>::getMaxInstanceCount;
 Q_SIGNALS:
     void pendingDownloadCountChanged();
     void downloadStarted(int id);

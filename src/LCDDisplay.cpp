@@ -11,6 +11,11 @@
 
 using namespace bb::cascades;
 
+template<>
+int InstanceCounter<LCDDisplay>::s_count;
+template<>
+int InstanceCounter<LCDDisplay>::s_maxCount;
+
 LCDDisplay::LCDDisplay(Container *parent)
     : CustomControl(parent),
       m_timer(new QTimer(this)),

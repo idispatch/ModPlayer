@@ -4,6 +4,11 @@
 #include <QDir>
 #include <QStringList>
 
+template<>
+int InstanceCounter<Unpacker>::s_count;
+template<>
+int InstanceCounter<Unpacker>::s_maxCount;
+
 Unpacker::Unpacker(QObject * parent)
     : QObject(parent) {
 }

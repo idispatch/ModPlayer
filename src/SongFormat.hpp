@@ -21,6 +21,9 @@ public:
     QUrl iconPath() const;
 
     static QUrl getIconPath(int formatId);
+
+    using InstanceCounter<SongFormat>::getInstanceCount;
+    using InstanceCounter<SongFormat>::getMaxInstanceCount;
 Q_SIGNALS:
     void descriptionChanged();
     void iconPathChanged();

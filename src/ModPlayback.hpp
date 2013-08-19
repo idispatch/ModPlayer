@@ -48,6 +48,9 @@ public:
     Q_INVOKABLE bool pause();
     Q_INVOKABLE bool resume();
     Q_INVOKABLE bool rewind();
+
+    using InstanceCounter<ModPlayback>::getInstanceCount;
+    using InstanceCounter<ModPlayback>::getMaxInstanceCount;
 Q_SIGNALS:
     void currentSongChanged(); // will never be emitted because song is created once
     void configurationChanged(); // will never be emitted because song is created once

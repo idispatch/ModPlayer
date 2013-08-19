@@ -8,6 +8,11 @@ using namespace bb;
 using namespace bb::utility;
 using namespace bb::cascades;
 
+template<>
+int InstanceCounter<Canvas>::s_count;
+template<>
+int InstanceCounter<Canvas>::s_maxCount;
+
 Canvas::Canvas(int width, int height, QObject * parent)
     : QObject(parent),
       m_img(PixelFormat::RGBA_Premultiplied, width, height) {

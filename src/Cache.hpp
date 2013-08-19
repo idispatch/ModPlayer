@@ -44,6 +44,8 @@ public:
     Q_INVOKABLE bool exists(QString const& fileName);
     Q_INVOKABLE void remove(QString const& fileName);
 
+    using InstanceCounter<Cache>::getInstanceCount;
+    using InstanceCounter<Cache>::getMaxInstanceCount;
 Q_SIGNALS:
     void maxSizeChanged();
     void maxFilesChanged();

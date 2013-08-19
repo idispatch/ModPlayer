@@ -2,6 +2,11 @@
 #include "SongFormat.hpp"
 #include <QDebug>
 
+template<>
+int InstanceCounter<SongBasicInfo>::s_count;
+template<>
+int InstanceCounter<SongBasicInfo>::s_maxCount;
+
 SongBasicInfo::SongBasicInfo(QObject *parent)
  : QObject(parent),
    m_id(0),

@@ -25,22 +25,23 @@
 #include "ItemGroupBase.hpp"
 
 static void dumpInstanceCounts() {
-    std::cerr << "* PlaybackConfig objects:   " << PlaybackConfig::getInstanceCount() << std::endl;
-    std::cerr << "* Downloader objects:       " << Downloader::getInstanceCount() << std::endl;
-    std::cerr << "* Unpacker objects:         " << Unpacker::getInstanceCount() << std::endl;
-    std::cerr << "* Catalog objects:          " << Catalog::getInstanceCount() << std::endl;
-    std::cerr << "* Cache objects:            " << Cache::getInstanceCount() << std::endl;
-    std::cerr << "* Canvas objects:           " << Canvas::getInstanceCount() << std::endl;
-    std::cerr << "* Player objects:           " << Player::getInstanceCount() << std::endl;
-    std::cerr << "* ModPlayback objects:      " << ModPlayback::getInstanceCount() << std::endl;
-    std::cerr << "* ItemGroupBase objects:    " << ItemGroupBase::getInstanceCount() << std::endl;
-    std::cerr << "* LCDDigits objects:        " << LCDDigits::getInstanceCount() << std::endl;
-    std::cerr << "* LCDDisplay objects:       " << LCDDisplay::getInstanceCount() << std::endl;
-    std::cerr << "* Artist objects:           " << Artist::getInstanceCount() << std::endl;
-    std::cerr << "* SongGenre objects:        " << SongGenre::getInstanceCount() << std::endl;
-    std::cerr << "* SongBasicInfo objects:    " << SongBasicInfo::getInstanceCount() << std::endl;
-    std::cerr << "* SongExtendedInfo objects: " << SongExtendedInfo::getInstanceCount() << std::endl;
-    std::cerr << "* SongModule objects:       " << SongModule::getInstanceCount() << std::endl;
+    std::cerr << "* PlaybackConfig objects:   " << PlaybackConfig::getInstanceCount() << ", max count: " << PlaybackConfig::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Downloader objects:       " << Downloader::getInstanceCount() << ", max count: " << Downloader::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Unpacker objects:         " << Unpacker::getInstanceCount() << ", max count: " << Unpacker::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Catalog objects:          " << Catalog::getInstanceCount() << ", max count: " << Catalog::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Cache objects:            " << Cache::getInstanceCount() << ", max count: " << Cache::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Canvas objects:           " << Canvas::getInstanceCount() << ", max count: " << Canvas::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Player objects:           " << Player::getInstanceCount() << ", max count: " << Player::getMaxInstanceCount() << std::endl;
+    std::cerr << "* ModPlayback objects:      " << ModPlayback::getInstanceCount() << ", max count: " << ModPlayback::getMaxInstanceCount() << std::endl;
+    std::cerr << "* ItemGroupBase objects:    " << ItemGroupBase::getInstanceCount() << ", max count: " << ItemGroupBase::getMaxInstanceCount() << std::endl;
+    std::cerr << "* LCDDigits objects:        " << LCDDigits::getInstanceCount() << ", max count: " << LCDDigits::getMaxInstanceCount() << std::endl;
+    std::cerr << "* LCDDisplay objects:       " << LCDDisplay::getInstanceCount() << ", max count: " << LCDDisplay::getMaxInstanceCount() << std::endl;
+    std::cerr << "* Artist objects:           " << Artist::getInstanceCount() << ", max count: " << Artist::getMaxInstanceCount() << std::endl;
+    std::cerr << "* SongGenre objects:        " << SongGenre::getInstanceCount() << ", max count: " << SongGenre::getMaxInstanceCount() << std::endl;
+    std::cerr << "* SongFormat objects:       " << SongFormat::getInstanceCount() << ", max count: " << SongFormat::getMaxInstanceCount() << std::endl;
+    std::cerr << "* SongBasicInfo objects:    " << SongBasicInfo::getInstanceCount() << ", max count: " << SongBasicInfo::getMaxInstanceCount() << std::endl;
+    std::cerr << "* SongExtendedInfo objects: " << SongExtendedInfo::getInstanceCount() << ", max count: " << SongExtendedInfo::getMaxInstanceCount() << std::endl;
+    std::cerr << "* SongModule objects:       " << SongModule::getInstanceCount() << ", max count: " << SongModule::getMaxInstanceCount() << std::endl;
 }
 #endif
 

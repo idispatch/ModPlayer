@@ -14,6 +14,11 @@ using namespace bb::system;
 
 const QString Downloader::ModArchiveSite = QString("http://modarchive.org/data/downloads.php?moduleid=%1");
 
+template<>
+int InstanceCounter<Downloader>::s_count;
+template<>
+int InstanceCounter<Downloader>::s_maxCount;
+
 Downloader::Downloader(QObject * parent)
     : QObject(parent),
       m_networkManager(new QNetworkAccessManager(this)),

@@ -1,6 +1,11 @@
 #include "Artist.hpp"
 #include <QDebug>
 
+template<>
+int InstanceCounter<Artist>::s_count;
+template<>
+int InstanceCounter<Artist>::s_maxCount;
+
 Artist::Artist(int id,
                QString const& name,
                int score,

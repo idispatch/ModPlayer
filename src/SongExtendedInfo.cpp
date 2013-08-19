@@ -1,5 +1,10 @@
 #include "SongExtendedInfo.hpp"
 
+template<>
+int InstanceCounter<SongExtendedInfo>::s_count;
+template<>
+int InstanceCounter<SongExtendedInfo>::s_maxCount;
+
 SongExtendedInfo::SongExtendedInfo(QObject *parent)
  : SongBasicInfo(parent),
    m_patterns(0),

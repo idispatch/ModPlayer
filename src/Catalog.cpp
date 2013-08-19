@@ -18,6 +18,11 @@
 using namespace bb::data;
 using namespace bb::cascades;
 
+template<>
+int InstanceCounter<Catalog>::s_count;
+template<>
+int InstanceCounter<Catalog>::s_maxCount;
+
 Catalog::Catalog(QObject * parent)
     : QObject(parent),
       m_dataAccess(NULL) {

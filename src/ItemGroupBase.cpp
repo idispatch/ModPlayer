@@ -1,6 +1,11 @@
 #include "ItemGroupBase.hpp"
 #include <QDebug>
 
+template<>
+int InstanceCounter<ItemGroupBase>::s_count;
+template<>
+int InstanceCounter<ItemGroupBase>::s_maxCount;
+
 ItemGroupBase::ItemGroupBase(int id,
                              QString const& name,
                              int count,
@@ -12,7 +17,6 @@ ItemGroupBase::ItemGroupBase(int id,
 }
 
 ItemGroupBase::~ItemGroupBase() {
-    //qDebug() << "ItemGroupBase::~ItemGroupBase()";
 }
 
 int ItemGroupBase::id() const {

@@ -21,6 +21,9 @@ public:
     int id() const;
     QString const& name() const;
     int count() const;
+
+    using InstanceCounter<ItemGroupBase>::getInstanceCount;
+    using InstanceCounter<ItemGroupBase>::getMaxInstanceCount;
 Q_SIGNALS:
     void idChanged();
     void nameChanged();

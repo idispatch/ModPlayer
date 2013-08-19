@@ -58,6 +58,9 @@ public:
 
     Q_INVOKABLE void resetPlayCounts();
     Q_INVOKABLE void resetMyFavourites();
+
+    using InstanceCounter<Catalog>::getInstanceCount;
+    using InstanceCounter<Catalog>::getMaxInstanceCount;
 Q_SIGNALS:
     void catalogPathChanged();
     void formatsChanged();
