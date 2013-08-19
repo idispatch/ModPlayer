@@ -49,7 +49,7 @@ Page {
     }
 
     function load(songId) {
-        song = app.player.catalog.resolveModuleById(songId)
+        song = app.player.catalog.resolveModuleById(songId, songView)
     }
     attachedObjects: [
         ComponentDefinition {

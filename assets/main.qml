@@ -208,7 +208,6 @@ TabbedPane {
     }
     activeTab: formatsTab 
     onActiveTabChanged: {
-        console.log("onActiveTabChanged: " + activeTab)
         var c = mainTabPane.count()
         for (var i = 0; i < c; ++i) {
             var tab = mainTabPane.at(i)

@@ -49,8 +49,8 @@ public:
 
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
-    Q_INVOKABLE SongExtendedInfo * resolveModuleById(int id);
-    Q_INVOKABLE SongExtendedInfo * resolveModuleByFileName(QString const& fileName);
+    Q_INVOKABLE SongExtendedInfo * resolveModuleById(int id, QVariant parent);
+    Q_INVOKABLE SongExtendedInfo * resolveModuleByFileName(QString const& fileName, QVariant parent);
 
     Q_INVOKABLE void addFavourite(QVariant value);
     Q_INVOKABLE void removeFavourite(QVariant value);
@@ -71,7 +71,7 @@ private:
     void initCatalog();
     void copyCatalogToDataFolder();
 
-    SongExtendedInfo * selectSongInfo(QString const& whereClause);
+    SongExtendedInfo * selectSongInfo(QString const& whereClause, QObject *parent);
 
     bb::cascades::DataModel * selectSongBasicInfo(QString const& whereClause,
                                                   QString const& orderByClause);

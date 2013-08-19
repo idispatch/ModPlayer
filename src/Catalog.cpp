@@ -304,12 +304,14 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
     }
 }
 
-SongExtendedInfo * Catalog::resolveModuleById(int id) {
-    return selectSongInfo(QString("WHERE songs.id=%1").arg(id));
+SongExtendedInfo * Catalog::resolveModuleById(int id, QVariant parent) {
+    QObject * object = parent.value<QObject*>();
+    return selectSongInfo(QString("WHERE songs.id=%1").arg(id), object);
 }
 
-SongExtendedInfo * Catalog::resolveModuleByFileName(QString const& fileName) {
-    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName));
+SongExtendedInfo * Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
+    QObject * object = parent.value<QObject*>();
+    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName), object);
 }
 
 SongExtendedInfo * Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
@@ -389,7 +391,7 @@ SongBasicInfo * Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent)
                              parent);
 }
 
-SongExtendedInfo * Catalog::selectSongInfo(QString const& whereClause) {
+SongExtendedInfo * Catalog::selectSongInfo(QString const& whereClause, QObject * parent) {
     QString query = QString(
                 "SELECT"
                 " songs.id AS id,"
@@ -425,9 +427,9 @@ SongExtendedInfo * Catalog::selectSongInfo(QString const& whereClause) {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
-        song = readSongInfo(sqlQuery, NULL);
+        song = readSongInfo(sqlQuery, parent);
     }
-    return song; // return an object with no parent
+    return song;
 }
 
 DataModel * Catalog::selectSongBasicInfo(QString const& whereClause,

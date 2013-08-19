@@ -280,7 +280,7 @@ SongModule * Player::currentSong() const {
 
 void Player::beginPlay(QString const& fileName) {
     QString fileNamePart = fileNameOnly(fileName);
-    SongExtendedInfo * info = m_catalog->resolveModuleByFileName(fileNamePart);
+    SongExtendedInfo * info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
     if(info != NULL)
     {
         QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
