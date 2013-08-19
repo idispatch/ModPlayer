@@ -56,9 +56,6 @@ GroupContainer {
                     }
                 }
                 VerticalContainer {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
                     verticalAlignment: VerticalAlignment.Center
                     Label {
                         id: statusUpperField
