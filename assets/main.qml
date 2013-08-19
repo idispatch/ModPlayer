@@ -2,7 +2,6 @@ import bb.cascades 1.0
 
 TabbedPane {
     id: mainTabPane
-    activeTab: formatsTab 
     Tab {
         id: myFavouriteTab
         title: qsTr("My Favourite")
@@ -11,6 +10,9 @@ TabbedPane {
         description: qsTr("My Favourite Songs")
         onTriggered: {
             songMyFavouriteView.loadMyFavouriteSongs()
+        }
+        function unload() {
+            songMyFavouriteView.unload()
         }
         NavigationPane {
             id: myFavouriteNavigationPane
@@ -32,6 +34,9 @@ TabbedPane {
         onTriggered: {
             songRecentlyPlayedView.loadRecentlyPlayedSongs()
         }
+        function unload() {
+            songRecentlyPlayedView.unload()
+        }
         NavigationPane {
             id: recentlyPlayedNavigationPane 
             PersonalSongList {
@@ -52,6 +57,9 @@ TabbedPane {
         onTriggered: {
             songMostPlayedView.loadMostPlayedSongs()
         }
+        function unload() {
+            songMostPlayedView.unload()
+        }
         NavigationPane {
             id: mostPlayedNavigationPane
             PersonalSongList {
@@ -69,6 +77,11 @@ TabbedPane {
         objectName: title
         description: qsTr("Songs By Module Format")
         imageSource: "asset:///images/actions/icon_format.png"
+        onTriggered: {
+            songFormatsList.load()
+        }
+        function unload() {
+        }
         NavigationPane {
             id: formatsNavigationPane
             FormatsList {
@@ -86,6 +99,11 @@ TabbedPane {
         objectName: title
         description: qsTr("Songs By Genre")
         imageSource: "asset:///images/actions/icon_genres.png"
+        onTriggered: {
+            songGenresList.load()
+        }
+        function unload() {
+        }
         NavigationPane {
             id: genresNavigationPane 
             GenresList {
@@ -103,6 +121,11 @@ TabbedPane {
         objectName: title
         description: qsTr("Songs By Artist")
         imageSource: "asset:///images/actions/icon_artists.png"
+        onTriggered: {
+            songArtistsList.load()
+        }
+        function unload() {
+        }
         NavigationPane {
             id: artistsNavigationPane
             ArtistsList {
@@ -122,6 +145,9 @@ TabbedPane {
         description: qsTr("Top Downloaded Songs")
         onTriggered: {
             songsTopDownloadedView.loadMostDownloadedSongs()
+        }
+        function unload() {
+            songsTopDownloadedView.unload()
         }
         NavigationPane {
             id: topDownloadsNavigationPane
@@ -143,6 +169,9 @@ TabbedPane {
         onTriggered: {
             songTopFavouritedView.loadMostFavouritedSongs()
         }
+        function unload() {
+            songTopFavouritedView.unload()
+        }
         NavigationPane {
             id: topFavouritedNavigationPane
             PersonalSongList {
@@ -163,6 +192,9 @@ TabbedPane {
         onTriggered: {
             songTopScoredView.loadMostScoredSongs()
         }
+        function unload() {
+            songTopScoredView.unload()
+        }
         NavigationPane {
             id: topScoredNavigationPane
             PersonalSongList {
@@ -171,6 +203,17 @@ TabbedPane {
             }
             onPopTransitionEnded: {
                 page.destroy()
+            }
+        }
+    }
+    activeTab: formatsTab 
+    onActiveTabChanged: {
+        console.log("onActiveTabChanged: " + activeTab)
+        var c = mainTabPane.count()
+        for (var i = 0; i < c; ++i) {
+            var tab = mainTabPane.at(i)
+            if(tab!=activeTab) {
+                tab.unload()
             }
         }
     }
@@ -189,7 +232,6 @@ TabbedPane {
                 }
             ]
         }
-        
         settingsAction: SettingsActionItem {
             id: settingsActionItem
             title: qsTr("Settings")
@@ -204,7 +246,6 @@ TabbedPane {
                 }
             ] 
         }
-
         actions: [
             ActionItem {
                 title: qsTr("Twit!")

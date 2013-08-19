@@ -12,6 +12,7 @@ Page {
     
     ViewContainer {
         ListView {
+            id: genresList
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -37,15 +38,6 @@ Page {
                     }
                 }
             ]
-            onCreationCompleted: {
-                if(dataModel != null) {
-                    var old = dataModel
-                    dataModel = null
-                    old.destroy()
-                }
-                dataModel = app.player.catalog.genres
-            }
-            
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
@@ -59,6 +51,11 @@ Page {
                     source: "SongsList.qml"
                 }
             ]
+        }
+    }
+    function load() {
+        if(genresList.dataModel == null) {
+            genresList.dataModel = app.player.catalog.genres
         }
     }
     actions: [

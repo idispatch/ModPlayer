@@ -42,7 +42,7 @@ Page {
                             if(mode == "myFavourite") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                             if(mode == "mostPlayed") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                             if(mode == "topFavourited") return "favourited " + ListItem.data.favourited + " times"
-                            if(mode == "topScored") return ListItem.data.score + " of 10"
+                            if(mode == "topScored") return "score " + ListItem.data.score + " of 10"
                             if(mode == "topDownloads") return ListItem.data.downloads + " downloads"
                             return ""
                         }
@@ -108,9 +108,6 @@ Page {
     }
     function showList(listName, model) {
         songs.mode = listName
-        songs.visible = false
-        progress.running = true
-        progress.visible = true
         if(songs.dataModel != null) {
             var dataModel = songs.dataModel
             songs.dataModel = null
@@ -121,22 +118,39 @@ Page {
         progress.visible = false
         songs.visible = true
     }
+    function unload() {
+        if(songs.dataModel != null) {
+            var dataModel = songs.dataModel
+            songs.dataModel = null
+            //dataModel.destroy()
+        }
+        songs.visible = false
+        songs.mode = ""
+        progress.running = true
+        progress.visible = true
+    }
     function loadRecentlyPlayedSongs() {
+        unload()
         showList("recent", app.player.catalog.findRecentlyPlayedSongs())
     }
     function loadMyFavouriteSongs() {
+        unload()
         showList("myFavourite", app.player.catalog.findMyFavouriteSongs())
     }
     function loadMostPlayedSongs() {
+        unload()
         showList("mostPlayed", app.player.catalog.findMostPlayedSongs())
     }
     function loadMostFavouritedSongs() {
+        unload()
         showList("topFavourited", app.player.catalog.findMostFavouritedSongs())
     }
     function loadMostScoredSongs() {
+        unload()
         showList("topScored", app.player.catalog.findMostScoredSongs())
     }
     function loadMostDownloadedSongs() {
+        unload()
         showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
     }
     actions: [

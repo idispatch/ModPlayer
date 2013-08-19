@@ -10,6 +10,7 @@ Page {
     }
     ViewContainer {
         ListView {
+            id: formatsList
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -24,6 +25,12 @@ Page {
                     imageSource: ListItem.data.iconPath
                 }
             }
+            function load() {
+                if(dataModel == null) {
+                    dataModel = app.player.catalog.formats
+                }
+            }
+            onCreationCompleted: load()
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
@@ -31,22 +38,16 @@ Page {
                 view.loadSongsByFormat(chosenItem.id, chosenItem.name)
                 navigationPane.push(view)
             }
-            
             attachedObjects: [
                 ComponentDefinition {
                     id: songList
                     source: "SongsList.qml"
                 }
             ]
-            onCreationCompleted: {
-                if(dataModel != null) {
-                    var old = dataModel
-                    dataModel = null
-                    old.destroy()
-                }
-                dataModel = app.player.catalog.formats
-            }
         }
+    }
+    function load() {
+        formatsList.load()
     }
     actions: [
         PlayerActionItem {

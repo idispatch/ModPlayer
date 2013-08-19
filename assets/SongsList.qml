@@ -7,15 +7,9 @@ Page {
 
     titleBar: TitleBar {
         title: {
-            if(songs.mode == 'format') {
-                return songs.modelName + " Songs";
-            }
-            if(songs.mode == 'genre') {
-                return songs.modelName + " Songs";
-            }
-            if(songs.mode == 'artist') {
-                return "Songs by " + songs.modelName;
-            }
+            if(songs.mode == 'format')  return songs.modelName + " Songs";
+            if(songs.mode == 'genre') return songs.modelName + " Songs";
+            if(songs.mode == 'artist') return "Songs by " + songs.modelName;
             return "All Songs"
         }
         appearance: TitleBarAppearance.Branded
@@ -90,9 +84,6 @@ Page {
     function showList(listName, modelName, model) {
         songs.mode = listName
         songs.modelName = modelName
-        songs.visible = false
-        progress.running = true
-        progress.visible = true
         if(songs.dataModel != null) {
             var dataModel = songs.dataModel
             songs.dataModel = null
@@ -103,13 +94,28 @@ Page {
         progress.visible = false
         songs.visible = true
     }
+    function unload() {
+        progress.running = true
+        progress.visible = true
+        songs.visible = false
+        if(songs.dataModel != null) {
+            var dataModel = songs.dataModel
+            songs.dataModel = null
+            dataModel.destroy()
+        }
+        songs.mode = ""
+        songs.modelName = ""
+    }
     function loadSongsByFormat(formatId, formatName) {
+        unload()
         showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId))
     }
     function loadSongsByGenre(genreId, genreName) {
+        unload()
         showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId))
     }
     function loadSongsByArtist(artistId, artistName) {
+        unload()
         showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId))
     }
     actions: [

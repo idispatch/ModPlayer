@@ -497,11 +497,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email Author</source>
+        <source>BBM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>BBM</source>
+        <source>Email Author</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

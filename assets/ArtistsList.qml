@@ -10,6 +10,7 @@ Page {
     }
     ViewContainer {
         ListView {
+            id: artistsList
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -31,19 +32,11 @@ Page {
                     ModPlayerListItem {
                         title: ListItemData.name
                         upperStatus: ListItemData.count + " songs"
-                        middleStatus: "score: " + ListItemData.score + " of 10"
-                        lowerStatus: "rating: " + ListItemData.rating
+                        middleStatus: "score " + ListItemData.score + " of 10"
+                        lowerStatus: "rating " + ListItemData.rating
                     }
                 }
             ]
-            onCreationCompleted: {
-                if(dataModel != null) {
-                    var old = dataModel
-                    dataModel = null
-                    old.destroy()
-                }
-                dataModel = app.player.catalog.artists
-            }
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
@@ -57,6 +50,11 @@ Page {
                     source: "SongsList.qml"
                 }
             ]
+        }
+    }
+    function load() {
+        if(artistsList.dataModel == null) {
+            artistsList.dataModel = app.player.catalog.artists
         }
     }
     actions: [
