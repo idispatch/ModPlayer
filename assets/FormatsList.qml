@@ -39,6 +39,11 @@ Page {
                 }
             ]
             onCreationCompleted: {
+                if(dataModel != null) {
+                    var old = dataModel
+                    dataModel = null
+                    old.destroy()
+                }
                 dataModel = app.player.catalog.formats
             }
         }
