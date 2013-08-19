@@ -4,7 +4,7 @@ import "functions.js" as Global
 GroupContainer {
     property variant song
     HorizontalContainer {
-        visible: song!=null
+        visible: song != null
         horizontalAlignment: HorizontalAlignment.Fill
         ImageView {
             imageSource: "asset:///images/badges/badge_played.png"
@@ -14,7 +14,7 @@ GroupContainer {
         Label {
             textFormat: TextFormat.Html
             text: {
-                if(song!=null) {
+                if(song) {
                     if(song.playCount > 0) {
                         if(song.playCount == 1) {
                             return qsTr("You played this song once")
@@ -37,14 +37,14 @@ GroupContainer {
         }
     }
     HorizontalContainer {
-        visible: song!=null && song.lastPlayed > 0
+        visible: song && song.lastPlayed > 0
         ImageView {
             imageSource: "asset:///images/badges/badge_lastplayed.png"
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
         Label {
-            text: song!=null && song.lastPlayed > 0 ? 
+            text: song && song.lastPlayed > 0 ? 
             "Last played " + Global.formatTimeStamp(song.lastPlayed) : 
             ""
             textStyle.color: Color.Black
@@ -59,14 +59,14 @@ GroupContainer {
         }
     }
     HorizontalContainer {
-        visible: song!=null && song.myFavourite > 0
+        visible: song && song.myFavourite > 0
         ImageView {
             imageSource: "asset:///images/badges/badge_myfavourite.png"
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
         Label {
-            text: song != null && song.myFavourite > 0 ? qsTr("You liked this song") : ""
+            text: song && song.myFavourite > 0 ? qsTr("You liked this song") : ""
             textStyle.color: Color.Black
         }
         function songFavouriteChanged(){
@@ -79,13 +79,13 @@ GroupContainer {
         }
     }
     Label {
-        visible: song!=null && app.cache.exists(song.fileName)
+        visible: song && app.cache.exists(song.fileName)
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
         textStyle.color: Color.Black
         text: getLabelText()
         function getLabelText() {
-            if(song != null) {
+            if(song) {
                 if(app.cache.exists(song.fileName)) {
                     return "<i>" + qsTr("You have this song in the cache already") + "</i>"
                 }
@@ -93,7 +93,7 @@ GroupContainer {
             return "";
         }
         function currentCacheFilesChanged() {
-            visible = song!=null && app.cache.exists(song.fileName)
+            visible = song && app.cache.exists(song.fileName)
             text = getLabelText()
         }
         onCreationCompleted: {

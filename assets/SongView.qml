@@ -18,26 +18,26 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Fill
 
                 SongMainInfo {
-                    song: songView.song != null ? songView.song : null
+                    song: songView.song
                 }
                 SongExtendedInfo {
-                    song: songView.song != null ? songView.song : null
+                    song: songView.song
                 }
                 SongPersonalInfo {
-                    song: songView != null ? songView.song : null
+                    song: songView.song
                 }
                 SongPublicInfo {
-                    song: songView != null ? songView.song : null
+                    song: songView.song
                 }
                 SongParametersInfo {
-                    song: songView != null ? songView.song : null
+                    song: songView.song
                 }
             }
         }
     }
 
     function play() {
-        if(song!=null) {
+        if(song) {
             showPlayer()
             app.player.play(song)
         }

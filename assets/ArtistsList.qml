@@ -53,7 +53,7 @@ Page {
         }
     }
     function load() {
-        if(artistsList.dataModel == null) {
+        if(!artistsList.dataModel) {
             artistsList.dataModel = app.player.catalog.artists
         }
     }

@@ -4,7 +4,7 @@ import player 1.0
 HorizontalContainer {
     property variant song
 
-    visible: song != null && song.songLoaded
+    visible: song && song.songLoaded
     horizontalAlignment: HorizontalAlignment.Fill
     
     topMargin: 16
@@ -27,7 +27,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.currentOrder : -1
+                    number: song ? song.currentOrder : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -43,7 +43,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.currentPattern : -1
+                    number: song ? song.currentPattern : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -59,7 +59,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.currentRow : -1
+                    number: song ? song.currentRow : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -75,7 +75,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.playingChannels : -1
+                    number: song ? song.playingChannels : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -99,7 +99,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.currentSpeed : -1
+                    number: song ? song.currentSpeed : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -115,7 +115,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.currentTempo : -1
+                    number: song ? song.currentTempo : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -131,7 +131,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song != null ? song.masterVolume : -1
+                    number: song ? song.masterVolume : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3

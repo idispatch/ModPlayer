@@ -6,7 +6,7 @@ ImageView {
 
     verticalAlignment: VerticalAlignment.Center
     scalingMethod: ScalingMethod.Fill
-    imageSource: song !=null ? song.iconPath : ""
+    imageSource: song ? song.iconPath : ""
     loadEffect: ImageViewLoadEffect.FadeZoom
     preferredHeight: 128
     preferredWidth: 128

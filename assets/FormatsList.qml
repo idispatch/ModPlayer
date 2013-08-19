@@ -26,7 +26,7 @@ Page {
                 }
             }
             function load() {
-                if(dataModel == null) {
+                if(!dataModel) {
                     dataModel = app.player.catalog.formats
                 }
             }

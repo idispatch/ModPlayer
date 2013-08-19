@@ -5,26 +5,26 @@ GroupContainer {
     property variant song
     VerticalContainer {
         Label {
-            visible: song != null && song.artist.length > 0
-            text: song != null ? "Artist: <b>" + Global.escapeHtml(song.artist) + "</b>" : ""
+            visible: song && song.artist.length > 0
+            text: song ? "Artist: <b>" + Global.escapeHtml(song.artist) + "</b>" : ""
             textFormat: TextFormat.Html
             textStyle.color: Color.Black
         }
         Label {
-            visible: song != null && song.genre.length > 0
-            text: song != null ? "Genre: <b>" + song.genre + "</b>" : ""
-            textFormat: TextFormat.Html
-            textStyle.color: Color.Black
-        }
-        Label {
-            visible: song != null
-            text: song != null ? "Format: " + song.format : ""
+            visible: song && song.genre.length > 0
+            text: song ? "Genre: <b>" + song.genre + "</b>" : ""
             textFormat: TextFormat.Html
             textStyle.color: Color.Black
         }
         Label {
             visible: song != null
-            text: song != null ? "Tracker: " + song.tracker : ""
+            text: song ? "Format: " + song.format : ""
+            textFormat: TextFormat.Html
+            textStyle.color: Color.Black
+        }
+        Label {
+            visible: song != null
+            text: song ? "Tracker: " + song.tracker : ""
             textFormat: TextFormat.Html
             textStyle.color: Color.Black
         }

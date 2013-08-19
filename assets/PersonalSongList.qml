@@ -106,28 +106,26 @@ Page {
             ]
         }
     }
+    function destroyDataModel() {
+        if(songs.dataModel != null) {
+            songs.dataModel.clear()
+            songs.dataModel = null
+        }
+    }
     function showList(listName, model) {
         songs.mode = listName
-        if(songs.dataModel != null) {
-            var dataModel = songs.dataModel
-            songs.dataModel = null
-            dataModel.destroy()
-        }
+        destroyDataModel()
         songs.dataModel = model
         progress.running = false
         progress.visible = false
         songs.visible = true
     }
     function unload() {
-        if(songs.dataModel != null) {
-            var dataModel = songs.dataModel
-            songs.dataModel = null
-            //dataModel.destroy()
-        }
-        songs.visible = false
-        songs.mode = ""
         progress.running = true
         progress.visible = true
+        songs.visible = false
+        destroyDataModel()
+        songs.mode = ""
     }
     function loadRecentlyPlayedSongs() {
         unload()

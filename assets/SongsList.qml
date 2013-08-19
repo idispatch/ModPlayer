@@ -81,14 +81,16 @@ Page {
             ]
         }
     }
+    function destroyDataModel() {
+        if(songs.dataModel != null) {
+            songs.dataModel.clear()
+            songs.dataModel = null
+        }
+    }
     function showList(listName, modelName, model) {
         songs.mode = listName
         songs.modelName = modelName
-        if(songs.dataModel != null) {
-            var dataModel = songs.dataModel
-            songs.dataModel = null
-            dataModel.destroy()
-        }
+        destroyDataModel()
         songs.dataModel = model
         progress.running = false
         progress.visible = false
@@ -98,11 +100,7 @@ Page {
         progress.running = true
         progress.visible = true
         songs.visible = false
-        if(songs.dataModel != null) {
-            var dataModel = songs.dataModel
-            songs.dataModel = null
-            dataModel.destroy()
-        }
+        destroyDataModel()
         songs.mode = ""
         songs.modelName = ""
     }

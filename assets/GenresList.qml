@@ -54,7 +54,7 @@ Page {
         }
     }
     function load() {
-        if(genresList.dataModel == null) {
+        if(!genresList.dataModel) {
             genresList.dataModel = app.player.catalog.genres
         }
     }

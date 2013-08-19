@@ -28,7 +28,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song!=null ? song.orders : -1
+                    number: song ? song.orders : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -44,7 +44,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song!=null ? song.patterns : -1
+                    number: song ? song.patterns : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -60,7 +60,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song!=null ? song.channels : -1
+                    number: song ? song.channels : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -84,7 +84,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song!=null ? song.instruments : -1
+                    number: song ? song.instruments : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -100,7 +100,7 @@ HorizontalContainer {
                     textStyle.color: Color.Black
                 }
                 LCDDigits {
-                    number: song!=null ? song.samples : -1
+                    number: song ? song.samples : -1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3

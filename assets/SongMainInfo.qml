@@ -7,29 +7,29 @@ GroupContainer {
     HorizontalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         SongIconView {
-            song: songMainInfo.song != null ? songMainInfo.song : null
+            song: songMainInfo.song
         }
         VerticalContainer {
             layoutProperties: StackLayoutProperties {
                 spaceQuota: 10
             }
             Label {
-                text: song != null ? "File: <b>" + song.fileName + "</b>" : ""
+                text: song ? "File: <b>" + song.fileName + "</b>" : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }
             Label {
-                text: song != null ? "Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
+                text: song ? "Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }
             Label {
-                text: song != null ? "Length: <b>" + song.songLengthText + "</b>" : ""
+                text: song ? "Length: <b>" + song.songLengthText + "</b>" : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }
             Label {
-                text: song != null ? "Title: <b>" + Global.escapeHtml(song.title) + "</b>" : ""
+                text: song ? "Title: <b>" + Global.escapeHtml(song.title) + "</b>" : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }

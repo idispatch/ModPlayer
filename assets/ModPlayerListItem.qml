@@ -16,7 +16,7 @@ GroupContainer {
         HorizontalContainer {
             ImageView {
                 id: imageView
-                visible: image != null
+                visible: image!=null
                 horizontalAlignment: HorizontalAlignment.Left
                 verticalAlignment: VerticalAlignment.Center
                 scalingMethod: ScalingMethod.Fill
