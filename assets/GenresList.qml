@@ -42,8 +42,8 @@ Page {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
                 view.navigationPane = navigationPane
-                view.loadSongsByGenre(chosenItem.id, chosenItem.name)
                 navigationPane.push(view)
+                view.loadSongsByGenre(chosenItem.id, chosenItem.name)
             }
             attachedObjects: [
                 ComponentDefinition {
