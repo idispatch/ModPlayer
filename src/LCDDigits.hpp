@@ -5,6 +5,7 @@
 #include <bb/cascades/CustomControl>
 #include <bb/cascades/Image>
 #include <bb/cascades/ImageView>
+#include "InstanceCounter.hpp"
 
 namespace bb {
     namespace cascades {
@@ -12,7 +13,8 @@ namespace bb {
     }
 }
 
-class LCDDigits : public bb::cascades::CustomControl
+class LCDDigits : public bb::cascades::CustomControl,
+                  public InstanceCounter<LCDDigits>
 {
     Q_OBJECT
 public:

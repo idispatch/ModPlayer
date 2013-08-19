@@ -106,35 +106,38 @@ Page {
             ]
         }
     }
-    function showList(listName) {
+    function showList(listName, model) {
         songs.mode = listName
+        songs.visible = false
+        progress.running = true
+        progress.visible = true
+        if(songs.dataModel != null) {
+            var dataModel = songs.dataModel
+            songs.dataModel = null
+            dataModel.destroy()
+        }
+        songs.dataModel = model
         progress.running = false
         progress.visible = false
         songs.visible = true
     }
     function loadRecentlyPlayedSongs() {
-        songs.dataModel = app.player.catalog.findRecentlyPlayedSongs()
-        showList("recent")
+        showList("recent", app.player.catalog.findRecentlyPlayedSongs())
     }
     function loadMyFavouriteSongs() {
-        songs.dataModel = app.player.catalog.findMyFavouriteSongs()
-        showList("myFavourite")
+        showList("myFavourite", app.player.catalog.findMyFavouriteSongs())
     }
     function loadMostPlayedSongs() {
-        songs.dataModel = app.player.catalog.findMostPlayedSongs()
-        showList("mostPlayed")
+        showList("mostPlayed", app.player.catalog.findMostPlayedSongs())
     }
     function loadMostFavouritedSongs() {
-        songs.dataModel = app.player.catalog.findMostFavouritedSongs()
-        showList("topFavourited")
+        showList("topFavourited", app.player.catalog.findMostFavouritedSongs())
     }
     function loadMostScoredSongs() {
-        songs.dataModel = app.player.catalog.findMostScoredSongs()
-        showList("topScored")
+        showList("topScored", app.player.catalog.findMostScoredSongs())
     }
     function loadMostDownloadedSongs() {
-        songs.dataModel = app.player.catalog.findMostDownloadedSongs()
-        showList("topDownloads")
+        showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
     }
     actions: [
         PlayerActionItem {

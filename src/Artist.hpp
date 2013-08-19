@@ -2,8 +2,10 @@
 #define ARTIST_HPP_
 
 #include "ItemGroupBase.hpp"
+#include "InstanceCounter.hpp"
 
-class Artist : public ItemGroupBase {
+class Artist : public ItemGroupBase,
+               public InstanceCounter<Artist> {
     Q_OBJECT
     Q_PROPERTY(int score READ score NOTIFY scoreChanged FINAL)
     Q_PROPERTY(int downloads READ downloads NOTIFY downloadsChanged FINAL)
@@ -21,6 +23,8 @@ public:
     int score() const;
     int downloads() const;
     int rating() const;
+
+    using InstanceCounter<Artist>::getInstanceCount;
 Q_SIGNALS:
     void scoreChanged();
     void downloadsChanged();

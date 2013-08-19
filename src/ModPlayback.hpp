@@ -10,8 +10,10 @@
 #include <sys/asoundlib.h>
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
+#include "InstanceCounter.hpp"
 
-class ModPlayback : public QThread {
+class ModPlayback : public QThread,
+                    public InstanceCounter<ModPlayback> {
     Q_OBJECT
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
     Q_PROPERTY(PlaybackConfig* configuration READ configuration NOTIFY configurationChanged FINAL)

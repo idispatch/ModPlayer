@@ -7,10 +7,12 @@
 #include <QUrl>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkConfigurationManager>
+#include "InstanceCounter.hpp"
 
 class QNetworkReply;
 
-class Downloader : public QObject {
+class Downloader : public QObject,
+                   public InstanceCounter<Downloader> {
     Q_OBJECT
 public:
     Downloader(QObject *Player = 0);

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <bb/ImageData>
+#include "InstanceCounter.hpp"
 
 namespace bb {
     namespace cascades {
@@ -11,7 +12,8 @@ namespace bb {
     class ImageData;
 }
 
-class Canvas : public QObject {
+class Canvas : public QObject,
+               public InstanceCounter<Canvas> {
     Q_OBJECT
 public:
     Canvas(int width, int height, QObject * parent);

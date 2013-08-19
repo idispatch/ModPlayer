@@ -2,8 +2,10 @@
 #define SONGGENRE_HPP_
 
 #include "ItemGroupBase.hpp"
+#include "InstanceCounter.hpp"
 
-class SongGenre : public ItemGroupBase {
+class SongGenre : public ItemGroupBase,
+                  public InstanceCounter<SongGenre> {
     Q_OBJECT
 public:
     SongGenre(int id,
@@ -11,6 +13,8 @@ public:
               int count,
               QObject *parent = 0);
     ~SongGenre();
+
+    using InstanceCounter<SongGenre>::getInstanceCount;
 Q_SIGNALS:
 private:
     Q_DISABLE_COPY(SongGenre)

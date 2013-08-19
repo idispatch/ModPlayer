@@ -4,8 +4,10 @@
 #include <QDebug>
 #include <QMetaType>
 #include <QObject>
+#include "InstanceCounter.hpp"
 
-class PlaybackConfig : public QObject {
+class PlaybackConfig : public QObject,
+                       public InstanceCounter<PlaybackConfig> {
     Q_OBJECT
 
     Q_PROPERTY(bool stereo READ stereo WRITE setStereo NOTIFY stereoChanged FINAL)

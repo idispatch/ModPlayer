@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QUrl>
 #include <QSettings>
+#include "InstanceCounter.hpp"
 
 class Cache;
 class Catalog;
@@ -20,7 +21,8 @@ namespace bb {
     }
 }
 
-class Player : public QObject {
+class Player : public QObject,
+               public InstanceCounter<Player> {
     Q_OBJECT
     Q_ENUMS(State)
 public:

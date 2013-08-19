@@ -3,8 +3,10 @@
 
 #include <QUrl>
 #include "ItemGroupBase.hpp"
+#include "InstanceCounter.hpp"
 
-class SongFormat : public ItemGroupBase {
+class SongFormat : public ItemGroupBase,
+                   public InstanceCounter<SongFormat> {
     Q_OBJECT
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged FINAL)
     Q_PROPERTY(QUrl iconPath READ iconPath NOTIFY iconPathChanged FINAL)

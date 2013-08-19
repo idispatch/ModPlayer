@@ -4,8 +4,10 @@
 #include <QDebug>
 #include <QMetaType>
 #include <QObject>
+#include "InstanceCounter.hpp"
 
-class ItemGroupBase : public QObject {
+class ItemGroupBase : public QObject,
+                      public InstanceCounter<ItemGroupBase> {
     Q_OBJECT
     Q_PROPERTY(int id READ id NOTIFY idChanged FINAL)
     Q_PROPERTY(QString name READ name NOTIFY nameChanged FINAL)

@@ -4,11 +4,13 @@
 #include <QMetaType>
 #include <QObject>
 #include "SongExtendedInfo.hpp"
+#include "InstanceCounter.hpp"
 
 struct _ModPlugFile;
 typedef struct _ModPlugFile ModPlugFile;
 
-class SongModule : public SongExtendedInfo {
+class SongModule : public SongExtendedInfo,
+                   public InstanceCounter<SongModule> {
     Q_OBJECT
 
     Q_PROPERTY(bool songLoaded READ songLoaded NOTIFY songLoadedChanged FINAL)
@@ -64,6 +66,8 @@ public:
     Q_INVOKABLE bool rewind();
 
     operator ModPlugFile* ();
+
+    using InstanceCounter<SongModule>::getInstanceCount;
 Q_SIGNALS:
     void songLoadedChanged();
 

@@ -6,8 +6,10 @@
 #include <QObject>
 #include <QVariant>
 #include <QUrl>
+#include "InstanceCounter.hpp"
 
-class SongBasicInfo : public QObject {
+class SongBasicInfo : public QObject,
+                      public InstanceCounter<SongBasicInfo> {
     Q_OBJECT
 
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged FINAL)

@@ -76,6 +76,7 @@ device {
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/InstanceCounter.hpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
@@ -189,6 +190,7 @@ device {
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/InstanceCounter.hpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \

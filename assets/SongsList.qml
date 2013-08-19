@@ -3,28 +3,18 @@ import player 1.0
 
 Page {
     id: songListPage
-    property int formatId
-    property string formatName
-
-    property int genreId
-    property string genreName
-    
-    property int artistId
-    property string artistName
-    
-    property string mode
     property variant navigationPane
 
     titleBar: TitleBar {
         title: {
-            if(mode == 'format') {
-                return formatName + " Songs";
+            if(songs.mode == 'format') {
+                return songs.modelName + " Songs";
             }
-            if(mode == 'genre') {
-                return genreName + " Songs";
+            if(songs.mode == 'genre') {
+                return songs.modelName + " Songs";
             }
-            if(mode == 'artist') {
-                return "Songs by " + artistName;
+            if(songs.mode == 'artist') {
+                return "Songs by " + songs.modelName;
             }
             return "All Songs"
         }
@@ -32,8 +22,13 @@ Page {
         kind: TitleBarKind.Default
     }
     ViewContainer {
+        ProgressComponent {
+            id: progress
+        }
         ListView {
             id: songs
+            property string mode
+            property string modelName
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -92,31 +87,31 @@ Page {
             ]
         }
     }
-
+    function showList(listName, modelName, model) {
+        songs.mode = listName
+        songs.modelName = modelName
+        songs.visible = false
+        progress.running = true
+        progress.visible = true
+        if(songs.dataModel != null) {
+            var dataModel = songs.dataModel
+            songs.dataModel = null
+            dataModel.destroy()
+        }
+        songs.dataModel = model
+        progress.running = false
+        progress.visible = false
+        songs.visible = true
+    }
     function loadSongsByFormat(formatId, formatName) {
-        this.mode = "format"
-        this.formatId = formatId
-        this.formatName = formatName
-        var data = app.player.catalog.findSongsByFormatId(formatId)
-        songs.dataModel = data
+        showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId))
     }
-
     function loadSongsByGenre(genreId, genreName) {
-        this.mode = "genre"
-        this.genreId = genreId
-        this.genreName = genreName
-        var data = app.player.catalog.findSongsByGenreId(genreId)
-        songs.dataModel = data
+        showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId))
     }
-
     function loadSongsByArtist(artistId, artistName) {
-        this.mode = "artist"
-        this.artistId = artistId
-        this.artistName = artistName
-        var data = app.player.catalog.findSongsByArtistId(artistId)
-        songs.dataModel = data
+        showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId))
     }
-
     actions: [
         PlayerActionItem {
             navigationPane: songListPage.navigationPane

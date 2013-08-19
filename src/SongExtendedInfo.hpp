@@ -6,8 +6,10 @@
 #include <QObject>
 #include <QVariant>
 #include "SongBasicInfo.hpp"
+#include "InstanceCounter.hpp"
 
-class SongExtendedInfo : public SongBasicInfo {
+class SongExtendedInfo : public SongBasicInfo,
+                         public InstanceCounter<SongExtendedInfo> {
     Q_OBJECT
 
     Q_PROPERTY(QString format READ format WRITE setFormat NOTIFY formatChanged FINAL)
@@ -74,6 +76,8 @@ public:
 
     int channels() const;
     void setChannels(int value);
+
+    using InstanceCounter<SongExtendedInfo>::getInstanceCount;
 Q_SIGNALS:
     void formatChanged();
     void trackerChanged();

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVariant>
+#include "InstanceCounter.hpp"
 
 namespace bb {
     namespace cascades {
@@ -18,7 +19,8 @@ class SongBasicInfo;
 class SongExtendedInfo;
 class Artist;
 
-class Catalog : public QObject {
+class Catalog : public QObject,
+                public InstanceCounter<Catalog> {
     Q_OBJECT
     Q_PROPERTY(QString catalogPath READ catalogPath NOTIFY catalogPathChanged FINAL)
     Q_PROPERTY(bb::cascades::DataModel * formats READ formats NOTIFY formatsChanged FINAL)

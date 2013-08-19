@@ -6,6 +6,7 @@
 #include <bb/cascades/CustomControl>
 #include <bb/cascades/Image>
 #include "Canvas.hpp"
+#include "InstanceCounter.hpp"
 
 namespace bb {
     namespace cascades {
@@ -15,7 +16,8 @@ namespace bb {
     class ImageData;
 }
 
-class LCDDisplay : public bb::cascades::CustomControl
+class LCDDisplay : public bb::cascades::CustomControl,
+                   public InstanceCounter<LCDDisplay>
 {
     Q_OBJECT
 public:

@@ -6,8 +6,10 @@
 #include <QSettings>
 #include <QStringList>
 #include <QFileInfoList>
+#include "InstanceCounter.hpp"
 
-class Cache : public QObject {
+class Cache : public QObject,
+              public InstanceCounter<Cache> {
     Q_OBJECT
 
     Q_PROPERTY(QString cachePath READ cachePath FINAL)
