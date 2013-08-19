@@ -109,7 +109,6 @@ Page {
     function destroyDataModel() {
         if(songs.dataModel != null) {
             songs.dataModel.clear()
-            songs.dataModel = null
         }
     }
     function showList(listName, model) {
