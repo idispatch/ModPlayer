@@ -54,6 +54,7 @@ SongBasicInfo::SongBasicInfo(int id,
 }
 
 SongBasicInfo::~SongBasicInfo() {
+    qDebug() << "SongBasicInfo::~SongBasicInfo()";
 }
 
 SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {

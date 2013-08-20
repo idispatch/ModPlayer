@@ -108,7 +108,11 @@ Page {
     }
     function destroyDataModel() {
         if(songs.dataModel != null) {
-            songs.dataModel.clear()
+            var oldModel = songs.dataModel
+            console.log("P:destroyDataModel:=" + oldModel.size())
+            oldModel.clear()
+            songs.resetDataModel()
+            oldModel = undefined
         }
     }
     function showList(listName, model) {
@@ -128,27 +132,27 @@ Page {
     }
     function loadRecentlyPlayedSongs() {
         unload()
-        showList("recent", app.player.catalog.findRecentlyPlayedSongs())
+        showList("recent", app.player.catalog.findRecentlyPlayedSongs(personalSongListPage))
     }
     function loadMyFavouriteSongs() {
         unload()
-        showList("myFavourite", app.player.catalog.findMyFavouriteSongs())
+        showList("myFavourite", app.player.catalog.findMyFavouriteSongs(personalSongListPage))
     }
     function loadMostPlayedSongs() {
         unload()
-        showList("mostPlayed", app.player.catalog.findMostPlayedSongs())
+        showList("mostPlayed", app.player.catalog.findMostPlayedSongs(personalSongListPage))
     }
     function loadMostFavouritedSongs() {
         unload()
-        showList("topFavourited", app.player.catalog.findMostFavouritedSongs())
+        showList("topFavourited", app.player.catalog.findMostFavouritedSongs(personalSongListPage))
     }
     function loadMostScoredSongs() {
         unload()
-        showList("topScored", app.player.catalog.findMostScoredSongs())
+        showList("topScored", app.player.catalog.findMostScoredSongs(personalSongListPage))
     }
     function loadMostDownloadedSongs() {
         unload()
-        showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
+        showList("topDownloads", app.player.catalog.findMostDownloadedSongs(personalSongListPage))
     }
     actions: [
         PlayerActionItem {

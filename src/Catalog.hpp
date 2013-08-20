@@ -27,9 +27,6 @@ class Catalog : public QObject,
                 public InstanceCounter<Catalog> {
     Q_OBJECT
     Q_PROPERTY(QString catalogPath READ catalogPath NOTIFY catalogPathChanged FINAL)
-    Q_PROPERTY(bb::cascades::ArrayDataModel* formats READ formats NOTIFY formatsChanged FINAL)
-    Q_PROPERTY(bb::cascades::GroupDataModel* genres READ genres NOTIFY genresChanged FINAL)
-    Q_PROPERTY(bb::cascades::GroupDataModel* artists READ artists NOTIFY artistsChanged FINAL)
 public:
     Catalog(QObject * parent);
 
@@ -39,17 +36,21 @@ public:
     bb::cascades::GroupDataModel* genres();
     bb::cascades::GroupDataModel* artists();
 
-    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByFormatId(int formatId);
-    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByGenreId(int genreId);
-    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByArtistId(int artistId);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findFormats(QVariant parent);
+    Q_INVOKABLE bb::cascades::GroupDataModel* findGenres(QVariant parent);
+    Q_INVOKABLE bb::cascades::GroupDataModel* findArtists(QVariant parent);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByFormatId(int formatId, QVariant parent);
+    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByGenreId(int genreId, QVariant parent);
+    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByArtistId(int artistId, QVariant parent);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs();
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs(QVariant parent);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs(QVariant parent);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs(QVariant parent);
+
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs(QVariant parent);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs(QVariant parent);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(QVariant parent);
 
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
@@ -67,9 +68,6 @@ public:
     using InstanceCounter<Catalog>::getMaxInstanceCount;
 Q_SIGNALS:
     void catalogPathChanged();
-    void formatsChanged();
-    void genresChanged();
-    void artistsChanged();
 private:
     Q_DISABLE_COPY(Catalog)
     void initCatalog();
@@ -78,7 +76,8 @@ private:
     SongExtendedInfo * selectSongInfo(QString const& whereClause, QObject *parent);
 
     bb::cascades::ArrayDataModel* selectSongBasicInfo(QString const& whereClause,
-                                                      QString const& orderByClause);
+                                                      QString const& orderByClause,
+                                                      QObject *parent);
 
     static SongBasicInfo * readSongBasicInfo(QSqlQuery &sqlQuery,
                                              QObject *parent);

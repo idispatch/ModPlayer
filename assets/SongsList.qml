@@ -83,7 +83,11 @@ Page {
     }
     function destroyDataModel() {
         if(songs.dataModel != null) {
-            songs.dataModel.clear()
+            var oldModel = songs.dataModel
+            console.log("S:destroyDataModel:=" + oldModel.size())
+            oldModel.clear()
+            songs.resetDataModel()
+            oldModel = undefined
         }
     }
     function showList(listName, modelName, model) {
@@ -105,15 +109,15 @@ Page {
     }
     function loadSongsByFormat(formatId, formatName) {
         unload()
-        showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId))
+        showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId, songListPage))
     }
     function loadSongsByGenre(genreId, genreName) {
         unload()
-        showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId))
+        showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId, songListPage))
     }
     function loadSongsByArtist(artistId, artistName) {
         unload()
-        showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId))
+        showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId, songListPage))
     }
     actions: [
         PlayerActionItem {
