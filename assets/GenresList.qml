@@ -55,7 +55,7 @@ Page {
     }
     function load() {
         if(!genresList.dataModel) {
-            genresList.dataModel = app.player.catalog.findGenres(genresPage)
+            genresList.dataModel = app.player.catalog.findGenres()
         }
     }
     actions: [

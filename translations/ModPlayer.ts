@@ -122,27 +122,27 @@
 <context>
     <name>PersonalSongList</name>
     <message>
-        <source>Recently Played Songs</source>
+        <source>Recently Played Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>My Favourite Songs</source>
+        <source>My Favourite Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Most Played Songs</source>
+        <source>Most Played Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Top Favourited Songs</source>
+        <source>Top Favourited Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Top Scored Songs</source>
+        <source>Top Scored Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Top Downloaded Songs</source>
+        <source>Top Downloaded Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

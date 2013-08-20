@@ -6,12 +6,13 @@ Page {
     property variant navigationPane
     titleBar: TitleBar {
         title: {
-            if(songs.mode == "recent") return qsTr("Recently Played Songs")
-            if(songs.mode == "myFavourite") return qsTr("My Favourite Songs")
-            if(songs.mode == "mostPlayed") return qsTr("Most Played Songs")
-            if(songs.mode == "topFavourited") return qsTr("Top Favourited Songs")
-            if(songs.mode == "topScored") return qsTr("Top Scored Songs")
-            if(songs.mode == "topDownloads") return qsTr("Top Downloaded Songs")
+            var c = songs.dataModel ? songs.dataModel.size() : 0
+            if(songs.mode == "recent") return qsTr("Recently Played Songs (%1)").arg(c)
+            if(songs.mode == "myFavourite") return qsTr("My Favourite Songs (%1)").arg(c)
+            if(songs.mode == "mostPlayed") return qsTr("Most Played Songs (%1)").arg(c)
+            if(songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
+            if(songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
+            if(songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
             return ""
         }
         appearance: TitleBarAppearance.Branded
@@ -112,12 +113,12 @@ Page {
             ]
         }
     }
-    function destroyDataModel() {
-        songs.resetDataModel()
-    }
     function showList(listName, model) {
         songs.mode = listName
-        destroyDataModel()
+        if(songs.dataModel) {
+            songs.dataModel.clear()
+        }
+        songs.resetDataModel()
         songs.setDataModel(model)
         progress.running = false
         progress.visible = false
@@ -127,32 +128,35 @@ Page {
         progress.running = true
         progress.visible = true
         songs.visible = false
-        destroyDataModel()
+        if(songs.dataModel) {
+            songs.dataModel.clear()
+        }
+        songs.resetDataModel()
         songs.mode = ""
     }
     function loadRecentlyPlayedSongs() {
         unload()
-        showList("recent", app.player.catalog.findRecentlyPlayedSongs(personalSongListPage))
+        showList("recent", app.player.catalog.findRecentlyPlayedSongs())
     }
     function loadMyFavouriteSongs() {
         unload()
-        showList("myFavourite", app.player.catalog.findMyFavouriteSongs(personalSongListPage))
+        showList("myFavourite", app.player.catalog.findMyFavouriteSongs())
     }
     function loadMostPlayedSongs() {
         unload()
-        showList("mostPlayed", app.player.catalog.findMostPlayedSongs(personalSongListPage))
+        showList("mostPlayed", app.player.catalog.findMostPlayedSongs())
     }
     function loadMostFavouritedSongs() {
         unload()
-        showList("topFavourited", app.player.catalog.findMostFavouritedSongs(personalSongListPage))
+        showList("topFavourited", app.player.catalog.findMostFavouritedSongs())
     }
     function loadMostScoredSongs() {
         unload()
-        showList("topScored", app.player.catalog.findMostScoredSongs(personalSongListPage))
+        showList("topScored", app.player.catalog.findMostScoredSongs())
     }
     function loadMostDownloadedSongs() {
         unload()
-        showList("topDownloads", app.player.catalog.findMostDownloadedSongs(personalSongListPage))
+        showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
     }
     actions: [
         PlayerActionItem {

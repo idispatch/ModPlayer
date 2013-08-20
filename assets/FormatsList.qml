@@ -27,7 +27,7 @@ Page {
             }
             function load() {
                 if(!dataModel) {
-                    dataModel = app.player.catalog.findFormats(formatsPage)
+                    dataModel = app.player.catalog.findFormats()
                 }
             }
             onCreationCompleted: load()

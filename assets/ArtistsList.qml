@@ -54,7 +54,7 @@ Page {
     }
     function load() {
         if(!artistsList.dataModel) {
-            artistsList.dataModel = app.player.catalog.findArtists(artistsPage)
+            artistsList.dataModel = app.player.catalog.findArtists()
         }
     }
     actions: [

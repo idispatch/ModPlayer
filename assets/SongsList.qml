@@ -7,10 +7,11 @@ Page {
 
     titleBar: TitleBar {
         title: {
-            if(songs.mode == 'format')  return songs.modelName + " Songs";
-            if(songs.mode == 'genre') return songs.modelName + " Songs";
-            if(songs.mode == 'artist') return "Songs by " + songs.modelName;
-            return "All Songs"
+            var c = songs.dataModel ? songs.dataModel.size() : 0
+            if(songs.mode == 'format')  return songs.modelName + " Songs (%1)".arg(c)
+            if(songs.mode == 'genre') return songs.modelName + " Songs (%1)".arg(c)
+            if(songs.mode == 'artist') return "Songs by " + songs.modelName + " (%1)".arg(c)
+            return "All Songs (%1)".arg(c)
         }
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
@@ -81,13 +82,13 @@ Page {
             ]
         }
     }
-    function destroyDataModel() {
-        songs.resetDataModel()
-    }
     function showList(listName, modelName, model) {
         songs.mode = listName
         songs.modelName = modelName
-        destroyDataModel()
+        if(songs.dataModel) {
+            songs.dataModel.clear()
+        }
+        songs.resetDataModel()
         songs.setDataModel(model)
         progress.running = false
         progress.visible = false
@@ -97,21 +98,24 @@ Page {
         progress.running = true
         progress.visible = true
         songs.visible = false
-        destroyDataModel()
+        if(songs.dataModel) {
+            songs.dataModel.clear()
+        }
+        songs.resetDataModel()
         songs.mode = ""
         songs.modelName = ""
     }
     function loadSongsByFormat(formatId, formatName) {
         unload()
-        showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId, songListPage))
+        showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId))
     }
     function loadSongsByGenre(genreId, genreName) {
         unload()
-        showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId, songListPage))
+        showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId))
     }
     function loadSongsByArtist(artistId, artistName) {
         unload()
-        showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId, songListPage))
+        showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId))
     }
     actions: [
         PlayerActionItem {

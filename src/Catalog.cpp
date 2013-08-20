@@ -58,8 +58,7 @@ QString Catalog::catalogPath() const {
 }
 
 ArrayDataModel*
-Catalog::findFormats(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findFormats() {
     const char * query =
             "SELECT"
             " formats.id AS id, "
@@ -70,7 +69,7 @@ Catalog::findFormats(QVariant parent) {
             "INNER JOIN songs "
             " ON songs.format=formats.id "
             "GROUP BY formats.id";
-    ArrayDataModel * model = new ArrayDataModel(parentObject);
+    ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
@@ -79,14 +78,19 @@ Catalog::findFormats(QVariant parent) {
         QString name = sqlQuery.value(column++).toString();
         QString desc = sqlQuery.value(column++).toString();
         int count    = sqlQuery.value(column++).toInt();
-        model->append(QVariant::fromValue(static_cast<QObject*>(new SongFormat(id, name, desc, count, model))));
+        QObject* value = new SongFormat(id,
+                                        name,
+                                        desc,
+                                        count,
+                                        model);
+        QVariant v = QVariant::fromValue(value);
+        model->append(v);
     }
     return model;
 }
 
 GroupDataModel*
-Catalog::findGenres(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findGenres() {
     const char * query =
             "SELECT"
             " genres.id,"
@@ -96,8 +100,7 @@ Catalog::findGenres(QVariant parent) {
             "LEFT JOIN songs "
             " ON songs.genre=genres.id "
             "GROUP BY genres.id";
-    GroupDataModel * model = new GroupDataModel(QStringList() << "name",
-                                                parentObject);
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -108,14 +111,14 @@ Catalog::findGenres(QVariant parent) {
         int id       = sqlQuery.value(column++).toInt();
         QString name = sqlQuery.value(column++).toString();
         int count    = sqlQuery.value(column++).toInt();
-        model->insert(static_cast<QObject*>(new SongGenre(id, name, count, model)));
+        QObject* value = new SongGenre(id, name, count, model);
+        model->insert(value);
     }
     return model;
 }
 
 GroupDataModel*
-Catalog::findArtists(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findArtists() {
     const char * query =
             "SELECT"
             " artists.id,"
@@ -128,8 +131,7 @@ Catalog::findArtists(QVariant parent) {
             "LEFT JOIN songs "
             " ON songs.artist=artists.id "
             "GROUP BY artists.id";
-    GroupDataModel * model = new GroupDataModel(QStringList() << "name",
-                                                parentObject);
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -143,20 +145,20 @@ Catalog::findArtists(QVariant parent) {
         int downloads = sqlQuery.value(column++).toInt();
         int rating    = sqlQuery.value(column++).toInt();
         int count     = sqlQuery.value(column++).toInt();
-        model->insert(static_cast<QObject*>(new Artist(id,
-                                                       name,
-                                                       score,
-                                                       downloads,
-                                                       rating,
-                                                       count,
-                                                       model)));
+        QObject *value = new Artist(id,
+                                    name,
+                                    score,
+                                    downloads,
+                                    rating,
+                                    count,
+                                    model);
+        model->insert(value);
     }
     return model;
 }
 
 GroupDataModel*
-Catalog::findSongsByFormatId(int formatId, QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findSongsByFormatId(int formatId) {
     QString query = QString("SELECT"
                             " id, "
                             " fileName, "
@@ -173,23 +175,22 @@ Catalog::findSongsByFormatId(int formatId, QVariant parent) {
                             "FROM songs "
                             "WHERE format=%1").arg(formatId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads",
-                                                parentObject);
+                                                              << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        model->insert(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model)));
+        QObject* value = readSongBasicInfo(sqlQuery, model);
+        model->insert(value);
     }
 
     return model;
 }
 
 GroupDataModel*
-Catalog::findSongsByGenreId(int genreId, QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findSongsByGenreId(int genreId) {
     QString query = QString(
             "SELECT "
             " id, "
@@ -207,22 +208,21 @@ Catalog::findSongsByGenreId(int genreId, QVariant parent) {
             "FROM songs "
             "WHERE genre=%1").arg(genreId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads",
-                                                parentObject);
+                                                              << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        model->insert(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model)));
+        QObject* value = readSongBasicInfo(sqlQuery, model);
+        model->insert(value);
     }
     return model;
 }
 
 GroupDataModel*
-Catalog::findSongsByArtistId(int artistId, QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findSongsByArtistId(int artistId) {
     QString query = QString(
             "SELECT "
             " id, "
@@ -240,15 +240,15 @@ Catalog::findSongsByArtistId(int artistId, QVariant parent) {
             "FROM songs "
             "WHERE artist=%1").arg(artistId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads",
-                                                parentObject);
+                                                              << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        model->insert(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model)));
+        QObject* value = readSongBasicInfo(sqlQuery, model);
+        model->insert(value);
     }
     return model;
 }
@@ -301,14 +301,16 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 
 SongExtendedInfo*
 Catalog::resolveModuleById(int id, QVariant parent) {
-    QObject * object = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.id=%1").arg(id), object);
+    QObject * parentObject = parent.value<QObject*>();
+    return selectSongInfo(QString("WHERE songs.id=%1").arg(id),
+                          parentObject);
 }
 
 SongExtendedInfo*
 Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
-    QObject * object = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName), object);
+    QObject * parentObject = parent.value<QObject*>();
+    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName),
+                          parentObject);
 }
 
 SongExtendedInfo*
@@ -391,7 +393,7 @@ Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
 }
 
 SongExtendedInfo*
-Catalog::selectSongInfo(QString const& whereClause, QObject * parent) {
+Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
     QString query = QString(
                 "SELECT"
                 " songs.id AS id,"
@@ -434,8 +436,7 @@ Catalog::selectSongInfo(QString const& whereClause, QObject * parent) {
 
 ArrayDataModel*
 Catalog::selectSongBasicInfo(QString const& whereClause,
-                             QString const& orderByClause,
-                             QObject *parent) {
+                             QString const& orderByClause) {
     QString query("SELECT"
                   " id, "
                   " fileName, "
@@ -456,61 +457,51 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
     if(orderByClause.length() > 0) {
         query += orderByClause;
     }
-    ArrayDataModel * model = new ArrayDataModel(parent);
+    ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        model->append(QVariant::fromValue(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model))));
+        QObject* value = readSongBasicInfo(sqlQuery, model);
+        QVariant v = QVariant::fromValue(value);
+        model->append(v);
     }
     return model;
 }
 
 ArrayDataModel*
-Catalog::findMostDownloadedSongs(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findMostDownloadedSongs() {
     return selectSongBasicInfo(" WHERE downloads>0 ",
-                               " ORDER BY downloads DESC ",
-                               parentObject);
+                               " ORDER BY downloads DESC ");
 }
 
 ArrayDataModel*
-Catalog::findMostFavouritedSongs(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findMostFavouritedSongs() {
     return selectSongBasicInfo(" WHERE favourited>0 ",
-                               " ORDER BY favourited DESC, downloads DESC, score DESC ",
-                               parentObject);
+                               " ORDER BY favourited DESC, downloads DESC, score DESC ");
 }
 
 ArrayDataModel*
-Catalog::findMostScoredSongs(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findMostScoredSongs() {
     return selectSongBasicInfo(" WHERE score>0 ",
-                               " ORDER BY score DESC, downloads DESC, favourited DESC ",
-                               parentObject);
+                               " ORDER BY score DESC, downloads DESC, favourited DESC ");
 }
 
 ArrayDataModel*
-Catalog::findRecentlyPlayedSongs(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findRecentlyPlayedSongs() {
     return selectSongBasicInfo(" WHERE lastPlayed>0 ",
-                               " ORDER BY lastPlayed DESC ",
-                               parentObject);
+                               " ORDER BY lastPlayed DESC ");
 }
 
 ArrayDataModel*
-Catalog::findMyFavouriteSongs(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findMyFavouriteSongs() {
     return selectSongBasicInfo(" WHERE myFavourite>0 ",
-                               " ORDER BY playCount DESC, lastPlayed DESC ",
-                               parentObject);
+                               " ORDER BY playCount DESC, lastPlayed DESC ");
 }
 
 ArrayDataModel*
-Catalog::findMostPlayedSongs(QVariant parent) {
-    QObject * parentObject = parent.value<QObject*>();
+Catalog::findMostPlayedSongs() {
     return selectSongBasicInfo(" WHERE playCount>0 ",
-                               " ORDER BY playCount DESC, lastPlayed DESC ",
-                               parentObject);
+                               " ORDER BY playCount DESC, lastPlayed DESC ");
 }
 
 void Catalog::addFavourite(QVariant value) {
