@@ -38,56 +38,62 @@ Page {
                         description: ListItem.data.fileName
                         upperStatus: {
                             var mode = ListItem.view.mode
-                            if(mode == "recent") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                            if(mode == "myFavourite") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                            if(mode == "mostPlayed") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                            if(mode == "topFavourited") return "favourited " + ListItem.data.favourited + " times"
-                            if(mode == "topScored") return "score " + ListItem.data.score + " of 10"
-                            if(mode == "topDownloads") return ListItem.data.downloads + " downloads"
+                            if(ListItem.data) {
+                                if(mode == "recent") return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                if(mode == "myFavourite") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                if(mode == "mostPlayed") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                if(mode == "topFavourited") return "favourited " + ListItem.data.favourited + " times"
+                                if(mode == "topScored") return "score " + ListItem.data.score + " of 10"
+                                if(mode == "topDownloads") return ListItem.data.downloads + " downloads"
+                            }
                             return ""
                         }
                         middleStatus: {
                             var mode = ListItem.view.mode
-                            if(mode == "topDownloads") {
-                                if(ListItem.data.score > 0) {
-                                    return "score " + ListItem.data.score + " of 10"
+                            if(ListItem.data) {
+                                if(mode == "topDownloads") {
+                                    if(ListItem.data.score > 0) {
+                                        return "score " + ListItem.data.score + " of 10"
+                                    }
                                 }
-                            }
-                            if(mode == "topFavourited") {
-                                if(ListItem.data.score > 0) {
-                                    return "score " + ListItem.data.score + " of 10"
+                                if(mode == "topFavourited") {
+                                    if(ListItem.data.score > 0) {
+                                        return "score " + ListItem.data.score + " of 10"
+                                    }
                                 }
-                            }
-                            if(mode == "topScored") {
-                                if(ListItem.data.downloads > 0) {
-                                    return ListItem.data.downloads + " downloads"
+                                if(mode == "topScored") {
+                                    if(ListItem.data.downloads > 0) {
+                                        return ListItem.data.downloads + " downloads"
+                                    }
                                 }
                             }
                             return ""
                         }
                         lowerStatus: {
                             var mode = ListItem.view.mode
-                            if(mode == "recent") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                            if(mode == "myFavourite") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                            if(mode == "mostPlayed") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                            if(mode == "topFavourited") {
-                                if(ListItem.data.downloads > 0) {
-                                    return ListItem.data.downloads + " downloads"
+                            if(ListItem.data) {
+                                if(mode == "recent") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                if(mode == "myFavourite") return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                if(mode == "mostPlayed") return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                if(mode == "topFavourited") {
+                                    if(ListItem.data.downloads > 0) {
+                                        return ListItem.data.downloads + " downloads"
+                                    }
                                 }
-                            }
-                            if(mode == "topScored") {
-                                if(ListItem.data.favourited > 0) {
-                                    return "favourited " + ListItem.data.favourited + " times"
+                                if(mode == "topScored") {
+                                    if(ListItem.data.favourited > 0) {
+                                        return "favourited " + ListItem.data.favourited + " times"
+                                    }
                                 }
-                            }
-                            if(mode == "topDownloads") {
-                                if(ListItem.data.favourited > 0) {
-                                    return "favourited " + ListItem.data.favourited + " times"
+                                if(mode == "topDownloads") {
+                                    if(ListItem.data.favourited > 0) {
+                                        return "favourited " + ListItem.data.favourited + " times"
+                                    }
                                 }
                             }
                             return ""
                         }
-                        imageSource: ListItem.data.iconPath
+                        imageSource: ListItem.data ? ListItem.data.iconPath : ""
                     }
                 }
             ]
@@ -107,13 +113,7 @@ Page {
         }
     }
     function destroyDataModel() {
-        if(songs.dataModel != null) {
-            var oldModel = songs.dataModel
-            console.log("P:destroyDataModel:=" + oldModel.size())
-            songs.resetDataModel()
-            oldModel.clear()
-            oldModel = undefined
-        }
+        songs.resetDataModel()
     }
     function showList(listName, model) {
         songs.mode = listName

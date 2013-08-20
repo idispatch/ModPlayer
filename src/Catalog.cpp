@@ -81,7 +81,6 @@ Catalog::findFormats(QVariant parent) {
         int count    = sqlQuery.value(column++).toInt();
         model->append(QVariant::fromValue(static_cast<QObject*>(new SongFormat(id, name, desc, count, model))));
     }
-    //qDebug() << "Returning ArrayDataModel with parent " << parentObject;
     return model;
 }
 
@@ -111,7 +110,6 @@ Catalog::findGenres(QVariant parent) {
         int count    = sqlQuery.value(column++).toInt();
         model->insert(static_cast<QObject*>(new SongGenre(id, name, count, model)));
     }
-    //qDebug() << "Returning GroupDataModel with parent " << parentObject;
     return model;
 }
 
@@ -153,7 +151,6 @@ Catalog::findArtists(QVariant parent) {
                                                        count,
                                                        model)));
     }
-    //qDebug() << "Returning GroupDataModel with parent " << parentObject;
     return model;
 }
 
@@ -220,7 +217,6 @@ Catalog::findSongsByGenreId(int genreId, QVariant parent) {
     while(sqlQuery.next()) {
         model->insert(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model)));
     }
-    //qDebug() << "Returning GroupDataModel with parent " << parentObject;
     return model;
 }
 
@@ -254,7 +250,6 @@ Catalog::findSongsByArtistId(int artistId, QVariant parent) {
     while(sqlQuery.next()) {
         model->insert(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model)));
     }
-    //qDebug() << "Returning GroupDataModel with parent " << parentObject;
     return model;
 }
 
@@ -467,7 +462,6 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
     while(sqlQuery.next()) {
         model->append(QVariant::fromValue(static_cast<QObject*>(readSongBasicInfo(sqlQuery, model))));
     }
-    //qDebug() << "Returning ArrayDataModel with parent " << parent;
     return model;
 }
 

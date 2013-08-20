@@ -42,27 +42,27 @@ Page {
                 ListItemComponent {
                     type: "item"
                     ModPlayerListItem {
-                        title: ListItem.data.title
-                        description: ListItem.data.fileName
+                        title: ListItem.data ? ListItem.data.title : ""
+                        description: ListItem.data ? ListItem.data.fileName : ""
                         upperStatus: {
-                            if(ListItem.data.score > 0) {
+                            if(ListItem.data && ListItem.data.score > 0) {
                                 return "score " + ListItem.data.score + " of 10"
                             }
                             return ""
                         }
                         middleStatus: {
-                            if(ListItem.data.favourited > 0) {
+                            if(ListItem.data && ListItem.data.favourited > 0) {
                                 return "favourited " + ListItem.data.favourited + " times"
                             }
                             return ""
                         } 
                         lowerStatus: {
-                            if(ListItem.data.downloads > 0) {
+                            if(ListItem.data && ListItem.data.downloads > 0) {
                                 return ListItem.data.downloads + " downloads"
                             }
                             return ""
                         }  
-                        imageSource: ListItem.data.iconPath
+                        imageSource: ListItem.data ? ListItem.data.iconPath : ""
                     }
                 }
             ]
@@ -82,13 +82,7 @@ Page {
         }
     }
     function destroyDataModel() {
-        if(songs.dataModel != null) {
-            var oldModel = songs.dataModel
-            console.log("S:destroyDataModel:=" + oldModel.size())
-            songs.resetDataModel()
-            oldModel.clear()
-            oldModel = undefined
-        }
+        songs.resetDataModel()
     }
     function showList(listName, modelName, model) {
         songs.mode = listName
