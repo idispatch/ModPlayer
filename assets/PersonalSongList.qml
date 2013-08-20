@@ -118,7 +118,7 @@ Page {
     function showList(listName, model) {
         songs.mode = listName
         destroyDataModel()
-        songs.dataModel = model
+        songs.setDataModel(model)
         progress.running = false
         progress.visible = false
         songs.visible = true

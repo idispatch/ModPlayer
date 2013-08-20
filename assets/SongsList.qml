@@ -94,7 +94,7 @@ Page {
         songs.mode = listName
         songs.modelName = modelName
         destroyDataModel()
-        songs.dataModel = model
+        songs.setDataModel(model)
         progress.running = false
         progress.visible = false
         songs.visible = true
