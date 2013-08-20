@@ -110,8 +110,8 @@ Page {
         if(songs.dataModel != null) {
             var oldModel = songs.dataModel
             console.log("P:destroyDataModel:=" + oldModel.size())
-            oldModel.clear()
             songs.resetDataModel()
+            oldModel.clear()
             oldModel = undefined
         }
     }
