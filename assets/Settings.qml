@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import bb.system 1.0
 import player 1.0
 import "functions.js" as Global
 
@@ -93,8 +94,25 @@ Sheet {
                             topMargin: 40
                             bottomMargin: 40
                             onClicked: {
-                                app.cache.purge();
+                                confirmPurgingSongCache.show()
                             }
+                            attachedObjects: [
+                                SystemDialog {
+                                    id: confirmPurgingSongCache
+                                    title: qsTr("Confirm")
+                                    body: qsTr("Confirm purging the song cache")
+                                    onFinished: {
+                                        if (result == SystemUiResult.ConfirmButtonSelection) {
+                                            app.cache.purge()
+                                            cachePurgedToast.show()
+                                        }
+                                    }
+                                },
+                                SystemToast {
+                                    id: cachePurgedToast
+                                    body: qsTr("The song cache has been purged")
+                                }
+                            ]
                         }
                     }
                     GroupContainer {
@@ -116,8 +134,25 @@ Sheet {
                             topMargin: 40
                             bottomMargin: 40
                             onClicked: {
-                                app.catalog.resetPlayCounts();
+                                confirmResetPlayCounts.show()
                             }
+                            attachedObjects: [
+                                SystemDialog {
+                                    id: confirmResetPlayCounts
+                                    title: qsTr("Confirm")
+                                    body: qsTr("Confirm resetting song play counts")
+                                    onFinished: {
+                                        if (result == SystemUiResult.ConfirmButtonSelection) {
+                                            app.catalog.resetPlayCounts()
+                                            songPlayCountsToast.show()
+                                        }
+                                    }
+                                },
+                                SystemToast {
+                                    id: songPlayCountsToast
+                                    body: qsTr("Song play counts have been reset")
+                                }
+                            ]
                         }
                         
                         Button {
@@ -126,8 +161,25 @@ Sheet {
                             topMargin: 40
                             bottomMargin: 40
                             onClicked: {
-                                app.catalog.resetMyFavourites();
+                                confirmMyFavouritesReset.show()
                             }
+                            attachedObjects: [
+                                SystemDialog {
+                                    id: confirmMyFavouritesReset
+                                    title: qsTr("Confirm")
+                                    body: qsTr("Confirm resetting my favoruites list")
+                                    onFinished: {
+                                        if (result == SystemUiResult.ConfirmButtonSelection) {
+                                            app.catalog.resetMyFavourites();
+                                            myFavouritesResetToast.show()
+                                        }
+                                    }
+                                },
+                                SystemToast {
+                                    id: myFavouritesResetToast
+                                    body: qsTr("My favourites list is reset")
+                                }
+                            ]
                         }
                     }
                     GroupContainer {

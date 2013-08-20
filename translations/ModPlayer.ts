@@ -372,6 +372,34 @@
         <source>Maximum Cache Size: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The song cache has been purged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Song play counts have been reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My favourites list is reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm purging the song cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm resetting song play counts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm resetting my favoruites list</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongPersonalInfo</name>
