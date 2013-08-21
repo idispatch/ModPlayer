@@ -12,7 +12,7 @@ GroupContainer {
         }
         Label {
             visible: song && song.genre.length > 0
-            text: song ? "Genre: <b>" + song.genre + "</b>" : ""
+            text: song ? "Genre: <b>" + Global.escapeHtml(song.genre) + "</b>" : ""
             textFormat: TextFormat.Html
             textStyle.color: Color.Black
         }
@@ -24,7 +24,7 @@ GroupContainer {
         }
         Label {
             visible: song != null
-            text: song ? "Tracker: " + song.tracker : ""
+            text: song ? "Tracker: " + Global.escapeHtml(song.tracker) : ""
             textFormat: TextFormat.Html
             textStyle.color: Color.Black
         }
