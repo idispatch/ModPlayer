@@ -5,12 +5,20 @@
     <versionNumber>1.0.0</versionNumber>
     <buildId>1</buildId>
     <!--<versionLabel>1.0</versionLabel>-->
-    <description>The ModPlayer application</description>
+    <description>ModPlayer is a tracker music player</description>
     <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
 
     <author>Oleg Kosenkov</author>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
     <category>core.media</category>
+    <splashScreens>
+       <image>landscape-720x720.png</image>
+       <image>landscape-1280x768.png</image>
+       <image>landscape-768x1280.png</image>
+    </splashScreens>
+    <icon>
+       <image>icon_modplayer.png</image>
+    </icon>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/ModPlayer" entry="true" type="Qnx/Elf">ModPlayer</asset>
@@ -30,16 +38,16 @@
         <transparent>false</transparent>
     </initialWindow>
     
-    <icon>
-        <image>icon.png</image>
-    </icon>
 
-    <asset path="icon.png">icon.png</asset>
     <asset path="assets">assets</asset>
     
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
+    <asset path="icon_modplayer.png">icon_modplayer.png</asset>
+    <asset path="landscape-720x720.png">landscape-720x720.png</asset>
+    <asset path="landscape-1280x768.png">landscape-1280x768.png</asset>
+    <asset path="landscape-768x1280.png">landscape-768x1280.png</asset>
     
     <permission system="true">run_native</permission>
     <permission>access_internet</permission>
