@@ -5,7 +5,7 @@ GroupContainer {
     VerticalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         HorizontalContainer {
-            visible: song != null
+            visible: song != null && song.downloads > 0
             ImageView {
                 imageSource: "asset:///images/badges/badge_downloads.png"
                 visible: song && song.downloads > 0
