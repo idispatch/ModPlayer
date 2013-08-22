@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
-    <id>com.example.ModPlayer</id>
+    <id>com.idispatch.modplayer</id>
     <name>ModPlayer</name>
     <versionNumber>1.0.0</versionNumber>
     <buildId>1</buildId>

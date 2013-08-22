@@ -179,8 +179,6 @@ Cache * ApplicationUI::cache() const {
 }
 
 void ApplicationUI::emailAuthor() {
-    qDebug() << "Sending email to author";
-
     QUrl url = QUrl("mailto:oleg@kosenkov.ca");
     QList<QPair<QString, QString> > query;
     query << QPair<QString, QString>("subject", "ModPlayer")
