@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE void bbm();
     Q_INVOKABLE void help(int on);
     Q_INVOKABLE void settings(int on);
+    Q_INVOKABLE void active(int on);
 
     Q_INVOKABLE void downloadStarted();
     Q_INVOKABLE void downloadFinished();

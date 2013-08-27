@@ -188,3 +188,13 @@ void Analytics::settings(int on) {
         Flurry::Analytics::EndTimedEvent("Settings");
     }
 }
+
+void Analytics::active(int on) {
+    Flurry::Map parameters;
+    parameters["Time"] = QDateTime::currentDateTime();
+    if(on) {
+        Flurry::Analytics::LogEvent("Active", parameters, true);
+    } else {
+        Flurry::Analytics::EndTimedEvent("Active", parameters);
+    }
+}

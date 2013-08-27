@@ -38,6 +38,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)) {
     m_app = app;
+    m_analytics->active(1);
     initTypes();
     initSignals();
     initApp();
@@ -46,6 +47,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
 }
 
 ApplicationUI::~ApplicationUI() {
+    m_analytics->active(0);
 }
 
 void ApplicationUI::initSignals() {
