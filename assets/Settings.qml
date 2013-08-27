@@ -7,7 +7,11 @@ Sheet {
     id: settingsRoot
     property int groupSettingIndent: 40
     property variant configuration: app.player.playback.configuration
+    onOpened: {
+        app.analytics.settings(1)
+    }
     onClosed: {
+        app.analytics.settings(0)
         settingsRoot.destroy()
     }
     Page {

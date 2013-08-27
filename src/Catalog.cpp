@@ -514,7 +514,7 @@ void Catalog::addFavourite(QVariant value) {
                                                                               .arg(info->id());
         m_dataAccess->execute(query);
 
-        Analytics::getInstance()->addFavourite(info->id());
+        Analytics::getInstance()->addFavourite(info->id(), info->fileName());
     } else {
         qDebug() << "!!! Catalog::addFavourite: invalid value=" << value;
     }
@@ -529,7 +529,7 @@ void Catalog::removeFavourite(QVariant value) {
                                                                               .arg(info->id());
         m_dataAccess->execute(query);
 
-        Analytics::getInstance()->removeFavourite(info->id());
+        Analytics::getInstance()->removeFavourite(info->id(), info->fileName());
     } else {
         qDebug() << "!!! Catalog::removeFavourite: invalid value=" << value;
     }
@@ -545,7 +545,7 @@ void Catalog::play(QVariant value) {
                                                                                            .arg(info->lastPlayed())
                                                                                            .arg(info->id());
         m_dataAccess->execute(query);
-        Analytics::getInstance()->play(info->id());
+        Analytics::getInstance()->play(info->id(), info->fileName());
     } else {
         qDebug() << "!!! Catalog::play: invalid value=" << value;
     }

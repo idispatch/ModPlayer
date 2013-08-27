@@ -7,6 +7,7 @@
 #include <QVector>
 
 #include "modplug.h"
+#include "Analytics.hpp"
 
 template<>
 int InstanceCounter<ModPlayback>::s_count;
@@ -185,6 +186,7 @@ bool ModPlayback::unload() {
 }
 
 bool ModPlayback::play() {
+    Analytics::getInstance()->play();
     QMutexLocker locker(&m_mutex);
     m_command = PlayCommand;
     m_cond.wakeAll();
@@ -195,6 +197,7 @@ bool ModPlayback::play() {
 }
 
 bool ModPlayback::stop() {
+    Analytics::getInstance()->stop();
     QMutexLocker locker(&m_mutex);
     m_command = StopCommand;
     m_cond.wakeAll();
@@ -205,6 +208,7 @@ bool ModPlayback::stop() {
 }
 
 bool ModPlayback::pause() {
+    Analytics::getInstance()->pause();
     QMutexLocker locker(&m_mutex);
     m_command = PauseCommand;
     m_cond.wakeAll();
@@ -215,6 +219,7 @@ bool ModPlayback::pause() {
 }
 
 bool ModPlayback::resume() {
+    Analytics::getInstance()->resume();
     QMutexLocker locker(&m_mutex);
     m_command = ResumeCommand;
     m_cond.wakeAll();
@@ -225,6 +230,7 @@ bool ModPlayback::resume() {
 }
 
 bool ModPlayback::rewind() {
+    Analytics::getInstance()->rewind();
     QMutexLocker locker(&m_mutex);
     m_command = RewindCommand;
     m_cond.wakeAll();

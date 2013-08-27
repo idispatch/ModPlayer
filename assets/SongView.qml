@@ -50,6 +50,7 @@ Page {
 
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId, songView)
+        app.analytics.view(song.id, song.fileName)
     }
     attachedObjects: [
         ComponentDefinition {

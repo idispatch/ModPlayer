@@ -101,22 +101,27 @@ void Analytics::failedDownload(int moduleId) {
     Flurry::Analytics::LogEvent("FailedDownload", parameters, false);
 }
 
-void Analytics::play(int moduleId) {
-    Flurry::Map parameters;
-    parameters["ModID"] = moduleId;
-    Flurry::Analytics::LogEvent("Play", parameters, false);
+void Analytics::view(int moduleId, QString const& fileName) {
+    logModuleEvent("View", moduleId, fileName);
 }
 
-void Analytics::addFavourite(int moduleId) {
-    Flurry::Map parameters;
-    parameters["ModID"] = moduleId;
-    Flurry::Analytics::LogEvent("AddFavourite", parameters, false);
+void Analytics::play(int moduleId, QString const& fileName) {
+    logModuleEvent("Play", moduleId, fileName);
 }
 
-void Analytics::removeFavourite(int moduleId) {
+void Analytics::addFavourite(int moduleId, QString const& fileName) {
+    logModuleEvent("AddFavourite", moduleId, fileName);
+}
+
+void Analytics::removeFavourite(int moduleId, QString const& fileName) {
+    logModuleEvent("RemoveFavourite", moduleId, fileName);
+}
+
+void Analytics::logModuleEvent(const char * eventName, int moduleId, QString const& fileName) {
     Flurry::Map parameters;
     parameters["ModID"] = moduleId;
-    Flurry::Analytics::LogEvent("RemoveFavourite", parameters, false);
+    parameters["FileName"] = fileName;
+    Flurry::Analytics::LogEvent(eventName, parameters, false);
 }
 
 void Analytics::resetPlayCounts() {
@@ -124,4 +129,40 @@ void Analytics::resetPlayCounts() {
 }
 void Analytics::resetMyFavourites() {
     Flurry::Analytics::LogEvent("ResetMyFavourites", false);
+}
+
+void Analytics::play() {
+    Flurry::Analytics::LogEvent("PlayCmd", false);
+}
+
+void Analytics::pause() {
+    Flurry::Analytics::LogEvent("PauseCmd", false);
+}
+
+void Analytics::stop() {
+    Flurry::Analytics::LogEvent("StopCmd", false);
+}
+
+void Analytics::resume() {
+    Flurry::Analytics::LogEvent("ResumeCmd", false);
+}
+
+void Analytics::rewind() {
+    Flurry::Analytics::LogEvent("RewindCmd", false);
+}
+
+void Analytics::help(int on) {
+    if(on) {
+        Flurry::Analytics::LogEvent("Help", true);
+    } else {
+        Flurry::Analytics::EndTimedEvent("Help");
+    }
+}
+
+void Analytics::settings(int on) {
+    if(on) {
+        Flurry::Analytics::LogEvent("Settings", true);
+    } else {
+        Flurry::Analytics::EndTimedEvent("Settings");
+    }
 }

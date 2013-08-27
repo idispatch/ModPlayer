@@ -2,8 +2,11 @@ import bb.cascades 1.0
 
 Sheet {
     id: helpRoot
-
+    onOpened: {
+        app.analytics.help(1)
+    }
     onClosed: {
+        app.analytics.help(0)
         helpRoot.destroy()
     }
 
