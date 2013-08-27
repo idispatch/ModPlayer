@@ -3,7 +3,7 @@
     <id>com.idispatch.modplayer</id>
     <name>ModPlayer</name>
     <versionNumber>1.0.0</versionNumber>
-    <buildId>100</buildId>
+    <buildId>102</buildId>
     <!--<versionLabel>1.0</versionLabel>-->
     <description>ModPlayer is a tracker music player</description>
     <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
@@ -46,6 +46,7 @@
     <permission>access_internet</permission>
     <permission>access_location_services</permission>
     <permission>read_device_identifying_information</permission>
+    <permission>run_when_backgrounded</permission>
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
     <env var="CASCADES_THEME" value="bright"/>
 </qnx>
