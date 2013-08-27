@@ -1,4 +1,5 @@
 #include "Catalog.hpp"
+#include "Analytics.hpp"
 #include  <QDebug>
 
 #include  <QtSql/QSqlDatabase>
@@ -512,6 +513,8 @@ void Catalog::addFavourite(QVariant value) {
         QString query = QString("UPDATE songs SET myFavourite=%1 WHERE id=%2").arg(info->myFavourite())
                                                                               .arg(info->id());
         m_dataAccess->execute(query);
+
+        Analytics::getInstance()->addFavourite(info->id());
     } else {
         qDebug() << "!!! Catalog::addFavourite: invalid value=" << value;
     }
@@ -525,6 +528,8 @@ void Catalog::removeFavourite(QVariant value) {
         QString query = QString("UPDATE songs SET myFavourite=%1 WHERE id=%2").arg(info->myFavourite())
                                                                               .arg(info->id());
         m_dataAccess->execute(query);
+
+        Analytics::getInstance()->removeFavourite(info->id());
     } else {
         qDebug() << "!!! Catalog::removeFavourite: invalid value=" << value;
     }
@@ -540,12 +545,7 @@ void Catalog::play(QVariant value) {
                                                                                            .arg(info->lastPlayed())
                                                                                            .arg(info->id());
         m_dataAccess->execute(query);
-        qDebug() << "Updating play count="
-                 << info->playCount()
-                 << ", last played="
-                 << info->lastPlayed()
-                 << "for song"
-                 << info->fileName();
+        Analytics::getInstance()->play(info->id());
     } else {
         qDebug() << "!!! Catalog::play: invalid value=" << value;
     }
@@ -557,6 +557,8 @@ void Catalog::resetPlayCounts() {
                             "    lastPlayed=0 "
                             "WHERE playCount>0 OR lastPlayed>0");
     m_dataAccess->execute(query);
+
+    Analytics::getInstance()->resetPlayCounts();
 }
 
 void Catalog::resetMyFavourites() {
@@ -564,4 +566,6 @@ void Catalog::resetMyFavourites() {
                             "SET myFavourite=0 "
                             "WHERE myFavourite>0");
     m_dataAccess->execute(query);
+
+    Analytics::getInstance()->resetMyFavourites();
 }

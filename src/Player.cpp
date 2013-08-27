@@ -8,6 +8,7 @@
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
+#include "Analytics.hpp"
 
 using namespace bb::multimedia;
 
@@ -204,8 +205,8 @@ void Player::onDownloadFinished(QString fileName) {
 }
 
 void Player::onDownloadFailure(int id) {
-    Q_UNUSED(id);
     changeStatus(Stopped, tr("Failed to download song"));
+    Analytics::getInstance()->failedDownload(id);
     stop();
 }
 
@@ -290,6 +291,7 @@ void Player::beginPlay(QString const& fileName) {
             {
                 QString file = currentSong()->fileName();
                 changeStatus(Playing, QString(tr("Playing %1")).arg(file));
+
                 m_catalog->play(QVariant::fromValue(static_cast<QObject*>(currentSong())));
 
                 if(!m_nowPlaying->isAcquired())

@@ -6,6 +6,7 @@
 #define DUMP_INSTANCE_COUNTS 1
 
 #if defined(DUMP_INSTANCE_COUNTS)
+#include "Analytics.hpp"
 #include "Artist.hpp"
 #include "SongGenre.hpp"
 #include "SongFormat.hpp"
@@ -25,6 +26,7 @@
 #include "ItemGroupBase.hpp"
 
 static void dumpInstanceCounts() {
+    std::cerr << "* Analytics objects:        " << Analytics::getInstanceCount() << ", max count: " << Analytics::getMaxInstanceCount() << std::endl;
     std::cerr << "* PlaybackConfig objects:   " << PlaybackConfig::getInstanceCount() << ", max count: " << PlaybackConfig::getMaxInstanceCount() << std::endl;
     std::cerr << "* Downloader objects:       " << Downloader::getInstanceCount() << ", max count: " << Downloader::getMaxInstanceCount() << std::endl;
     std::cerr << "* Unpacker objects:         " << Unpacker::getInstanceCount() << ", max count: " << Unpacker::getMaxInstanceCount() << std::endl;

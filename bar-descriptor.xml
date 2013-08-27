@@ -37,13 +37,12 @@
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
-    
 
     <asset path="assets">assets</asset>
-    
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
+
     <asset path="icon_modplayer.png">icon_modplayer.png</asset>
     <asset path="landscape-720x720.png">landscape-720x720.png</asset>
     <asset path="landscape-1280x768.png">landscape-1280x768.png</asset>
@@ -51,6 +50,9 @@
     
     <permission system="true">run_native</permission>
     <permission>access_internet</permission>
+    <permission>access_location_services</permission>
+    <permission>read_device_identifying_information</permission>
+
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
     <env var="CASCADES_THEME" value="bright"/>
 </qnx>

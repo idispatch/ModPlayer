@@ -9,6 +9,7 @@
 #include <bb/system/InvokeManager>
 
 #include "applicationui.hpp"
+#include "Analytics.hpp"
 #include "Player.hpp"
 #include "LCDDisplay.hpp"
 #include "LCDDigits.hpp"
@@ -34,7 +35,8 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     : QObject(app),
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
-      m_player(new Player(m_settings, this)) {
+      m_player(new Player(m_settings, this)),
+      m_analytics(new Analytics(this)) {
     m_app = app;
     initTypes();
     initSignals();
@@ -68,6 +70,7 @@ void ApplicationUI::onAboutToQuit() {
 void ApplicationUI::initTypes() {
     DataSource::registerQmlTypes();
 
+    qRegisterMetaType<Analytics*>();
     qRegisterMetaType<Artist*>();
     qRegisterMetaType<Cache*>();
     qRegisterMetaType<Catalog*>();
@@ -102,6 +105,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<SongBasicInfo>(QmlNamespace, versionMajor, versionMinor, "SongBasicInfo", "");
     qmlRegisterUncreatableType<SongExtendedInfo>(QmlNamespace, versionMajor, versionMinor, "SongExtendedInfo", "");
     qmlRegisterUncreatableType<Artist>(QmlNamespace, versionMajor, versionMinor, "Artist", "");
+    qmlRegisterUncreatableType<Analytics>(QmlNamespace, versionMajor, versionMinor, "Analytics", "");
 }
 
 void ApplicationUI::initApp() {
@@ -178,7 +182,13 @@ Cache * ApplicationUI::cache() const {
     return m_player->cache();
 }
 
+Analytics * ApplicationUI::analytics() const {
+    return m_analytics;
+}
+
 void ApplicationUI::emailAuthor() {
+    analytics()->email();
+
     QUrl url = QUrl("mailto:oleg@kosenkov.ca");
     QList<QPair<QString, QString> > query;
     query << QPair<QString, QString>("subject", "ModPlayer")
@@ -195,6 +205,8 @@ void ApplicationUI::emailAuthor() {
 }
 
 void ApplicationUI::twit() {
+    analytics()->twit();
+
     InvokeManager invokeManager;
     InvokeRequest request;
     request.setTarget("Twitter");
@@ -206,6 +218,8 @@ void ApplicationUI::twit() {
 }
 
 void ApplicationUI::bbm() {
+    analytics()->bbm();
+
     InvokeManager invokeManager;
     InvokeRequest request;
     request.setTarget("sys.bbm.sharehandler");

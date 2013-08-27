@@ -1,4 +1,4 @@
-#ifndef CACHE_HPP_p
+#ifndef CACHE_HPP_
 #define CACHE_HPP_
 
 #include <QDebug>

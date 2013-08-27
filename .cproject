@@ -30,7 +30,14 @@
 							<tool id="com.qnx.qcc.tool.assembler.2006993807" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1706848922" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.1070483365" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.1070483365" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.804780309" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="Flurry"/>
+								</option>
+								<option id="com.qnx.qcc.option.linker.libraryPaths.1411070419" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="C:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.64760979" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -68,7 +75,14 @@
 							<tool id="com.qnx.qcc.tool.assembler.494095796" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.142040982" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.160883326" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.160883326" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.4058248" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="Flurry"/>
+								</option>
+								<option id="com.qnx.qcc.option.linker.libraryPaths.1370264167" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="C:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.2005869840" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>

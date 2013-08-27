@@ -16,15 +16,18 @@ namespace bb
 }
 
 class QTranslator;
+class Analytics;
 class Player;
 class Catalog;
 class Cache;
+class Analytics;
 
 class ApplicationUI : public QObject {
     Q_OBJECT
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
+    Q_PROPERTY(Analytics* analytics READ analytics NOTIFY analyticsChanged FINAL)
 public:
     ApplicationUI(bb::cascades::Application *app);
     ~ApplicationUI();
@@ -32,6 +35,7 @@ public:
     Player * player() const;
     Catalog * catalog() const;
     Cache * cache() const;
+    Analytics * analytics() const;
 
     Q_INVOKABLE void emailAuthor();
     Q_INVOKABLE void twit();
@@ -42,6 +46,7 @@ Q_SIGNALS:
     void playerChanged();
     void catalogChanged();
     void cacheChanged();
+    void analyticsChanged();
 private slots:
     void onSystemLanguageChanged();
     void onCatalogChanged();
@@ -55,11 +60,13 @@ private:
     void initPlayer();
     void initTranslator();
 private:
+    static ApplicationUI * instance;
     QSettings m_settings;
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     bb::cascades::Application * m_app;
     Player * m_player;
+    Analytics * m_analytics;
 };
 
 #endif

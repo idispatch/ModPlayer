@@ -71,7 +71,7 @@ ViewContainer {
                     return app.player.currentSong.songLoaded && 
                             (app.player.state == Player.Playing || 
                              app.player.state == Player.Paused || 
-                             state == Player.Stopped);
+                             app.player.state == Player.Stopped);
                 } 
                 leftPadding: 15
                 rightPadding: leftPadding
@@ -89,8 +89,8 @@ ViewContainer {
                 visible: {
                     return app.player.currentSong.songLoaded && 
                     (app.player.state == Player.Playing || 
-                    app.player.state == Player.Paused || 
-                    state == Player.Stopped);
+                     app.player.state == Player.Paused || 
+                     app.player.state == Player.Stopped);
                 }
                 topMargin: 30
                 leftPadding: 15

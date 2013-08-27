@@ -3,7 +3,14 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 
 device {
     CONFIG(debug, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/Artist.cpp) \
+        LIBS += -lFlurry
+
+        LIBS +=  $$quote(-LC:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+
+        PRE_TARGETDEPS +=  $$quote(C:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+
+        SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+                 $$quote($$BASEDIR/src/Artist.cpp) \
                  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
@@ -71,11 +78,13 @@ device {
                  $$quote($$BASEDIR/src/zip/unzip.c) \
                  $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/Artist.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/Analytics.hpp) \
+                 $$quote($$BASEDIR/src/Artist.hpp) \
                  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/Flurry/Flurry.h) \
                  $$quote($$BASEDIR/src/InstanceCounter.hpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
@@ -117,7 +126,14 @@ device {
     }
 
     CONFIG(release, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/Artist.cpp) \
+        LIBS += -lFlurry
+
+        LIBS +=  $$quote(-LC:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+
+        PRE_TARGETDEPS +=  $$quote(C:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+
+        SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+                 $$quote($$BASEDIR/src/Artist.cpp) \
                  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
@@ -185,11 +201,13 @@ device {
                  $$quote($$BASEDIR/src/zip/unzip.c) \
                  $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/Artist.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/Analytics.hpp) \
+                 $$quote($$BASEDIR/src/Artist.hpp) \
                  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/Flurry/Flurry.h) \
                  $$quote($$BASEDIR/src/InstanceCounter.hpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
@@ -231,7 +249,8 @@ device {
     }
 }
 
-INCLUDEPATH +=  $$quote($$BASEDIR/src/zip) \
+INCLUDEPATH +=  $$quote($$BASEDIR/src/Flurry) \
+         $$quote($$BASEDIR/src/zip) \
          $$quote($$BASEDIR/src/modplug) \
          $$quote($$BASEDIR/src)
 
