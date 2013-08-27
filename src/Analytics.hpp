@@ -27,7 +27,9 @@ public:
     Q_INVOKABLE void help(int on);
     Q_INVOKABLE void settings(int on);
 
-    Q_INVOKABLE void failedDownload(int moduleId);
+    Q_INVOKABLE void downloadStarted();
+    Q_INVOKABLE void downloadFinished();
+    Q_INVOKABLE void downloadFailed(int moduleId);
 
     Q_INVOKABLE void play();
     Q_INVOKABLE void pause();
@@ -35,6 +37,7 @@ public:
     Q_INVOKABLE void resume();
     Q_INVOKABLE void rewind();
 
+    Q_INVOKABLE void showPage(QString const& name);
     Q_INVOKABLE void view(int moduleId, QString const& fileName);
     Q_INVOKABLE void play(int moduleId, QString const& fileName);
     Q_INVOKABLE void addFavourite(int moduleId, QString const& fileName);

@@ -9,6 +9,7 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_myfavourite.png"
         description: qsTr("My Favourite Songs")
         onTriggered: {
+            app.analytics.showPage(title)
             songMyFavouriteView.loadMyFavouriteSongs()
         }
         function unload() {
@@ -32,6 +33,7 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_recent.png"
         description: qsTr("Recently Played Songs")
         onTriggered: {
+            app.analytics.showPage(title)
             songRecentlyPlayedView.loadRecentlyPlayedSongs()
         }
         function unload() {
@@ -55,6 +57,7 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_mostplayed.png"
         description: qsTr("Most Played Songs")
         onTriggered: {
+            app.analytics.showPage(title)
             songMostPlayedView.loadMostPlayedSongs()
         }
         function unload() {
@@ -78,6 +81,7 @@ TabbedPane {
         description: qsTr("Songs By Module Format")
         imageSource: "asset:///images/actions/icon_format.png"
         onTriggered: {
+            app.analytics.showPage(title)
             songFormatsList.load()
         }
         function unload() {
@@ -100,6 +104,7 @@ TabbedPane {
         description: qsTr("Songs By Genre")
         imageSource: "asset:///images/actions/icon_genres.png"
         onTriggered: {
+            app.analytics.showPage(title)
             songGenresList.load()
         }
         function unload() {
@@ -122,6 +127,7 @@ TabbedPane {
         description: qsTr("Songs By Artist")
         imageSource: "asset:///images/actions/icon_artists.png"
         onTriggered: {
+            app.analytics.showPage(title)
             songArtistsList.load()
         }
         function unload() {
@@ -144,6 +150,7 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_downloads.png"
         description: qsTr("Top Downloaded Songs")
         onTriggered: {
+            app.analytics.showPage(title)
             songsTopDownloadedView.loadMostDownloadedSongs()
         }
         function unload() {
@@ -167,6 +174,7 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_favourite.png"
         description: qsTr("Top Favourited Songs")
         onTriggered: {
+            app.analytics.showPage(title)
             songTopFavouritedView.loadMostFavouritedSongs()
         }
         function unload() {
@@ -190,6 +198,7 @@ TabbedPane {
         imageSource: "asset:///images/actions/icon_score.png"
         description: qsTr("Top Scored Songs")
         onTriggered: {
+            app.analytics.showPage(title)
             songTopScoredView.loadMostScoredSongs()
         }
         function unload() {

@@ -174,9 +174,12 @@ void Player::changeStatus(State state, QString const& statusText) {
 void Player::onDownloadStarted(int id) {
     Q_UNUSED(id);
     changeStatus(Preparing, tr("Downloading song"));
+    Analytics::getInstance()->downloadStarted();
 }
 
 void Player::onDownloadFinished(QString fileName) {
+    Analytics::getInstance()->downloadFinished();
+
     QString name = fileNameOnly(fileName);
     changeStatus(Preparing, QString(tr("Unpacking song %1")).arg(name));
 
@@ -206,7 +209,7 @@ void Player::onDownloadFinished(QString fileName) {
 
 void Player::onDownloadFailure(int id) {
     changeStatus(Stopped, tr("Failed to download song"));
-    Analytics::getInstance()->failedDownload(id);
+    Analytics::getInstance()->downloadFailed(id);
     stop();
 }
 

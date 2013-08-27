@@ -102,10 +102,25 @@ void Analytics::bbm() {
     Flurry::Analytics::LogEvent("BBM", false);
 }
 
-void Analytics::failedDownload(int moduleId) {
+void Analytics::downloadStarted() {
+    Flurry::Analytics::LogEvent("Downloading", true);
+}
+
+void Analytics::downloadFinished() {
+    Flurry::Analytics::EndTimedEvent("Downloading");
+}
+
+void Analytics::downloadFailed(int moduleId) {
     Flurry::Map parameters;
     parameters["ModID"] = moduleId;
-    Flurry::Analytics::LogEvent("FailedDownload", parameters, false);
+    Flurry::Analytics::EndTimedEvent("Downloading");
+    Flurry::Analytics::LogEvent("DownloadFailed", parameters, false);
+}
+
+void Analytics::showPage(QString const& name) {
+    Flurry::Map parameters;
+    parameters["Page"] = name;
+    Flurry::Analytics::LogEvent("ShowPage", parameters, false);
 }
 
 void Analytics::view(int moduleId, QString const& fileName) {
