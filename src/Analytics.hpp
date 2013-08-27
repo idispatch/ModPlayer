@@ -19,6 +19,8 @@ public:
 
     static Analytics * getInstance();
 
+    Q_INVOKABLE void nowPlaying();
+    Q_INVOKABLE void purgeCache();
     Q_INVOKABLE void email();
     Q_INVOKABLE void twit();
     Q_INVOKABLE void bbm();

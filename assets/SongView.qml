@@ -67,6 +67,7 @@ Page {
                 key: "n"
             } 
             onTriggered: {
+                app.analytics.nowPlaying()
                 showPlayer()
             }
         },

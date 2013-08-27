@@ -10,6 +10,7 @@ ActionItem {
         key: "p"
     } 
     onTriggered: {
+        app.analytics.nowPlaying()
         var view = songPlayer.createObject()
         navigationPane.push(view)
     }

@@ -107,6 +107,7 @@ Sheet {
                                     body: qsTr("Confirm purging the song cache")
                                     onFinished: {
                                         if (result == SystemUiResult.ConfirmButtonSelection) {
+                                            app.analytics.purgeCache()
                                             app.cache.purge()
                                             cachePurgedToast.show()
                                         }

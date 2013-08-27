@@ -81,6 +81,13 @@ void Analytics::onPositionUpdated(const QGeoPositionInfo &info) {
     setPositionInfo(info);
 }
 
+void Analytics::nowPlaying() {
+    Flurry::Analytics::LogEvent("NowPlaying", false);
+}
+
+void Analytics::purgeCache() {
+    Flurry::Analytics::LogEvent("PurgeCache", false);
+}
 
 void Analytics::email() {
     Flurry::Analytics::LogEvent("EmailAuthor", false);
