@@ -3,11 +3,10 @@
     <id>com.idispatch.modplayer</id>
     <name>ModPlayer</name>
     <versionNumber>1.0.0</versionNumber>
-    <buildId>1</buildId>
+    <buildId>100</buildId>
     <!--<versionLabel>1.0</versionLabel>-->
     <description>ModPlayer is a tracker music player</description>
     <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
-
     <author>Oleg Kosenkov</author>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
     <category>core.media</category>
@@ -28,31 +27,25 @@
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7/ModPlayer.so" entry="true" type="Qnx/Elf">ModPlayer.so</asset>
     </configuration>
-
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
-   
     <initialWindow>
         <autoOrients>true</autoOrients>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
-
     <asset path="assets">assets</asset>
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
-
     <asset path="icon_modplayer.png">icon_modplayer.png</asset>
     <asset path="landscape-720x720.png">landscape-720x720.png</asset>
     <asset path="landscape-1280x768.png">landscape-1280x768.png</asset>
     <asset path="landscape-768x1280.png">landscape-768x1280.png</asset>
-    
     <permission system="true">run_native</permission>
     <permission>access_internet</permission>
     <permission>access_location_services</permission>
     <permission>read_device_identifying_information</permission>
-
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
     <env var="CASCADES_THEME" value="bright"/>
 </qnx>

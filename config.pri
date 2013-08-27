@@ -5,9 +5,9 @@ device {
     CONFIG(debug, debug|release) {
         LIBS += -lFlurry
 
-        LIBS +=  $$quote(-LC:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+        LIBS +=  $$quote(-L$$BASEDIR/libs/armle-v7)
 
-        PRE_TARGETDEPS +=  $$quote(C:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+        PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
         SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
@@ -128,9 +128,9 @@ device {
     CONFIG(release, debug|release) {
         LIBS += -lFlurry
 
-        LIBS +=  $$quote(-LC:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+        LIBS +=  $$quote(-L$$BASEDIR/libs/armle-v7)
 
-        PRE_TARGETDEPS +=  $$quote(C:/Users/Oleg/Documents/GitHub/ModPlayer/libs/armle-v7)
+        PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
         SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
