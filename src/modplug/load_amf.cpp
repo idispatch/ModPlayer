@@ -147,10 +147,20 @@ VOID AMF_Unpack(MODCOMMAND *pPat, const BYTE *pTrack, UINT nRows, UINT nChannels
 			// 0x15: Set Tempo
 			case 0x15:	command = CMD_TEMPO; break;
 			// 0x17: Panning
-			case 0x17:	param = (param+64)&0x7F;
-						if (m->command) { if (!m->volcmd) { m->volcmd = VOLCMD_PANNING;  m->vol = param/2; } command = 0; }
-						else { command = CMD_PANNING8; }
-						/* no break */
+			case 0x17:	{
+			                param = (param+64)&0x7F;
+			                if (m->command) {
+                                if (!m->volcmd) {
+                                    m->volcmd = VOLCMD_PANNING;
+                                    m->vol = param/2;
+                                }
+                                command = 0;
+                            }
+                            else {
+                                command = CMD_PANNING8;
+                            }
+			            }
+				/* no break */
 			// Unknown effects
 			default:	command = param = 0;
 			}
@@ -171,7 +181,7 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
 {
 	const AMFFILEHEADER *pfh = (AMFFILEHEADER *)lpStream;
 	DWORD dwMemPos;
-	
+
 	if ((!lpStream) || (dwMemLength < 2048)) return FALSE;
 	if ((!strncmp((LPCTSTR)lpStream, "ASYLUM Music Format V1.0", 25)) && (dwMemLength > 4096))
 	{
@@ -358,7 +368,7 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
 		if ((psh->type) && (bswapLE32(psh->offset) < dwMemLength-1))
 		{
 			sampleseekpos[iIns] = bswapLE32(psh->offset);
-			if (bswapLE32(psh->offset) > maxsampleseekpos) 
+			if (bswapLE32(psh->offset) > maxsampleseekpos)
 				maxsampleseekpos = bswapLE32(psh->offset);
 			if ((pins->nLoopEnd > pins->nLoopStart + 2)
 			 && (pins->nLoopEnd <= pins->nLength)) pins->uFlags |= CHN_LOOP;

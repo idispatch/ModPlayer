@@ -90,7 +90,7 @@ WORD CSoundFile::ModSaveCommand(const MODCOMMAND *m, BOOL bXM) const
 	case CMD_TONEPORTAVOL:		command = 0x05; break;
 	case CMD_VIBRATOVOL:		command = 0x06; break;
 	case CMD_TREMOLO:			command = 0x07; break;
-	case CMD_PANNING8:			
+	case CMD_PANNING8:
 		command = 0x08;
 		if (bXM)
 		{
@@ -112,6 +112,7 @@ WORD CSoundFile::ModSaveCommand(const MODCOMMAND *m, BOOL bXM) const
 	case CMD_MODCMDEX:			command = 0x0E; break;
 	case CMD_SPEED:				command = 0x0F; if (param > 0x20) param = 0x20; break;
 	case CMD_TEMPO:				if (param > 0x20) { command = 0x0F; break; }
+	/* no break */
 	case CMD_GLOBALVOLUME:		command = 'G' - 55; break;
 	case CMD_GLOBALVOLSLIDE:	command = 'H' - 55; break;
 	case CMD_KEYOFF:			command = 'K' - 55; break;
@@ -296,7 +297,7 @@ BOOL CSoundFile::ReadMod(const BYTE *lpStream, DWORD dwMemLength)
 	}
 	if ((dwWowTest < 0x600) || (dwWowTest > dwMemLength)) nErr += 8;
 	if ((m_nSamples == 15) && (nErr >= 16)) return FALSE;
-	// Default settings	
+	// Default settings
 	m_nType = MOD_TYPE_MOD;
 	m_nDefaultSpeed = 6;
 	m_nDefaultTempo = 125;

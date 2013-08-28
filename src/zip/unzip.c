@@ -282,6 +282,7 @@ local int strcmpcasenosensitive_internal (fileName1,fileName2)
         if (c1>c2)
             return 1;
     }
+    return 0;
 }
 
 

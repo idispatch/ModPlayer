@@ -10,12 +10,12 @@
  * Classes implementing this interface can calcunate a certin
  * checksum in a single step:
  * \code
- * QChecksum32 *crc32 = new QuaCrc32(); 
+ * QChecksum32 *crc32 = new QuaCrc32();
  * rasoult = crc32->calculate(data);
  * \endcode
  * or by streaming the data:
  * \code
- * QChecksum32 *crc32 = new QuaCrc32(); 
+ * QChecksum32 *crc32 = new QuaCrc32();
  * while(!fileA.atEnd())
  *     crc32->update(fileA.read(bufSize));
  * resoultA = crc32->value();
@@ -29,6 +29,7 @@ class QUAZIP_EXPORT QuaChecksum32
 {
 
 public:
+    virtual ~QuaChecksum32(){}
 	///Calculates the checksum for data.
 	/** \a data source data
 	 * \return data checksum

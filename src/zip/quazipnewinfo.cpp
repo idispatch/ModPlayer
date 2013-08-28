@@ -51,7 +51,7 @@ static void QuaZipNewInfo_setPermissions(QuaZipNewInfo *info,
 }
 
 QuaZipNewInfo::QuaZipNewInfo(const QString& name):
-  name(name), dateTime(QDateTime::currentDateTime()), internalAttr(0), externalAttr(0)
+  name(name), dateTime(QDateTime::currentDateTime()), internalAttr(0), externalAttr(0), uncompressedSize(0)
 {
 }
 
