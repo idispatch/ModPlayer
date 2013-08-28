@@ -81,99 +81,104 @@ void Analytics::onPositionUpdated(const QGeoPositionInfo &info) {
     setPositionInfo(info);
 }
 
-void Analytics::nowPlaying() {
+void Analytics::nowPlaying() const {
     Flurry::Analytics::LogEvent("NowPlaying", false);
 }
 
-void Analytics::purgeCache() {
+void Analytics::purgeCache() const {
     Flurry::Analytics::LogEvent("PurgeCache", false);
 }
 
-void Analytics::email() {
+void Analytics::email() const {
     Flurry::Analytics::LogEvent("EmailAuthor", false);
 }
 
-void Analytics::twit() {
+void Analytics::twit() const {
     Flurry::Analytics::LogEvent("Twit", false);
-
 }
 
-void Analytics::bbm() {
+void Analytics::bbm() const {
     Flurry::Analytics::LogEvent("BBM", false);
 }
 
-void Analytics::downloadStarted() {
+void Analytics::appWorld() const {
+    Flurry::Analytics::LogEvent("AppWorld", false);
+}
+
+void Analytics::downloadStarted() const {
     Flurry::Analytics::LogEvent("Downloading", true);
 }
 
-void Analytics::downloadFinished() {
+void Analytics::downloadFinished() const {
     Flurry::Analytics::EndTimedEvent("Downloading");
 }
 
-void Analytics::downloadFailed(int moduleId) {
+void Analytics::downloadFailed(int moduleId) const {
     Flurry::Map parameters;
     parameters["ModID"] = moduleId;
     Flurry::Analytics::EndTimedEvent("Downloading");
     Flurry::Analytics::LogEvent("DownloadFailed", parameters, false);
 }
 
-void Analytics::showPage(QString const& name) {
+void Analytics::showPage(QString const& name) const {
     Flurry::Map parameters;
     parameters["Page"] = name;
     Flurry::Analytics::LogEvent("ShowPage", parameters, false);
 }
 
-void Analytics::view(int moduleId, QString const& fileName) {
+void Analytics::view(int moduleId, QString const& fileName) const {
     logModuleEvent("View", moduleId, fileName);
 }
 
-void Analytics::play(int moduleId, QString const& fileName) {
+void Analytics::play(int moduleId, QString const& fileName) const {
     logModuleEvent("Play", moduleId, fileName);
 }
 
-void Analytics::addFavourite(int moduleId, QString const& fileName) {
+void Analytics::addFavourite(int moduleId, QString const& fileName) const {
     logModuleEvent("AddFavourite", moduleId, fileName);
 }
 
-void Analytics::removeFavourite(int moduleId, QString const& fileName) {
+void Analytics::removeFavourite(int moduleId, QString const& fileName) const {
     logModuleEvent("RemoveFavourite", moduleId, fileName);
 }
 
-void Analytics::logModuleEvent(const char * eventName, int moduleId, QString const& fileName) {
+void Analytics::logModuleEvent(const char * eventName,
+                               int moduleId,
+                               QString const& fileName) const {
     Flurry::Map parameters;
     parameters["ModID"] = moduleId;
     parameters["FileName"] = fileName;
     Flurry::Analytics::LogEvent(eventName, parameters, false);
 }
 
-void Analytics::resetPlayCounts() {
+void Analytics::resetPlayCounts() const {
     Flurry::Analytics::LogEvent("ResetPlayCounts", false);
 }
-void Analytics::resetMyFavourites() {
+void Analytics::resetMyFavourites() const {
     Flurry::Analytics::LogEvent("ResetMyFavourites", false);
 }
 
-void Analytics::play() {
+void Analytics::play() const {
     Flurry::Analytics::LogEvent("PlayCmd", false);
 }
 
-void Analytics::pause() {
+void Analytics::pause() const {
     Flurry::Analytics::LogEvent("PauseCmd", false);
 }
 
-void Analytics::stop() {
+void Analytics::stop() const {
     Flurry::Analytics::LogEvent("StopCmd", false);
 }
 
-void Analytics::resume() {
+void Analytics::resume() const {
     Flurry::Analytics::LogEvent("ResumeCmd", false);
 }
 
-void Analytics::rewind() {
+void Analytics::rewind() const {
     Flurry::Analytics::LogEvent("RewindCmd", false);
 }
 
-void Analytics::help(int on) {
+void Analytics::help(int on) const {
     if(on) {
         Flurry::Analytics::LogEvent("Help", true);
     } else {
@@ -181,7 +186,7 @@ void Analytics::help(int on) {
     }
 }
 
-void Analytics::settings(int on) {
+void Analytics::settings(int on) const {
     if(on) {
         Flurry::Analytics::LogEvent("Settings", true);
     } else {
@@ -189,7 +194,7 @@ void Analytics::settings(int on) {
     }
 }
 
-void Analytics::active(int on) {
+void Analytics::active(int on) const {
     Flurry::Map parameters;
     parameters["Time"] = QDateTime::currentDateTime();
     if(on) {

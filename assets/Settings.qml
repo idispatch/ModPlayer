@@ -54,18 +54,18 @@ Sheet {
                             textStyle.color: Color.Black
                         }
                         Label {
-                            text: "Cached Songs: <b>" + app.player.cache.currentFiles + "</b>"
+                            text: qsTr("Cached Songs: <b>%1</b>").arg(app.player.cache.currentFiles)
                             textFormat: TextFormat.Html
                             textStyle.color: Color.Black
                         }
                         Label {
-                            text: "Used Cache Size: <b>" + Global.getSizeKb(app.player.cache.currentSize) + "</b>"
+                            text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize))
                             textFormat: TextFormat.Html
                             textStyle.color: Color.Black
                         }
                         
                         Label {
-                            text: qsTr("Maximum Songs: ") + Math.round(maxCacheSongs.value)
+                            text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value))
                             textStyle.color: Color.Black
                         }
                         VerticalContainer {
@@ -79,7 +79,7 @@ Sheet {
                             }
                         }
                         Label {
-                            text: qsTr("Maximum Cache Size: ") + Global.getSizeKb(Math.round(maxCacheSize.value))
+                            text: qsTr("Maximum Cache Size: %1").arg(Global.getSizeKb(Math.round(maxCacheSize.value)))
                             textStyle.color: Color.Black 
                         }
                         VerticalContainer {

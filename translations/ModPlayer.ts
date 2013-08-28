@@ -2,9 +2,28 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name>AddFavouriteActionItem</name>
+    <message>
+        <source>Add to Favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ArtistsList</name>
     <message>
         <source>Select Songs by Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>score %1 of 10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rating %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -33,11 +52,19 @@
         <source>Select Songs by Format</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 songs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GenresList</name>
     <message>
         <source>Select Songs by Genre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -143,6 +170,18 @@
     </message>
     <message>
         <source>Top Downloaded Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>favourited %1 times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>score %1 of 10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 downloads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -365,14 +404,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Maximum Songs: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Maximum Cache Size: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The song cache has been purged</source>
         <translation type="unfinished"></translation>
     </message>
@@ -400,6 +431,114 @@
         <source>Confirm resetting my favoruites list</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cached Songs: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Used Cache Size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Songs: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Cache Size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongDynamicInfo</name>
+    <message>
+        <source>Order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tempo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongExtendedInfo</name>
+    <message>
+        <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tracker: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongMainInfo</name>
+    <message>
+        <source>File: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongParametersInfo</name>
+    <message>
+        <source>Orders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instruments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Samples</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongPersonalInfo</name>
@@ -416,7 +555,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have this song in the cache already</source>
+        <source>You played this song &lt;b&gt;%1&lt;/b&gt; times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last played %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -430,11 +577,54 @@
         <source>Not rated by anyone yet</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dowloaded &lt;b&gt;%1&lt;/b&gt; times by others</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favourited by &lt;b&gt;%1&lt;/b&gt; people</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rated &lt;b&gt;%1&lt;/b&gt; of &lt;b&gt;10&lt;/b&gt; by others</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongView</name>
     <message>
         <source>Now Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongsList</name>
+    <message>
+        <source>%1 Songs (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs by %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>score %1 of 10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>favourited %1 times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 downloads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

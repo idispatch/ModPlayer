@@ -34,7 +34,7 @@ Page {
                     ModPlayerListItem {
                         title: ListItemData.name
                         description: " "
-                        middleStatus: ListItemData.count + " songs"
+                        middleStatus: qsTr("%1 songs").arg(ListItemData.count)
                     }
                 }
             ]

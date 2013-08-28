@@ -43,9 +43,9 @@ Page {
                                 if(mode == "recent") return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                 if(mode == "myFavourite") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                 if(mode == "mostPlayed") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                                if(mode == "topFavourited") return "favourited " + ListItem.data.favourited + " times"
-                                if(mode == "topScored") return "score " + ListItem.data.score + " of 10"
-                                if(mode == "topDownloads") return ListItem.data.downloads + " downloads"
+                                if(mode == "topFavourited") return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                if(mode == "topScored") return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                if(mode == "topDownloads") return qsTr("%1 downloads").arg(ListItem.data.downloads)
                             }
                             return ""
                         }
@@ -54,17 +54,17 @@ Page {
                             if(ListItem.data) {
                                 if(mode == "topDownloads") {
                                     if(ListItem.data.score > 0) {
-                                        return "score " + ListItem.data.score + " of 10"
+                                        return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
                                 }
                                 if(mode == "topFavourited") {
                                     if(ListItem.data.score > 0) {
-                                        return "score " + ListItem.data.score + " of 10"
+                                        return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
                                 }
                                 if(mode == "topScored") {
                                     if(ListItem.data.downloads > 0) {
-                                        return ListItem.data.downloads + " downloads"
+                                        return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
                             }
@@ -78,17 +78,17 @@ Page {
                                 if(mode == "mostPlayed") return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                 if(mode == "topFavourited") {
                                     if(ListItem.data.downloads > 0) {
-                                        return ListItem.data.downloads + " downloads"
+                                        return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
                                 if(mode == "topScored") {
                                     if(ListItem.data.favourited > 0) {
-                                        return "favourited " + ListItem.data.favourited + " times"
+                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
                                 }
                                 if(mode == "topDownloads") {
                                     if(ListItem.data.favourited > 0) {
-                                        return "favourited " + ListItem.data.favourited + " times"
+                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
                                 }
                             }

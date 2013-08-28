@@ -17,7 +17,7 @@ GroupContainer {
                 text: {
                     if(song) {
                         if(song.downloads > 0) {
-                            return "Dowloaded <b>" + song.downloads + "</b> times by others"
+                            return qsTr("Dowloaded <b>%1</b> times by others").arg(song.downloads)
                         }
                     }
                     return "";
@@ -38,7 +38,7 @@ GroupContainer {
                 text: {
                     if(song) {
                         if(song.favourited > 0) {
-                            return "Favourited by <b>" + song.favourited + "</b> people"
+                            return qsTr("Favourited by <b>%1</b> people").arg(song.favourited)
                         }
                         return qsTr("Not favourited by anyone yet")
                     }
@@ -61,7 +61,7 @@ GroupContainer {
                 text: {
                     if(song) {
                         if(song.score > 0) {
-                            return "Rated <b>" + song.score + "</b> of <b>10</b> by others"
+                            return qsTr("Rated <b>%1</b> of <b>10</b> by others").arg(song.score)
                         }
                         return qsTr("Not rated by anyone yet")
                     }

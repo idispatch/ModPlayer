@@ -22,7 +22,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Orders"
+                    text: qsTr("Orders")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -38,7 +38,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Patterns"
+                    text: qsTr("Patterns")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -54,7 +54,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Channels"
+                    text: qsTr("Channels")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -78,7 +78,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Instruments"
+                    text: qsTr("Instruments")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -94,7 +94,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Samples"
+                    text: qsTr("Samples")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black

@@ -72,7 +72,7 @@ Page {
             }
         },
         ActionItem {
-            title: "Play"
+            title: qsTr("Play")
             imageSource: "asset:///images/actions/icon_play.png"
             enabled: song != null
             ActionBar.placement: ActionBarPlacement.OnBar

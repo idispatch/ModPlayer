@@ -230,3 +230,15 @@ void ApplicationUI::bbm() {
     request.setData("Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!");
     invokeManager.invoke(request);
 }
+
+void ApplicationUI::appWorld() {
+    analytics()->appWorld();
+
+    InvokeManager invokeManager;
+    InvokeRequest request;
+    request.setTarget("sys.appworld");
+    request.setAction("bb.action.OPEN");
+    request.setMimeType("text/plain");
+    request.setUri(QUrl("appworld://content/35007887"));
+    invokeManager.invoke(request);
+}

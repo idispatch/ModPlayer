@@ -8,10 +8,10 @@ Page {
     titleBar: TitleBar {
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
-            if(songs.mode == 'format')  return songs.modelName + " Songs (%1)".arg(c)
-            if(songs.mode == 'genre') return songs.modelName + " Songs (%1)".arg(c)
-            if(songs.mode == 'artist') return "Songs by " + songs.modelName + " (%1)".arg(c)
-            return "All Songs (%1)".arg(c)
+            if(songs.mode == 'format')  return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
+            if(songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
+            if(songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
+            return qsTr("All Songs (%1)").arg(c)
         }
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
@@ -47,19 +47,19 @@ Page {
                         description: ListItem.data ? ListItem.data.fileName : ""
                         upperStatus: {
                             if(ListItem.data && ListItem.data.score > 0) {
-                                return "score " + ListItem.data.score + " of 10"
+                                return qsTr("score %1 of 10").arg(ListItem.data.score)
                             }
                             return ""
                         }
                         middleStatus: {
                             if(ListItem.data && ListItem.data.favourited > 0) {
-                                return "favourited " + ListItem.data.favourited + " times"
+                                return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                             }
                             return ""
                         } 
                         lowerStatus: {
                             if(ListItem.data && ListItem.data.downloads > 0) {
-                                return ListItem.data.downloads + " downloads"
+                                return qsTr("%1 downloads").arg(ListItem.data.downloads)
                             }
                             return ""
                         }  

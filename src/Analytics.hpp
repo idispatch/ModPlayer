@@ -19,33 +19,34 @@ public:
 
     static Analytics * getInstance();
 
-    Q_INVOKABLE void nowPlaying();
-    Q_INVOKABLE void purgeCache();
-    Q_INVOKABLE void email();
-    Q_INVOKABLE void twit();
-    Q_INVOKABLE void bbm();
-    Q_INVOKABLE void help(int on);
-    Q_INVOKABLE void settings(int on);
-    Q_INVOKABLE void active(int on);
+    Q_INVOKABLE void nowPlaying() const;
+    Q_INVOKABLE void purgeCache() const;
+    Q_INVOKABLE void email() const;
+    Q_INVOKABLE void twit() const;
+    Q_INVOKABLE void bbm() const;
+    Q_INVOKABLE void appWorld() const;
+    Q_INVOKABLE void help(int on) const;
+    Q_INVOKABLE void settings(int on) const;
+    Q_INVOKABLE void active(int on) const;
 
-    Q_INVOKABLE void downloadStarted();
-    Q_INVOKABLE void downloadFinished();
-    Q_INVOKABLE void downloadFailed(int moduleId);
+    Q_INVOKABLE void downloadStarted() const;
+    Q_INVOKABLE void downloadFinished() const;
+    Q_INVOKABLE void downloadFailed(int moduleId) const;
 
-    Q_INVOKABLE void play();
-    Q_INVOKABLE void pause();
-    Q_INVOKABLE void stop();
-    Q_INVOKABLE void resume();
-    Q_INVOKABLE void rewind();
+    Q_INVOKABLE void play() const;
+    Q_INVOKABLE void pause() const;
+    Q_INVOKABLE void stop() const;
+    Q_INVOKABLE void resume() const;
+    Q_INVOKABLE void rewind() const;
 
-    Q_INVOKABLE void showPage(QString const& name);
-    Q_INVOKABLE void view(int moduleId, QString const& fileName);
-    Q_INVOKABLE void play(int moduleId, QString const& fileName);
-    Q_INVOKABLE void addFavourite(int moduleId, QString const& fileName);
-    Q_INVOKABLE void removeFavourite(int moduleId, QString const& fileName);
+    Q_INVOKABLE void showPage(QString const& name) const;
+    Q_INVOKABLE void view(int moduleId, QString const& fileName) const;
+    Q_INVOKABLE void play(int moduleId, QString const& fileName) const;
+    Q_INVOKABLE void addFavourite(int moduleId, QString const& fileName) const;
+    Q_INVOKABLE void removeFavourite(int moduleId, QString const& fileName) const;
 
-    Q_INVOKABLE void resetPlayCounts();
-    Q_INVOKABLE void resetMyFavourites();
+    Q_INVOKABLE void resetPlayCounts() const;
+    Q_INVOKABLE void resetMyFavourites() const;
 
     using InstanceCounter<Analytics>::getInstanceCount;
     using InstanceCounter<Analytics>::getMaxInstanceCount;
@@ -56,7 +57,9 @@ private:
     Q_DISABLE_COPY(Analytics)
 private:
     void setPositionInfo(QGeoPositionInfo const &info);
-    void logModuleEvent(const char * eventName, int moduleId, QString const& fileName);
+    void logModuleEvent(const char * eventName,
+                        int moduleId,
+                        QString const& fileName) const;
 
     QtMobilitySubset::QGeoPositionInfoSource * m_source;
     static Analytics * instance;

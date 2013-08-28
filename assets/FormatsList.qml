@@ -21,7 +21,7 @@ Page {
                 ModPlayerListItem {
                     title: ListItem.data.name
                     description: ListItem.data.description
-                    middleStatus: ListItem.data.count + " songs"
+                    middleStatus: qsTr("%1 songs").arg(ListItemData.count)
                     imageSource: ListItem.data.iconPath
                 }
             }

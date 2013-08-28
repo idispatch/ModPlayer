@@ -14,22 +14,22 @@ GroupContainer {
                 spaceQuota: 10
             }
             Label {
-                text: song ? "File: <b>" + song.fileName + "</b>" : ""
+                text: song ? qsTr("File: <b>%1</b>").arg(song.fileName) : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }
             Label {
-                text: song ? "Size: <b>" + Global.getSizeKb(song.fileSize) + "</b>" : ""
+                text: song ? qsTr("Size: <b>%1</b>").arg(Global.getSizeKb(song.fileSize)) : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }
             Label {
-                text: song ? "Length: <b>" + song.songLengthText + "</b>" : ""
+                text: song ? qsTr("Length: <b>%1</b>").arg(song.songLengthText) : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }
             Label {
-                text: song ? "Title: <b>" + Global.escapeHtml(song.title) + "</b>" : ""
+                text: song ? qsTr("Title: <b>%1</b>").arg(Global.escapeHtml(song.title)) : ""
                 textFormat: TextFormat.Html
                 textStyle.color: Color.Black
             }

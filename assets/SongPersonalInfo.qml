@@ -19,11 +19,11 @@ GroupContainer {
                         if(song.playCount == 1) {
                             return qsTr("You played this song once")
                         }
-                        return "You played this song <b>" + song.playCount + "</b> times"
+                        return qsTr("You played this song <b>%1</b> times").arg(song.playCount)
                     }
                     return qsTr("You did not play this song yet")
                 }
-                return "";
+                return ""
             }
             textStyle.color: Color.Black
         }
@@ -45,8 +45,8 @@ GroupContainer {
         }
         Label {
             text: song && song.lastPlayed > 0 ? 
-            "Last played " + Global.formatTimeStamp(song.lastPlayed) : 
-            ""
+                qsTr("Last played %1").arg(Global.formatTimeStamp(song.lastPlayed)) : 
+                ""
             textStyle.color: Color.Black
         }
         function songLastPlayedChanged(){
@@ -87,10 +87,10 @@ GroupContainer {
         function getLabelText() {
             if(song) {
                 if(app.cache.exists(song.fileName)) {
-                    return "<i>" + qsTr("You have this song in the cache already") + "</i>"
+                    return qsTr("<i>You have this song in the cache already</i>")
                 }
             }
-            return "";
+            return ""
         }
         function currentCacheFilesChanged() {
             visible = song && app.cache.exists(song.fileName)

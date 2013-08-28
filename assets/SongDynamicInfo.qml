@@ -21,7 +21,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Order"
+                    text: qsTr("Order")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -37,7 +37,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Pattern"
+                    text: qsTr("Pattern")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -53,7 +53,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Row"
+                    text: qsTr("Row")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -69,7 +69,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Channels"
+                    text: qsTr("Channels")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -93,7 +93,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Speed"
+                    text: qsTr("Speed")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -109,7 +109,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Tempo"
+                    text: qsTr("Tempo")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black
@@ -125,7 +125,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 Label {
-                    text: "Volume"
+                    text: qsTr("Volume")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                     textStyle.color: Color.Black

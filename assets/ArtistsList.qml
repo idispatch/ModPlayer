@@ -30,10 +30,10 @@ Page {
                 ListItemComponent {
                     type: "item"
                     ModPlayerListItem {
-                        title: ListItemData.name
-                        upperStatus: ListItemData.count + " songs"
-                        middleStatus: "score " + ListItemData.score + " of 10"
-                        lowerStatus: "rating " + ListItemData.rating
+                        title: ListItem.data.name
+                        upperStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                        middleStatus: qsTr("score %1 of 10").arg(ListItem.data.score)
+                        lowerStatus: qsTr("rating %1").arg(ListItem.data.rating)
                     }
                 }
             ]

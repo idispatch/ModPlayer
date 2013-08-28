@@ -40,6 +40,7 @@ public:
     Q_INVOKABLE void emailAuthor();
     Q_INVOKABLE void twit();
     Q_INVOKABLE void bbm();
+    Q_INVOKABLE void appWorld();
 
     static const char * QmlNamespace;
 Q_SIGNALS:
