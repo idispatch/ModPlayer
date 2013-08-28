@@ -4,7 +4,6 @@ import player 1.0
 Page {
     id: songListPage
     property variant navigationPane
-
     titleBar: TitleBar {
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
@@ -123,6 +122,7 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-        } 
+        },
+        AppWorldActionItem{} 
     ]
 }

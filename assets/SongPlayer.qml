@@ -64,6 +64,7 @@ Page {
         RemoveFavouriteActionItem {
             currentSong: app.player.currentSong
             enabled: app.player.currentSong.songLoaded
-        }
+        },
+        AppWorldActionItem{}
     ]
 }

@@ -9,7 +9,6 @@ Sheet {
         app.analytics.help(0)
         helpRoot.destroy()
     }
-
     Page {
         titleBar: TitleBar {
             title: qsTr("ModPlayer Help")
@@ -21,6 +20,9 @@ Sheet {
                 }
             }
         }
+        actions: [
+            AppWorldActionItem{}
+        ]
         ScrollView {
             VerticalContainer {
 

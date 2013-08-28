@@ -3,13 +3,11 @@ import bb.cascades 1.0
 Page {
     id: genresPage
     property variant navigationPane
-    
     titleBar: TitleBar {
         title: qsTr("Select Songs by Genre")
         appearance: TitleBarAppearance.Branded
         kind: TitleBarKind.Default
     }
-    
     ViewContainer {
         ListView {
             id: genresList
@@ -64,6 +62,7 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-        } 
+        },
+        AppWorldActionItem{} 
     ]
 }

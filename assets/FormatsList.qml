@@ -55,6 +55,7 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-        } 
+        },
+        AppWorldActionItem{} 
     ]
 }

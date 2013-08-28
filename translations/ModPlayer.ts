@@ -9,6 +9,13 @@
     </message>
 </context>
 <context>
+    <name>AppWorldActionItem</name>
+    <message>
+        <source>Review in AppWorld</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ArtistsList</name>
     <message>
         <source>Select Songs by Artist</source>

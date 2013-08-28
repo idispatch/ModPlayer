@@ -91,6 +91,7 @@ Page {
         },
         RemoveFavouriteActionItem {
             currentSong: song
-        }
+        },
+        AppWorldActionItem{}
     ]
 }
