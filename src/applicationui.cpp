@@ -39,6 +39,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_analytics(new Analytics(this)) {
     m_app = app;
     m_analytics->active(1);
+    initTranslator();
     initTypes();
     initSignals();
     initApp();
