@@ -351,10 +351,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Liner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Linear interpolation (fast, good quality)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -464,6 +460,10 @@
     </message>
     <message>
         <source>Maximum Cache Size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linear</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

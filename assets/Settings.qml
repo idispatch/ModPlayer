@@ -275,7 +275,7 @@ Sheet {
                                 selected: settingsRoot.configuration.resamplingMode == value
                             }
                             Option {
-                                text: qsTr("Liner")
+                                text: qsTr("Linear")
                                 description: qsTr("Linear interpolation (fast, good quality)")
                                 value: 1
                                 selected: settingsRoot.configuration.resamplingMode == value
