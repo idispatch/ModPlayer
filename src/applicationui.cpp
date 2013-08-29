@@ -158,7 +158,7 @@ void ApplicationUI::initTranslator() {
 void ApplicationUI::onSystemLanguageChanged() {
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
     QString localeString = QLocale().name();
-    QString fileName = QString("ModPlayer_%versionMinor").arg(localeString);
+    QString fileName = QString("ModPlayer_%1").arg(localeString);
     if (m_pTranslator->load(fileName, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
@@ -194,7 +194,7 @@ void ApplicationUI::emailAuthor() {
     QUrl url = QUrl("mailto:oleg@kosenkov.ca");
     QList<QPair<QString, QString> > query;
     query << QPair<QString, QString>("subject", "ModPlayer")
-          << QPair<QString, QString>("body", "Hello, ModPlayer Author!");
+          << QPair<QString, QString>("body", tr("Hello, ModPlayer Author!"));
     url.setQueryItems(query);
 
     InvokeManager invokeManager;
@@ -215,7 +215,8 @@ void ApplicationUI::twit() {
     request.setAction("bb.action.SHARE");
     request.setMimeType("text/plain");
     request.setUri(QUrl("data://"));
-    request.setData("Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!");
+    QString message(tr("Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!"));
+    request.setData(message.toUtf8());
     invokeManager.invoke(request);
 }
 
@@ -227,7 +228,8 @@ void ApplicationUI::bbm() {
     request.setTarget("sys.bbm.sharehandler");
     request.setAction("bb.action.SHARE");
     request.setMimeType("text/plain");
-    request.setData("Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!");
+    QString message(tr("Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!"));
+    request.setData(message.toUtf8());
     invokeManager.invoke(request);
 }
 

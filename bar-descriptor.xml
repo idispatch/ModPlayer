@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.modplayer</id>
-    <name>ModPlayer</name>
+    <name>
+       ModPlayer
+       <text xml:lang="ru">ModPlayer</text>
+    </name>
     <versionNumber>1.0.0</versionNumber>
+    <packageLocale>ru</packageLocale>
     <buildId>104</buildId>
     <!--<versionLabel>1.0</versionLabel>-->
-    <description>ModPlayer is a tracker music player</description>
+    <description>
+       ModPlayer is a tracker music player
+       <text xml:lang="ru">ModPlayer - &#x43f;&#x440;&#x43e;&#x438;&#x433;&#x440;&#x44b;&#x432;&#x430;&#x442;&#x435;&#x43b;&#x44c; &#x442;&#x440;&#x44d;&#x43a;&#x435;&#x440;&#x43d;&#x43e;&#x439; &#x43c;&#x443;&#x437;&#x44b;&#x43a;&#x438;</text>
+    </description>
     <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
     <author>Oleg Kosenkov</author>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
@@ -14,9 +21,21 @@
        <image>landscape-720x720.png</image>
        <image>landscape-1280x768.png</image>
        <image>landscape-768x1280.png</image>
+       <image>
+          <text xml:lang="ru">landscape-1280x768.png</text>
+       </image>
+       <image>
+          <text xml:lang="ru">landscape-720x720.png</text>
+       </image>
+       <image>
+          <text xml:lang="ru">landscape-768x1280.png</text>
+       </image>
     </splashScreens>
     <icon>
        <image>icon_modplayer.png</image>
+       <image>
+          <text xml:lang="ru">icon_modplayer.png</text>
+       </image>
     </icon>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
