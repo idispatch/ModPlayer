@@ -13,3 +13,4 @@ Makefile.Release
 Makefile.Debug
 arm/o.le-v7-g/ModPlayer
 .assets.index
+.settings
