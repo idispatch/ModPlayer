@@ -3,8 +3,10 @@
 
 #include <QDebug>
 #include <bb/ApplicationInfo>
+#include <bb/device/HardwareInfo>
 
 using namespace bb;
+using namespace bb::device;
 using namespace QtMobilitySubset;
 
 template<>
@@ -31,7 +33,7 @@ Analytics::Analytics(QObject *parent)
     Flurry::Analytics::SetAppVersion(info.version());
     Flurry::Analytics::SetShowErrorInLogEnabled(true);
     Flurry::Analytics::SetDebugLogEnabled(true);
-    Flurry::Analytics::SetSessionContinueSeconds(10);
+    Flurry::Analytics::SetSessionContinueSeconds(120);
     Flurry::Analytics::SetSecureTransportEnabled(true);
 
     Flurry::Analytics::StartSession("RYHJ7FPDTQW22Z7YYTW9");
@@ -42,9 +44,19 @@ Analytics::Analytics(QObject *parent)
 
     setPositionInfo(m_source->lastKnownPosition());
 
-    //Flurry::Analytics::SetUserID("");
+    HardwareInfo hwInfo;
+    Flurry::Analytics::SetUserID(hwInfo.pin());
     //Flurry::Analytics::SetAge(0);
     //Flurry::Analytics::SetGender("");
+
+    Flurry::Map parameters;
+    parameters["pin"] = hwInfo.pin();
+    parameters["imei"] = hwInfo.imei();
+    parameters["deviceName"] = hwInfo.deviceName();
+    parameters["hardwareId"] = hwInfo.hardwareId();
+    parameters["meid"] = hwInfo.meid();
+    parameters["serial"] = hwInfo.serialNumber();
+    Flurry::Analytics::LogEvent("DeviceInfo", parameters, false);
 
     bool positionUpdatedConnected = QObject::connect(m_source, SIGNAL(positionUpdated(const QGeoPositionInfo &)),
                                                      this,     SLOT(onPositionUpdated(const QGeoPositionInfo &)));
@@ -195,11 +207,9 @@ void Analytics::settings(int on) const {
 }
 
 void Analytics::active(int on) const {
-    Flurry::Map parameters;
-    parameters["Time"] = QDateTime::currentDateTime();
     if(on) {
-        Flurry::Analytics::LogEvent("Active", parameters, true);
+        Flurry::Analytics::LogEvent("Active", true);
     } else {
-        Flurry::Analytics::EndTimedEvent("Active", parameters);
+        Flurry::Analytics::EndTimedEvent("Active");
     }
 }
