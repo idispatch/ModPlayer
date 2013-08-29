@@ -54,8 +54,14 @@ ViewContainer {
                                 return qsTr("Stopped")
                             } else if (state == Player.Paused) {
                                 return qsTr("Paused")
+                            } else if (state == Player.Resolving) {
+                                return qsTr("Resolving")
+                            } else if (state == Player.Downloading) {
+                                return qsTr("Downloading")
+                            } else if (state == Player.Preparing) {
+                                return qsTr("Preparing")
                             } else {
-                                return ""
+                                return "---"
                             }
                         } else {
                             return qsTr("Idle")

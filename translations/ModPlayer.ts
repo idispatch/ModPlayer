@@ -52,6 +52,18 @@
         <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Resolving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FormatsList</name>
