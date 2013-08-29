@@ -118,35 +118,35 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
-        <translation type="unfinished">&lt;b&gt;ModPlayer&lt;/b&gt; играет трэкерную музыку в разном модульном формате с сайта &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; - &lt;i&gt;The Mod Archive&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; играет трэкерную музыку в разном модульном формате с сайта &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; - &lt;i&gt;The Mod Archive&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; имеет большую библиотеку наиболее популярных, часто скачиваемых и высоко оцененных песен с сайта &lt;i&gt;The Mod Archive&lt;/i&gt; на вашем телефоне, но не содержит сами песни.</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; keeps a cache of most recent songs you listened to, and automatically downloads the songs to your device from &lt;i&gt;The Mod Archive&lt;/i&gt; site once you start playing them.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; имеет кэш песен, которые Вы недавно скачали и прослушали. &lt;b&gt;ModPlayer&lt;/b&gt; автоматически скачивает песни с сайта &lt;i&gt;The Mod Archive&lt;/i&gt; когда Вы выбираете песню для проигрывания.</translation>
     </message>
     <message>
         <source>You can configure the song cache size and song count it keeps in &lt;b&gt;ModPlayer&lt;/b&gt; settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете установить размер кэша песен и максимально количество песен в кэше в установках &lt;b&gt;ModPlayer&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>You can add the songs from the &lt;b&gt;ModPlayer&lt;/b&gt; library to the list of your favourite songs and listen to them later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете добавлять песни, которые Вам понравились в список избранных Вами песен.</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; knows the songs you listened to and you can locate them in the &lt;i&gt;&quot;Recent&quot;&lt;/i&gt;, &lt;i&gt;&quot;Most Played&quot;&lt;/i&gt; and &lt;i&gt;&quot;My Favourite&quot;&lt;/i&gt; tabs.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; знает о песнях, которые Вы уже прослушали. Вы можете легко их найти в закладках &lt;i&gt;&quot;Недавние&quot;&lt;/i&gt;, &lt;i&gt;&quot;Часто слушаемые&quot;&lt;/i&gt; и &lt;i&gt;&quot;Мои избранные&quot;&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>These are the songs that were downloaded, rated and favourited by other users of &lt;i&gt;The Mod Archive&lt;/i&gt; site and it is quite possible you will also enjoy them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эти песни были выбраны, скачаны и оценены другими пользователями сайта &lt;i&gt;The Mod Archive&lt;/i&gt;, и, вполне возможно, Вам тоже понравятся эти песни.</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is using the &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; library, one of the best libraries that provides high quality tracker song modules mixing and playback.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; использует библиотеку &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt;, одну из наиболее качественных библиотек для микширования и воспроизведения модулей трэкерной музыки.</translation>
     </message>
     <message>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
@@ -154,19 +154,19 @@
     </message>
     <message>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; позволяет слушать песни даже тогда, когда у Вас нету соединения с интернетом, если песни уже были скачаны в кэш песен на Вашем телефоне.</translation>
     </message>
     <message>
         <source>The song cache on your device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кэш песен на Вашем телефоне ограничен по занимаемому размеру и количеству песен. Когда размер кэша станет слишком большим старые песни будут удалены из кэша.</translation>
     </message>
     <message>
         <source>You can configure various options of &lt;b&gt;ModPlayer&lt;/b&gt;, such as &lt;i&gt;mixing frequency&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; playback, &lt;i&gt;mixer quality&lt;/i&gt; and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете настроить разные опции &lt;b&gt;ModPlayer&lt;/b&gt;, такие как &lt;i&gt;частота микширования&lt;/i&gt;, &lt;i&gt;стерео/моно&lt;/i&gt; воспроизведение, &lt;i&gt;качество микширования&lt;/i&gt; и другие.</translation>
     </message>
     <message>
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; хранит информацию о тысячах песен, и я уверен, что Вам понравятся многие из них. Вы можете начать искать песни в &lt;i&gt;&quot;Часто скачиваемые&quot;&lt;/i&gt;, &lt;i&gt;&quot;Избранные&quot;&lt;/i&gt; и &lt;i&gt;&quot;Оцененные&quot;&lt;/i&gt; закладках.</translation>
     </message>
 </context>
 <context>

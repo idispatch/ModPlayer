@@ -159,6 +159,7 @@ void ApplicationUI::onSystemLanguageChanged() {
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
     QString localeString = QLocale().name();
     QString fileName = QString("ModPlayer_%1").arg(localeString);
+    qDebug() << "Using locale file name " << fileName;
     if (m_pTranslator->load(fileName, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
