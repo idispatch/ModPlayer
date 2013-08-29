@@ -130,6 +130,8 @@ void Analytics::downloadFailed(int moduleId) const {
     parameters["ModID"] = moduleId;
     Flurry::Analytics::EndTimedEvent("Downloading");
     Flurry::Analytics::LogEvent("DownloadFailed", parameters, false);
+    Flurry::Analytics::LogError("DownloadFailed",
+                                QString("Module %1").arg(moduleId));
 }
 
 void Analytics::showPage(QString const& name) const {
