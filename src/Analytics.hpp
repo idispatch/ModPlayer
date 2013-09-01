@@ -19,6 +19,9 @@ public:
 
     static Analytics * getInstance();
 
+    Q_INVOKABLE void logError(char const * error,
+                              QString const& message) const;
+
     Q_INVOKABLE void nowPlaying() const;
     Q_INVOKABLE void purgeCache() const;
     Q_INVOKABLE void email() const;

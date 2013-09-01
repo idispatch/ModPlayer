@@ -13,6 +13,7 @@ Page {
             if(songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
             if(songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
             if(songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
+            if(songs.mode == "search") return qsTr("Search Songs (%1)").arg(c)
             return ""
         }
         appearance: TitleBarAppearance.Branded
@@ -40,24 +41,32 @@ Page {
                         upperStatus: {
                             var mode = ListItem.view.mode
                             if(ListItem.data) {
-                                if(mode == "recent") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                                if(mode == "myFavourite") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                                if(mode == "mostPlayed") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                                if(mode == "topFavourited") return qsTr("favourited %1 times").arg(ListItem.data.favourited)
-                                if(mode == "topScored") return qsTr("score %1 of 10").arg(ListItem.data.score)
-                                if(mode == "topDownloads") return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                if(mode == "recent") {
+                                    return Global.formatTimeStamp(ListItem.data.lastPlayed)   
+                                }
+                                if(mode == "myFavourite" ||
+                                   mode == "mostPlayed") {
+                                    return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                }
+                                if(mode == "topFavourited") {
+                                    return qsTr("favourited %1 times").arg(ListItem.data.favourited)   
+                                }
+                                if(mode == "topScored") {
+                                    return qsTr("score %1 of 10").arg(ListItem.data.score)   
+                                }
+                                if(mode == "topDownloads" ||
+                                   mode == "search") {
+                                    return qsTr("%1 downloads").arg(ListItem.data.downloads)   
+                                }
                             }
                             return ""
                         }
                         middleStatus: {
                             var mode = ListItem.view.mode
                             if(ListItem.data) {
-                                if(mode == "topDownloads") {
-                                    if(ListItem.data.score > 0) {
-                                        return qsTr("score %1 of 10").arg(ListItem.data.score)
-                                    }
-                                }
-                                if(mode == "topFavourited") {
+                                if(mode == "topDownloads" || 
+                                   mode == "topFavourited" ||
+                                   mode == "search") {
                                     if(ListItem.data.score > 0) {
                                         return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
@@ -73,20 +82,21 @@ Page {
                         lowerStatus: {
                             var mode = ListItem.view.mode
                             if(ListItem.data) {
-                                if(mode == "recent") return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                                if(mode == "myFavourite") return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                                if(mode == "mostPlayed") return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                if(mode == "recent") {
+                                    return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))   
+                                }
+                                if(mode == "myFavourite" || 
+                                   mode == "mostPlayed") {
+                                       return Global.formatTimeStamp(ListItem.data.lastPlayed)   
+                                   }
                                 if(mode == "topFavourited") {
                                     if(ListItem.data.downloads > 0) {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
-                                if(mode == "topScored") {
-                                    if(ListItem.data.favourited > 0) {
-                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
-                                    }
-                                }
-                                if(mode == "topDownloads") {
+                                if(mode == "topScored" || 
+                                   mode == "topDownloads" ||
+                                   mode == "search") {
                                     if(ListItem.data.favourited > 0) {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
@@ -157,6 +167,10 @@ Page {
     function loadMostDownloadedSongs() {
         unload()
         showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
+    }
+    function loadSearchSongs() {
+    	unload()
+    	showList("search", app.player.catalog.searchSongs())
     }
     actions: [
         PlayerActionItem {

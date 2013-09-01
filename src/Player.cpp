@@ -190,7 +190,9 @@ void Player::onDownloadFinished(QString fileName) {
     }
     else
     {
-        qDebug() << "Failed to delete" << fileName;
+        QString message = QString("Failed to delete %1").arg(fileName);
+        qDebug() << message;
+        Analytics::getInstance()->logError("DeleteError", message);
     }
 
     if(newFile.isEmpty())
@@ -308,19 +310,25 @@ void Player::beginPlay(QString const& fileName) {
             }
             else
             {
-                qDebug() << "Failed to play:" << absoluteFileName;
+                QString message = QString("Failed to play %1").arg(absoluteFileName);
+                qDebug() << message;
+                Analytics::getInstance()->logError("PlayError", message);
             }
         }
         else
         {
-            qDebug() << "Failed to load:" << absoluteFileName;
+            QString message = QString("Failed to load %1").arg(absoluteFileName);
+            qDebug() << message;
+            Analytics::getInstance()->logError("LoadError", message);
         }
 
         delete info;
     }
     else
     {
-        qDebug() << "Failed to resolve:" << fileNamePart;
+        QString message = QString("Failed to resolve %1").arg(fileNamePart);
+        qDebug() << message;
+        Analytics::getInstance()->logError("LoadError", message);
     }
 }
 

@@ -470,6 +470,12 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
 }
 
 ArrayDataModel*
+Catalog::searchSongs() {
+    return selectSongBasicInfo(" WHERE downloads>0 ",
+                               " ORDER BY downloads DESC ");
+}
+
+ArrayDataModel*
 Catalog::findMostDownloadedSongs() {
     return selectSongBasicInfo(" WHERE downloads>0 ",
                                " ORDER BY downloads DESC ");

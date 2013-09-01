@@ -218,6 +218,10 @@
         <source>%1 downloads</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
@@ -754,6 +758,14 @@
     </message>
     <message>
         <source>Email Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -218,6 +218,10 @@
         <source>%1 downloads</source>
         <translation>%1 скачиваний</translation>
     </message>
+    <message>
+        <source>Search Songs (%1)</source>
+        <translation>Поиск песен (%1)</translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
@@ -755,6 +759,14 @@
     <message>
         <source>Email Author</source>
         <translation>Написать автору</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Поиск</translation>
+    </message>
+    <message>
+        <source>Search Songs</source>
+        <translation>Искать песни</translation>
     </message>
 </context>
 </TS>

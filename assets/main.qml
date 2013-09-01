@@ -75,6 +75,30 @@ TabbedPane {
         }
     }
     Tab {
+        id: searchTab
+        title: qsTr("Search")
+        objectName: title
+        imageSource: "asset:///images/actions/icon_search.png"
+        description: qsTr("Search Songs")
+        onTriggered: {
+            app.analytics.showPage(title)
+            songSearchView.loadSearchSongs()
+        }
+        function unload() {
+            songSearchView.unload()
+        }
+        NavigationPane {
+            id: searchNavigationPane
+            PersonalSongList {
+                id: songSearchView
+                navigationPane: searchNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
         id: formatsTab
         title: qsTr("Formats")
         objectName: title
