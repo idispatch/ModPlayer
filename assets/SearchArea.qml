@@ -12,7 +12,7 @@ HorizontalContainer {
     attachedObjects: [
         QTimer {
             id: searchTimer
-            interval: 400
+            interval: 300
             singleShot: true
             onTimeout : {
                 searchArea.search(searchCriteria.text)
@@ -60,6 +60,7 @@ HorizontalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1
         }
+        enabled: searchCriteria.text.length > 0
         onClicked: {
             searchArea.search(searchCriteria.text)
         }
