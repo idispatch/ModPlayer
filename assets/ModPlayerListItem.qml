@@ -43,16 +43,20 @@ GroupContainer {
                         id: titleField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
-                        textStyle.base: SystemDefaults.TextStyles.PrimaryText
-                        textStyle.color: Color.Black
+                        textStyle {
+                            base: SystemDefaults.TextStyles.PrimaryText
+                            color: Color.Black
+                        }
                     }
                     Label {
                         id: descriptionField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
-                        textStyle.base: SystemDefaults.TextStyles.BodyText
-                        textStyle.fontWeight: FontWeight.W100
-                        textStyle.color: Color.Black
+                        textStyle {
+                            base: SystemDefaults.TextStyles.BodyText
+                            fontWeight: FontWeight.W100
+                            color: Color.Black
+                        }
                     }
                 }
                 VerticalContainer {
@@ -61,28 +65,34 @@ GroupContainer {
                         id: statusUpperField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Right
-                        textStyle.base: SystemDefaults.TextStyles.SubtitleText
-                        textStyle.fontWeight: FontWeight.W100
-                        textStyle.fontStyle: FontStyle.Italic
-                        textStyle.color: Color.Black
+                        textStyle {
+                            base: SystemDefaults.TextStyles.SubtitleText
+                            fontWeight: FontWeight.W100
+                            fontStyle: FontStyle.Italic
+                            color: Color.Black
+                        }
                     }
                     Label {
                         id: statusMiddleField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Right
-                        textStyle.base: SystemDefaults.TextStyles.SubtitleText
-                        textStyle.fontWeight: FontWeight.W100
-                        textStyle.fontStyle: FontStyle.Italic
-                        textStyle.color: Color.Black
+                        textStyle {
+                            base: SystemDefaults.TextStyles.SubtitleText
+                            fontWeight: FontWeight.W100
+                            fontStyle: FontStyle.Italic
+                            color: Color.Black
+                        }
                     }
                     Label {
                         id: statusLowerField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Right
-                        textStyle.base: SystemDefaults.TextStyles.SubtitleText
-                        textStyle.fontWeight: FontWeight.W100
-                        textStyle.fontStyle: FontStyle.Italic
-                        textStyle.color: Color.Black
+                        textStyle {
+                            base: SystemDefaults.TextStyles.SubtitleText
+                            fontWeight: FontWeight.W100
+                            fontStyle: FontStyle.Italic
+                            color: Color.Black
+                        }
                     }
                 }
             }

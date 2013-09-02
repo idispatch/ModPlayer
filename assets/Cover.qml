@@ -67,7 +67,9 @@ ViewContainer {
                             return qsTr("Idle")
                         }
                     }
-                    textStyle.color: Color.White
+                    textStyle {
+                        color: Color.White
+                    }
                 }
             }
             Container {
@@ -86,7 +88,9 @@ ViewContainer {
                 Label {
                     horizontalAlignment: HorizontalAlignment.Center
                     text: visible ? app.player.currentSong.title : ""
-                    textStyle.color: Color.White
+                    textStyle {
+                        color: Color.White
+                    }
                 }
             }
             Container {
@@ -106,8 +110,10 @@ ViewContainer {
                 Label {
                     horizontalAlignment: HorizontalAlignment.Center
                     text: visible ? "("+app.player.currentSong.fileName+")" : ""
-                    textStyle.color: Color.White
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle {
+                        color: Color.White
+                        fontSize: FontSize.XSmall
+                    }
                 }
             }
         }

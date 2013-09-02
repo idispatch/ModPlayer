@@ -21,11 +21,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Orders")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.orders : -1
@@ -37,11 +36,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Patterns")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.patterns : -1
@@ -53,11 +51,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Channels")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.channels : -1
@@ -77,11 +74,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Instruments")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.instruments : -1
@@ -93,11 +89,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Samples")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.samples : -1

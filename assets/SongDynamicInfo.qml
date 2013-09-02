@@ -20,11 +20,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Order")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.currentOrder : -1
@@ -36,11 +35,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Pattern")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.currentPattern : -1
@@ -52,11 +50,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Row")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.currentRow : -1
@@ -68,11 +65,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Channels")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.playingChannels : -1
@@ -92,11 +88,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Speed")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.currentSpeed : -1
@@ -108,11 +103,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Tempo")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.currentTempo : -1
@@ -124,11 +118,10 @@ HorizontalContainer {
             Container {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
-                Label {
+                BlackLabel {
                     text: qsTr("Volume")
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
-                    textStyle.color: Color.Black
                 }
                 LCDDigits {
                     number: song ? song.masterVolume : -1

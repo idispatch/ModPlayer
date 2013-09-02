@@ -10,9 +10,8 @@ Sheet {
         helpRoot.destroy()
     }
     Page {
-        titleBar: TitleBar {
+        titleBar: PlayerTitleBar {
             title: qsTr("ModPlayer Help")
-            visibility: ChromeVisibility.Visible
             dismissAction: ActionItem {
                 title: qsTr("Close")
                 onTriggered: {

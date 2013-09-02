@@ -4,7 +4,7 @@ import player 1.0
 Page {
     id: songListPage
     property variant navigationPane
-    titleBar: TitleBar {
+    titleBar: PlayerTitleBar {
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
             if(songs.mode == 'format')  return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
@@ -12,8 +12,6 @@ Page {
             if(songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
             return qsTr("All Songs (%1)").arg(c)
         }
-        appearance: TitleBarAppearance.Branded
-        kind: TitleBarKind.Default
     }
     ViewContainer {
         ProgressComponent {
@@ -34,9 +32,11 @@ Page {
                     type: "header"
                     Label {
                         text: ListItem.data
-                        textStyle.fontWeight: FontWeight.Bold
-                        textStyle.fontSize: FontSize.Large
-                        textStyle.color: Color.White
+                        textStyle {
+                            fontWeight: FontWeight.Bold
+                            fontSize: FontSize.Large
+                            color: Color.White
+                        }
                     }
                 },
                 ListItemComponent {

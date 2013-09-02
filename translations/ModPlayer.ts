@@ -207,6 +207,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Search Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>favourited %1 times</source>
         <translation type="unfinished"></translation>
     </message>
@@ -216,10 +220,6 @@
     </message>
     <message>
         <source>%1 downloads</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search Songs (%1)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -284,6 +284,13 @@
     <name>RemoveFavouriteActionItem</name>
     <message>
         <source>Remove from Favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchArea</name>
+    <message>
+        <source>search</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -663,6 +670,69 @@
     </message>
     <message>
         <source>%1 downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>functions</name>
+    <message>
+        <source>%1 bytes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 kB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 GB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N/A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 minute ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 minutes ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 hour ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 hours ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 days ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 weeks ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 months ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>long ago</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

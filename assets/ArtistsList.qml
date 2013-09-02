@@ -3,10 +3,8 @@ import bb.cascades 1.0
 Page {
     id: artistsPage
     property variant navigationPane
-    titleBar: TitleBar {
+    titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Artist")
-        appearance: TitleBarAppearance.Branded
-        kind: TitleBarKind.Default
     }
     ViewContainer {
         ListView {
@@ -22,9 +20,11 @@ Page {
                     type: "header"
                     Label {
                         text: ListItem.data
-                        textStyle.fontWeight: FontWeight.Bold
-                        textStyle.fontSize: FontSize.Large
-                        textStyle.color: Color.White
+                        textStyle {
+                            fontWeight: FontWeight.Bold
+                            fontSize: FontSize.Large
+                            color: Color.White
+                        }
                     }
                 },
                 ListItemComponent {

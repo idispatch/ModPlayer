@@ -11,7 +11,7 @@ GroupContainer {
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
-        Label {
+        BlackLabel {
             textFormat: TextFormat.Html
             text: {
                 if(song) {
@@ -25,7 +25,6 @@ GroupContainer {
                 }
                 return ""
             }
-            textStyle.color: Color.Black
         }
         function songPlayCountChanged(){
             if(song.id == app.player.currentSong.id) {
@@ -43,11 +42,10 @@ GroupContainer {
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
-        Label {
+        BlackLabel {
             text: song && song.lastPlayed > 0 ? 
                 qsTr("Last played %1").arg(Global.formatTimeStamp(song.lastPlayed)) : 
                 ""
-            textStyle.color: Color.Black
         }
         function songLastPlayedChanged(){
             if(song.id == app.player.currentSong.id) {
@@ -65,9 +63,8 @@ GroupContainer {
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5
         }
-        Label {
+        BlackLabel {
             text: song && song.myFavourite > 0 ? qsTr("You liked this song") : ""
-            textStyle.color: Color.Black
         }
         function songFavouriteChanged(){
             if(song.id == app.player.currentSong.id) {
@@ -78,11 +75,10 @@ GroupContainer {
             app.player.currentSong.myFavouriteChanged.connect(songFavouriteChanged)
         }
     }
-    Label {
+    BlackLabel {
         visible: song && app.cache.exists(song.fileName)
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
-        textStyle.color: Color.Black
         text: getLabelText()
         function getLabelText() {
             if(song) {

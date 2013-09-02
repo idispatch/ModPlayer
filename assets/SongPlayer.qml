@@ -47,9 +47,11 @@ Page {
                 }
                 Label {
                     text: app.player.statusText
-                    textStyle.fontWeight: FontWeight.Bold
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.White
+                    textStyle {
+                        fontWeight: FontWeight.Bold
+                        fontSize: FontSize.Large
+                        color: Color.White
+                    }
                 }
             }
         }

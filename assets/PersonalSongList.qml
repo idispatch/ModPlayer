@@ -4,20 +4,41 @@ import "functions.js" as Global
 Page {
     id: personalSongListPage
     property variant navigationPane
-    titleBar: TitleBar {
+    titleBar: PlayerTitleBar {
+        id: titleBar
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
-            if(songs.mode == "recent") return qsTr("Recently Played Songs (%1)").arg(c)
-            if(songs.mode == "myFavourite") return qsTr("My Favourite Songs (%1)").arg(c)
-            if(songs.mode == "mostPlayed") return qsTr("Most Played Songs (%1)").arg(c)
-            if(songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
-            if(songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
-            if(songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
-            if(songs.mode == "search") return qsTr("Search Songs (%1)").arg(c)
+            if (songs.mode == "recent") return qsTr("Recently Played Songs (%1)").arg(c)
+            if (songs.mode == "myFavourite") return qsTr("My Favourite Songs (%1)").arg(c)
+            if (songs.mode == "mostPlayed") return qsTr("Most Played Songs (%1)").arg(c)
+            if (songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
+            if (songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
+            if (songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
+            if (songs.mode == "search") return qsTr("Search Songs (%1)").arg(c)
             return ""
         }
-        appearance: TitleBarAppearance.Branded
-        kind: TitleBarKind.Default
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            HorizontalContainer {
+                leftPadding: 10
+                Label {
+                    text: titleBar.title
+                    textStyle {
+                        color: Color.White 
+                        fontSize: FontSize.Large
+                    }
+                    verticalAlignment: VerticalAlignment.Center
+                }
+            }
+            expandableArea {
+                content: SearchArea {
+                    onSearch: console.log("Searching " + term)
+                }
+                expanded: songs.mode == "search"
+                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
+                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
+            }
+        }
     }
     ViewContainer {
         ProgressComponent {
@@ -40,39 +61,35 @@ Page {
                         description: ListItem.data.fileName
                         upperStatus: {
                             var mode = ListItem.view.mode
-                            if(ListItem.data) {
-                                if(mode == "recent") {
-                                    return Global.formatTimeStamp(ListItem.data.lastPlayed)   
+                            if (ListItem.data) {
+                                if (mode == "recent") {
+                                    return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                 }
-                                if(mode == "myFavourite" ||
-                                   mode == "mostPlayed") {
+                                if (mode == "myFavourite" || mode == "mostPlayed") {
                                     return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                 }
-                                if(mode == "topFavourited") {
-                                    return qsTr("favourited %1 times").arg(ListItem.data.favourited)   
+                                if (mode == "topFavourited") {
+                                    return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                 }
-                                if(mode == "topScored") {
-                                    return qsTr("score %1 of 10").arg(ListItem.data.score)   
+                                if (mode == "topScored") {
+                                    return qsTr("score %1 of 10").arg(ListItem.data.score)
                                 }
-                                if(mode == "topDownloads" ||
-                                   mode == "search") {
-                                    return qsTr("%1 downloads").arg(ListItem.data.downloads)   
+                                if (mode == "topDownloads" || mode == "search") {
+                                    return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                 }
                             }
                             return ""
                         }
                         middleStatus: {
                             var mode = ListItem.view.mode
-                            if(ListItem.data) {
-                                if(mode == "topDownloads" || 
-                                   mode == "topFavourited" ||
-                                   mode == "search") {
-                                    if(ListItem.data.score > 0) {
+                            if (ListItem.data) {
+                                if (mode == "topDownloads" || mode == "topFavourited" || mode == "search") {
+                                    if (ListItem.data.score > 0) {
                                         return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
                                 }
-                                if(mode == "topScored") {
-                                    if(ListItem.data.downloads > 0) {
+                                if (mode == "topScored") {
+                                    if (ListItem.data.downloads > 0) {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
@@ -81,23 +98,20 @@ Page {
                         }
                         lowerStatus: {
                             var mode = ListItem.view.mode
-                            if(ListItem.data) {
-                                if(mode == "recent") {
-                                    return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))   
+                            if (ListItem.data) {
+                                if (mode == "recent") {
+                                    return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                 }
-                                if(mode == "myFavourite" || 
-                                   mode == "mostPlayed") {
-                                       return Global.formatTimeStamp(ListItem.data.lastPlayed)   
-                                   }
-                                if(mode == "topFavourited") {
-                                    if(ListItem.data.downloads > 0) {
+                                if (mode == "myFavourite" || mode == "mostPlayed") {
+                                    return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                }
+                                if (mode == "topFavourited") {
+                                    if (ListItem.data.downloads > 0) {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
-                                if(mode == "topScored" || 
-                                   mode == "topDownloads" ||
-                                   mode == "search") {
-                                    if(ListItem.data.favourited > 0) {
+                                if (mode == "topScored" || mode == "topDownloads" || mode == "search") {
+                                    if (ListItem.data.favourited > 0) {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
                                 }
@@ -125,7 +139,7 @@ Page {
     }
     function showList(listName, model) {
         songs.mode = listName
-        if(songs.dataModel) {
+        if (songs.dataModel) {
             songs.dataModel.clear()
         }
         songs.resetDataModel()
@@ -138,7 +152,7 @@ Page {
         progress.running = true
         progress.visible = true
         songs.visible = false
-        if(songs.dataModel) {
+        if (songs.dataModel) {
             songs.dataModel.clear()
         }
         songs.resetDataModel()
@@ -169,8 +183,8 @@ Page {
         showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
     }
     function loadSearchSongs() {
-    	unload()
-    	showList("search", app.player.catalog.searchSongs())
+        unload()
+        showList("search", app.player.catalog.searchSongs())
     }
     actions: [
         PlayerActionItem {
@@ -179,6 +193,7 @@ Page {
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        AppWorldActionItem{} 
+        AppWorldActionItem {
+        }
     ]
 }

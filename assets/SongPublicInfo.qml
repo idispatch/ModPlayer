@@ -12,7 +12,7 @@ GroupContainer {
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
             }
-            Label {
+            BlackLabel {
                 textFormat: TextFormat.Html
                 text: {
                     if(song) {
@@ -22,7 +22,6 @@ GroupContainer {
                     }
                     return "";
                 }
-                textStyle.color: Color.Black
             }
         }
         HorizontalContainer {
@@ -33,7 +32,7 @@ GroupContainer {
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
             }
-            Label {
+            BlackLabel {
                 textFormat: TextFormat.Html
                 text: {
                     if(song) {
@@ -44,7 +43,6 @@ GroupContainer {
                     }
                     return "";
                 }
-                textStyle.color: Color.Black
             }
         }
         HorizontalContainer {
@@ -55,9 +53,8 @@ GroupContainer {
                 rightMargin: 5
                 visible: song && song.score > 0
             }
-            Label {
+            BlackLabel {
                 textFormat: TextFormat.Html
-                textStyle.color: Color.Black
                 text: {
                     if(song) {
                         if(song.score > 0) {

@@ -3,10 +3,8 @@ import bb.cascades 1.0
 Page {
     id: genresPage
     property variant navigationPane
-    titleBar: TitleBar {
+    titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Genre")
-        appearance: TitleBarAppearance.Branded
-        kind: TitleBarKind.Default
     }
     ViewContainer {
         ListView {
@@ -22,17 +20,19 @@ Page {
                     type: "header"
                     Label {
                         text: ListItem.data
-                        textStyle.fontWeight: FontWeight.Bold
-                        textStyle.fontSize: FontSize.Large
-                        textStyle.color: Color.White
+                        textStyle {
+                            fontWeight: FontWeight.Bold
+                            fontSize: FontSize.Large
+                            color: Color.White
+                        }
                     }
                 },
                 ListItemComponent {
                     type: "item"
                     ModPlayerListItem {
-                        title: ListItemData.name
+                        title: ListItem.data.name
                         description: " "
-                        middleStatus: qsTr("%1 songs").arg(ListItemData.count)
+                        middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
                     }
                 }
             ]

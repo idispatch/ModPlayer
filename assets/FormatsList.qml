@@ -3,10 +3,8 @@ import bb.cascades 1.0
 Page {
     id: formatsPage
     property variant navigationPane
-    titleBar: TitleBar {
+    titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Format")
-        appearance: TitleBarAppearance.Branded
-        kind: TitleBarKind.Default
     }
     ViewContainer {
         ListView {
@@ -21,7 +19,7 @@ Page {
                 ModPlayerListItem {
                     title: ListItem.data.name
                     description: ListItem.data.description
-                    middleStatus: qsTr("%1 songs").arg(ListItemData.count)
+                    middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
                     imageSource: ListItem.data.iconPath
                 }
             }

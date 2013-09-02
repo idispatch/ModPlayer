@@ -5,7 +5,7 @@
 !done! Database: playcount, lastplayed, my favourite
 !done! Database: Song list display song (downloads, score, playcount, lastplayed, favourite, my favourite)
 !done! Database: Schema - ScreamTracker
-* Main: Navigation pop from player screen
+!done! Main: Navigation pop from player screen
 !done! Settings: Settings sheet
 !done! Actions in song list, player
 !done! Main: Genres list
@@ -20,3 +20,7 @@
 !done! Player: LED display in player
 !done! Player: playback controls 
 * Player: Equalizer in player
+* Search songs
+* Songs by Author
+* Share song
+* NavigationPane property

@@ -1,18 +1,18 @@
 function getSizeKb(size) {
     var result;
     if(size < 1024) {
-        result = size + " bytes";
+        result = qsTr("%1 bytes").arg(size);
     } else { 
         size /= 1024;
         if(size < 1024) {
-            result = size.toFixed(2) + " kB";
+            result = qsTr("%1 kB").arg(size.toFixed(2));
         } else {
             size /= 1024;
             if(size < 1024) {
-                result = size.toFixed(2) + " MB";
+                result = qsTr("%1 MB").arg(size.toFixed(2));
             } else {
                 size /= 1024;
-                result = size.toFixed(2) + " GB";
+                result = qsTr("%1 GB").arg(size.toFixed(2));
             }
         }
     }
@@ -24,21 +24,21 @@ function formatTimeStamp(unix_timestamp) {
     var diff = (((new Date()).getTime() - date.getTime()) / 1000);
     var day_diff = Math.floor(diff / 86400);
     if(isNaN(day_diff))
-        return "N/A";
+        return qsTr("N/A");
     if(day_diff < 0)
-        return "just now";
+        return qsTr("just now");
     return day_diff == 0 && (
-           diff < 60 && "just now" ||
-           diff < 120 && "1 minute ago" ||
-           diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
-           diff < 7200 && "1 hour ago" ||
-           diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
+           diff < 60 && qsTr("just now") ||
+           diff < 120 && qsTr("1 minute ago") ||
+           diff < 3600 && qsTr("%1 minutes ago").arg(Math.floor( diff / 60 )) ||
+           diff < 7200 && qsTr("1 hour ago") ||
+           diff < 86400 && qsTr("%1 hours ago").arg(Math.floor( diff / 3600 )) ||
            
-           (day_diff == 1 && "yesterday") ||
-           (day_diff < 7 && day_diff + " days ago") ||
-           (day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago") ||
-           (day_diff < 365 && Math.ceil( day_diff / 12 ) + " months ago") ||
-           ("long ago");
+           (day_diff == 1 && qsTr("yesterday")) ||
+           day_diff < 7 && qsTr("%1 days ago").arg(day_diff) ||
+           day_diff < 31 && qsTr("%1 weeks ago").arg(Math.ceil(day_diff / 7)) ||
+           day_diff < 365 && qsTr("%1 months ago").arg(Math.ceil(day_diff / 12)) ||
+           qsTr("long ago"));
 }
 
 var entityMap = {

@@ -184,43 +184,47 @@
     <name>PersonalSongList</name>
     <message>
         <source>Recently Played Songs (%1)</source>
-        <translation>Недавно прослушанные (%1)</translation>
+        <translation type="unfinished">Недавно прослушанные (%1)</translation>
     </message>
     <message>
         <source>My Favourite Songs (%1)</source>
-        <translation>Мои избранные песни (%1)</translation>
+        <translation type="unfinished">Мои избранные песни (%1)</translation>
     </message>
     <message>
         <source>Most Played Songs (%1)</source>
-        <translation>Часто прослушиваемые (%1)</translation>
+        <translation type="unfinished">Часто прослушиваемые (%1)</translation>
     </message>
     <message>
         <source>Top Favourited Songs (%1)</source>
-        <translation>Топ избранных (%1)</translation>
+        <translation type="unfinished">Топ избранных (%1)</translation>
     </message>
     <message>
         <source>Top Scored Songs (%1)</source>
-        <translation>Топ оцененных (%1)</translation>
+        <translation type="unfinished">Топ оцененных (%1)</translation>
     </message>
     <message>
         <source>Top Downloaded Songs (%1)</source>
-        <translation>Топ скачиваний (%1)</translation>
+        <translation type="unfinished">Топ скачиваний (%1)</translation>
     </message>
     <message>
         <source>favourited %1 times</source>
-        <translation>избрана %1 раз</translation>
+        <translation type="unfinished">избрана %1 раз</translation>
     </message>
     <message>
         <source>score %1 of 10</source>
-        <translation>оценка %1 из 10</translation>
+        <translation type="unfinished">оценка %1 из 10</translation>
     </message>
     <message>
         <source>%1 downloads</source>
-        <translation>%1 скачиваний</translation>
+        <translation type="unfinished">%1 скачиваний</translation>
     </message>
     <message>
         <source>Search Songs (%1)</source>
-        <translation>Поиск песен (%1)</translation>
+        <translation type="unfinished">Поиск песен (%1)</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="obsolete">Поиск</translation>
     </message>
 </context>
 <context>
@@ -285,6 +289,13 @@
     <message>
         <source>Remove from Favourites</source>
         <translation>Удалить из избранных</translation>
+    </message>
+</context>
+<context>
+    <name>SearchArea</name>
+    <message>
+        <source>search</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -664,6 +675,69 @@
     <message>
         <source>%1 downloads</source>
         <translation>%1 скачиваний</translation>
+    </message>
+</context>
+<context>
+    <name>functions</name>
+    <message>
+        <source>%1 bytes</source>
+        <translation>%1 байт</translation>
+    </message>
+    <message>
+        <source>%1 kB</source>
+        <translation>%1 кБ</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <translation>%1 МБ</translation>
+    </message>
+    <message>
+        <source>%1 GB</source>
+        <translation>%1 ГБ</translation>
+    </message>
+    <message>
+        <source>N/A</source>
+        <translation>N/A</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>сейчас</translation>
+    </message>
+    <message>
+        <source>1 minute ago</source>
+        <translation>1 минуту назад</translation>
+    </message>
+    <message>
+        <source>%1 minutes ago</source>
+        <translation>%1 минут назад</translation>
+    </message>
+    <message>
+        <source>1 hour ago</source>
+        <translation>1 час назад</translation>
+    </message>
+    <message>
+        <source>%1 hours ago</source>
+        <translation>%1 часа назад</translation>
+    </message>
+    <message>
+        <source>yesterday</source>
+        <translation>вчера</translation>
+    </message>
+    <message>
+        <source>%1 days ago</source>
+        <translation>%1 дня назад</translation>
+    </message>
+    <message>
+        <source>%1 weeks ago</source>
+        <translation>%1 недель назад</translation>
+    </message>
+    <message>
+        <source>%1 months ago</source>
+        <translation>%1 месяца назад</translation>
+    </message>
+    <message>
+        <source>long ago</source>
+        <translation>давно</translation>
     </message>
 </context>
 <context>

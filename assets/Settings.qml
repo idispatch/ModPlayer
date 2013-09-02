@@ -15,9 +15,8 @@ Sheet {
         settingsRoot.destroy()
     }
     Page {
-        titleBar: TitleBar {
+        titleBar: PlayerTitleBar {
             title: qsTr("Configuration")
-            visibility: ChromeVisibility.Visible
             dismissAction: ActionItem {
                 title: qsTr("Close")
                 onTriggered: {
@@ -49,24 +48,22 @@ Sheet {
                         Label {
                             text: qsTr("Cache")
                             horizontalAlignment: HorizontalAlignment.Center
-                            textStyle.base: SystemDefaults.TextStyles.TitleText
-                            textStyle.fontWeight: FontWeight.Bold
-                            textStyle.color: Color.Black
+                            textStyle {
+                                base: SystemDefaults.TextStyles.TitleText
+                                fontWeight: FontWeight.Bold
+                                color: Color.Black
+                            }
                         }
-                        Label {
+                        BlackLabel {
                             text: qsTr("Cached Songs: <b>%1</b>").arg(app.player.cache.currentFiles)
                             textFormat: TextFormat.Html
-                            textStyle.color: Color.Black
                         }
-                        Label {
+                        BlackLabel {
                             text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize))
                             textFormat: TextFormat.Html
-                            textStyle.color: Color.Black
                         }
-                        
-                        Label {
+                        BlackLabel {
                             text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value))
-                            textStyle.color: Color.Black
                         }
                         VerticalContainer {
                             leftPadding: groupSettingIndent
@@ -78,9 +75,8 @@ Sheet {
                                 value: app.cache.maxFiles
                             }
                         }
-                        Label {
+                        BlackLabel {
                             text: qsTr("Maximum Cache Size: %1").arg(Global.getSizeKb(Math.round(maxCacheSize.value)))
-                            textStyle.color: Color.Black 
                         }
                         VerticalContainer {
                             leftPadding: groupSettingIndent
@@ -128,11 +124,12 @@ Sheet {
                         Label {
                             text: qsTr("Personal")
                             horizontalAlignment: HorizontalAlignment.Center
-                            textStyle.base: SystemDefaults.TextStyles.TitleText
-                            textStyle.fontWeight: FontWeight.Bold
-                            textStyle.color: Color.Black
+                            textStyle {
+                                base: SystemDefaults.TextStyles.TitleText
+                                fontWeight: FontWeight.Bold
+                                color: Color.Black
+                            }
                         }
-                        
                         Button {
                             text: qsTr("Reset Play Counts")
                             horizontalAlignment: HorizontalAlignment.Center
@@ -195,9 +192,11 @@ Sheet {
                         Label {
                             text: qsTr("Mixer Configuration")
                             horizontalAlignment: HorizontalAlignment.Center
-                            textStyle.base: SystemDefaults.TextStyles.TitleText
-                            textStyle.fontWeight: FontWeight.Bold
-                            textStyle.color: Color.Black
+                            textStyle {
+                                base: SystemDefaults.TextStyles.TitleText
+                                fontWeight: FontWeight.Bold
+                                color: Color.Black
+                            }
                         }
                         DropDown {
                             id: output
@@ -298,8 +297,10 @@ Sheet {
                         }
                         Label {
                             text: qsTr("Stereo Separation")
-                            textStyle.fontSize: FontSize.Large
-                            textStyle.color: Color.Black
+                            textStyle {
+                                fontSize: FontSize.Large
+                                color: Color.Black
+                            }
                         }
                         VerticalContainer {
                             leftPadding: groupSettingIndent
@@ -344,9 +345,11 @@ Sheet {
                             Label {
                                 text: qsTr("Reverb Depth")
                                 visible: reverbEnabled.checked
-                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.fontWeight: FontWeight.W100
-                                textStyle.color: Color.Black
+                                textStyle {
+                                    fontStyle: FontStyle.Italic
+                                    fontWeight: FontWeight.W100
+                                    color: Color.Black
+                                }
                             }
                             Slider {
                                 id: reverbLevel
@@ -361,9 +364,11 @@ Sheet {
                             Label {
                                 text: qsTr("Reverb Delay")
                                 visible: reverbEnabled.checked
-                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.fontWeight: FontWeight.W100
-                                textStyle.color: Color.Black
+                                textStyle {
+                                    fontStyle: FontStyle.Italic
+                                    fontWeight: FontWeight.W100
+                                    color: Color.Black
+                                }
                             }
                             Slider {
                                 id: reverbDelay
@@ -390,9 +395,11 @@ Sheet {
                             Label {
                                 text: qsTr("Bass Amount")
                                 visible: megabassEnabled.checked
-                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.fontWeight: FontWeight.W100
-                                textStyle.color: Color.Black
+                                textStyle {
+                                    fontStyle: FontStyle.Italic
+                                    fontWeight: FontWeight.W100
+                                    color: Color.Black
+                                }
                             }
                             Slider {
                                 id: megabassLevel
@@ -407,9 +414,11 @@ Sheet {
                             Label {
                                 text: qsTr("Bass Cutoff")
                                 visible: megabassEnabled.checked
-                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.fontWeight: FontWeight.W100
-                                textStyle.color: Color.Black
+                                textStyle {
+                                    fontStyle: FontStyle.Italic
+                                    fontWeight: FontWeight.W100
+                                    color: Color.Black
+                                }
                             }
                             Slider {
                                 id: megabassCutoff
@@ -436,9 +445,11 @@ Sheet {
                             Label {
                                 text: qsTr("Surrond Depth")
                                 visible: surroundEnabled.checked
-                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.fontWeight: FontWeight.W100
-                                textStyle.color: Color.Black
+                                textStyle {
+                                    fontStyle: FontStyle.Italic
+                                    fontWeight: FontWeight.W100
+                                    color: Color.Black
+                                }
                             }
                             Slider {
                                 id: surroundLevel
@@ -453,9 +464,11 @@ Sheet {
                             Label {
                                 text: qsTr("Surrond Delay")
                                 visible: surroundEnabled.checked
-                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.fontWeight: FontWeight.W100
-                                textStyle.color: Color.Black
+                                textStyle {
+                                    fontStyle: FontStyle.Italic
+                                    fontWeight: FontWeight.W100
+                                    color: Color.Black
+                                }
                             }
                             Slider {
                                 id: surroundDelay
