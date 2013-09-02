@@ -2,6 +2,8 @@ import bb.cascades 1.0
 import player 1.0
 
 Page {
+    id: songPlayer
+    property variant navigationPane
     ViewContainer {
         ScrollView {
             VerticalContainer {
@@ -59,6 +61,10 @@ Page {
     actions: [
         PlayActionItem {},
         PauseActionItem {}, 
+        SameArtistActionItem {
+            currentSong: app.player.currentSong
+            navigationPane: songPlayer.navigationPane 
+        },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong
             enabled: app.player.currentSong.songLoaded

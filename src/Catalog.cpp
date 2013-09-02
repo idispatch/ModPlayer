@@ -290,6 +290,7 @@ Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     QString format   = sqlQuery.value(column++).toString();
     QString tracker  = sqlQuery.value(column++).toString();
     QString genre    = sqlQuery.value(column++).toString();
+    int artistId     = sqlQuery.value(column++).toInt();
     QString artist   = sqlQuery.value(column++).toString();
     int patterns     = sqlQuery.value(column++).toInt();
     int orders       = sqlQuery.value(column++).toInt();
@@ -312,6 +313,7 @@ Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
                         format,
                         tracker,
                         genre,
+                        artistId,
                         artist,
                         patterns,
                         orders,
@@ -370,6 +372,7 @@ Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
                 " formats.description AS format, "
                 " trackers.name AS tracker, "
                 " genres.name AS genre, "
+                " songs.artist AS artistId, "
                 " artists.name AS artist, "
                 " songs.patterns AS patterns, "
                 " songs.orders AS orders, "

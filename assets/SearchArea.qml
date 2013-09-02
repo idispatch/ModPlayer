@@ -35,17 +35,17 @@ HorizontalContainer {
         input {
             submitKey: SubmitKey.Search
             flags: TextInputFlag.SpellCheckOff | 
-                    TextInputFlag.PredictionOff | 
-                    TextInputFlag.AutoCorrectionOff | 
-                    TextInputFlag.AutoCapitalizationOff | 
-                    TextInputFlag.AutoPeriodOff | 
-                    TextInputFlag.WordSubstitutionOff
+                   TextInputFlag.PredictionOff | 
+                   TextInputFlag.AutoCorrectionOff | 
+                   TextInputFlag.AutoCapitalizationOff | 
+                   TextInputFlag.AutoPeriodOff | 
+                   TextInputFlag.WordSubstitutionOff
             onSubmitted: {
                 searchArea.search(searchCriteria.text)
             }
         }
         clearButtonVisible: true
-        autoFit: TextAutofFit.None
+        autoFit: TextAutoFit.None
         onTextChanging: {
             if(!searchTimer.active) {
                 searchTimer.start()

@@ -4,7 +4,7 @@ Page {
     id: songView
 
     property variant song
-    property variant navigationPane 
+    property variant navigationPane
 
     ViewContainer {
         ScrollView {
@@ -45,6 +45,7 @@ Page {
 
     function showPlayer() {
         var view = songPlayer.createObject()
+        view.navigationPane = navigationPane
         navigationPane.push(view)
     }
 
@@ -85,6 +86,10 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        SameArtistActionItem {
+            currentSong: song
+            navigationPane: songView.navigationPane
         },
         AddFavouriteActionItem {
             currentSong: song

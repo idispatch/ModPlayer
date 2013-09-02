@@ -12,6 +12,7 @@ ActionItem {
     onTriggered: {
         app.analytics.nowPlaying()
         var view = songPlayer.createObject()
+        view.navigationPane = navigationPane
         navigationPane.push(view)
     }
     attachedObjects: [

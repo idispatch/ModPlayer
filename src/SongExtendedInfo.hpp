@@ -15,6 +15,7 @@ class SongExtendedInfo : public SongBasicInfo,
     Q_PROPERTY(QString format READ format WRITE setFormat NOTIFY formatChanged FINAL)
     Q_PROPERTY(QString tracker READ tracker WRITE setTracker NOTIFY trackerChanged FINAL)
     Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged FINAL)
+    Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged FINAL)
     Q_PROPERTY(QString artist READ artist WRITE setArtist NOTIFY artistChanged FINAL)
 
     Q_PROPERTY(int patterns READ patterns WRITE setPatterns NOTIFY patternsChanged FINAL)
@@ -40,6 +41,7 @@ public:
                      QString const& format,
                      QString const& tracker,
                      QString const& genre,
+                     int artistId,
                      QString const& artist,
                      int patterns,
                      int orders,
@@ -58,6 +60,9 @@ public:
 
     QString genre() const;
     void setGenre(const QString &value);
+
+    int artistId() const;
+    void setArtistId(int value);
 
     QString artist() const;
     void setArtist(const QString &value);
@@ -83,6 +88,7 @@ Q_SIGNALS:
     void formatChanged();
     void trackerChanged();
     void genreChanged();
+    void artistIdChanged();
     void artistChanged();
     void patternsChanged();
     void ordersChanged();
@@ -93,6 +99,7 @@ private:
     QString m_format;
     QString m_tracker;
     QString m_genre;
+    int m_artistId;
     QString m_artist;
     int m_patterns;
     int m_orders;

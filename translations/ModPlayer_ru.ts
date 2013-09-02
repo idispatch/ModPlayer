@@ -292,6 +292,13 @@
     </message>
 </context>
 <context>
+    <name>SameArtistActionItem</name>
+    <message>
+        <source>Songs by Artist</source>
+        <translation>Песни композитора</translation>
+    </message>
+</context>
+<context>
     <name>SearchArea</name>
     <message>
         <source>search songs</source>
