@@ -294,7 +294,7 @@
 <context>
     <name>SearchArea</name>
     <message>
-        <source>search</source>
+        <source>search songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

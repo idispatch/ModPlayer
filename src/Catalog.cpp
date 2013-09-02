@@ -433,13 +433,13 @@ Catalog::searchSongs(QString const& searchTerm, int limit) {
     QString orderClause(" ORDER BY downloads DESC ");
     QString limitClause;
     if(limit > 0) {
-        limitClause = QString(" LIMIT %1").arg(limit);
+        limitClause = QString(" LIMIT %1").arg(limit + 1);
     }
 
     QString const query = selectClause + whereClause + orderClause + limitClause;
-
+#ifdef DEBUG_CATALOG
     qDebug() << "Search query" << query;
-
+#endif
     ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery(query, db);

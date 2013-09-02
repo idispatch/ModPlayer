@@ -71,7 +71,10 @@ void ApplicationUI::onAboutToQuit() {
 }
 
 void ApplicationUI::initTypes() {
+    const int versionMajor = 1, versionMinor = 0;
+
     DataSource::registerQmlTypes();
+    qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
 
     qRegisterMetaType<Analytics*>();
     qRegisterMetaType<Artist*>();
@@ -88,8 +91,6 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<SongModule*>();
     qRegisterMetaType<SongFormat*>();
     qRegisterMetaType<SongGenre*>();
-
-    const int versionMajor = 1, versionMinor = 0;
 
     qmlRegisterUncreatableType<Player>(QmlNamespace, versionMajor, versionMinor, "Player", "");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");

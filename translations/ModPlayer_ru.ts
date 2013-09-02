@@ -294,8 +294,8 @@
 <context>
     <name>SearchArea</name>
     <message>
-        <source>search</source>
-        <translation>найти</translation>
+        <source>search songs</source>
+        <translation>найти песни</translation>
     </message>
 </context>
 <context>
