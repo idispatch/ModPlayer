@@ -15,7 +15,7 @@ PlaybackConfig::PlaybackConfig(QObject *parent)
       m_stereoSeparation(128),
       m_maximumMixingChannels(128),
       m_reverbEnabled(true),
-      m_reverbLevel(30),
+      m_reverbLevel(20),
       m_reverbDelay(50),
       m_bassEnabled(true),
       m_bassLevel(50),

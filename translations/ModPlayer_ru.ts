@@ -184,47 +184,47 @@
     <name>PersonalSongList</name>
     <message>
         <source>Recently Played Songs (%1)</source>
-        <translation type="unfinished">Недавно прослушанные (%1)</translation>
+        <translation>Недавно прослушанные (%1)</translation>
     </message>
     <message>
         <source>My Favourite Songs (%1)</source>
-        <translation type="unfinished">Мои избранные песни (%1)</translation>
+        <translation>Мои избранные песни (%1)</translation>
     </message>
     <message>
         <source>Most Played Songs (%1)</source>
-        <translation type="unfinished">Часто прослушиваемые (%1)</translation>
+        <translation>Часто прослушиваемые (%1)</translation>
     </message>
     <message>
         <source>Top Favourited Songs (%1)</source>
-        <translation type="unfinished">Топ избранных (%1)</translation>
+        <translation>Топ избранных (%1)</translation>
     </message>
     <message>
         <source>Top Scored Songs (%1)</source>
-        <translation type="unfinished">Топ оцененных (%1)</translation>
+        <translation>Топ оцененных (%1)</translation>
     </message>
     <message>
         <source>Top Downloaded Songs (%1)</source>
-        <translation type="unfinished">Топ скачиваний (%1)</translation>
+        <translation>Топ скачиваний (%1)</translation>
     </message>
     <message>
         <source>favourited %1 times</source>
-        <translation type="unfinished">избрана %1 раз</translation>
+        <translation>избрана %1 раз</translation>
     </message>
     <message>
         <source>score %1 of 10</source>
-        <translation type="unfinished">оценка %1 из 10</translation>
+        <translation>оценка %1 из 10</translation>
     </message>
     <message>
         <source>%1 downloads</source>
-        <translation type="unfinished">%1 скачиваний</translation>
+        <translation>%1 скачиваний</translation>
     </message>
     <message>
         <source>Search Songs (%1)</source>
-        <translation type="unfinished">Поиск песен (%1)</translation>
+        <translation>Поиск песен (%1)</translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation type="obsolete">Поиск</translation>
+        <source>Search Songs (%1) - &apos;%2&apos;</source>
+        <translation>Поиск песен (%1) - &apos;%2&apos;</translation>
     </message>
 </context>
 <context>
@@ -295,7 +295,7 @@
     <name>SearchArea</name>
     <message>
         <source>search</source>
-        <translation type="unfinished"></translation>
+        <translation>найти</translation>
     </message>
 </context>
 <context>

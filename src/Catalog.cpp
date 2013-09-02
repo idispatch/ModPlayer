@@ -16,6 +16,8 @@ int InstanceCounter<Catalog>::s_count;
 template<>
 int InstanceCounter<Catalog>::s_maxCount;
 
+#define SELECT_FROM_SONGS "SELECT id, fileName, title, format, downloads, favourited, score, size, length, playCount, lastPlayed, myFavourite FROM songs "
+
 Catalog::Catalog(QObject * parent)
     : QObject(parent),
       m_dataAccess(NULL) {
@@ -160,21 +162,7 @@ Catalog::findArtists() {
 
 GroupDataModel*
 Catalog::findSongsByFormatId(int formatId) {
-    QString query = QString("SELECT"
-                            " id, "
-                            " fileName, "
-                            " title, "
-                            " format, "
-                            " downloads, "
-                            " favourited, "
-                            " score, "
-                            " size, "
-                            " length, "
-                            " playCount, "
-                            " lastPlayed, "
-                            " myFavourite "
-                            "FROM songs "
-                            "WHERE format=%1").arg(formatId);
+    QString query = QString(SELECT_FROM_SONGS "WHERE format=%1").arg(formatId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
                                                               << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -192,22 +180,7 @@ Catalog::findSongsByFormatId(int formatId) {
 
 GroupDataModel*
 Catalog::findSongsByGenreId(int genreId) {
-    QString query = QString(
-            "SELECT "
-            " id, "
-            " fileName, "
-            " title, "
-            " format, "
-            " downloads, "
-            " favourited, "
-            " score, "
-            " size, "
-            " length, "
-            " playCount, "
-            " lastPlayed, "
-            " myFavourite "
-            "FROM songs "
-            "WHERE genre=%1").arg(genreId);
+    QString query = QString(SELECT_FROM_SONGS "WHERE genre=%1").arg(genreId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
                                                               << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -224,22 +197,7 @@ Catalog::findSongsByGenreId(int genreId) {
 
 GroupDataModel*
 Catalog::findSongsByArtistId(int artistId) {
-    QString query = QString(
-            "SELECT "
-            " id, "
-            " fileName, "
-            " title, "
-            " format, "
-            " downloads, "
-            " favourited, "
-            " score, "
-            " size, "
-            " length, "
-            " playCount, "
-            " lastPlayed, "
-            " myFavourite "
-            "FROM songs "
-            "WHERE artist=%1").arg(artistId);
+    QString query = QString(SELECT_FROM_SONGS "WHERE artist=%1").arg(artistId);
     GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
                                                               << "downloads");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -438,20 +396,7 @@ Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
 ArrayDataModel*
 Catalog::selectSongBasicInfo(QString const& whereClause,
                              QString const& orderByClause) {
-    QString query("SELECT"
-                  " id, "
-                  " fileName, "
-                  " title, "
-                  " format, "
-                  " downloads, "
-                  " favourited, "
-                  " score, "
-                  " size, "
-                  " length, "
-                  " playCount, "
-                  " lastPlayed, "
-                  " myFavourite "
-                  "FROM songs ");
+    QString query(SELECT_FROM_SONGS);
     if(whereClause.length() > 0) {
         query += whereClause;
     }
@@ -470,9 +415,40 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
 }
 
 ArrayDataModel*
-Catalog::searchSongs() {
-    return selectSongBasicInfo(" WHERE downloads>0 ",
-                               " ORDER BY downloads DESC ");
+Catalog::searchSongs(QString const& searchTerm, int limit) {
+    QString selectClause = QString(SELECT_FROM_SONGS);
+
+    QString whereClause;
+    if(searchTerm.length() > 0) {
+        Analytics::getInstance()->search(searchTerm);
+
+        QString expr = QString(searchTerm).replace("'", "''")
+                                          .replace("\\", "\\\\")
+                                          .replace("%", "\\%")
+                                          .replace("_", "\\_");
+        whereClause += QString(" WHERE (fileName LIKE '%%%1%%' ESCAPE '\\'"
+                               " OR title LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+    }
+
+    QString orderClause(" ORDER BY downloads DESC ");
+    QString limitClause;
+    if(limit > 0) {
+        limitClause = QString(" LIMIT %1").arg(limit);
+    }
+
+    QString const query = selectClause + whereClause + orderClause + limitClause;
+
+    qDebug() << "Search query" << query;
+
+    ArrayDataModel * model = new ArrayDataModel();
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery(query, db);
+    while(sqlQuery.next()) {
+        QObject* value = readSongBasicInfo(sqlQuery, model);
+        QVariant v = QVariant::fromValue(value);
+        model->append(v);
+    }
+    return model;
 }
 
 ArrayDataModel*
@@ -514,7 +490,6 @@ Catalog::findMostPlayedSongs() {
 void Catalog::addFavourite(QVariant value) {
     SongBasicInfo * info = songBasicInfo(value);
     if(info != 0) {
-        qDebug() << "Adding favourite module" << info->fileName();
         info->setMyFavourite(info->myFavourite() + 1);
         QString query = QString("UPDATE songs SET myFavourite=%1 WHERE id=%2").arg(info->myFavourite())
                                                                               .arg(info->id());
@@ -529,7 +504,6 @@ void Catalog::addFavourite(QVariant value) {
 void Catalog::removeFavourite(QVariant value) {
     SongBasicInfo * info = songBasicInfo(value);
     if(info != 0) {
-        qDebug() << "Removing favourite module" << info->fileName();
         info->setMyFavourite(0);
         QString query = QString("UPDATE songs SET myFavourite=%1 WHERE id=%2").arg(info->myFavourite())
                                                                               .arg(info->id());

@@ -222,6 +222,10 @@
         <source>%1 downloads</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search Songs (%1) - &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>

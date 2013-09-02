@@ -1,3 +1,4 @@
+
 import bb.cascades 1.0
 import "functions.js" as Global
 
@@ -14,7 +15,12 @@ Page {
             if (songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
             if (songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
             if (songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
-            if (songs.mode == "search") return qsTr("Search Songs (%1)").arg(c)
+            if (songs.mode == "search") {
+                if(searchArea.searchTerm.length > 0)
+                    return qsTr("Search Songs (%1) - '%2'").arg(c).arg(searchArea.searchTerm)
+                else
+                    return qsTr("Search Songs (%1)").arg(c)
+            }
             return ""
         }
         kind: TitleBarKind.FreeForm
@@ -32,11 +38,29 @@ Page {
             }
             expandableArea {
                 content: SearchArea {
-                    onSearch: console.log("Searching " + term)
+                    id: searchArea
+                    onSearch: {
+                        unload()
+                        showList("search", 
+                                 app.player.catalog.searchSongs(searchArea.searchTerm,
+                                                                500))
+                    }
                 }
                 expanded: songs.mode == "search"
-                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
-                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
+                indicatorVisibility: {
+                    if(songs.mode == "search") {
+                        return TitleBarExpandableAreaIndicatorVisibility.Visible
+                    } else {
+                        return TitleBarExpandableAreaIndicatorVisibility.Hidden
+                    }
+                }
+                toggleArea: {
+                    if(songs.mode == "search") {
+                        return TitleBarExpandableAreaToggleArea.EntireTitleBar
+                    } else {
+                        return TitleBarExpandableAreaIndicatorVisibility.IndicatorOnly
+                    }
+                }
             }
         }
     }
@@ -184,7 +208,9 @@ Page {
     }
     function loadSearchSongs() {
         unload()
-        showList("search", app.player.catalog.searchSongs())
+        showList("search", 
+                 app.player.catalog.searchSongs("", 
+                                                500))
     }
     actions: [
         PlayerActionItem {

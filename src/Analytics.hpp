@@ -44,6 +44,7 @@ public:
 
     Q_INVOKABLE void showPage(QString const& name) const;
     Q_INVOKABLE void view(int moduleId, QString const& fileName) const;
+    Q_INVOKABLE void search(QString const& query) const;
     Q_INVOKABLE void play(int moduleId, QString const& fileName) const;
     Q_INVOKABLE void addFavourite(int moduleId, QString const& fileName) const;
     Q_INVOKABLE void removeFavourite(int moduleId, QString const& fileName) const;

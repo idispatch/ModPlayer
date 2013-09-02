@@ -40,7 +40,8 @@ public:
     Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByGenreId(int genreId);
     Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByArtistId(int artistId);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs();
+    Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm,
+                                                          int limit);
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs();
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs();
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs();

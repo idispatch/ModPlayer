@@ -148,6 +148,12 @@ void Analytics::view(int moduleId, QString const& fileName) const {
     logModuleEvent("View", moduleId, fileName);
 }
 
+void Analytics::search(QString const& query) const {
+    Flurry::Map parameters;
+    parameters["Query"] = query;
+    Flurry::Analytics::LogEvent("Search", parameters, false);
+}
+
 void Analytics::play(int moduleId, QString const& fileName) const {
     logModuleEvent("Play", moduleId, fileName);
 }
