@@ -774,6 +774,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Formats</source>
         <translation type="unfinished"></translation>
     </message>
@@ -839,14 +847,6 @@
     </message>
     <message>
         <source>Email Author</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search Songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

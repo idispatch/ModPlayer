@@ -9,6 +9,20 @@ ActionItem {
     enabled: currentSong && currentSong.artistId != 0 
     ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered: {
-        
+        var artistId = currentSong.artistId
+        var artistName = currentSong.artist
+        while(navigationPane.count() > 1) {
+            navigationPane.pop()
+        }
+        var view = songList.createObject()
+        view.navigationPane = navigationPane
+        navigationPane.push(view)
+        view.loadSongsByArtist(artistId, artistName)
     }
+    attachedObjects: [
+        ComponentDefinition {
+            id: songList
+            source: "SongsList.qml"
+        }
+    ]
 }
