@@ -181,65 +181,6 @@
     </message>
 </context>
 <context>
-    <name>PersonalSongList</name>
-    <message>
-        <source>Recently Played Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My Favourite Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Most Played Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Top Favourited Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Top Scored Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Top Downloaded Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>favourited %1 times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>score %1 of 10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 downloads</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search Songs (%1) - &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 Songs (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Songs by %1 (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>PlayActionItem</name>
     <message>
         <source>Stop</source>
@@ -567,6 +508,65 @@
     </message>
 </context>
 <context>
+    <name>SongList</name>
+    <message>
+        <source>Recently Played Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Favourite Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Most Played Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Favourited Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Scored Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Downloaded Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>favourited %1 times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>score %1 of 10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Songs (%1) - &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Songs (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs by %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SongMainInfo</name>
     <message>
         <source>File: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -666,33 +666,6 @@
     </message>
     <message>
         <source>Play</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongsList</name>
-    <message>
-        <source>%1 Songs (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Songs by %1 (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All Songs (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>score %1 of 10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>favourited %1 times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 downloads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

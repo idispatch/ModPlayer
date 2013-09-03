@@ -181,65 +181,6 @@
     </message>
 </context>
 <context>
-    <name>PersonalSongList</name>
-    <message>
-        <source>Recently Played Songs (%1)</source>
-        <translation>Недавно прослушанные (%1)</translation>
-    </message>
-    <message>
-        <source>My Favourite Songs (%1)</source>
-        <translation>Мои избранные песни (%1)</translation>
-    </message>
-    <message>
-        <source>Most Played Songs (%1)</source>
-        <translation>Часто прослушиваемые (%1)</translation>
-    </message>
-    <message>
-        <source>Top Favourited Songs (%1)</source>
-        <translation>Топ избранных (%1)</translation>
-    </message>
-    <message>
-        <source>Top Scored Songs (%1)</source>
-        <translation>Топ оцененных (%1)</translation>
-    </message>
-    <message>
-        <source>Top Downloaded Songs (%1)</source>
-        <translation>Топ скачиваний (%1)</translation>
-    </message>
-    <message>
-        <source>favourited %1 times</source>
-        <translation>избрана %1 раз</translation>
-    </message>
-    <message>
-        <source>score %1 of 10</source>
-        <translation>оценка %1 из 10</translation>
-    </message>
-    <message>
-        <source>%1 downloads</source>
-        <translation>%1 скачиваний</translation>
-    </message>
-    <message>
-        <source>Search Songs (%1)</source>
-        <translation>Поиск песен (%1)</translation>
-    </message>
-    <message>
-        <source>Search Songs (%1) - &apos;%2&apos;</source>
-        <translation>Поиск песен (%1) - &apos;%2&apos;</translation>
-    </message>
-    <message>
-        <source>%1 Songs (%2)</source>
-        <translation type="unfinished">%1 песен (%2)</translation>
-    </message>
-    <message>
-        <source>Songs by %1 (%2)</source>
-        <translation type="unfinished">Песни %1 (%2)</translation>
-    </message>
-    <message>
-        <source>All Songs (%1)</source>
-        <translation type="unfinished">Все песни (%1)</translation>
-    </message>
-</context>
-<context>
     <name>PlayActionItem</name>
     <message>
         <source>Stop</source>
@@ -567,6 +508,65 @@
     </message>
 </context>
 <context>
+    <name>SongList</name>
+    <message>
+        <source>Recently Played Songs (%1)</source>
+        <translation>Недавно прослушанные (%1)</translation>
+    </message>
+    <message>
+        <source>My Favourite Songs (%1)</source>
+        <translation>Мои избранные песни (%1)</translation>
+    </message>
+    <message>
+        <source>Most Played Songs (%1)</source>
+        <translation>Часто прослушиваемые (%1)</translation>
+    </message>
+    <message>
+        <source>Top Favourited Songs (%1)</source>
+        <translation>Топ избранных (%1)</translation>
+    </message>
+    <message>
+        <source>Top Scored Songs (%1)</source>
+        <translation>Топ оцененных (%1)</translation>
+    </message>
+    <message>
+        <source>Top Downloaded Songs (%1)</source>
+        <translation>Топ скачиваний (%1)</translation>
+    </message>
+    <message>
+        <source>favourited %1 times</source>
+        <translation>избрана %1 раз</translation>
+    </message>
+    <message>
+        <source>score %1 of 10</source>
+        <translation>оценка %1 из 10</translation>
+    </message>
+    <message>
+        <source>%1 downloads</source>
+        <translation>%1 скачиваний</translation>
+    </message>
+    <message>
+        <source>Search Songs (%1)</source>
+        <translation>Поиск песен (%1)</translation>
+    </message>
+    <message>
+        <source>Search Songs (%1) - &apos;%2&apos;</source>
+        <translation>Поиск песен (%1) - &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <source>%1 Songs (%2)</source>
+        <translation>%1 песен (%2)</translation>
+    </message>
+    <message>
+        <source>Songs by %1 (%2)</source>
+        <translation>Песни %1 (%2)</translation>
+    </message>
+    <message>
+        <source>All Songs (%1)</source>
+        <translation>Все песни (%1)</translation>
+    </message>
+</context>
+<context>
     <name>SongMainInfo</name>
     <message>
         <source>File: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -673,27 +673,27 @@
     <name>SongsList</name>
     <message>
         <source>%1 Songs (%2)</source>
-        <translation>%1 песен (%2)</translation>
+        <translation type="obsolete">%1 песен (%2)</translation>
     </message>
     <message>
         <source>Songs by %1 (%2)</source>
-        <translation>Песни %1 (%2)</translation>
+        <translation type="obsolete">Песни %1 (%2)</translation>
     </message>
     <message>
         <source>All Songs (%1)</source>
-        <translation>Все песни (%1)</translation>
+        <translation type="obsolete">Все песни (%1)</translation>
     </message>
     <message>
         <source>score %1 of 10</source>
-        <translation>оценка %1 из 10</translation>
+        <translation type="obsolete">оценка %1 из 10</translation>
     </message>
     <message>
         <source>favourited %1 times</source>
-        <translation>избрана %1 раз</translation>
+        <translation type="obsolete">избрана %1 раз</translation>
     </message>
     <message>
         <source>%1 downloads</source>
-        <translation>%1 скачиваний</translation>
+        <translation type="obsolete">%1 скачиваний</translation>
     </message>
 </context>
 <context>

@@ -47,7 +47,7 @@ Page {
             attachedObjects: [
                 ComponentDefinition {
                     id: songList
-                    source: "PersonalSongList.qml"
+                    source: "SongList.qml"
                 }
             ]
         }

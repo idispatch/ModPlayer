@@ -17,7 +17,7 @@ TabbedPane {
         }
         NavigationPane {
             id: myFavouriteNavigationPane
-            PersonalSongList {
+            SongList {
                 id: songMyFavouriteView
                 navigationPane: myFavouriteNavigationPane
             }
@@ -41,7 +41,7 @@ TabbedPane {
         }
         NavigationPane {
             id: recentlyPlayedNavigationPane 
-            PersonalSongList {
+            SongList {
                 id: songRecentlyPlayedView
                 navigationPane: recentlyPlayedNavigationPane
             }
@@ -65,7 +65,7 @@ TabbedPane {
         }
         NavigationPane {
             id: mostPlayedNavigationPane
-            PersonalSongList {
+            SongList {
                 id: songMostPlayedView
                 navigationPane: mostPlayedNavigationPane
             }
@@ -89,7 +89,7 @@ TabbedPane {
         }
         NavigationPane {
             id: searchNavigationPane
-            PersonalSongList {
+            SongList {
                 id: songSearchView
                 navigationPane: searchNavigationPane
             }
@@ -182,7 +182,7 @@ TabbedPane {
         }
         NavigationPane {
             id: topDownloadsNavigationPane
-            PersonalSongList {
+            SongList {
                 id: songsTopDownloadedView
                 navigationPane: topDownloadsNavigationPane
             }
@@ -206,7 +206,7 @@ TabbedPane {
         }
         NavigationPane {
             id: topFavouritedNavigationPane
-            PersonalSongList {
+            SongList {
                 id: songTopFavouritedView
                 navigationPane: topFavouritedNavigationPane
             }
@@ -230,7 +230,7 @@ TabbedPane {
         }
         NavigationPane {
             id: topScoredNavigationPane
-            PersonalSongList {
+            SongList {
                 id: songTopScoredView
                 navigationPane: topScoredNavigationPane
             }
