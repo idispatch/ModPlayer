@@ -260,6 +260,7 @@ void SongModule::assignInfo(SongExtendedInfo const& other) {
     setFormat(other.format());
     setTracker(other.tracker());
     setGenre(other.genre());
+    setArtistId(other.artistId());
     setArtist(other.artist());
 }
 

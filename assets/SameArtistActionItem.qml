@@ -3,7 +3,6 @@ import bb.cascades 1.0
 ActionItem {
     property variant currentSong
     property variant navigationPane
-    
     title: qsTr("Songs by Artist")
     imageSource: "asset:///images/actions/icon_artist.png"
     enabled: currentSong && currentSong.artistId != 0 
@@ -11,12 +10,12 @@ ActionItem {
     onTriggered: {
         var artistId = currentSong.artistId
         var artistName = currentSong.artist
-        while(navigationPane.count() > 1) {
-            navigationPane.pop()
-        }
         var view = songList.createObject()
         view.navigationPane = navigationPane
-        navigationPane.push(view)
+        /*while(navigationPane.count() > 1) {
+            navigationPane.pop()
+        }*/
+        view.navigationPane.push(view)
         view.loadSongsByArtist(artistId, artistName)
     }
     attachedObjects: [
