@@ -10,12 +10,11 @@ ActionItem {
     onTriggered: {
         var artistId = currentSong.artistId
         var artistName = currentSong.artist
+        var previousPage = navigationPane.top
         var view = songList.createObject()
         view.navigationPane = navigationPane
-        /*while(navigationPane.count() > 1) {
-            navigationPane.pop()
-        }*/
-        view.navigationPane.push(view)
+        navigationPane.push(view)
+        navigationPane.remove(previousPage)
         view.loadSongsByArtist(artistId, artistName)
     }
     attachedObjects: [
