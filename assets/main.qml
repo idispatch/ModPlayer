@@ -239,7 +239,7 @@ TabbedPane {
             }
         }
     }
-    activeTab: formatsTab 
+    activeTab: searchTab 
     onActiveTabChanged: {
         var c = mainTabPane.count()
         for (var i = 0; i < c; ++i) {

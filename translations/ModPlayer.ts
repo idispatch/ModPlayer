@@ -226,6 +226,18 @@
         <source>Search Songs (%1) - &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 Songs (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs by %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>

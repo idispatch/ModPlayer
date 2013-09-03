@@ -15,6 +15,9 @@ Page {
             if (songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
             if (songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
             if (songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
+            if (songs.mode == 'format')  return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
+            if (songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
+            if (songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == "search") {
                 if(c > maximumSearchSongResults) {
                     c = "%1+".arg(maximumSearchSongResults)
@@ -24,7 +27,7 @@ Page {
                 }
                 return qsTr("Search Songs (%1)").arg(c)
             }
-            return ""
+            return qsTr("All Songs (%1)").arg(c)
         }
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
@@ -44,7 +47,8 @@ Page {
                     id: searchArea
                     onSearch: {
                         unload()
-                        showList("search", 
+                        showList("search",
+                                 "", 
                                  app.player.catalog.searchSongs(searchArea.searchTerm,
                                                                 maximumSearchSongResults))
                     }
@@ -74,6 +78,7 @@ Page {
         ListView {
             id: songs
             property string mode
+            property string modelName
             visible: false
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -104,7 +109,7 @@ Page {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
                                 }
-                                if (mode == "topScored") {
+                                if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist") {
                                     if (ListItem.data.score > 0) {
                                         return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
@@ -130,6 +135,11 @@ Page {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
+                                if (mode == "format" || mode == "genre" || mode == "artist") {
+                                    if(ListItem.data.favourited > 0) {
+                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                    }
+                                }
                             }
                             return ""
                         }
@@ -146,7 +156,7 @@ Page {
                                         return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                     }
                                 }
-                                if (mode == "topFavourited") {
+                                if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist") {
                                     if (ListItem.data.downloads > 0) {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
@@ -178,8 +188,9 @@ Page {
             ]
         }
     }
-    function showList(listName, model) {
+    function showList(listName, modelName, model) {
         songs.mode = listName
+        songs.modelName = modelName
         if (songs.dataModel) {
             songs.dataModel.clear()
         }
@@ -198,34 +209,47 @@ Page {
         }
         songs.resetDataModel()
         songs.mode = ""
+        songs.modelName = ""
     }
     function loadRecentlyPlayedSongs() {
         unload()
-        showList("recent", app.player.catalog.findRecentlyPlayedSongs())
+        showList("recent", "", app.player.catalog.findRecentlyPlayedSongs())
     }
     function loadMyFavouriteSongs() {
         unload()
-        showList("myFavourite", app.player.catalog.findMyFavouriteSongs())
+        showList("myFavourite", "", app.player.catalog.findMyFavouriteSongs())
     }
     function loadMostPlayedSongs() {
         unload()
-        showList("mostPlayed", app.player.catalog.findMostPlayedSongs())
+        showList("mostPlayed", "", app.player.catalog.findMostPlayedSongs())
     }
     function loadMostFavouritedSongs() {
         unload()
-        showList("topFavourited", app.player.catalog.findMostFavouritedSongs())
+        showList("topFavourited", "", app.player.catalog.findMostFavouritedSongs())
     }
     function loadMostScoredSongs() {
         unload()
-        showList("topScored", app.player.catalog.findMostScoredSongs())
+        showList("topScored", "", app.player.catalog.findMostScoredSongs())
     }
     function loadMostDownloadedSongs() {
         unload()
-        showList("topDownloads", app.player.catalog.findMostDownloadedSongs())
+        showList("topDownloads", "", app.player.catalog.findMostDownloadedSongs())
     }
     function loadSearchSongs() {
         unload()
-        showList("search", app.player.catalog.searchSongs("", maximumSearchSongResults))
+        showList("search", "", app.player.catalog.searchSongs("", maximumSearchSongResults))
+    }
+    function loadSongsByFormat(formatId, formatName) {
+        unload()
+        showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId))
+    }
+    function loadSongsByGenre(genreId, genreName) {
+        unload()
+        showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId))
+    }
+    function loadSongsByArtist(artistId, artistName) {
+        unload()
+        showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId))
     }
     actions: [
         PlayerActionItem {

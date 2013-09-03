@@ -20,7 +20,7 @@ ActionItem {
     attachedObjects: [
         ComponentDefinition {
             id: songList
-            source: "SongsList.qml"
+            source: "PersonalSongList.qml"
         }
     ]
 }

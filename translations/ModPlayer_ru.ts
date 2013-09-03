@@ -226,6 +226,18 @@
         <source>Search Songs (%1) - &apos;%2&apos;</source>
         <translation>Поиск песен (%1) - &apos;%2&apos;</translation>
     </message>
+    <message>
+        <source>%1 Songs (%2)</source>
+        <translation type="unfinished">%1 песен (%2)</translation>
+    </message>
+    <message>
+        <source>Songs by %1 (%2)</source>
+        <translation type="unfinished">Песни %1 (%2)</translation>
+    </message>
+    <message>
+        <source>All Songs (%1)</source>
+        <translation type="unfinished">Все песни (%1)</translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
