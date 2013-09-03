@@ -90,19 +90,29 @@ Page {
                             var mode = ListItem.view.mode
                             if (ListItem.data) {
                                 if (mode == "recent") {
-                                    return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                    if(ListItem.data.lastPlayed > 0) {
+                                        return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                    }
                                 }
                                 if (mode == "myFavourite" || mode == "mostPlayed") {
-                                    return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                    if(ListItem.data.playCount > 0) {
+                                        return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                    }
                                 }
                                 if (mode == "topFavourited") {
-                                    return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                    if (ListItem.data.favourited > 0) {
+                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                    }
                                 }
                                 if (mode == "topScored") {
-                                    return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                    if (ListItem.data.score > 0) {
+                                        return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                    }
                                 }
                                 if (mode == "topDownloads" || mode == "search") {
-                                    return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                    if (ListItem.data.downloads > 0) {
+                                        return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                    }
                                 }
                             }
                             return ""
@@ -127,10 +137,14 @@ Page {
                             var mode = ListItem.view.mode
                             if (ListItem.data) {
                                 if (mode == "recent") {
-                                    return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                    if(ListItem.data.playCount > 0) {
+                                        return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                    }
                                 }
                                 if (mode == "myFavourite" || mode == "mostPlayed") {
-                                    return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                    if(ListItem.data.lastPlayed > 0) {
+                                        return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                    }
                                 }
                                 if (mode == "topFavourited") {
                                     if (ListItem.data.downloads > 0) {
