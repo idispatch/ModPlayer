@@ -239,7 +239,10 @@ TabbedPane {
             }
         }
     }
-    activeTab: searchTab 
+    activeTab: searchTab
+    onCreationCompleted: {
+        songSearchView.loadSearchSongs()
+    } 
     onActiveTabChanged: {
         var c = mainTabPane.count()
         for (var i = 0; i < c; ++i) {

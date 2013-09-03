@@ -160,56 +160,43 @@ Catalog::findArtists() {
     return model;
 }
 
-GroupDataModel*
-Catalog::findSongsByFormatId(int formatId) {
-    QString query = QString(SELECT_FROM_SONGS "WHERE format=%1").arg(formatId);
-    GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads");
-    model->setGrouping(ItemGrouping::ByFirstChar);
-    model->setSortedAscending(true);
-
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    while(sqlQuery.next()) {
-        QObject* value = readSongBasicInfo(sqlQuery, model);
-        model->insert(value);
-    }
-
-    return model;
+ArrayDataModel*
+Catalog::findSongsByFormatId(int formatId, int limit) {
+    return selectSongBasicInfo(QString("WHERE format=%1").arg(formatId),
+                               " ORDER BY "
+                               "favourited DESC, "
+                               "score DESC, "
+                               "downloads DESC, "
+                               "playCount DESC, "
+                               "lastPlayed DESC, "
+                               "fileName ASC ",
+                               limit);
 }
 
-GroupDataModel*
-Catalog::findSongsByGenreId(int genreId) {
-    QString query = QString(SELECT_FROM_SONGS "WHERE genre=%1").arg(genreId);
-    GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads");
-    model->setGrouping(ItemGrouping::ByFirstChar);
-    model->setSortedAscending(true);
-
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    while(sqlQuery.next()) {
-        QObject* value = readSongBasicInfo(sqlQuery, model);
-        model->insert(value);
-    }
-    return model;
+ArrayDataModel*
+Catalog::findSongsByGenreId(int genreId, int limit) {
+    return selectSongBasicInfo(QString("WHERE genre=%1").arg(genreId),
+                               " ORDER BY "
+                               "favourited DESC, "
+                               "score DESC, "
+                               "downloads DESC, "
+                               "playCount DESC, "
+                               "lastPlayed DESC, "
+                               "fileName ASC ",
+                               limit);
 }
 
-GroupDataModel*
-Catalog::findSongsByArtistId(int artistId) {
-    QString query = QString(SELECT_FROM_SONGS "WHERE artist=%1").arg(artistId);
-    GroupDataModel * model = new GroupDataModel(QStringList() << "fileName"
-                                                              << "downloads");
-    model->setGrouping(ItemGrouping::ByFirstChar);
-    model->setSortedAscending(true);
-
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    while(sqlQuery.next()) {
-        QObject* value = readSongBasicInfo(sqlQuery, model);
-        model->insert(value);
-    }
-    return model;
+ArrayDataModel*
+Catalog::findSongsByArtistId(int artistId, int limit) {
+    return selectSongBasicInfo(QString("WHERE artist=%1").arg(artistId),
+                               " ORDER BY "
+                               "favourited DESC, "
+                               "score DESC, "
+                               "downloads DESC, "
+                               "playCount DESC, "
+                               "lastPlayed DESC, "
+                               "fileName ASC ",
+                               limit);
 }
 
 QString Catalog::resolveFileNameById(int id) {
@@ -398,13 +385,17 @@ Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
 
 ArrayDataModel*
 Catalog::selectSongBasicInfo(QString const& whereClause,
-                             QString const& orderByClause) {
+                             QString const& orderByClause,
+                             int limit) {
     QString query(SELECT_FROM_SONGS);
     if(whereClause.length() > 0) {
         query += whereClause;
     }
     if(orderByClause.length() > 0) {
         query += orderByClause;
+    }
+    if(limit > 0) {
+        query += QString(" LIMIT %1").arg(limit + 1);
     }
     ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
@@ -433,7 +424,7 @@ Catalog::searchSongs(QString const& searchTerm, int limit) {
                                " OR title LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
     }
 
-    QString orderClause(" ORDER BY downloads DESC ");
+    QString orderClause(" ORDER BY favourited DESC, score DESC, downloads DESC ");
     QString limitClause;
     if(limit > 0) {
         limitClause = QString(" LIMIT %1").arg(limit + 1);
@@ -455,39 +446,45 @@ Catalog::searchSongs(QString const& searchTerm, int limit) {
 }
 
 ArrayDataModel*
-Catalog::findMostDownloadedSongs() {
+Catalog::findMostDownloadedSongs(int limit) {
     return selectSongBasicInfo(" WHERE downloads>0 ",
-                               " ORDER BY downloads DESC ");
+                               " ORDER BY downloads DESC ",
+                               limit);
 }
 
 ArrayDataModel*
-Catalog::findMostFavouritedSongs() {
+Catalog::findMostFavouritedSongs(int limit) {
     return selectSongBasicInfo(" WHERE favourited>0 ",
-                               " ORDER BY favourited DESC, downloads DESC, score DESC ");
+                               " ORDER BY favourited DESC, downloads DESC, score DESC ",
+                               limit);
 }
 
 ArrayDataModel*
-Catalog::findMostScoredSongs() {
+Catalog::findMostScoredSongs(int limit) {
     return selectSongBasicInfo(" WHERE score>0 ",
-                               " ORDER BY score DESC, downloads DESC, favourited DESC ");
+                               " ORDER BY score DESC, downloads DESC, favourited DESC ",
+                               limit);
 }
 
 ArrayDataModel*
-Catalog::findRecentlyPlayedSongs() {
+Catalog::findRecentlyPlayedSongs(int limit) {
     return selectSongBasicInfo(" WHERE lastPlayed>0 ",
-                               " ORDER BY lastPlayed DESC ");
+                               " ORDER BY lastPlayed DESC ",
+                               limit);
 }
 
 ArrayDataModel*
-Catalog::findMyFavouriteSongs() {
+Catalog::findMyFavouriteSongs(int limit) {
     return selectSongBasicInfo(" WHERE myFavourite>0 ",
-                               " ORDER BY playCount DESC, lastPlayed DESC ");
+                               " ORDER BY playCount DESC, lastPlayed DESC ",
+                               limit);
 }
 
 ArrayDataModel*
-Catalog::findMostPlayedSongs() {
+Catalog::findMostPlayedSongs(int limit) {
     return selectSongBasicInfo(" WHERE playCount>0 ",
-                               " ORDER BY playCount DESC, lastPlayed DESC ");
+                               " ORDER BY playCount DESC, lastPlayed DESC ",
+                               limit);
 }
 
 void Catalog::addFavourite(QVariant value) {

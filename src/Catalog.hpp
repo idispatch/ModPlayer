@@ -36,19 +36,19 @@ public:
     Q_INVOKABLE bb::cascades::GroupDataModel* findGenres();
     Q_INVOKABLE bb::cascades::GroupDataModel* findArtists();
 
-    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByFormatId(int formatId);
-    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByGenreId(int genreId);
-    Q_INVOKABLE bb::cascades::GroupDataModel* findSongsByArtistId(int artistId);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(int formatId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByGenreId(int genreId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByArtistId(int artistId, int limit);
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm,
                                                           int limit);
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs();
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs(int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs();
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs();
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(int limit);
 
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
@@ -76,7 +76,8 @@ private:
     SongExtendedInfo * selectSongInfo(QString const& whereClause, QObject *parent);
 
     bb::cascades::ArrayDataModel* selectSongBasicInfo(QString const& whereClause,
-                                                      QString const& orderByClause);
+                                                      QString const& orderByClause,
+                                                      int limit);
 
     static SongBasicInfo * readSongBasicInfo(QSqlQuery &sqlQuery,
                                              QObject *parent);
