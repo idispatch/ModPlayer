@@ -295,6 +295,12 @@ Sheet {
                                 settingsRoot.configuration.resamplingMode = selectedValue
                             }
                         }
+                    }
+                    GroupContainer {
+                        topPadding: 20
+                        bottomPadding: 40
+                        leftPadding: 20
+                        rightPadding: leftPadding
                         Label {
                             text: qsTr("Stereo Separation")
                             textStyle {
@@ -331,6 +337,12 @@ Sheet {
                                 settingsRoot.configuration.noiseReductionEnabled = noiseReduction.checked
                             }
                         }
+                    }
+                    GroupContainer {
+                        topPadding: 20
+                        bottomPadding: 40
+                        leftPadding: 20
+                        rightPadding: leftPadding
                         CheckBox {
                             id: reverbEnabled
                             text: qsTr("Enable Reverb")
@@ -381,6 +393,12 @@ Sheet {
                                 }
                             }
                         }
+                    }
+                    GroupContainer {
+                        topPadding: 20
+                        bottomPadding: 40
+                        leftPadding: 20
+                        rightPadding: leftPadding
                         CheckBox {
                             id: megabassEnabled
                             text: qsTr("Enable MegaBass")
@@ -431,6 +449,12 @@ Sheet {
                                 }
                             }
                         }
+                    }
+                    GroupContainer {
+                        topPadding: 20
+                        bottomPadding: 40
+                        leftPadding: 20
+                        rightPadding: leftPadding
                         CheckBox {
                             id: surroundEnabled
                             text: qsTr("Enable Surround Sound")

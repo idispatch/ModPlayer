@@ -4,7 +4,7 @@ import "functions.js" as Global
 Page {
     id: personalSongListPage
     property variant navigationPane
-    property int maximumSearchSongResults: 500
+    property int maximumSearchSongResults: 250
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
