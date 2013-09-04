@@ -32,13 +32,13 @@ function formatTimeStamp(unix_timestamp) {
            diff < 120 && qsTr("1 minute ago") ||
            diff < 3600 && qsTr("%1 minutes ago").arg(Math.floor( diff / 60 )) ||
            diff < 7200 && qsTr("1 hour ago") ||
-           diff < 86400 && qsTr("%1 hours ago").arg(Math.floor( diff / 3600 )) ||
+           diff < 86400 && qsTr("%1 hours ago").arg(Math.floor( diff / 3600 ))) ||
            
-           (day_diff == 1 && qsTr("yesterday")) ||
+           day_diff == 1 && qsTr("yesterday") ||
            day_diff < 7 && qsTr("%1 days ago").arg(day_diff) ||
            day_diff < 31 && qsTr("%1 weeks ago").arg(Math.ceil(day_diff / 7)) ||
            day_diff < 365 && qsTr("%1 months ago").arg(Math.ceil(day_diff / 12)) ||
-           qsTr("long ago"));
+           qsTr("long ago");
 }
 
 var entityMap = {
