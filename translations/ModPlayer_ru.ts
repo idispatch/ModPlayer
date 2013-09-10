@@ -170,6 +170,36 @@
     </message>
 </context>
 <context>
+    <name>Instruments</name>
+    <message>
+        <source>Play</source>
+        <translation type="obsolete">Играть</translation>
+    </message>
+    <message>
+        <source>Samples</source>
+        <translation>Сэмплы</translation>
+    </message>
+    <message>
+        <source>Instruments</source>
+        <translation>Инструменты</translation>
+    </message>
+    <message>
+        <source>Samples of %1</source>
+        <translation>Сэмплы %1</translation>
+    </message>
+    <message>
+        <source>Instruments of %1</source>
+        <translation>Инструменты %1</translation>
+    </message>
+</context>
+<context>
+    <name>InstrumentsActionItem</name>
+    <message>
+        <source>Instruments and Samples</source>
+        <translation>Инструменты и сэмплы</translation>
+    </message>
+</context>
+<context>
     <name>PauseActionItem</name>
     <message>
         <source>Resume</source>

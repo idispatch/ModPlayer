@@ -12,6 +12,8 @@ int InstanceCounter<SongModule>::s_count;
 template<>
 int InstanceCounter<SongModule>::s_maxCount;
 
+using namespace bb::cascades;
+
 SongModule::SongModule(QObject *parent)
     : SongExtendedInfo(parent),
       m_currentOrder(0),
@@ -242,6 +244,38 @@ bool SongModule::rewind() {
         return true;
     }
     return false;
+}
+
+ArrayDataModel* SongModule::getSampleNames() {
+    ArrayDataModel * model = new ArrayDataModel();
+    unsigned sampleCount = ModPlug_NumSamples(m_modPlug);
+    unsigned int i = 0;
+    while(sampleCount-- > 0) {
+        char buffer[64];
+        ModPlug_SampleName(m_modPlug, i++, buffer);
+        QVariantMap sampleInfo;
+        sampleInfo["id"] = i;
+        sampleInfo["name"] = QVariant::fromValue(QString(buffer));
+        //qDebug() << sampleInfo;
+        model->append(QVariant::fromValue(sampleInfo));
+    }
+    return model;
+}
+
+ArrayDataModel* SongModule::getInstrumentNames() {
+    ArrayDataModel * model = new ArrayDataModel();
+    unsigned sampleCount = ModPlug_NumInstruments(m_modPlug);
+    unsigned int i = 0;
+    while(sampleCount-- > 0) {
+        char buffer[64];
+        ModPlug_InstrumentName(m_modPlug, i++, buffer);
+        QVariantMap instrumentInfo;
+        instrumentInfo["id"] = i;
+        instrumentInfo["name"] = QVariant::fromValue(QString(buffer));
+        //qDebug() << instrumentInfo;
+        model->append(QVariant::fromValue(instrumentInfo));
+    }
+    return model;
 }
 
 void SongModule::assignInfo(SongExtendedInfo const& other) {

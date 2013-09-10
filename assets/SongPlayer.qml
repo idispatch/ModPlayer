@@ -65,6 +65,9 @@ Page {
             currentSong: app.player.currentSong
             navigationPane: songPlayer.navigationPane 
         },
+        InstrumentsActionItem {
+            navigationPane: songPlayer.navigationPane
+        },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong
             enabled: app.player.currentSong.songLoaded

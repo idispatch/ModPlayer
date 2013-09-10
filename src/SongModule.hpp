@@ -3,6 +3,7 @@
 
 #include <QMetaType>
 #include <QObject>
+#include  <bb/cascades/ArrayDataModel>
 #include "SongExtendedInfo.hpp"
 #include "InstanceCounter.hpp"
 
@@ -64,6 +65,9 @@ public:
     Q_INVOKABLE bool load(SongExtendedInfo const& info, QString const& fileName);
     Q_INVOKABLE bool unload();
     Q_INVOKABLE bool rewind();
+
+    Q_INVOKABLE bb::cascades::ArrayDataModel* getSampleNames();
+    Q_INVOKABLE bb::cascades::ArrayDataModel* getInstrumentNames();
 
     operator ModPlugFile* ();
 
