@@ -87,6 +87,7 @@ Page {
                         }
                         onCreationCompleted: {
                             selector.selectedIndexChanged.connect(load)
+                            app.player.currentSong.songLoadedChanged.connect(load)
                             mode = 'samples'
                             load()
                         }
