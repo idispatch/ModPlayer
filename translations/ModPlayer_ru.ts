@@ -172,10 +172,6 @@
 <context>
     <name>Instruments</name>
     <message>
-        <source>Play</source>
-        <translation type="obsolete">Играть</translation>
-    </message>
-    <message>
         <source>Samples</source>
         <translation>Сэмплы</translation>
     </message>
@@ -184,12 +180,16 @@
         <translation>Инструменты</translation>
     </message>
     <message>
-        <source>Samples of %1</source>
-        <translation>Сэмплы %1</translation>
+        <source>Samples of %1 (%2)</source>
+        <translation>Сэмплы %1 (%2)</translation>
     </message>
     <message>
-        <source>Instruments of %1</source>
-        <translation>Инструменты %1</translation>
+        <source>Instruments of %1 (%2)</source>
+        <translation>Инструменты %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Instruments and Samples</source>
+        <translation>Инструменты и сэмплы</translation>
     </message>
 </context>
 <context>

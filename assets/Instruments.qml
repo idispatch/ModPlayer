@@ -5,10 +5,14 @@ Page {
     property string mode: "samples"
     titleBar: PlayerTitleBar {
         title: {
-            if(mode == 'samples') {
-                return qsTr("Samples of %1").arg(app.player.currentSong.fileName)
+            if(app.player.currentSong.songLoaded) {
+                if(mode == 'samples') {
+                    return qsTr("Samples of %1 (%2)").arg(app.player.currentSong.fileName).arg(app.player.currentSong.samples)
+                } else {
+                    return qsTr("Instruments of %1 (%2)").arg(app.player.currentSong.fileName).arg(app.player.currentSong.instruments)
+                }
             } else {
-                return qsTr("Instruments of %1").arg(app.player.currentSong.fileName)
+                return qsTr("Instruments and Samples")
             }
         }
     }
@@ -24,13 +28,13 @@ Page {
                     Option {
                         text: qsTr("Samples")
                         value: "samples"
-                        enabled: app.player.currentSong.samples > 0
+                        enabled: app.player.currentSong.songLoaded && app.player.currentSong.samples > 0
                         selected: app.player.currentSong.samples > 0
                     }
                     Option {
                         text: qsTr("Instruments")
                         value: "instruments"
-                        enabled: app.player.currentSong.instruments > 0
+                        enabled: app.player.currentSong.songLoaded && app.player.currentSong.instruments > 0
                     }
                     onSelectedIndexChanged: {
                         instrumentsView.mode = selector.selectedValue
@@ -38,55 +42,53 @@ Page {
                 }
             }
             GroupContainer {
-                ScrollView {
-                    VerticalContainer {
+                VerticalContainer {
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    ListView {
+                        id: itemList
                         horizontalAlignment: HorizontalAlignment.Fill
-                        ListView {
-                            id: itemList
-                            horizontalAlignment: HorizontalAlignment.Fill
-                            verticalAlignment: VerticalAlignment.Fill
-                            topPadding: 20
-                            bottomPadding: topPadding
-                            leftPadding: 10
-                            rightPadding: leftPadding
-                            listItemComponents: [
-                                ListItemComponent {
-                                    VerticalContainer{
-                                        id: row
+                        verticalAlignment: VerticalAlignment.Fill
+                        topPadding: 20
+                        bottomPadding: topPadding
+                        leftPadding: 10
+                        rightPadding: leftPadding
+                        listItemComponents: [
+                            ListItemComponent {
+                                VerticalContainer{
+                                    id: row
+                                    HorizontalContainer {
+                                        horizontalAlignment: HorizontalAlignment.Fill
                                         HorizontalContainer {
-                                            horizontalAlignment: HorizontalAlignment.Fill
-                                            HorizontalContainer {
-                                                preferredWidth: 60
-                                                minWidth: 60
-                                                BlackLabel {
-                                                    text: row.ListItem.data['id']
-                                                    textStyle {
-                                                        base: SystemDefaults.TextStyles.BodyText
-                                                        fontWeight: FontWeight.W100
-                                                        color: Color.Black
-                                                    }
+                                            preferredWidth: 60
+                                            minWidth: 60
+                                            BlackLabel {
+                                                text: row.ListItem.data['id']
+                                                textStyle {
+                                                    base: SystemDefaults.TextStyles.BodyText
+                                                    fontWeight: FontWeight.W100
+                                                    color: Color.Black
                                                 }
                                             }
-                                            BlackLabel {
-                                                text: row.ListItem.data['name']
-                                            }
                                         }
-                                        Divider {}
+                                        BlackLabel {
+                                            text: row.ListItem.data['name']
+                                        }
                                     }
-                                }
-                            ]
-                            function load() {
-                                if(mode == 'samples') {
-                                    dataModel = app.player.currentSong.getSampleNames()
-                                } else {
-                                    dataModel = app.player.currentSong.getInstrumentNames()
+                                    Divider {}
                                 }
                             }
-                            onCreationCompleted: {
-                                selector.selectedIndexChanged.connect(load)
-                                mode = 'samples'
-                                load()
+                        ]
+                        function load() {
+                            if(mode == 'samples') {
+                                dataModel = app.player.currentSong.getSampleNames()
+                            } else {
+                                dataModel = app.player.currentSong.getInstrumentNames()
                             }
+                        }
+                        onCreationCompleted: {
+                            selector.selectedIndexChanged.connect(load)
+                            mode = 'samples'
+                            load()
                         }
                     }
                 }

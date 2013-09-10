@@ -172,19 +172,23 @@
 <context>
     <name>Instruments</name>
     <message>
-        <source>Samples of %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Instruments of %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Samples</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Instruments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Samples of %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instruments of %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instruments and Samples</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
