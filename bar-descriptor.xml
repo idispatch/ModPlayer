@@ -5,7 +5,7 @@
        ModPlayer
        <text xml:lang="ru">ModPlayer</text>
     </name>
-    <versionNumber>1.1.0</versionNumber>
+    <versionNumber>2.0.0</versionNumber>
     <packageLocale>ru</packageLocale>
     <buildId>100</buildId>
     <!--<versionLabel>1.0</versionLabel>-->

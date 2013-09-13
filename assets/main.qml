@@ -98,75 +98,7 @@ TabbedPane {
             }
         }
     }
-    Tab {
-        id: formatsTab
-        title: qsTr("Formats")
-        objectName: title
-        description: qsTr("Songs By Module Format")
-        imageSource: "asset:///images/actions/icon_format.png"
-        onTriggered: {
-            app.analytics.showPage(title)
-            songFormatsList.load()
-        }
-        function unload() {
-        }
-        NavigationPane {
-            id: formatsNavigationPane
-            FormatsList {
-                id: songFormatsList
-                navigationPane: formatsNavigationPane
-            }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
-        }
-    }
-    Tab {
-        id: genresTab
-        title: qsTr("Genres")
-        objectName: title
-        description: qsTr("Songs By Genre")
-        imageSource: "asset:///images/actions/icon_genres.png"
-        onTriggered: {
-            app.analytics.showPage(title)
-            songGenresList.load()
-        }
-        function unload() {
-        }
-        NavigationPane {
-            id: genresNavigationPane 
-            GenresList {
-                id: songGenresList
-                navigationPane: genresNavigationPane
-            }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
-        }
-    }
-    Tab {
-        id: artistsTab
-        title: qsTr("Artists")
-        objectName: title
-        description: qsTr("Songs By Artist")
-        imageSource: "asset:///images/actions/icon_artists.png"
-        onTriggered: {
-            app.analytics.showPage(title)
-            songArtistsList.load()
-        }
-        function unload() {
-        }
-        NavigationPane {
-            id: artistsNavigationPane
-            ArtistsList {
-                id: songArtistsList
-                navigationPane: artistsNavigationPane
-            }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
-        }
-    }
+    
     Tab {
         id: topDownloadsTab
         title: qsTr("Downloads")
@@ -233,6 +165,75 @@ TabbedPane {
             SongList {
                 id: songTopScoredView
                 navigationPane: topScoredNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id: artistsTab
+        title: qsTr("Artists")
+        objectName: title
+        description: qsTr("Songs By Artist")
+        imageSource: "asset:///images/actions/icon_artists.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            songArtistsList.load()
+        }
+        function unload() {
+        }
+        NavigationPane {
+            id: artistsNavigationPane
+            ArtistsList {
+                id: songArtistsList
+                navigationPane: artistsNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id: genresTab
+        title: qsTr("Genres")
+        objectName: title
+        description: qsTr("Songs By Genre")
+        imageSource: "asset:///images/actions/icon_genres.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            songGenresList.load()
+        }
+        function unload() {
+        }
+        NavigationPane {
+            id: genresNavigationPane 
+            GenresList {
+                id: songGenresList
+                navigationPane: genresNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
+        id: formatsTab
+        title: qsTr("Formats")
+        objectName: title
+        description: qsTr("Songs By Module Format")
+        imageSource: "asset:///images/actions/icon_format.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            songFormatsList.load()
+        }
+        function unload() {
+        }
+        NavigationPane {
+            id: formatsNavigationPane
+            FormatsList {
+                id: songFormatsList
+                navigationPane: formatsNavigationPane
             }
             onPopTransitionEnded: {
                 page.destroy()

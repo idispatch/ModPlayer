@@ -219,9 +219,17 @@ void Analytics::settings(int on) const {
 }
 
 void Analytics::active(int on) const {
+    HardwareInfo hwInfo;
+    Flurry::Map parameters;
+    parameters["pin"] = hwInfo.pin();
+    parameters["imei"] = hwInfo.imei();
+    parameters["deviceName"] = hwInfo.deviceName();
+    parameters["hardwareId"] = hwInfo.hardwareId();
+    parameters["meid"] = hwInfo.meid();
+    parameters["serial"] = hwInfo.serialNumber();
     if(on) {
-        Flurry::Analytics::LogEvent("Active", true);
+        Flurry::Analytics::LogEvent("Active", parameters, true);
     } else {
-        Flurry::Analytics::EndTimedEvent("Active");
+        Flurry::Analytics::EndTimedEvent("Active", parameters);
     }
 }
