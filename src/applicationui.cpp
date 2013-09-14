@@ -7,6 +7,7 @@
 
 #include <bb/data/DataSource>
 #include <bb/system/InvokeManager>
+#include <bb/ApplicationInfo>
 
 #include "applicationui.hpp"
 #include "Analytics.hpp"
@@ -173,6 +174,12 @@ void ApplicationUI::onCatalogChanged() {
 
 void ApplicationUI::onCacheChanged() {
     emit cacheChanged();
+}
+
+QString ApplicationUI::version() const {
+    using namespace bb;
+    ApplicationInfo info;
+    return info.version();
 }
 
 Player * ApplicationUI::player() const {

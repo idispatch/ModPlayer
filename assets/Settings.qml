@@ -45,6 +45,29 @@ Sheet {
                         bottomPadding: 40
                         leftPadding: 20
                         rightPadding: leftPadding
+                        BlackLabel {
+                            text: qsTr("Application")
+                            horizontalAlignment: HorizontalAlignment.Center
+                            textStyle {
+                                base: SystemDefaults.TextStyles.TitleText
+                                fontWeight: FontWeight.Bold
+                                color: Color.Black
+                            }
+                        }
+                        BlackLabel {
+                            text: qsTr("Version: <b>%1</b>").arg(app.version)
+                            textFormat: TextFormat.Html
+                        }
+                        BlackLabel {
+                            text: qsTr("Songs: <b>%1</b>").arg(app.catalog.songCount)
+                            textFormat: TextFormat.Html
+                        }
+                    }
+                    GroupContainer {
+                        topPadding: 20
+                        bottomPadding: 40
+                        leftPadding: 20
+                        rightPadding: leftPadding
                         Label {
                             text: qsTr("Cache")
                             horizontalAlignment: HorizontalAlignment.Center

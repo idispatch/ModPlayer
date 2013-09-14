@@ -56,6 +56,19 @@ void Catalog::copyCatalogToDataFolder() {
     }
 }
 
+int Catalog::songCount() {
+    const char * query =
+                "SELECT"
+                " count(id) "
+                "FROM songs";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        return sqlQuery.value(0).toInt();
+    }
+    return 0;
+}
+
 QString Catalog::catalogPath() const {
     return QDir::homePath() + "/catalog.sqlite";
 }

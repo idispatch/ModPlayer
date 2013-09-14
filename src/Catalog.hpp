@@ -27,9 +27,11 @@ class Catalog : public QObject,
                 public InstanceCounter<Catalog> {
     Q_OBJECT
     Q_PROPERTY(QString catalogPath READ catalogPath NOTIFY catalogPathChanged FINAL)
+    Q_PROPERTY(int songCount READ songCount NOTIFY songCountChanged FINAL)
 public:
     Catalog(QObject * parent);
 
+    int songCount();
     QString catalogPath() const;
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findFormats();
@@ -67,6 +69,7 @@ public:
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;
 Q_SIGNALS:
+    void songCountChanged();
     void catalogPathChanged();
 private:
     Q_DISABLE_COPY(Catalog)

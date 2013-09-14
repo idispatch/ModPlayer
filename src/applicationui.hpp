@@ -24,6 +24,7 @@ class Analytics;
 
 class ApplicationUI : public QObject {
     Q_OBJECT
+    Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
@@ -32,6 +33,7 @@ public:
     ApplicationUI(bb::cascades::Application *app);
     ~ApplicationUI();
 
+    QString version() const;
     Player * player() const;
     Catalog * catalog() const;
     Cache * cache() const;
@@ -44,6 +46,7 @@ public:
 
     static const char * QmlNamespace;
 Q_SIGNALS:
+    void versionChanged();
     void playerChanged();
     void catalogChanged();
     void cacheChanged();

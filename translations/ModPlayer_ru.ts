@@ -486,6 +486,18 @@
         <source>Linear</source>
         <translation>Линейный</translation>
     </message>
+    <message>
+        <source>Application</source>
+        <translation>Приложение</translation>
+    </message>
+    <message>
+        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Версия: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Songs: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Песен: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
 </context>
 <context>
     <name>SongDynamicInfo</name>
