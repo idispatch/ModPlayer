@@ -5,7 +5,6 @@ Page {
     id: personalSongListPage
     property variant navigationPane
     property int maximumSearchSongResults: 100
-    property int maximumSongResults: 1000
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
@@ -48,7 +47,7 @@ Page {
                     id: searchArea
                     onSearch: {
                         unload()
-                        maximumSearchSongResults = 250
+                        maximumSearchSongResults = 100
                         showList("search",
                                  "", 
                                  app.player.catalog.searchSongs(searchArea.searchTerm,
@@ -215,52 +214,52 @@ Page {
     }
     function loadRecentlyPlayedSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 1000
         showList("recent", "", app.player.catalog.findRecentlyPlayedSongs(maximumSearchSongResults))
     }
     function loadMyFavouriteSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 1000
         showList("myFavourite", "", app.player.catalog.findMyFavouriteSongs(maximumSearchSongResults))
     }
     function loadMostPlayedSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 1000
         showList("mostPlayed", "", app.player.catalog.findMostPlayedSongs(maximumSearchSongResults))
     }
     function loadMostFavouritedSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 5000
         showList("topFavourited", "", app.player.catalog.findMostFavouritedSongs(maximumSearchSongResults))
     }
     function loadMostScoredSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 5000
         showList("topScored", "", app.player.catalog.findMostScoredSongs(maximumSearchSongResults))
     }
     function loadMostDownloadedSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 5000
         showList("topDownloads", "", app.player.catalog.findMostDownloadedSongs(maximumSearchSongResults))
     }
     function loadSearchSongs() {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 100
         showList("search", "", app.player.catalog.searchSongs(searchArea.searchTerm, maximumSearchSongResults))
     }
     function loadSongsByFormat(formatId, formatName) {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 5000
         showList("format", formatName, app.player.catalog.findSongsByFormatId(formatId, maximumSearchSongResults))
     }
     function loadSongsByGenre(genreId, genreName) {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 5000
         showList("genre", genreName, app.player.catalog.findSongsByGenreId(genreId, maximumSearchSongResults))
     }
     function loadSongsByArtist(artistId, artistName) {
         unload()
-        maximumSearchSongResults = maximumSongResults
+        maximumSearchSongResults = 5000
         showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId, maximumSearchSongResults))
     }
     actions: [
