@@ -712,33 +712,6 @@
     </message>
 </context>
 <context>
-    <name>SongsList</name>
-    <message>
-        <source>%1 Songs (%2)</source>
-        <translation type="obsolete">%1 песен (%2)</translation>
-    </message>
-    <message>
-        <source>Songs by %1 (%2)</source>
-        <translation type="obsolete">Песни %1 (%2)</translation>
-    </message>
-    <message>
-        <source>All Songs (%1)</source>
-        <translation type="obsolete">Все песни (%1)</translation>
-    </message>
-    <message>
-        <source>score %1 of 10</source>
-        <translation type="obsolete">оценка %1 из 10</translation>
-    </message>
-    <message>
-        <source>favourited %1 times</source>
-        <translation type="obsolete">избрана %1 раз</translation>
-    </message>
-    <message>
-        <source>%1 downloads</source>
-        <translation type="obsolete">%1 скачиваний</translation>
-    </message>
-</context>
-<context>
     <name>functions</name>
     <message>
         <source>%1 bytes</source>
