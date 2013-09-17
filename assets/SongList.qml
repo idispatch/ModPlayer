@@ -76,6 +76,21 @@ Page {
         ProgressComponent {
             id: progress
         }
+        HorizontalContainer{
+            id: listEmpty
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            Label {
+                text: qsTr("No songs in this list")
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+                textStyle {
+                    fontWeight: FontWeight.Bold
+                    fontSize: FontSize.Large
+                    color: Color.White
+                }
+            }
+        }
         ListView {
             id: songs
             property string mode
@@ -199,12 +214,14 @@ Page {
         songs.setDataModel(model)
         progress.running = false
         progress.visible = false
-        songs.visible = true
+        songs.visible = (model.size() > 0)
+        listEmpty.visible = (model.size() == 0)
     }
     function unload() {
         progress.running = true
         progress.visible = true
         songs.visible = false
+        listEmpty.visible = false
         if (songs.dataModel) {
             songs.dataModel.clear()
         }

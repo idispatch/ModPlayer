@@ -62,6 +62,11 @@ Sheet {
                             text: qsTr("Songs: <b>%1</b>").arg(app.catalog.songCount)
                             textFormat: TextFormat.Html
                         }
+                        BlackLabel {
+                            text: qsTr("<a href='http://www.kosenkov.ca/policy.html'>Privacy Policy</a>")
+                            horizontalAlignment: HorizontalAlignment.Center
+                            textFormat: TextFormat.Html
+                        }
                     }
                     GroupContainer {
                         topPadding: 20

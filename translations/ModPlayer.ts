@@ -498,6 +498,10 @@
         <source>Songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongDynamicInfo</name>
@@ -605,6 +609,10 @@
     </message>
     <message>
         <source>All Songs (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No songs in this list</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
