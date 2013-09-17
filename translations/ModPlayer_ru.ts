@@ -509,6 +509,10 @@
         <source>Songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>Песен: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
+    <message>
+        <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Политика конфиденциальности&lt;/a&gt;</translation>
+    </message>
 </context>
 <context>
     <name>SongDynamicInfo</name>
@@ -617,6 +621,10 @@
     <message>
         <source>All Songs (%1)</source>
         <translation>Все песни (%1)</translation>
+    </message>
+    <message>
+        <source>No songs in this list</source>
+        <translation>Список песен пуст</translation>
     </message>
 </context>
 <context>
