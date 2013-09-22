@@ -77,6 +77,9 @@ Page {
         RemoveFavouriteActionItem {
             currentSong: app.player.currentSong
         },
+        OpenSongActionItem {
+            navigationPane: songPlayer.navigationPane
+        },
         AppWorldActionItem{}
     ]
 }
