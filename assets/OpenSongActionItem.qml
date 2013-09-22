@@ -3,7 +3,7 @@ import player 1.0
 
 ActionItem {
     property variant navigationPane
-    title: qsTr("Open song from device")
+    title: qsTr("Open Song from Device")
     imageSource: "asset:///images/actions/icon_open_song.png"
     ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered: {

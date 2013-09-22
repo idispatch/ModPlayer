@@ -202,7 +202,7 @@
 <context>
     <name>OpenSongActionItem</name>
     <message>
-        <source>Open song from device</source>
+        <source>Open Song from Device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7,15 +7,22 @@ HorizontalContainer {
     property alias searchTerm: searchCriteria.text 
     leftPadding: 10
     rightPadding: leftPadding
-    topPadding: 5
+    topPadding: 10
     bottomPadding: topPadding
     attachedObjects: [
         QTimer {
             id: searchTimer
-            interval: 300
+            interval: 1000
             singleShot: true
+            property string previousSearchTerm
             onTimeout : {
-                searchArea.search(searchCriteria.text)
+                if(previousSearchTerm == searchTerm) {
+                    stop()
+                    searchArea.search(searchTerm)
+                } else {
+                    previousSearchTerm = searchTerm
+                    start()
+                }
             }
         }
     ]
@@ -41,7 +48,7 @@ HorizontalContainer {
                    TextInputFlag.AutoPeriodOff | 
                    TextInputFlag.WordSubstitutionOff
             onSubmitted: {
-                searchArea.search(searchCriteria.text)
+                searchArea.search(searchTerm)
             }
         }
         clearButtonVisible: true
@@ -60,9 +67,9 @@ HorizontalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1
         }
-        enabled: searchCriteria.text.length > 0
+        enabled: searchTerm.length > 0
         onClicked: {
-            searchArea.search(searchCriteria.text)
+            searchArea.search(searchTerm)
         }
     }
 }
