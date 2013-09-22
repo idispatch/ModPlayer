@@ -19,8 +19,10 @@ int InstanceCounter<Catalog>::s_maxCount;
 
 #define SELECT_FROM_SONGS "SELECT id, fileName, title, format, downloads, favourited, score, size, length, playCount, lastPlayed, myFavourite FROM songs "
 
+int Catalog::Command::s_commandCounter = 0;
+
 Catalog::Catalog(QObject * parent)
-    : QObject(parent),
+    : QThread(parent),
       m_dataAccess(NULL) {
     initCatalog();
 }
@@ -28,6 +30,18 @@ Catalog::Catalog(QObject * parent)
 void Catalog::initCatalog() {
     copyCatalogToDataFolder();
     m_dataAccess = new SqlDataAccess(catalogPath(), "catalog", this);
+}
+
+void Catalog::stopThread() {
+    if(isRunning())
+    {
+        {
+            QMutexLocker locker(&m_mutex);
+            m_commandQueue.enqueue(new Command(Command::ExitCommand));
+            m_cond.wakeOne();
+        }
+        QThread::wait(); // wait till thread is stopped
+    }
 }
 
 void Catalog::copyCatalogToDataFolder() {
@@ -58,10 +72,7 @@ void Catalog::copyCatalogToDataFolder() {
 }
 
 int Catalog::songCount() {
-    const char * query =
-                "SELECT"
-                " count(id) "
-                "FROM songs";
+    const char * query = "SELECT count(id) FROM songs";
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
@@ -70,12 +81,43 @@ int Catalog::songCount() {
     return 0;
 }
 
+int Catalog::songCountAsync() {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new Command(Command::SongCount);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findFormatsAsync() {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new Command(Command::FormatsList);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findGenresAsync() {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new Command(Command::GenresList);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findArtistsAsync() {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new Command(Command::ArtistsList);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
 QString Catalog::catalogPath() const {
     return QDir::homePath() + "/catalog.sqlite";
 }
 
-ArrayDataModel*
-Catalog::findFormats() {
+ArrayDataModel* Catalog::findFormats() {
     const char * query =
             "SELECT"
             " formats.id AS id, "
@@ -106,8 +148,7 @@ Catalog::findFormats() {
     return model;
 }
 
-GroupDataModel*
-Catalog::findGenres() {
+GroupDataModel* Catalog::findGenres() {
     const char * query =
             "SELECT"
             " genres.id,"
@@ -134,8 +175,7 @@ Catalog::findGenres() {
     return model;
 }
 
-GroupDataModel*
-Catalog::findArtists() {
+GroupDataModel* Catalog::findArtists() {
     const char * query =
             "SELECT"
             " artists.id,"
@@ -174,8 +214,7 @@ Catalog::findArtists() {
     return model;
 }
 
-ArrayDataModel*
-Catalog::findSongsByFormatId(int formatId, int limit) {
+ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
     return selectSongBasicInfo(QString("WHERE format=%1").arg(formatId),
                                " ORDER BY "
                                "favourited DESC, "
@@ -187,8 +226,7 @@ Catalog::findSongsByFormatId(int formatId, int limit) {
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findSongsByGenreId(int genreId, int limit) {
+ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
     return selectSongBasicInfo(QString("WHERE genre=%1").arg(genreId),
                                " ORDER BY "
                                "favourited DESC, "
@@ -200,8 +238,7 @@ Catalog::findSongsByGenreId(int genreId, int limit) {
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findSongsByArtistId(int artistId, int limit) {
+ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
     return selectSongBasicInfo(QString("WHERE artist=%1").arg(artistId),
                                " ORDER BY "
                                "favourited DESC, "
@@ -259,22 +296,19 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
     }
 }
 
-SongExtendedInfo*
-Catalog::resolveModuleById(int id, QVariant parent) {
+SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
     return selectSongInfo(QString("WHERE songs.id=%1").arg(id),
                           parentObject);
 }
 
-SongExtendedInfo*
-Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
+SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
     return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(FileUtils::fileNameOnly(fileName)),
                           parentObject);
 }
 
-SongExtendedInfo*
-Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
+SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int column       = 0;
     int id           = sqlQuery.value(column++).toInt();
     QString fileName = sqlQuery.value(column++).toString();
@@ -324,8 +358,7 @@ Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
                         parent);
 }
 
-SongBasicInfo*
-Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
+SongBasicInfo* Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int column       = 0;
     int id           = sqlQuery.value(column++).toInt();
     QString fileName = sqlQuery.value(column++).toString();
@@ -354,8 +387,7 @@ Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
                              parent);
 }
 
-SongExtendedInfo*
-Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
+SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
     QString query = QString(
                 "SELECT"
                 " songs.id AS id,"
@@ -397,10 +429,9 @@ Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
     return song;
 }
 
-ArrayDataModel*
-Catalog::selectSongBasicInfo(QString const& whereClause,
-                             QString const& orderByClause,
-                             int limit) {
+ArrayDataModel* Catalog::selectSongBasicInfo(QString const& whereClause,
+                                             QString const& orderByClause,
+                                             int limit) {
     QString query(SELECT_FROM_SONGS);
     if(whereClause.length() > 0) {
         query += whereClause;
@@ -422,8 +453,7 @@ Catalog::selectSongBasicInfo(QString const& whereClause,
     return model;
 }
 
-ArrayDataModel*
-Catalog::searchSongs(QString const& searchTerm, int limit) {
+ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
     QString selectClause = QString(SELECT_FROM_SONGS);
 
     QString whereClause;
@@ -459,43 +489,37 @@ Catalog::searchSongs(QString const& searchTerm, int limit) {
     return model;
 }
 
-ArrayDataModel*
-Catalog::findMostDownloadedSongs(int limit) {
+ArrayDataModel* Catalog::findMostDownloadedSongs(int limit) {
     return selectSongBasicInfo(" WHERE downloads>0 ",
                                " ORDER BY downloads DESC ",
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findMostFavouritedSongs(int limit) {
+ArrayDataModel* Catalog::findMostFavouritedSongs(int limit) {
     return selectSongBasicInfo(" WHERE favourited>0 ",
                                " ORDER BY favourited DESC, downloads DESC, score DESC ",
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findMostScoredSongs(int limit) {
+ArrayDataModel* Catalog::findMostScoredSongs(int limit) {
     return selectSongBasicInfo(" WHERE score>0 ",
                                " ORDER BY score DESC, downloads DESC, favourited DESC ",
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findRecentlyPlayedSongs(int limit) {
+ArrayDataModel* Catalog::findRecentlyPlayedSongs(int limit) {
     return selectSongBasicInfo(" WHERE lastPlayed>0 ",
                                " ORDER BY lastPlayed DESC ",
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findMyFavouriteSongs(int limit) {
+ArrayDataModel* Catalog::findMyFavouriteSongs(int limit) {
     return selectSongBasicInfo(" WHERE myFavourite>0 ",
                                " ORDER BY playCount DESC, lastPlayed DESC ",
                                limit);
 }
 
-ArrayDataModel*
-Catalog::findMostPlayedSongs(int limit) {
+ArrayDataModel* Catalog::findMostPlayedSongs(int limit) {
     return selectSongBasicInfo(" WHERE playCount>0 ",
                                " ORDER BY playCount DESC, lastPlayed DESC ",
                                limit);
@@ -562,4 +586,54 @@ void Catalog::resetMyFavourites() {
     m_dataAccess->execute(query);
 
     Analytics::getInstance()->resetMyFavourites();
+}
+
+void Catalog::run() {
+    bool exitRequested = false;
+    while(!exitRequested) {
+        m_mutex.lock();
+        while(m_commandQueue.empty())
+        {
+            m_cond.wait(&m_mutex);
+        }
+        Command * command = m_commandQueue.dequeue();
+        m_mutex.unlock();
+
+        QVariant result;
+        switch(command->command())
+        {
+        case Command::ExitCommand:
+            exitRequested = true;
+            m_mutex.lock();
+            while(!m_commandQueue.empty())
+            {
+                delete m_commandQueue.dequeue();
+            }
+            m_mutex.unlock();
+            break;
+        case Command::SongCount:
+            result = QVariant::fromValue(songCount());
+            break;
+        case Command::FormatsList:
+            result = QVariant::fromValue((QObject*)findFormats());
+            break;
+        case Command::GenresList:
+            result = QVariant::fromValue((QObject*)findGenres());
+            break;
+        case Command::ArtistsList:
+            result = QVariant::fromValue((QObject*)findArtists());
+            break;
+        default:
+            qDebug() << "Unknown command:" << command->command();
+            break;
+        }
+        emit resultReady(command->id(), result);
+        QObject* p = result.value<QObject*>();
+        if(p != NULL && p->parent() == NULL) {
+            result.detach();
+            delete p;
+        }
+        delete command;
+    }
+    QThread::exit(0);
 }

@@ -59,12 +59,20 @@ Player::Player(QSettings &settings, QObject * parent)
     initDownloader();
     initPlayback();
     initNowPlaying();
+    initCatalog();
 }
 
 Player::~Player() {
-    if (m_playback != NULL) {
+    if(m_catalog != NULL) {
+        m_catalog->stopThread();
+    }
+    if(m_playback != NULL) {
         m_playback->stopThread();
     }
+}
+
+void Player::initCatalog() {
+    m_catalog->start(QThread::LowPriority);
 }
 
 void Player::initCache() {

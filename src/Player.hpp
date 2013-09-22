@@ -98,6 +98,7 @@ private slots:
 private:
     Q_DISABLE_COPY(Player)
 
+    void initCatalog();
     void initCache();
     void initDownloader();
     void initPlayback();

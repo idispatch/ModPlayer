@@ -59,8 +59,17 @@ Sheet {
                             textFormat: TextFormat.Html
                         }
                         BlackLabel {
-                            text: qsTr("Songs: <b>%1</b>").arg(app.catalog.songCount)
+                            property int requestId
                             textFormat: TextFormat.Html
+                            function updateView(responseId, result) {
+                                if(responseId == requestId) {
+                                    text = qsTr("Songs: <b>%1</b>").arg(result)
+                                }
+                            }
+                            onCreationCompleted: {
+                                app.catalog.resultReady.connect(updateView)
+                                requestId = app.catalog.songCountAsync()
+                            }
                         }
                         BlackLabel {
                             text: qsTr("<a href='http://www.kosenkov.ca/policy.html'>Privacy Policy</a>")
