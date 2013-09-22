@@ -64,7 +64,7 @@
             <action>bb.action.OPEN</action>
             <mime-type>*</mime-type>
             <property var="uris" value="file://"/>
-            <property var="exts" value="mod,med,mt2,mtm,s3m,it,stm,xm,669,oct,okt"/>
+            <property var="exts" value="mod,med,mt2,mtm,s3m,it,stm,xm,669,oct,okt,MOD,MED,MT2,MTM,S3M,IT,STM,XM,OCT,OKT"/>
         </filter>
     </invoke-target>
     <asset path="assets">assets</asset>

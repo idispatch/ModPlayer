@@ -7,15 +7,7 @@ ActionItem {
     imageSource: "asset:///images/actions/icon_open_song.png"
     ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered: {
-        app.player.load()
-    }
-    onCreationCompleted: {
-        app.player.localSongLoaded.connect(onLocalSongLoaded)
-    }
-    function onLocalSongLoaded() {
-        var view = songPlayer.createObject()
-        view.navigationPane = navigationPane
-        navigationPane.push(view)
+        app.player.browseForLocalSong()
     }
     attachedObjects: [
         ComponentDefinition {

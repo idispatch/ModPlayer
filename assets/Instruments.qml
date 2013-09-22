@@ -6,9 +6,8 @@ Page {
     property string mode: "samples"
     titleBar: PlayerTitleBar {
         title: {
-            var currentsong = app.player.currentSong
+            var currentSong = app.player.currentSong
             if(currentSong.songLoaded) {
-                
                 var fileName = Global.fileNameOnly(currentSong.fileName)
                 if(mode == 'samples') {
                     return qsTr("Samples of %1 (%2)").arg(fileName).arg(currentSong.samples)

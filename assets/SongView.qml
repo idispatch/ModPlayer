@@ -37,19 +37,6 @@ Page {
         }
     }
 
-    function play() {
-        if(song) {
-            showPlayer()
-            app.player.play(song)
-        }
-    }
-
-    function showPlayer() {
-        var view = songPlayer.createObject()
-        view.navigationPane = navigationPane
-        navigationPane.push(view)
-    }
-
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId, songView)
         app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
@@ -62,18 +49,6 @@ Page {
     ]
     actions: [ 
         ActionItem {
-            title: qsTr("Now Playing")
-            imageSource: "asset:///images/actions/icon_nowplaying.png"
-            ActionBar.placement: ActionBarPlacement.InOverflow
-            shortcuts: Shortcut {
-                key: "n"
-            } 
-            onTriggered: {
-                app.analytics.nowPlaying()
-                showPlayer()
-            }
-        },
-        ActionItem {
             title: qsTr("Play")
             imageSource: "asset:///images/actions/icon_play.png"
             enabled: song != null
@@ -82,11 +57,20 @@ Page {
                 key: "p"
             } 
             onTriggered: {
-                play()
+                if(song) {
+                    // var view = songPlayer.createObject()
+                    // view.navigationPane = navigationPane
+                    // navigationPane.push(view)
+                    app.player.play(song)
+                }
             }
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        PlayerActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            navigationPane: songView.navigationPane
         },
         SameArtistActionItem {
             currentSong: song
@@ -97,6 +81,9 @@ Page {
         },
         RemoveFavouriteActionItem {
             currentSong: song
+        },
+        OpenSongActionItem {
+            navigationPane: songView.navigationPane
         },
         AppWorldActionItem{}
     ]

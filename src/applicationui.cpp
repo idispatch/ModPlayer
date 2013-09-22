@@ -82,7 +82,7 @@ void ApplicationUI::onInvoked(const InvokeRequest& request) {
         QString fileName = request.uri().toString();
         if(fileName.startsWith("file://")) {
             fileName.remove(0, 7);
-            m_player->play(QVariant::fromValue(fileName));
+            m_player->playLocalSong(fileName);
         } else {
             qDebug() << "Invalid invoke URI" << request.uri();
         }

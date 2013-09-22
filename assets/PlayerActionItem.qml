@@ -5,9 +5,8 @@ ActionItem {
     
     title: qsTr("Now Playing")
     imageSource: "asset:///images/actions/icon_nowplaying.png"
-    ActionBar.placement: ActionBarPlacement.OnBar
     shortcuts: Shortcut {
-        key: "p"
+        key: "n"
     } 
     onTriggered: {
         app.analytics.nowPlaying()

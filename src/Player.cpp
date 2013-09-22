@@ -30,7 +30,18 @@ static const char * g_song_extensions_array[] = {
     "*.xm",
     "*.669",
     "*.oct",
-    "*.okt"
+    "*.okt",
+
+    "*.MOD",
+    "*.MED",
+    "*.MT2",
+    "*.MTM",
+    "*.S3M",
+    "*.IT",
+    "*.STM",
+    "*.XM",
+    "*.OCT",
+    "*.OKT"
 };
 
 Player::Player(QSettings &settings, QObject * parent)
@@ -275,7 +286,6 @@ SongModule * Player::currentSong() const {
 bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
     bool rv = false;
     QString fileNamePart = FileUtils::fileNameOnly(fileName);
-    //qDebug() << "Player::beginPlay:" << fileName;
     SongExtendedInfo * info = NULL;
     if(fromCatalog) {
         info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
@@ -293,7 +303,6 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
             absoluteFileName = fileName;
         }
 
-        //qDebug() << "Player::beginPlay(absoluteFileName):" << absoluteFileName;
         if(m_playback->load(*info, absoluteFileName))
         {
             if(m_playback->play())
@@ -362,10 +371,8 @@ void Player::play(QVariant value) {
         }
     }
     else {
-        //qDebug() << "Player::play:" << value;
         SongExtendedInfo * info = songExtendedInfo(value);
         if(info != 0) {
-            //qDebug() << "Player::play:" << info->fileName();
             playByModuleFileName(info->fileName());
         } else {
             qDebug() << "Player::play: Unsupported variant type:" << value;
@@ -374,7 +381,6 @@ void Player::play(QVariant value) {
 }
 
 void Player::playByModuleFileName(QString const& fileName) {
-    //qDebug() << "Player::playByModuleFileName" << fileName;
     // relative path or within cache directory - play from cache
     if(fileName.startsWith(m_cache->cachePath()) || !fileName.startsWith("/")) {
         if(m_cache->exists(fileName)) {
@@ -418,7 +424,7 @@ void Player::resume() {
     m_playback->resume();
 }
 
-void Player::load() {
+void Player::browseForLocalSong() {
     using namespace bb::cascades::pickers;
     bool rc;
     FilePicker* filePicker = new FilePicker();
@@ -435,30 +441,30 @@ void Player::load() {
     filePicker->setFilter(fileNameFilters);
 
     rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
-                          this,       SLOT(onSongLoadSelected(const QStringList&)));
+                          this,       SLOT(onLocalSongSelected(const QStringList&)));
     Q_ASSERT(rc);
 
     rc = QObject::connect(filePicker, SIGNAL(canceled()),
-                          this,       SLOT(onSongLoadCanceled()));
+                          this,       SLOT(onLocalSongBrowseCanceled()));
     Q_ASSERT(rc);
 
     filePicker->open();
 }
 
-void Player::onSongLoadSelected(const QStringList& fileList) {
+void Player::onLocalSongSelected(const QStringList& fileList) {
     if(fileList.size() > 0)
     {
-        QString const& fileName = fileList[0];
-        if(beginPlay(false, fileName))
-        {
-            emit localSongLoaded();
-        }
+        playLocalSong(fileList[0]);
     }
     sender()->deleteLater();
 }
 
-void Player::onSongLoadCanceled() {
+void Player::onLocalSongBrowseCanceled() {
     sender()->deleteLater();
+}
+
+void Player::playLocalSong(QString const& fileName) {
+    beginPlay(false, fileName);
 }
 
 void Player::onPaused() {

@@ -4,6 +4,7 @@ import "functions.js" as Global
 
 Page {
     id: songPlayer
+    objectName: "songPlayer"
     property variant navigationPane
     ViewContainer {
         ScrollView {

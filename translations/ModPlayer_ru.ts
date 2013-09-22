@@ -714,10 +714,6 @@
 <context>
     <name>SongView</name>
     <message>
-        <source>Now Playing</source>
-        <translation>Проигрыватель</translation>
-    </message>
-    <message>
         <source>Play</source>
         <translation>Играть</translation>
     </message>

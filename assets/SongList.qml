@@ -2,7 +2,7 @@ import bb.cascades 1.0
 import "functions.js" as Global
 
 Page {
-    id: personalSongListPage
+    id: songListPage
     property variant navigationPane
     property int maximumSearchSongResults: 100
     titleBar: PlayerTitleBar {
@@ -264,13 +264,14 @@ Page {
     }
     actions: [
         PlayerActionItem {
-            navigationPane: personalSongListPage.navigationPane
+            ActionBar.placement: ActionBarPlacement.OnBar
+            navigationPane: songListPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem {
-            navigationPane: personalSongListPage.navigationPane
+            navigationPane: songListPage.navigationPane
         },
         AppWorldActionItem {
         }

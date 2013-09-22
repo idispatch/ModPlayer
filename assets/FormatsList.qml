@@ -49,10 +49,14 @@ Page {
     }
     actions: [
         PlayerActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: formatsPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        OpenSongActionItem {
+            navigationPane: formatsPage.navigationPane
         },
         AppWorldActionItem{} 
     ]
