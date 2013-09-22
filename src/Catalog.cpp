@@ -83,16 +83,24 @@ void Catalog::copyCatalogToDataFolder() {
         // catalog exists
         MigrationData data;
         {
+            int version = 0;
             SqlDataAccess dataAccess(catalogPath(), "catalog");
-            QVariant version = dataAccess.execute("PRAGMA user_version");
-            if(version.toInt() == 1)
             {
-                qDebug() << "Database migration not required, version" << version.toInt();
+                QSqlDatabase db = dataAccess.connection();
+                QSqlQuery sqlQuery = db.exec("PRAGMA user_version");
+                if(sqlQuery.next()) {
+                    version = sqlQuery.value(0).toInt();
+                }
+            }
+
+            if(version == 1)
+            {
+                qDebug() << "Database migration not required, version" << version;
                 return;
             }
             else
             {
-                qDebug() << "Starting database migration from version" << version.toInt();
+                qDebug() << "Starting database migration from version" << version;
                 const char * query =    "SELECT"
                                         " id,"
                                         " playCount,"
@@ -744,7 +752,8 @@ void Catalog::resetMyFavourites() {
 
 void Catalog::run() {
     bool exitRequested = false;
-    while(!exitRequested) {
+    while(!exitRequested)
+    {
         m_mutex.lock();
         while(m_commandQueue.empty())
         {
@@ -814,49 +823,55 @@ void Catalog::run() {
             }
             break;
         case Command::SongsByGenreList:
-        {
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findSongsByGenreId(findCommand->queryId(), findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;
-        case Command::MostDownloadedSongs: {
+        case Command::MostDownloadedSongs:
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findMostDownloadedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;
-        case Command::MostFavouritedSongs: {
+        case Command::MostFavouritedSongs:
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findMostFavouritedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;
-        case Command::MostScoredSongs: {
+        case Command::MostScoredSongs:
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findMostScoredSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;
-        case Command::RecentlyPlayedSongs: {
+        case Command::RecentlyPlayedSongs:
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findRecentlyPlayedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;
-        case Command::MyFavouriteSongs: {
+        case Command::MyFavouriteSongs:
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findMyFavouriteSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;
-        case Command::MostPlayedSongs: {
+        case Command::MostPlayedSongs:
+            {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findMostPlayedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
@@ -871,7 +886,8 @@ void Catalog::run() {
         emit resultReady(command->id(), result);
 
         QObject* p = result.value<QObject*>();
-        if(p != NULL && p->parent() == NULL) {
+        if(p != NULL && p->parent() == NULL)
+        {
             result.detach();
             delete p;
         }
