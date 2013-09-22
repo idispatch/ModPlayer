@@ -452,9 +452,11 @@ void Player::browseForLocalSong() {
 }
 
 void Player::onLocalSongSelected(const QStringList& fileList) {
-    if(fileList.size() > 0)
+    if(fileList.size() == 1)
     {
         playLocalSong(fileList[0]);
+    } else if(fileList.size() > 1) {
+        qDebug() << "Selected multiple songs:" << fileList.size();
     }
     sender()->deleteLater();
 }
@@ -465,6 +467,7 @@ void Player::onLocalSongBrowseCanceled() {
 
 void Player::playLocalSong(QString const& fileName) {
     beginPlay(false, fileName);
+    emit requestPlayerView();
 }
 
 void Player::onPaused() {

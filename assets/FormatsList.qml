@@ -2,6 +2,7 @@ import bb.cascades 1.0
 
 Page {
     id: formatsPage
+    objectName: "formatsPage"
     property variant navigationPane
     titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Format")
@@ -47,6 +48,22 @@ Page {
     function load() {
         formatsList.load()
     }
+    function showPlayerView() {
+        if(mainTabPane.activePane == navigationPane && navigationPane.top == formatsPage) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
+    onCreationCompleted: {
+        app.player.requestPlayerView.connect(showPlayerView)
+    }
+    attachedObjects: [
+        ComponentDefinition {
+            id: songPlayer
+            source: "SongPlayer.qml"
+        }
+    ]
     actions: [
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar

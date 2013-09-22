@@ -3,10 +3,9 @@ import "functions.js" as Global
 
 Page {
     id: songView
-
+    objectName: "songView"
     property variant song
     property variant navigationPane
-
     ViewContainer {
         ScrollView {
             VerticalContainer {
@@ -36,10 +35,19 @@ Page {
             }
         }
     }
-
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId, songView)
         app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
+    }
+    function showPlayerView() {
+        if(mainTabPane.activePane == navigationPane && navigationPane.top == songView) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
+    onCreationCompleted: {
+        app.player.requestPlayerView.connect(showPlayerView)
     }
     attachedObjects: [
         ComponentDefinition {
@@ -58,9 +66,7 @@ Page {
             } 
             onTriggered: {
                 if(song) {
-                    // var view = songPlayer.createObject()
-                    // view.navigationPane = navigationPane
-                    // navigationPane.push(view)
+                    showPlayerView()
                     app.player.play(song)
                 }
             }

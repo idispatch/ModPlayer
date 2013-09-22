@@ -2,6 +2,7 @@ import bb.cascades 1.0
 
 Page {
     id: artistsPage
+    objectName: "artistsPage"
     property variant navigationPane
     titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Artist")
@@ -57,6 +58,22 @@ Page {
             artistsList.dataModel = app.player.catalog.findArtists()
         }
     }
+    function showPlayerView() {
+        if(mainTabPane.activePane == navigationPane && navigationPane.top == artistsPage) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
+    onCreationCompleted: {
+        app.player.requestPlayerView.connect(showPlayerView)
+    }
+    attachedObjects: [
+        ComponentDefinition {
+            id: songPlayer
+            source: "SongPlayer.qml"
+        }
+    ]
     actions: [
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar

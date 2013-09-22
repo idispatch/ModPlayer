@@ -2,6 +2,7 @@ import bb.cascades 1.0
 
 TabbedPane {
     id: mainTabPane
+    objectName: "mainTabPane"
     Tab {
         id: myFavouriteTab
         title: qsTr("My Favourite")
@@ -15,7 +16,7 @@ TabbedPane {
         function unload() {
             songMyFavouriteView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: myFavouriteNavigationPane
             SongList {
                 id: songMyFavouriteView
@@ -39,7 +40,7 @@ TabbedPane {
         function unload() {
             songRecentlyPlayedView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: recentlyPlayedNavigationPane 
             SongList {
                 id: songRecentlyPlayedView
@@ -63,7 +64,7 @@ TabbedPane {
         function unload() {
             songMostPlayedView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: mostPlayedNavigationPane
             SongList {
                 id: songMostPlayedView
@@ -87,7 +88,7 @@ TabbedPane {
         function unload() {
             songSearchView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: searchNavigationPane
             SongList {
                 id: songSearchView
@@ -98,7 +99,6 @@ TabbedPane {
             }
         }
     }
-    
     Tab {
         id: topDownloadsTab
         title: qsTr("Downloads")
@@ -112,7 +112,7 @@ TabbedPane {
         function unload() {
             songsTopDownloadedView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: topDownloadsNavigationPane
             SongList {
                 id: songsTopDownloadedView
@@ -136,7 +136,7 @@ TabbedPane {
         function unload() {
             songTopFavouritedView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: topFavouritedNavigationPane
             SongList {
                 id: songTopFavouritedView
@@ -160,7 +160,7 @@ TabbedPane {
         function unload() {
             songTopScoredView.unload()
         }
-        NavigationPane {
+        content: NavigationPane {
             id: topScoredNavigationPane
             SongList {
                 id: songTopScoredView
@@ -183,7 +183,7 @@ TabbedPane {
         }
         function unload() {
         }
-        NavigationPane {
+        content: NavigationPane {
             id: artistsNavigationPane
             ArtistsList {
                 id: songArtistsList
@@ -204,9 +204,8 @@ TabbedPane {
             app.analytics.showPage(title)
             songGenresList.load()
         }
-        function unload() {
-        }
-        NavigationPane {
+        function unload() {}
+        content: NavigationPane {
             id: genresNavigationPane 
             GenresList {
                 id: songGenresList
@@ -227,9 +226,8 @@ TabbedPane {
             app.analytics.showPage(title)
             songFormatsList.load()
         }
-        function unload() {
-        }
-        NavigationPane {
+        function unload() {}
+        content: NavigationPane {
             id: formatsNavigationPane
             FormatsList {
                 id: songFormatsList

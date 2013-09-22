@@ -9,10 +9,4 @@ ActionItem {
     onTriggered: {
         app.player.browseForLocalSong()
     }
-    attachedObjects: [
-        ComponentDefinition {
-            id: songPlayer
-            source: "SongPlayer.qml"
-        }
-    ]
 }

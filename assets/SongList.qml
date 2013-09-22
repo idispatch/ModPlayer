@@ -3,6 +3,7 @@ import "functions.js" as Global
 
 Page {
     id: songListPage
+    objectName: "songListPage"
     property variant navigationPane
     property int maximumSearchSongResults: 100
     titleBar: PlayerTitleBar {
@@ -262,6 +263,22 @@ Page {
         maximumSearchSongResults = 5000
         showList("artist", artistName, app.player.catalog.findSongsByArtistId(artistId, maximumSearchSongResults))
     }
+    function showPlayerView() {
+        if(mainTabPane.activePane == navigationPane && navigationPane.top == songListPage) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
+    onCreationCompleted: {
+        app.player.requestPlayerView.connect(showPlayerView)
+    }
+    attachedObjects: [
+        ComponentDefinition {
+            id: songPlayer
+            source: "SongPlayer.qml"
+        }
+    ]
     actions: [
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
