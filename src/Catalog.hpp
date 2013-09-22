@@ -53,17 +53,34 @@ public:
     Q_INVOKABLE int findArtistsAsync();
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(int formatId, int limit);
+    Q_INVOKABLE int findSongsByFormatIdAsync(int formatId, int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByGenreId(int genreId, int limit);
+    Q_INVOKABLE int findSongsByGenreIdAsync(int genreId, int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByArtistId(int artistId, int limit);
+    Q_INVOKABLE int findSongsByArtistIdAsync(int artistId, int limit);
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int searchSongsAsync(QString const& searchTerm, int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs(int limit);
+    Q_INVOKABLE int findMostDownloadedSongsAsync(int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs(int limit);
+    Q_INVOKABLE int findMostFavouritedSongsAsync(int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs(int limit);
+    Q_INVOKABLE int findMostScoredSongsAsync(int limit);
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs(int limit);
+    Q_INVOKABLE int findRecentlyPlayedSongsAsync(int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs(int limit);
+    Q_INVOKABLE int findMyFavouriteSongsAsync(int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(int limit);
+    Q_INVOKABLE int findMostPlayedSongsAsync(int limit);
 
     // Synchronous only
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
@@ -106,14 +123,30 @@ private:
         enum CommandType
         {
             SongCount,
+            SearchSongs,
+
             FormatsList,
             GenresList,
             ArtistsList,
+
+            SongsByFormatList,
+            SongsByGenreList,
+            SongsByArtistList,
+
+            MostDownloadedSongs,
+            MostFavouritedSongs,
+            MostScoredSongs,
+
+            RecentlyPlayedSongs,
+            MyFavouriteSongs,
+            MostPlayedSongs,
+
             ExitCommand
         };
         Command(CommandType command)
             : m_command(command),
-              m_id(nextCommandId())
+              m_id(nextCommandId()),
+              m_thread(QThread::currentThread())
         {}
         virtual ~Command()
         {}
@@ -123,15 +156,56 @@ private:
         inline CommandType command() const {
             return m_command;
         }
+        inline QThread* thread() const {
+            return m_thread;
+        }
     public:
         static int nextCommandId() {
             return ++s_commandCounter;
         }
     private:
         static int s_commandCounter;
-        CommandType m_command;
-        int m_id;
+        const CommandType m_command;
+        const int m_id;
+        QThread * m_thread;
     };
+
+    class FindCommand : public Command {
+    public:
+        FindCommand(CommandType command, int queryId, int limit)
+            : Command(command),
+              m_queryId(queryId),
+              m_limit(limit) {
+        }
+        int queryId() const {
+            return m_queryId;
+        }
+        int limit() const {
+            return m_limit;
+        }
+    private:
+        const int m_queryId;
+        const int m_limit;
+    };
+
+    class SearchCommand : public Command {
+    public:
+        SearchCommand(QString const& query, int limit)
+            : Command(Command::SearchSongs),
+              m_query(query),
+              m_limit(limit) {
+        }
+        QString const& query() const {
+            return m_query;
+        }
+        int limit() const {
+            return m_limit;
+        }
+    private:
+        const QString m_query;
+        const int m_limit;
+    };
+
     QQueue<Command*> m_commandQueue;
     QMutex m_mutex;
     QWaitCondition m_cond;

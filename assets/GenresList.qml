@@ -52,9 +52,15 @@ Page {
             ]
         }
     }
+    property int requestId
+    function updateView(responseId, result) {
+        if(responseId != requestId) 
+            return
+        genresList.dataModel = result
+    }
     function load() {
-        if(!genresList.dataModel) {
-            genresList.dataModel = app.player.catalog.findGenres()
+        if(genresList.dataModel == null || genresList.dataModel.size() == 0) {
+            requestId = app.player.catalog.findGenresAsync()
         }
     }
     function showPlayerView() {
@@ -66,6 +72,7 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(showPlayerView)
+        app.catalog.resultReady.connect(updateView)
     }
     attachedObjects: [
         ComponentDefinition {

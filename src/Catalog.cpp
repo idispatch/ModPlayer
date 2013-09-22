@@ -113,6 +113,86 @@ int Catalog::findArtistsAsync() {
     return command->id();
 }
 
+int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::SongsByFormatList, formatId, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findSongsByGenreIdAsync(int genreId, int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::SongsByGenreList, genreId, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findSongsByArtistIdAsync(int artistId, int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::SongsByArtistList, artistId, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findMostDownloadedSongsAsync(int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::MostDownloadedSongs, 0, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findMostFavouritedSongsAsync(int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::MostFavouritedSongs, 0, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findMostScoredSongsAsync(int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::MostScoredSongs, 0, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findRecentlyPlayedSongsAsync(int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::RecentlyPlayedSongs, 0, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findMyFavouriteSongsAsync(int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::MyFavouriteSongs, 0, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::findMostPlayedSongsAsync(int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new FindCommand(Command::MostPlayedSongs, 0, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::searchSongsAsync(QString const& searchTerm, int limit) {
+    QMutexLocker locker(&m_mutex);
+    Command * command = new SearchCommand(searchTerm, limit);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
 QString Catalog::catalogPath() const {
     return QDir::homePath() + "/catalog.sqlite";
 }
@@ -614,25 +694,114 @@ void Catalog::run() {
         case Command::SongCount:
             result = QVariant::fromValue(songCount());
             break;
+        case Command::SearchSongs:
+            {
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command);
+                ArrayDataModel * model = searchSongs(searchCommand->query(), searchCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
         case Command::FormatsList:
-            result = QVariant::fromValue((QObject*)findFormats());
+            {
+                ArrayDataModel * model = findFormats();
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
             break;
         case Command::GenresList:
-            result = QVariant::fromValue((QObject*)findGenres());
+            {
+                GroupDataModel * model = findGenres();
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
             break;
         case Command::ArtistsList:
-            result = QVariant::fromValue((QObject*)findArtists());
+            {
+                GroupDataModel * model = findArtists();
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::SongsByFormatList:
+            {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findSongsByFormatId(findCommand->queryId(), findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::SongsByArtistList:
+            {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findSongsByArtistId(findCommand->queryId(), findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::SongsByGenreList:
+        {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findSongsByGenreId(findCommand->queryId(), findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::MostDownloadedSongs: {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findMostDownloadedSongs(findCommand->limit());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::MostFavouritedSongs: {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findMostFavouritedSongs(findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::MostScoredSongs: {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findMostScoredSongs(findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::RecentlyPlayedSongs: {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findRecentlyPlayedSongs(findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::MyFavouriteSongs: {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findMyFavouriteSongs(findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::MostPlayedSongs: {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                ArrayDataModel * model = findMostPlayedSongs(findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
             break;
         default:
             qDebug() << "Unknown command:" << command->command();
             break;
         }
+        //qDebug() << "About to resultReady:" << command->command() << command->id() << result;
+
         emit resultReady(command->id(), result);
+
         QObject* p = result.value<QObject*>();
         if(p != NULL && p->parent() == NULL) {
             result.detach();
             delete p;
         }
+
         delete command;
     }
     QThread::exit(0);

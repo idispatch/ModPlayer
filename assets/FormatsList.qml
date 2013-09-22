@@ -24,12 +24,6 @@ Page {
                     imageSource: ListItem.data.iconPath
                 }
             }
-            function load() {
-                if(!dataModel) {
-                    dataModel = app.player.catalog.findFormats()
-                }
-            }
-            onCreationCompleted: load()
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 var view = songList.createObject()
@@ -45,8 +39,16 @@ Page {
             ]
         }
     }
+    property int requestId
+    function updateView(responseId, result) {
+        if(responseId != requestId) 
+            return
+        formatsList.dataModel = result
+    }
     function load() {
-        formatsList.load()
+        if(formatsList.dataModel == null || formatsList.dataModel.size() == 0) {
+            requestId = app.player.catalog.findFormatsAsync()
+        }
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && navigationPane.top == formatsPage) {
@@ -57,6 +59,7 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(showPlayerView)
+        app.catalog.resultReady.connect(updateView)
     }
     attachedObjects: [
         ComponentDefinition {

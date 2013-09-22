@@ -53,11 +53,6 @@ Page {
             ]
         }
     }
-    function load() {
-        if(!artistsList.dataModel) {
-            artistsList.dataModel = app.player.catalog.findArtists()
-        }
-    }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && navigationPane.top == artistsPage) {
             var view = songPlayer.createObject()
@@ -65,8 +60,20 @@ Page {
             navigationPane.push(view)
         }
     }
+    property int requestId
+    function updateView(responseId, result) {
+        if(responseId != requestId) 
+            return
+        artistsList.dataModel = result
+    }
+    function load() {
+        if(artistsList.dataModel == null || artistsList.dataModel.size() == 0) {
+            requestId = app.catalog.findArtistsAsync()
+        }
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(showPlayerView)
+        app.catalog.resultReady.connect(updateView)
     }
     attachedObjects: [
         ComponentDefinition {
