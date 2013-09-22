@@ -39,6 +39,7 @@ Page {
                     }
                     SongPublicInfo {
                         song: app.player.currentSong
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
                     }
                     SongParametersInfo {
                         song: app.player.currentSong

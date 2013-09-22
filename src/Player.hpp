@@ -57,6 +57,7 @@ public:
     ModPlayback * playback() const;
     SongModule * currentSong() const;
 
+    Q_INVOKABLE void load();
     Q_INVOKABLE void play(QVariant value); /* loads and plays */
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
@@ -71,7 +72,12 @@ Q_SIGNALS:
     void catalogChanged();
     void playbackChanged();
     void currentSongChanged();
+    void localSongLoaded();
 private slots:
+    /* For FilePicker */
+    void onSongLoadSelected(const QStringList&);
+    void onSongLoadCanceled();
+
     /* For Downloader */
     void onDownloadStarted(int id);
     void onDownloadFinished(QString fileName);
@@ -100,7 +106,7 @@ private:
     void initNowPlaying();
 
     void changeStatus(State state, QString const& statusText);
-    void beginPlay(QString const& fileName);
+    void beginPlay(bool fromCatalog, QString const& fileName);
 
     void playByModuleId(int id);
     void playByModuleFileName(QString const& fileName);

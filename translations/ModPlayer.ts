@@ -200,6 +200,13 @@
     </message>
 </context>
 <context>
+    <name>LoadActionItem</name>
+    <message>
+        <source>Load song from device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PauseActionItem</name>
     <message>
         <source>Resume</source>
@@ -257,6 +264,10 @@
     </message>
     <message>
         <source>Failed to download song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Song Module</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

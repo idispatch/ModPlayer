@@ -27,8 +27,6 @@ class SongModule : public SongExtendedInfo,
 
     Q_PROPERTY(int masterVolume READ masterVolume WRITE setMasterVolume NOTIFY masterVolumeChanged FINAL)
     Q_PROPERTY(int playingChannels READ playingChannels WRITE setPlayingChannels NOTIFY playingChannelsChanged FINAL)
-
-    Q_PROPERTY(int formatId READ formatId FINAL)
 public:
     SongModule(QObject *parent);
     virtual ~SongModule();

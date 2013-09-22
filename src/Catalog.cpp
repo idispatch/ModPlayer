@@ -444,9 +444,9 @@ Catalog::searchSongs(QString const& searchTerm, int limit) {
     }
 
     QString const query = selectClause + whereClause + orderClause + limitClause;
-//#ifdef DEBUG_CATALOG
+#ifdef DEBUG_CATALOG
     qDebug() << "Search query:" << query;
-//#endif
+#endif
     ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery(query, db);

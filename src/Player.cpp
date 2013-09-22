@@ -1,5 +1,6 @@
 #include <QDeclarativeComponent>
 #include <bb/multimedia/NowPlayingConnection>
+#include <bb/cascades/pickers/FilePicker>
 #include "Player.hpp"
 #include "Catalog.hpp"
 #include "Cache.hpp"
@@ -206,7 +207,7 @@ void Player::onDownloadFinished(QString fileName) {
 
     m_cache->cache(file);
 
-    beginPlay(newFile);
+    beginPlay(true, newFile);
 }
 
 void Player::onDownloadFailure(int id) {
@@ -284,20 +285,37 @@ SongModule * Player::currentSong() const {
     return m_playback->currentSong();
 }
 
-void Player::beginPlay(QString const& fileName) {
+void Player::beginPlay(bool fromCatalog, QString const& fileName) {
     QString fileNamePart = fileNameOnly(fileName);
-    SongExtendedInfo * info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
+    qDebug() << "Player::beginPlay:" << fileName;
+    SongExtendedInfo * info = NULL;
+    if(fromCatalog) {
+        info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
+    } else {
+        info = new SongExtendedInfo(NULL);
+    }
+
     if(info != NULL)
     {
-        QString absoluteFileName = joinPath(m_cache->cachePath(), fileName);
+        QString absoluteFileName;
+        if(fromCatalog) {
+            absoluteFileName = joinPath(m_cache->cachePath(), fileName);
+        } else {
+            absoluteFileName = fileName;
+        }
+
         if(m_playback->load(*info, absoluteFileName))
         {
             if(m_playback->play())
             {
+                if(fromCatalog) {
+                    m_catalog->play(QVariant::fromValue(static_cast<QObject*>(currentSong())));
+                } else {
+                    emit localSongLoaded();
+                }
+
                 QString file = currentSong()->fileName();
                 changeStatus(Playing, QString(tr("Playing %1")).arg(file));
-
-                m_catalog->play(QVariant::fromValue(static_cast<QObject*>(currentSong())));
 
                 if(!m_nowPlaying->isAcquired())
                 {
@@ -362,7 +380,7 @@ void Player::play(QVariant value) {
 void Player::playByModuleFileName(QString const& fileName) {
     if(m_cache->exists(fileName))
     {
-        beginPlay(fileName);
+        beginPlay(true, fileName);
     }
     else
     {
@@ -377,7 +395,7 @@ void Player::playByModuleFileName(QString const& fileName) {
 void Player::playByModuleId(int id) {
     QString fileName = m_catalog->resolveFileNameById(id);
     if(m_cache->exists(fileName)) {
-        beginPlay(fileName);
+        beginPlay(true, fileName);
     }
     else
     {
@@ -396,6 +414,51 @@ void Player::pause() {
 
 void Player::resume() {
     m_playback->resume();
+}
+
+void Player::load() {
+    using namespace bb::cascades::pickers;
+    bool rc;
+    FilePicker* filePicker = new FilePicker();
+    filePicker->setType(FileType::Other);
+    filePicker->setTitle(tr("Select Song Module"));
+    filePicker->setMode(FilePickerMode::Picker);
+
+    QStringList fileNameFilters;
+    fileNameFilters << "*.mod"
+                    << "*.med"
+                    << "*.mt2"
+                    << "*.mtm"
+                    << "*.s3m"
+                    << "*.it"
+                    << "*.stm"
+                    << "*.xm"
+                    << "*.669"
+                    << "*.oct"
+                    << "*.okt";
+    filePicker->setFilter(fileNameFilters);
+
+    rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
+                          this,       SLOT(onSongLoadSelected(const QStringList&)));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(filePicker, SIGNAL(canceled()),
+                          this,       SLOT(onSongLoadCanceled()));
+    Q_ASSERT(rc);
+
+    filePicker->open();
+}
+
+void Player::onSongLoadSelected(const QStringList& fileList) {
+    if(fileList.size() > 0) {
+        qDebug() << "Loading local song:" << fileList[0];
+        beginPlay(false, fileList[0]);
+    }
+    sender()->deleteLater();
+}
+
+void Player::onSongLoadCanceled() {
+    sender()->deleteLater();
 }
 
 void Player::onPaused() {
