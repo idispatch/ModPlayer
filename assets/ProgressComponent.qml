@@ -1,9 +1,22 @@
 import bb.cascades 1.0
 
-ActivityIndicator {
-    running: false
-    preferredHeight: 600
-    preferredWidth: 600
-    horizontalAlignment: HorizontalAlignment.Center
-    verticalAlignment: VerticalAlignment.Center
+Container {
+    layout: DockLayout {}
+    property alias running: activityIndicator.running
+    visible: running
+    horizontalAlignment: HorizontalAlignment.Fill
+    verticalAlignment: VerticalAlignment.Fill
+    topPadding: 200
+    GroupContainer {
+        horizontalAlignment: HorizontalAlignment.Center
+        verticalAlignment: VerticalAlignment.Center
+        ActivityIndicator {
+            id: activityIndicator
+            running: false
+            preferredHeight: 128
+            preferredWidth: preferredHeight
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+        }
+    }
 }

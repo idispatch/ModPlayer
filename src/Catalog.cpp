@@ -750,6 +750,7 @@ void Catalog::run() {
         case Command::MostDownloadedSongs: {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
                 ArrayDataModel * model = findMostDownloadedSongs(findCommand->limit());
+                model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }
             break;

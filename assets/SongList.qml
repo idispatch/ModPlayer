@@ -210,8 +210,8 @@ Page {
             return
         songs.dataModel = result
         progress.running = false
-        songs.visible = (result.size() > 0)
-        listEmpty.visible = (result.size() == 0)
+        songs.visible = (songs.dataModel.size() > 0)
+        listEmpty.visible = (songs.dataModel.size() == 0)
     }
     function showList(listName, modelName, request) {
         requestId = request
