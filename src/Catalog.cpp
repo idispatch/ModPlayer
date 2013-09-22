@@ -21,6 +21,15 @@ int InstanceCounter<Catalog>::s_maxCount;
 
 int Catalog::Command::s_commandCounter = 0;
 
+struct PersonalData {
+    int id;
+    int playCount;
+    int lastPlayed;
+    int myFavourite;
+};
+
+typedef QVector<PersonalData> MigrationData;
+
 Catalog::Catalog(QObject * parent)
     : QThread(parent),
       m_dataAccess(NULL) {
@@ -68,6 +77,71 @@ void Catalog::copyCatalogToDataFolder() {
         {
             qDebug() << "Failed to copy catalog - file does not exists";
         }
+    }
+    else
+    {
+        // catalog exists
+        MigrationData data;
+        {
+            SqlDataAccess dataAccess(catalogPath(), "catalog");
+            QVariant version = dataAccess.execute("PRAGMA user_version");
+            if(version.toInt() == 1)
+            {
+                qDebug() << "Database migration not required, version" << version.toInt();
+                return;
+            }
+            else
+            {
+                qDebug() << "Starting database migration from version" << version.toInt();
+                const char * query =    "SELECT"
+                                        " id,"
+                                        " playCount,"
+                                        " lastPlayed,"
+                                        " myFavourite "
+                                        "FROM songs "
+                                        "WHERE playCount>0 OR lastPlayed>0 OR myFavourite>0";
+                QSqlDatabase db = dataAccess.connection();
+                QSqlQuery sqlQuery = db.exec(query);
+                while(sqlQuery.next()) {
+                    PersonalData song;
+                    int column = 0;
+                    song.id          = sqlQuery.value(column++).toInt();
+                    song.playCount   = sqlQuery.value(column++).toInt();
+                    song.lastPlayed  = sqlQuery.value(column++).toInt();
+                    song.myFavourite = sqlQuery.value(column++).toInt();
+                    data.push_back(song);
+                }
+                qDebug() << "Migrating" << data.size() << "songs";
+            }
+        }
+
+        qDebug() << "Removing old database";
+        catalogFile.remove();
+
+        qDebug() << "Removed old database";
+        copyCatalogToDataFolder();
+
+        qDebug() << "About to update" << data.size() << "songs";
+        if(!data.empty())
+        {
+            SqlDataAccess dataAccess(catalogPath(), "catalog");
+            for(int i = 0; i<data.size(); ++i) {
+                QString query = QString("UPDATE songs "
+                                     "SET"
+                                     " playCount=%2,"
+                                     " lastPlayed=%3,"
+                                     " myFavourite=%4 "
+                                     "WHERE id=%1").arg(data[i].id)
+                                                   .arg(data[i].playCount)
+                                                   .arg(data[i].lastPlayed)
+                                                   .arg(data[i].myFavourite);
+                dataAccess.execute(query);
+            }
+        } else {
+            qDebug() << "No song updates required";
+        }
+
+        qDebug() << "Migration completed successfully";
     }
 }
 
