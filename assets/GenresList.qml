@@ -8,6 +8,9 @@ Page {
         title: qsTr("Select Songs by Genre")
     }
     ViewContainer {
+        ProgressComponent {
+            id: progress
+        }
         ListView {
             id: genresList
             horizontalAlignment: HorizontalAlignment.Fill
@@ -56,10 +59,14 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
+        progress.running = false
+        genresList.visible = true
         genresList.dataModel = result
     }
     function load() {
         if(genresList.dataModel == null || genresList.dataModel.size() == 0) {
+            progress.running = true
+            genresList.visible = false
             requestId = app.player.catalog.findGenresAsync()
         }
     }

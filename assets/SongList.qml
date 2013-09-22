@@ -208,9 +208,8 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
-        songs.setDataModel(result)
+        songs.dataModel = result
         progress.running = false
-        progress.visible = false
         songs.visible = (result.size() > 0)
         listEmpty.visible = (result.size() == 0)
     }
@@ -218,14 +217,13 @@ Page {
         requestId = request
         songs.mode = listName
         songs.modelName = modelName
-        if (songs.dataModel) {
+        if(songs.dataModel) {
             songs.dataModel.clear()
         }
         songs.resetDataModel()
     }
     function unload() {
         progress.running = true
-        progress.visible = true
         songs.visible = false
         listEmpty.visible = false
         if (songs.dataModel) {

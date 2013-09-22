@@ -8,6 +8,9 @@ Page {
         title: qsTr("Select Songs by Format")
     }
     ViewContainer {
+        ProgressComponent {
+            id: progress
+        }
         ListView {
             id: formatsList
             horizontalAlignment: HorizontalAlignment.Fill
@@ -43,10 +46,14 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
+        progress.running = false
+        formatsList.visible = true
         formatsList.dataModel = result
     }
     function load() {
         if(formatsList.dataModel == null || formatsList.dataModel.size() == 0) {
+            progress.running = true
+            formatsList.visible = false
             requestId = app.player.catalog.findFormatsAsync()
         }
     }

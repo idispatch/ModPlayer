@@ -792,7 +792,6 @@ void Catalog::run() {
             qDebug() << "Unknown command:" << command->command();
             break;
         }
-        //qDebug() << "About to resultReady:" << command->command() << command->id() << result;
 
         emit resultReady(command->id(), result);
 

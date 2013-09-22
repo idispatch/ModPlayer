@@ -8,6 +8,9 @@ Page {
         title: qsTr("Select Songs by Artist")
     }
     ViewContainer {
+        ProgressComponent {
+            id: progress
+        }
         ListView {
             id: artistsList
             horizontalAlignment: HorizontalAlignment.Fill
@@ -64,10 +67,14 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
+        progress.running = false
+        artistsList.visible = true
         artistsList.dataModel = result
     }
     function load() {
         if(artistsList.dataModel == null || artistsList.dataModel.size() == 0) {
+            progress.running = true
+            artistsList.visible = false
             requestId = app.catalog.findArtistsAsync()
         }
     }
