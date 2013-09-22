@@ -88,7 +88,6 @@ private slots:
 private:
     Q_DISABLE_COPY(SongModule)
 
-    static QString fileNameOnly(QString const& fileName);
     void assignInfo(SongExtendedInfo const& other);
 private:
     QString m_absoluteFileName;

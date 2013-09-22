@@ -14,7 +14,7 @@ GroupContainer {
                 spaceQuota: 10
             }
             BlackLabel {
-                text: song ? qsTr("File: <b>%1</b>").arg(song.fileName) : ""
+                text: song ? qsTr("File: <b>%1</b>").arg(Global.fileNameOnly(song.fileName)) : ""
                 textFormat: TextFormat.Html
             }
             BlackLabel {

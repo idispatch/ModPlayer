@@ -13,6 +13,11 @@ namespace bb
         class Application;
         class LocaleHandler;
     }
+    namespace system
+    {
+        class InvokeManager;
+        class InvokeRequest;
+    }
 }
 
 class QTranslator;
@@ -52,6 +57,7 @@ Q_SIGNALS:
     void cacheChanged();
     void analyticsChanged();
 private slots:
+    void onInvoked(const bb::system::InvokeRequest& invoke);
     void onSystemLanguageChanged();
     void onCatalogChanged();
     void onCacheChanged();
@@ -71,6 +77,7 @@ private:
     bb::cascades::Application * m_app;
     Player * m_player;
     Analytics * m_analytics;
+    bb::system::InvokeManager * m_invokeManager;
 };
 
 #endif

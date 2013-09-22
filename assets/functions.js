@@ -1,3 +1,7 @@
+function fileNameOnly(path) {
+    return path.replace(/.*\//, '');
+}
+
 function getSizeKb(size) {
     var result;
     if(size < 1024) {

@@ -6,7 +6,7 @@ ActionItem {
     
     title: qsTr("Remove from Favourites")
     imageSource: "asset:///images/actions/icon_unlike.png"
-    enabled: currentSong != null && currentSong.id != 0
+    enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0
     ActionBar.placement: ActionBarPlacement.InOverflow
     shortcuts: Shortcut {
         key: "u"

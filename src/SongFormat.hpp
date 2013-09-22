@@ -21,6 +21,7 @@ public:
     QUrl iconPath() const;
 
     static QUrl getIconPath(int formatId);
+    static int getFormatIdByFileName(QString const& fileName);
 
     using InstanceCounter<SongFormat>::getInstanceCount;
     using InstanceCounter<SongFormat>::getMaxInstanceCount;

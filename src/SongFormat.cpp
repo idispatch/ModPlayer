@@ -63,6 +63,49 @@ QUrl SongFormat::getIconPath(int formatId) {
     }
 }
 
+int SongFormat::getFormatIdByFileName(QString const& fileName) {
+    if(fileName.endsWith(".mod", Qt::CaseInsensitive)) {
+        return 1;
+    }
+    if(fileName.endsWith(".669", Qt::CaseInsensitive)) {
+        return 2;
+    }
+    if(fileName.endsWith(".it", Qt::CaseInsensitive)) {
+        return 3;
+    }
+    if(fileName.endsWith(".med", Qt::CaseInsensitive)) {
+        return 4;
+    }
+    if(fileName.endsWith(".mtm", Qt::CaseInsensitive)) {
+        return 5;
+    }
+    if(fileName.endsWith(".oct", Qt::CaseInsensitive)) {
+        return 6;
+    }
+    if(fileName.endsWith(".okt", Qt::CaseInsensitive)) {
+        return 7;
+    }
+    if(fileName.endsWith(".s3m", Qt::CaseInsensitive)) {
+        return 8;
+    }
+    if(fileName.endsWith(".stm", Qt::CaseInsensitive)) {
+        return 9;
+    }
+    if(fileName.endsWith(".xm", Qt::CaseInsensitive)) {
+        return 10;
+    }
+    if(fileName.endsWith(".ahx", Qt::CaseInsensitive)) {
+        return 11;
+    }
+    if(fileName.endsWith(".hvl", Qt::CaseInsensitive)) {
+        return 12;
+    }
+    if(fileName.endsWith(".mo3", Qt::CaseInsensitive)) {
+        return 1;
+    }
+    return 0;
+}
+
 QDebug operator << (QDebug dbg, SongFormat const &format) {
     dbg.nospace() << "(SongFormat:"
                   << "id="

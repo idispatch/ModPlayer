@@ -1,6 +1,7 @@
 #include "modplug.h"
 
 #include "SongModule.hpp"
+#include "SongFormat.hpp"
 
 #include <QDebug>
 #include <QFile>
@@ -130,12 +131,6 @@ void SongModule::setMasterVolume(int value) {
     }
 }
 
-QString SongModule::fileNameOnly(QString const& fileName) {
-    QFile file(fileName);
-    QFileInfo fileInfo(file.fileName());
-    return fileInfo.fileName();
-}
-
 bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     if (m_absoluteFileName == fileName) {
         return true; // not loading the same song twice
@@ -156,10 +151,10 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         if (m_modPlug != NULL) {
             m_absoluteFileName = fileName;
 
-            assignInfo(info);
-
-            setFileName(fileNameOnly(fileName));
+            setFileName(fileName);
             setTitle(ModPlug_GetName(m_modPlug));
+
+            assignInfo(info);
 
             const char * description = ModPlug_GetMessage(m_modPlug);
             setDescription(description ? description : "");
@@ -256,6 +251,9 @@ ArrayDataModel* SongModule::getInstrumentNames() {
 void SongModule::assignInfo(SongExtendedInfo const& other) {
     setId(other.id());
     setFormatId(other.formatId());
+    if(formatId() == 0) {
+        setFormatId(SongFormat::getFormatIdByFileName(fileName()));
+    }
     setFileSize(other.fileSize());
     setSongLength(other.songLength());
 

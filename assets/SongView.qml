@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 Page {
     id: songView
@@ -51,7 +52,7 @@ Page {
 
     function load(songId) {
         song = app.player.catalog.resolveModuleById(songId, songView)
-        app.analytics.view(song.id, song.fileName)
+        app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
     }
     attachedObjects: [
         ComponentDefinition {

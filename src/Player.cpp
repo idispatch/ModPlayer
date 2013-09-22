@@ -1,6 +1,7 @@
 #include <QDeclarativeComponent>
 #include <bb/multimedia/NowPlayingConnection>
 #include <bb/cascades/pickers/FilePicker>
+#include "FileUtils.hpp"
 #include "Player.hpp"
 #include "Catalog.hpp"
 #include "Cache.hpp"
@@ -17,6 +18,20 @@ template<>
 int InstanceCounter<Player>::s_count;
 template<>
 int InstanceCounter<Player>::s_maxCount;
+
+static const char * g_song_extensions_array[] = {
+    "*.mod",
+    "*.med",
+    "*.mt2",
+    "*.mtm",
+    "*.s3m",
+    "*.it",
+    "*.stm",
+    "*.xm",
+    "*.669",
+    "*.oct",
+    "*.okt"
+};
 
 Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
@@ -41,44 +56,16 @@ Player::~Player() {
     }
 }
 
-QString Player::joinPath(QString const& directory, QString const& fileName) {
-    if(fileName.startsWith('/')) {
-        return fileName; // already absolute
-    }
-    QString result = directory;
-    if(directory.endsWith('/')) {
-        result += fileName;
-    } else {
-        result = result + "/" + fileName;
-    }
-    return result;
-}
-
-QString Player::fileNameOnly(QString const& fileName) {
-    int pos = fileName.lastIndexOf('/');
-    if(pos == -1) {
-        return fileName;
-    } else {
-        return fileName.mid(pos + 1);
-    }
-}
-
 void Player::initCache() {
     QStringList fileNameFilters;
-    fileNameFilters << "*.mod"
-                    << "*.med"
-                    << "*.mt2"
-                    << "*.mtm"
-                    << "*.s3m"
-                    << "*.it"
-                    << "*.stm"
-                    << "*.xm"
-                    << "*.669"
-                    << "*.oct"
-                    << "*.okt";
-    qDebug() << *m_cache;
+    for(size_t i = 0;
+        i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
+        ++i) {
+        fileNameFilters << g_song_extensions_array[i];
+    }
+    //qDebug() << *m_cache;
     m_cache->setFileNameFilters(fileNameFilters);
-    qDebug() << *m_cache;
+    //qDebug() << *m_cache;
 }
 
 void Player::initDownloader() {
@@ -181,13 +168,13 @@ void Player::onDownloadStarted(int id) {
 void Player::onDownloadFinished(QString fileName) {
     Analytics::getInstance()->downloadFinished();
 
-    QString name = fileNameOnly(fileName);
-    changeStatus(Preparing, QString(tr("Unpacking song %1")).arg(name));
+    QString relativeName = FileUtils::fileNameOnly(fileName);
+    changeStatus(Preparing, QString(tr("Unpacking song %1")).arg(relativeName));
 
-    QString newFile = m_unpacker->unpackFile(fileName);
+    QString unpackedFileName = m_unpacker->unpackFile(fileName);
     if(QFile::remove(fileName))
     {
-        qDebug() << "Deleted" << fileName;
+        //qDebug() << "Deleted" << fileName;
     }
     else
     {
@@ -196,18 +183,18 @@ void Player::onDownloadFinished(QString fileName) {
         Analytics::getInstance()->logError("DeleteError", message);
     }
 
-    if(newFile.isEmpty())
+    if(unpackedFileName.isEmpty())
     {
-        changeStatus(Stopped, QString(tr("Failed to prepare song %1")).arg(name));
+        changeStatus(Stopped, QString(tr("Failed to prepare song %1")).arg(relativeName));
         return;
     }
 
-    QString file = fileNameOnly(newFile);
-    changeStatus(Preparing, QString(tr("Caching song %1")).arg(file));
+    QString unpackedRelativeFileName = FileUtils::fileNameOnly(unpackedFileName);
+    changeStatus(Preparing, QString(tr("Caching song %1")).arg(unpackedRelativeFileName));
 
-    m_cache->cache(file);
+    m_cache->cache(unpackedRelativeFileName);
 
-    beginPlay(true, newFile);
+    beginPlay(true, unpackedFileName);
 }
 
 void Player::onDownloadFailure(int id) {
@@ -221,7 +208,7 @@ void Player::updateNowPlaying() {
     m_nowPlaying->setPosition(0);
     QVariantMap metadata;
 
-    metadata[MetaData::Title] = currentSong()->fileName();
+    metadata[MetaData::Title] = FileUtils::fileNameOnly(currentSong()->fileName());
     metadata[MetaData::Artist] = currentSong()->title();
 
     m_nowPlaying->setOverlayStyle(OverlayStyle::Fancy);
@@ -285,37 +272,38 @@ SongModule * Player::currentSong() const {
     return m_playback->currentSong();
 }
 
-void Player::beginPlay(bool fromCatalog, QString const& fileName) {
-    QString fileNamePart = fileNameOnly(fileName);
-    qDebug() << "Player::beginPlay:" << fileName;
+bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
+    bool rv = false;
+    QString fileNamePart = FileUtils::fileNameOnly(fileName);
+    //qDebug() << "Player::beginPlay:" << fileName;
     SongExtendedInfo * info = NULL;
     if(fromCatalog) {
         info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
     } else {
         info = new SongExtendedInfo(NULL);
+        info->setFileName(fileName);
     }
 
     if(info != NULL)
     {
         QString absoluteFileName;
         if(fromCatalog) {
-            absoluteFileName = joinPath(m_cache->cachePath(), fileName);
+            absoluteFileName = FileUtils::joinPath(m_cache->cachePath(), fileName);
         } else {
             absoluteFileName = fileName;
         }
 
+        //qDebug() << "Player::beginPlay(absoluteFileName):" << absoluteFileName;
         if(m_playback->load(*info, absoluteFileName))
         {
             if(m_playback->play())
             {
                 if(fromCatalog) {
                     m_catalog->play(QVariant::fromValue(static_cast<QObject*>(currentSong())));
-                } else {
-                    emit localSongLoaded();
                 }
 
-                QString file = currentSong()->fileName();
-                changeStatus(Playing, QString(tr("Playing %1")).arg(file));
+                QString relativeFileName = FileUtils::fileNameOnly(currentSong()->fileName());
+                changeStatus(Playing, QString(tr("Playing %1")).arg(relativeFileName));
 
                 if(!m_nowPlaying->isAcquired())
                 {
@@ -325,6 +313,8 @@ void Player::beginPlay(bool fromCatalog, QString const& fileName) {
                 {
                     updateNowPlaying();
                 }
+
+                rv = true;
             }
             else
             {
@@ -348,6 +338,8 @@ void Player::beginPlay(bool fromCatalog, QString const& fileName) {
         qDebug() << message;
         Analytics::getInstance()->logError("LoadError", message);
     }
+
+    return rv;
 }
 
 void Player::play(QVariant value) {
@@ -370,25 +362,35 @@ void Player::play(QVariant value) {
         }
     }
     else {
+        //qDebug() << "Player::play:" << value;
         SongExtendedInfo * info = songExtendedInfo(value);
         if(info != 0) {
+            //qDebug() << "Player::play:" << info->fileName();
             playByModuleFileName(info->fileName());
+        } else {
+            qDebug() << "Player::play: Unsupported variant type:" << value;
         }
     }
 }
 
 void Player::playByModuleFileName(QString const& fileName) {
-    if(m_cache->exists(fileName))
-    {
-        beginPlay(true, fileName);
-    }
-    else
-    {
-        QString name = fileNameOnly(fileName);
-        changeStatus(Resolving, QString(tr("Resolving %1")).arg(name));
+    //qDebug() << "Player::playByModuleFileName" << fileName;
+    // relative path or within cache directory - play from cache
+    if(fileName.startsWith(m_cache->cachePath()) || !fileName.startsWith("/")) {
+        if(m_cache->exists(fileName)) {
+            beginPlay(true, fileName);
+        }
+        else
+        {
+            QString name = FileUtils::fileNameOnly(fileName);
+            changeStatus(Resolving, QString(tr("Resolving %1")).arg(name));
 
-        int id = m_catalog->resolveModuleIdByFileName(fileName);
-        m_downloader->download(id);
+            int id = m_catalog->resolveModuleIdByFileName(fileName);
+            m_downloader->download(id);
+        }
+    } else {
+        // otherwise play from the absolute path
+        beginPlay(false, fileName);
     }
 }
 
@@ -425,17 +427,11 @@ void Player::load() {
     filePicker->setMode(FilePickerMode::Picker);
 
     QStringList fileNameFilters;
-    fileNameFilters << "*.mod"
-                    << "*.med"
-                    << "*.mt2"
-                    << "*.mtm"
-                    << "*.s3m"
-                    << "*.it"
-                    << "*.stm"
-                    << "*.xm"
-                    << "*.669"
-                    << "*.oct"
-                    << "*.okt";
+    for(size_t i = 0;
+            i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
+            ++i) {
+            fileNameFilters << g_song_extensions_array[i];
+        }
     filePicker->setFilter(fileNameFilters);
 
     rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
@@ -450,9 +446,13 @@ void Player::load() {
 }
 
 void Player::onSongLoadSelected(const QStringList& fileList) {
-    if(fileList.size() > 0) {
-        qDebug() << "Loading local song:" << fileList[0];
-        beginPlay(false, fileList[0]);
+    if(fileList.size() > 0)
+    {
+        QString const& fileName = fileList[0];
+        if(beginPlay(false, fileName))
+        {
+            emit localSongLoaded();
+        }
     }
     sender()->deleteLater();
 }
@@ -466,7 +466,9 @@ void Player::onPaused() {
 }
 
 void Player::onPlaying() {
-    changeStatus(Playing, QString(tr("Playing %1")).arg(currentSong()->fileName()));
+    QString songFileName = currentSong()->fileName();
+    QString songRelativeFileName = FileUtils::fileNameOnly(songFileName);
+    changeStatus(Playing, QString(tr("Playing %1")).arg(songRelativeFileName));
 }
 
 void Player::onStopped() {

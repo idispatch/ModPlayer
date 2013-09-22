@@ -1,5 +1,6 @@
 import bb.cascades 1.0
 import player 1.0
+import "functions.js" as Global
 
 Page {
     id: songPlayer
@@ -26,7 +27,7 @@ Page {
                         LCDDisplay {
                             text: {
                                 if(app.player.currentSong.title.length == 0) {
-                                    return app.player.currentSong.fileName
+                                    return Global.fileNameOnly(app.player.currentSong.fileName)
                                 } else {
                                     return app.player.currentSong.title
                                 }
@@ -71,11 +72,9 @@ Page {
         },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong
-            enabled: app.player.currentSong.songLoaded
         },
         RemoveFavouriteActionItem {
             currentSong: app.player.currentSong
-            enabled: app.player.currentSong.songLoaded
         },
         AppWorldActionItem{}
     ]

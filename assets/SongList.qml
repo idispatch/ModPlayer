@@ -269,7 +269,7 @@ Page {
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        LoadActionItem {
+        OpenSongActionItem {
             navigationPane: personalSongListPage.navigationPane
         },
         AppWorldActionItem {

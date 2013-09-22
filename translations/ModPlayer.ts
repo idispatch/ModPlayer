@@ -200,9 +200,9 @@
     </message>
 </context>
 <context>
-    <name>LoadActionItem</name>
+    <name>OpenSongActionItem</name>
     <message>
-        <source>Load song from device</source>
+        <source>Open song from device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

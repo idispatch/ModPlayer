@@ -1,5 +1,6 @@
 #include "SongBasicInfo.hpp"
 #include "SongFormat.hpp"
+#include "FileUtils.hpp"
 #include <QDebug>
 
 template<>
@@ -94,10 +95,9 @@ void SongBasicInfo::setTitle(const QString &value) {
     QString newTitle(value);
     newTitle = newTitle.trimmed();
     if(newTitle.length() == 0) {
-        newTitle = m_fileName;
+        newTitle = FileUtils::fileNameOnly(m_fileName);
     }
     if(m_title != newTitle) {
-
         m_title = newTitle;
         emit titleChanged();
     }

@@ -1,3 +1,4 @@
+#include "FileUtils.hpp"
 #include "Catalog.hpp"
 #include "Analytics.hpp"
 #include  <QDebug>
@@ -241,7 +242,7 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 #ifdef DEBUG_CATALOG
     qDebug() << "Resolving module id for file name " << fileName;
 #endif
-    QString query = QString("SELECT id FROM songs WHERE fileName='%1'").arg(fileName);
+    QString query = QString("SELECT id FROM songs WHERE fileName='%1'").arg(FileUtils::fileNameOnly(fileName));
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     if(data.size() == 1)
     {
@@ -268,7 +269,7 @@ Catalog::resolveModuleById(int id, QVariant parent) {
 SongExtendedInfo*
 Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName),
+    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(FileUtils::fileNameOnly(fileName)),
                           parentObject);
 }
 
@@ -508,7 +509,7 @@ void Catalog::addFavourite(QVariant value) {
                                                                               .arg(info->id());
         m_dataAccess->execute(query);
 
-        Analytics::getInstance()->addFavourite(info->id(), info->fileName());
+        Analytics::getInstance()->addFavourite(info->id(), FileUtils::fileNameOnly(info->fileName()));
     } else {
         qDebug() << "!!! Catalog::addFavourite: invalid value=" << value;
     }
@@ -522,7 +523,7 @@ void Catalog::removeFavourite(QVariant value) {
                                                                               .arg(info->id());
         m_dataAccess->execute(query);
 
-        Analytics::getInstance()->removeFavourite(info->id(), info->fileName());
+        Analytics::getInstance()->removeFavourite(info->id(), FileUtils::fileNameOnly(info->fileName()));
     } else {
         qDebug() << "!!! Catalog::removeFavourite: invalid value=" << value;
     }
@@ -538,7 +539,7 @@ void Catalog::play(QVariant value) {
                                                                                            .arg(info->lastPlayed())
                                                                                            .arg(info->id());
         m_dataAccess->execute(query);
-        Analytics::getInstance()->play(info->id(), info->fileName());
+        Analytics::getInstance()->play(info->id(), FileUtils::fileNameOnly(info->fileName()));
     } else {
         qDebug() << "!!! Catalog::play: invalid value=" << value;
     }

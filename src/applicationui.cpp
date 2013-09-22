@@ -37,7 +37,8 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(m_settings, this)),
-      m_analytics(new Analytics(this)) {
+      m_analytics(new Analytics(this)),
+      m_invokeManager(new InvokeManager(this)) {
     m_app = app;
     m_analytics->active(1);
     initTranslator();
@@ -57,7 +58,37 @@ void ApplicationUI::initSignals() {
     rc = QObject::connect(m_app, SIGNAL(aboutToQuit()),
                           this,  SLOT(onAboutToQuit()));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(m_invokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)),
+                          this,            SLOT(onInvoked(const bb::system::InvokeRequest&)));
+    Q_ASSERT(rc);
     Q_UNUSED(rc);
+}
+
+void ApplicationUI::onInvoked(const InvokeRequest& request) {
+#if 0
+    qDebug() << "ApplicationUI::onInvoke: action" << request.action()
+             << "target" << request.target()
+             << "uri" << request.uri()
+             << "mime" << request.mimeType();
+#endif
+    m_analytics->invoke(request.source().installId(),
+                        request.target(),
+                        request.action(),
+                        request.mimeType(),
+                        request.uri());
+    if(request.action() == "bb.action.OPEN" ||
+       request.action() == "bb.action.VIEW") {
+        QString fileName = request.uri().toString();
+        if(fileName.startsWith("file://")) {
+            fileName.remove(0, 7);
+            m_player->play(QVariant::fromValue(fileName));
+        } else {
+            qDebug() << "Invalid invoke URI" << request.uri();
+        }
+    } else {
+        qDebug() << "Invalid request action" << request.action();
+    }
 }
 
 void ApplicationUI::onAboutToQuit() {
@@ -207,19 +238,17 @@ void ApplicationUI::emailAuthor() {
           << QPair<QString, QString>("body", tr("Hello, ModPlayer Author!"));
     url.setQueryItems(query);
 
-    InvokeManager invokeManager;
     InvokeRequest request;
     request.setTarget("sys.pim.uib.email.hybridcomposer");
     request.setAction("bb.action.SENDEMAIL");
     request.setMimeType("text/plain");
     request.setUri(url);
-    invokeManager.invoke(request);
+    m_invokeManager->invoke(request);
 }
 
 void ApplicationUI::twit() {
     analytics()->twit();
 
-    InvokeManager invokeManager;
     InvokeRequest request;
     request.setTarget("Twitter");
     request.setAction("bb.action.SHARE");
@@ -227,30 +256,28 @@ void ApplicationUI::twit() {
     request.setUri(QUrl("data://"));
     QString message(tr("Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!"));
     request.setData(message.toUtf8());
-    invokeManager.invoke(request);
+    m_invokeManager->invoke(request);
 }
 
 void ApplicationUI::bbm() {
     analytics()->bbm();
 
-    InvokeManager invokeManager;
     InvokeRequest request;
     request.setTarget("sys.bbm.sharehandler");
     request.setAction("bb.action.SHARE");
     request.setMimeType("text/plain");
     QString message(tr("Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!"));
     request.setData(message.toUtf8());
-    invokeManager.invoke(request);
+    m_invokeManager->invoke(request);
 }
 
 void ApplicationUI::appWorld() {
     analytics()->appWorld();
 
-    InvokeManager invokeManager;
     InvokeRequest request;
     request.setTarget("sys.appworld");
     request.setAction("bb.action.OPEN");
     request.setMimeType("text/plain");
     request.setUri(QUrl("appworld://content/35007887"));
-    invokeManager.invoke(request);
+    m_invokeManager->invoke(request);
 }

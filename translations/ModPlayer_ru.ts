@@ -200,10 +200,10 @@
     </message>
 </context>
 <context>
-    <name>LoadActionItem</name>
+    <name>OpenSongActionItem</name>
     <message>
-        <source>Load song from device</source>
-        <translation type="unfinished"></translation>
+        <source>Open song from device</source>
+        <translation>Играть песню с телефона</translation>
     </message>
 </context>
 <context>
@@ -268,7 +268,7 @@
     </message>
     <message>
         <source>Select Song Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите песню</translation>
     </message>
 </context>
 <context>

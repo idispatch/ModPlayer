@@ -53,6 +53,20 @@
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
+    <invoke-target id="com.idispatch.modplayer">
+        <invoke-target-type>application</invoke-target-type>
+        <invoke-target-name>ModPlayer</invoke-target-name>
+        <icon>
+            <image>icon_modplayer.png</image>
+        </icon>
+        <filter>
+            <action>bb.action.VIEW</action>
+            <action>bb.action.OPEN</action>
+            <mime-type>*</mime-type>
+            <property var="uris" value="file://"/>
+            <property var="exts" value="mod,med,mt2,mtm,s3m,it,stm,xm,669,oct,okt"/>
+        </filter>
+    </invoke-target>
     <asset path="assets">assets</asset>
     <asset path="translations" dest="qm">
         <include name="*.qm"/>

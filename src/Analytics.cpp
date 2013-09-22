@@ -233,3 +233,18 @@ void Analytics::active(int on) const {
         Flurry::Analytics::EndTimedEvent("Active", parameters);
     }
 }
+
+void Analytics::invoke(QString const& source,
+                       QString const& target,
+                       QString const& action,
+                       QString const& mimeType,
+                       QUrl const& uri) const {
+    HardwareInfo hwInfo;
+    Flurry::Map parameters;
+    parameters["pin"] = hwInfo.pin();
+    parameters["source"] = source;
+    parameters["target"] = target;
+    parameters["action"] = action;
+    parameters["uri"] = uri.toString();
+    Flurry::Analytics::LogEvent("Invoke", parameters, false);
+}

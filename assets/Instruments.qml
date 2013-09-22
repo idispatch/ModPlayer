@@ -1,15 +1,19 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 Page {
     id: instrumentsView
     property string mode: "samples"
     titleBar: PlayerTitleBar {
         title: {
-            if(app.player.currentSong.songLoaded) {
+            var currentsong = app.player.currentSong
+            if(currentSong.songLoaded) {
+                
+                var fileName = Global.fileNameOnly(currentSong.fileName)
                 if(mode == 'samples') {
-                    return qsTr("Samples of %1 (%2)").arg(app.player.currentSong.fileName).arg(app.player.currentSong.samples)
+                    return qsTr("Samples of %1 (%2)").arg(fileName).arg(currentSong.samples)
                 } else {
-                    return qsTr("Instruments of %1 (%2)").arg(app.player.currentSong.fileName).arg(app.player.currentSong.instruments)
+                    return qsTr("Instruments of %1 (%2)").arg(fileName).arg(currentSong.instruments)
                 }
             } else {
                 return qsTr("Instruments and Samples")

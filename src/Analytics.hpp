@@ -31,6 +31,11 @@ public:
     Q_INVOKABLE void help(int on) const;
     Q_INVOKABLE void settings(int on) const;
     Q_INVOKABLE void active(int on) const;
+    Q_INVOKABLE void invoke(QString const& source,
+                            QString const& target,
+                            QString const& action,
+                            QString const& mimeType,
+                            QUrl const& uri) const;
 
     Q_INVOKABLE void downloadStarted() const;
     Q_INVOKABLE void downloadFinished() const;

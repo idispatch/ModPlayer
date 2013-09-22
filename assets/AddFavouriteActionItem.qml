@@ -5,7 +5,7 @@ ActionItem {
     
     title: qsTr("Add to Favourites")
     imageSource: "asset:///images/actions/icon_like.png"
-    enabled: currentSong != null && currentSong.id != 0
+    enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0
     ActionBar.placement: ActionBarPlacement.InOverflow
     shortcuts: Shortcut {
         key: "f"

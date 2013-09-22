@@ -1,5 +1,6 @@
 import bb.cascades 1.0
 import player 1.0
+import "functions.js" as Global
 
 ViewContainer {
     VerticalContainer {
@@ -109,7 +110,7 @@ ViewContainer {
                 bottomPadding: topPadding
                 Label {
                     horizontalAlignment: HorizontalAlignment.Center
-                    text: visible ? "("+app.player.currentSong.fileName+")" : ""
+                    text: visible ? "("+Global.fileNameOnly(app.player.currentSong.fileName)+")" : ""
                     textStyle {
                         color: Color.White
                         fontSize: FontSize.XSmall

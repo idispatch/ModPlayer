@@ -97,16 +97,13 @@ private slots:
 private:
     Q_DISABLE_COPY(Player)
 
-    static QString joinPath(QString const& directory, QString const& fileName);
-    static QString fileNameOnly(QString const& fileName);
-
     void initCache();
     void initDownloader();
     void initPlayback();
     void initNowPlaying();
 
     void changeStatus(State state, QString const& statusText);
-    void beginPlay(bool fromCatalog, QString const& fileName);
+    bool beginPlay(bool fromCatalog, QString const& fileName);
 
     void playByModuleId(int id);
     void playByModuleFileName(QString const& fileName);
