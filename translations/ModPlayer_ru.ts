@@ -12,7 +12,7 @@
     <name>AppWorldActionItem</name>
     <message>
         <source>Review in AppWorld</source>
-        <translation>Рецензия в AppWorld </translation>
+        <translation>Рецензия в AppWorld</translation>
     </message>
 </context>
 <context>
@@ -296,11 +296,15 @@
     <name>SaveSongActionItem</name>
     <message>
         <source>Save Song</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить песню</translation>
     </message>
     <message>
         <source>The song %1 has been saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Песня %1 сохранена</translation>
+    </message>
+    <message>
+        <source>Save Song to Device</source>
+        <translation>Сохранить песню на телефон</translation>
     </message>
 </context>
 <context>

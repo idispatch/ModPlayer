@@ -88,6 +88,15 @@ Page {
         RemoveFavouriteActionItem {
             currentSong: song
         },
+        SaveSongActionItem{
+            currentSong: {
+                if(song != null) { 
+                    return song.fileName 
+                } else { 
+                    return "" 
+                }
+            }
+        },
         OpenSongActionItem{},
         AppWorldActionItem{}
     ]

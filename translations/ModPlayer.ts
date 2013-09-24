@@ -302,6 +302,10 @@
         <source>The song %1 has been saved</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save Song to Device</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchArea</name>

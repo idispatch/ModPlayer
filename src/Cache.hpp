@@ -43,6 +43,7 @@ public:
     Q_INVOKABLE void cache(QString const& fileName);
     Q_INVOKABLE bool exists(QString const& fileName);
     Q_INVOKABLE void remove(QString const& fileName);
+    Q_INVOKABLE void save(QString const& cacheFileName, QString const& newFileName);
 
     using InstanceCounter<Cache>::getInstanceCount;
     using InstanceCounter<Cache>::getMaxInstanceCount;

@@ -77,7 +77,10 @@ Page {
         RemoveFavouriteActionItem {
             currentSong: app.player.currentSong
         },
-        SaveSongActionItem{},
+        SaveSongActionItem{
+            currentSong: app.player.currentSong.fileName
+            enabled: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
+        },
         OpenSongActionItem{},
         AppWorldActionItem{}
     ]

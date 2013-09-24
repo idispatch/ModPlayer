@@ -179,13 +179,16 @@ void Cache::cache(QString const& fileName) {
 }
 
 bool Cache::exists(QString const& fileName) {
-    bool bExists;
-    QString absoluteFilePath = absoluteFileName(fileName);
-    QFileInfo fileInfo(absoluteFilePath);
-    bExists = m_files.indexOf(fileInfo) != -1 && QFile::exists(absoluteFilePath);
-#ifdef DEBUG_CACHE
+    bool bExists = false;
+    if(fileName.size() > 0)
+    {
+        QString absoluteFilePath = absoluteFileName(fileName);
+        QFileInfo fileInfo(absoluteFilePath);
+        bExists = m_files.indexOf(fileInfo) != -1 && QFile::exists(absoluteFilePath);
+#if DEBUG_CACHE
     qDebug() << "Cache::exists:" << fileName << "(" << absoluteFilePath << ") =" << bExists;
 #endif
+    }
     return bExists;
 }
 
@@ -207,6 +210,27 @@ void Cache::remove(QString const& fileName) {
         emit currentFilesChanged();
         emit currentSizeChanged();
         emit filesChanged();
+    }
+}
+
+void Cache::save(QString const& cacheFileName, QString const& newFileName) {
+    if(exists(cacheFileName))
+    {
+        QString absoluteCacheFileName = absoluteFileName(cacheFileName);
+        bool copyOk;
+        if(QFile::exists(newFileName))
+        {
+            if(QFile::remove(newFileName)) {
+                copyOk = true;
+            } else {
+                copyOk = false;
+            }
+        } else {
+            copyOk = true;
+        }
+        if(copyOk) {
+            QFile::copy(absoluteCacheFileName, newFileName);
+        }
     }
 }
 
