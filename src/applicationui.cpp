@@ -4,7 +4,12 @@
 #include <bb/cascades/LocaleHandler>
 #include <bb/cascades/Container>
 #include <bb/cascades/SceneCover>
-
+#include <bb/cascades/pickers/FilePicker>
+#include <bb/cascades/pickers/FilePickerMode>
+#include <bb/cascades/pickers/FilePickerSortFlag>
+#include <bb/cascades/pickers/FilePickerSortOrder>
+#include <bb/cascades/pickers/FilePickerViewMode>
+#include <bb/cascades/pickers/FileType>
 #include <bb/data/DataSource>
 #include <bb/system/InvokeManager>
 #include <bb/ApplicationInfo>
@@ -107,6 +112,14 @@ void ApplicationUI::initTypes() {
 
     DataSource::registerQmlTypes();
     qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
+
+    const char * PICKER_NAMESPACE = "bb.cascades.pickers";
+    qmlRegisterType<pickers::FilePicker>(PICKER_NAMESPACE, 1, 0, "FilePicker");
+    qmlRegisterUncreatableType<pickers::FilePickerMode>(PICKER_NAMESPACE, 1, 0, "FilePickerMode", "");
+    qmlRegisterUncreatableType<pickers::FilePickerSortFlag>(PICKER_NAMESPACE, 1, 0, "FilePickerSortFlag", "");
+    qmlRegisterUncreatableType<pickers::FilePickerSortOrder>(PICKER_NAMESPACE, 1, 0, "FilePickerSortOrder", "");
+    qmlRegisterUncreatableType<pickers::FileType>(PICKER_NAMESPACE, 1, 0, "FileType", "");
+    qmlRegisterUncreatableType<pickers::FilePickerViewMode>(PICKER_NAMESPACE, 1, 0, "FilePickerViewMode", "");
 
     qRegisterMetaType<Analytics*>();
     qRegisterMetaType<Artist*>();

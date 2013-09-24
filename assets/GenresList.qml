@@ -96,7 +96,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem {
-            navigationPane: genresPage.navigationPane
         },
         AppWorldActionItem{} 
     ]

@@ -293,6 +293,17 @@
     </message>
 </context>
 <context>
+    <name>SaveSongActionItem</name>
+    <message>
+        <source>Save Song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The song %1 has been saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SearchArea</name>
     <message>
         <source>search songs</source>

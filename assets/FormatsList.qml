@@ -83,7 +83,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem {
-            navigationPane: formatsPage.navigationPane
         },
         AppWorldActionItem{} 
     ]

@@ -96,6 +96,7 @@ void Catalog::copyCatalogToDataFolder() {
             if(version == 1)
             {
                 qDebug() << "Database migration not required, version" << version;
+                QSqlDatabase::removeDatabase("catalog");
                 return;
             }
             else
@@ -123,6 +124,8 @@ void Catalog::copyCatalogToDataFolder() {
             }
         }
 
+        QSqlDatabase::removeDatabase("catalog");
+
         qDebug() << "Removing old database";
         catalogFile.remove();
 
@@ -145,6 +148,8 @@ void Catalog::copyCatalogToDataFolder() {
                                                    .arg(data[i].myFavourite);
                 dataAccess.execute(query);
             }
+
+            QSqlDatabase::removeDatabase("catalog");
         } else {
             qDebug() << "No song updates required";
         }

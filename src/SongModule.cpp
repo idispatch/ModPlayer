@@ -183,6 +183,24 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     return songLoaded();
 }
 
+void SongModule::save(QString const& fileName) {
+    const QString originalFileName = absoluteFileName();
+    bool copyOk;
+    if(QFile::exists(fileName))
+    {
+        if(QFile::remove(fileName)) {
+            copyOk = true;
+        } else {
+            copyOk = false;
+        }
+    } else {
+        copyOk = true;
+    }
+    if(copyOk) {
+        QFile::copy(originalFileName, fileName);
+    }
+}
+
 bool SongModule::unload() {
     if (m_modPlug != NULL) {
         ModPlug_Unload(m_modPlug);

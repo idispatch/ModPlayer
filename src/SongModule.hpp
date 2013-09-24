@@ -61,6 +61,7 @@ public:
 
     Q_INVOKABLE void update(bool endOfSong = false);
     Q_INVOKABLE bool load(SongExtendedInfo const& info, QString const& fileName);
+    Q_INVOKABLE void save(QString const& fileName);
     Q_INVOKABLE bool unload();
     Q_INVOKABLE bool rewind();
 

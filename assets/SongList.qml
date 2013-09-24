@@ -309,7 +309,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem {
-            navigationPane: songListPage.navigationPane
         },
         AppWorldActionItem {
         }

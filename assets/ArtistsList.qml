@@ -97,7 +97,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem {
-            navigationPane: artistsPage.navigationPane
         },
         AppWorldActionItem{} 
     ]

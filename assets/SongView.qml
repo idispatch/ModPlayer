@@ -88,9 +88,7 @@ Page {
         RemoveFavouriteActionItem {
             currentSong: song
         },
-        OpenSongActionItem {
-            navigationPane: songView.navigationPane
-        },
+        OpenSongActionItem{},
         AppWorldActionItem{}
     ]
 }
