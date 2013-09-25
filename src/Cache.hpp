@@ -44,7 +44,7 @@ public:
     Q_INVOKABLE bool exists(QString const& fileName);
     Q_INVOKABLE void remove(QString const& fileName);
     Q_INVOKABLE void save(QString const& cacheFileName, QString const& newFileName);
-    Q_INVOKABLE void exportCache();
+    Q_INVOKABLE void exportCache(QString const& directory);
 
     using InstanceCounter<Cache>::getInstanceCount;
     using InstanceCounter<Cache>::getMaxInstanceCount;

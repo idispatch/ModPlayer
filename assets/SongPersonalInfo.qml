@@ -26,13 +26,12 @@ GroupContainer {
                 return ""
             }
         }
-        function songPlayCountChanged(){
-            if(song.id == app.player.currentSong.id) {
-                song.playCount = app.player.currentSong.playCount
-            }
-        }
         onCreationCompleted: {
-            app.player.currentSong.playCountChanged.connect(songPlayCountChanged)
+            app.player.currentSong.playCountChanged.connect(function(){
+                if(song.id == app.player.currentSong.id) {
+                    song.playCount = app.player.currentSong.playCount
+                }
+            })
         }
     }
     HorizontalContainer {
@@ -47,13 +46,12 @@ GroupContainer {
                 qsTr("Last played %1").arg(Global.formatTimeStamp(song.lastPlayed)) : 
                 ""
         }
-        function songLastPlayedChanged(){
-            if(song.id == app.player.currentSong.id) {
-                song.lastPlayed = app.player.currentSong.lastPlayed
-            }
-        }
         onCreationCompleted: {
-            app.player.currentSong.lastPlayedChanged.connect(songLastPlayedChanged)
+            app.player.currentSong.lastPlayedChanged.connect(function(){
+                if(song.id == app.player.currentSong.id) {
+                    song.lastPlayed = app.player.currentSong.lastPlayed
+                }
+            })
         }
     }
     HorizontalContainer {
@@ -66,13 +64,12 @@ GroupContainer {
         BlackLabel {
             text: song && song.myFavourite > 0 ? qsTr("You liked this song") : ""
         }
-        function songFavouriteChanged(){
-            if(song.id == app.player.currentSong.id) {
-                song.myFavourite = app.player.currentSong.myFavourite
-            }
-        }
         onCreationCompleted: {
-            app.player.currentSong.myFavouriteChanged.connect(songFavouriteChanged)
+            app.player.currentSong.myFavouriteChanged.connect(function(){
+                if(song.id == app.player.currentSong.id) {
+                    song.myFavourite = app.player.currentSong.myFavourite
+                }
+            })
         }
     }
     BlackLabel {
@@ -88,12 +85,11 @@ GroupContainer {
             }
             return ""
         }
-        function currentCacheFilesChanged() {
-            visible = song && app.cache.exists(song.fileName)
-            text = getLabelText()
-        }
         onCreationCompleted: {
-            app.cache.currentFilesChanged.connect(currentCacheFilesChanged)
+            app.cache.currentFilesChanged.connect(function() {
+                    visible = song && app.cache.exists(song.fileName)
+                    text = getLabelText()
+            })
         }
     }
 }

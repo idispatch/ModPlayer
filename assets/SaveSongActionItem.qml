@@ -18,12 +18,12 @@ ActionItem {
         filePicker.cacheFileName = fileName
         filePicker.open()
     }
-    function currentCacheFilesChanged() {
-        certain = false
-        certain = true
-    }
     onCreationCompleted: {
-        app.cache.currentFilesChanged.connect(currentCacheFilesChanged)
+        app.cache.currentFilesChanged.connect(function() {
+            // a trick to refresh enabled: property
+            certain = false
+            certain = true
+        })
     }
     attachedObjects: [
         FilePicker {
@@ -35,7 +35,8 @@ ActionItem {
             title : qsTr("Save Song")
             directories : ["/accounts/1000/shared/downloads"]
             onFileSelected : {
-                if(selectedFiles.length > 0) {
+                if(selectedFiles.length > 0) 
+                {
                     var newFileName = selectedFiles[0]
                     app.cache.save(cacheFileName, newFileName)
                     fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 

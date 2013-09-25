@@ -279,6 +279,13 @@
     </message>
 </context>
 <context>
+    <name>ProgressToast</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RemoveFavouriteActionItem</name>
     <message>
         <source>Remove from Favourites</source>
@@ -529,19 +536,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The song cache will now be saved to your downloads directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The song cache has been exported successfully</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Export Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide</source>
+        <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -724,6 +727,13 @@
     </message>
     <message>
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SongPlayer</name>
+    <message>
+        <source>Downloading song</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

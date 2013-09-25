@@ -50,7 +50,7 @@ SongBasicInfo::SongBasicInfo(int id,
      m_myFavourite(myFavourite) {
     m_title = m_title.trimmed();
     if(m_title.length() == 0) {
-        m_title = m_fileName;
+        m_title = FileUtils::fileNameOnly(m_fileName);
     }
 }
 

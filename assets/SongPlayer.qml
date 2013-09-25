@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import bb.system 1.0
 import player 1.0
 import "functions.js" as Global
 
@@ -61,6 +62,26 @@ Page {
             }
         }
     }
+    onCreationCompleted: {
+        app.player.stateChanged.connect(function() {
+            if(app.player.state == Player.Downloading ||
+               app.player.state == Player.Resolving ||
+               app.player.state == Player.Preparing) 
+            {
+                progress.body = qsTr("Downloading song")
+                progress.show()
+            } 
+            else 
+            {
+                progress.cancel()
+            }
+        })
+    }
+    attachedObjects: [
+        ProgressToast {
+            id: progress
+        }
+    ]
     actions: [
         PlayActionItem {},
         PauseActionItem {}, 

@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QFile>
 #include <QDebug>
+#include "FileUtils.hpp"
 #include "Analytics.hpp"
 
 template<>
@@ -236,29 +237,59 @@ void Cache::save(QString const& cacheFileName, QString const& newFileName) {
     }
 }
 
-void Cache::exportCache() {
+void Cache::exportCache(QString const& directory) {
     int numFiles = currentFiles();
     int numCopiedFiles = 0;
-    for(int i = 0; i < numFiles; i++) {
-        QString newFileName("/accounts/1000/shared/downloads/" + m_files[i].fileName());
-        if(QFile::exists(newFileName)) {
-            if(!QFile::remove(newFileName)) {
-                qDebug() << "Failed to remove" << newFileName;
+
+    QString targetDirectory;
+    if(FileUtils::isAbsolute(directory))
+    {
+        targetDirectory = directory;
+    }
+    else
+    {
+        targetDirectory = FileUtils::joinPath("/accounts/1000/shared/downloads", directory);
+    }
+
+    if(QDir().mkpath(targetDirectory))
+    {
+        for(int i = 0; i < numFiles; i++)
+        {
+            QString cacheFileName = m_files[i].fileName();
+            QString newFileName(FileUtils::joinPath(targetDirectory, cacheFileName));
+
+            if(QFile::exists(newFileName))
+            {
+                if(!QFile::remove(newFileName))
+                {
+                    qDebug() << "Failed to remove" << newFileName;
+                    continue;
+                }
+                else
+                {
+                    qDebug() << "Removed" << newFileName;
+                }
+            }
+
+            QString fromFile(m_files[i].absoluteFilePath());
+
+            emit progressUpdate((i+1)*100/numFiles, cacheFileName);
+
+            if(QFile::copy(fromFile, newFileName))
+            {
+                qDebug() << "Copied from" << cacheFileName << "to" << newFileName;
+                numCopiedFiles += 1;
+            }
+            else
+            {
+                qDebug() << "Failed to copy from" << fromFile << "to" << newFileName;
                 continue;
-            } else {
-                qDebug() << "Removed" << newFileName;
             }
         }
-        QString fromFile(m_files[i].absoluteFilePath());
-
-        emit progressUpdate((i+1)*100/numFiles, m_files[i].fileName());
-
-        if(QFile::copy(fromFile, newFileName)) {
-            qDebug() << "Copied from" << fromFile << "to" << newFileName;
-            numCopiedFiles += 1;
-        } else {
-            qDebug() << "Failed to copy from" << fromFile << "to" << newFileName;
-        }
+    }
+    else
+    {
+        Analytics::getInstance()->logError("Failed to create cache export path", targetDirectory);
     }
     Analytics::getInstance()->exportCache(numFiles, numCopiedFiles);
 }

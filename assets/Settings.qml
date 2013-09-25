@@ -61,13 +61,12 @@ Sheet {
                         BlackLabel {
                             property int requestId
                             textFormat: TextFormat.Html
-                            function updateView(responseId, result) {
-                                if(responseId == requestId) {
-                                    text = qsTr("Songs: <b>%1</b>").arg(result)
-                                }
-                            }
                             onCreationCompleted: {
-                                app.catalog.resultReady.connect(updateView)
+                                app.catalog.resultReady.connect(function(responseId, result) {
+                                    if(responseId == requestId) {
+                                        text = qsTr("Songs: <b>%1</b>").arg(result)
+                                    }
+                                })
                                 requestId = app.catalog.songCountAsync()
                             }
                         }
@@ -126,6 +125,43 @@ Sheet {
                             }
                         }
                         Button {
+                            text: qsTr("Export Cache")
+                            horizontalAlignment: HorizontalAlignment.Center
+                            topMargin: 40
+                            bottomMargin: 40
+                            enabled: app.cache.currentFiles > 0
+                            onClicked: {
+                                confirmExportingSongCache.show()
+                            }
+                            attachedObjects: [
+                                SystemDialog {
+                                    id: confirmExportingSongCache
+                                    title: qsTr("Confirm")
+                                    body: qsTr("The song cache will now be exported to the 'ModPlayer' directory in your device downloads directory")
+                                    onFinished: {
+                                        if (result != SystemUiResult.ConfirmButtonSelection)
+                                            return;
+                                        app.cache.progressUpdate.connect(function(percent, fileName) {
+                                            progress.progress = percent
+                                            progress.body = fileName
+                                            progress.show()
+                                        })
+                                        progress.show()
+                                        app.cache.exportCache("ModPlayer")
+                                        progress.cancel()
+                                        cacheExportToast.show()
+                                    }
+                                },
+                                ProgressToast {
+                                    id: progress
+                                },
+                                SystemToast {
+                                    id: cacheExportToast
+                                    body: qsTr("The song cache has been exported successfully to the 'ModPlayer' directory in your device downloads directory")
+                                }
+                            ]
+                        }
+                        Button {
                             text: qsTr("Purge Cache")
                             horizontalAlignment: HorizontalAlignment.Center
                             topMargin: 40
@@ -150,51 +186,6 @@ Sheet {
                                 SystemToast {
                                     id: cachePurgedToast
                                     body: qsTr("The song cache has been purged")
-                                }
-                            ]
-                        }
-                        Button {
-                            text: qsTr("Export Cache")
-                            horizontalAlignment: HorizontalAlignment.Center
-                            topMargin: 40
-                            bottomMargin: 40
-                            enabled: app.cache.currentFiles > 0
-                            onClicked: {
-                                confirmExportingSongCache.show()
-                            }
-                            attachedObjects: [
-                                SystemDialog {
-                                    id: confirmExportingSongCache
-                                    title: qsTr("Confirm")
-                                    body: qsTr("The song cache will now be saved to your downloads directory")
-                                    function progressUpdate(percent, fileName) {
-                                        progress.progress = percent
-                                        progress.body = fileName
-                                        progress.show()
-                                    }
-                                    onFinished: {
-                                        if (result == SystemUiResult.ConfirmButtonSelection) {
-                                            progress.show()
-                                            app.cache.progressUpdate.connect(progressUpdate)
-                                            app.cache.exportCache()
-                                            progress.cancel()
-                                            cacheExportToast.show()
-                                        }
-                                    }
-                                },
-                                SystemProgressToast {
-                                    id: progress
-                                    modality: SystemUiModality.Application
-                                    state: SystemUiProgressState.Active
-                                    position: SystemUiPosition.MiddleCenter
-                                    statusMessage: ""
-                                    button {
-                                        label: qsTr("Hide")
-                                    }
-                                },
-                                SystemToast {
-                                    id: cacheExportToast
-                                    body: qsTr("The song cache has been exported successfully")
                                 }
                             ]
                         }

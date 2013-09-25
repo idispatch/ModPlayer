@@ -279,6 +279,13 @@
     </message>
 </context>
 <context>
+    <name>ProgressToast</name>
+    <message>
+        <source>Hide</source>
+        <translation>Спрятать</translation>
+    </message>
+</context>
+<context>
     <name>RemoveFavouriteActionItem</name>
     <message>
         <source>Remove from Favourites</source>
@@ -529,20 +536,16 @@
         <translation>Очистить кэш</translation>
     </message>
     <message>
-        <source>The song cache will now be saved to your downloads directory</source>
-        <translation>Кэш будет сохранен в директорию downloads</translation>
-    </message>
-    <message>
-        <source>The song cache has been exported successfully</source>
-        <translation>Кэш был успешно сохранен</translation>
-    </message>
-    <message>
         <source>Export Cache</source>
         <translation>Сохранить кэш</translation>
     </message>
     <message>
-        <source>Hide</source>
-        <translation>Спрятать</translation>
+        <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation>Все песни в кэше будут сохранены в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+    </message>
+    <message>
+        <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation>Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
     </message>
 </context>
 <context>
@@ -725,6 +728,13 @@
     <message>
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
         <translation>&lt;i&gt;Вы уже скачали эту песню&lt;/i&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>SongPlayer</name>
+    <message>
+        <source>Downloading song</source>
+        <translation>Скачиваю песню</translation>
     </message>
 </context>
 <context>

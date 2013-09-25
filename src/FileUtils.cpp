@@ -1,19 +1,28 @@
 #include "FileUtils.hpp"
 
+bool FileUtils::isAbsolute(QString const& fileName) {
+    return fileName.startsWith('/');
+}
+
 QString FileUtils::fileNameOnly(QString const& fileName) {
     int index = fileName.lastIndexOf('/');
-    if(index < 0) {
+    if(index < 0)
+    {
         return fileName;
-    } else {
+    }
+    else
+    {
         return fileName.mid(index + 1);
     }
 }
 
 QString FileUtils::joinPath(QString const& directory,
                             QString const& fileName) {
-    if(fileName.startsWith('/')) {
+    if(isAbsolute(fileName))
+    {
         return fileName; // already absolute
     }
+
     QString result = directory;
     if(directory.endsWith('/'))
     {
@@ -23,6 +32,7 @@ QString FileUtils::joinPath(QString const& directory,
     {
         result = result + "/" + fileName;
     }
+
     return result;
 }
 
