@@ -229,6 +229,29 @@
     </message>
 </context>
 <context>
+    <name>PlayModeActionItem</name>
+    <message>
+        <source>Play Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat Song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cycle Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Random Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Player</name>
     <message>
         <source>Paused</source>

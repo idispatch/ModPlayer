@@ -25,6 +25,7 @@ class Player : public QObject,
                public InstanceCounter<Player> {
     Q_OBJECT
     Q_ENUMS(State)
+    Q_ENUMS(Mode)
 public:
     enum State
     {
@@ -36,11 +37,22 @@ public:
         Preparing = 102
     };
 
+    enum Mode
+    {
+        PlaySongOnce,
+        RepeatSong,
+        PlayPlaylistOnce,
+        RepeatPlaylist,
+        RandomSongPlaylist
+    };
+
     Player(QSettings &settings, QObject * parent);
     ~Player();
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
+
+    Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
 
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
@@ -50,6 +62,9 @@ public:
 
     State state() const;
     QString statusText() const;
+
+    Mode mode() const;
+    void setMode(Mode mode);
 
     Cache * cache() const;
     Catalog * catalog() const;
@@ -70,6 +85,7 @@ Q_SIGNALS:
     void requestPlayerView();
     void stateChanged();
     void statusTextChanged();
+    void modeChanged();
     void cacheChanged();
     void catalogChanged();
     void playbackChanged();
@@ -88,6 +104,7 @@ private slots:
     void onPaused();
     void onPlaying();
     void onStopped();
+    void onFinished();
 
     /* For NowPlayingConnection */
     void onNowPlayingAcquired();
@@ -114,6 +131,7 @@ private:
 private:
     QSettings &m_settings;
     State m_state;
+    Mode m_mode;
     QMap<int, QUrl> m_formatIdToIconUrlMap;
     QString m_statusText;
     Catalog * m_catalog;

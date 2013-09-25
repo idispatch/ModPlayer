@@ -58,6 +58,7 @@ Q_SIGNALS:
     /* Playback state changes */
     void playing();
     void stopped();
+    void finished();
     void paused();
 private:
     Q_DISABLE_COPY(ModPlayback)

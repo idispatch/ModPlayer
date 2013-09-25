@@ -83,8 +83,11 @@ Page {
         }
     ]
     actions: [
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
+        },
         PlayActionItem {},
-        PauseActionItem {}, 
+        PauseActionItem {},
         SameArtistActionItem {
             currentSong: app.player.currentSong
             navigationPane: songPlayer.navigationPane 

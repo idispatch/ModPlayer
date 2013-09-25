@@ -467,6 +467,7 @@ void ModPlayback::run() {
                     changeState(Loaded);
                     emit stopped();
                     m_song.rewind();
+                    emit finished();
                 }
                 else if(endOfSongOrError < 0) // Error in song
                 {

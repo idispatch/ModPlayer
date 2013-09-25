@@ -48,6 +48,7 @@ Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_settings(settings),
       m_state(Stopped),
+      m_mode(PlaySongOnce),
       m_statusText(tr("Stopped")),
       m_catalog(new Catalog(this)),
       m_cache(new Cache(m_settings, this)),
@@ -115,6 +116,10 @@ void Player::initPlayback() {
 
     rc = QObject::connect(m_playback, SIGNAL(stopped()),
                           this,       SLOT(onStopped()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_playback, SIGNAL(finished()),
+                          this,       SLOT(onFinished()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
@@ -269,6 +274,17 @@ Player::State Player::state() const {
 
 QString Player::statusText() const {
     return m_statusText;
+}
+
+Player::Mode Player::mode() const {
+    return m_mode;
+}
+
+void Player::setMode(Player::Mode mode) {
+    if(mode != m_mode) {
+        m_mode = mode;
+        emit modeChanged();
+    }
 }
 
 Catalog * Player::catalog() const {
@@ -490,4 +506,10 @@ void Player::onPlaying() {
 
 void Player::onStopped() {
     changeStatus(Stopped, tr("Stopped"));
+}
+
+void Player::onFinished() {
+    if(m_mode == RepeatSong) {
+        m_playback->play();
+    }
 }
