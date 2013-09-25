@@ -143,6 +143,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         m_modPlug = NULL;
     }
     m_absoluteFileName = ""; // no song loaded
+    emit absoluteFileNameChanged();
 
     QFile fileIn(fileName);
     if(fileIn.open(QFile::ReadOnly)) {
@@ -150,6 +151,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         m_modPlug = ModPlug_Load(data.data(), data.size());
         if (m_modPlug != NULL) {
             m_absoluteFileName = fileName;
+            emit absoluteFileNameChanged();
 
             setFileName(fileName);
             setTitle(ModPlug_GetName(m_modPlug));
@@ -207,6 +209,7 @@ bool SongModule::unload() {
         m_modPlug = NULL;
 
         m_absoluteFileName = ""; // no song loaded
+        emit absoluteFileNameChanged();
 
         setFileName("");
         setTitle("");
