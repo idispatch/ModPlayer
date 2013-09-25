@@ -3,6 +3,7 @@ import bb.cascades 1.0
 GroupContainer {
     property alias title: titleField.text
     property alias description: descriptionField.text
+    property alias text: textField.text
 
     property alias upperStatus: statusUpperField.text
     property alias middleStatus: statusMiddleField.text
@@ -55,6 +56,17 @@ GroupContainer {
                         textStyle {
                             base: SystemDefaults.TextStyles.BodyText
                             fontWeight: FontWeight.W100
+                            color: Color.Black
+                        }
+                    }
+                    Label {
+                        id: textField
+                        visible: text.length > 0
+                        horizontalAlignment: HorizontalAlignment.Left
+                        textStyle {
+                            base: SystemDefaults.TextStyles.SmallText
+                            fontWeight: FontWeight.W100
+                            fontStyle: FontStyle.Italic
                             color: Color.Black
                         }
                     }

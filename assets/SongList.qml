@@ -107,6 +107,7 @@ Page {
                     ModPlayerListItem {
                         title: ListItem.data.title
                         description: ListItem.data.fileName
+                        text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 
                         upperStatus: {
                             var mode = ListItem.view.mode
                             if (ListItem.data) {
