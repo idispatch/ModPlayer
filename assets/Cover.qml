@@ -110,7 +110,7 @@ ViewContainer {
                 bottomPadding: topPadding
                 Label {
                     horizontalAlignment: HorizontalAlignment.Center
-                    text: visible ? "("+Global.fileNameOnly(app.player.currentSong.fileName)+")" : ""
+                    text: "("+Global.fileNameOnly(app.player.currentSong.fileName)+")"
                     textStyle {
                         color: Color.White
                         fontSize: FontSize.XSmall
