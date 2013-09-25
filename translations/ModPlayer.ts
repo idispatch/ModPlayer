@@ -235,10 +235,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Repeat Song</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Playlist Once</source>
         <translation type="unfinished"></translation>
     </message>
@@ -248,6 +244,10 @@
     </message>
     <message>
         <source>Random Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

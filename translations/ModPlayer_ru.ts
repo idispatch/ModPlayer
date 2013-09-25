@@ -232,23 +232,23 @@
     <name>PlayModeActionItem</name>
     <message>
         <source>Play Once</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Repeat Song</source>
-        <translation type="unfinished"></translation>
+        <translation>Один раз</translation>
     </message>
     <message>
         <source>Playlist Once</source>
-        <translation type="unfinished"></translation>
+        <translation>Один раз</translation>
     </message>
     <message>
         <source>Cycle Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторить</translation>
     </message>
     <message>
         <source>Random Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Случайно</translation>
+    </message>
+    <message>
+        <source>Repeat</source>
+        <translation>Повторить</translation>
     </message>
 </context>
 <context>

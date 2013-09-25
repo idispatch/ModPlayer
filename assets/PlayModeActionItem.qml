@@ -6,7 +6,7 @@ ActionItem {
         if(app.player.mode == Player.PlaySongOnce) {
             return qsTr("Play Once")
         } else if(app.player.mode == Player.RepeatSong) {
-            return qsTr("Repeat Song")
+            return qsTr("Repeat")
         } else if(app.player.mode == Player.PlayPlaylistOnce) {
             return qsTr("Playlist Once")
         } else if(app.player.mode == Player.RepeatPlaylist) {
