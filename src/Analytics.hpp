@@ -57,6 +57,9 @@ public:
     Q_INVOKABLE void resetPlayCounts() const;
     Q_INVOKABLE void resetMyFavourites() const;
 
+    Q_INVOKABLE void saveCache(QString const& from, QString const& to) const;
+    Q_INVOKABLE void exportCache(int numFiles, int numCopiedFiles) const;
+
     using InstanceCounter<Analytics>::getInstanceCount;
     using InstanceCounter<Analytics>::getMaxInstanceCount;
 Q_SIGNALS:

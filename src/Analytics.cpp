@@ -178,8 +178,23 @@ void Analytics::logModuleEvent(const char * eventName,
 void Analytics::resetPlayCounts() const {
     Flurry::Analytics::LogEvent("ResetPlayCounts", false);
 }
+
 void Analytics::resetMyFavourites() const {
     Flurry::Analytics::LogEvent("ResetMyFavourites", false);
+}
+
+void Analytics::saveCache(QString const& from, QString const& to) const {
+    Flurry::Map parameters;
+    parameters["fromFile"] = from;
+    parameters["toFile"] = to;
+    Flurry::Analytics::LogEvent("SaveCache", parameters, false);
+}
+
+void Analytics::exportCache(int numFiles, int numCopiedFiles) const {
+    Flurry::Map parameters;
+    parameters["cacheFiles"] = numFiles;
+    parameters["copiedFiles"] = numCopiedFiles;
+    Flurry::Analytics::LogEvent("ExportCache", parameters, false);
 }
 
 void Analytics::play() const {
@@ -245,6 +260,7 @@ void Analytics::invoke(QString const& source,
     parameters["source"] = source;
     parameters["target"] = target;
     parameters["action"] = action;
+    parameters["mimeType"] = mimeType;
     parameters["uri"] = uri.toString();
     Flurry::Analytics::LogEvent("Invoke", parameters, false);
 }

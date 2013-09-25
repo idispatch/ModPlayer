@@ -333,10 +333,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Purge cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Personal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -526,6 +522,26 @@
     </message>
     <message>
         <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purge Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The song cache will now be saved to your downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The song cache has been exported successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

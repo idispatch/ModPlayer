@@ -126,10 +126,11 @@ Sheet {
                             }
                         }
                         Button {
-                            text: qsTr("Purge cache")
+                            text: qsTr("Purge Cache")
                             horizontalAlignment: HorizontalAlignment.Center
                             topMargin: 40
                             bottomMargin: 40
+                            enabled: app.cache.currentFiles > 0
                             onClicked: {
                                 confirmPurgingSongCache.show()
                             }
@@ -149,6 +150,51 @@ Sheet {
                                 SystemToast {
                                     id: cachePurgedToast
                                     body: qsTr("The song cache has been purged")
+                                }
+                            ]
+                        }
+                        Button {
+                            text: qsTr("Export Cache")
+                            horizontalAlignment: HorizontalAlignment.Center
+                            topMargin: 40
+                            bottomMargin: 40
+                            enabled: app.cache.currentFiles > 0
+                            onClicked: {
+                                confirmExportingSongCache.show()
+                            }
+                            attachedObjects: [
+                                SystemDialog {
+                                    id: confirmExportingSongCache
+                                    title: qsTr("Confirm")
+                                    body: qsTr("The song cache will now be saved to your downloads directory")
+                                    function progressUpdate(percent, fileName) {
+                                        progress.progress = percent
+                                        progress.body = fileName
+                                        progress.show()
+                                    }
+                                    onFinished: {
+                                        if (result == SystemUiResult.ConfirmButtonSelection) {
+                                            progress.show()
+                                            app.cache.progressUpdate.connect(progressUpdate)
+                                            app.cache.exportCache()
+                                            progress.cancel()
+                                            cacheExportToast.show()
+                                        }
+                                    }
+                                },
+                                SystemProgressToast {
+                                    id: progress
+                                    modality: SystemUiModality.Application
+                                    state: SystemUiProgressState.Active
+                                    position: SystemUiPosition.MiddleCenter
+                                    statusMessage: ""
+                                    button {
+                                        label: qsTr("Hide")
+                                    }
+                                },
+                                SystemToast {
+                                    id: cacheExportToast
+                                    body: qsTr("The song cache has been exported successfully")
                                 }
                             ]
                         }

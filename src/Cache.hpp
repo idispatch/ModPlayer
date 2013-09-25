@@ -44,10 +44,12 @@ public:
     Q_INVOKABLE bool exists(QString const& fileName);
     Q_INVOKABLE void remove(QString const& fileName);
     Q_INVOKABLE void save(QString const& cacheFileName, QString const& newFileName);
+    Q_INVOKABLE void exportCache();
 
     using InstanceCounter<Cache>::getInstanceCount;
     using InstanceCounter<Cache>::getMaxInstanceCount;
 Q_SIGNALS:
+    void progressUpdate(int percent, QString const& fileName);
     void maxSizeChanged();
     void maxFilesChanged();
     void currentSizeChanged();

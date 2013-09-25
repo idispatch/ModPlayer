@@ -333,10 +333,6 @@
         <translation>Кэш</translation>
     </message>
     <message>
-        <source>Purge cache</source>
-        <translation>Очистить кэш</translation>
-    </message>
-    <message>
         <source>Personal</source>
         <translation>Библиотека</translation>
     </message>
@@ -527,6 +523,26 @@
     <message>
         <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
         <translation>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Политика конфиденциальности&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Purge Cache</source>
+        <translation>Очистить кэш</translation>
+    </message>
+    <message>
+        <source>The song cache will now be saved to your downloads directory</source>
+        <translation>Кэш будет сохранен в директорию downloads</translation>
+    </message>
+    <message>
+        <source>The song cache has been exported successfully</source>
+        <translation>Кэш был успешно сохранен</translation>
+    </message>
+    <message>
+        <source>Export Cache</source>
+        <translation>Сохранить кэш</translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation>Спрятать</translation>
     </message>
 </context>
 <context>

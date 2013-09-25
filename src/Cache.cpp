@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QFile>
 #include <QDebug>
+#include "Analytics.hpp"
 
 template<>
 int InstanceCounter<Cache>::s_count;
@@ -230,8 +231,36 @@ void Cache::save(QString const& cacheFileName, QString const& newFileName) {
         }
         if(copyOk) {
             QFile::copy(absoluteCacheFileName, newFileName);
+            Analytics::getInstance()->saveCache(cacheFileName, newFileName);
         }
     }
+}
+
+void Cache::exportCache() {
+    int numFiles = currentFiles();
+    int numCopiedFiles = 0;
+    for(int i = 0; i < numFiles; i++) {
+        QString newFileName("/accounts/1000/shared/downloads/" + m_files[i].fileName());
+        if(QFile::exists(newFileName)) {
+            if(!QFile::remove(newFileName)) {
+                qDebug() << "Failed to remove" << newFileName;
+                continue;
+            } else {
+                qDebug() << "Removed" << newFileName;
+            }
+        }
+        QString fromFile(m_files[i].absoluteFilePath());
+
+        emit progressUpdate((i+1)*100/numFiles, m_files[i].fileName());
+
+        if(QFile::copy(fromFile, newFileName)) {
+            qDebug() << "Copied from" << fromFile << "to" << newFileName;
+            numCopiedFiles += 1;
+        } else {
+            qDebug() << "Failed to copy from" << fromFile << "to" << newFileName;
+        }
+    }
+    Analytics::getInstance()->exportCache(numFiles, numCopiedFiles);
 }
 
 QString Cache::absoluteFileName(QString const& fileName) const {
