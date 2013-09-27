@@ -39,11 +39,11 @@ public:
 
     enum Mode
     {
-        PlaySongOnce,
-        RepeatSong,
-        PlayPlaylistOnce,
-        RepeatPlaylist,
-        RandomSongPlaylist
+        PlaySongOnce = 0,
+        RepeatSong = 1,
+        PlayPlaylistOnce = 2,
+        RepeatPlaylist = 3,
+        RandomSongPlaylist = 4
     };
 
     Player(QSettings &settings, QObject * parent);

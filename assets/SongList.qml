@@ -210,7 +210,7 @@ Page {
         if(responseId != requestId) 
             return
         songs.dataModel = result
-        progress.running = false
+        progress.stop()
         songs.visible = (songs.dataModel.size() > 0)
         listEmpty.visible = (songs.dataModel.size() == 0)
     }
@@ -224,7 +224,7 @@ Page {
         songs.resetDataModel()
     }
     function unload() {
-        progress.running = true
+        progress.start()
         songs.visible = false
         listEmpty.visible = false
         if (songs.dataModel) {

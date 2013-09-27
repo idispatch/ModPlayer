@@ -59,13 +59,13 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
-        progress.running = false
+        progress.stop()
         genresList.visible = true
         genresList.dataModel = result
     }
     function load() {
         if(genresList.dataModel == null || genresList.dataModel.size() == 0) {
-            progress.running = true
+            progress.start()
             genresList.visible = false
             requestId = app.player.catalog.findGenresAsync()
         }

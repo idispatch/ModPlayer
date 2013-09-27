@@ -46,13 +46,13 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
-        progress.running = false
+        progress.stop()
         formatsList.visible = true
         formatsList.dataModel = result
     }
     function load() {
         if(formatsList.dataModel == null || formatsList.dataModel.size() == 0) {
-            progress.running = true
+            progress.start()
             formatsList.visible = false
             requestId = app.player.catalog.findFormatsAsync()
         }

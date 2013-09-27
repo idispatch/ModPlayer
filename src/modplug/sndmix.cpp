@@ -8,9 +8,13 @@
 #include <sndfile.h>
 #include "tables.h"
 
-#ifdef MODPLUG_TRACKER
+// added by me
+#define MODPLUG_PLAYER
+
+// removed by me
+//#ifdef MODPLUG_TRACKER
 #define ENABLE_STEREOVU
-#endif
+//#endif
 
 // Volume ramp length, in 1/10 ms
 #define VOLUMERAMPLEN	146	// 1.46ms = 64 samples at 44.1kHz

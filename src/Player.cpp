@@ -64,6 +64,7 @@ Player::Player(QSettings &settings, QObject * parent)
 }
 
 Player::~Player() {
+    m_settings.setValue("player/mode", m_mode);
     if(m_catalog != NULL) {
         m_catalog->stopThread();
     }
@@ -123,6 +124,7 @@ void Player::initPlayback() {
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
+    m_mode = static_cast<Player::Mode>(m_settings.value("player/mode", Player::PlaySongOnce).toInt());
     m_playback->start(QThread::HighPriority);
 }
 
@@ -196,11 +198,7 @@ void Player::onDownloadFinished(QString fileName) {
     changeStatus(Preparing, QString(tr("Unpacking song %1")).arg(relativeName));
 
     QString unpackedFileName = m_unpacker->unpackFile(fileName);
-    if(QFile::remove(fileName))
-    {
-        //qDebug() << "Deleted" << fileName;
-    }
-    else
+    if(!QFile::remove(fileName))
     {
         QString message = QString("Failed to delete %1").arg(fileName);
         qDebug() << message;

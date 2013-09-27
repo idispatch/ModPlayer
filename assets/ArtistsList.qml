@@ -67,13 +67,13 @@ Page {
     function updateView(responseId, result) {
         if(responseId != requestId) 
             return
-        progress.running = false
+        progress.stop()
         artistsList.visible = true
         artistsList.dataModel = result
     }
     function load() {
         if(artistsList.dataModel == null || artistsList.dataModel.size() == 0) {
-            progress.running = true
+            progress.start()
             artistsList.visible = false
             requestId = app.catalog.findArtistsAsync()
         }

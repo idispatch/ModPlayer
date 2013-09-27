@@ -111,8 +111,8 @@ void LCDDisplay::updateLCD() {
             const int index = col / m_columns;
             const QChar letter = index > textLength ? QChar(' ') : m_text[index];
 
-            const unsigned ascii = (const unsigned)letter.toAscii();
-            const unsigned bitmask = lcd_font_6x8[ascii * m_rows + row];
+            const unsigned char ascii = static_cast<const unsigned char>(letter.toAscii());
+            const unsigned char bitmask = lcd_font_6x8[ascii * m_rows + row];
             const unsigned shift = col % m_columns;
             const bool is_set = (bitmask & (0x80 >> shift));
 

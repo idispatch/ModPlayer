@@ -18,5 +18,24 @@ Container {
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Center
         }
+        animations: [
+            ScaleTransition {
+                id: startAnimation
+                fromX: 0.0
+                fromY: 0.0
+                toX: 1.0
+                toY: 1.0
+                duration: 500
+                easingCurve: StockCurve.BackOut
+            }
+        ]
+    }
+    function start() {
+        running = true
+        startAnimation.play()
+    }
+    function stop() {
+        startAnimation.stop()
+        running = false
     }
 }
