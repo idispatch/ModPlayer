@@ -1,6 +1,6 @@
 import bb.cascades 1.0
 
-GroupContainer {
+TGroupContainer {
     property variant song
     VerticalContainer {
         horizontalAlignment: HorizontalAlignment.Fill

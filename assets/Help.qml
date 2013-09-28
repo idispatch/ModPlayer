@@ -23,6 +23,8 @@ Sheet {
             AppWorldActionItem{}
         ]
         ScrollView {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
             VerticalContainer {
 
                 leftPadding: 30

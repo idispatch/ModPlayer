@@ -1,7 +1,7 @@
 import bb.cascades 1.0
 import "functions.js" as Global
 
-GroupContainer {
+TGroupContainer {
     id: songMainInfo
     property variant song
     HorizontalContainer {

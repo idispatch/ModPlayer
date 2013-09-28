@@ -8,6 +8,8 @@ Page {
     property variant navigationPane
     ViewContainer {
         ScrollView {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
             VerticalContainer {
                 leftPadding: 20
                 rightPadding: 20

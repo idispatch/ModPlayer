@@ -9,6 +9,8 @@ Page {
     property variant navigationPane
     ViewContainer {
         ScrollView {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
             VerticalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill

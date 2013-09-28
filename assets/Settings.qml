@@ -35,6 +35,8 @@ Sheet {
         }
         ViewContainer {
             ScrollView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
                 VerticalContainer {
                     leftPadding: 20
                     rightPadding: leftPadding
