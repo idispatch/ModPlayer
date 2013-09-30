@@ -40,8 +40,8 @@ Page {
                         }
                     }
                     VUMeter {
-                        topPadding: 12
-                        bottomPadding: 12
+                        topMargin: 16
+                        bottomMargin: 16
                         song: app.player.currentSong
                     }
                     SongMainInfo {

@@ -54,7 +54,7 @@ void VUMeter::createVU()
             {
                 const float height = 100.;
                 const float width = 32.;
-                const float margin = 10.;
+                const float margin = 5.;
 
                 Container * c = Container::create()
                     .layoutProperties(StackLayoutProperties::create().spaceQuota(-1.0))
