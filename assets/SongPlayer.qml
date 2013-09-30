@@ -39,6 +39,11 @@ Page {
                             horizontalAlignment: HorizontalAlignment.Center
                         }
                     }
+                    VUMeter {
+                        topPadding: 12
+                        bottomPadding: 12
+                        song: app.player.currentSong
+                    }
                     SongMainInfo {
                         song: app.player.currentSong
                     }

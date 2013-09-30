@@ -28,6 +28,7 @@ device {
                  $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
+                 $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
@@ -100,6 +101,7 @@ device {
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
+                 $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
@@ -153,6 +155,7 @@ device {
                  $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
+                 $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
@@ -225,6 +228,7 @@ device {
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
+                 $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/modplug/config.h) \

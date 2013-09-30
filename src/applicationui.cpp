@@ -30,6 +30,7 @@
 #include "Catalog.hpp"
 #include "Downloader.hpp"
 #include "ModPlayback.hpp"
+#include "VUMeter.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -136,10 +137,12 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<SongModule*>();
     qRegisterMetaType<SongFormat*>();
     qRegisterMetaType<SongGenre*>();
+    qRegisterMetaType<VUMeter*>();
 
     qmlRegisterUncreatableType<Player>(QmlNamespace, versionMajor, versionMinor, "Player", "");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");
     qmlRegisterType<LCDDigits>(QmlNamespace, versionMajor, versionMinor, "LCDDigits");
+    qmlRegisterType<VUMeter>(QmlNamespace, versionMajor, versionMinor, "VUMeter");
 
     qmlRegisterUncreatableType<Catalog>(QmlNamespace, versionMajor, versionMinor, "Catalog", "");
     qmlRegisterUncreatableType<Cache>(QmlNamespace, versionMajor, versionMinor, "Cache", "");

@@ -23,6 +23,7 @@
 #include "Player.hpp"
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
+#include "VUMeter.hpp"
 #include "ItemGroupBase.hpp"
 
 static void dumpInstanceCounts() {
@@ -44,6 +45,7 @@ static void dumpInstanceCounts() {
     std::cerr << "* SongBasicInfo objects:    " << SongBasicInfo::getInstanceCount() << ", max count: " << SongBasicInfo::getMaxInstanceCount() << std::endl;
     std::cerr << "* SongExtendedInfo objects: " << SongExtendedInfo::getInstanceCount() << ", max count: " << SongExtendedInfo::getMaxInstanceCount() << std::endl;
     std::cerr << "* SongModule objects:       " << SongModule::getInstanceCount() << ", max count: " << SongModule::getMaxInstanceCount() << std::endl;
+    std::cerr << "* VUMeter objects:          " << VUMeter::getInstanceCount() << ", max count: " << SongModule::getMaxInstanceCount() << std::endl;
 }
 #endif
 
