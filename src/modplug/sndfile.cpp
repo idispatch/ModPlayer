@@ -420,8 +420,21 @@ UINT CSoundFile::GetNumChannels() const
 //-------------------------------------
 {
 	UINT n = 0;
-	for (UINT i=0; i<m_nChannels; i++) if (ChnSettings[i].nVolume) n++;
+	for (UINT i=0; i<m_nChannels; i++) {
+		if (ChnSettings[i].nVolume) {
+			n++;
+		}
+	}
 	return n;
+}
+
+DWORD CSoundFile::GetChannelVU(UINT channel) const 
+//-------------------------------------
+{
+	if(channel >= m_nChannels) {
+		return 0;
+	}
+	return Chn[channel].nVUMeter;
 }
 
 

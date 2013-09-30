@@ -142,6 +142,7 @@ unsigned int ModPlug_NumChannels(ModPlugFile* file);
 unsigned int ModPlug_SampleName(ModPlugFile* file, unsigned int qual, char* buff);
 unsigned int ModPlug_InstrumentName(ModPlugFile* file, unsigned int qual, char* buff);
 
+unsigned int ModPlug_GetChannelVU(ModPlugFile* file, unsigned channel);
 /*
  * Retrieve pattern note-data
  */

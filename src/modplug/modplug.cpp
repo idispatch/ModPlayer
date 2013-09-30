@@ -234,6 +234,11 @@ unsigned int ModPlug_NumChannels(ModPlugFile* file)
 	return file->mSoundFile.GetNumChannels();
 }
 
+unsigned int ModPlug_GetChannelVU(ModPlugFile* file, unsigned channel)
+{
+	return file->mSoundFile.GetChannelVU(channel);
+}
+
 unsigned int ModPlug_SampleName(ModPlugFile* file,unsigned int qual,char* buff)
 {
 	return file->mSoundFile.GetSampleName(qual,buff);

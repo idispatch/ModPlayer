@@ -3,6 +3,7 @@
 
 #include <QMetaType>
 #include <QObject>
+#include <vector>
 #include  <bb/cascades/ArrayDataModel>
 #include "SongExtendedInfo.hpp"
 #include "InstanceCounter.hpp"
@@ -65,6 +66,8 @@ public:
     Q_INVOKABLE bool unload();
     Q_INVOKABLE bool rewind();
 
+    Q_INVOKABLE int getChannelVU(int channel);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* getSampleNames();
     Q_INVOKABLE bb::cascades::ArrayDataModel* getInstrumentNames();
 
@@ -85,11 +88,14 @@ Q_SIGNALS:
     void masterVolumeChanged();
     void playingChannelsChanged();
 
+    void channelVUChanged(int channel, int channelVU);
+
 private slots:
 private:
     Q_DISABLE_COPY(SongModule)
 
     void assignInfo(SongExtendedInfo const& other);
+    void updateChannelVU(bool endOfSong);
 private:
     QString m_absoluteFileName;
     QString m_description;
@@ -102,6 +108,8 @@ private:
 
     int m_masterVolume;
     int m_playingChannels;
+
+    std::vector<unsigned> m_channelVU;
 
     ModPlugFile* m_modPlug;
 };
