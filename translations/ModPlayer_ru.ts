@@ -757,7 +757,7 @@
     <name>SongPlayer</name>
     <message>
         <source>Downloading song</source>
-        <translation>Скачиваю песню</translation>
+        <translation type="unfinished">Скачиваю песню</translation>
     </message>
 </context>
 <context>

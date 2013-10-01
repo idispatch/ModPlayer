@@ -22,7 +22,7 @@ LCDDisplay::LCDDisplay(Container *parent)
       m_rootContainer(NULL),
       m_image_on(Canvas::loadImageData("asset:///images/led/led_on.png")),
       m_image_off(Canvas::loadImageData("asset:///images/led/led_off.png")),
-      m_numLetters(15),
+      m_numLetters(14),
       m_rows(8),
       m_columns(6),
       m_canvas(new Canvas(m_columns * m_image_on.width() * m_numLetters,

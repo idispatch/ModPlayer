@@ -17,11 +17,10 @@ Page {
                 leftPadding: 20
                 rightPadding: 20
                 VerticalContainer {
-                    visible: app.player.currentSong.songLoaded
                     horizontalAlignment: HorizontalAlignment.Fill
                     topPadding: 20
                     bottomPadding: 20
-                    Container {
+                    TGroupContainer {
                         topMargin: 16
                         bottomMargin: 16
                         topPadding: 16
@@ -30,7 +29,6 @@ Page {
                         rightPadding: 16 
                         background: vuPaint.imagePaint
                         horizontalAlignment: HorizontalAlignment.Center
-                        visible: app.player.currentSong.songLoaded
                         LCDDisplay {
                             text: {
                                 if(app.player.currentSong.title.length == 0) {
@@ -39,11 +37,45 @@ Page {
                                     return app.player.currentSong.title
                                 }
                             }
+                            bottomMargin: 10
+                            visible: app.player.currentSong.songLoaded
                             horizontalAlignment: HorizontalAlignment.Center
                         }
                         VUMeter {
-                            visible: app.player.state == Player.Playing
+                            topMargin: 10
+                            visible: app.player.currentSong.songLoaded && app.player.state == Player.Playing
                             song: app.player.currentSong
+                        }
+                        Label {
+                            id: statusText
+                            text: app.player.statusText
+                            textStyle {
+                                fontWeight: FontWeight.W100
+                                fontSize: FontSize.Large
+                                color: Color.White
+                            }
+                            onTextChanged: {
+                                opacity = 1.0
+                                visible = true
+                                if(app.player.state == Player.Playing) {
+                                    fadeAway.play()
+                                }
+                            }
+                            animations: [
+                                ParallelAnimation {
+                                    id: fadeAway
+                                    delay: 3000
+                                    FadeTransition {
+                                        duration: 2000
+                                        easingCurve: StockCurve.CubicOut
+                                        fromOpacity: 1.0
+                                        toOpacity: 0.0
+                                    }
+                                    onEnded: {
+                                        statusText.visible = false
+                                    }
+                                } 
+                            ]
                         }
                         attachedObjects: [
                             ImagePaintDefinition {
@@ -55,6 +87,7 @@ Page {
                     }
                     SongMainInfo {
                         song: app.player.currentSong
+                        visible: app.player.currentSong.songLoaded
                     }
                     SongPublicInfo {
                         song: app.player.currentSong
@@ -62,17 +95,11 @@ Page {
                     }
                     SongParametersInfo {
                         song: app.player.currentSong
+                        visible: app.player.currentSong.songLoaded
                     }
                     SongDynamicInfo {
                         song: app.player.currentSong
-                    }
-                }
-                Label {
-                    text: app.player.statusText
-                    textStyle {
-                        fontWeight: FontWeight.Bold
-                        fontSize: FontSize.Large
-                        color: Color.White
+                        visible: app.player.currentSong.songLoaded
                     }
                 }
             }

@@ -53,8 +53,8 @@ void VUMeter::createVU()
             for(int i = 0; i < channels; ++i)
             {
                 const float height = 100.;
-                const float width = 32.;
-                const float margin = 5.;
+                const float width = 64.;
+                const float margin = 4.;
 
                 Container * barContainer = Container::create()
                     .layoutProperties(StackLayoutProperties::create().spaceQuota(-1.0))
