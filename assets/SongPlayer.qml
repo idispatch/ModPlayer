@@ -22,12 +22,15 @@ Page {
                     topPadding: 20
                     bottomPadding: 20
                     Container {
-                        background: Color.White
-                        leftPadding: 1
-                        rightPadding: leftPadding
-                        topPadding: 1
-                        bottomPadding: topPadding
+                        topMargin: 16
+                        bottomMargin: 16
+                        topPadding: 16
+                        bottomPadding: 16
+                        leftPadding: 16
+                        rightPadding: 16 
+                        background: vuPaint.imagePaint
                         horizontalAlignment: HorizontalAlignment.Center
+                        visible: app.player.currentSong.songLoaded
                         LCDDisplay {
                             text: {
                                 if(app.player.currentSong.title.length == 0) {
@@ -38,11 +41,17 @@ Page {
                             }
                             horizontalAlignment: HorizontalAlignment.Center
                         }
-                    }
-                    VUMeter {
-                        topMargin: 16
-                        bottomMargin: 16
-                        song: app.player.currentSong
+                        VUMeter {
+                            visible: app.player.state == Player.Playing
+                            song: app.player.currentSong
+                        }
+                        attachedObjects: [
+                            ImagePaintDefinition {
+                                id: vuPaint
+                                repeatPattern: RepeatPattern.Fill
+                                imageSource: "asset:///images/backgrounds/vu_back.amd"
+                            }
+                        ]
                     }
                     SongMainInfo {
                         song: app.player.currentSong

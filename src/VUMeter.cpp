@@ -56,14 +56,14 @@ void VUMeter::createVU()
                 const float width = 32.;
                 const float margin = 5.;
 
-                Container * c = Container::create()
+                Container * barContainer = Container::create()
                     .layoutProperties(StackLayoutProperties::create().spaceQuota(-1.0))
                     .vertical(VerticalAlignment::Fill)
                     .leftMargin(margin)
                     .rightMargin(margin)
                     .implicitLayoutAnimations(false)
                     .layout(DockLayout::create());
-                ImageView * v1 = ImageView::create()
+                ImageView * vu_bar_on = ImageView::create()
                     .horizontal(HorizontalAlignment::Fill)
                     .vertical(VerticalAlignment::Fill)
                     .image(m_image_vu_on)
@@ -71,7 +71,7 @@ void VUMeter::createVU()
                     .implicitLayoutAnimations(false)
                     .scalingMethod(ScalingMethod::Fill)
                     .preferredSize(width, height);
-                ImageView * v2 = ImageView::create()
+                ImageView * vu_bar_off = ImageView::create()
                     .horizontal(HorizontalAlignment::Fill)
                     .vertical(VerticalAlignment::Fill)
                     .image(m_image_vu_off)
@@ -80,12 +80,12 @@ void VUMeter::createVU()
                     .scalingMethod(ScalingMethod::Fill)
                     .preferredSize(width, height);
 
-                m_bars[i] = v2;
+                m_bars[i] = vu_bar_off;
 
-                c->add(v1);
-                c->add(v2);
+                barContainer->add(vu_bar_on);
+                barContainer->add(vu_bar_off);
 
-                m_rootContainer->add(c);
+                m_rootContainer->add(barContainer);
             }
 
             m_rootContainer->add(Container::create()
