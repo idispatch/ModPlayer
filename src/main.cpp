@@ -1,11 +1,12 @@
 #include <bb/cascades/Application>
 #include "applicationui.hpp"
-#include <iostream>
-#include <iomanip>
 
 #define DUMP_INSTANCE_COUNTS 1
 
 #if defined(DUMP_INSTANCE_COUNTS)
+#include <iostream>
+#include <iomanip>
+
 #include "Analytics.hpp"
 #include "Artist.hpp"
 #include "SongGenre.hpp"
@@ -23,29 +24,43 @@
 #include "Player.hpp"
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
+#include "PatternView.hpp"
 #include "VUMeter.hpp"
 #include "ItemGroupBase.hpp"
 
+template<typename T>
+void dumpInstanceCount(const char * className) {
+    std::cerr << "* " << className << " objects: "
+              << T::getInstanceCount()
+              << ", max count: "
+              << T::getMaxInstanceCount()
+              << std::endl;
+}
+
 static void dumpInstanceCounts() {
-    std::cerr << "* Analytics objects:        " << Analytics::getInstanceCount() << ", max count: " << Analytics::getMaxInstanceCount() << std::endl;
-    std::cerr << "* PlaybackConfig objects:   " << PlaybackConfig::getInstanceCount() << ", max count: " << PlaybackConfig::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Downloader objects:       " << Downloader::getInstanceCount() << ", max count: " << Downloader::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Unpacker objects:         " << Unpacker::getInstanceCount() << ", max count: " << Unpacker::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Catalog objects:          " << Catalog::getInstanceCount() << ", max count: " << Catalog::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Cache objects:            " << Cache::getInstanceCount() << ", max count: " << Cache::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Canvas objects:           " << Canvas::getInstanceCount() << ", max count: " << Canvas::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Player objects:           " << Player::getInstanceCount() << ", max count: " << Player::getMaxInstanceCount() << std::endl;
-    std::cerr << "* ModPlayback objects:      " << ModPlayback::getInstanceCount() << ", max count: " << ModPlayback::getMaxInstanceCount() << std::endl;
-    std::cerr << "* ItemGroupBase objects:    " << ItemGroupBase::getInstanceCount() << ", max count: " << ItemGroupBase::getMaxInstanceCount() << std::endl;
-    std::cerr << "* LCDDigits objects:        " << LCDDigits::getInstanceCount() << ", max count: " << LCDDigits::getMaxInstanceCount() << std::endl;
-    std::cerr << "* LCDDisplay objects:       " << LCDDisplay::getInstanceCount() << ", max count: " << LCDDisplay::getMaxInstanceCount() << std::endl;
-    std::cerr << "* Artist objects:           " << Artist::getInstanceCount() << ", max count: " << Artist::getMaxInstanceCount() << std::endl;
-    std::cerr << "* SongGenre objects:        " << SongGenre::getInstanceCount() << ", max count: " << SongGenre::getMaxInstanceCount() << std::endl;
-    std::cerr << "* SongFormat objects:       " << SongFormat::getInstanceCount() << ", max count: " << SongFormat::getMaxInstanceCount() << std::endl;
-    std::cerr << "* SongBasicInfo objects:    " << SongBasicInfo::getInstanceCount() << ", max count: " << SongBasicInfo::getMaxInstanceCount() << std::endl;
-    std::cerr << "* SongExtendedInfo objects: " << SongExtendedInfo::getInstanceCount() << ", max count: " << SongExtendedInfo::getMaxInstanceCount() << std::endl;
-    std::cerr << "* SongModule objects:       " << SongModule::getInstanceCount() << ", max count: " << SongModule::getMaxInstanceCount() << std::endl;
-    std::cerr << "* VUMeter objects:          " << VUMeter::getInstanceCount() << ", max count: " << SongModule::getMaxInstanceCount() << std::endl;
+#define DUMP_COUNT(T) dumpInstanceCount<T>(#T);
+    DUMP_COUNT(Analytics)
+    DUMP_COUNT(PlaybackConfig)
+    DUMP_COUNT(Downloader)
+    DUMP_COUNT(Unpacker)
+    DUMP_COUNT(Catalog)
+    DUMP_COUNT(Cache)
+    DUMP_COUNT(Cache)
+    DUMP_COUNT(Canvas)
+    DUMP_COUNT(Player)
+    DUMP_COUNT(ModPlayback)
+    DUMP_COUNT(ItemGroupBase)
+    DUMP_COUNT(LCDDigits)
+    DUMP_COUNT(LCDDisplay)
+    DUMP_COUNT(Artist)
+    DUMP_COUNT(SongGenre)
+    DUMP_COUNT(SongFormat)
+    DUMP_COUNT(SongBasicInfo)
+    DUMP_COUNT(SongExtendedInfo)
+    DUMP_COUNT(SongModule)
+    DUMP_COUNT(PatternView)
+    DUMP_COUNT(VUMeter)
+#undef DUMP_COUNT
 }
 #endif
 

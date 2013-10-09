@@ -10,6 +10,11 @@
 
 using namespace bb::cascades;
 
+template<>
+int InstanceCounter<VUMeter>::s_count;
+template<>
+int InstanceCounter<VUMeter>::s_maxCount;
+
 VUMeter::VUMeter(Container *parent)
     : CustomControl(parent),
       m_mutex(QMutex::NonRecursive),

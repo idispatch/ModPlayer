@@ -85,6 +85,10 @@ Page {
                             }
                         ]
                     }
+                    PatternView {
+                        song: app.player.currentSong
+                        visible: app.player.currentSong.songLoaded
+                    }
                     SongMainInfo {
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded

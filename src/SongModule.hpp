@@ -7,6 +7,7 @@
 #include  <bb/cascades/ArrayDataModel>
 #include "SongExtendedInfo.hpp"
 #include "InstanceCounter.hpp"
+#include "modplug.h"
 
 struct _ModPlugFile;
 typedef struct _ModPlugFile ModPlugFile;
@@ -67,6 +68,7 @@ public:
     Q_INVOKABLE bool rewind();
 
     Q_INVOKABLE int getChannelVU(int channel);
+    Q_INVOKABLE ModPlugNote* getPattern(int pattern, int* numrows);
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* getSampleNames();
     Q_INVOKABLE bb::cascades::ArrayDataModel* getInstrumentNames();
