@@ -70,7 +70,7 @@ void Canvas::fill(unsigned color) {
         unsigned * dst_ptr = reinterpret_cast<unsigned*>(dst);
         for(int col = 0; col < width; ++col)
         {
-            *dst_ptr += color;
+            *dst_ptr++ = color;
         }
     }
 }

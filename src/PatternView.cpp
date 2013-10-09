@@ -88,7 +88,7 @@ void PatternView::updateCanvas() {
         const int fontHeight = 8;
         const int scaledFontWidth = fontWidth << (scale - 1);
         const int scaledFontHeight = fontHeight << (scale - 1);
-        const int charsPerChannel = 7;
+        const int charsPerChannel = 10;
 
         const int indent = 5;
         const int width = indent * scaledFontWidth +
@@ -100,6 +100,7 @@ void PatternView::updateCanvas() {
         static const unsigned int note_ative_foreground_color = MAKE_RGBA(0xff, 0xff, 0xff, 0xff);
         static const unsigned int note_idle_foreground_color = MAKE_RGBA(0x70, 0x70, 0x70, 0xff);
         static const unsigned int background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
+        static const unsigned int fill_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
 #undef MAKE_RGBA
 
         static const unsigned char NOTE_NONE = 0;
@@ -125,24 +126,25 @@ void PatternView::updateCanvas() {
         };
 
         m_canvas = new Canvas(width, height, this);
-        m_canvas->fill(0xff);
+        m_canvas->fill(fill_color);
+
         const ModPlugNote * note = data;
 
-        for(int rw = 0; rw < rows; ++rw)
+        for(int row = 0; row < rows; ++row)
         {
-            char buffer[16];
-            snprintf(buffer, sizeof(buffer), "%3d.", rw);
+            char buffer[24];
+            snprintf(buffer, sizeof(buffer), "%3d.", row);
             m_canvas->print(0,
-                            rw * scaledFontHeight,
+                            row * scaledFontHeight,
                             rownumber_foreground_color,
                             background_color,
                             scale,
                             buffer);
 
-            for(int ch = 0; ch < channels; ++ch)
+            for(int channel = 0; channel < channels; ++channel)
             {
                 unsigned int color;
-                strcpy(buffer, "... ..");
+                strcpy(buffer, "... .. ..");
                 if(note->Instrument != 0)
                 {
                     buffer[4] = (note->Instrument / 10) + '0';
@@ -196,8 +198,8 @@ void PatternView::updateCanvas() {
 
                 note++;
 
-                m_canvas->print(ch * charsPerChannel * scaledFontWidth + indent * scaledFontWidth,
-                                rw * scaledFontHeight,
+                m_canvas->print(channel * charsPerChannel * scaledFontWidth + indent * scaledFontWidth,
+                                row * scaledFontHeight,
                                 color,
                                 background_color,
                                 scale,
