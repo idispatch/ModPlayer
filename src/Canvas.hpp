@@ -21,8 +21,9 @@ public:
     int width() const;
     int height() const;
     bb::cascades::Image image() const;
+    void fill(unsigned color);
     void blit(int x, int y, bb::ImageData const& from);
-    void print(int x, int y, unsigned fg, unsigned bg, const char * str);
+    void print(int x, int y, unsigned fg, unsigned bg, int scale, const char * str);
 
     static bb::ImageData loadImageData(const char * url);
 

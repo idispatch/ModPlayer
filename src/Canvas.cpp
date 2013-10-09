@@ -59,27 +59,67 @@ void Canvas::blit(int x, int y, ImageData const& from) {
     }
 }
 
-void Canvas::print(int x, int y, unsigned fg, unsigned bg, const char * str) {
-    if(str == NULL || *str == '\0')
+void Canvas::fill(unsigned color) {
+    const int dst_stride = m_img.bytesPerLine();
+    const int width = m_img.width();
+    const int height = m_img.height();
+    for(int row = 0; row < height; ++row)
+    {
+        unsigned char * dst = m_img.pixels();
+        dst += row * dst_stride;
+        unsigned * dst_ptr = reinterpret_cast<unsigned*>(dst);
+        for(int col = 0; col < width; ++col)
+        {
+            *dst_ptr += color;
+        }
+    }
+}
+
+void Canvas::print(int x, int y, unsigned fg, unsigned bg, int scale, const char * str) {
+    if(str == NULL || *str == '\0' || scale <= 0)
         return;
     const int fontWidth = 6;
+    const int scaledFontWidth = fontWidth * scale;
+    const int fontHeight = 8;
     const int dst_stride = m_img.bytesPerLine();
-    const int dst_stride_dw = (dst_stride >> 2) - fontWidth;
+    const int dst_stride_dw = (dst_stride >> 2) - fontWidth * scale;
     unsigned char * dst_ptr = m_img.pixels();
     unsigned char * dst_row = dst_ptr + y * dst_stride;
-    for(int n = 0; str[n] != 0; ++n) // for each letter
+    for(int i = 0; str[i] != 0; ++i) // for each letter
     {
-        const char p = str[n];
-        unsigned int *  dst = reinterpret_cast<unsigned int*>(dst_row) + n * fontWidth + x;
+        const char p = str[i];
+        unsigned int *  dst = reinterpret_cast<unsigned int*>(dst_row) + i * scaledFontWidth + x;
         const unsigned int offset = static_cast<const unsigned int>(p); // offset in char raster
-        for(int ly = 0; ly < 8; ++ly) // for each char scan line
+        for(int ly = 0; ly < fontHeight; ++ly) // for each char scan line
         {
             const unsigned char scan = lcd_font_6x8[(offset << 3) + ly];
-            for(int lx = 0; lx < fontWidth; ++lx) // for each char scan line dot
+            for(int m = 0; m < scale; ++m)
             {
-                *dst++ = (scan & (0x80 >> lx)) ? fg : bg;
+                for(int lx = 0; lx < fontWidth; ++lx) // for each char scan line dot
+                {
+                    const unsigned px_color = (scan & (0x80 >> lx)) ? fg : bg;
+                    switch(scale)
+                    {
+                    default:
+                        /* no break */
+                    case 4:
+                        *dst++ = px_color;
+                        /* no break */
+                    case 3:
+                        *dst++ = px_color;
+                        /* no break */
+                    case 2:
+                        *dst++ = px_color;
+                        /* no break */
+                    case 1:
+                        *dst++ = px_color;
+                        break;
+                    case 0:
+                        break;
+                    }
+                }
+                dst += dst_stride_dw;
             }
-            dst += dst_stride_dw;
         }
     }
 }
