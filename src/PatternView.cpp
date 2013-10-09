@@ -77,6 +77,10 @@ void PatternView::updateCanvas() {
         const int width = channels * 8 * fontWidth; // 8 chars per channel
         const int height = rows * fontHeight;
         m_canvas = new Canvas(width, height, this);
+        const unsigned int fg = (0x00 << 24) + (0xff << 16) + (0xff << 8) + (0xff << 0);
+        const unsigned int bg = (0xff << 24) + (0x00 << 16) + (0x00 << 8) + (0x00 << 0);
+        m_canvas->print(0, 0, fg, bg, "hello");
+        m_canvas->print(0, 8, fg, bg, "world");
     }
 }
 

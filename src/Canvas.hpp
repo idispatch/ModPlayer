@@ -22,6 +22,7 @@ public:
     int height() const;
     bb::cascades::Image image() const;
     void blit(int x, int y, bb::ImageData const& from);
+    void print(int x, int y, unsigned fg, unsigned bg, const char * str);
 
     static bb::ImageData loadImageData(const char * url);
 
