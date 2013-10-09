@@ -5,6 +5,8 @@
 #include <bb/cascades/Color>
 #include <bb/cascades/ImageView>
 #include <bb/cascades/DockLayout>
+#include <bb/cascades/AbsoluteLayout>
+#include <bb/cascades/AbsoluteLayoutProperties>
 #include <bb/cascades/StackLayout>
 #include "PatternView.hpp"
 
@@ -19,8 +21,10 @@ PatternView::PatternView(Container *parent)
     : CustomControl(parent),
       m_mutex(QMutex::NonRecursive),
       m_rootContainer(NULL),
+      m_cursor(NULL),
       m_song(NULL),
-      m_canvas(NULL)
+      m_canvas(NULL),
+      m_firstChannel(0)
 {
     setRoot(NULL);
 }
@@ -31,34 +35,56 @@ void PatternView::createPatternView()
     if(m_rootContainer == NULL)
     {
         m_rootContainer = Container::create().background(Color::Transparent)
-                                             .horizontal(HorizontalAlignment::Fill)
+                                             .horizontal(HorizontalAlignment::Center)
                                              .implicitLayoutAnimations(false)
-                                             .layout(StackLayout::create());
+                                             .top(0)
+                                             .topMargin(0)
+                                             .bottom(0)
+                                             .bottomMargin(0)
+                                             .left(0)
+                                             .leftMargin(0)
+                                             .right(0)
+                                             .rightMargin(0)
+                                             .layout(AbsoluteLayout::create());
         setRoot(m_rootContainer);
     }
 
     m_rootContainer->removeAll();
+    m_cursor = NULL;
 
     if(m_song != NULL && m_song->songLoaded())
     {
-        Container * c = Container::create().background(Color::Transparent)
-                                           .horizontal(HorizontalAlignment::Fill)
-                                           .implicitLayoutAnimations(false)
-                                           .layout(DockLayout::create());
         ImageView * patternImage = ImageView::create()
-                    .horizontal(HorizontalAlignment::Center)
-                    .vertical(VerticalAlignment::Center)
+                    .topMargin(0)
+                    .bottomMargin(0)
+                    .leftMargin(0)
+                    .rightMargin(0)
                     .loadEffect(ImageViewLoadEffect::None)
                     .implicitLayoutAnimations(false)
-                    .scalingMethod(ScalingMethod::Fill);
+                    .scalingMethod(ScalingMethod::Fill)
+                    .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+
+        const int preferredWidth = (m_indent + m_charsPerChannel * m_song->channels()) * m_fontWidth * m_fontScale;
+        const int preferredHeight = m_fontHeight * m_fontScale;
+        m_cursor = Container::create().background(Color::fromRGBA(0, 1.0, 0, 0.6))
+                                    .horizontal(HorizontalAlignment::Fill)
+                                    .implicitLayoutAnimations(false)
+                                    .top(m_fontHeight)
+                                    .bottom(m_fontHeight)
+                                    .topMargin(0)
+                                    .bottomMargin(0)
+                                    .leftMargin(0)
+                                    .rightMargin(0)
+                                    .preferredWidth(preferredWidth)
+                                    .preferredHeight(preferredHeight)
+                                    .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
 
         updateCanvas();
         if(m_canvas != NULL) {
             patternImage->setImage(m_canvas->image());
         }
-        c->add(patternImage);
-
-        m_rootContainer->add(c);
+        m_rootContainer->add(patternImage);
+        m_rootContainer->add(m_cursor);
     }
 }
 
@@ -69,12 +95,10 @@ void PatternView::updateCanvas() {
         m_canvas = NULL;
     }
 
-    int channels = m_song->channels();
-    if(channels < 0) {
-        channels = 0;
-    }
-    if(channels > 4) {
-        channels = 4;
+    const int channels = m_song->channels();
+    int lastChannel = m_firstChannel + 4;
+    if(lastChannel > channels) {
+        lastChannel = channels;
     }
 
     const int pattern = m_song->currentPattern();
@@ -83,24 +107,20 @@ void PatternView::updateCanvas() {
 
     if(data != NULL && rows > 0 && channels > 0)
     {
-        const int scale = 2;
-        const int fontWidth = 6;
-        const int fontHeight = 8;
-        const int scaledFontWidth = fontWidth << (scale - 1);
-        const int scaledFontHeight = fontHeight << (scale - 1);
-        const int charsPerChannel = 10;
-
-        const int indent = 5;
-        const int width = indent * scaledFontWidth +
-                          channels * scaledFontWidth * charsPerChannel; // 16 chars per channel
+        const int scaledFontWidth = m_fontWidth << (m_fontScale - 1);
+        const int scaledFontHeight = m_fontHeight << (m_fontScale - 1);
+        const int width = m_indent * scaledFontWidth +
+                          channels * scaledFontWidth * m_charsPerChannel; // 16 chars per channel
         const int height = rows * scaledFontHeight;
 
 #define MAKE_RGBA(R,G,B,A) ((A << 24) + (B << 16) + (G << 8) + (R << 0))
         static const unsigned int rownumber_foreground_color = MAKE_RGBA(0x80, 0x80, 0x80, 0xff);
-        static const unsigned int note_ative_foreground_color = MAKE_RGBA(0xff, 0xff, 0xff, 0xff);
-        static const unsigned int note_idle_foreground_color = MAKE_RGBA(0x70, 0x70, 0x70, 0xff);
-        static const unsigned int background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
-        static const unsigned int fill_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
+
+        static const unsigned int note_active_foreground_color = MAKE_RGBA(0x00, 0x06, 0x7A, 0xff);
+        static const unsigned int note_idle_foreground_color = MAKE_RGBA(0xB0, 0xB0, 0xB0, 0xff);
+
+        static const unsigned int background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
+        static const unsigned int fill_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
 #undef MAKE_RGBA
 
         static const unsigned char NOTE_NONE = 0;
@@ -128,84 +148,94 @@ void PatternView::updateCanvas() {
         m_canvas = new Canvas(width, height, this);
         m_canvas->fill(fill_color);
 
-        const ModPlugNote * note = data;
-
         for(int row = 0; row < rows; ++row)
         {
             char buffer[24];
-            snprintf(buffer, sizeof(buffer), "%3d.", row);
+            snprintf(buffer, sizeof(buffer), "%3d|", row);
             m_canvas->print(0,
                             row * scaledFontHeight,
                             rownumber_foreground_color,
                             background_color,
-                            scale,
+                            m_fontScale,
                             buffer);
 
-            for(int channel = 0; channel < channels; ++channel)
+            for(int channel = m_firstChannel; channel < lastChannel; ++channel)
             {
+                const ModPlugNote &cell = data[row * channels + channel];
+
                 unsigned int color;
                 strcpy(buffer, "... .. ..");
-                if(note->Instrument != 0)
+                if(cell.Instrument != 0)
                 {
-                    buffer[4] = (note->Instrument / 10) + '0';
-                    buffer[5] = (note->Instrument % 10) + '0';
-                    color = note_ative_foreground_color;
+                    buffer[4] = (cell.Instrument / 10) + '0';
+                    buffer[5] = (cell.Instrument % 10) + '0';
+                    color = note_active_foreground_color;
                 }
                 else
                 {
                     color = note_idle_foreground_color;
                 }
 
-                switch(note->Note)
+                switch(cell.Note)
                 {
                 case NOTE_NONE:
                     break;
                 case NOTE_KEYOFF:
                     buffer[0] = buffer[1] = buffer[2] = '=';
-                    color = note_ative_foreground_color;
+                    color = note_active_foreground_color;
                     break;
                 case NOTE_NOTECUT:
                     buffer[0] = buffer[1] = buffer[2] = '^';
-                    color = note_ative_foreground_color;
+                    color = note_active_foreground_color;
                     break;
                 case NOTE_FADE:
                     buffer[0] = buffer[1] = buffer[2] = '~';
-                    color = note_ative_foreground_color;
+                    color = note_active_foreground_color;
                     break;
                 case NOTE_PC:
                     buffer[0] = 'P';
                     buffer[1] = 'C';
                     buffer[2] = ' ';
-                    color = note_ative_foreground_color;
+                    color = note_active_foreground_color;
                     break;
                 case NOTE_PCS:
                     buffer[0] = 'P';
                     buffer[1] = 'C';
                     buffer[2] = 'S';
-                    color = note_ative_foreground_color;
+                    color = note_active_foreground_color;
                     break;
                 default:
-                    if(note->Note >= NOTE_MIN && note->Note <= NOTE_MAX)
+                    if(cell.Note >= NOTE_MIN && cell.Note <= NOTE_MAX)
                     {
-                        const char * noteString = NoteNames[note->Note - NOTE_MIN];
+                        const char * noteString = NoteNames[cell.Note - NOTE_MIN];
                         buffer[0] = noteString[0];
                         buffer[1] = noteString[1];
                         buffer[2] = noteString[2];
-                        color = note_ative_foreground_color;
+                        color = note_active_foreground_color;
                     }
                     break;
                 }
 
-                note++;
-
-                m_canvas->print(channel * charsPerChannel * scaledFontWidth + indent * scaledFontWidth,
+                m_canvas->print(channel * m_charsPerChannel * scaledFontWidth + m_indent * scaledFontWidth,
                                 row * scaledFontHeight,
                                 color,
                                 background_color,
-                                scale,
+                                m_fontScale,
                                 buffer);
             }
         }
+    }
+}
+
+int PatternView::firstChannel() const {
+    return m_firstChannel;
+}
+
+void PatternView::setFirstChannel(int value) {
+    if(m_firstChannel != value) {
+        m_firstChannel = value;
+        emit firstChannelChanged();
+        createPatternView();
     }
 }
 
@@ -254,6 +284,12 @@ void PatternView::onChannelsChanged() {
 }
 
 void PatternView::onCurrentRowChanged() {
+    QMutexLocker locker(&m_mutex);
+    if(m_cursor == NULL || m_song == NULL)
+        return;
+    const int row = m_song->currentRow();
+    AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_cursor->layoutProperties());
+    p->setPositionY(row * m_fontHeight * m_fontScale);
 }
 
 void PatternView::onCurrentPatternChanged() {

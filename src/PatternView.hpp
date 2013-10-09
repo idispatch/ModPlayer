@@ -23,14 +23,19 @@ public:
     PatternView(bb::cascades::Container *parent = 0);
 
     Q_PROPERTY(QVariant song READ song WRITE setSong NOTIFY songChanged FINAL)
+    Q_PROPERTY(int firstChannel READ firstChannel WRITE setFirstChannel NOTIFY firstChannelChanged FINAL)
 
     QVariant song() const;
     void setSong(QVariant value);
+
+    int firstChannel() const;
+    void setFirstChannel(int value);
 
     using InstanceCounter<PatternView>::getInstanceCount;
     using InstanceCounter<PatternView>::getMaxInstanceCount;
 Q_SIGNALS:
     void songChanged();
+    void firstChannelChanged();
 private slots:
     void onSongLoadedChanged();
     void onChannelsChanged();
@@ -42,8 +47,15 @@ private:
 private:
     QMutex m_mutex;
     bb::cascades::Container * m_rootContainer;
+    bb::cascades::Container * m_cursor;
     SongModule * m_song;
     Canvas * m_canvas;
+    int m_firstChannel;
+    static const int m_charsPerChannel = 10;
+    static const int m_indent = 5;
+    static const int m_fontScale = 2;
+    static const int m_fontWidth = 6;
+    static const int m_fontHeight = 8;
 };
 
 Q_DECLARE_METATYPE(PatternView*);

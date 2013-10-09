@@ -85,9 +85,12 @@ Page {
                             }
                         ]
                     }
-                    PatternView {
-                        song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded
+                    TGroupContainer {
+                        PatternView {
+                            song: app.player.currentSong
+                            visible: app.player.currentSong.songLoaded
+                            horizontalAlignment: HorizontalAlignment.Center
+                        }
                     }
                     SongMainInfo {
                         song: app.player.currentSong
