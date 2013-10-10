@@ -8,6 +8,117 @@ Page {
     objectName: "songPlayer"
     property variant navigationPane
     ViewContainer {
+        VerticalContainer {
+            horizontalAlignment: HorizontalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            VerticalContainer {
+                horizontalAlignment: HorizontalAlignment.Fill
+                topPadding: 20
+                bottomPadding: 20
+                TGroupContainer {
+                    topMargin: 16
+                    bottomMargin: 16
+                    topPadding: 16
+                    bottomPadding: 16
+                    leftPadding: 16
+                    rightPadding: 16 
+                    background: vuPaint.imagePaint
+                    horizontalAlignment: HorizontalAlignment.Center
+                    LCDDisplay {
+                        text: {
+                            if(app.player.currentSong.title.length == 0) {
+                                return Global.fileNameOnly(app.player.currentSong.fileName)
+                            } else {
+                                return app.player.currentSong.title
+                            }
+                        }
+                        bottomMargin: 10
+                        visible: app.player.currentSong.songLoaded
+                        horizontalAlignment: HorizontalAlignment.Center
+                    }
+                    VUMeter {
+                        topMargin: 10
+                        visible: app.player.currentSong.songLoaded && app.player.state == Player.Playing
+                        song: app.player.currentSong
+                    }
+                    Label {
+                        id: statusText
+                        text: app.player.statusText
+                        textStyle {
+                            fontWeight: FontWeight.W100
+                            fontSize: FontSize.Large
+                            color: Color.White
+                        }
+                        onTextChanged: {
+                            opacity = 1.0
+                            visible = true
+                            if(app.player.state == Player.Playing) {
+                                fadeAway.play()
+                            } else {
+                                fadeAway.stop()
+                            }
+                        }
+                        animations: [
+                            ParallelAnimation {
+                                id: fadeAway
+                                delay: 3000
+                                FadeTransition {
+                                    duration: 2000
+                                    easingCurve: StockCurve.CubicOut
+                                    fromOpacity: 1.0
+                                    toOpacity: 0.0
+                                }
+                                onEnded: {
+                                    statusText.visible = false
+                                }
+                            } 
+                        ]
+                    }
+                    attachedObjects: [
+                        ImagePaintDefinition {
+                            id: vuPaint
+                            repeatPattern: RepeatPattern.Fill
+                            imageSource: "asset:///images/backgrounds/vu_back.amd"
+                        }
+                    ]
+                }
+                TGroupContainer {
+                    topMargin: 16
+                    bottomMargin: 16
+                    topPadding: 16
+                    bottomPadding: 16
+                    leftPadding: 16
+                    rightPadding: 16
+                    visible: app.player.currentSong.songLoaded
+                    SegmentedControl {
+                        Option {
+                            id: basicViewOption
+                            text: qsTr("Basic")
+                            selected: true
+                        }
+                        Option {
+                            id: patternViewOption
+                            text: qsTr("Pattern")
+                        }
+                        Option {
+                            id: samplesViewOption
+                            text: qsTr("Samples")
+                        }
+                        onSelectedOptionChanged: {
+                            songMainInfo.visible = (selectedOption == basicViewOption)
+                            songPublicInfo.visible = (selectedOption == basicViewOption)
+                            
+                            patternView.visible = (selectedOption == patternViewOption)
+                            if(selectedOption == samplesViewOption) {
+                                instrumentsView.load()
+                            }
+                            instrumentsView.visible = (selectedOption == samplesViewOption)
+                        }
+                    }
+                }
+            }
+        }
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -18,109 +129,6 @@ Page {
                 rightPadding: 20
                 VerticalContainer {
                     horizontalAlignment: HorizontalAlignment.Fill
-                    topPadding: 20
-                    bottomPadding: 20
-                    TGroupContainer {
-                        topMargin: 16
-                        bottomMargin: 16
-                        topPadding: 16
-                        bottomPadding: 16
-                        leftPadding: 16
-                        rightPadding: 16 
-                        background: vuPaint.imagePaint
-                        horizontalAlignment: HorizontalAlignment.Center
-                        LCDDisplay {
-                            text: {
-                                if(app.player.currentSong.title.length == 0) {
-                                    return Global.fileNameOnly(app.player.currentSong.fileName)
-                                } else {
-                                    return app.player.currentSong.title
-                                }
-                            }
-                            bottomMargin: 10
-                            visible: app.player.currentSong.songLoaded
-                            horizontalAlignment: HorizontalAlignment.Center
-                        }
-                        VUMeter {
-                            topMargin: 10
-                            visible: app.player.currentSong.songLoaded && app.player.state == Player.Playing
-                            song: app.player.currentSong
-                        }
-                        Label {
-                            id: statusText
-                            text: app.player.statusText
-                            textStyle {
-                                fontWeight: FontWeight.W100
-                                fontSize: FontSize.Large
-                                color: Color.White
-                            }
-                            onTextChanged: {
-                                opacity = 1.0
-                                visible = true
-                                if(app.player.state == Player.Playing) {
-                                    fadeAway.play()
-                                } else {
-                                    fadeAway.stop()
-                                }
-                            }
-                            animations: [
-                                ParallelAnimation {
-                                    id: fadeAway
-                                    delay: 3000
-                                    FadeTransition {
-                                        duration: 2000
-                                        easingCurve: StockCurve.CubicOut
-                                        fromOpacity: 1.0
-                                        toOpacity: 0.0
-                                    }
-                                    onEnded: {
-                                        statusText.visible = false
-                                    }
-                                } 
-                            ]
-                        }
-                        attachedObjects: [
-                            ImagePaintDefinition {
-                                id: vuPaint
-                                repeatPattern: RepeatPattern.Fill
-                                imageSource: "asset:///images/backgrounds/vu_back.amd"
-                            }
-                        ]
-                    }
-                    TGroupContainer {
-                        topMargin: 16
-                        bottomMargin: 16
-                        topPadding: 16
-                        bottomPadding: 16
-                        leftPadding: 16
-                        rightPadding: 16
-                        visible: app.player.currentSong.songLoaded
-	                    SegmentedControl {
-	                        Option {
-	                            id: basicViewOption
-	                            text: qsTr("Basic")
-	                            selected: true
-	                        }
-	                        Option {
-	                            id: patternViewOption
-                                text: qsTr("Pattern")
-	                        }
-	                        Option {
-	                            id: samplesViewOption
-                                text: qsTr("Samples")
-	                        }
-                            onSelectedOptionChanged: {
-                                songMainInfo.visible = (selectedOption == basicViewOption)
-                                songPublicInfo.visible = (selectedOption == basicViewOption)
-                                
-                                patternView.visible = (selectedOption == patternViewOption)
-                                if(selectedOption == samplesViewOption) {
-                                    instrumentsView.load()
-                                }
-                                instrumentsView.visible = (selectedOption == samplesViewOption)
-                            }
-	                    }
-	                }
                     SongMainInfo {
                         id: songMainInfo
                         song: app.player.currentSong
