@@ -256,7 +256,7 @@ void PatternView::updateCanvas() {
     const int scaledFontWidth = m_fontWidth << (m_fontScale - 1);
     const int scaledFontHeight = m_fontHeight << (m_fontScale - 1);
     const int width = m_indent * scaledFontWidth +
-                      channels * scaledFontWidth * m_charsPerChannel; // 16 chars per channel
+                      (lastChannel - m_firstChannel) * scaledFontWidth * m_charsPerChannel; // 16 chars per channel
     const int height = (rows + 2) * scaledFontHeight;
 
     if(data == NULL || rows <= 0 || rows > 128 || channels <= 0)
@@ -283,6 +283,7 @@ void PatternView::updateCanvas() {
 
         if(m_canvas == NULL)
         {
+            //qDebug() << "Canvas: w=" << width << "h=" << height;
             m_canvas = new Canvas(width, height, this);
         }
 
