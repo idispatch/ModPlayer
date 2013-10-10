@@ -25,6 +25,22 @@ public:
 
     using InstanceCounter<SongFormat>::getInstanceCount;
     using InstanceCounter<SongFormat>::getMaxInstanceCount;
+
+    enum Format {
+        FORMAT_MOD = 1,
+        FORMAT_669 = 2,
+        FORMAT_IT = 3,
+        FORMAT_MED = 4,
+        FORMAT_MTM = 5,
+        FORMAT_OCT = 6,
+        FORMAT_OKT = 7,
+        FORMAT_S3M = 8,
+        FORMAT_STM = 9,
+        FORMAT_XM = 10,
+        FORMAT_AHX = 11,
+        FORMAT_HVL = 12,
+        FORMAT_MO3 = 1
+    };
 Q_SIGNALS:
     void descriptionChanged();
     void iconPathChanged();

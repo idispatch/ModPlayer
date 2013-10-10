@@ -51,8 +51,8 @@ private:
     SongModule * m_song;
     Canvas * m_canvas;
     int m_firstChannel;
-    static const int m_charsPerChannel = 10;
-    static const int m_indent = 5;
+    static const int m_charsPerChannel = 14;
+    static const int m_indent = 3;
     static const int m_fontScale = 2;
     static const int m_fontWidth = 6;
     static const int m_fontHeight = 8;

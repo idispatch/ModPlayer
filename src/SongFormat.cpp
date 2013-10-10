@@ -32,32 +32,30 @@ QUrl SongFormat::getIconPath(int formatId) {
     appFolder.chop(4); // remove data directory from end
     QString icons = QString("file://%1/%2").arg(appFolder).arg("app/native/assets/images/formats");
     switch(formatId){
-    case 1:
+    case FORMAT_MOD:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mod"));
-    case 2:
+    case FORMAT_669:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("669"));
-    case 3:
+    case FORMAT_IT:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("it"));
-    case 4:
+    case FORMAT_MED:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("med"));
-    case 5:
+    case FORMAT_MTM:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mtm"));
-    case 6:
+    case FORMAT_OCT:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("oct"));
-    case 7:
+    case FORMAT_OKT:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("okt"));
-    case 8:
+    case FORMAT_S3M:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("s3m"));
-    case 9:
+    case FORMAT_STM:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("stm"));
-    case 10:
+    case FORMAT_XM:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("xm"));
-    case 11:
+    case FORMAT_AHX:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("ahx"));
-    case 12:
+    case FORMAT_HVL:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("hvl"));
-    case 13:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mo3"));
     default:
         return QUrl(QString("%1/icon_unknown.png").arg(icons));
     }
@@ -65,43 +63,43 @@ QUrl SongFormat::getIconPath(int formatId) {
 
 int SongFormat::getFormatIdByFileName(QString const& fileName) {
     if(fileName.endsWith(".mod", Qt::CaseInsensitive)) {
-        return 1;
+        return FORMAT_MOD;
     }
     if(fileName.endsWith(".669", Qt::CaseInsensitive)) {
-        return 2;
+        return FORMAT_669;
     }
     if(fileName.endsWith(".it", Qt::CaseInsensitive)) {
-        return 3;
+        return FORMAT_IT;
     }
     if(fileName.endsWith(".med", Qt::CaseInsensitive)) {
-        return 4;
+        return FORMAT_MED;
     }
     if(fileName.endsWith(".mtm", Qt::CaseInsensitive)) {
-        return 5;
+        return FORMAT_MTM;
     }
     if(fileName.endsWith(".oct", Qt::CaseInsensitive)) {
-        return 6;
+        return FORMAT_OCT;
     }
     if(fileName.endsWith(".okt", Qt::CaseInsensitive)) {
-        return 7;
+        return FORMAT_OKT;
     }
     if(fileName.endsWith(".s3m", Qt::CaseInsensitive)) {
-        return 8;
+        return FORMAT_S3M;
     }
     if(fileName.endsWith(".stm", Qt::CaseInsensitive)) {
-        return 9;
+        return FORMAT_STM;
     }
     if(fileName.endsWith(".xm", Qt::CaseInsensitive)) {
-        return 10;
+        return FORMAT_XM;
     }
     if(fileName.endsWith(".ahx", Qt::CaseInsensitive)) {
-        return 11;
+        return FORMAT_AHX;
     }
     if(fileName.endsWith(".hvl", Qt::CaseInsensitive)) {
-        return 12;
+        return FORMAT_HVL;
     }
     if(fileName.endsWith(".mo3", Qt::CaseInsensitive)) {
-        return 1;
+        return FORMAT_MO3;
     }
     return 0;
 }
