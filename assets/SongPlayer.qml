@@ -203,6 +203,9 @@ Page {
         InstrumentsActionItem {
             navigationPane: songPlayer.navigationPane
         },
+        PatternsActionItem {
+            navigationPane: songPlayer.navigationPane
+        },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong
         },

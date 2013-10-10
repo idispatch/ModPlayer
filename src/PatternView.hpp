@@ -43,6 +43,7 @@ private slots:
     void onCurrentRowChanged();
     void onCurrentPatternChanged();
     void onPatternTap(int x, int y);
+    void onPatternHorizontalSwipe(int x0, int y0, int x1, int y1);
 private:
     void createPatternView();
     void updateCanvas();

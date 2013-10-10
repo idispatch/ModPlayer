@@ -210,6 +210,24 @@
     </message>
 </context>
 <context>
+    <name>Patterns</name>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PatternsActionItem</name>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PauseActionItem</name>
     <message>
         <source>Resume</source>
