@@ -241,7 +241,7 @@ void PatternView::updateCanvas() {
         for(int row = 0; row < rows; ++row)
         {
             char buffer[16];
-            snprintf(buffer, sizeof(buffer), "%2d|", row);
+            snprintf(buffer, sizeof(buffer), "%2d", row);
             m_canvas->print(0,
                             row * scaledFontHeight,
                             rownumber_foreground_color,
@@ -365,6 +365,15 @@ void PatternView::updateCanvas() {
                     else
                     {
                         foreground_color = idle_foreground_color;
+#if 0
+                        if(cell.Instrument != 0)
+                        {
+                            buffer[0] = 'v';
+                            buffer[1] = (cell.Volume / 10) + '0';
+                            buffer[2] = (cell.Volume % 10) + '0';
+                            foreground_color = volume_foreground_color;
+                        }
+#endif
                     }
                 }
 
@@ -387,12 +396,14 @@ void PatternView::updateCanvas() {
                 }
                 else
                 {
+                    char effect = '?';
                     if(cell.Effect != CMD_NONE)
                     {
-                        char effect;
-                        if(cell.Effect >= MAX_EFFECTS) {
+                        if(cell.Effect >= MAX_EFFECTS)
+                        {
                             effect = '?';
-                        } else {
+                        }
+                        else {
                             switch(m_song->formatId())
                             {
                             case SongFormat::FORMAT_MOD:
@@ -423,7 +434,15 @@ void PatternView::updateCanvas() {
                     }
                     else
                     {
-                        buffer[1] = buffer[2] = '.';
+                        if(effect == '?')
+                        {
+                            buffer[1] = buffer[2] = '.';
+                        }
+                        else
+                        {
+                            buffer[1] = buffer[2] = '0';
+                        }
+
                         if(foreground_color != effect_foreground_color)
                         {
                             foreground_color = idle_foreground_color;
@@ -438,6 +457,14 @@ void PatternView::updateCanvas() {
                                 m_fontScale,
                                 buffer);
             }
+        }
+
+        for(int channel = m_firstChannel; channel < lastChannel; ++channel)
+        {
+            m_canvas->vline((channel - m_firstChannel) * m_charsPerChannel * scaledFontWidth + m_indent * scaledFontWidth - (scaledFontWidth >> 1),
+                            0,
+                            m_canvas->height(),
+                            rownumber_foreground_color);
         }
     }
 }

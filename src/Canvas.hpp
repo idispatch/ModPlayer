@@ -23,6 +23,7 @@ public:
     bb::cascades::Image image() const;
     void fill(unsigned color);
     void blit(int x, int y, bb::ImageData const& from);
+    void vline(int x, int y0, int y1, unsigned color);
     void print(int x, int y, unsigned fg, unsigned bg, int scale, const char * str);
 
     static bb::ImageData loadImageData(const char * url);

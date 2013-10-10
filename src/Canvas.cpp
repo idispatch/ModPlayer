@@ -59,6 +59,31 @@ void Canvas::blit(int x, int y, ImageData const& from) {
     }
 }
 
+void Canvas::vline(int x, int y0, int y1, unsigned color) {
+    const int dst_stride = m_img.bytesPerLine();
+    const int dst_stride_dw = dst_stride >> 2;
+    const int width = m_img.width();
+    const int height = m_img.height();
+    if(x < 0 || x >= width)
+        return;
+    if(y0 > y1) {
+        int t = y0;
+        y0 = y1;
+        y1 = t;
+    }
+    if(y0 < 0)
+        return;
+    if(y1 > height || y1 == y0)
+        return;
+    unsigned char * dst = m_img.pixels() + y0 * dst_stride + (x << 2);
+    unsigned * dst_ptr = reinterpret_cast<unsigned*>(dst);
+    for(int row = y0; row < y1; ++row)
+    {
+        *dst_ptr = color;
+        dst_ptr += dst_stride_dw;
+    }
+}
+
 void Canvas::fill(unsigned color) {
     const int dst_stride = m_img.bytesPerLine();
     const int width = m_img.width();
