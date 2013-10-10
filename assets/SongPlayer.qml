@@ -150,6 +150,7 @@ Page {
                         id: instrumentsView
                         visible: false
                         maxHeight: 600
+                        preferredHeight: 600
                     }
                 }
             }

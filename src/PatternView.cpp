@@ -199,7 +199,7 @@ void PatternView::createPatternView()
                 m_rootContainer->add(m_patternImage);
             }
 
-            const int preferredWidth = (m_indent + m_charsPerChannel * std::max(m_song->channels(), 4)) * m_fontWidth * m_fontScale;
+            const int preferredWidth = (m_indent + m_charsPerChannel * std::min(m_song->channels(), 4)) * m_fontWidth * m_fontScale;
             const int preferredHeight = m_fontHeight * m_fontScale;
 
             if(m_cursor == NULL)
