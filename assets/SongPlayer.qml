@@ -108,6 +108,8 @@ Page {
                         onSelectedOptionChanged: {
                             songMainInfo.visible = (selectedOption == basicViewOption)
                             songPublicInfo.visible = (selectedOption == basicViewOption)
+                            songParametersInfo.visible = (selectedOption != samplesViewOption)
+                            songDynamicInfo.visible = (selectedOption != samplesViewOption)
                             
                             patternView.visible = (selectedOption == patternViewOption)
                             if(selectedOption == samplesViewOption) {
@@ -140,10 +142,12 @@ Page {
                         visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
                     }
                     SongParametersInfo {
+                        id: songParametersInfo
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded
                     }
                     SongDynamicInfo {
+                        id: songDynamicInfo
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded
                     }
