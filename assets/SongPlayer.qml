@@ -10,10 +10,8 @@ Page {
     ViewContainer {
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
             VerticalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Fill
                 leftPadding: 20
                 rightPadding: 20
                 VerticalContainer {
@@ -137,6 +135,10 @@ Page {
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded
                     }
+                    InstrumentsView {
+                        id: instrumentsView
+                        visible: false
+                    }
                     TGroupContainer {
                         id: patternView
                         visible: false
@@ -145,19 +147,6 @@ Page {
                             visible: app.player.currentSong.songLoaded
                             horizontalAlignment: HorizontalAlignment.Center
                         }
-                    }
-                    /*TGroupContainer {
-                        visible: false
-                        id: instrumentsView
-                        function load() {
-                            instrumentsSubView.load()
-                        }
-	                    InstrumentsView {
-                            id: instrumentsSubView
-	                    }
-	                }*/
-                    InstrumentsView {
-                        id: instrumentsView
                     }
                 }
             }

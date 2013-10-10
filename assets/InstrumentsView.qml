@@ -37,8 +37,6 @@ VerticalContainer {
     GroupContainer {
         ListView {
             id: instrumentsSamplesList
-            topPadding: 20
-            bottomPadding: topPadding
             leftPadding: 10
             rightPadding: leftPadding
             listItemComponents: [
