@@ -172,14 +172,6 @@
 <context>
     <name>Instruments</name>
     <message>
-        <source>Samples</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Instruments</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Samples of %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -196,6 +188,17 @@
     <name>InstrumentsActionItem</name>
     <message>
         <source>Instruments and Samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InstrumentsView</name>
+    <message>
+        <source>Samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instruments</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -757,6 +760,18 @@
     <name>SongPlayer</name>
     <message>
         <source>Downloading song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Samples</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -172,14 +172,6 @@
 <context>
     <name>Instruments</name>
     <message>
-        <source>Samples</source>
-        <translation>Сэмплы</translation>
-    </message>
-    <message>
-        <source>Instruments</source>
-        <translation>Инструменты</translation>
-    </message>
-    <message>
         <source>Samples of %1 (%2)</source>
         <translation>Сэмплы %1 (%2)</translation>
     </message>
@@ -197,6 +189,17 @@
     <message>
         <source>Instruments and Samples</source>
         <translation>Инструменты и сэмплы</translation>
+    </message>
+</context>
+<context>
+    <name>InstrumentsView</name>
+    <message>
+        <source>Samples</source>
+        <translation>Сэмплы</translation>
+    </message>
+    <message>
+        <source>Instruments</source>
+        <translation>Инструменты</translation>
     </message>
 </context>
 <context>
@@ -757,7 +760,19 @@
     <name>SongPlayer</name>
     <message>
         <source>Downloading song</source>
-        <translation type="unfinished">Скачиваю песню</translation>
+        <translation>Скачиваю песню</translation>
+    </message>
+    <message>
+        <source>Basic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation type="unfinished">Пэттерн</translation>
+    </message>
+    <message>
+        <source>Samples</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -85,11 +85,43 @@ Page {
                             }
                         ]
                     }
+                    TGroupContainer {
+                        topMargin: 16
+                        bottomMargin: 16
+                        topPadding: 16
+                        bottomPadding: 16
+                        leftPadding: 16
+                        rightPadding: 16
+	                    SegmentedControl {
+	                        Option {
+	                            id: basicViewOption
+	                            text: qsTr("Basic")
+	                            selected: true
+	                        }
+	                        Option {
+	                            id: patternViewOption
+                                text: qsTr("Pattern")
+	                        }
+	                        Option {
+	                            id: samplesViewOption
+                                text: qsTr("Samples")
+	                        }
+                            onSelectedOptionChanged: {
+                                songMainInfo.visible = (selectedOption == basicViewOption)
+                                songPublicInfo.visible = (selectedOption == basicViewOption)
+                                
+                                patternView.visible = (selectedOption == patternViewOption)
+                                instrumentsView.visible = (selectedOption == samplesViewOption)
+                            }
+	                    }
+	                }
                     SongMainInfo {
+                        id: songMainInfo
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded
                     }
                     SongPublicInfo {
+                        id: songPublicInfo
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
                     }
@@ -102,11 +134,17 @@ Page {
                         visible: app.player.currentSong.songLoaded
                     }
                     TGroupContainer {
+                        id: patternView
+                        visible: false
                         PatternView {
                             song: app.player.currentSong
                             visible: app.player.currentSong.songLoaded
                             horizontalAlignment: HorizontalAlignment.Center
                         }
+                    }
+                    InstrumentsView {
+                        id: instrumentsView
+                        visible: false
                     }
                 }
             }

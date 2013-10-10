@@ -175,38 +175,38 @@ void PatternView::createPatternView()
 
     if(m_song != NULL && m_song->songLoaded())
     {
-        ImageView * patternImage = ImageView::create()
-                    .topMargin(0)
-                    .bottomMargin(0)
-                    .leftMargin(0)
-                    .rightMargin(0)
-                    .loadEffect(ImageViewLoadEffect::None)
-                    .implicitLayoutAnimations(false)
-                    //.scalingMethod(ScalingMethod::Fill)
-                    .scalingMethod(ScalingMethod::AspectFill)
-                    .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
-
-        const int preferredWidth = (m_indent + m_charsPerChannel * m_song->channels()) * m_fontWidth * m_fontScale;
-        const int preferredHeight = m_fontHeight * m_fontScale;
-        m_cursor = Container::create().background(Color::fromRGBA(0, 1.0, 0, 0.6))
-                                    .horizontal(HorizontalAlignment::Fill)
-                                    .implicitLayoutAnimations(false)
-                                    .top(m_fontHeight)
-                                    .bottom(m_fontHeight)
-                                    .topMargin(0)
-                                    .bottomMargin(0)
-                                    .leftMargin(0)
-                                    .rightMargin(0)
-                                    .preferredWidth(preferredWidth)
-                                    .preferredHeight(preferredHeight)
-                                    .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
-
         updateCanvas();
-        if(m_canvas != NULL) {
+        if(m_canvas != NULL)
+        {
+            ImageView * patternImage = ImageView::create()
+                                .topMargin(0)
+                                .bottomMargin(0)
+                                .leftMargin(0)
+                                .rightMargin(0)
+                                .loadEffect(ImageViewLoadEffect::None)
+                                .implicitLayoutAnimations(false)
+                                .scalingMethod(ScalingMethod::AspectFill)
+                                .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+
+            const int preferredWidth = (m_indent + m_charsPerChannel * m_song->channels()) * m_fontWidth * m_fontScale;
+            const int preferredHeight = m_fontHeight * m_fontScale;
+            m_cursor = Container::create().background(Color::fromRGBA(0, 1.0, 0, 0.6))
+                                        .horizontal(HorizontalAlignment::Fill)
+                                        .implicitLayoutAnimations(false)
+                                        .top(m_fontHeight)
+                                        .bottom(m_fontHeight)
+                                        .topMargin(0)
+                                        .bottomMargin(0)
+                                        .leftMargin(0)
+                                        .rightMargin(0)
+                                        .preferredWidth(preferredWidth)
+                                        .preferredHeight(preferredHeight)
+                                        .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+
             patternImage->setImage(m_canvas->image());
+            m_rootContainer->add(patternImage);
+            m_rootContainer->add(m_cursor);
         }
-        m_rootContainer->add(patternImage);
-        m_rootContainer->add(m_cursor);
     }
 }
 
@@ -227,7 +227,7 @@ void PatternView::updateCanvas() {
     int rows = 0;
     ModPlugNote* data = m_song->getPattern(pattern, &rows);
 
-    if(data != NULL && rows > 0 && channels > 0)
+    if(data != NULL && rows > 0 && rows <= 64 && channels > 0)
     {
         const int scaledFontWidth = m_fontWidth << (m_fontScale - 1);
         const int scaledFontHeight = m_fontHeight << (m_fontScale - 1);
