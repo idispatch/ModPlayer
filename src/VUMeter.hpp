@@ -1,16 +1,17 @@
 #ifndef VUMETER_HPP_
 #define VUMETER_HPP_
 
+#include <QVector>
 #include <bb/cascades/CustomControl>
 #include <bb/cascades/Image>
 #include "SongModule.hpp"
 #include "InstanceCounter.hpp"
-#include <vector>
 
 namespace bb {
     namespace cascades {
         class Container;
         class ImageView;
+        class AbsoluteLayoutProperties;
     }
 }
 
@@ -33,7 +34,7 @@ Q_SIGNALS:
 private slots:
     void onSongLoadedChanged();
     void onChannelsChanged();
-    void onChannelVUChanged(int channel, int channelVU);
+    void onChannelVUChanged();
 private:
     void createVU();
 private:
@@ -42,7 +43,8 @@ private:
     SongModule * m_song;
     bb::cascades::Image m_image_vu_on;
     bb::cascades::Image m_image_vu_off;
-    std::vector<bb::cascades::ImageView*> m_bars;
+    bb::cascades::AbsoluteLayoutProperties* m_bars[128];
+    int m_numBars;
 };
 
 Q_DECLARE_METATYPE(VUMeter*);

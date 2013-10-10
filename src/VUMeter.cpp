@@ -22,8 +22,10 @@ VUMeter::VUMeter(Container *parent)
       m_rootContainer(NULL),
       m_song(NULL),
       m_image_vu_on(Image(QUrl("asset:///images/vu/vu-on.png"))),
-      m_image_vu_off(Image(QUrl("asset:///images/vu/vu-off.png")))
+      m_image_vu_off(Image(QUrl("asset:///images/vu/vu-off.png"))),
+      m_numBars(0)
 {
+    memset(m_bars, 0, sizeof(m_bars));
     setRoot(NULL);
 }
 
@@ -42,15 +44,18 @@ void VUMeter::createVU()
     if(m_song == NULL || !m_song->songLoaded())
     {
         m_rootContainer->removeAll();
-        m_bars.clear();
+        memset(m_bars, 0, sizeof(m_bars));
+        m_numBars = 0;
     }
     else
     {
         const int channels = m_song->channels();
-        if(static_cast<int>(m_bars.size()) != channels)
+        if(channels != m_numBars)
         {
             m_rootContainer->removeAll();
-            m_bars.resize(channels);
+
+            memset(m_bars, 0, sizeof(m_bars));
+            m_numBars = channels;
 
             m_rootContainer->add(Container::create()
                                 .layoutProperties(StackLayoutProperties::create().spaceQuota(1.0))
@@ -88,7 +93,7 @@ void VUMeter::createVU()
                     .preferredSize(width, height)
                     .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
 
-                m_bars[i] = vu_bar_off;
+                m_bars[i] = qobject_cast<AbsoluteLayoutProperties*>(vu_bar_off->layoutProperties());
 
                 barContainer->add(vu_bar_on);
                 barContainer->add(vu_bar_off);
@@ -109,29 +114,34 @@ QVariant VUMeter::song() const {
 
 void VUMeter::setSong(QVariant value) {
     SongModule * song = qobject_cast<SongModule*>(value.value<QObject*>());
-    if(song != m_song) {
-        m_song = song;
+    bool isSongChanged = false;
+    {
+        QMutexLocker locker(&m_mutex);
+        if(song != m_song) {
+            m_song = song;
+            isSongChanged = true;
 
-        emit songChanged();
+            bool rc;
+            if(m_song != NULL)
+            {
+                rc = QObject::connect(m_song, SIGNAL(songLoadedChanged()),
+                                      this,   SLOT(onSongLoadedChanged()));
+                Q_ASSERT(rc);
 
-        bool rc;
-        if(m_song != NULL)
-        {
-            rc = QObject::connect(m_song, SIGNAL(songLoadedChanged()),
-                                  this,   SLOT(onSongLoadedChanged()));
-            Q_ASSERT(rc);
+                rc = QObject::connect(m_song, SIGNAL(channelsChanged()),
+                                      this,   SLOT(onChannelsChanged()));
+                Q_ASSERT(rc);
 
-            rc = QObject::connect(m_song, SIGNAL(channelsChanged()),
-                                  this,   SLOT(onChannelsChanged()));
-            Q_ASSERT(rc);
-
-            rc = QObject::connect(m_song, SIGNAL(channelVUChanged(int, int)),
-                                  this,   SLOT(onChannelVUChanged(int, int)));
-            Q_ASSERT(rc);
-            Q_UNUSED(rc);
+                rc = QObject::connect(m_song, SIGNAL(channelVUChanged()),
+                                      this,   SLOT(onChannelVUChanged()));
+                Q_ASSERT(rc);
+                Q_UNUSED(rc);
+            }
         }
-
+    }
+    if(isSongChanged) {
         createVU();
+        emit songChanged();
     }
 }
 
@@ -143,16 +153,15 @@ void VUMeter::onChannelsChanged() {
     createVU();
 }
 
-void VUMeter::onChannelVUChanged(int channel, int channelVU) {
-    /*QMutexLocker locker(&m_mutex);
-    const int numBars = static_cast<int>(m_bars.size());
-    if(channel < 0 || channel >= numBars)
-        return;
-    if(channelVU < 0)
-        channelVU = 0;
-    if(channelVU > 255)
-        channelVU = 255;
-    float offset = -channelVU * 100/256;
-    AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_bars[channel]->layoutProperties());
-    p->setPositionY(offset);*/
+void VUMeter::onChannelVUChanged() {
+    QMutexLocker locker(&m_mutex);
+    for(int channel = 0; channel < m_numBars; channel++) {
+        int channelVU = m_song->getChannelVU(channel);
+        if(channelVU < 0)
+            channelVU = 0;
+        if(channelVU > 255)
+            channelVU = 255;
+        int offset = -channelVU * 100/256;
+        m_bars[channel]->setPositionY(offset);
+    }
 }

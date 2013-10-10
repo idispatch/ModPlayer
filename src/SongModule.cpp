@@ -23,10 +23,10 @@ SongModule::SongModule(QObject *parent) :
     m_masterVolume(0),
     m_playingChannels(0),
     m_modPlug(NULL) {
+    memset(&m_channelVU[0], 0, sizeof(m_channelVU));
 }
 
 SongModule::~SongModule() {
-    m_channelVU.clear();
     if (m_modPlug != NULL) {
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
@@ -169,8 +169,6 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
             setFileSize(data.size());
             setSongLength(ModPlug_GetLength(m_modPlug));
 
-            m_channelVU.resize(channels());
-
             update();
 
             emit songLoadedChanged();
@@ -185,7 +183,6 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         qDebug() << "Could not open" << fileName;
         if (songWasLoaded)
         {
-            m_channelVU.resize(0);
             emit songLoadedChanged();
         }
     }
@@ -230,8 +227,6 @@ bool SongModule::unload() {
         setOrders(0);
 
         setFileSize(0);
-
-        m_channelVU.resize(0);
 
         update(true);
 
@@ -316,56 +311,37 @@ void SongModule::update(bool endOfSong) {
 }
 
 void SongModule::updateChannelVU(bool endOfSong) {
+    bool bChanged = false;
     if(m_modPlug != NULL)
     {
         if(endOfSong)
         {
             // Set all channel VU to 0
-            for(int channel = 0; channel < static_cast<int>(m_channelVU.size()); ++channel)
-            {
-                if(m_channelVU[channel] != 0)
-                {
-                    m_channelVU[channel] = 0;
-                    emit channelVUChanged(channel, static_cast<int>(m_channelVU[channel]));
-                }
-            }
+            memset(&m_channelVU[0], 0, sizeof(m_channelVU));
+            bChanged = true;
         }
         else
         {
             // Update all channel VU values
             const int numChannels = channels();
-            if(static_cast<int>(m_channelVU.size()) != numChannels)
+            unsigned result[128];
+            ModPlug_GetChannelVUs(m_modPlug, 0, numChannels, result);
+            const size_t numBytes = sizeof(unsigned) * numChannels;
+            if(memcmp(m_channelVU, result, numBytes))
             {
-                m_channelVU.resize(numChannels);
-            }
-            for(int channel = 0; channel < numChannels; ++channel)
-            {
-                const unsigned channelVU = ModPlug_GetChannelVU(m_modPlug, static_cast<unsigned>(channel));
-                if(m_channelVU[channel] != channelVU)
-                {
-                    m_channelVU[channel] = channelVU;
-                    emit channelVUChanged(channel, static_cast<int>(m_channelVU[channel]));
-                }
+                memcpy(m_channelVU, result, numBytes);
+                bChanged = true;
             }
         }
     }
-    else
+    if(bChanged)
     {
-        m_channelVU.resize(0);
+        emit channelVUChanged();
     }
 }
 
 int SongModule::getChannelVU(int channel) {
-    int result;
-    if(m_modPlug != 0)
-    {
-        result = static_cast<int>(ModPlug_GetChannelVU(m_modPlug, static_cast<unsigned>(channel)));
-    }
-    else
-    {
-        result = 0;
-    }
-    return result;
+    return m_channelVU[channel];
 }
 
 ModPlugNote* SongModule::getPattern(int pattern, int* numrows) {

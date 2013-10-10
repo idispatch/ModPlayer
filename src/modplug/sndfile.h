@@ -590,6 +590,7 @@ public:
 	UINT GetNumChannels() const;
 	UINT GetLogicalChannels() const { return m_nChannels; }
 	DWORD GetChannelVU(UINT channel) const;
+	void GetChannelVUs(UINT firstChannel, UINT lastChannel, DWORD *result) const;
 	BOOL SetMasterVolume(UINT vol, BOOL bAdjustAGC=FALSE);
 	UINT GetMasterVolume() const { return m_nMasterVolume; }
 	UINT GetNumOrders() const;

@@ -428,7 +428,7 @@ UINT CSoundFile::GetNumChannels() const
 	return n;
 }
 
-DWORD CSoundFile::GetChannelVU(UINT channel) const 
+DWORD CSoundFile::GetChannelVU(UINT channel) const
 //-------------------------------------
 {
 	if(channel >= m_nChannels) {
@@ -437,6 +437,13 @@ DWORD CSoundFile::GetChannelVU(UINT channel) const
 	return Chn[channel].nVUMeter;
 }
 
+void CSoundFile::GetChannelVUs(UINT firstChannel, UINT lastChannel, DWORD *result) const
+//-------------------------------------
+{
+    for(UINT channel = firstChannel; channel < lastChannel; ++channel) {
+        *result++ = Chn[channel].nVUMeter;
+    }
+}
 
 UINT CSoundFile::GetSongComments(LPSTR s, UINT len, UINT linesize)
 //----------------------------------------------------------------

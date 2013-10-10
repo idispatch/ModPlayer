@@ -3,7 +3,6 @@
 
 #include <QMetaType>
 #include <QObject>
-#include <vector>
 #include  <bb/cascades/ArrayDataModel>
 #include "SongExtendedInfo.hpp"
 #include "InstanceCounter.hpp"
@@ -89,8 +88,7 @@ Q_SIGNALS:
     void currentTempoChanged();
     void masterVolumeChanged();
     void playingChannelsChanged();
-
-    void channelVUChanged(int channel, int channelVU);
+    void channelVUChanged();
 
 private slots:
 private:
@@ -111,7 +109,7 @@ private:
     int m_masterVolume;
     int m_playingChannels;
 
-    std::vector<unsigned> m_channelVU;
+    unsigned m_channelVU[128];
 
     ModPlugFile* m_modPlug;
 };
