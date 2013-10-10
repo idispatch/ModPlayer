@@ -28,6 +28,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
                  $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
+                 $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
@@ -102,6 +103,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
+                 $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
@@ -157,6 +159,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
                  $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
+                 $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
@@ -231,6 +234,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
+                 $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \

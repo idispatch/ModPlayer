@@ -5,13 +5,14 @@
 #include <bb/cascades/Image>
 #include "Canvas.hpp"
 #include "SongModule.hpp"
+#include "TouchHandler.hpp"
 #include "InstanceCounter.hpp"
-#include <vector>
 
 namespace bb {
     namespace cascades {
         class Container;
         class ImageView;
+        class TouchEvent;
     }
 }
 
@@ -41,6 +42,7 @@ private slots:
     void onChannelsChanged();
     void onCurrentRowChanged();
     void onCurrentPatternChanged();
+    void onPatternTap(int x, int y);
 private:
     void createPatternView();
     void updateCanvas();
@@ -51,12 +53,14 @@ private:
     bb::cascades::ImageView * m_patternImage;
     SongModule * m_song;
     Canvas * m_canvas;
+    TouchHandler * m_touchHandler;
     int m_firstChannel;
-    static const int m_charsPerChannel = 14;
-    static const int m_indent = 3;
-    static const int m_fontScale = 2;
-    static const int m_fontWidth = 6;
-    static const int m_fontHeight = 8;
+    static const int m_numVisibleChannels;
+    static const int m_charsPerChannel;
+    static const int m_indent;
+    static const int m_fontScale;
+    static const int m_fontWidth;
+    static const int m_fontHeight;
 };
 
 Q_DECLARE_METATYPE(PatternView*);

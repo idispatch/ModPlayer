@@ -244,6 +244,15 @@ void ModPlug_GetChannelVUs(ModPlugFile* file, unsigned firstChannel, unsigned la
     file->mSoundFile.GetChannelVUs(firstChannel, lastChannel, result);
 }
 
+void ModPlug_MuteChannel(ModPlugFile* file, unsigned channel, bool mute)
+{
+    file->mSoundFile.MuteChannel(channel, mute);
+}
+bool ModPlug_IsChannelMuted(ModPlugFile* file, unsigned channel)
+{
+    return file->mSoundFile.IsChannelMuted(channel);
+}
+
 unsigned int ModPlug_SampleName(ModPlugFile* file,unsigned int qual,char* buff)
 {
 	return file->mSoundFile.GetSampleName(qual,buff);

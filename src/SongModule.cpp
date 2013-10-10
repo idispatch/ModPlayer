@@ -354,6 +354,14 @@ ModPlugNote* SongModule::getPattern(int pattern, int* numrows) {
     return result;
 }
 
+void SongModule::muteChannel(int channel, bool mute) {
+    ModPlug_MuteChannel(m_modPlug, channel, mute);
+}
+
+bool SongModule::isChannelMuted(int channel) {
+    return ModPlug_IsChannelMuted(m_modPlug, channel);
+}
+
 SongModule::operator ModPlugFile*() {
     return m_modPlug;
 }

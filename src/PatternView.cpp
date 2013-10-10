@@ -18,6 +18,13 @@ int InstanceCounter<PatternView>::s_count;
 template<>
 int InstanceCounter<PatternView>::s_maxCount;
 
+const int PatternView::m_numVisibleChannels = 4;
+const int PatternView::m_charsPerChannel = 14;
+const int PatternView::m_indent = 3;
+const int PatternView::m_fontScale = 2;
+const int PatternView::m_fontWidth = 6;
+const int PatternView::m_fontHeight = 8;
+
 #define MAKE_RGBA(R,G,B,A) ((A << 24) + (B << 16) + (G << 8) + (R << 0))
 static const unsigned int rownumber_foreground_color = MAKE_RGBA(0xff, 0xff, 0xff, 0xff);
 static const unsigned int line_foreground_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
@@ -28,8 +35,10 @@ static const unsigned int volume_foreground_color = MAKE_RGBA(0x0c, 0xc6, 0xff, 
 static const unsigned int effect_foreground_color = MAKE_RGBA(0x2b, 0x96, 0x07, 0xff);
 static const unsigned int idle_foreground_color = MAKE_RGBA(0xB0, 0xB0, 0xB0, 0xff);
 
-static const unsigned int rownumber_background_color = MAKE_RGBA(0xB0, 0xB0, 0xB0, 0xff);
-static const unsigned int background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
+static const unsigned int rownumber_background_color = MAKE_RGBA(0x90, 0x90, 0x90, 0xff);
+static const unsigned int active_background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
+static const unsigned int muted_background_color = MAKE_RGBA(0x90, 0x90, 0x90, 0xff);
+
 static const unsigned int fill_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
 #undef MAKE_RGBA
 
@@ -135,6 +144,7 @@ PatternView::PatternView(Container *parent)
       m_patternImage(NULL),
       m_song(NULL),
       m_canvas(NULL),
+      m_touchHandler(NULL),
       m_firstChannel(0)
 {
     setRoot(NULL);
@@ -147,6 +157,7 @@ void PatternView::createPatternView()
     {
         m_cursor = NULL;
         m_patternImage = NULL;
+        m_touchHandler = NULL;
         if(m_rootContainer != NULL)
         {
             m_rootContainer->removeAll();
@@ -167,6 +178,7 @@ void PatternView::createPatternView()
         {
             m_cursor = NULL;
             m_patternImage = NULL;
+            m_touchHandler = NULL;
             m_rootContainer = Container::create().background(Color::Transparent)
                                                 .horizontal(HorizontalAlignment::Center)
                                                 .implicitLayoutAnimations(false)
@@ -197,10 +209,23 @@ void PatternView::createPatternView()
                                         .implicitLayoutAnimations(false)
                                         .scalingMethod(ScalingMethod::AspectFill)
                                         .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+
+                m_touchHandler = new TouchHandler(m_patternImage);
+
+                bool rc;
+                rc = QObject::connect(m_patternImage, SIGNAL(touch(bb::cascades::TouchEvent*)),
+                                      m_touchHandler, SLOT(handle(bb::cascades::TouchEvent*)));
+                Q_ASSERT(rc);
+
+                rc = QObject::connect(m_touchHandler, SIGNAL(tap(int, int)),
+                                      this,           SLOT(onPatternTap(int, int)));
+                Q_ASSERT(rc);
+                Q_UNUSED(rc);
+
                 m_rootContainer->add(m_patternImage);
             }
 
-            const int preferredWidth = (m_indent + m_charsPerChannel * std::min(m_song->channels(), 4)) * m_fontWidth * m_fontScale;
+            const int preferredWidth = (m_indent + m_charsPerChannel * std::min(m_song->channels(), m_numVisibleChannels)) * m_fontWidth * m_fontScale;
             const int preferredHeight = m_fontHeight * m_fontScale;
 
             if(m_cursor == NULL)
@@ -230,6 +255,7 @@ void PatternView::createPatternView()
         {
             m_cursor = NULL;
             m_patternImage = NULL;
+            m_touchHandler = NULL;
             if(m_rootContainer != NULL)
             {
                 setRoot(NULL);
@@ -244,7 +270,7 @@ void PatternView::createPatternView()
 
 void PatternView::updateCanvas() {
     const int channels = m_song->channels();
-    int lastChannel = m_firstChannel + 4;
+    int lastChannel = m_firstChannel + m_numVisibleChannels;
     if(lastChannel > channels) {
         lastChannel = channels;
     }
@@ -283,7 +309,9 @@ void PatternView::updateCanvas() {
 
         if(m_canvas == NULL)
         {
-            //qDebug() << "Canvas: w=" << width << "h=" << height;
+#if 0
+            qDebug() << "Canvas: width=" << width << "height=" << height;
+#endif
             m_canvas = new Canvas(width, height, this);
         }
 
@@ -306,6 +334,9 @@ void PatternView::updateCanvas() {
             for(int channel = m_firstChannel; channel < lastChannel; ++channel)
             {
                 unsigned int foreground_color = idle_foreground_color;
+                unsigned int background_color = m_song->isChannelMuted(channel) ?
+                                                    muted_background_color :
+                                                    active_background_color;
                 const ModPlugNote &cell = data[row * channels + channel];
 
                 const int offset_x = channel * m_charsPerChannel * scaledFontWidth + m_indent * scaledFontWidth;
@@ -313,7 +344,8 @@ void PatternView::updateCanvas() {
 
                 // Note
                 buffer[0] = buffer[1] = buffer[2] = '.';
-                buffer[3] = 0;
+                buffer[3] = ' ';
+                buffer[4] = 0;
 
                 switch(cell.Note)
                 {
@@ -387,7 +419,8 @@ void PatternView::updateCanvas() {
                 // Volume
                 buffer[0] = ' ';
                 buffer[1] = buffer[2] = '.';
-                buffer[3] = 0;
+                buffer[3] = ' ';
+                buffer[4] = 0;
                 foreground_color = idle_foreground_color;
 
                 if(cell.Note == NOTE_PC || cell.Note == NOTE_PCS) {
@@ -524,15 +557,19 @@ void PatternView::updateCanvas() {
 
         for(int channel = m_firstChannel; channel < lastChannel; ++channel)
         {
-            m_canvas->vline((channel - m_firstChannel) * m_charsPerChannel * scaledFontWidth + m_indent * scaledFontWidth - (scaledFontWidth >> 1),
+            m_canvas->vline(((channel - m_firstChannel) * m_charsPerChannel + m_indent) * scaledFontWidth - (scaledFontWidth >> 1),
                             0,
                             m_canvas->height(),
                             line_foreground_color);
-            snprintf(buffer, sizeof(buffer), "Channel %d", channel);
-            m_canvas->print((channel - m_firstChannel) * m_charsPerChannel * scaledFontWidth + (m_indent + 2) * scaledFontWidth,
+            if(m_song->isChannelMuted(channel)) {
+                strcpy(buffer, "Muted");
+            } else {
+                snprintf(buffer, sizeof(buffer), "Channel %d", channel);
+            }
+            m_canvas->print(((channel - m_firstChannel) * m_charsPerChannel + m_indent + 2) * scaledFontWidth,
                             0,
                             line_foreground_color,
-                            background_color,
+                            active_background_color,
                             m_fontScale,
                             buffer);
         }
@@ -606,4 +643,18 @@ void PatternView::onCurrentRowChanged() {
 
 void PatternView::onCurrentPatternChanged() {
     createPatternView();
+}
+
+void PatternView::onPatternTap(int x, int y) {
+    if(m_song != NULL) {
+        int channel_width = m_canvas->width() / m_numVisibleChannels;
+        int channel = x / channel_width;
+        m_song->muteChannel(channel, !m_song->isChannelMuted(channel));
+        if(m_patternImage != NULL) {
+            updateCanvas();
+            if(m_canvas != NULL) {
+                m_patternImage->setImage(m_canvas->image());
+            }
+        }
+    }
 }

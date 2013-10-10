@@ -69,6 +69,9 @@ public:
     Q_INVOKABLE int getChannelVU(int channel);
     Q_INVOKABLE ModPlugNote* getPattern(int pattern, int* numrows);
 
+    Q_INVOKABLE void muteChannel(int channel, bool mute);
+    Q_INVOKABLE bool isChannelMuted(int channel);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* getSampleNames();
     Q_INVOKABLE bb::cascades::ArrayDataModel* getInstrumentNames();
 

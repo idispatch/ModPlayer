@@ -26,6 +26,7 @@
 #include "ModPlayback.hpp"
 #include "PatternView.hpp"
 #include "VUMeter.hpp"
+#include "TouchHandler.hpp"
 #include "ItemGroupBase.hpp"
 
 template<typename T>
@@ -60,6 +61,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(SongModule)
     DUMP_COUNT(PatternView)
     DUMP_COUNT(VUMeter)
+    DUMP_COUNT(TouchHandler)
 #undef DUMP_COUNT
 }
 #endif
