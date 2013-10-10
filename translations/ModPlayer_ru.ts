@@ -764,15 +764,15 @@
     </message>
     <message>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Общее</translation>
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="unfinished">Пэттерн</translation>
+        <translation>Пэттерн</translation>
     </message>
     <message>
         <source>Samples</source>
-        <translation type="unfinished"></translation>
+        <translation>Сэмплы</translation>
     </message>
 </context>
 <context>

@@ -92,6 +92,7 @@ Page {
                         bottomPadding: 16
                         leftPadding: 16
                         rightPadding: 16
+                        visible: app.player.currentSong.songLoaded
 	                    SegmentedControl {
 	                        Option {
 	                            id: basicViewOption
@@ -111,6 +112,9 @@ Page {
                                 songPublicInfo.visible = (selectedOption == basicViewOption)
                                 
                                 patternView.visible = (selectedOption == patternViewOption)
+                                if(selectedOption == samplesViewOption) {
+                                    instrumentsView.load()
+                                }
                                 instrumentsView.visible = (selectedOption == samplesViewOption)
                             }
 	                    }
@@ -142,9 +146,18 @@ Page {
                             horizontalAlignment: HorizontalAlignment.Center
                         }
                     }
+                    /*TGroupContainer {
+                        visible: false
+                        id: instrumentsView
+                        function load() {
+                            instrumentsSubView.load()
+                        }
+	                    InstrumentsView {
+                            id: instrumentsSubView
+	                    }
+	                }*/
                     InstrumentsView {
                         id: instrumentsView
-                        visible: false
                     }
                 }
             }

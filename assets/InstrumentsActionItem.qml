@@ -7,12 +7,12 @@ ActionItem {
     enabled: app.player.currentSong.songLoaded
     ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered : {
-        var view = instrumentsView.createObject()
+        var view = instrumentsViewDefinition.createObject()
         navigationPane.push(view)
     }
     attachedObjects: [
         ComponentDefinition {
-            id: instrumentsView
+            id: instrumentsViewDefinition
             source: "Instruments.qml"
         }
     ]
