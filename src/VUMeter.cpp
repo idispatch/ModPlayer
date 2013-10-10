@@ -144,7 +144,7 @@ void VUMeter::onChannelsChanged() {
 }
 
 void VUMeter::onChannelVUChanged(int channel, int channelVU) {
-    QMutexLocker locker(&m_mutex);
+    /*QMutexLocker locker(&m_mutex);
     const int numBars = static_cast<int>(m_bars.size());
     if(channel < 0 || channel >= numBars)
         return;
@@ -154,5 +154,5 @@ void VUMeter::onChannelVUChanged(int channel, int channelVU) {
         channelVU = 255;
     float offset = -channelVU * 100/256;
     AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_bars[channel]->layoutProperties());
-    p->setPositionY(offset);
+    p->setPositionY(offset);*/
 }

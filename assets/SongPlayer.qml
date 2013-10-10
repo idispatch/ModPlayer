@@ -59,6 +59,8 @@ Page {
                                 visible = true
                                 if(app.player.state == Player.Playing) {
                                     fadeAway.play()
+                                } else {
+                                    fadeAway.stop()
                                 }
                             }
                             animations: [

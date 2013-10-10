@@ -19,7 +19,8 @@ template<>
 int InstanceCounter<PatternView>::s_maxCount;
 
 #define MAKE_RGBA(R,G,B,A) ((A << 24) + (B << 16) + (G << 8) + (R << 0))
-static const unsigned int rownumber_foreground_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
+static const unsigned int rownumber_foreground_color = MAKE_RGBA(0xff, 0xff, 0xff, 0xff);
+static const unsigned int line_foreground_color = MAKE_RGBA(0x00, 0x00, 0x00, 0xff);
 
 static const unsigned int note_active_foreground_color = MAKE_RGBA(0x00, 0x06, 0x7A, 0xff);
 static const unsigned int instrument_active_foreground_color = MAKE_RGBA(0x0b, 0x63, 0x63, 0xff);
@@ -27,7 +28,7 @@ static const unsigned int volume_foreground_color = MAKE_RGBA(0x0c, 0xc6, 0xff, 
 static const unsigned int effect_foreground_color = MAKE_RGBA(0x2b, 0x96, 0x07, 0xff);
 static const unsigned int idle_foreground_color = MAKE_RGBA(0xB0, 0xB0, 0xB0, 0xff);
 
-static const unsigned int rownumber_background_color = MAKE_RGBA(0xcc, 0xcc, 0xcc, 0xff);
+static const unsigned int rownumber_background_color = MAKE_RGBA(0xB0, 0xB0, 0xB0, 0xff);
 static const unsigned int background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
 static const unsigned int fill_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
 #undef MAKE_RGBA
@@ -256,7 +257,7 @@ void PatternView::updateCanvas() {
     const int scaledFontHeight = m_fontHeight << (m_fontScale - 1);
     const int width = m_indent * scaledFontWidth +
                       channels * scaledFontWidth * m_charsPerChannel; // 16 chars per channel
-    const int height = rows * scaledFontHeight;
+    const int height = (rows + 2) * scaledFontHeight;
 
     if(data == NULL || rows <= 0 || rows > 128 || channels <= 0)
     {
@@ -287,15 +288,15 @@ void PatternView::updateCanvas() {
 
         m_canvas->fill(fill_color);
 
+        char buffer[16];
         for(int row = 0; row < rows; ++row)
         {
-            char buffer[8];
             buffer[0] = ((row / 10) % 10) + '0';
             buffer[1] = (row % 10) + '0';
             buffer[2] = 0;
 
             m_canvas->print(0,
-                            row * scaledFontHeight,
+                            (row + 2) * scaledFontHeight,
                             rownumber_foreground_color,
                             rownumber_background_color,
                             m_fontScale,
@@ -307,7 +308,7 @@ void PatternView::updateCanvas() {
                 const ModPlugNote &cell = data[row * channels + channel];
 
                 const int offset_x = channel * m_charsPerChannel * scaledFontWidth + m_indent * scaledFontWidth;
-                const int offset_y = row * scaledFontHeight;
+                const int offset_y = (row + 2) * scaledFontHeight;
 
                 // Note
                 buffer[0] = buffer[1] = buffer[2] = '.';
@@ -511,12 +512,28 @@ void PatternView::updateCanvas() {
             }
         }
 
+        m_canvas->hline(0,
+                        m_canvas->width(),
+                        scaledFontHeight + (scaledFontHeight >> 1),
+                        line_foreground_color);
+        m_canvas->hline(0,
+                        m_canvas->width(),
+                        scaledFontHeight + (scaledFontHeight >> 1) - 4,
+                        line_foreground_color);
+
         for(int channel = m_firstChannel; channel < lastChannel; ++channel)
         {
             m_canvas->vline((channel - m_firstChannel) * m_charsPerChannel * scaledFontWidth + m_indent * scaledFontWidth - (scaledFontWidth >> 1),
                             0,
                             m_canvas->height(),
-                            rownumber_foreground_color);
+                            line_foreground_color);
+            snprintf(buffer, sizeof(buffer), "Channel %d", channel);
+            m_canvas->print((channel - m_firstChannel) * m_charsPerChannel * scaledFontWidth + (m_indent + 2) * scaledFontWidth,
+                            0,
+                            line_foreground_color,
+                            background_color,
+                            m_fontScale,
+                            buffer);
         }
     }
 }
@@ -583,7 +600,7 @@ void PatternView::onCurrentRowChanged() {
         return;
     const int row = m_song->currentRow();
     AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_cursor->layoutProperties());
-    p->setPositionY(row * m_fontHeight * m_fontScale);
+    p->setPositionY((row + 2) * m_fontHeight * m_fontScale);
 }
 
 void PatternView::onCurrentPatternChanged() {
