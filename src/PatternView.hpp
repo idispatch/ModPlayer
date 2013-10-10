@@ -48,6 +48,7 @@ private:
     QMutex m_mutex;
     bb::cascades::Container * m_rootContainer;
     bb::cascades::Container * m_cursor;
+    bb::cascades::ImageView * m_patternImage;
     SongModule * m_song;
     Canvas * m_canvas;
     int m_firstChannel;

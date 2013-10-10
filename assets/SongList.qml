@@ -236,17 +236,17 @@ Page {
     }
     function loadRecentlyPlayedSongs() {
         unload()
-        maximumSearchSongResults = 1000
+        maximumSearchSongResults = 5000
         showList("recent", "", app.player.catalog.findRecentlyPlayedSongsAsync(maximumSearchSongResults))
     }
     function loadMyFavouriteSongs() {
         unload()
-        maximumSearchSongResults = 1000
+        maximumSearchSongResults = 5000
         showList("myFavourite", "", app.player.catalog.findMyFavouriteSongsAsync(maximumSearchSongResults))
     }
     function loadMostPlayedSongs() {
         unload()
-        maximumSearchSongResults = 1000
+        maximumSearchSongResults = 5000
         showList("mostPlayed", "", app.player.catalog.findMostPlayedSongsAsync(maximumSearchSongResults))
     }
     function loadMostFavouritedSongs() {

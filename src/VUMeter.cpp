@@ -5,7 +5,8 @@
 #include <bb/cascades/ImageView>
 #include <bb/cascades/StackLayout>
 #include <bb/cascades/StackLayoutProperties>
-#include <bb/cascades/DockLayout>
+#include <bb/cascades/AbsoluteLayout>
+#include <bb/cascades/AbsoluteLayoutProperties>
 #include "VUMeter.hpp"
 
 using namespace bb::cascades;
@@ -67,7 +68,7 @@ void VUMeter::createVU()
                     .leftMargin(margin)
                     .rightMargin(margin)
                     .implicitLayoutAnimations(false)
-                    .layout(DockLayout::create());
+                    .layout(AbsoluteLayout::create());
                 ImageView * vu_bar_on = ImageView::create()
                     .horizontal(HorizontalAlignment::Fill)
                     .vertical(VerticalAlignment::Fill)
@@ -75,7 +76,8 @@ void VUMeter::createVU()
                     .loadEffect(ImageViewLoadEffect::None)
                     .implicitLayoutAnimations(false)
                     .scalingMethod(ScalingMethod::Fill)
-                    .preferredSize(width, height);
+                    .preferredSize(width, height)
+                    .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
                 ImageView * vu_bar_off = ImageView::create()
                     .horizontal(HorizontalAlignment::Fill)
                     .vertical(VerticalAlignment::Fill)
@@ -83,7 +85,8 @@ void VUMeter::createVU()
                     .loadEffect(ImageViewLoadEffect::None)
                     .implicitLayoutAnimations(false)
                     .scalingMethod(ScalingMethod::Fill)
-                    .preferredSize(width, height);
+                    .preferredSize(width, height)
+                    .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
 
                 m_bars[i] = vu_bar_off;
 
@@ -150,5 +153,6 @@ void VUMeter::onChannelVUChanged(int channel, int channelVU) {
     if(channelVU > 255)
         channelVU = 255;
     float offset = -channelVU * 100/256;
-    m_bars[channel]->setTranslationY(offset);
+    AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_bars[channel]->layoutProperties());
+    p->setPositionY(offset);
 }

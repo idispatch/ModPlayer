@@ -338,6 +338,8 @@ void ModPlayback::run() {
     qDebug() << "Audio device playback initialized successfully";
     qDebug() << "Starting playback loop";
 
+    m_song.moveToThread(this);
+
     m_mutex.lock();
     while(m_state != Exit && m_state != Exiting)
     {
@@ -367,9 +369,7 @@ void ModPlayback::run() {
         case ConfigureCommand:
             m_command = NoCommand;
             m_cond.wakeAll();
-            //m_mutex.unlock();
             configure_audio();
-            //m_mutex.lock();
             continue;
         case LoadCommand:
             m_command = NoCommand;

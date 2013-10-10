@@ -27,6 +27,7 @@ static const unsigned int volume_foreground_color = MAKE_RGBA(0x0c, 0xc6, 0xff, 
 static const unsigned int effect_foreground_color = MAKE_RGBA(0x2b, 0x96, 0x07, 0xff);
 static const unsigned int idle_foreground_color = MAKE_RGBA(0xB0, 0xB0, 0xB0, 0xff);
 
+static const unsigned int rownumber_background_color = MAKE_RGBA(0xcc, 0xcc, 0xcc, 0xff);
 static const unsigned int background_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
 static const unsigned int fill_color = MAKE_RGBA(0x00, 0x00, 0x00, 0x00);
 #undef MAKE_RGBA
@@ -124,25 +125,13 @@ static const char * EffectNames[2] = {
     " 0123456789ABCDRFFTE???GHK?YXPLZ\\?#?????",
     " JFEGHLKRXODB?CQATI?SMNVW?UY?P?Z\\?#?????"
 };
-/*MOD
-" 0123456789ABCD?FF?E????????????????????", // Supported Effects
-" ???????????????",                         // Supported Volume Column commands
-XM
-" 0123456789ABCDRFFTE???GHK?YXPLZ\\?#?????",    // Supported Effects
-" vpcdabuhlrgfe?o",                         // Supported Volume Column commands
-S3M
-" JFEGHLKRXODB?CQATI?SMNVW?UY?P?Z????????", // Supported Effects
-" vp?????????????",                         // Supported Volume Column commands
-IT
-" JFEGHLKRXODB?CQATI?SMNVW?UY?P?Z\\?#?????",    // Supported Effects
-" vpcdab?h??gfe?o",                         // Supported Volume Column commands
-*/
 
 PatternView::PatternView(Container *parent)
     : CustomControl(parent),
       m_mutex(QMutex::NonRecursive),
       m_rootContainer(NULL),
       m_cursor(NULL),
+      m_patternImage(NULL),
       m_song(NULL),
       m_canvas(NULL),
       m_firstChannel(0)
@@ -153,99 +142,162 @@ PatternView::PatternView(Container *parent)
 void PatternView::createPatternView()
 {
     QMutexLocker locker(&m_mutex);
-    if(m_rootContainer == NULL)
+    if(m_song == NULL || !m_song->songLoaded())
     {
-        m_rootContainer = Container::create().background(Color::Transparent)
-                                             .horizontal(HorizontalAlignment::Center)
-                                             .implicitLayoutAnimations(false)
-                                             .top(0)
-                                             .topMargin(0)
-                                             .bottom(0)
-                                             .bottomMargin(0)
-                                             .left(0)
-                                             .leftMargin(0)
-                                             .right(0)
-                                             .rightMargin(0)
-                                             .layout(AbsoluteLayout::create());
-        setRoot(m_rootContainer);
-    }
-
-    m_rootContainer->removeAll();
-    m_cursor = NULL;
-
-    if(m_song != NULL && m_song->songLoaded())
-    {
-        updateCanvas();
+        m_cursor = NULL;
+        m_patternImage = NULL;
+        if(m_rootContainer != NULL)
+        {
+            m_rootContainer->removeAll();
+            m_rootContainer->setParent(NULL);
+            delete m_rootContainer;
+            m_rootContainer = NULL;
+        }
         if(m_canvas != NULL)
         {
-            ImageView * patternImage = ImageView::create()
-                                .topMargin(0)
-                                .bottomMargin(0)
-                                .leftMargin(0)
-                                .rightMargin(0)
-                                .loadEffect(ImageViewLoadEffect::None)
-                                .implicitLayoutAnimations(false)
-                                .scalingMethod(ScalingMethod::AspectFill)
-                                .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+            m_canvas->setParent(0);
+            delete m_canvas;
+            m_canvas = NULL;
+        }
+    }
+    else
+    {
+        if(m_rootContainer == NULL)
+        {
+            m_cursor = NULL;
+            m_patternImage = NULL;
+            m_rootContainer = Container::create().background(Color::Transparent)
+                                                .horizontal(HorizontalAlignment::Center)
+                                                .implicitLayoutAnimations(false)
+                                                .top(0)
+                                                .topMargin(0)
+                                                .bottom(0)
+                                                .bottomMargin(0)
+                                                .left(0)
+                                                .leftMargin(0)
+                                                .right(0)
+                                                .rightMargin(0)
+                                                .layout(AbsoluteLayout::create());
+            setRoot(m_rootContainer);
+        }
 
-            const int preferredWidth = (m_indent + m_charsPerChannel * m_song->channels()) * m_fontWidth * m_fontScale;
-            const int preferredHeight = m_fontHeight * m_fontScale;
-            m_cursor = Container::create().background(Color::fromRGBA(0, 1.0, 0, 0.6))
-                                        .horizontal(HorizontalAlignment::Fill)
-                                        .implicitLayoutAnimations(false)
-                                        .top(m_fontHeight)
-                                        .bottom(m_fontHeight)
+        updateCanvas();
+
+        if(m_canvas != NULL)
+        {
+            if(m_patternImage == NULL)
+            {
+                m_patternImage = ImageView::create()
                                         .topMargin(0)
                                         .bottomMargin(0)
                                         .leftMargin(0)
                                         .rightMargin(0)
-                                        .preferredWidth(preferredWidth)
-                                        .preferredHeight(preferredHeight)
+                                        .loadEffect(ImageViewLoadEffect::None)
+                                        .implicitLayoutAnimations(false)
+                                        .scalingMethod(ScalingMethod::AspectFill)
                                         .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+                m_rootContainer->add(m_patternImage);
+            }
 
-            patternImage->setImage(m_canvas->image());
-            m_rootContainer->add(patternImage);
-            m_rootContainer->add(m_cursor);
+            const int preferredWidth = (m_indent + m_charsPerChannel * std::max(m_song->channels(), 4)) * m_fontWidth * m_fontScale;
+            const int preferredHeight = m_fontHeight * m_fontScale;
+
+            if(m_cursor == NULL)
+            {
+                m_cursor = Container::create().background(Color::fromRGBA(0, 1.0, 0, 0.5))
+                                            .horizontal(HorizontalAlignment::Fill)
+                                            .implicitLayoutAnimations(false)
+                                            .top(m_fontHeight)
+                                            .bottom(m_fontHeight)
+                                            .topMargin(0)
+                                            .bottomMargin(0)
+                                            .leftMargin(0)
+                                            .rightMargin(0)
+                                            .preferredWidth(preferredWidth)
+                                            .preferredHeight(preferredHeight)
+                                            .layoutProperties(AbsoluteLayoutProperties::create().x(0).y(0));
+                m_rootContainer->add(m_cursor);
+            }
+            else
+            {
+                m_cursor->setPreferredSize(preferredWidth, preferredHeight);
+            }
+
+            m_patternImage->setImage(m_canvas->image());
+        }
+        else
+        {
+            m_cursor = NULL;
+            m_patternImage = NULL;
+            if(m_rootContainer != NULL)
+            {
+                setRoot(NULL);
+                m_rootContainer->removeAll();
+                m_rootContainer->setParent(NULL);
+                delete m_rootContainer;
+                m_rootContainer = NULL;
+            }
         }
     }
 }
 
 void PatternView::updateCanvas() {
-    if(m_canvas != NULL) {
-        m_canvas->setParent(0);
-        delete m_canvas;
-        m_canvas = NULL;
-    }
-
     const int channels = m_song->channels();
     int lastChannel = m_firstChannel + 4;
     if(lastChannel > channels) {
         lastChannel = channels;
     }
 
-    const int pattern = m_song->currentPattern();
     int rows = 0;
+    const int pattern = m_song->currentPattern();
     ModPlugNote* data = m_song->getPattern(pattern, &rows);
 
-    if(data != NULL && rows > 0 && rows <= 64 && channels > 0)
-    {
-        const int scaledFontWidth = m_fontWidth << (m_fontScale - 1);
-        const int scaledFontHeight = m_fontHeight << (m_fontScale - 1);
-        const int width = m_indent * scaledFontWidth +
-                          channels * scaledFontWidth * m_charsPerChannel; // 16 chars per channel
-        const int height = rows * scaledFontHeight;
+    const int scaledFontWidth = m_fontWidth << (m_fontScale - 1);
+    const int scaledFontHeight = m_fontHeight << (m_fontScale - 1);
+    const int width = m_indent * scaledFontWidth +
+                      channels * scaledFontWidth * m_charsPerChannel; // 16 chars per channel
+    const int height = rows * scaledFontHeight;
 
-        m_canvas = new Canvas(width, height, this);
+    if(data == NULL || rows <= 0 || rows > 128 || channels <= 0)
+    {
+        if(m_canvas != NULL)
+        {
+            m_canvas->setParent(0);
+            delete m_canvas;
+            m_canvas = NULL;
+        }
+    }
+    else
+    {
+        if(m_canvas != NULL)
+        {
+            if(m_canvas->width() != width ||
+               m_canvas->height() != height)
+            {
+                m_canvas->setParent(0);
+                delete m_canvas;
+                m_canvas = NULL;
+            }
+        }
+
+        if(m_canvas == NULL)
+        {
+            m_canvas = new Canvas(width, height, this);
+        }
+
         m_canvas->fill(fill_color);
 
         for(int row = 0; row < rows; ++row)
         {
-            char buffer[16];
-            snprintf(buffer, sizeof(buffer), "%2d", row);
+            char buffer[8];
+            buffer[0] = ((row / 10) % 10) + '0';
+            buffer[1] = (row % 10) + '0';
+            buffer[2] = 0;
+
             m_canvas->print(0,
                             row * scaledFontHeight,
                             rownumber_foreground_color,
-                            background_color,
+                            rownumber_background_color,
                             m_fontScale,
                             buffer);
 
