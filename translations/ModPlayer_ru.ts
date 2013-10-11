@@ -213,18 +213,18 @@
     <name>Patterns</name>
     <message>
         <source>Patterns</source>
-        <translation type="unfinished">Пэттернов</translation>
+        <translation>Пэттерны</translation>
     </message>
     <message>
         <source>Pattern %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Пэттерн %1 (%2)</translation>
     </message>
 </context>
 <context>
     <name>PatternsActionItem</name>
     <message>
         <source>Patterns</source>
-        <translation type="unfinished">Пэттернов</translation>
+        <translation>Пэттерны</translation>
     </message>
 </context>
 <context>

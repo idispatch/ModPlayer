@@ -3,7 +3,7 @@ import bb.cascades 1.0
 ActionItem {
     property variant navigationPane
     title: qsTr("Patterns")
-    imageSource: "asset:///images/actions/icon_samples.png"
+    imageSource: "asset:///images/actions/icon_patterns.png"
     enabled: app.player.currentSong.songLoaded
     ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered : {

@@ -83,6 +83,16 @@ Page {
                         }
                     ]
                 }
+            }
+        }
+        ScrollView {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            VerticalContainer {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                leftPadding: 20
+                rightPadding: 20
                 TGroupContainer {
                     topMargin: 16
                     bottomMargin: 16
@@ -119,16 +129,6 @@ Page {
                         }
                     }
                 }
-            }
-        }
-        ScrollView {
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-            VerticalContainer {
-                horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Fill
-                leftPadding: 20
-                rightPadding: 20
                 VerticalContainer {
                     horizontalAlignment: HorizontalAlignment.Fill
                     SongMainInfo {
