@@ -2,7 +2,6 @@
 *.o
 *.so
 *.qm
-*.bar
 .moc
 .obj
 *.gch
