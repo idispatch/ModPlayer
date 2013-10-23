@@ -38,7 +38,7 @@ void VUMeter::createVU()
     {
         m_rootContainer = Container::create().horizontal(HorizontalAlignment::Fill)
                                              .implicitLayoutAnimations(false)
-                                             .background(ImagePaint(QUrl("asset:///images/vu/vu-off.png"), RepeatPattern::XY))
+                                             .background(ImagePaint(QUrl("asset:///images/vu/vu-off.png"), RepeatPattern::Fill))
                                              .layout(StackLayout::create().orientation(LayoutOrientation::LeftToRight));
         setRoot(m_rootContainer);
     }

@@ -244,6 +244,15 @@ bool SongModule::rewind() {
     return false;
 }
 
+void SongModule::seekToOrder(int order) {
+    if (m_modPlug != NULL) {
+        if(order != currentOrder()) {
+            ModPlug_SeekOrder(m_modPlug, order);
+            update();
+        }
+    }
+}
+
 ArrayDataModel* SongModule::getSampleNames() {
     ArrayDataModel * model = new ArrayDataModel();
     unsigned sampleCount = ModPlug_NumSamples(m_modPlug);
