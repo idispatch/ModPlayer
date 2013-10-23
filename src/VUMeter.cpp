@@ -7,6 +7,8 @@
 #include <bb/cascades/StackLayoutProperties>
 #include <bb/cascades/AbsoluteLayout>
 #include <bb/cascades/AbsoluteLayoutProperties>
+#include <bb/cascades/ImagePaint>
+#include <bb/cascades/RepeatPattern>
 #include "VUMeter.hpp"
 
 using namespace bb::cascades;
@@ -34,9 +36,9 @@ void VUMeter::createVU()
     QMutexLocker locker(&m_mutex);
     if(m_rootContainer == NULL)
     {
-        m_rootContainer = Container::create().background(Color::Transparent)
-                                             .horizontal(HorizontalAlignment::Fill)
+        m_rootContainer = Container::create().horizontal(HorizontalAlignment::Fill)
                                              .implicitLayoutAnimations(false)
+                                             .background(ImagePaint(QUrl("asset:///images/vu/vu-off.png"), RepeatPattern::XY))
                                              .layout(StackLayout::create().orientation(LayoutOrientation::LeftToRight));
         setRoot(m_rootContainer);
     }

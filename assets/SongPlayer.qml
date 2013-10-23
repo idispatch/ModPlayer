@@ -37,10 +37,96 @@ Page {
                         visible: app.player.currentSong.songLoaded
                         horizontalAlignment: HorizontalAlignment.Center
                     }
-                    VUMeter {
+                    Container {
                         topMargin: 10
-                        visible: app.player.currentSong.songLoaded && app.player.state == Player.Playing
-                        song: app.player.currentSong
+                        layout: DockLayout {}
+                        Slider {
+                            id: songProgress
+                            horizontalAlignment: HorizontalAlignment.Center
+                            verticalAlignment: VerticalAlignment.Center
+                            visible: app.player.currentSong.songLoaded
+                            fromValue: 0
+                            toValue: app.player.currentSong.orders
+                            value: app.player.currentSong.currentOrder
+                            animations: [
+                                FadeTransition {
+                                    id: songProgressFadeIn
+                                    duration: 1200
+                                    easingCurve: StockCurve.CubicIn
+                                    toOpacity: 1.0
+                                },
+                                FadeTransition {
+                                    id: songProgressFadeOut
+                                    duration: 1200
+                                    easingCurve: StockCurve.CubicOut
+                                    toOpacity: 0.0
+                                }
+                            ]
+                        }
+                        VUMeter {
+                            id: songVUMeter
+                            horizontalAlignment: HorizontalAlignment.Center
+                            verticalAlignment: VerticalAlignment.Center
+                            visible: app.player.currentSong.songLoaded
+                            song: app.player.currentSong
+                            opacity: 0.0
+                            onTouch: {
+                                songProgressFadeIn.stop()
+                                songProgressFadeOut.stop()
+                                songVUMeterFadeIn.stop()
+                                songVUMeterFadeOut.stop()
+                                
+                                songVUMeter.opacity = 0.0
+                                songProgress.opacity = 1.0
+                            }
+                            animations: [
+                                FadeTransition {
+                                    id: songVUMeterFadeIn
+                                    duration: 1200
+                                    easingCurve: StockCurve.CubicIn
+                                    toOpacity: 1.0
+                                },
+                                FadeTransition {
+                                    id: songVUMeterFadeOut
+                                    duration: 1200
+                                    easingCurve: StockCurve.CubicOut
+                                    toOpacity: 0.0
+                                }
+                            ]
+                        }
+                        onCreationCompleted: {
+                            viewTimer.start()
+                        }
+                        attachedObjects: [
+                            QTimer {
+                                id: viewTimer
+                                interval: 4000
+                                singleShot: false
+                                onTimeout : {
+                                    if(songProgress.opacity == 1.0) {
+                                        if(app.player.state == Player.Playing) {
+                                            songProgressFadeIn.stop()
+                                            songVUMeterFadeOut.stop()
+                                            
+                                            songProgressFadeOut.play()
+                                            songVUMeterFadeIn.play()
+                                        } else {
+                                            songProgressFadeOut.stop()
+                                            songVUMeterFadeIn.stop()
+                                            
+                                            songProgressFadeIn.play()
+                                            songVUMeterFadeOut.play()
+                                        }
+                                    } else {
+                                        songProgressFadeOut.stop()
+                                        songVUMeterFadeIn.stop()
+
+                                        songProgressFadeIn.play()
+                                        songVUMeterFadeOut.play()
+                                    }
+                                }                                        
+                            }
+                        ]
                     }
                     Label {
                         id: statusText
