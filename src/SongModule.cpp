@@ -140,6 +140,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         songWasLoaded = true;
         ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
+        setCurrentOrder(0);
     }
     m_absoluteFileName = ""; // no song loaded
     emit absoluteFileNameChanged();
@@ -237,7 +238,7 @@ bool SongModule::unload() {
 
 bool SongModule::rewind() {
     if (m_modPlug != NULL) {
-        ModPlug_Seek(m_modPlug, 0);
+        ModPlug_SeekOrder(m_modPlug, 0);
         update();
         return true;
     }
