@@ -115,6 +115,8 @@ private slots:
     void onNowPlayingPlay();
     void onNowPlayingStop();
     void onNowPlayingPause();
+protected:
+    void timerEvent(QTimerEvent *event);
 private:
     Q_DISABLE_COPY(Player)
 

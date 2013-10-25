@@ -518,10 +518,17 @@ void Player::onFinished() {
     }
 }
 
+void Player::timerEvent(QTimerEvent *event) {
+    Q_UNUSED(event);
+    SystemToast toast;
+    toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
+    toast.setModality(SystemUiModality::Application);
+    toast.setPosition(SystemUiPosition::MiddleCenter);
+    toast.exec();
+}
+
 void Player::onCurrentFilesChanged() {
     if(m_cache->currentFiles() == 5) {
-        SystemToast toast;
-        toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
-        toast.exec();
+        startTimer(3000);
     }
 }
