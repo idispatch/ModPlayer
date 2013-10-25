@@ -2,6 +2,10 @@ function fileNameOnly(path) {
     return path.replace(/.*\//, '');
 }
 
+function directoryOnly(path) {
+    return path.substring(0, path.lastIndexOf('/'));
+}
+
 function getSizeKb(size) {
     var result;
     if(size < 1024) {

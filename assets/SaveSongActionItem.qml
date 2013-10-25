@@ -42,6 +42,7 @@ ActionItem {
                 {
                     var newFileName = selectedFiles[0]
                     app.cache.save(cacheFileName, newFileName)
+                    app.player.userDirectory = Global.directoryOnly(newFileName)
                     fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 
                     fileSaved.show()
                 }
