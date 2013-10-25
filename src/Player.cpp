@@ -519,11 +519,12 @@ void Player::onFinished() {
 }
 
 void Player::timerEvent(QTimerEvent *event) {
-    Q_UNUSED(event);
+    killTimer(event->timerId());
     SystemToast toast;
     toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
     toast.setModality(SystemUiModality::Application);
     toast.setPosition(SystemUiPosition::MiddleCenter);
+    toast.button()->setLabel("Ok");
     toast.exec();
 }
 
