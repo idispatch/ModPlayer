@@ -16,6 +16,18 @@ QString FileUtils::fileNameOnly(QString const& fileName) {
     }
 }
 
+QString FileUtils::directoryOnly(QString const& fileName) {
+    int index = fileName.lastIndexOf('/');
+    if(index < 0)
+    {
+        return fileName;
+    }
+    else
+    {
+        return fileName.left(index);
+    }
+}
+
 QString FileUtils::joinPath(QString const& directory,
                             QString const& fileName) {
     if(isAbsolute(fileName))

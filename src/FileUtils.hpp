@@ -9,6 +9,7 @@ public:
     static QString joinPath(QString const& directory,
                             QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
+    static QString directoryOnly(QString const& fileName);
 };
 
 #endif /* FILEUTILS_HPP_ */

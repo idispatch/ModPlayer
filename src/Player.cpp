@@ -280,6 +280,17 @@ QString Player::statusText() const {
     return m_statusText;
 }
 
+QString Player::userDirectory() const {
+    return m_userDirectory;
+}
+
+void Player::setUserDirectory(QString const& value) {
+    if(m_userDirectory != value) {
+        m_userDirectory = value;
+        emit userDirectoryChanged();
+    }
+}
+
 Player::Mode Player::mode() const {
     return m_mode;
 }
@@ -459,13 +470,18 @@ void Player::browseForLocalSong() {
     filePicker->setType(FileType::Other);
     filePicker->setTitle(tr("Select Song Module"));
     filePicker->setMode(FilePickerMode::Picker);
+    if(m_userDirectory.length() > 0) {
+        QStringList directories;
+        directories << m_userDirectory;
+        filePicker->setDirectories(directories);
+    }
 
     QStringList fileNameFilters;
     for(size_t i = 0;
             i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
             ++i) {
-            fileNameFilters << g_song_extensions_array[i];
-        }
+        fileNameFilters << g_song_extensions_array[i];
+    }
     filePicker->setFilter(fileNameFilters);
 
     rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
@@ -482,8 +498,13 @@ void Player::browseForLocalSong() {
 void Player::onLocalSongSelected(const QStringList& fileList) {
     if(fileList.size() == 1)
     {
-        playLocalSong(fileList[0]);
-    } else if(fileList.size() > 1) {
+        QString songFilePath(fileList[0]);
+        QString directory = FileUtils::directoryOnly(songFilePath);
+        setUserDirectory(directory);
+        playLocalSong(songFilePath);
+    }
+    else if(fileList.size() > 1)
+    {
         qDebug() << "Selected multiple songs:" << fileList.size();
     }
     sender()->deleteLater();

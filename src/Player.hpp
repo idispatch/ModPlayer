@@ -51,6 +51,7 @@ public:
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
+    Q_PROPERTY(QString userDirectory READ userDirectory WRITE setUserDirectory NOTIFY userDirectoryChanged FINAL)
 
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
 
@@ -62,6 +63,9 @@ public:
 
     State state() const;
     QString statusText() const;
+
+    QString userDirectory() const;
+    void setUserDirectory(QString const& value);
 
     Mode mode() const;
     void setMode(Mode mode);
@@ -85,6 +89,7 @@ Q_SIGNALS:
     void requestPlayerView();
     void stateChanged();
     void statusTextChanged();
+    void userDirectoryChanged();
     void modeChanged();
     void cacheChanged();
     void catalogChanged();
@@ -139,6 +144,7 @@ private:
     Mode m_mode;
     QMap<int, QUrl> m_formatIdToIconUrlMap;
     QString m_statusText;
+    QString m_userDirectory;
     Catalog * m_catalog;
     Cache * m_cache;
     Downloader * m_downloader;

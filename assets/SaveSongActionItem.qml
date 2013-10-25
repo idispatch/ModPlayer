@@ -16,6 +16,9 @@ ActionItem {
         var fileName = Global.fileNameOnly(currentSong)
         filePicker.defaultSaveFileNames = [fileName]
         filePicker.cacheFileName = fileName
+        if(app.player.userDirectory.length > 0) {
+            filePicker.directories = [app.player.userDirectory]
+        }
         filePicker.open()
     }
     onCreationCompleted: {
