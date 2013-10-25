@@ -60,16 +60,16 @@ void ModPlayback::loadSettings() {
     m_config.setMaximumMixingChannels(m_settings.value("mixingChannels", 128).toInt());
 
     m_config.setReverbEnabled(m_settings.value("reverbEnabled", true).toBool());
-    m_config.setReverbLevel(m_settings.value("reverbLevel", 30).toInt());
+    m_config.setReverbLevel(m_settings.value("reverbLevel", 15).toInt());
     m_config.setReverbDelay(m_settings.value("reverbDelay", 100).toInt());
 
     m_config.setBassEnabled(m_settings.value("bassEnabled", true).toBool());
-    m_config.setBassLevel(m_settings.value("bassLevel", 40).toInt());
-    m_config.setBassCutOff(m_settings.value("bassCutOff", 40).toInt());
+    m_config.setBassLevel(m_settings.value("bassLevel", 50).toInt());
+    m_config.setBassCutOff(m_settings.value("bassCutOff", 50).toInt());
 
     m_config.setSurroundEnabled(m_settings.value("surroundEnabled", true).toBool());
-    m_config.setSurroundLevel(m_settings.value("surroundLevel", 30).toInt());
-    m_config.setSurroundDelay(m_settings.value("surroundDelay", 20).toInt());
+    m_config.setSurroundLevel(m_settings.value("surroundLevel", 20).toInt());
+    m_config.setSurroundDelay(m_settings.value("surroundDelay", 15).toInt());
 
     m_config.setOversamplingEnabled(m_settings.value("oversamplingEnabled", true).toBool());
     m_config.setNoiseReductionEnabled(m_settings.value("noiseReductionEnabled", true).toBool());
