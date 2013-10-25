@@ -50,6 +50,7 @@ Page {
                         fromValue: 0
                         toValue: app.player.currentSong.orders
                         value: app.player.currentSong.currentOrder
+                        horizontalAlignment: HorizontalAlignment.Fill
                         onValueChanged: {
                             app.player.currentSong.seekToOrder(value)
                         }
