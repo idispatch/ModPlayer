@@ -95,6 +95,9 @@ private slots:
     void onLocalSongSelected(const QStringList&);
     void onLocalSongBrowseCanceled();
 
+    /* For Cache */
+    void onCurrentFilesChanged();
+
     /* For Downloader */
     void onDownloadStarted(int id);
     void onDownloadFinished(QString fileName);

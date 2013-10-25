@@ -1,6 +1,7 @@
 #include <QDeclarativeComponent>
 #include <bb/multimedia/NowPlayingConnection>
 #include <bb/cascades/pickers/FilePicker>
+#include <bb/system/SystemToast>
 #include "FileUtils.hpp"
 #include "Player.hpp"
 #include "Catalog.hpp"
@@ -13,6 +14,7 @@
 #include "Analytics.hpp"
 
 using namespace bb::multimedia;
+using namespace bb::system;
 
 template<>
 int InstanceCounter<Player>::s_count;
@@ -78,15 +80,19 @@ void Player::initCatalog() {
 }
 
 void Player::initCache() {
+    bool rc;
+    rc = QObject::connect(m_cache, SIGNAL(currentFilesChanged()),
+                          this,    SLOT(onCurrentFilesChanged()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+
     QStringList fileNameFilters;
     for(size_t i = 0;
         i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
         ++i) {
         fileNameFilters << g_song_extensions_array[i];
     }
-    //qDebug() << *m_cache;
     m_cache->setFileNameFilters(fileNameFilters);
-    //qDebug() << *m_cache;
 }
 
 void Player::initDownloader() {
@@ -509,5 +515,13 @@ void Player::onStopped() {
 void Player::onFinished() {
     if(m_mode == RepeatSong) {
         m_playback->play();
+    }
+}
+
+void Player::onCurrentFilesChanged() {
+    if(m_cache->currentFiles() == 5) {
+        SystemToast toast;
+        toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
+        toast.exec();
     }
 }

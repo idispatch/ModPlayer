@@ -314,6 +314,10 @@
         <source>Select Song Module</source>
         <translation>Выберите песню</translation>
     </message>
+    <message>
+        <source>Please support ModPlayer - write a review in BlackBerry World!</source>
+        <translation>Пожалуйста, поддержите ModPlayer - напишите отзыв в BlackBerry World!</translation>
+    </message>
 </context>
 <context>
     <name>PlayerActionItem</name>
