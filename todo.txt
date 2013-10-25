@@ -27,3 +27,4 @@
 
 
 http://developer.samsung.com/android/technical-docs/Porting-and-using-LAME-MP3-on-Android-with-JNI
+http://stackoverflow.com/questions/2495420/is-there-any-lame-c-wraper-simplifier-working-on-linux-mac-and-win-from-pure
