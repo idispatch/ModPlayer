@@ -48,7 +48,6 @@ private:
     void createPatternView();
     void updateCanvas();
 private:
-    QMutex m_mutex;
     bb::cascades::Container * m_rootContainer;
     bb::cascades::Container * m_cursor;
     bb::cascades::ImageView * m_patternImage;

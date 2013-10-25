@@ -1,7 +1,6 @@
 #include "ModPlayback.hpp"
 
 #include <string.h>
-#include <sys/select.h>
 #include <errno.h>
 #include <QDebug>
 #include <QVector>
@@ -13,6 +12,21 @@ template<>
 int InstanceCounter<ModPlayback>::s_count;
 template<>
 int InstanceCounter<ModPlayback>::s_maxCount;
+
+//#define PERFORMANCE_MEASURE
+#undef PERFORMANCE_MEASURE
+
+#ifdef PERFORMANCE_MEASURE
+static _Uint64t get_clock()
+{
+    struct timespec t;
+    if(clock_gettime(CLOCK_MONOTONIC, &t) == 0)
+    {
+        return timespec2nsec(&t);
+    }
+    return 0;
+}
+#endif
 
 ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
     : QThread(parent),
@@ -46,15 +60,15 @@ void ModPlayback::loadSettings() {
     m_config.setMaximumMixingChannels(m_settings.value("mixingChannels", 128).toInt());
 
     m_config.setReverbEnabled(m_settings.value("reverbEnabled", true).toBool());
-    m_config.setReverbLevel(m_settings.value("reverbLevel", 50).toInt());
-    m_config.setReverbDelay(m_settings.value("reverbDelay", 128).toInt());
+    m_config.setReverbLevel(m_settings.value("reverbLevel", 30).toInt());
+    m_config.setReverbDelay(m_settings.value("reverbDelay", 100).toInt());
 
     m_config.setBassEnabled(m_settings.value("bassEnabled", true).toBool());
-    m_config.setBassLevel(m_settings.value("bassLevel", 50).toInt());
-    m_config.setBassCutOff(m_settings.value("bassCutOff", 50).toInt());
+    m_config.setBassLevel(m_settings.value("bassLevel", 40).toInt());
+    m_config.setBassCutOff(m_settings.value("bassCutOff", 40).toInt());
 
     m_config.setSurroundEnabled(m_settings.value("surroundEnabled", true).toBool());
-    m_config.setSurroundLevel(m_settings.value("surroundLevel", 50).toInt());
+    m_config.setSurroundLevel(m_settings.value("surroundLevel", 30).toInt());
     m_config.setSurroundDelay(m_settings.value("surroundDelay", 20).toInt());
 
     m_config.setOversamplingEnabled(m_settings.value("oversamplingEnabled", true).toBool());
@@ -124,7 +138,8 @@ void ModPlayback::stopAudioDevice() {
     // when called from user thread must be in locked state
     if(m_playback_handle != NULL)
     {
-        snd_pcm_playback_drain(m_playback_handle);
+        snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+        snd_pcm_plugin_playback_drain(m_playback_handle);
         snd_pcm_close(m_playback_handle);
         m_playback_handle = NULL;
     }
@@ -316,6 +331,9 @@ void ModPlayback::configure_audio() {
 }
 
 void ModPlayback::run() {
+    moveToThread(this);
+    m_song.moveToThread(this);
+
     qDebug() << "Entering playback thread";
     changeState(Idle);
 
@@ -337,8 +355,6 @@ void ModPlayback::run() {
 
     qDebug() << "Audio device playback initialized successfully";
     qDebug() << "Starting playback loop";
-
-    m_song.moveToThread(this);
 
     m_mutex.lock();
     while(m_state != Exit && m_state != Exiting)
@@ -375,6 +391,8 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
+                snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                snd_pcm_plugin_playback_drain(m_playback_handle);
                 if(m_song.load(m_pendingSong, m_pendingFileName)) {
                     m_state = Loaded;
                 } else {
@@ -390,6 +408,8 @@ void ModPlayback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
+                snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                snd_pcm_plugin_playback_drain(m_playback_handle);
                 m_song.unload();
                 m_state = Idle;
                 emit stopped();
@@ -417,6 +437,8 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state == Playing || m_state == Paused) {
                 m_state = Loaded;
+                snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                snd_pcm_plugin_playback_drain(m_playback_handle);
                 m_song.rewind();
                 emit stopped();
             }
@@ -441,43 +463,20 @@ void ModPlayback::run() {
         }
         m_mutex.unlock();
 
-        fd_set fdSet;
-        FD_ZERO(&fdSet);
-        FD_SET(m_pcmFd, &fdSet);
-
-        timeval tv = {3, 0};
-        int rc = select(1 + m_pcmFd, NULL, &fdSet, NULL, &tv);
-        switch(rc)
+        int endOfSongOrError = updateChunk();
+        if(endOfSongOrError == 0) // End of song
         {
-        case 0: // Timeout
-            break;
-        case -1: // Error
-            if(errno != EINTR && errno != EAGAIN)
-            {
-                changeState(Exit);
-                emit stopped();
-            }
-            break;
-        default:
-            if FD_ISSET(m_pcmFd, &fdSet)
-            {
-                int endOfSongOrError = updateChunk();
-                if(endOfSongOrError == 0) // End of song
-                {
-                    changeState(Loaded);
-                    emit stopped();
-                    m_song.rewind();
-                    emit finished();
-                }
-                else if(endOfSongOrError < 0) // Error in song
-                {
-                    changeState(Idle);
-                    emit stopped();
-                    m_song.rewind();
-                }
-            }
-            break;
-        } // switch
+            changeState(Loaded);
+            emit stopped();
+            m_song.rewind();
+            emit finished();
+        }
+        else if(endOfSongOrError < 0) // Error in song
+        {
+            changeState(Idle);
+            emit stopped();
+            m_song.rewind();
+        }
 
         m_mutex.lock();
     } // while loop
@@ -766,9 +765,33 @@ big_endian
 }
 
 int ModPlayback::updateChunk() {
+#ifdef PERFORMANCE_MEASURE
+    _Uint64t time_read_start = 0;
+    _Uint64t time_read_end = 0;
+
+    _Uint64t time_write_start = 0;
+    _Uint64t time_write_end = 0;
+
+    _Uint64t time_update_start = 0;
+    _Uint64t time_update_end = 0;
+
+    _Uint64t time_status_end = 0;
+    _Uint64t time_status_start = 0;
+
+    _Uint64t time_prepare_start = 0;
+    _Uint64t time_prepare_end = 0;
+
+    _Uint64t time_rewrite_start = 0;
+    _Uint64t time_rewrite_end = 0;
+#endif
+
     int err;
     int numWritten;
     int bytesGenerated;
+
+#ifdef PERFORMANCE_MEASURE
+    time_read_start = get_clock();
+#endif
 
     bytesGenerated = ModPlug_Read(m_song,
                                   m_audioBuffer.data(),
@@ -778,13 +801,31 @@ int ModPlayback::updateChunk() {
         return 0;
     }
 
+#ifdef PERFORMANCE_MEASURE
+    time_read_end = get_clock();
+#endif
+
+#ifdef PERFORMANCE_MEASURE
+    time_update_start = get_clock();
+#endif
     m_song.update();
+#ifdef PERFORMANCE_MEASURE
+    time_update_end = get_clock();
+#endif
+
+#ifdef PERFORMANCE_MEASURE
+    time_write_start = get_clock();
+#endif
 
     numWritten = snd_pcm_plugin_write(m_playback_handle,
                                       m_audioBuffer.data(),
                                       bytesGenerated);
+#ifdef PERFORMANCE_MEASURE
+    time_write_end = get_clock();
+#endif
     if(numWritten < 0)
     {
+        qDebug() << "snd_pcm_plugin_write(numWritten < 0): " << errno << "," << strerror(errno);
         if(numWritten == -EINVAL)
         {
             qDebug() << "Failed to write PCM plugin: error=" << errno << "," << strerror(errno);
@@ -795,6 +836,9 @@ int ModPlayback::updateChunk() {
 
     if(numWritten < bytesGenerated)
     {
+#ifdef PERFORMANCE_MEASURE
+        time_status_start = get_clock();
+#endif
         snd_pcm_channel_status_t status;
         memset(&status, 0, sizeof(status));
         status.channel = SND_PCM_CHANNEL_PLAYBACK;
@@ -810,9 +854,15 @@ int ModPlayback::updateChunk() {
         }
         else
         {
-            if (status.status == SND_PCM_STATUS_READY ||
-                status.status == SND_PCM_STATUS_UNDERRUN)
+#ifdef PERFORMANCE_MEASURE
+            time_status_end = get_clock();
+#endif
+            if(status.status != SND_PCM_STATUS_NOTREADY &&
+               status.status != SND_PCM_STATUS_RUNNING)
             {
+#ifdef PERFORMANCE_MEASURE
+                time_prepare_start = get_clock();
+#endif
                 if((err = snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0)
                 {
                     qDebug() << "Failed to prepare PCM plugin: error="
@@ -824,9 +874,17 @@ int ModPlayback::updateChunk() {
                 }
                 else
                 {
+#ifdef PERFORMANCE_MEASURE
+                    time_prepare_end = get_clock();
+
+                    time_rewrite_start = get_clock();
+#endif
                     numWritten = snd_pcm_plugin_write(m_playback_handle,
                                                       m_audioBuffer.data(),
                                                       bytesGenerated);
+#ifdef PERFORMANCE_MEASURE
+                    time_rewrite_end = get_clock();
+#endif
                     if(numWritten != bytesGenerated)
                     {
                         qDebug() << "Failed to write to PCM plugin: written="
@@ -846,5 +904,15 @@ int ModPlayback::updateChunk() {
             }
         }
     }
+#ifdef PERFORMANCE_MEASURE
+    qDebug().nospace()
+             << "Read="      << (time_read_end - time_read_start) / 1000 << "us"
+             << ", Write="   << (time_write_end - time_write_start) / 1000 << "us"
+             << ", Update="  << (time_update_end - time_update_start) / 1000 << "us"
+             << ", Status="  << (time_status_end - time_status_start) / 1000 << "us"
+             << ", Prepare=" << (time_prepare_end - time_prepare_start) / 1000 << "us"
+             << ", Rewrite=" << (time_rewrite_end - time_rewrite_start) / 1000 << "us";
+    qDebug().space();
+#endif
     return bytesGenerated;
 }

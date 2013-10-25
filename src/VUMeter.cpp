@@ -20,7 +20,6 @@ int InstanceCounter<VUMeter>::s_maxCount;
 
 VUMeter::VUMeter(Container *parent)
     : CustomControl(parent),
-      m_mutex(QMutex::NonRecursive),
       m_rootContainer(NULL),
       m_song(NULL),
       m_image_vu_on(Image(QUrl("asset:///images/vu/vu-on.png"))),
@@ -33,7 +32,6 @@ VUMeter::VUMeter(Container *parent)
 
 void VUMeter::createVU()
 {
-    QMutexLocker locker(&m_mutex);
     if(m_rootContainer == NULL)
     {
         m_rootContainer = Container::create().horizontal(HorizontalAlignment::Fill)
@@ -118,7 +116,6 @@ void VUMeter::setSong(QVariant value) {
     SongModule * song = qobject_cast<SongModule*>(value.value<QObject*>());
     bool isSongChanged = false;
     {
-        QMutexLocker locker(&m_mutex);
         if(song != m_song) {
             m_song = song;
             isSongChanged = true;
@@ -156,7 +153,6 @@ void VUMeter::onChannelsChanged() {
 }
 
 void VUMeter::onChannelVUChanged() {
-    QMutexLocker locker(&m_mutex);
     for(int channel = 0; channel < m_numBars; channel++) {
         int channelVU = m_song->getChannelVU(channel);
         if(channelVU < 0)

@@ -38,7 +38,6 @@ private slots:
 private:
     void createVU();
 private:
-    QMutex m_mutex;
     bb::cascades::Container * m_rootContainer;
     SongModule * m_song;
     bb::cascades::Image m_image_vu_on;

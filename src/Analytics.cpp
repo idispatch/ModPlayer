@@ -33,7 +33,7 @@ Analytics::Analytics(QObject *parent)
     Flurry::Analytics::SetAppVersion(info.version());
     Flurry::Analytics::SetShowErrorInLogEnabled(true);
     Flurry::Analytics::SetDebugLogEnabled(true);
-    Flurry::Analytics::SetSessionContinueSeconds(120);
+    Flurry::Analytics::SetSessionContinueSeconds(300);
     Flurry::Analytics::SetSecureTransportEnabled(true);
 
     Flurry::Analytics::StartSession("RYHJ7FPDTQW22Z7YYTW9");

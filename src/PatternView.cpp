@@ -138,7 +138,6 @@ static const char * EffectNames[2] = {
 
 PatternView::PatternView(Container *parent)
     : CustomControl(parent),
-      m_mutex(QMutex::NonRecursive),
       m_rootContainer(NULL),
       m_cursor(NULL),
       m_patternImage(NULL),
@@ -152,7 +151,6 @@ PatternView::PatternView(Container *parent)
 
 void PatternView::createPatternView()
 {
-    QMutexLocker locker(&m_mutex);
     if(m_song == NULL || !m_song->songLoaded())
     {
         m_cursor = NULL;
@@ -637,7 +635,6 @@ void PatternView::onChannelsChanged() {
 }
 
 void PatternView::onCurrentRowChanged() {
-    QMutexLocker locker(&m_mutex);
     if(m_cursor == NULL || m_song == NULL)
         return;
     const int row = m_song->currentRow();
