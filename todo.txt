@@ -24,3 +24,6 @@
 * Songs by Author
 * Share song
 * NavigationPane property
+
+
+http://developer.samsung.com/android/technical-docs/Porting-and-using-LAME-MP3-on-Android-with-JNI

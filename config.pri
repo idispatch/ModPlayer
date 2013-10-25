@@ -32,6 +32,27 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/lamemp3/VbrTag.c) \
+                 $$quote($$BASEDIR/src/lamemp3/bitstream.c) \
+                 $$quote($$BASEDIR/src/lamemp3/encoder.c) \
+                 $$quote($$BASEDIR/src/lamemp3/fft.c) \
+                 $$quote($$BASEDIR/src/lamemp3/gain_analysis.c) \
+                 $$quote($$BASEDIR/src/lamemp3/id3tag.c) \
+                 $$quote($$BASEDIR/src/lamemp3/lame.c) \
+                 $$quote($$BASEDIR/src/lamemp3/mpglib_interface.c) \
+                 $$quote($$BASEDIR/src/lamemp3/newmdct.c) \
+                 $$quote($$BASEDIR/src/lamemp3/presets.c) \
+                 $$quote($$BASEDIR/src/lamemp3/psymodel.c) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize.c) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize_pvt.c) \
+                 $$quote($$BASEDIR/src/lamemp3/reservoir.c) \
+                 $$quote($$BASEDIR/src/lamemp3/set_get.c) \
+                 $$quote($$BASEDIR/src/lamemp3/tables.c) \
+                 $$quote($$BASEDIR/src/lamemp3/takehiro.c) \
+                 $$quote($$BASEDIR/src/lamemp3/util.c) \
+                 $$quote($$BASEDIR/src/lamemp3/vbrquantize.c) \
+                 $$quote($$BASEDIR/src/lamemp3/vector/xmm_quantize_sub.c) \
+                 $$quote($$BASEDIR/src/lamemp3/version.c) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
@@ -107,6 +128,29 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/lamemp3/VbrTag.h) \
+                 $$quote($$BASEDIR/src/lamemp3/bitstream.h) \
+                 $$quote($$BASEDIR/src/lamemp3/encoder.h) \
+                 $$quote($$BASEDIR/src/lamemp3/fft.h) \
+                 $$quote($$BASEDIR/src/lamemp3/gain_analysis.h) \
+                 $$quote($$BASEDIR/src/lamemp3/id3tag.h) \
+                 $$quote($$BASEDIR/src/lamemp3/l3side.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lame-analysis.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lame.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lame_global_flags.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lameerror.h) \
+                 $$quote($$BASEDIR/src/lamemp3/machine.h) \
+                 $$quote($$BASEDIR/src/lamemp3/newmdct.h) \
+                 $$quote($$BASEDIR/src/lamemp3/psymodel.h) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize.h) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize_pvt.h) \
+                 $$quote($$BASEDIR/src/lamemp3/reservoir.h) \
+                 $$quote($$BASEDIR/src/lamemp3/set_get.h) \
+                 $$quote($$BASEDIR/src/lamemp3/tables.h) \
+                 $$quote($$BASEDIR/src/lamemp3/util.h) \
+                 $$quote($$BASEDIR/src/lamemp3/vbrquantize.h) \
+                 $$quote($$BASEDIR/src/lamemp3/vector/lame_intrin.h) \
+                 $$quote($$BASEDIR/src/lamemp3/version.h) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
                  $$quote($$BASEDIR/src/modplug/it_defs.h) \
@@ -163,6 +207,27 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
+                 $$quote($$BASEDIR/src/lamemp3/VbrTag.c) \
+                 $$quote($$BASEDIR/src/lamemp3/bitstream.c) \
+                 $$quote($$BASEDIR/src/lamemp3/encoder.c) \
+                 $$quote($$BASEDIR/src/lamemp3/fft.c) \
+                 $$quote($$BASEDIR/src/lamemp3/gain_analysis.c) \
+                 $$quote($$BASEDIR/src/lamemp3/id3tag.c) \
+                 $$quote($$BASEDIR/src/lamemp3/lame.c) \
+                 $$quote($$BASEDIR/src/lamemp3/mpglib_interface.c) \
+                 $$quote($$BASEDIR/src/lamemp3/newmdct.c) \
+                 $$quote($$BASEDIR/src/lamemp3/presets.c) \
+                 $$quote($$BASEDIR/src/lamemp3/psymodel.c) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize.c) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize_pvt.c) \
+                 $$quote($$BASEDIR/src/lamemp3/reservoir.c) \
+                 $$quote($$BASEDIR/src/lamemp3/set_get.c) \
+                 $$quote($$BASEDIR/src/lamemp3/tables.c) \
+                 $$quote($$BASEDIR/src/lamemp3/takehiro.c) \
+                 $$quote($$BASEDIR/src/lamemp3/util.c) \
+                 $$quote($$BASEDIR/src/lamemp3/vbrquantize.c) \
+                 $$quote($$BASEDIR/src/lamemp3/vector/xmm_quantize_sub.c) \
+                 $$quote($$BASEDIR/src/lamemp3/version.c) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
@@ -238,6 +303,29 @@ device {
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
+                 $$quote($$BASEDIR/src/lamemp3/VbrTag.h) \
+                 $$quote($$BASEDIR/src/lamemp3/bitstream.h) \
+                 $$quote($$BASEDIR/src/lamemp3/encoder.h) \
+                 $$quote($$BASEDIR/src/lamemp3/fft.h) \
+                 $$quote($$BASEDIR/src/lamemp3/gain_analysis.h) \
+                 $$quote($$BASEDIR/src/lamemp3/id3tag.h) \
+                 $$quote($$BASEDIR/src/lamemp3/l3side.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lame-analysis.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lame.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lame_global_flags.h) \
+                 $$quote($$BASEDIR/src/lamemp3/lameerror.h) \
+                 $$quote($$BASEDIR/src/lamemp3/machine.h) \
+                 $$quote($$BASEDIR/src/lamemp3/newmdct.h) \
+                 $$quote($$BASEDIR/src/lamemp3/psymodel.h) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize.h) \
+                 $$quote($$BASEDIR/src/lamemp3/quantize_pvt.h) \
+                 $$quote($$BASEDIR/src/lamemp3/reservoir.h) \
+                 $$quote($$BASEDIR/src/lamemp3/set_get.h) \
+                 $$quote($$BASEDIR/src/lamemp3/tables.h) \
+                 $$quote($$BASEDIR/src/lamemp3/util.h) \
+                 $$quote($$BASEDIR/src/lamemp3/vbrquantize.h) \
+                 $$quote($$BASEDIR/src/lamemp3/vector/lame_intrin.h) \
+                 $$quote($$BASEDIR/src/lamemp3/version.h) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
                  $$quote($$BASEDIR/src/modplug/it_defs.h) \
@@ -267,7 +355,9 @@ device {
 
 INCLUDEPATH +=  $$quote($$BASEDIR/src/Flurry) \
          $$quote($$BASEDIR/src/zip) \
+         $$quote($$BASEDIR/src/lamemp3) \
          $$quote($$BASEDIR/src/modplug) \
+         $$quote($$BASEDIR/src/lamemp3/vector) \
          $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header
