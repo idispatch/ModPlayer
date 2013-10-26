@@ -7,7 +7,11 @@
 
 namespace bb {
     namespace system {
+#ifdef USE_PROGRESS_TOAST
         class SystemProgressToast;
+#else
+        class SystemProgressDialog;
+#endif
     }
 }
 
@@ -15,7 +19,11 @@ class Mp3Export : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(Mp3Export)
 private:
+#ifdef USE_PROGRESS_TOAST
     bb::system::SystemProgressToast * m_progress;
+#else
+    bb::system::SystemProgressDialog * m_progress;
+#endif
 public:
     Mp3Export(QObject * parent = 0);
     ~Mp3Export();

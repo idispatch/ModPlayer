@@ -5,7 +5,11 @@
 #include <QFile>
 #include <QDebug>
 #include <QByteArray>
+#ifdef USE_PROGRESS_TOAST
 #include <bb/system/SystemProgressToast>
+#else
+#include <bb/system/SystemProgressDialog>
+#endif
 
 #define DETAILED_LOG
 #undef WRITE_ID3V1_TAG
@@ -31,13 +35,18 @@ void Mp3Export::destroyProgressUI() {
 
 void Mp3Export::createProgressUI(QString const& fileName) {
     destroyProgressUI();
-    m_progress = new SystemProgressToast(0);
+    m_progress = new SystemProgressDialog(0);
     m_progress->setModality(SystemUiModality::Application);
     m_progress->setState(SystemUiProgressState::Active);
+#ifdef USE_PROGRESS_TOAST
     m_progress->setPosition(SystemUiPosition::MiddleCenter);
-    m_progress->setBody(QString(tr("Creating %1")).arg(fileName));
     m_progress->button()->setLabel(tr("Hide"));
     m_progress->button()->setEnabled(false);
+#else
+    m_progress->setTitle(tr("Creating MP3 file"));
+    m_progress->confirmButton()->setEnabled(false);
+#endif
+    m_progress->setBody(QString(tr("Creating %1")).arg(fileName));
     m_progress->setProgress(0);
     m_progress->show();
 }
