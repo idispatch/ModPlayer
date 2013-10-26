@@ -214,7 +214,7 @@
     </message>
     <message>
         <source>Converting</source>
-        <translation>Конвертирую</translation>
+        <translation type="unfinished">Конвертирую</translation>
     </message>
 </context>
 <context>

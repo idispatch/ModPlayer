@@ -721,6 +721,15 @@ int CDECL lame_encode_buffer (
         const int           mp3buf_size ); /* number of valid octets in this
                                               stream                        */
 
+int CDECL lame_encode_buffer_char (
+        lame_global_flags*  gfp,           /* global context handle         */
+        const char          buffer_l [],   /* PCM data for left channel     */
+        const char          buffer_r [],   /* PCM data for right channel    */
+        const int           nsamples,      /* number of samples per channel */
+        unsigned char*      mp3buf,        /* pointer to encoded MP3 stream */
+        const int           mp3buf_size ); /* number of valid octets in this
+                                              stream                        */
+
 /*
  * as above, but input has L & R channel data interleaved.
  * NOTE:
@@ -836,10 +845,21 @@ int CDECL lame_encode_buffer_int(
         unsigned char*      mp3buf,        /* pointer to encoded MP3 stream */
         const int           mp3buf_size ); /* number of valid octets in this
                                               stream                        */
+int CDECL lame_encode_buffer_interleaved_int(
+        lame_t          gfp,
+        const int       pcm[],             /* PCM data for left and right
+                                              channel, interleaved          */
+        const int       nsamples,
+        unsigned char * mp3buf,
+        const int       mp3buf_size);
 
-
-
-
+int CDECL lame_encode_buffer_interleaved_char(
+        lame_t          gfp,
+        const char      pcm[],             /* PCM data for left and right
+                                              channel, interleaved          */
+        const int       nsamples,
+        unsigned char * mp3buf,
+        const int       mp3buf_size);
 
 /*
  * REQUIRED:
@@ -1202,7 +1222,7 @@ void CDECL id3tag_set_artist(lame_t gfp, const char* artist);
 void CDECL id3tag_set_album(lame_t gfp, const char* album);
 void CDECL id3tag_set_year(lame_t gfp, const char* year);
 void CDECL id3tag_set_comment(lame_t gfp, const char* comment);
-            
+
 /* return -1 result if track number is out of ID3v1 range
                     and ignored for ID3v1 */
 int CDECL id3tag_set_track(lame_t gfp, const char* track);
@@ -1296,7 +1316,7 @@ int CDECL lame_get_samplerate(int mpeg_version, int table_index);
 #define LAME_MAXALBUMART    (128 * 1024)
 
 /* maximum size of mp3buffer needed if you encode at most 1152 samples for
-   each call to lame_encode_buffer.  see lame_encode_buffer() below  
+   each call to lame_encode_buffer.  see lame_encode_buffer() below
    (LAME_MAXMP3BUFFER is now obsolete)  */
 #define LAME_MAXMP3BUFFER   (16384 + LAME_MAXALBUMART)
 

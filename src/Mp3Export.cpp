@@ -36,7 +36,9 @@ void Mp3Export::createProgressToast(QString const& fileName) {
     m_progress->setState(SystemUiProgressState::Active);
     m_progress->setPosition(SystemUiPosition::MiddleCenter);
     m_progress->setBody(QString(tr("Creating %1")).arg(fileName));
+#if 0
     m_progress->setStatusMessage(tr("Converting"));
+#endif
     m_progress->button()->setLabel(tr("Hide"));
     m_progress->setProgress(0);
     m_progress->show();
@@ -117,7 +119,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
     const int MP3_SIZE = 65536;
 
     QByteArray mod_buffer;
-    mod_buffer.resize(PCM_SIZE * 2);
+    mod_buffer.resize(PCM_SIZE);
 
     QByteArray mp3_buffer;
     mp3_buffer.resize(MP3_SIZE);
@@ -166,8 +168,8 @@ bool Mp3Export::convert(PlaybackConfig &config,
             break;
         }
 
-        if(-1 == lame_set_quality(lame, 9)) {
-            qDebug() << "Failed to set quality:" << 9;
+        if(-1 == lame_set_quality(lame, 5)) {
+            qDebug() << "Failed to set quality:" << 5;
             break;
         }
 
@@ -212,11 +214,66 @@ bool Mp3Export::convert(PlaybackConfig &config,
                                                mp3_buffer.size());
             } else {
                 const int numSamplesPerChannel = readBytes / (numBytesPerSample * numChannels);
-                writeBytes = lame_encode_buffer_interleaved(lame,
-                                                            reinterpret_cast<short int*>(mod_buffer.data()),
+                if(isStereo)
+                {
+                    switch(numBytesPerSample){
+                    case 4:
+                        writeBytes = lame_encode_buffer_interleaved_int(lame,
+                                                                    reinterpret_cast<int*>(mod_buffer.data()),
+                                                                    numSamplesPerChannel,
+                                                                    reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                                    mp3_buffer.size());
+                        break;
+                    case 2:
+                        writeBytes = lame_encode_buffer_interleaved(lame,
+                                                                    reinterpret_cast<short int*>(mod_buffer.data()),
+                                                                    numSamplesPerChannel,
+                                                                    reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                                    mp3_buffer.size());
+                        break;
+                    case 1:
+                        writeBytes = lame_encode_buffer_interleaved_char(lame,
+                                                                    reinterpret_cast<char*>(mod_buffer.data()),
+                                                                    numSamplesPerChannel,
+                                                                    reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                                    mp3_buffer.size());
+                        break;
+                    default:
+                        break;
+                    }
+                }
+                else
+                {
+                    // MONO
+                    switch(numBytesPerSample){
+                    case 4:
+                        writeBytes = lame_encode_buffer_int(lame,
+                                                            reinterpret_cast<int*>(mod_buffer.data()),
+                                                            reinterpret_cast<int*>(mod_buffer.data()),
                                                             numSamplesPerChannel,
                                                             reinterpret_cast<unsigned char*>(mp3_buffer.data()),
                                                             mp3_buffer.size());
+                        break;
+                    case 2:
+                        writeBytes = lame_encode_buffer(lame,
+                                                        reinterpret_cast<short int*>(mod_buffer.data()),
+                                                        reinterpret_cast<short int*>(mod_buffer.data()),
+                                                        numSamplesPerChannel,
+                                                        reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                        mp3_buffer.size());
+                        break;
+                    case 1:
+                        writeBytes = lame_encode_buffer_char(lame,
+                                                             reinterpret_cast<char*>(mod_buffer.data()),
+                                                             reinterpret_cast<char*>(mod_buffer.data()),
+                                                             numSamplesPerChannel,
+                                                             reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                             mp3_buffer.size());
+                        break;
+                    default:
+                        break;
+                    }
+                }
             }
 
             const int bytesWritten = outputFile.write(mp3_buffer.data(),

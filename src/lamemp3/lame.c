@@ -1798,7 +1798,8 @@ lame_encode_buffer_sample_t(lame_internal_flags * gfc,
 }
 
 enum PCMSampleType
-{   pcm_short_type
+{   pcm_char_type
+,   pcm_short_type
 ,   pcm_int_type
 ,   pcm_long_type
 ,   pcm_float_type
@@ -1839,6 +1840,9 @@ lame_copy_inbuffer(lame_internal_flags* gfc,
     } \
 }
     switch ( pcm_type ) {
+    case pcm_char_type:
+        COPY_AND_TRANSFORM(char);
+        break;
     case pcm_short_type:
         COPY_AND_TRANSFORM(short int);
         break;
@@ -1902,6 +1906,14 @@ lame_encode_buffer(lame_global_flags * gfp,
     return lame_encode_buffer_template(gfp, pcm_l, pcm_r, nsamples, mp3buf, mp3buf_size, pcm_short_type, 1, 1.0);
 }
 
+int
+lame_encode_buffer_char(lame_global_flags * gfp,
+                         const char pcm_l[], const char pcm_r[], const int nsamples,
+                         unsigned char *mp3buf, const int mp3buf_size)
+{
+    /* input is assumed to be normalized to +/- 128 for full scale */
+    return lame_encode_buffer_template(gfp, pcm_l, pcm_r, nsamples, mp3buf, mp3buf_size, pcm_char_type, 1, 1.0);
+}
 
 int
 lame_encode_buffer_float(lame_global_flags * gfp,
@@ -1963,6 +1975,25 @@ lame_encode_buffer_int(lame_global_flags * gfp,
     return lame_encode_buffer_template(gfp, pcm_l, pcm_r, nsamples, mp3buf, mp3buf_size, pcm_int_type, 1, norm);
 }
 
+int
+lame_encode_buffer_interleaved_int(lame_global_flags * gfp,
+                                   const int pcm[], const int nsamples,
+                                   unsigned char *mp3buf, const int mp3buf_size)
+{
+    /* input is assumed to be normalized to +/- MAX_INT for full scale */
+    FLOAT const norm = (1.0 / (1L << (8 * sizeof(int) - 16)));
+    return lame_encode_buffer_template(gfp, pcm, pcm + 1, nsamples, mp3buf, mp3buf_size, pcm_int_type, 2, norm);
+}
+
+int
+lame_encode_buffer_interleaved_char(lame_global_flags * gfp,
+                                    const char pcm[], const int nsamples,
+                                    unsigned char *mp3buf, const int mp3buf_size)
+{
+    /* input is assumed to be normalized to +/- MAX_CHAR for full scale */
+    FLOAT const norm = (1.0 / (1L << 4));
+    return lame_encode_buffer_template(gfp, pcm, pcm + 1, nsamples, mp3buf, mp3buf_size, pcm_char_type, 2, norm);
+}
 
 int
 lame_encode_buffer_long2(lame_global_flags * gfp,
