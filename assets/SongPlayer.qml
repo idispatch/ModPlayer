@@ -226,7 +226,6 @@ Page {
             currentSong: app.player.currentSong
         },
         SaveSongActionItem{
-            songTitle: app.player.currentSong.title
             currentSong: app.player.currentSong.fileName
             enabled: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
         },

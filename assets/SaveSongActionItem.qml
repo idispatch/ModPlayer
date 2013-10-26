@@ -6,7 +6,7 @@ import player 1.0
 import "functions.js" as Global
 
 ActionItem {
-    property string songTitle
+    id: saveSongActionItem
     property string currentSong
     property bool certain: true
     title: qsTr("Save Song to Device")
@@ -14,8 +14,11 @@ ActionItem {
     ActionBar.placement: ActionBarPlacement.InOverflow
     enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
+        var result = selectSaveFormat.run()
+        if(result.length < 1)
+            return
         var fileName = Global.fileNameOnly(currentSong)
-        filePicker.songTitle = songTitle 
+        filePicker.saveFormat = result
         filePicker.defaultSaveFileNames = [fileName]
         if(Global.isAbsolutePath(currentSong)) {
             filePicker.cacheFileName = currentSong
@@ -38,30 +41,56 @@ ActionItem {
         FilePicker {
             id: filePicker
             property string cacheFileName
-            property string songTitle
+            property string saveFormat
             type : FileType.Other
             mode: FilePickerMode.Saver
             allowOverwrite: true
             title : qsTr("Save Song")
             directories : ["/accounts/1000/shared/downloads"]
             onFileSelected : {
-                if(selectedFiles.length > 0) 
-                {
-                    var newFileName = selectedFiles[0]
-                    
-                    //app.cache.save(cacheFileName, newFileName)
-                    app.player.exportMp3(songTitle, 
-                                         cacheFileName, 
-                                         Global.replaceExtension(newFileName, ".mp3"))
-                    
-                    app.player.userDirectory = Global.directoryOnly(newFileName)
-                    fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 
-                    fileSaved.show()
+                if(selectedFiles.length != 1)
+                    return 
+                var newFileName = selectedFiles[0]
+                if(saveFormat == 'mp3') {
+                    newFileName = Global.replaceExtension(newFileName, ".mp3")
+                    app.player.exportMp3(cacheFileName, newFileName)
+                } else {
+                    app.cache.save(cacheFileName, newFileName)
                 }
+                app.player.userDirectory = Global.directoryOnly(newFileName)
+                fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 
+                fileSaved.show()
             }
         },
         SystemToast {
             id: fileSaved
+        },
+        SystemListDialog {
+            id: selectSaveFormat
+            title: qsTr("Select Save Format")
+            selectionMode: ListSelectionMode.Single
+            modality: SystemUiModality.Application
+            includeRememberMe: false
+            emoticonsEnabled: false
+            defaultButton: SystemUiButton.confirmButton
+            dismissAutomatically: true
+            function run() {
+                var selectedOption = ''
+                clearList()
+                appendItem(qsTr("Original format"), true, true)
+                appendItem(qsTr("MP3 format"), true, false)
+                exec()
+                if(result == SystemUiResult.ConfirmButtonSelection ){
+                    if(selectedIndices.length == 1) {
+                        if(selectedIndices[0] == 0) {
+                            selectedOption = 'original'
+                        } else {
+                            selectedOption = 'mp3'
+                        }
+                    }
+                }
+                return selectedOption
+            }
         }
     ]
 }

@@ -212,10 +212,6 @@
         <source>Creating %1</source>
         <translation>Создаю %1</translation>
     </message>
-    <message>
-        <source>Converting</source>
-        <translation type="obsolete">Конвертирую</translation>
-    </message>
 </context>
 <context>
     <name>OpenSongActionItem</name>
@@ -375,6 +371,18 @@
     <message>
         <source>Save Song to Device</source>
         <translation>Сохранить песню на телефон</translation>
+    </message>
+    <message>
+        <source>Select Save Format</source>
+        <translation>Выберите формат</translation>
+    </message>
+    <message>
+        <source>Original format</source>
+        <translation>Трэкерный фомат</translation>
+    </message>
+    <message>
+        <source>MP3 format</source>
+        <translation>MP3 формат</translation>
     </message>
 </context>
 <context>

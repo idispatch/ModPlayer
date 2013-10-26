@@ -49,10 +49,8 @@ void Mp3Export::updateProgressUI(int progress) {
 }
 
 bool Mp3Export::convert(PlaybackConfig &config,
-                        QString const& title,
                         QString const& inputFileName,
                         QString const& outputFileName) {
-    Q_UNUSED(title);
     bool result = false;
 #ifdef DETAILED_LOG
     qDebug() << "Starting converting" << inputFileName << "to" << outputFileName;

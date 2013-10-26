@@ -372,6 +372,18 @@
         <source>Save Song to Device</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Select Save Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MP3 format</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchArea</name>
