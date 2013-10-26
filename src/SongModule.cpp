@@ -3,7 +3,6 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QFileInfo>
 #include <QByteArray>
 
 template<>

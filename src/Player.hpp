@@ -83,6 +83,9 @@ public:
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
 
+    Q_INVOKABLE void exportMp3(QString const& inputFileName,
+                               QString const& outputFileName);
+
     using InstanceCounter<Player>::getInstanceCount;
     using InstanceCounter<Player>::getMaxInstanceCount;
 Q_SIGNALS:

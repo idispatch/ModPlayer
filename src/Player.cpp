@@ -11,6 +11,7 @@
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
+#include "Mp3Export.hpp"
 #include "Analytics.hpp"
 
 using namespace bb::multimedia;
@@ -553,4 +554,11 @@ void Player::onCurrentFilesChanged() {
     if(m_cache->currentFiles() == 5) {
         startTimer(3000);
     }
+}
+
+void Player::exportMp3(QString const& inputFileName,
+                       QString const& outputFileName) {
+    Mp3Export::convert(*m_playback->configuration(),
+                       inputFileName,
+                       outputFileName);
 }
