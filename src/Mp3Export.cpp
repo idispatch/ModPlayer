@@ -1,4 +1,4 @@
-#include "lamemp3/lame.h"
+#include "mp3lame/lame.h"
 #include "modplug/modplug.h"
 #include "Mp3Export.hpp"
 #include "FileUtils.hpp"

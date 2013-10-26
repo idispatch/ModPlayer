@@ -521,6 +521,10 @@ lame_get_findReplayGain(const lame_global_flags * gfp)
 }
 
 
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
+
 /* Decode on the fly. Find the peak sample. If ReplayGain analysis is
    enabled then perform it on the decoded data. */
 int

@@ -35,6 +35,7 @@ int Canvas::height() const {
 Image Canvas::image() const {
     return Image(m_img);
 }
+
 void Canvas::blit(int x, int y, ImageData const& from) {
     if(x < 0 || y < 0)
         return;

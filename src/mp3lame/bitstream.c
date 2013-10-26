@@ -983,6 +983,10 @@ format_bitstream(lame_internal_flags * gfc)
     return 0;
 }
 
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
 
 static int
 do_gain_analysis(lame_internal_flags * gfc, unsigned char* buffer, int minimum)
