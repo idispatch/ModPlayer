@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QByteArray>
 
+#define DETAILED_LOG
+
 bool Mp3Export::convert(PlaybackConfig &config,
                         QString const& inputFileName,
                         QString const& outputFileName) {
@@ -41,7 +43,9 @@ bool Mp3Export::convert(PlaybackConfig &config,
         return result;
     }
 
+#ifdef DETAILED_LOG
     qDebug() << "Read" << data.size() << "bytes from file" << inputFileName;
+#endif
 
     ModPlugFile* module = ModPlug_Load(data.data(), data.size());
     if(module == NULL) {
@@ -49,15 +53,20 @@ bool Mp3Export::convert(PlaybackConfig &config,
         return result;
     }
 
+#ifdef DETAILED_LOG
     qDebug() << "Module" << inputFileName << " loaded successfully";
+#endif
 
     int readBytes;
     int writeBytes;
-    const int PCM_SIZE = 16384;
-    const int MP3_SIZE = 16384;
+    const int PCM_SIZE = 65536;
+    const int MP3_SIZE = 65536;
 
-    char mod_buffer[PCM_SIZE * 2];
-    unsigned char mp3_buffer[MP3_SIZE];
+    QByteArray mod_buffer;
+    mod_buffer.resize(PCM_SIZE * 2);
+
+    QByteArray mp3_buffer;
+    mp3_buffer.resize(MP3_SIZE);
 
     do {
         lame_t lame = lame_init();
@@ -65,15 +74,15 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Failed to initialise lame";
             break;
         }
-
+#ifdef DETAILED_LOG
         qDebug() << "Lame initialised successfully";
-
+#endif
         const int frequency = config.frequency();
         const bool isStereo = config.stereo();
         const int sampleBitSize = config.sampleSize();
         const int numBytesPerSample = sampleBitSize >> 3;
         const int numChannels = isStereo ? 2 : 0;
-
+#ifdef DETAILED_LOG
         qDebug() << "Frequency:"
                  << frequency
                  << ", stereo:"
@@ -82,7 +91,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
                  << numChannels
                  << ", bytes per sample:"
                  << numBytesPerSample;
-
+#endif
         if(-1 == lame_set_in_samplerate(lame, frequency)) {
             qDebug() << "Failed to set input sample rate";
             break;
@@ -117,29 +126,36 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Failed to initialise lame parameters";
             break;
         }
-
+#ifdef DETAILED_LOG
         qDebug() << "Starting encoding, input buffer="
-                 << sizeof(mod_buffer)
+                 << mod_buffer.size()
                  << ", output buffer="
-                 << sizeof(mp3_buffer);
-
+                 << mp3_buffer.size();
+#endif
         do {
-            readBytes = ModPlug_Read(module, mod_buffer, sizeof(mod_buffer));
+            readBytes = ModPlug_Read(module,
+                                     mod_buffer.data(),
+                                     mod_buffer.size());
+#ifdef DETAILED_LOG
             qDebug() << "Read" << readBytes << "bytes";
-
+#endif
             if (readBytes == 0) {
+#ifdef DETAILED_LOG
                 qDebug() << "Flushing encoder";
-                writeBytes = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
+#endif
+                writeBytes = lame_encode_flush(lame,
+                                               reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                               mp3_buffer.size());
             } else {
-                int numSamplesPerChannel = readBytes / (numBytesPerSample * numChannels);
+                const int numSamplesPerChannel = readBytes / (numBytesPerSample * numChannels);
                 writeBytes = lame_encode_buffer_interleaved(lame,
-                                                            reinterpret_cast<short int*>(mod_buffer),
+                                                            reinterpret_cast<short int*>(mod_buffer.data()),
                                                             numSamplesPerChannel,
-                                                            mp3_buffer,
-                                                            MP3_SIZE);
+                                                            reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                            mp3_buffer.size());
             }
 
-            int bytesWritten = outputFile.write(reinterpret_cast<const char*>(mp3_buffer),
+            const int bytesWritten = outputFile.write(mp3_buffer.data(),
                                                 writeBytes);
             if(writeBytes != bytesWritten) {
                 qDebug() << "Failed to write" << writeBytes << "bytes, written:" << bytesWritten;
@@ -149,8 +165,9 @@ bool Mp3Export::convert(PlaybackConfig &config,
                 qDebug() << "Failed to flush";
                 break;
             }
-
+#ifdef DETAILED_LOG
             qDebug() << "Wrote" << bytesWritten << "bytes";
+#endif
         } while(readBytes > 0);
 
         if(0 != lame_close(lame)) {
