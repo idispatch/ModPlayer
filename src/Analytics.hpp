@@ -59,6 +59,7 @@ public:
 
     Q_INVOKABLE void saveCache(QString const& from, QString const& to) const;
     Q_INVOKABLE void exportCache(int numFiles, int numCopiedFiles) const;
+    Q_INVOKABLE void exportMp3(QString const& from, QString const& to) const;
 
     using InstanceCounter<Analytics>::getInstanceCount;
     using InstanceCounter<Analytics>::getMaxInstanceCount;

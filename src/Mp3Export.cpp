@@ -37,6 +37,7 @@ void Mp3Export::createProgressUI(QString const& fileName) {
     m_progress->setPosition(SystemUiPosition::MiddleCenter);
     m_progress->setBody(QString(tr("Creating %1")).arg(fileName));
     m_progress->button()->setLabel(tr("Hide"));
+    m_progress->button()->setEnabled(false);
     m_progress->setProgress(0);
     m_progress->show();
 }

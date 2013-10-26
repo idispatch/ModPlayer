@@ -17,9 +17,15 @@ ActionItem {
         var result = selectSaveFormat.run()
         if(result.length < 1)
             return
-        var fileName = Global.fileNameOnly(currentSong)
+        var saveFileName 
+        if(result == 'mp3') {
+            saveFileName = Global.fileNameOnly(currentSong)
+            saveFileName = Global.replaceExtension(saveFileName, ".mp3")
+        } else {
+            saveFileName = Global.fileNameOnly(currentSong)
+        }
         filePicker.saveFormat = result
-        filePicker.defaultSaveFileNames = [fileName]
+        filePicker.defaultSaveFileNames = [saveFileName]
         if(Global.isAbsolutePath(currentSong)) {
             filePicker.cacheFileName = currentSong
         } else {
@@ -52,7 +58,6 @@ ActionItem {
                     return 
                 var newFileName = selectedFiles[0]
                 if(saveFormat == 'mp3') {
-                    newFileName = Global.replaceExtension(newFileName, ".mp3")
                     app.player.exportMp3(cacheFileName, newFileName)
                 } else {
                     app.cache.save(cacheFileName, newFileName)

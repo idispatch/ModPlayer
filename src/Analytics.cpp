@@ -197,6 +197,13 @@ void Analytics::exportCache(int numFiles, int numCopiedFiles) const {
     Flurry::Analytics::LogEvent("ExportCache", parameters, false);
 }
 
+void Analytics::exportMp3(QString const& from, QString const& to) const {
+    Flurry::Map parameters;
+    parameters["fromFile"] = from;
+    parameters["toFile"] = to;
+    Flurry::Analytics::LogEvent("ExportMp3", parameters, false);
+}
+
 void Analytics::play() const {
     Flurry::Analytics::LogEvent("PlayCmd", false);
 }
