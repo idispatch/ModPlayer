@@ -18,10 +18,10 @@ Mp3Export::Mp3Export(QObject * parent)
 }
 
 Mp3Export::~Mp3Export() {
-    destroyProgressToast();
+    destroyProgressUI();
 }
 
-void Mp3Export::destroyProgressToast() {
+void Mp3Export::destroyProgressUI() {
     if(m_progress != NULL) {
         m_progress->cancel();
         delete m_progress;
@@ -29,22 +29,19 @@ void Mp3Export::destroyProgressToast() {
     }
 }
 
-void Mp3Export::createProgressToast(QString const& fileName) {
-    destroyProgressToast();
+void Mp3Export::createProgressUI(QString const& fileName) {
+    destroyProgressUI();
     m_progress = new SystemProgressToast(0);
     m_progress->setModality(SystemUiModality::Application);
     m_progress->setState(SystemUiProgressState::Active);
     m_progress->setPosition(SystemUiPosition::MiddleCenter);
     m_progress->setBody(QString(tr("Creating %1")).arg(fileName));
-#if 0
-    m_progress->setStatusMessage(tr("Converting"));
-#endif
     m_progress->button()->setLabel(tr("Hide"));
     m_progress->setProgress(0);
     m_progress->show();
 }
 
-void Mp3Export::updateProgressToast(int progress) {
+void Mp3Export::updateProgressUI(int progress) {
     if(m_progress != NULL) {
         m_progress->setProgress(progress);
         m_progress->show();
@@ -111,27 +108,23 @@ bool Mp3Export::convert(PlaybackConfig &config,
     const int numOrders = ModPlug_NumOrders(module);
     int currentOrder = 0;
 
-    createProgressToast(FileUtils::fileNameOnly(outputFileName));
+    createProgressUI(FileUtils::fileNameOnly(outputFileName));
 
     int readBytes;
     int writeBytes;
-    const int PCM_SIZE = 65536;
-    const int MP3_SIZE = 65536;
+    const size_t BUFFER_SIZE = 1024*1024;
 
-    QByteArray mod_buffer;
-    mod_buffer.resize(PCM_SIZE);
-
-    QByteArray mp3_buffer;
-    mp3_buffer.resize(MP3_SIZE);
+    QByteArray mod_buffer(BUFFER_SIZE, 0);
+    QByteArray mp3_buffer(BUFFER_SIZE, 0);
 
     do {
         lame_t lame = lame_init();
         if(lame == NULL) {
-            qDebug() << "Failed to initialise lame";
+            qDebug() << "Failed to initialize lame encoder";
             break;
         }
 #ifdef DETAILED_LOG
-        qDebug() << "Lame initialised successfully";
+        qDebug() << "Lame encoder initialized successfully";
 #endif
         const int frequency = config.frequency();
         const bool isStereo = config.stereo();
@@ -139,14 +132,16 @@ bool Mp3Export::convert(PlaybackConfig &config,
         const int numBytesPerSample = sampleBitSize >> 3;
         const int numChannels = (isStereo ? 2 : 1);
 #ifdef DETAILED_LOG
-        qDebug() << "Frequency:"
+        qDebug().nospace()
+                 << "Frequency: "
                  << frequency
-                 << ", stereo:"
+                 << ", stereo: "
                  << isStereo
-                 << ", channels:"
+                 << ", channels: "
                  << numChannels
-                 << ", bytes per sample:"
+                 << ", bytes per sample: "
                  << numBytesPerSample;
+        qDebug().space();
 #endif
         if(-1 == lame_set_in_samplerate(lame, frequency)) {
             qDebug() << "Failed to set input sample rate:" << frequency;
@@ -189,14 +184,16 @@ bool Mp3Export::convert(PlaybackConfig &config,
         lame_set_write_id3tag_automatic(lame, 0);
 #endif
         if(0 != lame_init_params(lame)) {
-            qDebug() << "Failed to initialise lame parameters";
+            qDebug() << "Failed to initialize lame encoder parameters";
             break;
         }
 #ifdef DETAILED_LOG
-        qDebug() << "Starting encoding, input buffer="
+        qDebug().nospace()
+                 << "Starting encoding, input buffer="
                  << mod_buffer.size()
                  << ", output buffer="
                  << mp3_buffer.size();
+        qDebug().space();
 #endif
         do {
             readBytes = ModPlug_Read(module,
@@ -207,7 +204,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
 #endif
             if (readBytes == 0) {
 #ifdef DETAILED_LOG
-                qDebug() << "Flushing encoder";
+                qDebug() << "Flushing lame encoder";
 #endif
                 writeBytes = lame_encode_flush(lame,
                                                reinterpret_cast<unsigned char*>(mp3_buffer.data()),
@@ -219,10 +216,10 @@ bool Mp3Export::convert(PlaybackConfig &config,
                     switch(numBytesPerSample){
                     case 4:
                         writeBytes = lame_encode_buffer_interleaved_int(lame,
-                                                                    reinterpret_cast<int*>(mod_buffer.data()),
-                                                                    numSamplesPerChannel,
-                                                                    reinterpret_cast<unsigned char*>(mp3_buffer.data()),
-                                                                    mp3_buffer.size());
+                                                                        reinterpret_cast<int*>(mod_buffer.data()),
+                                                                        numSamplesPerChannel,
+                                                                        reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                                                        mp3_buffer.size());
                         break;
                     case 2:
                         writeBytes = lame_encode_buffer_interleaved(lame,
@@ -279,7 +276,9 @@ bool Mp3Export::convert(PlaybackConfig &config,
             const int bytesWritten = outputFile.write(mp3_buffer.data(),
                                                       writeBytes);
             if(writeBytes != bytesWritten) {
+                qDebug().nospace();
                 qDebug() << "Failed to write" << writeBytes << "bytes, written:" << bytesWritten;
+                qDebug().space();
                 break;
             }
             if(!outputFile.flush()) {
@@ -289,12 +288,14 @@ bool Mp3Export::convert(PlaybackConfig &config,
 #ifdef DETAILED_LOG
             qDebug() << "Wrote" << bytesWritten << "bytes";
 #endif
+
             int order = ModPlug_GetCurrentOrder(module);
             if(order != currentOrder) {
                 currentOrder = order;
-                int progress = currentOrder * 100 /numOrders;
-                updateProgressToast(progress);
+                int progress = currentOrder * 100 / numOrders;
+                updateProgressUI(progress);
             }
+
         } while(readBytes > 0);
 #ifdef WRITE_ID3V1_TAG
         writeBytes = lame_get_id3v1_tag(lame,
@@ -314,7 +315,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         }
 #endif
         if(0 != lame_close(lame)) {
-            qDebug() << "Failed to close lame";
+            qDebug() << "Failed to close lame encoder";
             break;
         }
 
@@ -323,7 +324,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
 
     ModPlug_Unload(module);
 
-    destroyProgressToast();
+    destroyProgressUI();
 
     return result;
 }

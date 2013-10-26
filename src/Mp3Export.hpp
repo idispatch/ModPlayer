@@ -24,9 +24,9 @@ public:
                  QString const& inputFileName,
                  QString const& outputFileName);
 private:
-    void createProgressToast(QString const& fileName);
-    void updateProgressToast(int progress);
-    void destroyProgressToast();
+    void createProgressUI(QString const& fileName);
+    void updateProgressUI(int progress);
+    void destroyProgressUI();
 };
 
 Q_DECLARE_METATYPE(Mp3Export*);

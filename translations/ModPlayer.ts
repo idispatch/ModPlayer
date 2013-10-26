@@ -212,10 +212,6 @@
         <source>Creating %1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Converting</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OpenSongActionItem</name>

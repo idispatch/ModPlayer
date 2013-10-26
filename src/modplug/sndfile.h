@@ -84,44 +84,44 @@ typedef const BYTE * LPCBYTE;
 #define CHN_PINGPONGSUSTAIN     0x10
 #define CHN_PANNING             0x20
 #define CHN_STEREO              0x40
-#define CHN_PINGPONGFLAG    0x80
+#define CHN_PINGPONGFLAG        0x80
 // Bits 8-31:    Channel Flags
 #define CHN_MUTE                0x100
 #define CHN_KEYOFF              0x200
-#define CHN_NOTEFADE        0x400
+#define CHN_NOTEFADE            0x400
 #define CHN_SURROUND            0x800
 #define CHN_NOIDO               0x1000
 #define CHN_HQSRC               0x2000
 #define CHN_FILTER              0x4000
-#define CHN_VOLUMERAMP        0x8000
+#define CHN_VOLUMERAMP          0x8000
 #define CHN_VIBRATO             0x10000
 #define CHN_TREMOLO             0x20000
-#define CHN_PANBRELLO        0x40000
-#define CHN_PORTAMENTO        0x80000
-#define CHN_GLISSANDO        0x100000
+#define CHN_PANBRELLO           0x40000
+#define CHN_PORTAMENTO          0x80000
+#define CHN_GLISSANDO           0x100000
 #define CHN_VOLENV              0x200000
 #define CHN_PANENV              0x400000
-#define CHN_PITCHENV        0x800000
-#define CHN_FASTVOLRAMP        0x1000000
-#define CHN_EXTRALOUD        0x2000000
+#define CHN_PITCHENV            0x800000
+#define CHN_FASTVOLRAMP         0x1000000
+#define CHN_EXTRALOUD           0x2000000
 #define CHN_REVERB              0x4000000
-#define CHN_NOREVERB        0x8000000
+#define CHN_NOREVERB            0x8000000
 
 
 #define ENV_VOLUME              0x0001
-#define ENV_VOLSUSTAIN        0x0002
+#define ENV_VOLSUSTAIN          0x0002
 #define ENV_VOLLOOP             0x0004
 #define ENV_PANNING             0x0008
-#define ENV_PANSUSTAIN        0x0010
+#define ENV_PANSUSTAIN          0x0010
 #define ENV_PANLOOP             0x0020
 #define ENV_PITCH               0x0040
-#define ENV_PITCHSUSTAIN    0x0080
-#define ENV_PITCHLOOP        0x0100
-#define ENV_SETPANNING        0x0200
+#define ENV_PITCHSUSTAIN        0x0080
+#define ENV_PITCHLOOP           0x0100
+#define ENV_SETPANNING          0x0200
 #define ENV_FILTER              0x0400
-#define ENV_VOLCARRY        0x0800
-#define ENV_PANCARRY        0x1000
-#define ENV_PITCHCARRY        0x2000
+#define ENV_VOLCARRY            0x0800
+#define ENV_PANCARRY            0x1000
+#define ENV_PITCHCARRY          0x2000
 
 #define CMD_NONE                0
 #define CMD_ARPEGGIO            1
@@ -174,106 +174,106 @@ typedef const BYTE * LPCBYTE;
 #define RSF_16BIT               0x04
 #define RSF_STEREO              0x08
 
-#define RS_PCM8S        0    // 8-bit signed
-#define RS_PCM8U        1    // 8-bit unsigned
-#define RS_PCM8D        2    // 8-bit delta values
-#define RS_ADPCM4        3    // 4-bit ADPCM-packed
-#define RS_PCM16D        4    // 16-bit delta values
-#define RS_PCM16S        5    // 16-bit signed
-#define RS_PCM16U        6    // 16-bit unsigned
-#define RS_PCM16M        7    // 16-bit motorola order
-#define RS_STPCM8S        (RS_PCM8S|RSF_STEREO)  // stereo 8-bit signed
-#define RS_STPCM8U        (RS_PCM8U|RSF_STEREO)  // stereo 8-bit unsigned
-#define RS_STPCM8D        (RS_PCM8D|RSF_STEREO)  // stereo 8-bit delta values
-#define RS_STPCM16S        (RS_PCM16S|RSF_STEREO) // stereo 16-bit signed
-#define RS_STPCM16U        (RS_PCM16U|RSF_STEREO) // stereo 16-bit unsigned
-#define RS_STPCM16D        (RS_PCM16D|RSF_STEREO) // stereo 16-bit delta values
-#define RS_STPCM16M        (RS_PCM16M|RSF_STEREO) // stereo 16-bit signed big endian
+#define RS_PCM8S                0    // 8-bit signed
+#define RS_PCM8U                1    // 8-bit unsigned
+#define RS_PCM8D                2    // 8-bit delta values
+#define RS_ADPCM4               3    // 4-bit ADPCM-packed
+#define RS_PCM16D               4    // 16-bit delta values
+#define RS_PCM16S               5    // 16-bit signed
+#define RS_PCM16U               6    // 16-bit unsigned
+#define RS_PCM16M               7    // 16-bit motorola order
+#define RS_STPCM8S              (RS_PCM8S|RSF_STEREO)  // stereo 8-bit signed
+#define RS_STPCM8U              (RS_PCM8U|RSF_STEREO)  // stereo 8-bit unsigned
+#define RS_STPCM8D              (RS_PCM8D|RSF_STEREO)  // stereo 8-bit delta values
+#define RS_STPCM16S             (RS_PCM16S|RSF_STEREO) // stereo 16-bit signed
+#define RS_STPCM16U             (RS_PCM16U|RSF_STEREO) // stereo 16-bit unsigned
+#define RS_STPCM16D             (RS_PCM16D|RSF_STEREO) // stereo 16-bit delta values
+#define RS_STPCM16M             (RS_PCM16M|RSF_STEREO) // stereo 16-bit signed big endian
 // IT 2.14 compressed samples
-#define RS_IT2148        0x10
-#define RS_IT21416        0x14
-#define RS_IT2158        0x12
-#define RS_IT21516        0x16
+#define RS_IT2148               0x10
+#define RS_IT21416              0x14
+#define RS_IT2158               0x12
+#define RS_IT21516              0x16
 // AMS Packed Samples
-#define RS_AMS8            0x11
-#define RS_AMS16        0x15
+#define RS_AMS8                 0x11
+#define RS_AMS16                0x15
 // DMF Huffman compression
-#define RS_DMF8            0x13
-#define RS_DMF16        0x17
+#define RS_DMF8                 0x13
+#define RS_DMF16                0x17
 // MDL Huffman compression
-#define RS_MDL8            0x20
-#define RS_MDL16        0x24
-#define RS_PTM8DTO16    0x25
+#define RS_MDL8                 0x20
+#define RS_MDL16                0x24
+#define RS_PTM8DTO16            0x25
 // Stereo Interleaved Samples
-#define RS_STIPCM8S        (RS_PCM8S|0x40|RSF_STEREO)    // stereo 8-bit signed
-#define RS_STIPCM8U        (RS_PCM8U|0x40|RSF_STEREO)    // stereo 8-bit unsigned
-#define RS_STIPCM16S    (RS_PCM16S|0x40|RSF_STEREO)    // stereo 16-bit signed
-#define RS_STIPCM16U    (RS_PCM16U|0x40|RSF_STEREO)    // stereo 16-bit unsigned
-#define RS_STIPCM16M    (RS_PCM16M|0x40|RSF_STEREO)    // stereo 16-bit signed big endian
+#define RS_STIPCM8S             (RS_PCM8S|0x40|RSF_STEREO)      // stereo 8-bit signed
+#define RS_STIPCM8U             (RS_PCM8U|0x40|RSF_STEREO)      // stereo 8-bit unsigned
+#define RS_STIPCM16S            (RS_PCM16S|0x40|RSF_STEREO)     // stereo 16-bit signed
+#define RS_STIPCM16U            (RS_PCM16U|0x40|RSF_STEREO)     // stereo 16-bit unsigned
+#define RS_STIPCM16M            (RS_PCM16M|0x40|RSF_STEREO)     // stereo 16-bit signed big endian
 // 24-bit signed
-#define RS_PCM24S        (RS_PCM16S|0x80)            // mono 24-bit signed
-#define RS_STIPCM24S    (RS_PCM16S|0x80|RSF_STEREO)    // stereo 24-bit signed
-#define RS_PCM32S        (RS_PCM16S|0xC0)            // mono 24-bit signed
-#define RS_STIPCM32S    (RS_PCM16S|0xC0|RSF_STEREO)    // stereo 24-bit signed
+#define RS_PCM24S               (RS_PCM16S|0x80)                // mono 24-bit signed
+#define RS_STIPCM24S            (RS_PCM16S|0x80|RSF_STEREO)     // stereo 24-bit signed
+#define RS_PCM32S               (RS_PCM16S|0xC0)                // mono 24-bit signed
+#define RS_STIPCM32S            (RS_PCM16S|0xC0|RSF_STEREO)     // stereo 24-bit signed
 
 // NNA types
-#define NNA_NOTECUT        0
-#define NNA_CONTINUE    1
-#define NNA_NOTEOFF        2
-#define NNA_NOTEFADE    3
+#define NNA_NOTECUT         0
+#define NNA_CONTINUE        1
+#define NNA_NOTEOFF         2
+#define NNA_NOTEFADE        3
 
 // DCT types
-#define DCT_NONE        0
-#define DCT_NOTE        1
-#define DCT_SAMPLE        2
-#define DCT_INSTRUMENT    3
+#define DCT_NONE            0
+#define DCT_NOTE            1
+#define DCT_SAMPLE          2
+#define DCT_INSTRUMENT      3
 
 // DNA types
-#define DNA_NOTECUT        0
-#define DNA_NOTEOFF        1
-#define DNA_NOTEFADE    2
+#define DNA_NOTECUT         0
+#define DNA_NOTEOFF         1
+#define DNA_NOTEFADE        2
 
 // Mixer Hardware-Dependent features
 #define SYSMIX_ENABLEMMX    0x01
 #define SYSMIX_WINDOWSNT    0x02
-#define SYSMIX_SLOWCPU        0x04
-#define SYSMIX_FASTCPU        0x08
+#define SYSMIX_SLOWCPU      0x04
+#define SYSMIX_FASTCPU      0x08
 
 // Module flags
-#define SONG_EMBEDMIDICFG    0x0001
-#define SONG_FASTVOLSLIDES    0x0002
-#define SONG_ITOLDEFFECTS    0x0004
-#define SONG_ITCOMPATMODE    0x0008
-#define SONG_LINEARSLIDES    0x0010
+#define SONG_EMBEDMIDICFG   0x0001
+#define SONG_FASTVOLSLIDES  0x0002
+#define SONG_ITOLDEFFECTS   0x0004
+#define SONG_ITCOMPATMODE   0x0008
+#define SONG_LINEARSLIDES   0x0010
 #define SONG_PATTERNLOOP    0x0020
-#define SONG_STEP            0x0040
-#define SONG_PAUSED            0x0080
-#define SONG_FADINGSONG        0x0100
-#define SONG_ENDREACHED        0x0200
-#define SONG_GLOBALFADE        0x0400
+#define SONG_STEP           0x0040
+#define SONG_PAUSED         0x0080
+#define SONG_FADINGSONG     0x0100
+#define SONG_ENDREACHED     0x0200
+#define SONG_GLOBALFADE     0x0400
 #define SONG_CPUVERYHIGH    0x0800
-#define SONG_FIRSTTICK        0x1000
-#define SONG_MPTFILTERMODE    0x2000
+#define SONG_FIRSTTICK      0x1000
+#define SONG_MPTFILTERMODE  0x2000
 #define SONG_SURROUNDPAN    0x4000
-#define SONG_EXFILTERRANGE    0x8000
+#define SONG_EXFILTERRANGE  0x8000
 #define SONG_AMIGALIMITS    0x10000
 
 // Global Options (Renderer)
 #define SNDMIX_REVERSESTEREO    0x0001
-#define SNDMIX_NOISEREDUCTION    0x0002
-#define SNDMIX_AGC                0x0004
-#define SNDMIX_NORESAMPLING        0x0008
-#define SNDMIX_HQRESAMPLER        0x0010
-#define SNDMIX_MEGABASS            0x0020
-#define SNDMIX_SURROUND            0x0040
-#define SNDMIX_REVERB            0x0080
-#define SNDMIX_EQ                0x0100
-#define SNDMIX_SOFTPANNING        0x0200
-#define SNDMIX_ULTRAHQSRCMODE    0x0400
+#define SNDMIX_NOISEREDUCTION   0x0002
+#define SNDMIX_AGC              0x0004
+#define SNDMIX_NORESAMPLING     0x0008
+#define SNDMIX_HQRESAMPLER      0x0010
+#define SNDMIX_MEGABASS         0x0020
+#define SNDMIX_SURROUND         0x0040
+#define SNDMIX_REVERB           0x0080
+#define SNDMIX_EQ               0x0100
+#define SNDMIX_SOFTPANNING      0x0200
+#define SNDMIX_ULTRAHQSRCMODE   0x0400
 // Misc Flags (can safely be turned on or off)
-#define SNDMIX_DIRECTTODISK        0x10000
+#define SNDMIX_DIRECTTODISK     0x10000
 #define SNDMIX_ENABLEMMX        0x20000
-#define SNDMIX_NOBACKWARDJUMPS    0x40000
+#define SNDMIX_NOBACKWARDJUMPS  0x40000
 #define SNDMIX_MAXDEFAULTPAN    0x80000    // Used by the MOD loader
 
 
@@ -301,8 +301,11 @@ enum {
 // Sample Struct
 typedef struct _MODINSTRUMENT
 {
-    UINT nLength,nLoopStart,nLoopEnd;
-    UINT nSustainStart, nSustainEnd;
+    UINT nLength;
+    UINT nLoopStart;
+    UINT nLoopEnd;
+    UINT nSustainStart;
+    UINT nSustainEnd;
     signed char *pSample;
     UINT nC4Speed;
     WORD nPan;
@@ -387,46 +390,93 @@ typedef struct _MODCHANNEL
     DWORD nLoopEnd;
     LONG nRampRightVol;
     LONG nRampLeftVol;
-    LONG nFilter_Y1, nFilter_Y2, nFilter_Y3, nFilter_Y4;
-    LONG nFilter_A0, nFilter_B0, nFilter_B1;
-    LONG nROfs, nLOfs;
+    LONG nFilter_Y1;
+    LONG nFilter_Y2;
+    LONG nFilter_Y3;
+    LONG nFilter_Y4;
+    LONG nFilter_A0;
+    LONG nFilter_B0;
+    LONG nFilter_B1;
+    LONG nROfs;
+    LONG nLOfs;
     LONG nRampLength;
     // Information not used in the mixer
     signed char * pSample;
-    LONG nNewRightVol, nNewLeftVol;
-    LONG nRealVolume, nRealPan;
-    LONG nVolume, nPan, nFadeOutVol;
-    LONG nPeriod, nC4Speed, nPortamentoDest;
+    LONG nNewRightVol;
+    LONG nNewLeftVol;
+    LONG nRealVolume;
+    LONG nRealPan;
+    LONG nVolume;
+    LONG nPan;
+    LONG nFadeOutVol;
+    LONG nPeriod;
+    LONG nC4Speed;
+    LONG nPortamentoDest;
     INSTRUMENTHEADER *pHeader;
     MODINSTRUMENT *pInstrument;
-    DWORD nVolEnvPosition, nPanEnvPosition, nPitchEnvPosition;
-    DWORD nMasterChn, nVUMeter;
-    LONG nGlobalVol, nInsVol;
-    LONG nFineTune, nTranspose;
-    LONG nPortamentoSlide, nAutoVibDepth;
-    UINT nAutoVibPos, nVibratoPos, nTremoloPos, nPanbrelloPos;
+    DWORD nVolEnvPosition;
+    DWORD nPanEnvPosition;
+    DWORD nPitchEnvPosition;
+    DWORD nMasterChn;
+    DWORD nVUMeter;
+    LONG nGlobalVol;
+    LONG nInsVol;
+    LONG nFineTune;
+    LONG nTranspose;
+    LONG nPortamentoSlide;
+    LONG nAutoVibDepth;
+    UINT nAutoVibPos;
+    UINT nVibratoPos;
+    UINT nTremoloPos;
+    UINT nPanbrelloPos;
     // 16-bit members
-    signed short nVolSwing, nPanSwing;
+    signed short nVolSwing;
+    signed short nPanSwing;
     // 8-bit members
-    BYTE nNote, nNNA;
-    BYTE nNewNote, nNewIns, nCommand, nArpeggio;
-    BYTE nOldVolumeSlide, nOldFineVolUpDown;
-    BYTE nOldPortaUpDown, nOldFinePortaUpDown;
-    BYTE nOldPanSlide, nOldChnVolSlide;
-    BYTE nVibratoType, nVibratoSpeed, nVibratoDepth;
-    BYTE nTremoloType, nTremoloSpeed, nTremoloDepth;
-    BYTE nPanbrelloType, nPanbrelloSpeed, nPanbrelloDepth;
-    BYTE nOldCmdEx, nOldVolParam, nOldTempo;
-    BYTE nOldOffset, nOldHiOffset;
-    BYTE nCutOff, nResonance;
-    BYTE nRetrigCount, nRetrigParam;
-    BYTE nTremorCount, nTremorParam;
-    BYTE nPatternLoop, nPatternLoopCount;
-    BYTE nRowNote, nRowInstr;
-    BYTE nRowVolCmd, nRowVolume;
-    BYTE nRowCommand, nRowParam;
-    BYTE nLeftVU, nRightVU;
-    BYTE nActiveMacro, nPadding;
+    BYTE nNote;
+    BYTE nNNA;
+    BYTE nNewNote;
+    BYTE nNewIns;
+    BYTE nCommand;
+    BYTE nArpeggio;
+    BYTE nOldVolumeSlide;
+    BYTE nOldFineVolUpDown;
+    BYTE nOldPortaUpDown;
+    BYTE nOldFinePortaUpDown;
+    BYTE nOldPanSlide;
+    BYTE nOldChnVolSlide;
+    BYTE nVibratoType;
+    BYTE nVibratoSpeed;
+    BYTE nVibratoDepth;
+    BYTE nTremoloType;
+    BYTE nTremoloSpeed;
+    BYTE nTremoloDepth;
+    BYTE nPanbrelloType;
+    BYTE nPanbrelloSpeed;
+    BYTE nPanbrelloDepth;
+    BYTE nOldCmdEx;
+    BYTE nOldVolParam;
+    BYTE nOldTempo;
+    BYTE nOldOffset;
+    BYTE nOldHiOffset;
+    BYTE nCutOff;
+    BYTE nResonance;
+    BYTE nRetrigCount;
+    BYTE nRetrigParam;
+    BYTE nTremorCount;
+    BYTE nTremorParam;
+    BYTE nPatternLoop;
+    BYTE nPatternLoopCount;
+    BYTE nRowNote;
+    BYTE nRowInstr;
+    BYTE nRowVolCmd;
+    BYTE nRowVolume;
+    BYTE nRowCommand;
+    BYTE nRowParam;
+    BYTE nLeftVU;
+    BYTE nRightVU;
+    BYTE nActiveMacro;
+    BYTE nPadding;
 } MODCHANNEL;
 
 
@@ -474,10 +524,11 @@ public:
 
 typedef struct _SNDMIXPLUGINSTATE
 {
-    DWORD dwFlags;                    // MIXPLUG_XXXX
-    LONG nVolDecayL, nVolDecayR;    // Buffer click removal
+    DWORD dwFlags;                  // MIXPLUG_XXXX
+    LONG nVolDecayL;
+    LONG nVolDecayR;                // Buffer click removal
     int *pMixBuffer;                // Stereo effect send buffer
-    float *pOutBufferL;                // Temp storage for int -> float conversion
+    float *pOutBufferL;             // Temp storage for int -> float conversion
     float *pOutBufferR;
 } SNDMIXPLUGINSTATE, *PSNDMIXPLUGINSTATE;
 
