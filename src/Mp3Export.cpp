@@ -11,7 +11,8 @@
 #include <bb/system/SystemProgressDialog>
 #endif
 
-#define DETAILED_LOG
+//#define DETAILED_LOG
+#undef DETAILED_LOG
 #undef WRITE_ID3V1_TAG
 
 using namespace bb::system;
