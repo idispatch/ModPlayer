@@ -559,8 +559,9 @@ void Player::onCurrentFilesChanged() {
 void Player::exportMp3(QString const& title,
                        QString const& inputFileName,
                        QString const& outputFileName) {
-    Mp3Export::convert(*m_playback->configuration(),
-                       title,
-                       inputFileName,
-                       outputFileName);
+    Mp3Export exporter;
+    exporter.convert(*m_playback->configuration(),
+                     title,
+                     inputFileName,
+                     outputFileName);
 }

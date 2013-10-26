@@ -203,6 +203,21 @@
     </message>
 </context>
 <context>
+    <name>Mp3Export</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Creating %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OpenSongActionItem</name>
     <message>
         <source>Open Song from Device</source>

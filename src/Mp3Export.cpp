@@ -5,13 +5,55 @@
 #include <QFile>
 #include <QDebug>
 #include <QByteArray>
+#include <bb/system/SystemProgressToast>
 
 #define DETAILED_LOG
+#undef WRITE_ID3V1_TAG
+
+using namespace bb::system;
+
+Mp3Export::Mp3Export(QObject * parent)
+    : QObject(parent),
+      m_progress(NULL) {
+}
+
+Mp3Export::~Mp3Export() {
+    destroyProgressToast();
+}
+
+void Mp3Export::destroyProgressToast() {
+    if(m_progress != NULL) {
+        m_progress->cancel();
+        delete m_progress;
+        m_progress = NULL;
+    }
+}
+
+void Mp3Export::createProgressToast(QString const& fileName) {
+    destroyProgressToast();
+    m_progress = new SystemProgressToast(0);
+    m_progress->setModality(SystemUiModality::Application);
+    m_progress->setState(SystemUiProgressState::Active);
+    m_progress->setPosition(SystemUiPosition::MiddleCenter);
+    m_progress->setBody(QString(tr("Creating %1")).arg(fileName));
+    m_progress->setStatusMessage(tr("Converting"));
+    m_progress->button()->setLabel(tr("Hide"));
+    m_progress->setProgress(0);
+    m_progress->show();
+}
+
+void Mp3Export::updateProgressToast(int progress) {
+    if(m_progress != NULL) {
+        m_progress->setProgress(progress);
+        m_progress->show();
+    }
+}
 
 bool Mp3Export::convert(PlaybackConfig &config,
                         QString const& title,
                         QString const& inputFileName,
                         QString const& outputFileName) {
+    Q_UNUSED(title);
     bool result = false;
 #ifdef DETAILED_LOG
     qDebug() << "Starting converting" << inputFileName << "to" << outputFileName;
@@ -64,6 +106,11 @@ bool Mp3Export::convert(PlaybackConfig &config,
     qDebug() << "Module" << inputFileName << " loaded successfully";
 #endif
 
+    const int numOrders = ModPlug_NumOrders(module);
+    int currentOrder = 0;
+
+    createProgressToast(FileUtils::fileNameOnly(outputFileName));
+
     int readBytes;
     int writeBytes;
     const int PCM_SIZE = 65536;
@@ -88,7 +135,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         const bool isStereo = config.stereo();
         const int sampleBitSize = config.sampleSize();
         const int numBytesPerSample = sampleBitSize >> 3;
-        const int numChannels = isStereo ? 2 : 0;
+        const int numChannels = (isStereo ? 2 : 1);
 #ifdef DETAILED_LOG
         qDebug() << "Frequency:"
                  << frequency
@@ -100,27 +147,27 @@ bool Mp3Export::convert(PlaybackConfig &config,
                  << numBytesPerSample;
 #endif
         if(-1 == lame_set_in_samplerate(lame, frequency)) {
-            qDebug() << "Failed to set input sample rate";
+            qDebug() << "Failed to set input sample rate:" << frequency;
             break;
         }
 
         if(-1 == lame_set_out_samplerate(lame, frequency)) {
-            qDebug() << "Failed to set output sample rate";
-            break;
-        }
-
-        if(-1 == lame_set_num_channels(lame, numChannels)) {
-            qDebug() << "Failed to set number of channels";
-            break;
-        }
-
-        if(-1 == lame_set_quality(lame, 9)) {
-            qDebug() << "Failed to set quality";
+            qDebug() << "Failed to set output sample rate:" << frequency;
             break;
         }
 
         if(-1 == lame_set_mode(lame, isStereo ? STEREO : MONO)) {
-            qDebug() << "Failed to set mode";
+            qDebug() << "Failed to set mode:" << (isStereo ? STEREO : MONO);
+            break;
+        }
+
+        if(-1 == lame_set_num_channels(lame, numChannels)) {
+            qDebug() << "Failed to set number of channels:" << numChannels;
+            break;
+        }
+
+        if(-1 == lame_set_quality(lame, 9)) {
+            qDebug() << "Failed to set quality:" << 9;
             break;
         }
 
@@ -128,7 +175,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Failed to set variable bit rate";
             break;
         }
-
+#ifdef WRITE_ID3V1_TAG
         if(title.length() > 0) {
             id3tag_set_title(lame, title.toAscii().constData());
         }
@@ -138,7 +185,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         }
 
         lame_set_write_id3tag_automatic(lame, 0);
-
+#endif
         if(0 != lame_init_params(lame)) {
             qDebug() << "Failed to initialise lame parameters";
             break;
@@ -185,6 +232,12 @@ bool Mp3Export::convert(PlaybackConfig &config,
 #ifdef DETAILED_LOG
             qDebug() << "Wrote" << bytesWritten << "bytes";
 #endif
+            int order = ModPlug_GetCurrentOrder(module);
+            if(order != currentOrder) {
+                currentOrder = order;
+                int progress = currentOrder * 100 /numOrders;
+                updateProgressToast(progress);
+            }
         } while(readBytes > 0);
 #ifdef WRITE_ID3V1_TAG
         writeBytes = lame_get_id3v1_tag(lame,
@@ -212,5 +265,8 @@ bool Mp3Export::convert(PlaybackConfig &config,
     } while(0);
 
     ModPlug_Unload(module);
+
+    destroyProgressToast();
+
     return result;
 }
