@@ -91,6 +91,13 @@ Page {
             currentSong: song
         },
         SaveSongActionItem{
+            songTitle: {
+                if(song != null) { 
+                    return song.title 
+                } else { 
+                    return "" 
+                }
+            }
             currentSong: {
                 if(song != null) { 
                     return song.fileName 

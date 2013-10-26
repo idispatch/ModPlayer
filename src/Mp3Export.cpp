@@ -1,6 +1,7 @@
 #include "lamemp3/lame.h"
 #include "modplug/modplug.h"
 #include "Mp3Export.hpp"
+#include "FileUtils.hpp"
 #include <QFile>
 #include <QDebug>
 #include <QByteArray>
@@ -8,11 +9,17 @@
 #define DETAILED_LOG
 
 bool Mp3Export::convert(PlaybackConfig &config,
+                        QString const& title,
                         QString const& inputFileName,
                         QString const& outputFileName) {
     bool result = false;
+#ifdef DETAILED_LOG
     qDebug() << "Starting converting" << inputFileName << "to" << outputFileName;
-
+#endif
+    QString comment = QString("Created by ModPlayer from %1").arg(FileUtils::fileNameOnly(inputFileName));
+#ifdef DETAILED_LOG
+    qDebug() << "Comment:" << comment;
+#endif
     QFile inputFile(inputFileName);
     if(!inputFile.exists()) {
         qDebug() << "Input file" << inputFileName << "does not exist";
@@ -122,6 +129,16 @@ bool Mp3Export::convert(PlaybackConfig &config,
             break;
         }
 
+        if(title.length() > 0) {
+            id3tag_set_title(lame, title.toAscii().constData());
+        }
+
+        if(comment.length() > 0) {
+            id3tag_set_comment(lame, comment.toAscii().constData());
+        }
+
+        lame_set_write_id3tag_automatic(lame, 0);
+
         if(0 != lame_init_params(lame)) {
             qDebug() << "Failed to initialise lame parameters";
             break;
@@ -156,7 +173,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
             }
 
             const int bytesWritten = outputFile.write(mp3_buffer.data(),
-                                                writeBytes);
+                                                      writeBytes);
             if(writeBytes != bytesWritten) {
                 qDebug() << "Failed to write" << writeBytes << "bytes, written:" << bytesWritten;
                 break;
@@ -169,7 +186,23 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Wrote" << bytesWritten << "bytes";
 #endif
         } while(readBytes > 0);
-
+#ifdef WRITE_ID3V1_TAG
+        writeBytes = lame_get_id3v1_tag(lame,
+                                        reinterpret_cast<unsigned char*>(mp3_buffer.data()),
+                                        mp3_buffer.size());
+        if(writeBytes > 0) {
+            const int bytesWritten = outputFile.write(mp3_buffer.data(),
+                                                      writeBytes);
+            if(writeBytes != bytesWritten) {
+                qDebug() << "Failed to write idv3 tag" << writeBytes << "bytes, written:" << bytesWritten;
+                break;
+            }
+            if(!outputFile.flush()) {
+                qDebug() << "Failed to flush idv3 tag";
+                break;
+            }
+        }
+#endif
         if(0 != lame_close(lame)) {
             qDebug() << "Failed to close lame";
             break;

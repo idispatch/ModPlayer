@@ -6,6 +6,7 @@ import player 1.0
 import "functions.js" as Global
 
 ActionItem {
+    property string songTitle
     property string currentSong
     property bool certain: true
     title: qsTr("Save Song to Device")
@@ -14,10 +15,7 @@ ActionItem {
     enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
         var fileName = Global.fileNameOnly(currentSong)
-
-        console.log(title + ", currentSong: " + currentSong)
-        console.log(title + ", fileName: " + fileName)
-
+        filePicker.songTitle = songTitle 
         filePicker.defaultSaveFileNames = [fileName]
         if(Global.isAbsolutePath(currentSong)) {
             filePicker.cacheFileName = currentSong
@@ -40,6 +38,7 @@ ActionItem {
         FilePicker {
             id: filePicker
             property string cacheFileName
+            property string songTitle
             type : FileType.Other
             mode: FilePickerMode.Saver
             allowOverwrite: true
@@ -51,7 +50,9 @@ ActionItem {
                     var newFileName = selectedFiles[0]
                     
                     //app.cache.save(cacheFileName, newFileName)
-                    app.player.exportMp3(cacheFileName, newFileName + ".mp3")
+                    app.player.exportMp3(songTitle, 
+                                         cacheFileName, 
+                                         Global.replaceExtension(newFileName, ".mp3"))
                     
                     app.player.userDirectory = Global.directoryOnly(newFileName)
                     fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 

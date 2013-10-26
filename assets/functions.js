@@ -21,6 +21,10 @@ function directoryOnly(path) {
     return path.substring(0, path.lastIndexOf('/'));
 }
 
+function replaceExtension(path, extension) {
+    return path.substr(0, path.lastIndexOf(".")) + extension;
+}
+
 function getSizeKb(size) {
     var result;
     if(size < 1024) {

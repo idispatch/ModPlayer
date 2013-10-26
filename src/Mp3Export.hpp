@@ -7,6 +7,7 @@
 class Mp3Export {
 public:
     static bool convert(PlaybackConfig &config,
+                        QString const& title,
                         QString const& inputFileName,
                         QString const& outputFileName);
 };
