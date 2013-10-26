@@ -1,3 +1,18 @@
+function isAbsolutePath(path) {
+    return path.length > 0 && path.charAt(0) == '/';
+}
+
+function pathJoin(pathOne, pathTwo) {
+    if(pathOne.length > 0) {
+       if(pathOne.charAt(pathOne.length - 1) == '/') {
+           return pathOne + pathTwo;
+       } else {
+           return pathOne + '/' + pathTwo
+       }
+    }
+    return pathTwo
+}
+
 function fileNameOnly(path) {
     return path.replace(/.*\//, '');
 }

@@ -8,12 +8,38 @@
 bool Mp3Export::convert(PlaybackConfig &config,
                         QString const& inputFileName,
                         QString const& outputFileName) {
+    bool result = false;
     qDebug() << "Starting converting" << inputFileName << "to" << outputFileName;
 
-    bool result = false;
-    QFile fileIn(inputFileName);
-    QFile fileOut(outputFileName);
-    QByteArray data = fileIn.readAll();
+    QFile inputFile(inputFileName);
+    if(!inputFile.exists()) {
+        qDebug() << "Input file" << inputFileName << "does not exist";
+        return result;
+    }
+    if(!inputFile.open(QFile::ReadOnly)) {
+        qDebug() << "Failed to open input file" << inputFileName;
+        return result;
+    }
+
+    QFile outputFile(outputFileName);
+    if(outputFile.exists()) {
+        qDebug() << "Deleting output file" << outputFileName;
+        if(!outputFile.remove()) {
+            qDebug() << "Failed to delete output file" << outputFileName;
+            return result;
+        }
+    }
+
+    if(!outputFile.open(QFile::WriteOnly)) {
+        qDebug() << "Failed to open output file" << outputFileName;
+        return result;
+    }
+
+    QByteArray data = inputFile.readAll();
+    if(data.size() == 0) {
+        qDebug() << "Failed to read file" << inputFileName;
+        return result;
+    }
 
     qDebug() << "Read" << data.size() << "bytes from file" << inputFileName;
 
@@ -44,14 +70,25 @@ bool Mp3Export::convert(PlaybackConfig &config,
 
         const int frequency = config.frequency();
         const bool isStereo = config.stereo();
+        const int sampleBitSize = config.sampleSize();
+        const int numBytesPerSample = sampleBitSize >> 3;
         const int numChannels = isStereo ? 2 : 0;
+
+        qDebug() << "Frequency:"
+                 << frequency
+                 << ", stereo:"
+                 << isStereo
+                 << ", channels:"
+                 << numChannels
+                 << ", bytes per sample:"
+                 << numBytesPerSample;
 
         if(-1 == lame_set_in_samplerate(lame, frequency)) {
             qDebug() << "Failed to set input sample rate";
             break;
         }
 
-        if(-1 == lame_set_out_samplerate(lame, 44100)) {
+        if(-1 == lame_set_out_samplerate(lame, frequency)) {
             qDebug() << "Failed to set output sample rate";
             break;
         }
@@ -81,17 +118,39 @@ bool Mp3Export::convert(PlaybackConfig &config,
             break;
         }
 
+        qDebug() << "Starting encoding, input buffer="
+                 << sizeof(mod_buffer)
+                 << ", output buffer="
+                 << sizeof(mp3_buffer);
+
         do {
             readBytes = ModPlug_Read(module, mod_buffer, sizeof(mod_buffer));
+            qDebug() << "Read" << readBytes << "bytes";
+
             if (readBytes == 0) {
+                qDebug() << "Flushing encoder";
                 writeBytes = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
             } else {
+                int numSamplesPerChannel = readBytes / (numBytesPerSample * numChannels);
                 writeBytes = lame_encode_buffer_interleaved(lame,
                                                             reinterpret_cast<short int*>(mod_buffer),
-                                                            readBytes,
+                                                            numSamplesPerChannel,
                                                             mp3_buffer,
                                                             MP3_SIZE);
             }
+
+            int bytesWritten = outputFile.write(reinterpret_cast<const char*>(mp3_buffer),
+                                                writeBytes);
+            if(writeBytes != bytesWritten) {
+                qDebug() << "Failed to write" << writeBytes << "bytes, written:" << bytesWritten;
+                break;
+            }
+            if(!outputFile.flush()) {
+                qDebug() << "Failed to flush";
+                break;
+            }
+
+            qDebug() << "Wrote" << bytesWritten << "bytes";
         } while(readBytes > 0);
 
         if(0 != lame_close(lame)) {

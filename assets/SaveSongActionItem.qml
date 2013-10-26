@@ -14,8 +14,16 @@ ActionItem {
     enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
         var fileName = Global.fileNameOnly(currentSong)
+
+        console.log(title + ", currentSong: " + currentSong)
+        console.log(title + ", fileName: " + fileName)
+
         filePicker.defaultSaveFileNames = [fileName]
-        filePicker.cacheFileName = fileName
+        if(Global.isAbsolutePath(currentSong)) {
+            filePicker.cacheFileName = currentSong
+        } else {
+            filePicker.cacheFileName = Global.pathJoin(app.cache.cachePath, currentSong)
+        } 
         if(app.player.userDirectory.length > 0) {
             filePicker.directories = [app.player.userDirectory]
         }
@@ -41,7 +49,10 @@ ActionItem {
                 if(selectedFiles.length > 0) 
                 {
                     var newFileName = selectedFiles[0]
-                    app.cache.save(cacheFileName, newFileName)
+                    
+                    //app.cache.save(cacheFileName, newFileName)
+                    app.player.exportMp3(cacheFileName, newFileName + ".mp3")
+                    
                     app.player.userDirectory = Global.directoryOnly(newFileName)
                     fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 
                     fileSaved.show()
