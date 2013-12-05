@@ -1,6 +1,8 @@
 #include "modplug/modplug.h"
 #include "Importer.hpp"
 #include "FileUtils.hpp"
+#include "SongExtendedInfo.hpp"
+#include "SongFormat.hpp"
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -33,10 +35,10 @@ void Importer::import()
 {
     createProgressUI();
 
-    updateProgressUI(tr("Importing from device memory..."), INDEFINITE);
+    updateProgressUI(tr("Importing from device flash memory..."), INDEFINITE);
     scanDirectory(QDir("/accounts/1000/shared"));
 
-    updateProgressUI(tr("Importing from SD card..."), INDEFINITE);
+    updateProgressUI(tr("Importing from device SD card..."), INDEFINITE);
     scanDirectory(QDir("/accounts/1000/removable/sdcard"));
 
     if(m_result.empty())
@@ -54,13 +56,57 @@ void Importer::import()
         updateProgressUI(QString(tr("Imported %1 songs")).arg(totalImported), 100);
     }
 
-    destroyProgressUI();
+    completeProgressUI();
 }
 
 bool Importer::importFile(QString const& fileName, int progress)
 {
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
     updateProgressUI(QString(tr("Importing %1")).arg(fileNameOnly), progress);
+
+    QFile inputFile(fileName);
+    if(!inputFile.exists()) {
+        return false;
+    }
+
+    if(!inputFile.open(QFile::ReadOnly)) {
+        qDebug() << "Failed to open input file" << fileName;
+        return false;
+    }
+
+    QByteArray data = inputFile.readAll();
+    if(data.size() == 0) {
+        qDebug() << "Failed to read file" << fileName;
+        return false;
+    }
+
+    ModPlugFile* module = ::ModPlug_Load(data.data(), data.size());
+    if(module == NULL) {
+        qDebug() << "Failed to load module" << fileName;
+        return false;
+    }
+
+    SongExtendedInfo info(NULL);
+    info.setId(0);
+    info.setFileName(fileName);
+    info.setFileSize(data.size());
+    info.setSongLength(::ModPlug_GetLength(module));
+    info.setTitle(::ModPlug_GetName(module));
+    info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
+
+    info.setInstruments(::ModPlug_NumInstruments(module));
+    info.setChannels(::ModPlug_NumChannels(module));
+    info.setSamples(::ModPlug_NumSamples(module));
+    info.setPatterns(::ModPlug_NumPatterns(module));
+    info.setOrders(::ModPlug_NumOrders(module));
+
+    info.setFormat("");
+    info.setTracker("");
+    info.setGenre("");
+    info.setArtistId(0);
+    info.setArtist("");
+
+    ::ModPlug_Unload(module);
     return true;
 }
 
@@ -72,19 +118,19 @@ void Importer::scanDirectory(QDir const& dir)
    while (!stack.isEmpty()) {
       QString sSubdir = stack.pop();
 #ifdef DETAILED_LOG
-      qDebug().nospace();
       qDebug() << "Importing " << sSubdir << " (stack: " << stack.size() << ")";
-      qDebug().space();
 #endif
       QDir subdir(sSubdir);
       QStringList entries = subdir.entryList(m_filters,
                                              QDir::Files);
-#ifdef DETAILED_LOG
+
       for (int i = 0; i < entries.size(); i++) {
-         qDebug() << "Found" << entries[i];
-      }
+          QString absoluteFileName = FileUtils::joinPath(sSubdir, entries[i]);
+          m_result << absoluteFileName;
+#ifdef DETAILED_LOG
+          qDebug() << "Found" << absoluteFileName;
 #endif
-      m_result += entries;
+      }
 
       QFileInfoList infoEntries = subdir.entryInfoList(QStringList(),
                                                        QDir::AllDirs | QDir::NoDotAndDotDot);
@@ -112,6 +158,13 @@ void Importer::createProgressUI() {
     m_progress->confirmButton()->setEnabled(false);
     m_progress->setProgress(INDEFINITE);
     m_progress->show();
+}
+
+void Importer::completeProgressUI() {
+    if(m_progress) {
+        m_progress->confirmButton()->setEnabled(true);
+        m_progress->exec();
+    }
 }
 
 void Importer::updateProgressUI(QString const& body, int progress) {

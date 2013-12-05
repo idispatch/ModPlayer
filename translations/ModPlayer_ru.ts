@@ -176,14 +176,6 @@
         <translation>Импортирую песни</translation>
     </message>
     <message>
-        <source>Importing from device memory...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Importing from SD card...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No tracker music found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -193,6 +185,14 @@
     </message>
     <message>
         <source>Imported %1 songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing from device flash memory...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing from device SD card...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -623,7 +623,7 @@
     </message>
     <message>
         <source>Songs: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Песен: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation type="obsolete">Песен: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
@@ -644,6 +644,26 @@
     <message>
         <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
         <translation>Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+    </message>
+    <message>
+        <source>Would you like to import local tracker songs?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Personal songs: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import My Tracker Songs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

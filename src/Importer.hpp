@@ -35,6 +35,7 @@ private:
 
     void createProgressUI();
     void destroyProgressUI();
+    void completeProgressUI();
     void updateProgressUI(QString const& body, int progress);
 };
 

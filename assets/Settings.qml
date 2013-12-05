@@ -66,8 +66,20 @@ Sheet {
                             onCreationCompleted: {
                                 app.catalog.resultReady.connect(function(responseId, result) {
                                     if(responseId == requestId) {
-                                        text = qsTr("Songs: <b>%1</b>").arg(result)
+                                        text = qsTr("Catalog songs: <b>%1</b>").arg(result)
                                     }
+                                })
+                                requestId = app.catalog.songCountAsync()
+                            }
+                        }
+                        BlackLabel {
+                            property int requestId
+                            textFormat: TextFormat.Html
+                            onCreationCompleted: {
+                                app.catalog.resultReady.connect(function(responseId, result) {
+                                        if(responseId == requestId) {
+                                            text = qsTr("Personal songs: <b>%1</b>").arg(result)
+                                        }
                                 })
                                 requestId = app.catalog.songCountAsync()
                             }
@@ -256,6 +268,33 @@ Sheet {
                                 SystemToast {
                                     id: myFavouritesResetToast
                                     body: qsTr("My favourites list is reset")
+                                }
+                            ]
+                        }
+                        
+                        Button {
+                            text: qsTr("Import My Tracker Songs")
+                            horizontalAlignment: HorizontalAlignment.Center
+                            topMargin: 40
+                            bottomMargin: 40
+                            onClicked: {
+                                confirmImport.show()
+                            }
+                            attachedObjects: [
+                                SystemDialog {
+                                    id: confirmImport
+                                    title: qsTr("Confirm")
+                                    body: qsTr("Would you like to import local tracker songs?")
+                                    onFinished: {
+                                        if (result == SystemUiResult.ConfirmButtonSelection) {
+                                            app.player.importSongs()
+                                            importToast.show()
+                                        }
+                                    }
+                                },
+                                SystemToast {
+                                    id: importToast
+                                    body: qsTr("Import completed")
                                 }
                             ]
                         }
