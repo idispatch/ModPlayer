@@ -33,6 +33,8 @@ void Importer::clean() {
 
 void Importer::import()
 {
+    m_result.clear();
+
     createProgressUI();
 
     updateProgressUI(tr("Importing from device flash memory..."), INDEFINITE);
@@ -112,7 +114,6 @@ bool Importer::importFile(QString const& fileName, int progress)
 
 void Importer::scanDirectory(QDir const& dir)
 {
-   m_result.clear();
    QStack<QString> stack;
    stack.push(dir.absolutePath());
    while (!stack.isEmpty()) {
