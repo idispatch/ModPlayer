@@ -205,10 +205,6 @@
 <context>
     <name>Mp3Export</name>
     <message>
-        <source>Hide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Creating %1</source>
         <translation type="unfinished"></translation>
     </message>

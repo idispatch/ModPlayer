@@ -205,10 +205,6 @@
 <context>
     <name>Mp3Export</name>
     <message>
-        <source>Hide</source>
-        <translation>Спрятать</translation>
-    </message>
-    <message>
         <source>Creating %1</source>
         <translation>Создаю %1</translation>
     </message>
