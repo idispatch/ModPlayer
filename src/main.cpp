@@ -68,6 +68,7 @@ static void dumpInstanceCounts() {
 
 Q_DECL_EXPORT int main(int argc, char **argv) {
     int rc;
+    ::umask(0);
     QCoreApplication::setOrganizationName("Kosenkov");
     QCoreApplication::setOrganizationDomain("kosenkov.ca");
     QCoreApplication::setApplicationName("ModPlayer");
