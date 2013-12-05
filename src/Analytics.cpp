@@ -204,6 +204,14 @@ void Analytics::exportMp3(QString const& from, QString const& to) const {
     Flurry::Analytics::LogEvent("ExportMp3", parameters, false);
 }
 
+void Analytics::importSongs(bool started) const {
+    if(started) {
+        Flurry::Analytics::LogEvent("Import", started);
+    } else {
+        Flurry::Analytics::EndTimedEvent("Import");
+    }
+}
+
 void Analytics::play() const {
     Flurry::Analytics::LogEvent("PlayCmd", false);
 }

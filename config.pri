@@ -16,6 +16,7 @@ device {
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/FileUtils.cpp) \
+                 $$quote($$BASEDIR/src/Importer.cpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.cpp) \
                  $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
@@ -112,6 +113,7 @@ device {
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/FileUtils.hpp) \
                  $$quote($$BASEDIR/src/Flurry/Flurry.h) \
+                 $$quote($$BASEDIR/src/Importer.hpp) \
                  $$quote($$BASEDIR/src/InstanceCounter.hpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
@@ -193,6 +195,7 @@ device {
                  $$quote($$BASEDIR/src/Catalog.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/FileUtils.cpp) \
+                 $$quote($$BASEDIR/src/Importer.cpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.cpp) \
                  $$quote($$BASEDIR/src/LCDDigits.cpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
@@ -289,6 +292,7 @@ device {
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/FileUtils.hpp) \
                  $$quote($$BASEDIR/src/Flurry/Flurry.h) \
+                 $$quote($$BASEDIR/src/Importer.hpp) \
                  $$quote($$BASEDIR/src/InstanceCounter.hpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \

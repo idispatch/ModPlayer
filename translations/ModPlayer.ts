@@ -170,6 +170,13 @@
     </message>
 </context>
 <context>
+    <name>Importer</name>
+    <message>
+        <source>Importing Tracker Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Instruments</name>
     <message>
         <source>Samples of %1 (%2)</source>

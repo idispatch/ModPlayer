@@ -12,6 +12,7 @@
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
 #include "Mp3Export.hpp"
+#include "Importer.hpp"
 #include "Analytics.hpp"
 
 using namespace bb::multimedia;
@@ -45,6 +46,36 @@ static const char * g_song_extensions_array[] = {
     "*.XM",
     "*.OCT",
     "*.OKT"
+};
+
+class SuspendPlayback
+{
+private:
+    ModPlayback * m_playback;
+    const bool m_wasPlaying;
+private:
+    SuspendPlayback(SuspendPlayback const& other);
+    SuspendPlayback& operator = (SuspendPlayback const& other);
+public:
+    SuspendPlayback(ModPlayback * playback)
+        : m_playback(playback),
+          m_wasPlaying(playback->state() == ModPlayback::Playing)
+    {
+        try {
+            if(m_wasPlaying) {
+                m_playback->stop();
+            }
+        } catch(...) {
+        }
+    }
+    ~SuspendPlayback() {
+        try {
+            if(m_wasPlaying) {
+                m_playback->play();
+            }
+        } catch(...) {
+        }
+    }
 };
 
 Player::Player(QSettings &settings, QObject * parent)
@@ -558,19 +589,25 @@ void Player::onCurrentFilesChanged() {
 
 void Player::exportMp3(QString const& inputFileName,
                        QString const& outputFileName) {
-    const bool wasPlaying = (playback()->state() == ModPlayback::Playing);
-    if(wasPlaying) {
-        playback()->stop();
-    }
+    SuspendPlayback suspender(playback());
 
     Analytics::getInstance()->exportMp3(inputFileName, outputFileName);
     Mp3Export exporter;
     exporter.convert(*m_playback->configuration(),
                      inputFileName,
                      outputFileName);
+}
 
-    if(wasPlaying) {
-        playback()->play();
+void Player::importSongs() {
+    SuspendPlayback suspender(playback());
+
+    Analytics::getInstance()->importSongs(true);
+    try {
+        Importer importer;
+        importer.clean();
+    } catch(...) {
+
     }
+    Analytics::getInstance()->importSongs(false);
 }
 

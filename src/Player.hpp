@@ -85,6 +85,7 @@ public:
 
     Q_INVOKABLE void exportMp3(QString const& inputFileName,
                                QString const& outputFileName);
+    Q_INVOKABLE void importSongs();
 
     using InstanceCounter<Player>::getInstanceCount;
     using InstanceCounter<Player>::getMaxInstanceCount;
