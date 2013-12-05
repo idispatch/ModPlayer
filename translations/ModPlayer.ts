@@ -175,6 +175,26 @@
         <source>Importing Tracker Songs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Importing from device memory...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing from SD card...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No tracker music found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported %1 songs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Instruments</name>

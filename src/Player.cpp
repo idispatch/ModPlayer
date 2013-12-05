@@ -603,8 +603,15 @@ void Player::importSongs() {
 
     Analytics::getInstance()->importSongs(true);
     try {
-        Importer importer;
+        QStringList fileNameFilters;
+        for(size_t i = 0;
+                i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
+                ++i) {
+            fileNameFilters << g_song_extensions_array[i];
+        }
+        Importer importer(fileNameFilters);
         importer.clean();
+        importer.import();
     } catch(...) {
 
     }
