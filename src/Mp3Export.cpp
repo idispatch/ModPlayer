@@ -104,7 +104,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
     qDebug() << "Read" << data.size() << "bytes from file" << inputFileName;
 #endif
 
-    ModPlugFile* module = ModPlug_Load(data.data(), data.size());
+    ModPlugFile* module = ::ModPlug_Load(data.data(), data.size());
     if(module == NULL) {
         qDebug() << "Failed to load module" << inputFileName;
         return result;
@@ -114,7 +114,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
     qDebug() << "Module" << inputFileName << " loaded successfully";
 #endif
 
-    const int numOrders = ModPlug_NumOrders(module);
+    const int numOrders = ::ModPlug_NumOrders(module);
     int currentOrder = 0;
 
     createProgressUI(FileUtils::fileNameOnly(outputFileName));
@@ -205,9 +205,9 @@ bool Mp3Export::convert(PlaybackConfig &config,
         qDebug().space();
 #endif
         do {
-            readBytes = ModPlug_Read(module,
-                                     mod_buffer.data(),
-                                     mod_buffer.size());
+            readBytes = ::ModPlug_Read(module,
+                                       mod_buffer.data(),
+                                       mod_buffer.size());
 #ifdef DETAILED_LOG
             qDebug() << "Read" << readBytes << "bytes";
 #endif
@@ -298,7 +298,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Wrote" << bytesWritten << "bytes";
 #endif
 
-            int order = ModPlug_GetCurrentOrder(module);
+            int order = ::ModPlug_GetCurrentOrder(module);
             if(order != currentOrder) {
                 currentOrder = order;
                 int progress = currentOrder * 100 / numOrders;
@@ -331,7 +331,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         result = true;
     } while(0);
 
-    ModPlug_Unload(module);
+    ::ModPlug_Unload(module);
 
     destroyProgressUI();
 

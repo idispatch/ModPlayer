@@ -374,9 +374,61 @@ lupdate_inclusion {
              $$quote($$BASEDIR/../src/*.cc) \
              $$quote($$BASEDIR/../src/*.cpp) \
              $$quote($$BASEDIR/../src/*.cxx) \
+             $$quote($$BASEDIR/../src/Flurry/*.c) \
+             $$quote($$BASEDIR/../src/Flurry/*.c++) \
+             $$quote($$BASEDIR/../src/Flurry/*.cc) \
+             $$quote($$BASEDIR/../src/Flurry/*.cpp) \
+             $$quote($$BASEDIR/../src/Flurry/*.cxx) \
+             $$quote($$BASEDIR/../src/modplug/*.c) \
+             $$quote($$BASEDIR/../src/modplug/*.c++) \
+             $$quote($$BASEDIR/../src/modplug/*.cc) \
+             $$quote($$BASEDIR/../src/modplug/*.cpp) \
+             $$quote($$BASEDIR/../src/modplug/*.cxx) \
+             $$quote($$BASEDIR/../src/mp3lame/*.c) \
+             $$quote($$BASEDIR/../src/mp3lame/*.c++) \
+             $$quote($$BASEDIR/../src/mp3lame/*.cc) \
+             $$quote($$BASEDIR/../src/mp3lame/*.cpp) \
+             $$quote($$BASEDIR/../src/mp3lame/*.cxx) \
+             $$quote($$BASEDIR/../src/mp3lame/vector/*.c) \
+             $$quote($$BASEDIR/../src/mp3lame/vector/*.c++) \
+             $$quote($$BASEDIR/../src/mp3lame/vector/*.cc) \
+             $$quote($$BASEDIR/../src/mp3lame/vector/*.cpp) \
+             $$quote($$BASEDIR/../src/mp3lame/vector/*.cxx) \
+             $$quote($$BASEDIR/../src/zip/*.c) \
+             $$quote($$BASEDIR/../src/zip/*.c++) \
+             $$quote($$BASEDIR/../src/zip/*.cc) \
+             $$quote($$BASEDIR/../src/zip/*.cpp) \
+             $$quote($$BASEDIR/../src/zip/*.cxx) \
              $$quote($$BASEDIR/../assets/*.qml) \
              $$quote($$BASEDIR/../assets/*.js) \
-             $$quote($$BASEDIR/../assets/*.qs)
+             $$quote($$BASEDIR/../assets/*.qs) \
+             $$quote($$BASEDIR/../assets/images/*.qml) \
+             $$quote($$BASEDIR/../assets/images/*.js) \
+             $$quote($$BASEDIR/../assets/images/*.qs) \
+             $$quote($$BASEDIR/../assets/images/actions/*.qml) \
+             $$quote($$BASEDIR/../assets/images/actions/*.js) \
+             $$quote($$BASEDIR/../assets/images/actions/*.qs) \
+             $$quote($$BASEDIR/../assets/images/backgrounds/*.qml) \
+             $$quote($$BASEDIR/../assets/images/backgrounds/*.js) \
+             $$quote($$BASEDIR/../assets/images/backgrounds/*.qs) \
+             $$quote($$BASEDIR/../assets/images/badges/*.qml) \
+             $$quote($$BASEDIR/../assets/images/badges/*.js) \
+             $$quote($$BASEDIR/../assets/images/badges/*.qs) \
+             $$quote($$BASEDIR/../assets/images/cover/*.qml) \
+             $$quote($$BASEDIR/../assets/images/cover/*.js) \
+             $$quote($$BASEDIR/../assets/images/cover/*.qs) \
+             $$quote($$BASEDIR/../assets/images/formats/*.qml) \
+             $$quote($$BASEDIR/../assets/images/formats/*.js) \
+             $$quote($$BASEDIR/../assets/images/formats/*.qs) \
+             $$quote($$BASEDIR/../assets/images/lcd/*.qml) \
+             $$quote($$BASEDIR/../assets/images/lcd/*.js) \
+             $$quote($$BASEDIR/../assets/images/lcd/*.qs) \
+             $$quote($$BASEDIR/../assets/images/led/*.qml) \
+             $$quote($$BASEDIR/../assets/images/led/*.js) \
+             $$quote($$BASEDIR/../assets/images/led/*.qs) \
+             $$quote($$BASEDIR/../assets/images/vu/*.qml) \
+             $$quote($$BASEDIR/../assets/images/vu/*.js) \
+             $$quote($$BASEDIR/../assets/images/vu/*.qs)
 
     HEADERS +=  $$quote($$BASEDIR/../src/*.h) \
              $$quote($$BASEDIR/../src/*.h++) \

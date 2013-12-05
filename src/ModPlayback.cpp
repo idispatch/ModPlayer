@@ -319,7 +319,7 @@ void ModPlayback::configure_audio() {
 
     settings.mLoopCount = 0;
 
-    ModPlug_SetSettings(&settings);
+    ::ModPlug_SetSettings(&settings);
 
     if(fileName.length() > 0) {
         qDebug() << "Reloading song module" << fileName;
@@ -793,9 +793,9 @@ int ModPlayback::updateChunk() {
     time_read_start = get_clock();
 #endif
 
-    bytesGenerated = ModPlug_Read(m_song,
-                                  m_audioBuffer.data(),
-                                  m_audioBuffer.size());
+    bytesGenerated = ::ModPlug_Read(m_song,
+                                    m_audioBuffer.data(),
+                                    m_audioBuffer.size());
     if(bytesGenerated == 0) {
         m_song.update(true);
         return 0;

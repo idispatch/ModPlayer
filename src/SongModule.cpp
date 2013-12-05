@@ -27,7 +27,7 @@ SongModule::SongModule(QObject *parent) :
 
 SongModule::~SongModule() {
     if (m_modPlug != NULL) {
-        ModPlug_Unload(m_modPlug);
+        ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
     }
 }
@@ -137,7 +137,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     bool songWasLoaded = false;
     if (m_modPlug != NULL) {
         songWasLoaded = true;
-        ModPlug_Unload(m_modPlug);
+        ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
         setCurrentOrder(0);
     }
@@ -147,27 +147,27 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     QFile fileIn(fileName);
     if(fileIn.open(QFile::ReadOnly)) {
         QByteArray data = fileIn.readAll();
-        m_modPlug = ModPlug_Load(data.data(), data.size());
+        m_modPlug = ::ModPlug_Load(data.data(), data.size());
         if (m_modPlug != NULL) {
             m_absoluteFileName = fileName;
             emit absoluteFileNameChanged();
 
             setFileName(fileName);
-            setTitle(ModPlug_GetName(m_modPlug));
+            setTitle(::ModPlug_GetName(m_modPlug));
 
             assignInfo(info);
 
-            const char * description = ModPlug_GetMessage(m_modPlug);
+            const char * description = ::ModPlug_GetMessage(m_modPlug);
             setDescription(description ? description : "");
 
-            setInstruments(ModPlug_NumInstruments(m_modPlug));
-            setChannels(ModPlug_NumChannels(m_modPlug));
-            setSamples(ModPlug_NumSamples(m_modPlug));
-            setPatterns(ModPlug_NumPatterns(m_modPlug));
-            setOrders(ModPlug_NumOrders(m_modPlug));
+            setInstruments(::ModPlug_NumInstruments(m_modPlug));
+            setChannels(::ModPlug_NumChannels(m_modPlug));
+            setSamples(::ModPlug_NumSamples(m_modPlug));
+            setPatterns(::ModPlug_NumPatterns(m_modPlug));
+            setOrders(::ModPlug_NumOrders(m_modPlug));
 
             setFileSize(data.size());
-            setSongLength(ModPlug_GetLength(m_modPlug));
+            setSongLength(::ModPlug_GetLength(m_modPlug));
 
             update();
 
@@ -197,20 +197,29 @@ void SongModule::save(QString const& fileName) {
         if(QFile::remove(fileName)) {
             copyOk = true;
         } else {
+            qDebug() << "Failed to remove file " << fileName;
             copyOk = false;
         }
     } else {
         copyOk = true;
     }
     if(copyOk) {
-        QFile::copy(originalFileName, fileName);
+        if(QFile::copy(originalFileName, fileName) == true) {
+            if(QFile::setPermissions(fileName,
+                                    QFile::ReadOwner | QFile::WriteOwner |
+                                    QFile::ReadUser | QFile::WriteUser |
+                                    QFile::ReadGroup | QFile::WriteGroup |
+                                    QFile::ReadOther | QFile::WriteOther) == false) {
+                qDebug() << "Failed to set permissions for file " << fileName;
+            }
+        }
     }
 }
 
 bool SongModule::unload() {
     if (m_modPlug != NULL)
     {
-        ModPlug_Unload(m_modPlug);
+        ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
 
         m_absoluteFileName = ""; // no song loaded
@@ -237,7 +246,7 @@ bool SongModule::unload() {
 
 bool SongModule::rewind() {
     if (m_modPlug != NULL) {
-        ModPlug_SeekOrder(m_modPlug, 0);
+        ::ModPlug_SeekOrder(m_modPlug, 0);
         update();
         return true;
     }
@@ -247,7 +256,7 @@ bool SongModule::rewind() {
 void SongModule::seekToOrder(int order) {
     if (m_modPlug != NULL) {
         if(order != currentOrder()) {
-            ModPlug_SeekOrder(m_modPlug, order);
+            ::ModPlug_SeekOrder(m_modPlug, order);
             update();
         }
     }
@@ -255,11 +264,11 @@ void SongModule::seekToOrder(int order) {
 
 ArrayDataModel* SongModule::getSampleNames() {
     ArrayDataModel * model = new ArrayDataModel();
-    unsigned sampleCount = ModPlug_NumSamples(m_modPlug);
+    unsigned sampleCount = ::ModPlug_NumSamples(m_modPlug);
     unsigned int i = 0;
     while (sampleCount-- > 0) {
         char buffer[64];
-        ModPlug_SampleName(m_modPlug, i++, buffer);
+        ::ModPlug_SampleName(m_modPlug, i++, buffer);
         QVariantMap sampleInfo;
         sampleInfo["id"] = i;
         sampleInfo["name"] = QVariant::fromValue(QString(buffer));
@@ -270,11 +279,11 @@ ArrayDataModel* SongModule::getSampleNames() {
 
 ArrayDataModel* SongModule::getInstrumentNames() {
     ArrayDataModel * model = new ArrayDataModel();
-    unsigned sampleCount = ModPlug_NumInstruments(m_modPlug);
+    unsigned sampleCount = ::ModPlug_NumInstruments(m_modPlug);
     unsigned int i = 0;
     while (sampleCount-- > 0) {
         char buffer[64];
-        ModPlug_InstrumentName(m_modPlug, i++, buffer);
+        ::ModPlug_InstrumentName(m_modPlug, i++, buffer);
         QVariantMap instrumentInfo;
         instrumentInfo["id"] = i;
         instrumentInfo["name"] = QVariant::fromValue(QString(buffer));
@@ -307,14 +316,14 @@ void SongModule::assignInfo(SongExtendedInfo const& other) {
 }
 
 void SongModule::update(bool endOfSong) {
-    setCurrentOrder(m_modPlug != NULL && !endOfSong ? ModPlug_GetCurrentOrder(m_modPlug) : 0);
-    setCurrentPattern(m_modPlug != NULL && !endOfSong ? ModPlug_GetCurrentPattern(m_modPlug) : 0);
-    setCurrentRow(m_modPlug != NULL && !endOfSong ? ModPlug_GetCurrentRow(m_modPlug) : 0);
-    setCurrentSpeed(m_modPlug != NULL && !endOfSong ? ModPlug_GetCurrentSpeed(m_modPlug) : 0);
-    setCurrentTempo(m_modPlug != NULL && !endOfSong ? ModPlug_GetCurrentTempo(m_modPlug) : 0);
-    setMasterVolume(m_modPlug != NULL && !endOfSong ? ModPlug_GetMasterVolume(m_modPlug) : 0);
-    setPlayingChannels(m_modPlug != NULL && !endOfSong ? ModPlug_GetPlayingChannels(m_modPlug) : 0);
-    setSongLength(m_modPlug != NULL && !endOfSong ? ModPlug_GetLength(m_modPlug) : 0);
+    setCurrentOrder(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentOrder(m_modPlug) : 0);
+    setCurrentPattern(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentPattern(m_modPlug) : 0);
+    setCurrentRow(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentRow(m_modPlug) : 0);
+    setCurrentSpeed(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentSpeed(m_modPlug) : 0);
+    setCurrentTempo(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentTempo(m_modPlug) : 0);
+    setMasterVolume(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetMasterVolume(m_modPlug) : 0);
+    setPlayingChannels(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetPlayingChannels(m_modPlug) : 0);
+    setSongLength(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetLength(m_modPlug) : 0);
 
     updateChannelVU(endOfSong);
 }
@@ -334,7 +343,7 @@ void SongModule::updateChannelVU(bool endOfSong) {
             // Update all channel VU values
             const int numChannels = channels();
             unsigned result[128];
-            ModPlug_GetChannelVUs(m_modPlug, 0, numChannels, result);
+            ::ModPlug_GetChannelVUs(m_modPlug, 0, numChannels, result);
             const size_t numBytes = sizeof(unsigned) * numChannels;
             if(memcmp(m_channelVU, result, numBytes))
             {
@@ -356,19 +365,19 @@ int SongModule::getChannelVU(int channel) {
 ModPlugNote* SongModule::getPattern(int pattern, int* numrows) {
     ModPlugNote* result = NULL;
     if(m_modPlug != 0) {
-        result = ModPlug_GetPattern(m_modPlug,
-                                    pattern,
-                                    reinterpret_cast<unsigned int*>(numrows));
+        result = ::ModPlug_GetPattern(m_modPlug,
+                                      pattern,
+                                      reinterpret_cast<unsigned int*>(numrows));
     }
     return result;
 }
 
 void SongModule::muteChannel(int channel, bool mute) {
-    ModPlug_MuteChannel(m_modPlug, channel, mute);
+    ::ModPlug_MuteChannel(m_modPlug, channel, mute);
 }
 
 bool SongModule::isChannelMuted(int channel) {
-    return ModPlug_IsChannelMuted(m_modPlug, channel);
+    return ::ModPlug_IsChannelMuted(m_modPlug, channel);
 }
 
 SongModule::operator ModPlugFile*() {
