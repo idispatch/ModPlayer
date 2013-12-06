@@ -30,7 +30,7 @@ HorizontalContainer {
         id: searchCriteria
         hintText: qsTr("search songs")
         content {
-            flags: TextFormat.Plain
+            flags: TextContentFlag.ActiveTextOff | TextContentFlag.EmoticonsOff 
         }
         verticalAlignment: VerticalAlignment.Center
         layoutProperties: StackLayoutProperties {

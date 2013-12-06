@@ -6,7 +6,5 @@ SystemProgressToast {
     state: SystemUiProgressState.Active
     position: SystemUiPosition.MiddleCenter
     statusMessage: ""
-    button {
-        label: qsTr("Hide")
-    }
+    button.label: qsTr("Hide")
 }

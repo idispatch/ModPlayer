@@ -66,7 +66,7 @@ Page {
                     if(songs.mode == "search") {
                         return TitleBarExpandableAreaToggleArea.EntireTitleBar
                     } else {
-                        return TitleBarExpandableAreaIndicatorVisibility.IndicatorOnly
+                        return TitleBarExpandableAreaToggleArea.IndicatorOnly
                     }
                 }
             }
