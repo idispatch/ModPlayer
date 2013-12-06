@@ -10,6 +10,7 @@ device {
         PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
         SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+                 $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
                  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
@@ -30,6 +31,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
                  $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
+                 $$quote($$BASEDIR/src/SuspendPlayback.cpp) \
                  $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
@@ -128,6 +130,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
+                 $$quote($$BASEDIR/src/SuspendPlayback.hpp) \
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
@@ -189,6 +192,7 @@ device {
         PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
         SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+                 $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
                  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
@@ -209,6 +213,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
                  $$quote($$BASEDIR/src/SongGenre.cpp) \
                  $$quote($$BASEDIR/src/SongModule.cpp) \
+                 $$quote($$BASEDIR/src/SuspendPlayback.cpp) \
                  $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
@@ -307,6 +312,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
+                 $$quote($$BASEDIR/src/SuspendPlayback.hpp) \
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \

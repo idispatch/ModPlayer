@@ -1,4 +1,5 @@
 #include "Unpacker.hpp"
+#include "FileUtils.hpp"
 #include "zip/JlCompress.h"
 #include <QDebug>
 #include <QDir>
@@ -61,6 +62,9 @@ QString Unpacker::unpackFile(QString const& compressedFile) {
                 else
                 {
                     qDebug() << "Successfully extracted" << newFile;
+                    if(!FileUtils::adjustPermissions(newFile)) {
+                        qDebug() << "Failed to set permissions for file " << newFile;
+                    }
                 }
             }
             else

@@ -17,7 +17,21 @@ int InstanceCounter<Catalog>::s_count;
 template<>
 int InstanceCounter<Catalog>::s_maxCount;
 
-#define SELECT_FROM_SONGS "SELECT id, fileName, title, format, downloads, favourited, score, size, length, playCount, lastPlayed, myFavourite FROM songs "
+static const char * SELECT_FROM_SONGS =
+        "SELECT"
+        " id,"
+        " fileName,"
+        " title,"
+        " format,"
+        " downloads,"
+        " favourited,"
+        " score,"
+        " size,"
+        " length,"
+        " playCount,"
+        " lastPlayed,"
+        " myFavourite "
+        "FROM songs";
 
 int Catalog::Command::s_commandCounter = 0;
 
@@ -158,8 +172,27 @@ void Catalog::copyCatalogToDataFolder() {
     }
 }
 
+int Catalog::asyncCommandSubmit(Command * command) {
+    QMutexLocker locker(&m_mutex);
+    m_commandQueue.enqueue(command);
+    m_cond.wakeOne();
+    return command->id();
+}
+
+int Catalog::asyncCommand(Command::CommandType commandType) {
+    return asyncCommandSubmit(new Command(commandType));
+}
+
+int Catalog::asyncFindCommand(Command::CommandType commandType, int id, int limit) {
+    return asyncCommandSubmit(new FindCommand(commandType, id, limit));
+}
+
+int Catalog::asyncSearchCommand(QString const& query, int limit) {
+    return asyncCommandSubmit(new SearchCommand(query, limit));
+}
+
 int Catalog::songCount() {
-    const char * query = "SELECT count(id) FROM songs";
+    const char * query = "SELECT count(id) FROM songs WHERE id > 0";
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
@@ -169,115 +202,73 @@ int Catalog::songCount() {
 }
 
 int Catalog::songCountAsync() {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new Command(Command::SongCount);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncCommand(Command::SongCount);
+}
+
+int Catalog::personalSongCount() {
+    const char * query = "SELECT count(id) FROM songs WHERE id < 0";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        return sqlQuery.value(0).toInt();
+    }
+    return 0;
+}
+
+int Catalog::personalSongCountAsync() {
+    return asyncCommand(Command::PersonalSongCount);
 }
 
 int Catalog::findFormatsAsync() {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new Command(Command::FormatsList);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncCommand(Command::FormatsList);
 }
 
 int Catalog::findGenresAsync() {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new Command(Command::GenresList);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncCommand(Command::GenresList);
 }
 
 int Catalog::findArtistsAsync() {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new Command(Command::ArtistsList);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncCommand(Command::ArtistsList);
 }
 
 int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::SongsByFormatList, formatId, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::SongsByFormatList, formatId, limit);
 }
 
 int Catalog::findSongsByGenreIdAsync(int genreId, int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::SongsByGenreList, genreId, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::SongsByGenreList, genreId, limit);
 }
 
 int Catalog::findSongsByArtistIdAsync(int artistId, int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::SongsByArtistList, artistId, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::SongsByArtistList, artistId, limit);
 }
 
 int Catalog::findMostDownloadedSongsAsync(int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::MostDownloadedSongs, 0, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::MostDownloadedSongs, 0, limit);
 }
 
 int Catalog::findMostFavouritedSongsAsync(int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::MostFavouritedSongs, 0, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::MostFavouritedSongs, 0, limit);
 }
 
 int Catalog::findMostScoredSongsAsync(int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::MostScoredSongs, 0, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::MostScoredSongs, 0, limit);
 }
 
 int Catalog::findRecentlyPlayedSongsAsync(int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::RecentlyPlayedSongs, 0, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::RecentlyPlayedSongs, 0, limit);
 }
 
 int Catalog::findMyFavouriteSongsAsync(int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::MyFavouriteSongs, 0, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::MyFavouriteSongs, 0, limit);
 }
 
 int Catalog::findMostPlayedSongsAsync(int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new FindCommand(Command::MostPlayedSongs, 0, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncFindCommand(Command::MostPlayedSongs, 0, limit);
 }
 
 int Catalog::searchSongsAsync(QString const& searchTerm, int limit) {
-    QMutexLocker locker(&m_mutex);
-    Command * command = new SearchCommand(searchTerm, limit);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
+    return asyncSearchCommand(searchTerm, limit);
 }
 
 QString Catalog::catalogPath() const {
@@ -622,7 +613,6 @@ ArrayDataModel* Catalog::selectSongBasicInfo(QString const& whereClause,
 
 ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
     QString selectClause = QString(SELECT_FROM_SONGS);
-
     QString whereClause;
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
@@ -755,6 +745,61 @@ void Catalog::resetMyFavourites() {
     Analytics::getInstance()->resetMyFavourites();
 }
 
+void Catalog::clearPersonalSongs() {
+    QString query = QString("DELETE FROM songs "
+                            "WHERE id < 0");
+    m_dataAccess->execute(query);
+}
+
+void Catalog::addPersonalSong(SongExtendedInfo const& info) {
+    QString query = QString("INSERT INTO songs"
+                            " id,"
+                            " fileName,"
+                            " title,"
+                            " format,"
+                            " downloads,"
+                            " favourited,"
+                            " score,"
+                            " size,"
+                            " length,"
+                            " playCount,"
+                            " lastPlayed,"
+                            " myFavourite,"
+                            " tracker,"
+                            " genre,"
+                            " artist,"
+                            " patterns,"
+                            " orders,"
+                            " instruments,"
+                            " samples,"
+                            " channels "
+                            "VALUES "
+                            "(?,?,?,?,?,?,?,?,?,?,"
+                            "?,?,?,?,?,?,?,?,?,?)");
+    QVariantList params;
+    params  << info.id()
+            << info.fileName()
+            << info.title()
+            << info.formatId()
+            << info.downloads()
+            << info.favourited()
+            << info.score()
+            << info.fileSize()
+            << info.songLength()
+            << info.playCount()
+            << info.lastPlayed()
+            << info.myFavourite()
+            << 0  // tracker
+            << 0  // genre
+            << 0  // artist
+            << info.patterns()
+            << info.orders()
+            << info.instruments()
+            << info.samples()
+            << info.channels();
+    m_dataAccess->execute(query, params);
+}
+
 void Catalog::run() {
     bool exitRequested = false;
     while(!exitRequested)
@@ -781,6 +826,9 @@ void Catalog::run() {
             break;
         case Command::SongCount:
             result = QVariant::fromValue(songCount());
+            break;
+        case Command::PersonalSongCount:
+            result = QVariant::fromValue(personalSongCount());
             break;
         case Command::SearchSongs:
             {

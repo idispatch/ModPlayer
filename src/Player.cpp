@@ -11,6 +11,7 @@
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
+#include "SuspendPlayback.hpp"
 #include "Mp3Export.hpp"
 #include "Importer.hpp"
 #include "Analytics.hpp"
@@ -46,36 +47,6 @@ static const char * g_song_extensions_array[] = {
     "*.XM",
     "*.OCT",
     "*.OKT"
-};
-
-class SuspendPlayback
-{
-private:
-    ModPlayback * m_playback;
-    const bool m_wasPlaying;
-private:
-    SuspendPlayback(SuspendPlayback const& other);
-    SuspendPlayback& operator = (SuspendPlayback const& other);
-public:
-    SuspendPlayback(ModPlayback * playback)
-        : m_playback(playback),
-          m_wasPlaying(playback->state() == ModPlayback::Playing)
-    {
-        try {
-            if(m_wasPlaying) {
-                m_playback->stop();
-            }
-        } catch(...) {
-        }
-    }
-    ~SuspendPlayback() {
-        try {
-            if(m_wasPlaying) {
-                m_playback->play();
-            }
-        } catch(...) {
-        }
-    }
 };
 
 Player::Player(QSettings &settings, QObject * parent)
@@ -589,9 +560,8 @@ void Player::onCurrentFilesChanged() {
 
 void Player::exportMp3(QString const& inputFileName,
                        QString const& outputFileName) {
-    SuspendPlayback suspender(playback());
-
     Analytics::getInstance()->exportMp3(inputFileName, outputFileName);
+    SuspendPlayback suspender(playback());
     Mp3Export exporter;
     exporter.convert(*m_playback->configuration(),
                      inputFileName,
@@ -599,9 +569,8 @@ void Player::exportMp3(QString const& inputFileName,
 }
 
 void Player::importSongs() {
-    SuspendPlayback suspender(playback());
-
     Analytics::getInstance()->importSongs(true);
+    SuspendPlayback suspender(playback());
     try {
         QStringList fileNameFilters;
         for(size_t i = 0;
@@ -609,8 +578,7 @@ void Player::importSongs() {
                 ++i) {
             fileNameFilters << g_song_extensions_array[i];
         }
-        Importer importer(fileNameFilters);
-        importer.clean();
+        Importer importer(fileNameFilters, catalog());
         importer.import();
     } catch(...) {
 

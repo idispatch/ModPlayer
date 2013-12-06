@@ -1,6 +1,6 @@
 #include "SongModule.hpp"
 #include "SongFormat.hpp"
-
+#include "FileUtils.hpp"
 #include <QDebug>
 #include <QFile>
 #include <QByteArray>
@@ -205,11 +205,7 @@ void SongModule::save(QString const& fileName) {
     }
     if(copyOk) {
         if(QFile::copy(originalFileName, fileName) == true) {
-            if(QFile::setPermissions(fileName,
-                                    QFile::ReadOwner | QFile::WriteOwner |
-                                    QFile::ReadUser | QFile::WriteUser |
-                                    QFile::ReadGroup | QFile::WriteGroup |
-                                    QFile::ReadOther | QFile::WriteOther) == false) {
+            if(!FileUtils::adjustPermissions(fileName)) {
                 qDebug() << "Failed to set permissions for file " << fileName;
             }
         }

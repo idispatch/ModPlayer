@@ -13,25 +13,30 @@ namespace bb {
 }
 
 class QDir;
+class Catalog;
 
 class Importer : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(Importer)
 private:
+    Catalog * m_catalog;
     bb::system::SystemProgressDialog * m_progress;
     QStringList m_filters;
-    QStringList m_result;
+    int m_numImportedSongs;
     static const int INDEFINITE = -1;
 public:
     Importer(QStringList const& filters,
+             Catalog * catalog,
              QObject * parent = 0);
     ~Importer();
 
+    int numImportedSongs() const;
+
     void clean();
-    void import();
+    int import();
 private:
-    void scanDirectory(QDir const& dir);
-    bool importFile(QString const& fileName, int progress);
+    int scanDirectory(QDir const& dir);
+    bool importFile(QString const& fileName);
 
     void createProgressUI();
     void destroyProgressUI();

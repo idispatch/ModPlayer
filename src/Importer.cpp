@@ -3,6 +3,7 @@
 #include "FileUtils.hpp"
 #include "SongExtendedInfo.hpp"
 #include "SongFormat.hpp"
+#include "Catalog.hpp"
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -17,62 +18,96 @@
 using namespace bb::system;
 
 Importer::Importer(QStringList const& filters,
+                   Catalog * catalog,
                    QObject * parent)
     : QObject(parent),
+      m_catalog(catalog),
       m_progress(NULL),
-      m_filters(filters) {
+      m_filters(filters),
+      m_numImportedSongs(0) {
 }
 
 Importer::~Importer() {
     destroyProgressUI();
 }
 
-void Importer::clean() {
-
+int Importer::numImportedSongs() const {
+    return m_numImportedSongs;
 }
 
-void Importer::import()
-{
-    m_result.clear();
+void Importer::clean() {
+    m_catalog->clearPersonalSongs();
+}
 
+int Importer::import()
+{
+    m_numImportedSongs = 0;
+
+    clean();
     createProgressUI();
 
-    updateProgressUI(tr("Searching for tracker songs in shared files..."), INDEFINITE);
-    scanDirectory(QDir("/accounts/1000/shared/documents"));
-    scanDirectory(QDir("/accounts/1000/shared/downloads"));
-    scanDirectory(QDir("/accounts/1000/shared/music"));
+    static const char * locations[] = {
+        "shared/documents",
+        "shared/downloads",
+        "shared/music",
+        "shared/Box",
+        "shared/Dropbox",
+        "removable/sdcard"
+    };
 
-    updateProgressUI(tr("Searching for tracker songs in Box..."), INDEFINITE);
-    scanDirectory(QDir("/accounts/1000/shared/Box"));
+    for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
+        const char * location = locations[i];
+        QString path = FileUtils::joinPath("/accounts/1000", location);
+        scanDirectory(QDir(path));
+    }
 
-    updateProgressUI(tr("Searching for tracker songs in Dropbox..."), INDEFINITE);
-    scanDirectory(QDir("/accounts/1000/shared/Dropbox"));
-
-    updateProgressUI(tr("Searching for tracker songs on removable SD card..."), INDEFINITE);
-    scanDirectory(QDir("/accounts/1000/removable/sdcard"));
-
-    if(m_result.empty())
+    if(m_numImportedSongs == 0)
     {
-        updateProgressUI(tr("No tracker music found"), 100);
+        updateProgressUI(tr("No tracker songs found"), 100);
     }
     else
     {
-        int totalImported = 0;
-        for (int i = 0; i < m_result.size(); i++) {
-            QString const& absoluteFileName = m_result[i];
-            totalImported += importFile(absoluteFileName, i * 100 / m_result.size()) ? 1 : 0;
-        }
-
-        updateProgressUI(QString(tr("Imported %1 songs")).arg(totalImported), 100);
+        updateProgressUI(QString(tr("Imported %1 songs")).arg(m_numImportedSongs), 100);
     }
 
     completeProgressUI();
+    return m_numImportedSongs;
 }
 
-bool Importer::importFile(QString const& fileName, int progress)
+
+int Importer::scanDirectory(QDir const& root)
+{
+   QStack<QString> stack;
+   stack.push(root.absolutePath());
+   while(!stack.isEmpty()) {
+      QString directoryPath = stack.pop();
+#ifdef DETAILED_LOG
+      qDebug() << "Scanning " << directoryPath;
+#endif
+      QString progressMessage = QString(tr("Searching for tracker songs in %1...")).arg(directoryPath.remove(0, 15)); // "/accounts/1000/"
+      updateProgressUI(progressMessage, INDEFINITE);
+
+      QDir directory(directoryPath);
+      QStringList entries = directory.entryList(m_filters, QDir::Files);
+      for (int i = 0; i < entries.size(); i++) {
+          QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
+          importFile(absoluteFileName);
+      }
+
+      QFileInfoList infoEntries = directory.entryInfoList(QStringList(),
+                                                          QDir::AllDirs | QDir::NoDotAndDotDot);
+      for (int i = 0; i < infoEntries.size(); i++) {
+         stack.push(infoEntries[i].absoluteFilePath());
+      }
+   }
+   return m_numImportedSongs;
+}
+
+bool Importer::importFile(QString const& fileName)
 {
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
-    updateProgressUI(QString(tr("Importing %1")).arg(fileNameOnly), progress);
+    QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
+    updateProgressUI(progressMessage, INDEFINITE);
 
     QFile inputFile(fileName);
     if(!inputFile.exists()) {
@@ -96,8 +131,9 @@ bool Importer::importFile(QString const& fileName, int progress)
         return false;
     }
 
+    ++m_numImportedSongs;
     SongExtendedInfo info(NULL);
-    info.setId(0);
+    info.setId(-m_numImportedSongs);
     info.setFileName(fileName);
     info.setFileSize(data.size());
     info.setSongLength(::ModPlug_GetLength(module));
@@ -117,37 +153,9 @@ bool Importer::importFile(QString const& fileName, int progress)
     info.setArtist("");
 
     ::ModPlug_Unload(module);
+
+    m_catalog->addPersonalSong(info);
     return true;
-}
-
-void Importer::scanDirectory(QDir const& dir)
-{
-   QStack<QString> stack;
-   stack.push(dir.absolutePath());
-   while (!stack.isEmpty()) {
-      QString sSubdir = stack.pop();
-#ifdef DETAILED_LOG
-      qDebug() << "Scanning " << sSubdir << " (stack: " << stack.size() << ")";
-#endif
-      QDir subdir(sSubdir);
-      QStringList entries = subdir.entryList(m_filters,
-                                             QDir::Files);
-
-      for (int i = 0; i < entries.size(); i++) {
-          QString absoluteFileName = FileUtils::joinPath(sSubdir, entries[i]);
-          m_result << absoluteFileName;
-#ifdef DETAILED_LOG
-          qDebug() << "Found" << absoluteFileName;
-#endif
-      }
-
-      QFileInfoList infoEntries = subdir.entryInfoList(QStringList(),
-                                                       QDir::AllDirs | QDir::NoDotAndDotDot);
-      for (int i = 0; i < infoEntries.size(); i++) {
-         QFileInfo& item = infoEntries[i];
-         stack.push(item.absoluteFilePath());
-      }
-   }
 }
 
 void Importer::destroyProgressUI() {

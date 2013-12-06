@@ -25,10 +25,10 @@ class Analytics;
 class Player;
 class Catalog;
 class Cache;
-class Analytics;
 
 class ApplicationUI : public QObject {
     Q_OBJECT
+    Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
@@ -37,6 +37,8 @@ class ApplicationUI : public QObject {
 public:
     ApplicationUI(bb::cascades::Application *app);
     ~ApplicationUI();
+
+    bool isExtendedVersion() const;
 
     QString version() const;
     Player * player() const;
@@ -51,6 +53,7 @@ public:
 
     static const char * QmlNamespace;
 Q_SIGNALS:
+    void isExtendedVersionChanged();
     void versionChanged();
     void playerChanged();
     void catalogChanged();

@@ -176,10 +176,6 @@
         <translation>Импортирую песни</translation>
     </message>
     <message>
-        <source>No tracker music found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Importing %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -188,19 +184,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Searching for tracker songs in shared files...</source>
+        <source>No tracker songs found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Searching for tracker songs in Box...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching for tracker songs in Dropbox...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching for tracker songs on removable SD card...</source>
+        <source>Searching for tracker songs in %1...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -655,10 +643,6 @@
     </message>
     <message>
         <source>Would you like to import local tracker songs?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

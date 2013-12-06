@@ -1,4 +1,5 @@
 #include "FileUtils.hpp"
+#include <QFile>
 
 bool FileUtils::isAbsolute(QString const& fileName) {
     return fileName.startsWith('/');
@@ -48,3 +49,10 @@ QString FileUtils::joinPath(QString const& directory,
     return result;
 }
 
+bool FileUtils::adjustPermissions(QString const& fileName) {
+	return QFile::setPermissions(fileName,
+                                 QFile::ReadOwner | QFile::WriteOwner |
+                                 QFile::ReadUser | QFile::WriteUser |
+                                 QFile::ReadGroup | QFile::WriteGroup |
+                                 QFile::ReadOther | QFile::WriteOther);
+}

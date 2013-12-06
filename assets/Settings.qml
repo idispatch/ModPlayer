@@ -83,7 +83,7 @@ Sheet {
                                             text = qsTr("Personal songs: <b>%1</b>").arg(result)
                                         }
                                 })
-                                requestId = app.catalog.songCountAsync()
+                                requestId = app.catalog.personalSongCountAsync()
                             }
                         }
                         BlackLabel {
@@ -290,13 +290,8 @@ Sheet {
                                     onFinished: {
                                         if (result == SystemUiResult.ConfirmButtonSelection) {
                                             app.player.importSongs()
-                                            importToast.show()
                                         }
                                     }
-                                },
-                                SystemToast {
-                                    id: importToast
-                                    body: qsTr("Import completed")
                                 }
                             ]
                         }

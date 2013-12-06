@@ -232,11 +232,7 @@ void Cache::save(QString const& cacheFileName, QString const& newFileName) {
         }
         if(copyOk) {
             QFile::copy(absoluteCacheFileName, newFileName);
-            if(QFile::setPermissions(newFileName,
-                                    QFile::ReadOwner | QFile::WriteOwner |
-                                    QFile::ReadUser | QFile::WriteUser |
-                                    QFile::ReadGroup | QFile::WriteGroup |
-                                    QFile::ReadOther | QFile::WriteOther) == false) {
+            if(!FileUtils::adjustPermissions(newFileName)) {
                 qDebug() << "Failed to set permissions for file " << newFileName;
             }
             Analytics::getInstance()->saveCache(cacheFileName, newFileName);
@@ -285,11 +281,7 @@ void Cache::exportCache(QString const& directory) {
             if(QFile::copy(fromFile, newFileName))
             {
                 qDebug() << "Copied from" << cacheFileName << "to" << newFileName;
-                if(QFile::setPermissions(newFileName,
-                        QFile::ReadOwner | QFile::WriteOwner |
-                        QFile::ReadUser | QFile::WriteUser |
-                        QFile::ReadGroup | QFile::WriteGroup |
-                        QFile::ReadOther | QFile::WriteOther) == false) {
+                if(!FileUtils::adjustPermissions(newFileName)) {
                     qDebug() << "Failed to set permissions for file " << newFileName;
                 }
                 numCopiedFiles += 1;

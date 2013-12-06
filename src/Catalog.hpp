@@ -41,6 +41,9 @@ public:
     int songCount();
     Q_INVOKABLE int songCountAsync();
 
+    int personalSongCount();
+    Q_INVOKABLE int personalSongCountAsync();
+
     QString catalogPath() const;
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findFormats();
@@ -95,6 +98,9 @@ public:
     Q_INVOKABLE void resetPlayCounts();
     Q_INVOKABLE void resetMyFavourites();
 
+    Q_INVOKABLE void clearPersonalSongs();
+    Q_INVOKABLE void addPersonalSong(SongExtendedInfo const& info);
+
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;
 Q_SIGNALS:
@@ -123,6 +129,7 @@ private:
         enum CommandType
         {
             SongCount,
+            PersonalSongCount,
             SearchSongs,
 
             FormatsList,
@@ -205,7 +212,12 @@ private:
         const QString m_query;
         const int m_limit;
     };
-
+private:
+    int asyncCommandSubmit(Command * command);
+    int asyncCommand(Command::CommandType commandType);
+    int asyncFindCommand(Command::CommandType commandType, int id, int limit);
+    int asyncSearchCommand(QString const& query, int limit);
+private:
     QQueue<Command*> m_commandQueue;
     QMutex m_mutex;
     QWaitCondition m_cond;

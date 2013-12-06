@@ -10,6 +10,8 @@ public:
                             QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
     static QString directoryOnly(QString const& fileName);
+
+    static bool adjustPermissions(QString const& fileName);
 };
 
 #endif /* FILEUTILS_HPP_ */
