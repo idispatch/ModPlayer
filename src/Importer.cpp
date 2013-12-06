@@ -37,10 +37,18 @@ void Importer::import()
 
     createProgressUI();
 
-    updateProgressUI(tr("Importing from device flash memory..."), INDEFINITE);
-    scanDirectory(QDir("/accounts/1000/shared"));
+    updateProgressUI(tr("Searching for tracker songs in shared files..."), INDEFINITE);
+    scanDirectory(QDir("/accounts/1000/shared/documents"));
+    scanDirectory(QDir("/accounts/1000/shared/downloads"));
+    scanDirectory(QDir("/accounts/1000/shared/music"));
 
-    updateProgressUI(tr("Importing from device SD card..."), INDEFINITE);
+    updateProgressUI(tr("Searching for tracker songs in Box..."), INDEFINITE);
+    scanDirectory(QDir("/accounts/1000/shared/Box"));
+
+    updateProgressUI(tr("Searching for tracker songs in Dropbox..."), INDEFINITE);
+    scanDirectory(QDir("/accounts/1000/shared/Dropbox"));
+
+    updateProgressUI(tr("Searching for tracker songs on removable SD card..."), INDEFINITE);
     scanDirectory(QDir("/accounts/1000/removable/sdcard"));
 
     if(m_result.empty())
@@ -119,7 +127,7 @@ void Importer::scanDirectory(QDir const& dir)
    while (!stack.isEmpty()) {
       QString sSubdir = stack.pop();
 #ifdef DETAILED_LOG
-      qDebug() << "Importing " << sSubdir << " (stack: " << stack.size() << ")";
+      qDebug() << "Scanning " << sSubdir << " (stack: " << stack.size() << ")";
 #endif
       QDir subdir(sSubdir);
       QStringList entries = subdir.entryList(m_filters,

@@ -64,6 +64,7 @@ Sheet {
                             property int requestId
                             textFormat: TextFormat.Html
                             onCreationCompleted: {
+                                text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...")
                                 app.catalog.resultReady.connect(function(responseId, result) {
                                     if(responseId == requestId) {
                                         text = qsTr("Catalog songs: <b>%1</b>").arg(result)
@@ -76,6 +77,7 @@ Sheet {
                             property int requestId
                             textFormat: TextFormat.Html
                             onCreationCompleted: {
+                                text = qsTr("Personal songs: <b>%1</b>").arg("calculating...")
                                 app.catalog.resultReady.connect(function(responseId, result) {
                                         if(responseId == requestId) {
                                             text = qsTr("Personal songs: <b>%1</b>").arg(result)

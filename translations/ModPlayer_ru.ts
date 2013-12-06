@@ -188,11 +188,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Importing from device flash memory...</source>
+        <source>Searching for tracker songs in shared files...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Importing from device SD card...</source>
+        <source>Searching for tracker songs in Box...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for tracker songs in Dropbox...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for tracker songs on removable SD card...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
