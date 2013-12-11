@@ -1,3 +1,7 @@
+PRAGMA foreign_keys=1;
+PRAGMA page_size=8192;
+PRAGMA user_version=2;
+
 CREATE TABLE artists
 (
 	id INTEGER PRIMARY KEY,
@@ -19,7 +23,6 @@ CREATE TABLE formats
 	name TEXT NOT NULL,
 	description TEXT NOT NULL
 );
-
 
 CREATE TABLE trackers
 (
@@ -52,10 +55,30 @@ CREATE TABLE songs
 	orders INTEGER NOT NULL,
 	instruments INTEGER NOT NULL,
 	samples INTEGER NOT NULL,
-	channels INTEGER NOT NULL
+	channels INTEGER NOT NULL,
+	
+	CONSTRAINT FK_songs_formats FOREIGN KEY (format) REFERENCES formats (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT FK_songs_trackers FOREIGN KEY (tracker) REFERENCES trackers (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT FK_songs_genres FOREIGN KEY (genre) REFERENCES genres (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT FK_songs_artists FOREIGN KEY (artist) REFERENCES artists (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
-CREATE UNIQUE INDEX IX_artists_name ON artists (name);
+CREATE TABLE playlists
+(
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL
+);
+
+CREATE TABLE playlistEntries
+(
+	playlistId INTEGER,
+	songId INTEGER,
+    songOrder INTEGER,
+    CONSTRAINT FK_playlistEntries_playlists FOREIGN KEY (playlistId) REFERENCES playlists (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_playlistEntries_songs FOREIGN KEY (songId) REFERENCES songs (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE        INDEX IX_artists_name ON artists (name);
 CREATE        INDEX IX_artists_score ON artists (score);
 CREATE        INDEX IX_artists_downloads ON artists (downloads);
 CREATE        INDEX IX_artists_rating ON artists (rating);
@@ -148,8 +171,6 @@ INSERT INTO genres (id, name) VALUES (27, 'Reggae');
 INSERT INTO genres (id, name) VALUES (24, 'Ska');
 INSERT INTO genres (id, name) VALUES (25, 'Soul');
 INSERT INTO genres (id, name) VALUES (0, '- N/A -');
-
-INSERT INTO artists (id, name) VALUES (0, '- N/A -');
 
 INSERT INTO formats (id, name, description) VALUES (1, 'MOD', 'Amiga Module');
 INSERT INTO formats (id, name, description) VALUES (2, '669', '669 Mod Composer Module');
