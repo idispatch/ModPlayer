@@ -60,7 +60,7 @@ Player::Player(QSettings &settings, QObject * parent)
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
       m_playback(new ModPlayback(settings, this)),
-      m_playlist(Playlist::PlaylistOnce),
+      m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     initCache();
     initDownloader();
@@ -70,7 +70,7 @@ Player::Player(QSettings &settings, QObject * parent)
 }
 
 Player::~Player() {
-    m_settings.setValue("player/mode", (int)playlist.mode());
+    m_settings.setValue("player/mode", (int)m_playlist->mode());
     if(m_catalog != NULL) {
         m_catalog->stopThread();
     }
@@ -135,7 +135,7 @@ void Player::initPlayback() {
     Q_UNUSED(rc);
 
     int mode = m_settings.value("player/mode", Playlist::PlaylistOnce).toInt();
-    m_playlist.setMode(static_cast<Playlist::Mode>(mode));
+    m_playlist->setMode(static_cast<Playlist::Mode>(mode));
     m_playback->start(QThread::HighPriority);
 }
 
@@ -313,7 +313,7 @@ ModPlayback * Player::playback() const {
 }
 
 Playlist * Player::playlist() const {
-    return &m_playlist;
+    return m_playlist;
 }
 
 SongModule * Player::currentSong() const {
@@ -324,7 +324,7 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
     bool rv = false;
     QString fileNamePart = FileUtils::fileNameOnly(fileName);
     SongExtendedInfo * info = NULL;
-    
+
     if(fromCatalog) {
         info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
     } else {
@@ -533,10 +533,10 @@ void Player::onStopped() {
 }
 
 void Player::onFinished() {
-    switch(m_playlist.mode()){
+    switch(m_playlist->mode()){
     case Playlist::SongOnce:
-        m_playlist.reset();
-        break;    
+        m_playlist->reset();
+        break;
     case Playlist::SongCycle:
         m_playback->play();
         break;
@@ -544,10 +544,10 @@ void Player::onFinished() {
     case Playlist::PlaylistRandomOnce:
     case Playlist::PlaylistCycle:
     case Playlist::PlaylistRandomCycle:
-        if(m_playback.atEnd()) {
-            m_playlist.reset();
+        if(m_playlist->atEnd()) {
+            m_playlist->reset();
         } else {
-            playByModuleId(m_playlist.next());
+            playByModuleId(m_playlist->next());
 	}
         break;
     default:

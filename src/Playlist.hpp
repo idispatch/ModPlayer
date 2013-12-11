@@ -6,16 +6,6 @@
 #include <deque>
 
 class Playlist : public QObject {
-    Q_OBJECT
-    Q_DISABLE_COPY(Playlist)
-    Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
-    Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
-    Q_PROPERTY(int remaining READ remaining NOTIFY remainingChanged FINAL)
-    Q_PROPERTY(int current READ current NOTIFY currentChanged FINAL)
-    Q_PROPERTY(bool empty READ empty NOTIFY emptyChanged FINAL)
-    Q_PROPERTY(bool atEnd READ atEnd NOTIFY atEndChanged FINAL)
-    Q_PROPERTY(bool nextAvailable READ nextAvailable NOTIFY nextAvailableChanged FINAL)
-    Q_PROPERTY(bool previousAvailable READ previousAvailable NOTIFY previousAvailableChanged FINAL)
 public:
     enum Mode {
         // 1st bit: 0=song,       1=playlist
@@ -29,22 +19,35 @@ public:
         PlaylistRandomCycle = 0x111  //Play playlist randomly and repeat
     };
     Q_ENUMS(Mode)
+private:
+    Q_OBJECT
+    Q_DISABLE_COPY(Playlist)
+    Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
+    Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
+    Q_PROPERTY(int remaining READ remaining NOTIFY remainingChanged FINAL)
+    Q_PROPERTY(int current READ current NOTIFY currentChanged FINAL)
+    Q_PROPERTY(bool empty READ empty NOTIFY emptyChanged FINAL)
+    Q_PROPERTY(bool atEnd READ atEnd NOTIFY atEndChanged FINAL)
+    Q_PROPERTY(bool nextAvailable READ nextAvailable NOTIFY nextAvailableChanged FINAL)
+    Q_PROPERTY(bool previousAvailable READ previousAvailable NOTIFY previousAvailableChanged FINAL)
 public:
-    Playlist();
-    Playlist(Mode mode);
+    Playlist(QObject * parent = 0);
+    Playlist(Mode mode, QObject * parent = 0);
     ~Playlist();
 
-    bool isRandom() const;
-    bool isCyclic() const;
-    int current() const;
     Q_INVOKABLE void clear();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void add(int id);
+    Q_INVOKABLE int next();
+    Q_INVOKABLE int previous();
+
+    bool isRandom() const;
+    bool isCyclic() const;
+
+    int current() const;
     int count() const;
     int remaining() const;
     bool empty() const;
-    Q_INVOKABLE int next();
-    Q_INVOKABLE int previous();
     bool atEnd() const;
     bool previousAvailable() const;
     bool nextAvailable() const;
@@ -80,7 +83,7 @@ private:
         bool previousAvailable() const { return m_previousAvailable; }
     };
     void notify(State const& state);
-public signals:
+Q_SIGNALS:
 #if defined(NO_QT)
     void currentChanged() {
         std::cout << " *currentChanged" << std::endl;
@@ -119,5 +122,5 @@ private:
     std::deque<int> m_history;
 };
 
-Q_DECLARE_METATYPE(Playlist*);
+//Q_DECLARE_METATYPE(Playlist*);
 #endif

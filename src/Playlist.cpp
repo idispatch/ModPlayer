@@ -3,15 +3,15 @@
 #include <algorithm>
 #include <iterator>
 
-Playlist::Playlist() 
-    : m_mode(PlaylistOnce) 
+Playlist::Playlist(QObject * parent)
+    : QObject(parent), m_mode(PlaylistOnce)
 {}
 
-Playlist::Playlist(Mode mode) 
-    : m_mode(mode) 
+Playlist::Playlist(Playlist::Mode mode, QObject * parent)
+    : QObject(parent), m_mode(mode)
 {}
 
-Playlist::~Playlist() 
+Playlist::~Playlist()
 {}
 
 bool Playlist::isRandom() const {
@@ -188,11 +188,11 @@ bool Playlist::nextAvailable() const {
     return !atEnd();
 }
 
-Mode Playlist::mode() const {
+Playlist::Mode Playlist::mode() const {
     return m_mode;
 }
 
-void Playlist::setMode(Mode mode) {
+void Playlist::setMode(Playlist::Mode mode) {
     switch(mode) {
     case SongOnce:
     case PlaylistOnce:

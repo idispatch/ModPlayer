@@ -26,6 +26,7 @@ device {
                  $$quote($$BASEDIR/src/PatternView.cpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/Playlist.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongExtendedInfo.cpp) \
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
@@ -125,6 +126,7 @@ device {
                  $$quote($$BASEDIR/src/PatternView.hpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/Playlist.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongExtendedInfo.hpp) \
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
@@ -208,6 +210,7 @@ device {
                  $$quote($$BASEDIR/src/PatternView.cpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
+                 $$quote($$BASEDIR/src/Playlist.cpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
                  $$quote($$BASEDIR/src/SongExtendedInfo.cpp) \
                  $$quote($$BASEDIR/src/SongFormat.cpp) \
@@ -307,6 +310,7 @@ device {
                  $$quote($$BASEDIR/src/PatternView.hpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
+                 $$quote($$BASEDIR/src/Playlist.hpp) \
                  $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
                  $$quote($$BASEDIR/src/SongExtendedInfo.hpp) \
                  $$quote($$BASEDIR/src/SongFormat.hpp) \

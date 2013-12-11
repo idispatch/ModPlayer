@@ -294,15 +294,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cycle Playlist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Random Playlist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Repeat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Cycle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Random Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Random Cycle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

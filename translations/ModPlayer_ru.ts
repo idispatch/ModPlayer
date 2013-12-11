@@ -295,15 +295,27 @@
     </message>
     <message>
         <source>Cycle Playlist</source>
-        <translation>Повторить</translation>
+        <translation type="obsolete">Повторить</translation>
     </message>
     <message>
         <source>Random Playlist</source>
-        <translation>Случайно</translation>
+        <translation type="obsolete">Случайно</translation>
     </message>
     <message>
         <source>Repeat</source>
         <translation>Повторить</translation>
+    </message>
+    <message>
+        <source>Playlist Cycle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Random Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Random Cycle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
