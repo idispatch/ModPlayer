@@ -19,9 +19,9 @@
 !done! UI, bitmaps
 !done! Player: LED display in player
 !done! Player: playback controls 
-* Player: Equalizer in player
-* Search songs
-* Songs by Author
+!done!  Player: Equalizer in player
+!done!  Search songs
+!done!  Songs by Author
 * Share song
 * NavigationPane property
 

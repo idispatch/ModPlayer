@@ -11,6 +11,7 @@
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
 #include "ModPlayback.hpp"
+#include "Playlist.hpp"
 #include "SuspendPlayback.hpp"
 #include "Mp3Export.hpp"
 #include "Importer.hpp"
@@ -53,13 +54,13 @@ Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_settings(settings),
       m_state(Stopped),
-      m_mode(PlaySongOnce),
       m_statusText(tr("Stopped")),
       m_catalog(new Catalog(this)),
       m_cache(new Cache(m_settings, this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
       m_playback(new ModPlayback(settings, this)),
+      m_playlist(Playlist::PlaylistOnce),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     initCache();
     initDownloader();
@@ -69,7 +70,7 @@ Player::Player(QSettings &settings, QObject * parent)
 }
 
 Player::~Player() {
-    m_settings.setValue("player/mode", m_mode);
+    m_settings.setValue("player/mode", (int)playlist.mode());
     if(m_catalog != NULL) {
         m_catalog->stopThread();
     }
@@ -133,7 +134,8 @@ void Player::initPlayback() {
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    m_mode = static_cast<Player::Mode>(m_settings.value("player/mode", Player::PlaySongOnce).toInt());
+    int mode = m_settings.value("player/mode", Playlist::PlaylistOnce).toInt();
+    m_playlist.setMode(static_cast<Playlist::Mode>(mode));
     m_playback->start(QThread::HighPriority);
 }
 
@@ -294,17 +296,6 @@ void Player::setUserDirectory(QString const& value) {
     }
 }
 
-Player::Mode Player::mode() const {
-    return m_mode;
-}
-
-void Player::setMode(Player::Mode mode) {
-    if(mode != m_mode) {
-        m_mode = mode;
-        emit modeChanged();
-    }
-}
-
 Catalog * Player::catalog() const {
     return m_catalog;
 }
@@ -321,6 +312,10 @@ ModPlayback * Player::playback() const {
     return m_playback;
 }
 
+Playlist * Player::playlist() const {
+    return &m_playlist;
+}
+
 SongModule * Player::currentSong() const {
     return m_playback->currentSong();
 }
@@ -329,6 +324,7 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
     bool rv = false;
     QString fileNamePart = FileUtils::fileNameOnly(fileName);
     SongExtendedInfo * info = NULL;
+    
     if(fromCatalog) {
         info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
     } else {
@@ -537,8 +533,25 @@ void Player::onStopped() {
 }
 
 void Player::onFinished() {
-    if(m_mode == RepeatSong) {
+    switch(m_playlist.mode()){
+    case Playlist::SongOnce:
+        m_playlist.reset();
+        break;    
+    case Playlist::SongCycle:
         m_playback->play();
+        break;
+    case Playlist::PlaylistOnce:
+    case Playlist::PlaylistRandomOnce:
+    case Playlist::PlaylistCycle:
+    case Playlist::PlaylistRandomCycle:
+        if(m_playback.atEnd()) {
+            m_playlist.reset();
+        } else {
+            playByModuleId(m_playlist.next());
+	}
+        break;
+    default:
+        break;
     }
 }
 

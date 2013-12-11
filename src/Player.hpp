@@ -14,6 +14,7 @@ class Downloader;
 class Unpacker;
 class SongModule;
 class ModPlayback;
+class Playlist;
 
 namespace bb {
     namespace multimedia {
@@ -37,15 +38,6 @@ public:
         Preparing = 102
     };
 
-    enum Mode
-    {
-        PlaySongOnce = 0,
-        RepeatSong = 1,
-        PlayPlaylistOnce = 2,
-        RepeatPlaylist = 3,
-        RandomSongPlaylist = 4
-    };
-
     Player(QSettings &settings, QObject * parent);
     ~Player();
 
@@ -53,12 +45,11 @@ public:
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
     Q_PROPERTY(QString userDirectory READ userDirectory WRITE setUserDirectory NOTIFY userDirectoryChanged FINAL)
 
-    Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
-
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Downloader* downloader READ downloader FINAL)
     Q_PROPERTY(ModPlayback* playback READ playback NOTIFY playbackChanged FINAL)
+    Q_PROPERTY(Playlist* playlist READ playlist NOTIFY playlistChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
     State state() const;
@@ -67,13 +58,11 @@ public:
     QString userDirectory() const;
     void setUserDirectory(QString const& value);
 
-    Mode mode() const;
-    void setMode(Mode mode);
-
     Cache * cache() const;
     Catalog * catalog() const;
     Downloader * downloader() const;
     ModPlayback * playback() const;
+    Playlist * playlist() const;
     SongModule * currentSong() const;
 
     Q_INVOKABLE void playLocalSong(QString const& fileName);
@@ -98,6 +87,7 @@ Q_SIGNALS:
     void cacheChanged();
     void catalogChanged();
     void playbackChanged();
+    void playlistChanged();
     void currentSongChanged();
 private slots:
     /* For FilePicker */
@@ -145,7 +135,6 @@ private:
 private:
     QSettings &m_settings;
     State m_state;
-    Mode m_mode;
     QMap<int, QUrl> m_formatIdToIconUrlMap;
     QString m_statusText;
     QString m_userDirectory;
@@ -154,6 +143,7 @@ private:
     Downloader * m_downloader;
     Unpacker * m_unpacker;
     ModPlayback * m_playback;
+    Playlist * m_playlist;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
 };
 
