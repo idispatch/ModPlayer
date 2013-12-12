@@ -48,12 +48,6 @@ Page {
                         title: ListItem.data.name
                         description: " "
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
-                        function playPlaylist() {
-                            ListItem.view.playPlaylist(ListItem.data)
-                        }
-                        function deletePlaylist() {
-                            ListItem.view.deletePlaylist(ListItem.data)
-                        }
                         contextActions: [
                             ActionSet {
                                 title: playlistEntry.ListItem.data.name
@@ -64,13 +58,13 @@ Page {
                                         enabled: playlistEntry.ListItem.data.count > 0
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {
-                                            playlistEntry.playPlaylist()
+                                            playlistEntry.ListItem.view.playPlaylist(playlistEntry.ListItem.data)
                                         }
                                     },
                                     DeleteActionItem {
                                         title: qsTr("Delete Playlist")
                                         onTriggered: {
-                                            playlistEntry.deletePlaylist()
+                                            playlistEntry.ListItem.view.deletePlaylist(playlistEntry.ListItem.data)
                                         }
                                     }
                                 ]
@@ -97,6 +91,9 @@ Page {
     function unload() {
         progress.start()
         playlistsList.visible = false
+        if(playlistsList.dataModel) {
+            playlistsList.dataModel.clear()
+        }
         playlistsList.resetDataModel()
     }
     function load() {
