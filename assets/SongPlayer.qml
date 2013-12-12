@@ -187,13 +187,10 @@ Page {
         app.player.stateChanged.connect(function() {
             if(app.player.state == Player.Downloading ||
                app.player.state == Player.Resolving ||
-               app.player.state == Player.Preparing) 
-            {
+               app.player.state == Player.Preparing) {
                 progress.body = qsTr("Downloading song")
                 progress.show()
-            } 
-            else 
-            {
+            } else {
                 progress.cancel()
             }
         })
