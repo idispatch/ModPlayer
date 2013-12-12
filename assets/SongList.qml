@@ -366,10 +366,10 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: songListPage.navigationPane
         },
-        NextActionItem {
-            ActionBar.placement: ActionBarPlacement.InOverflow
-        },
         PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
+        },
+        NextActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         PreviousActionItem {
@@ -381,6 +381,8 @@ Page {
         OpenSongActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        AppWorldActionItem{}
+        AppWorldActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        }
     ]
 }

@@ -5,8 +5,10 @@ ActionItem {
     title: {
         if(app.player.state == Player.Paused) {
             return qsTr("Resume")
+        } else if(app.player.state == Player.Playing) {
+        	return qsTr("Pause")
         } else {
-            return qsTr("Pause")
+            return qsTr("Play")
         }
     }
     enabled: {
@@ -15,13 +17,12 @@ ActionItem {
                  app.player.state == Player.Playing);
     }
     imageSource: {
-        if(app.player.state == Player.Paused) {
+        if(app.player.state == Player.Paused || app.player.state == Player.Stopped) {
             return "asset:///images/actions/icon_play.png"
         } else {
             return "asset:///images/actions/icon_pause.png"
         }
     } 
-    ActionBar.placement: ActionBarPlacement.OnBar
     onTriggered: {
         if(app.player.state == Player.Paused) {
             app.player.resume()

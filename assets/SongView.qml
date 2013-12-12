@@ -119,6 +119,8 @@ Page {
         OpenSongActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        AppWorldActionItem{}
+        AppWorldActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        }
     ]
 }

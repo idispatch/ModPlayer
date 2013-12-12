@@ -36,10 +36,14 @@ Page {
         },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong.songLoaded
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         RemoveFavouriteActionItem {
             currentSong: app.player.currentSong.songLoaded
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        AppWorldActionItem{}
+        AppWorldActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        }
     ]
 }

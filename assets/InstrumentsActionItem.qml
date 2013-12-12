@@ -5,7 +5,6 @@ ActionItem {
     title: qsTr("Instruments and Samples")
     imageSource: "asset:///images/actions/icon_samples.png"
     enabled: app.player.currentSong.songLoaded
-    ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered : {
         var view = instrumentsViewDefinition.createObject()
         navigationPane.push(view)

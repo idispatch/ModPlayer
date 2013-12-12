@@ -20,7 +20,9 @@ Sheet {
             }
         }
         actions: [
-            AppWorldActionItem{}
+            AppWorldActionItem{
+                ActionBar.placement: ActionBarPlacement.InOverflow
+            }
         ]
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill

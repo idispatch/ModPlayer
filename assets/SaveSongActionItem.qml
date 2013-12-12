@@ -11,7 +11,6 @@ ActionItem {
     property bool certain: true
     title: qsTr("Save Song to Device")
     imageSource: "asset:///images/actions/icon_save_song.png"
-    ActionBar.placement: ActionBarPlacement.InOverflow
     enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
         var result = selectSaveFormat.run()

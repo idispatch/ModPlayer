@@ -6,7 +6,6 @@ ActionItem {
     title: qsTr("Songs by Artist")
     imageSource: "asset:///images/actions/icon_artist.png"
     enabled: currentSong && currentSong.artistId != 0 
-    ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered: {
         var artistId = currentSong.artistId
         var artistName = currentSong.artist

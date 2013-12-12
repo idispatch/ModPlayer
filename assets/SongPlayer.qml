@@ -184,15 +184,16 @@ Page {
         }
     }
     onCreationCompleted: {
-        app.player.stateChanged.connect(function() {
-            if(app.player.state == Player.Downloading ||
-               app.player.state == Player.Resolving ||
-               app.player.state == Player.Preparing) {
+        var showProgress = function() {
+            if(app.player.state == Player.Downloading || app.player.state == Player.Resolving || app.player.state == Player.Preparing) {
                 progress.body = qsTr("Downloading song")
                 progress.show()
             } else {
                 progress.cancel()
             }
+        }
+        app.player.stateChanged.connect(function() {
+            showProgress()
         })
     }
     attachedObjects: [
@@ -201,35 +202,55 @@ Page {
         }
     ]
     actions: [
-        PreviousActionItem {},
-        PlayActionItem {},
-        NextActionItem {},
-        PauseActionItem {},
-        PlayModeActionItem {
+        PreviousActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
+        },
+        PlayActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
+        },
+        NextActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
+        },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SameArtistActionItem {
             currentSong: app.player.currentSong
             navigationPane: songPlayer.navigationPane 
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         InstrumentsActionItem {
             navigationPane: songPlayer.navigationPane
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         PatternsActionItem {
             navigationPane: songPlayer.navigationPane
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         RemoveFavouriteActionItem {
             currentSong: app.player.currentSong
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SaveSongActionItem{
             currentSong: app.player.currentSong.fileName
             enabled: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        ImportSongsActionItem{},
-        OpenSongActionItem{},
-        AppWorldActionItem{}
+        ImportSongsActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        OpenSongActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        AppWorldActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        }
     ]
 }

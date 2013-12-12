@@ -5,7 +5,6 @@ ActionItem {
     title: qsTr("Patterns")
     imageSource: "asset:///images/actions/icon_patterns.png"
     enabled: app.player.currentSong.songLoaded
-    ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered : {
         var view = patternsViewDefinition.createObject()
         navigationPane.push(view)
