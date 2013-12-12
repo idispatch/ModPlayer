@@ -27,9 +27,19 @@ ActionItem {
                 appendItem(qsTr("Current Playlist"), true, true)
                 appendItem(qsTr("New Playlist..."), true, false)
                 appendHeader(qsTr("Existing Playlists"))
-                appendItem(qsTr("One"), true, false)
-                appendItem(qsTr("Two"), true, false)
+                
+                var model = app.catalog.findPlaylists()
+                var playlists = {}
+                var counter = 3
+                for(var i = model.first(); 
+                    i.length > 0; 
+                    i = model.after(i)) {
+                    var value = model.data(i)
+                    playlists[counter++] = value
+                    appendItem(value.name, true, false)
+                }
                 exec()
+                
                 if(result != SystemUiResult.ConfirmButtonSelection )
                     return
                 if(selectedIndices.length < 1)
@@ -42,16 +52,17 @@ ActionItem {
                     if(playlistName.length < 1)
                         return;
                     app.catalog.createPlaylist(playlistName)
-                    playlistCreatedToast.body = qsTr("Playlist '%1' has been created").arg(playlistName)
-                    playlistCreatedToast.show()
+                    notificationToast.body = qsTr("Playlist '%1' has been created").arg(playlistName)
+                    notificationToast.show()
                 } else if(item >= 3) {
-                    item -= 3;
-                    console.log(item)
+                    app.catalog.appendToPlaylist(playlists[item].id, currentSong.id)
+                    notificationToast.body = qsTr("Song '%1' was added to playlist '%2'").arg(currentSong.title).arg(playlists[item].name)
+                    notificationToast.show()
                 }
             }
         },
         SystemToast {
-            id: playlistCreatedToast
+            id: notificationToast
         },
         PlaylistNameEntryPrompt {
             id: playlistNameEntryPrompt

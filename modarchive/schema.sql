@@ -74,6 +74,7 @@ CREATE TABLE playlistEntries
 	playlistId INTEGER,
 	songId INTEGER,
     songOrder INTEGER,
+    CONSTRAINT PK_playlistEntries PRIMARY KEY (playlistId,songId,songOrder), 
     CONSTRAINT FK_playlistEntries_playlists FOREIGN KEY (playlistId) REFERENCES playlists (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_playlistEntries_songs FOREIGN KEY (songId) REFERENCES songs (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

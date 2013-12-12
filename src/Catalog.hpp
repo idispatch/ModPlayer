@@ -114,6 +114,7 @@ public:
     Q_INVOKABLE int createPlaylist(QString const& name);
     Q_INVOKABLE void deletePlaylist(int playlistId);
     Q_INVOKABLE void deleteAllPlaylists();
+    Q_INVOKABLE void appendToPlaylist(int playlistId, int songId);
 
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;

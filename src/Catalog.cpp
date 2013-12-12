@@ -876,10 +876,10 @@ int Catalog::createPlaylist(QString const& name) {
     } else {
         return primaryKey; // error
     }
-
+#ifdef DEBUG_CATALOG
     qDebug().nospace() << "Creating playlist (" << primaryKey << "," << name << ")";
     qDebug().space();
-
+#endif
     query = "INSERT INTO playlists (id, name) VALUES (?,?)";
     QVariantList params;
     params << primaryKey << name;
@@ -903,6 +903,28 @@ void Catalog::deleteAllPlaylists() {
     m_dataAccess->execute(query);
     query = "DELETE FROM playlists";
     m_dataAccess->execute(query);
+}
+
+void Catalog::appendToPlaylist(int playlistId, int songId) {
+    int songOrder = 0;
+    QString query = QString("SELECT COALESCE(MAX(songOrder),0)+1 "
+                            "FROM playlistEntries "
+                            "WHERE playlistId=%1").arg(playlistId);
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        songOrder = sqlQuery.value(0).toInt();
+    } else {
+        qDebug() << "Failed to find song order in playlist" << playlistId;
+        return;
+    }
+#ifdef DEBUG_CATALOG
+    qDebug() << "Playlist order:" << songOrder;
+#endif
+    query = "INSERT INTO playlistEntries (playlistId, songId, songOrder) VALUES (?,?,?)";
+    QVariantList params;
+    params << playlistId << songId << songOrder;
+    m_dataAccess->execute(query, params);
 }
 
 void Catalog::run() {
