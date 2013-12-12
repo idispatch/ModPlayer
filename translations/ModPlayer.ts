@@ -252,6 +252,13 @@
     </message>
 </context>
 <context>
+    <name>NextActionItem</name>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OpenSongActionItem</name>
     <message>
         <source>Open Song from Device</source>
@@ -301,27 +308,27 @@
 <context>
     <name>PlayModeActionItem</name>
     <message>
-        <source>Play Once</source>
+        <source>Song Once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Once</source>
+        <source>Song Loop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Repeat</source>
+        <source>List Once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Cycle</source>
+        <source>List Loop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Random Once</source>
+        <source>List Rand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Random Cycle</source>
+        <source>Rand Loop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -376,6 +383,13 @@
     <name>PlayerActionItem</name>
     <message>
         <source>Now Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PreviousActionItem</name>
+    <message>
+        <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

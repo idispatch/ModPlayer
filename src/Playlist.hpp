@@ -62,6 +62,7 @@ public:
     using InstanceCounter<Playlist>::getMaxInstanceCount;
 private:
     class State {
+        const Mode m_mode;
         const int m_current;
         const int m_count;
         const int m_remaining;
@@ -73,7 +74,8 @@ private:
         State& operator = (State const&);
     public:
         State(Playlist * p)
-            : m_current(p->current()),
+            : m_mode(p->mode()),
+            m_current(p->current()),
             m_count(p->count()),
             m_remaining(p->remaining()),
             m_empty(p->empty()),
@@ -81,6 +83,7 @@ private:
             m_nextAvailable(p->nextAvailable()),
             m_previousAvailable(p->previousAvailable())
         {}
+        Mode mode() const { return m_mode; }
         int current() const { return m_current; }
         int count() const { return m_count; }
         int remaining() const { return m_remaining; }

@@ -22,11 +22,14 @@ Playlist::~Playlist()
 {}
 
 bool Playlist::isRandom() const {
-    return m_mode == PlaylistRandomCycle || m_mode == PlaylistRandomOnce;
+    return m_mode == PlaylistRandomCycle ||
+           m_mode == PlaylistRandomOnce;
 }
 
 bool Playlist::isCyclic() const {
-    return m_mode == PlaylistCycle || m_mode == PlaylistRandomCycle || m_mode == SongCycle;
+    return m_mode == PlaylistCycle ||
+           m_mode == PlaylistRandomCycle ||
+           m_mode == SongCycle;
 }
 
 int Playlist::current() const {
@@ -214,8 +217,8 @@ void Playlist::setMode(Playlist::Mode mode) {
     }
     if(mode != m_mode) {
         State state(this);
+        m_mode = mode;
         notify(state);
-        emit modeChanged();
     }
 }
 
@@ -240,6 +243,9 @@ void Playlist::notify(State const& state) {
     }
     if(state.previousAvailable() != previousAvailable()) {
         emit previousAvailableChanged();
+    }
+    if(state.mode() != mode()) {
+        emit modeChanged();
     }
 }
 

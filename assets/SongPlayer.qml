@@ -201,11 +201,13 @@ Page {
         }
     ]
     actions: [
+        PreviousActionItem {},
+        PlayActionItem {},
+        NextActionItem {},
+        PauseActionItem {},
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
         },
-        PlayActionItem {},
-        PauseActionItem {},
         SameArtistActionItem {
             currentSong: app.player.currentSong
             navigationPane: songPlayer.navigationPane 

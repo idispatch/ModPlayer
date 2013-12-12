@@ -4,7 +4,7 @@ import player 1.0
 
 ActionItem {
     title: qsTr("Import Songs")
-    //imageSource: "asset:///images/actions/icon_like.png"
+    imageSource: "asset:///images/actions/icon_import.png"
     ActionBar.placement: ActionBarPlacement.InOverflow
     onTriggered: {
         confirmImport.show()

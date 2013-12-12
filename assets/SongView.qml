@@ -80,21 +80,31 @@ Page {
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        PreviousActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        NextActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
             navigationPane: songView.navigationPane
         },
         SameArtistActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: song
             navigationPane: songView.navigationPane
         },
         AddFavouriteActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: song
         },
         RemoveFavouriteActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: song
         },
         SaveSongActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: {
                 if(song != null) { 
                     return song.fileName 
@@ -103,8 +113,12 @@ Page {
                 }
             }
         },
-        ImportSongsActionItem{},
-        OpenSongActionItem{},
+        ImportSongsActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        OpenSongActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         AppWorldActionItem{}
     ]
 }

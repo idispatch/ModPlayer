@@ -252,6 +252,13 @@
     </message>
 </context>
 <context>
+    <name>NextActionItem</name>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OpenSongActionItem</name>
     <message>
         <source>Open Song from Device</source>
@@ -302,26 +309,38 @@
     <name>PlayModeActionItem</name>
     <message>
         <source>Play Once</source>
-        <translation>Один раз</translation>
+        <translation type="obsolete">Один раз</translation>
     </message>
     <message>
         <source>Playlist Once</source>
-        <translation>Один раз</translation>
+        <translation type="obsolete">Один раз</translation>
     </message>
     <message>
         <source>Repeat</source>
-        <translation>Повторить</translation>
+        <translation type="obsolete">Повторить</translation>
     </message>
     <message>
-        <source>Playlist Cycle</source>
+        <source>Song Once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Random Once</source>
+        <source>Song Loop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Random Cycle</source>
+        <source>List Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List Loop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List Rand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rand Loop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -377,6 +396,13 @@
     <message>
         <source>Now Playing</source>
         <translation>Проигрыватель</translation>
+    </message>
+</context>
+<context>
+    <name>PreviousActionItem</name>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
