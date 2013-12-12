@@ -293,6 +293,10 @@
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
@@ -312,23 +316,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Song Loop</source>
+        <source>Playlist Once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>List Once</source>
+        <source>Playlist Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>List Loop</source>
+        <source>Select Play Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>List Rand</source>
+        <source>Song Repeat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rand Loop</source>
+        <source>Playlist Repeat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shuffle Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat Shuffle Playlist</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

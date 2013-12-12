@@ -1,55 +1,45 @@
 import bb.cascades 1.0
+import bb.system 1.0
 import player 1.0
 
 ActionItem {
-    title: {
-        if(app.player.playlist.mode == Playlist.SongOnce) {
-            return qsTr("Song Once")
-        } else if(app.player.playlist.mode == Playlist.SongCycle) {
-            return qsTr("Repeat Song")
-        } else if(app.player.playlist.mode == Playlist.PlaylistOnce) {
-            return qsTr("Playlist Once")
-        } else if(app.player.playlist.mode == Playlist.PlaylistCycle) {
-            return qsTr("Repeat Playlist")
-        } else if(app.player.playlist.mode == Playlist.PlaylistRandomOnce) {
-            return qsTr("Playlist Randomly")
-        } else if(app.player.playlist.mode == Playlist.PlaylistRandomCycle) {
-            return qsTr("Cycle Playlist Randomly")
-        }
-        return ""
-    }
+    title: qsTr("Playlist Mode")
     enabled: app.player.currentSong.songLoaded
-    imageSource: {
-        if(app.player.playlist.mode == Playlist.SongOnce) {
-            return "asset:///images/actions/icon_playonce.png"
-        } else if(app.player.playlist.mode == Playlist.SongCycle) {
-            return "asset:///images/actions/icon_repeatsong.png"
-        } else if(app.player.playlist.mode == Playlist.PlaylistOnce) {
-            return "asset:///images/actions/icon_repeatsong.png"
-        } else if(app.player.playlist.mode == Playlist.PlaylistCycle) {
-            return "asset:///images/actions/icon_repeatsong.png"
-        } else if(app.player.playlist.mode == Playlist.PlaylistRandomOnce) {
-            return "asset:///images/actions/icon_repeatsong.png"
-        } else if(app.player.playlist.mode == Playlist.PlaylistRandomCycle) {
-            return "asset:///images/actions/icon_repeatsong.png"
+    imageSource: "asset:///images/actions/icon_playlist_mode.png"
+    onTriggered: selectPlayMode.run()
+    attachedObjects: [
+        SystemListDialog {
+            id: selectPlayMode
+            title: qsTr("Select Play Mode")
+            selectionMode: ListSelectionMode.Single
+            modality: SystemUiModality.Application
+            includeRememberMe: false
+            emoticonsEnabled: false
+            defaultButton: SystemUiButton.confirmButton
+            dismissAutomatically: true
+            function run() {
+                var mode = app.player.playlist.mode
+                clearList()
+                appendItem(qsTr("Song Once"), true, mode == Playlist.SongOnce)
+                appendItem(qsTr("Song Repeat"), true, mode == Playlist.SongCycle)
+                appendItem(qsTr("Playlist Once"), true, mode == Playlist.PlaylistOnce)
+                appendItem(qsTr("Playlist Repeat"), true, mode == Playlist.PlaylistCycle)
+                appendItem(qsTr("Shuffle Playlist"), true, mode == Playlist.PlaylistRandomOnce)
+                appendItem(qsTr("Repeat Shuffle Playlist"), true, mode == Playlist.PlaylistRandomCycle)
+                exec()
+                if(result == SystemUiResult.ConfirmButtonSelection ){
+                    var modes = [Playlist.SongOnce, 
+                                 Playlist.SongCycle,
+                                 Playlist.PlaylistOnce, 
+                                 Playlist.PlaylistCycle,
+                                 Playlist.PlaylistRandomOnce,
+                                 Playlist.PlaylistRandomCycle];
+                    console.log(selectedIndices[0])
+                    console.log(modes[selectedIndices[0]])
+                    app.player.playlist.mode = modes[selectedIndices[0]]
+                    console.log(app.player.playlist.mode)
+                }
+            }
         }
-        return "asset:///images/actions/icon_playonce.png"
-    }
-    onTriggered: {
-        if(app.player.playlist.mode == Playlist.SongOnce) {
-            app.player.playlist.mode = Playlist.SongCycle
-        } else if(app.player.playlist.mode == Playlist.SongCycle) {
-            app.player.playlist.mode = Playlist.PlaylistOnce
-        } else if(app.player.playlist.mode == Playlist.PlaylistOnce) {
-            app.player.playlist.mode = Playlist.PlaylistCycle
-        } else if(app.player.playlist.mode == Playlist.PlaylistCycle) {
-            app.player.playlist.mode = Playlist.PlaylistRandomOnce
-        } else if(app.player.playlist.mode == Playlist.PlaylistRandomOnce) {
-            app.player.playlist.mode = Playlist.PlaylistRandomCycle
-        } else if(app.player.playlist.mode == Playlist.PlaylistRandomCycle) {
-            app.player.playlist.mode = Playlist.SongCycle
-        } else {
-            app.player.playlist.mode = Playlist.SongCycle
-        }
-    }
+    ]
 }
