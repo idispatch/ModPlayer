@@ -109,9 +109,18 @@ int SongBasicInfo::id() const {
 
 void SongBasicInfo::setId(int value) {
     if(m_id != value) {
+        int old = m_id;
         m_id = value;
         emit idChanged();
+        if((m_id < 0 && old >= 0) ||
+           (m_id >= 0 && old < 0)) {
+            emit isLocalChanged();
+        }
     }
+}
+
+bool SongBasicInfo::isLocal() const {
+    return m_id < 0;
 }
 
 int SongBasicInfo::formatId() const {

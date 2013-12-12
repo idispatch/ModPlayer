@@ -104,6 +104,7 @@ Page {
                 }
             }
         },
+        ImportSongsActionItem{},
         OpenSongActionItem{},
         AppWorldActionItem{}
     ]

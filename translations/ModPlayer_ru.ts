@@ -170,26 +170,41 @@
     </message>
 </context>
 <context>
+    <name>ImportSongsActionItem</name>
+    <message>
+        <source>Import Songs</source>
+        <translation>Импортировать песни</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation>Подтверждение</translation>
+    </message>
+    <message>
+        <source>Would you like to import local tracker songs?</source>
+        <translation>Вы хотите импортировать песни в трекерном формате с телефона?</translation>
+    </message>
+</context>
+<context>
     <name>Importer</name>
     <message>
         <source>Importing Tracker Songs</source>
-        <translation>Импортирую песни</translation>
+        <translation>Импорт трекерных песен</translation>
     </message>
     <message>
         <source>Importing %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортирую %1</translation>
     </message>
     <message>
         <source>Imported %1 songs</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировано %1 песен</translation>
     </message>
     <message>
         <source>No tracker songs found</source>
-        <translation type="unfinished"></translation>
+        <translation>Песни в трекерном формате не найдены</translation>
     </message>
     <message>
         <source>Searching for tracker songs in %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск трекерных песен для импорта</translation>
     </message>
 </context>
 <context>
@@ -292,14 +307,6 @@
     <message>
         <source>Playlist Once</source>
         <translation>Один раз</translation>
-    </message>
-    <message>
-        <source>Cycle Playlist</source>
-        <translation type="obsolete">Повторить</translation>
-    </message>
-    <message>
-        <source>Random Playlist</source>
-        <translation type="obsolete">Случайно</translation>
     </message>
     <message>
         <source>Repeat</source>
@@ -630,10 +637,6 @@
         <translation>Версия: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>Songs: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="obsolete">Песен: &lt;b&gt;%1&lt;/b&gt;</translation>
-    </message>
-    <message>
         <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
         <translation>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Политика конфиденциальности&lt;/a&gt;</translation>
     </message>
@@ -655,19 +658,19 @@
     </message>
     <message>
         <source>Would you like to import local tracker songs?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите импортировать песни в трекерном формате с телефона?</translation>
     </message>
     <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Песен в каталоге: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Personal songs: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Песен в телефоне: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Import My Tracker Songs</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировать мои песни</translation>
     </message>
 </context>
 <context>
@@ -781,6 +784,10 @@
     <message>
         <source>No songs in this list</source>
         <translation>Список песен пуст</translation>
+    </message>
+    <message>
+        <source>Songs on My Device (%1)</source>
+        <translation>Песни на моем телефоне (%1)</translation>
     </message>
 </context>
 <context>
@@ -1065,6 +1072,14 @@
     <message>
         <source>Search Songs</source>
         <translation>Искать песни</translation>
+    </message>
+    <message>
+        <source>Local songs</source>
+        <translation>Песни на телефоне</translation>
+    </message>
+    <message>
+        <source>Songs on My Device</source>
+        <translation>Песни на моем телефоне</translation>
     </message>
 </context>
 </TS>

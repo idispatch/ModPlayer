@@ -170,6 +170,21 @@
     </message>
 </context>
 <context>
+    <name>ImportSongsActionItem</name>
+    <message>
+        <source>Import Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to import local tracker songs?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Importer</name>
     <message>
         <source>Importing Tracker Songs</source>
@@ -770,6 +785,10 @@
         <source>No songs in this list</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Songs on My Device (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongMainInfo</name>
@@ -1052,6 +1071,14 @@
     </message>
     <message>
         <source>Email Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Songs on My Device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

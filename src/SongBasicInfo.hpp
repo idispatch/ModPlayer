@@ -13,6 +13,7 @@ class SongBasicInfo : public QObject,
     Q_OBJECT
 
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged FINAL)
+    Q_PROPERTY(bool isLocal READ isLocal NOTIFY isLocalChanged FINAL)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
     Q_PROPERTY(QUrl iconPath READ iconPath NOTIFY iconPathChanged FINAL)
@@ -57,6 +58,8 @@ public:
     int id() const;
     void setId(int value);
 
+    bool isLocal() const;
+
     int fileSize() const;
     void setFileSize(int value);
 
@@ -93,6 +96,7 @@ Q_SIGNALS:
     void fileNameChanged();
     void titleChanged();
     void idChanged();
+    void isLocalChanged();
     void formatIdChanged();
     void iconPathChanged();
     void fileSizeChanged();

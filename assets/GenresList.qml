@@ -95,8 +95,8 @@ Page {
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        OpenSongActionItem {
-        },
+        ImportSongsActionItem{},
+        OpenSongActionItem{},
         AppWorldActionItem{} 
     ]
 }
