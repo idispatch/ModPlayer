@@ -212,6 +212,12 @@ void Analytics::importSongs(bool started) const {
     }
 }
 
+void Analytics::importedSongCount(int count) const {
+    Flurry::Map parameters;
+    parameters["count"] = count;
+    Flurry::Analytics::LogEvent("ImportCount", parameters, false);
+}
+
 void Analytics::play() const {
     Flurry::Analytics::LogEvent("PlayCmd", false);
 }

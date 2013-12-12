@@ -1,6 +1,7 @@
 #include "modplug/modplug.h"
 #include "Importer.hpp"
 #include "FileUtils.hpp"
+#include "Analytics.hpp"
 #include "SongExtendedInfo.hpp"
 #include "SongFormat.hpp"
 #include "Catalog.hpp"
@@ -13,7 +14,7 @@
 #include <QByteArray>
 #include <bb/system/SystemProgressDialog>
 
-#define DETAILED_LOG
+//#define DETAILED_LOG
 
 using namespace bb::system;
 
@@ -69,6 +70,8 @@ int Importer::import()
     {
         updateProgressUI(QString(tr("Imported %1 songs")).arg(m_numImportedSongs), 100);
     }
+
+    Analytics::getInstance()->importedSongCount(m_numImportedSongs);
 
     completeProgressUI();
     return m_numImportedSongs;
