@@ -5,6 +5,10 @@ bool FileUtils::isAbsolute(QString const& fileName) {
     return fileName.startsWith('/');
 }
 
+bool FileUtils::isRelative(QString const& fileName) {
+    return !isAbsolute(fileName);
+}
+
 QString FileUtils::fileNameOnly(QString const& fileName) {
     int index = fileName.lastIndexOf('/');
     if(index < 0)

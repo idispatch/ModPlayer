@@ -28,6 +28,30 @@ TabbedPane {
         }
     }
     Tab {
+        id: localSongsTab
+        title: qsTr("Local songs")
+        objectName: title
+        imageSource: "asset:///images/actions/icon_myfavourite.png"
+        description: qsTr("Songs on My Device")
+        onTriggered: {
+            app.analytics.showPage(title)
+            songMyLocalView.loadMyLocalSongs()
+        }
+        function unload() {
+            songMyLocalView.unload()
+        }
+        content: NavigationPane {
+            id: myLocalNavigationPane
+            SongList {
+                id: songMyLocalView
+                navigationPane: myLocalNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
         id: recentlyPlayedTab
         title: qsTr("Recent")
         objectName: title

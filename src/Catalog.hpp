@@ -73,6 +73,9 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs(int limit);
     Q_INVOKABLE int findMostFavouritedSongsAsync(int limit);
 
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyLocalSongs(int limit);
+    Q_INVOKABLE int findMyLocalSongsAsync(int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs(int limit);
     Q_INVOKABLE int findMostScoredSongsAsync(int limit);
 
@@ -146,6 +149,7 @@ private:
 
             RecentlyPlayedSongs,
             MyFavouriteSongs,
+            MyLocalSongs,
             MostPlayedSongs,
 
             ExitCommand

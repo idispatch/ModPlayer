@@ -16,6 +16,7 @@ Page {
             }
             if (songs.mode == "recent") return qsTr("Recently Played Songs (%1)").arg(c)
             if (songs.mode == "myFavourite") return qsTr("My Favourite Songs (%1)").arg(c)
+            if (songs.mode == "myLocal") return qsTr("Songs on My Device (%1)").arg(c)
             if (songs.mode == "mostPlayed") return qsTr("Most Played Songs (%1)").arg(c)
             if (songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
             if (songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
@@ -107,7 +108,7 @@ Page {
                 ListItemComponent {
                     ModPlayerListItem {
                         title: ListItem.data.title
-                        description: ListItem.data.fileName
+                        description: Global.fileNameOnly(ListItem.data.fileName)
                         text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 
                         upperStatus: {
                             var mode = ListItem.view.mode
@@ -117,7 +118,7 @@ Page {
                                         return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                     }
                                 }
-                                if (mode == "myFavourite" || mode == "mostPlayed") {
+                                if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
                                     if(ListItem.data.playCount > 0) {
                                         return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                     }
@@ -169,7 +170,7 @@ Page {
                                         return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                     }
                                 }
-                                if (mode == "myFavourite" || mode == "mostPlayed") {
+                                if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
                                     if(ListItem.data.lastPlayed > 0) {
                                         return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                     }
@@ -235,6 +236,11 @@ Page {
         unload()
         maximumSearchSongResults = 5000
         showList("myFavourite", "", app.player.catalog.findMyFavouriteSongsAsync(maximumSearchSongResults))
+    }
+    function loadMyLocalSongs() {
+        unload()
+        maximumSearchSongResults = 5000
+        showList("myLocal", "", app.player.catalog.findMyLocalSongsAsync(maximumSearchSongResults))
     }
     function loadMostPlayedSongs() {
         unload()

@@ -268,7 +268,8 @@ void Player::onDownloadFinished(QString fileName) {
 
     m_cache->cache(unpackedRelativeFileName);
 
-    beginPlay(true, unpackedFileName);
+    // Start playing from Catalog
+    beginPlay(true, unpackedRelativeFileName);
 }
 
 void Player::onDownloadFailure(int id) {
@@ -363,29 +364,30 @@ SongModule * Player::currentSong() const {
 
 bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
     bool rv = false;
-    QString fileNamePart = FileUtils::fileNameOnly(fileName);
-    SongExtendedInfo * info = NULL;
+
+    std::auto_ptr<SongExtendedInfo> info;
 
     if(fromCatalog) {
-        info = m_catalog->resolveModuleByFileName(fileNamePart, QVariant());
+        info.reset(m_catalog->resolveModuleByFileName(fileName, QVariant()));
     } else {
-        info = new SongExtendedInfo(NULL);
+        info.reset(new SongExtendedInfo(NULL));
         info->setFileName(fileName);
     }
 
-    if(info != NULL)
-    {
+    if(info.get()) {
         QString absoluteFileName;
         if(fromCatalog) {
-            absoluteFileName = FileUtils::joinPath(m_cache->cachePath(), fileName);
+            if(FileUtils::isRelative(fileName)) {
+                absoluteFileName = FileUtils::joinPath(m_cache->cachePath(), fileName);
+            } else {
+                absoluteFileName = fileName;
+            }
         } else {
             absoluteFileName = fileName;
         }
 
-        if(m_playback->load(*info, absoluteFileName))
-        {
-            if(m_playback->play())
-            {
+        if(m_playback->load(*info, absoluteFileName)) {
+            if(m_playback->play()) {
                 if(fromCatalog) {
                     m_catalog->play(QVariant::fromValue(static_cast<QObject*>(currentSong())));
                 }
@@ -393,36 +395,25 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
                 QString relativeFileName = FileUtils::fileNameOnly(currentSong()->fileName());
                 changeStatus(Playing, QString(tr("Playing %1")).arg(relativeFileName));
 
-                if(!m_nowPlaying->isAcquired())
-                {
+                if(!m_nowPlaying->isAcquired()) {
                     m_nowPlaying->acquire();
-                }
-                else
-                {
+                } else {
                     updateNowPlaying();
                 }
 
                 rv = true;
-            }
-            else
-            {
+            } else {
                 QString message = QString("Failed to play %1").arg(absoluteFileName);
                 qDebug() << message;
                 Analytics::getInstance()->logError("PlayError", message);
             }
-        }
-        else
-        {
+        } else {
             QString message = QString("Failed to load %1").arg(absoluteFileName);
             qDebug() << message;
             Analytics::getInstance()->logError("LoadError", message);
         }
-
-        delete info;
-    }
-    else
-    {
-        QString message = QString("Failed to resolve %1").arg(fileNamePart);
+    } else {
+        QString message = QString("Failed to resolve %1").arg(fileName);
         qDebug() << message;
         Analytics::getInstance()->logError("LoadError", message);
     }
@@ -469,10 +460,9 @@ void Player::playByModuleFileName(QString const& fileName) {
     // relative path or within cache directory - play from cache
     if(fileName.startsWith(m_cache->cachePath()) || !fileName.startsWith("/")) {
         if(m_cache->exists(fileName)) {
-            beginPlay(true, fileName);
-        }
-        else
-        {
+            QString name = FileUtils::fileNameOnly(fileName);
+            beginPlay(true, name);
+        } else {
             QString name = FileUtils::fileNameOnly(fileName);
             changeStatus(Resolving, QString(tr("Resolving %1")).arg(name));
 
@@ -487,13 +477,17 @@ void Player::playByModuleFileName(QString const& fileName) {
 
 void Player::playByModuleId(int id) {
     QString fileName = m_catalog->resolveFileNameById(id);
-    if(m_cache->exists(fileName)) {
+    if(id > 0) {
+        if(m_cache->exists(fileName)) {
+            // Play cached file from Catalog
+            beginPlay(true, fileName);
+        } else {
+            changeStatus(Downloading, tr("Downloading song"));
+            m_downloader->download(id);
+        }
+    } else {
+        // Play local file from Catalog
         beginPlay(true, fileName);
-    }
-    else
-    {
-        changeStatus(Downloading, tr("Downloading song"));
-        m_downloader->download(id);
     }
 }
 
