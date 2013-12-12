@@ -23,6 +23,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Mp3Export.cpp) \
+                 $$quote($$BASEDIR/src/NamedPlaylist.cpp) \
                  $$quote($$BASEDIR/src/PatternView.cpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
@@ -123,6 +124,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Mp3Export.hpp) \
+                 $$quote($$BASEDIR/src/NamedPlaylist.hpp) \
                  $$quote($$BASEDIR/src/PatternView.hpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \
@@ -207,6 +209,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDisplay.cpp) \
                  $$quote($$BASEDIR/src/ModPlayback.cpp) \
                  $$quote($$BASEDIR/src/Mp3Export.cpp) \
+                 $$quote($$BASEDIR/src/NamedPlaylist.cpp) \
                  $$quote($$BASEDIR/src/PatternView.cpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
                  $$quote($$BASEDIR/src/Player.cpp) \
@@ -307,6 +310,7 @@ device {
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
                  $$quote($$BASEDIR/src/ModPlayback.hpp) \
                  $$quote($$BASEDIR/src/Mp3Export.hpp) \
+                 $$quote($$BASEDIR/src/NamedPlaylist.hpp) \
                  $$quote($$BASEDIR/src/PatternView.hpp) \
                  $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
                  $$quote($$BASEDIR/src/Player.hpp) \

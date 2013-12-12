@@ -14,17 +14,18 @@ Page {
             if(c > maximumSearchSongResults) {
                 c = "%1+".arg(maximumSearchSongResults)
             }
-            if (songs.mode == "recent") return qsTr("Recently Played Songs (%1)").arg(c)
-            if (songs.mode == "myFavourite") return qsTr("My Favourite Songs (%1)").arg(c)
-            if (songs.mode == "myLocal") return qsTr("Songs on My Device (%1)").arg(c)
-            if (songs.mode == "mostPlayed") return qsTr("Most Played Songs (%1)").arg(c)
-            if (songs.mode == "topFavourited") return qsTr("Top Favourited Songs (%1)").arg(c)
-            if (songs.mode == "topScored") return qsTr("Top Scored Songs (%1)").arg(c)
-            if (songs.mode == "topDownloads") return qsTr("Top Downloaded Songs (%1)").arg(c)
+            if (songs.mode == 'recent') return qsTr("Recently Played Songs (%1)").arg(c)
+            if (songs.mode == 'myFavourite') return qsTr("My Favourite Songs (%1)").arg(c)
+            if (songs.mode == 'myLocal') return qsTr("Songs on My Device (%1)").arg(c)
+            if (songs.mode == 'mostPlayed') return qsTr("Most Played Songs (%1)").arg(c)
+            if (songs.mode == 'topFavourited') return qsTr("Top Favourited Songs (%1)").arg(c)
+            if (songs.mode == 'topScored') return qsTr("Top Scored Songs (%1)").arg(c)
+            if (songs.mode == 'topDownloads') return qsTr("Top Downloaded Songs (%1)").arg(c)
             if (songs.mode == 'format')  return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
-            if (songs.mode == "search") {
+            if (songs.mode == 'playlist') return qsTr("%1 Playlist Songs (%2)").arg(songs.modelName).arg(c)
+            if (songs.mode == 'search') {
                 if(searchArea.searchTerm.length > 0) {
                     return qsTr("Search Songs (%1) - '%2'").arg(c).arg(searchArea.searchTerm)
                 }
@@ -144,7 +145,7 @@ Page {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
                                 }
-                                if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist") {
+                                if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist") {
                                     if (ListItem.data.score > 0) {
                                         return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
@@ -170,7 +171,7 @@ Page {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
-                                if (mode == "format" || mode == "genre" || mode == "artist") {
+                                if (mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist") {
                                     if(ListItem.data.favourited > 0) {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
@@ -191,7 +192,7 @@ Page {
                                         return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                     }
                                 }
-                                if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist") {
+                                if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist") {
                                     if (ListItem.data.downloads > 0) {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
@@ -224,6 +225,7 @@ Page {
                                 actions: [
                                     ActionItem {
                                         title: qsTr("Play")
+                                        enabled: songEntry.ListItem.mode != "playlist"
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {
                                             songEntry.playSong()
@@ -231,6 +233,7 @@ Page {
                                     },
                                     ActionItem {
                                         title: qsTr("Append to Playlist")
+                                        enabled: songEntry.ListItem.mode != "playlist" 
                                         imageSource: "asset:///images/actions/icon_append_playlist.png"
                                         onTriggered: {
                                             songEntry.appendToPlaylist()
@@ -345,6 +348,11 @@ Page {
         unload()
         maximumSearchSongResults = 5000
         showList("artist", artistName, app.player.catalog.findSongsByArtistIdAsync(artistId, maximumSearchSongResults))
+    }
+    function loadSongsByPlaylist(playlistId, playlistName) {
+        unload()
+        maximumSearchSongResults = 5000
+        showList("playlist", playlistName, app.player.catalog.findSongsByPlaylistIdAsync(playlistId, maximumSearchSongResults))
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && 

@@ -151,16 +151,15 @@ void Catalog::copyCatalogToDataFolder() {
         {
             SqlDataAccess dataAccess(catalogPath(), "catalog");
             for(int i = 0; i<data.size(); ++i) {
-                QString query = QString("UPDATE songs "
-                                     "SET"
-                                     " playCount=%2,"
-                                     " lastPlayed=%3,"
-                                     " myFavourite=%4 "
-                                     "WHERE id=%1").arg(data[i].id)
-                                                   .arg(data[i].playCount)
-                                                   .arg(data[i].lastPlayed)
-                                                   .arg(data[i].myFavourite);
-                dataAccess.execute(query);
+                QString query =
+                    "UPDATE songs SET playCount=?, lastPlayed=?, myFavourite=? WHERE id=?";
+                QVariantList params;
+                params << data[i].playCount
+                       << data[i].lastPlayed
+                       << data[i].myFavourite
+                       << data[i].id;
+                qDebug() << "Updating song:" << data[i].id;
+                dataAccess.execute(query, params);
             }
 
             QSqlDatabase::removeDatabase("catalog");
@@ -229,6 +228,10 @@ int Catalog::findGenresAsync() {
 
 int Catalog::findArtistsAsync() {
     return asyncCommand(Command::ArtistsList);
+}
+
+int Catalog::findPlaylistsAsync() {
+    return asyncCommand(Command::Playlists);
 }
 
 int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
@@ -376,6 +379,36 @@ GroupDataModel* Catalog::findArtists() {
     return model;
 }
 
+GroupDataModel* Catalog::findPlaylists() {
+    const char * query =
+            "SELECT"
+            " playlists.id,"
+            " playlists.name, "
+            " COUNT(playlistEntries.songId) AS songCount "
+            "FROM playlists "
+            "LEFT JOIN playlistEntries "
+            " ON playlists.id=playlistEntries.playlistId "
+            "GROUP BY playlists.id";
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        int column    = 0;
+        int id        = sqlQuery.value(column++).toInt();
+        QString name  = sqlQuery.value(column++).toString();
+        int count     = sqlQuery.value(column++).toInt();
+        QObject *value = new NamedPlaylist(id,
+                                           name,
+                                           count,
+                                           model);
+        model->insert(value);
+    }
+    return model;
+}
+
 ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
     return selectSongBasicInfo(QString("WHERE format=%1").arg(formatId),
                                "ORDER BY "
@@ -413,15 +446,10 @@ ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
 }
 
 QString Catalog::resolveFileNameById(int id) {
-#ifdef DEBUG_CATALOG
-    qDebug() << "Resolving file name for module id" << id;
-#endif
-    QString query = QString(
-            "SELECT "
-            " fileName "
-            "FROM songs "
-            "WHERE id=%1").arg(id);
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    QString query = "SELECT fileName FROM songs WHERE id=?";
+    QVariantList params;
+    params << id;
+    QVariantList data = m_dataAccess->execute(query, params).value<QVariantList>();
     if(data.size() == 1)
     {
         QVariant const& first = data.first();
@@ -430,20 +458,15 @@ QString Catalog::resolveFileNameById(int id) {
     }
     else
     {
-#ifdef DEBUG_CATALOG
-        qDebug() << "File name for module" << id << "cannot be resolved";
-#endif
         return "";
     }
 }
 
 int Catalog::resolveModuleIdByFileName(QString const& fileName) {
-#ifdef DEBUG_CATALOG
-    qDebug() << "Resolving module id for file name " << fileName;
-#endif
-    //TODO: fix for SQL injection
-    QString query = QString("SELECT id FROM songs WHERE fileName='%1'").arg(fileName);
-    QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
+    QString query = "SELECT id FROM songs WHERE fileName=?";
+    QVariantList params;
+    params << fileName;
+    QVariantList data = m_dataAccess->execute(query, params).value<QVariantList>();
     if(data.size() == 1)
     {
         QVariant const& first = data.first();
@@ -452,9 +475,6 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
     }
     else
     {
-#ifdef DEBUG_CATALOG
-        qDebug() << "Module id for file name" << fileName << "cannot be resolved";
-#endif
         return 0;
     }
 }
@@ -701,9 +721,10 @@ void Catalog::addFavourite(QVariant value) {
     SongBasicInfo * info = songBasicInfo(value);
     if(info != 0) {
         info->setMyFavourite(info->myFavourite() + 1);
-        QString query = QString("UPDATE songs SET myFavourite=%1 WHERE id=%2").arg(info->myFavourite())
-                                                                              .arg(info->id());
-        m_dataAccess->execute(query);
+        QString query = "UPDATE songs SET myFavourite=? WHERE id=?";
+        QVariantList params;
+        params << info->myFavourite() << info->id();
+        m_dataAccess->execute(query, params);
 
         Analytics::getInstance()->addFavourite(info->id(), FileUtils::fileNameOnly(info->fileName()));
     } else {
@@ -715,9 +736,10 @@ void Catalog::removeFavourite(QVariant value) {
     SongBasicInfo * info = songBasicInfo(value);
     if(info != 0) {
         info->setMyFavourite(0);
-        QString query = QString("UPDATE songs SET myFavourite=%1 WHERE id=%2").arg(info->myFavourite())
-                                                                              .arg(info->id());
-        m_dataAccess->execute(query);
+        QString query = "UPDATE songs SET myFavourite=? WHERE id=?";
+        QVariantList params;
+        params << info->myFavourite() << info->id();
+        m_dataAccess->execute(query, params);
 
         Analytics::getInstance()->removeFavourite(info->id(), FileUtils::fileNameOnly(info->fileName()));
     } else {
@@ -731,10 +753,10 @@ void Catalog::play(QVariant value) {
         uint now = QDateTime::currentDateTime().toTime_t();
         info->setPlayCount(info->playCount() + 1);
         info->setLastPlayed(now);
-        QString query = QString("UPDATE songs SET playCount=%1, lastPlayed=%2 WHERE id=%3").arg(info->playCount())
-                                                                                           .arg(info->lastPlayed())
-                                                                                           .arg(info->id());
-        m_dataAccess->execute(query);
+        QString query = "UPDATE songs SET playCount=?, lastPlayed=? WHERE id=?";
+        QVariantList params;
+        params << info->playCount() << info->lastPlayed() << info->id();
+        m_dataAccess->execute(query, params);
         Analytics::getInstance()->play(info->id(), FileUtils::fileNameOnly(info->fileName()));
     } else {
         qDebug() << "!!! Catalog::play: invalid value=" << value;
@@ -815,6 +837,38 @@ void Catalog::addPersonalSong(SongExtendedInfo const& info) {
     m_dataAccess->execute(query, params);
 }
 
+int Catalog::createPlaylist(QString const& name) {
+    int primaryKey = 0;
+    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM playlists";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        primaryKey = sqlQuery.value(0).toInt();
+    } else {
+        return primaryKey; // error
+    }
+
+    qDebug().nospace() << "Creating playlist (" << primaryKey << "," << name << ")";
+    qDebug().space();
+
+    query = "INSERT INTO playlists (id, name) VALUES (?,?)";
+    QVariantList params;
+    params << primaryKey << name;
+    m_dataAccess->execute(query, params);
+    return primaryKey;
+}
+
+void Catalog::deletePlaylist(int playlistId) {
+    QVariantList params;
+    params << playlistId;
+
+    QString query = "DELETE FROM playlistEntries WHERE playlistId=?";
+    m_dataAccess->execute(query, params);
+
+    query = "DELETE FROM playlists WHERE id=?";
+    m_dataAccess->execute(query, params);
+}
+
 void Catalog::run() {
     bool exitRequested = false;
     while(!exitRequested)
@@ -871,6 +925,13 @@ void Catalog::run() {
         case Command::ArtistsList:
             {
                 GroupDataModel * model = findArtists();
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::Playlists:
+            {
+                GroupDataModel * model = findPlaylists();
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }

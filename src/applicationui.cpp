@@ -33,6 +33,7 @@
 #include "PatternView.hpp"
 #include "VUMeter.hpp"
 #include "Playlist.hpp"
+#include "NamedPlaylist.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -164,6 +165,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Analytics>(QmlNamespace, versionMajor, versionMinor, "Analytics", "");
 
     qmlRegisterUncreatableType<Playlist>(QmlNamespace, versionMajor, versionMinor, "Playlist", "");
+    qmlRegisterUncreatableType<NamedPlaylist>(QmlNamespace, versionMajor, versionMinor, "NamedPlaylist", "");
 }
 
 void ApplicationUI::initApp() {
