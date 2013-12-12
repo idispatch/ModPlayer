@@ -203,15 +203,6 @@ Page {
                             return ""
                         }
                         imageSource: ListItem.data ? ListItem.data.iconPath : ""
-                        function playSong() {
-                            ListItem.view.playSong(ListItem.data)
-                        }
-                        function addFavourite() {
-                            ListItem.view.addFavourite(ListItem.data)
-                        }
-                        function removeFavourite() {
-                            ListItem.view.removeFavourite(ListItem.data)
-                        }
                         contextActions: [
                             ActionSet {
                                 title: songEntry.ListItem.data.title
@@ -219,28 +210,28 @@ Page {
                                 actions: [
                                     ActionItem {
                                         title: qsTr("Play")
-                                        enabled: songEntry.ListItem.mode != "playlist"
+                                        enabled: songEntry.ListItem.view.mode != "playlist"
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {
-                                            songEntry.playSong()
+                                            songEntry.ListItem.view.playSong(songEntry.ListItem.data)
                                         }
                                     },
                                     AppendPlaylistActionItem {
-                                        enabled: songEntry.ListItem.mode != "playlist"
                                         currentSong: songEntry.ListItem.data
+                                        mode: songEntry.ListItem.view.mode
                                     },
                                     ActionItem {
                                         title: qsTr("Add to Favourites")
                                         imageSource: "asset:///images/actions/icon_like.png"
                                         onTriggered: {
-                                            songEntry.addFavourite()
+                                            songEntry.ListItem.view.addFavourite(songEntry.ListItem.data)
                                         }
                                     },
                                     ActionItem {
                                         title: qsTr("Remove from Favourites")
                                         imageSource: "asset:///images/actions/icon_unlike.png"
                                         onTriggered: {
-                                            songEntry.removeFavourite()
+                                            songEntry.ListItem.view.removeFavourite(songEntry.ListItem.data)
                                         }
                                     }
                                 ]

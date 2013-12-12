@@ -4,9 +4,10 @@ import player 1.0
 
 ActionItem {
     property variant currentSong
+    property string mode: ""
     title: qsTr("Append to Playlist")
     imageSource: "asset:///images/actions/icon_append_playlist.png"
-    enabled: currentSong != null && currentSong.id != 0
+    enabled: currentSong != null && currentSong.id != 0 && mode != 'playlist'
     onTriggered: {
         if (currentSong != null) {
             playlistSelection.run()
@@ -46,15 +47,19 @@ ActionItem {
                     return
                 var item = selectedIndices[0]
                 if(item == 0) {
+                    // Add to current playlist
                     app.player.playlist.add(currentSong.id)
                 } else if(item == 1) {
+                    // Add to new playlist
                     var playlistName = playlistNameEntryPrompt.run()
                     if(playlistName.length < 1)
                         return;
-                    app.catalog.createPlaylist(playlistName)
-                    notificationToast.body = qsTr("Playlist '%1' has been created").arg(playlistName)
+                    var playlistId = app.catalog.createPlaylist(playlistName)
+                    app.catalog.appendToPlaylist(playlistId, currentSong.id)
+                    notificationToast.body = qsTr("Song '%1' was added to new playlist '%2'").arg(currentSong.title).arg(playlistName)
                     notificationToast.show()
                 } else if(item >= 3) {
+                    // Add to existing playlist
                     app.catalog.appendToPlaylist(playlists[item].id, currentSong.id)
                     notificationToast.body = qsTr("Song '%1' was added to playlist '%2'").arg(currentSong.title).arg(playlists[item].name)
                     notificationToast.show()

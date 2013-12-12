@@ -238,6 +238,10 @@ Page {
             currentSong: app.player.currentSong
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        AppendPlaylistActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            currentSong: app.player.currentSong
+        },
         SaveSongActionItem{
             currentSong: app.player.currentSong.fileName
             enabled: app.player.currentSong.songLoaded && app.player.currentSong.id != 0

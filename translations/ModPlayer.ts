@@ -38,11 +38,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist &apos;%1&apos; has been created</source>
+        <source>Song &apos;%1&apos; was added to playlist &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Song &apos;%1&apos; was added to playlist &apos;%2&apos;</source>
+        <source>Song &apos;%1&apos; was added to new playlist &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
