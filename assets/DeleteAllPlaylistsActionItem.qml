@@ -5,7 +5,7 @@ import player 1.0
 ActionItem {
     signal playlistsDeleted()
     title: qsTr("Delete All Playlists")
-    //imageSource: "asset:///images/actions/icon_append_playlist.png"
+    imageSource: "asset:///images/actions/icon_delete.png"
     onTriggered: {
         confirmDeleteAllPlaylists.exec()
     }

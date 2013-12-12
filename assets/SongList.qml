@@ -117,9 +117,6 @@ Page {
             function removeFavourite(song) {
                 app.catalog.removeFavourite(song)
             }
-            function appendToPlaylist(song) {
-                app.player.playlist.add(song.id)
-            }
             listItemComponents: [
                 ListItemComponent {
                     ModPlayerListItem {
@@ -215,9 +212,6 @@ Page {
                         function removeFavourite() {
                             ListItem.view.removeFavourite(ListItem.data)
                         }
-                        function appendToPlaylist() {
-                            ListItem.view.appendToPlaylist(ListItem.data)
-                        }
                         contextActions: [
                             ActionSet {
                                 title: songEntry.ListItem.data.title
@@ -231,13 +225,9 @@ Page {
                                             songEntry.playSong()
                                         }
                                     },
-                                    ActionItem {
-                                        title: qsTr("Append to Playlist")
-                                        enabled: songEntry.ListItem.mode != "playlist" 
-                                        imageSource: "asset:///images/actions/icon_append_playlist.png"
-                                        onTriggered: {
-                                            songEntry.appendToPlaylist()
-                                        }
+                                    AppendPlaylistActionItem {
+                                        enabled: songEntry.ListItem.mode != "playlist"
+                                        currentSong: songEntry.ListItem.data
                                     },
                                     ActionItem {
                                         title: qsTr("Add to Favourites")

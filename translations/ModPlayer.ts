@@ -21,6 +21,34 @@
         <source>Append to Playlist</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Select Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing Playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Playlist...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist &apos;%1&apos; has been created</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ApplicationUI</name>
@@ -91,14 +119,6 @@
     <name>CreatePlaylistActionItem</name>
     <message>
         <source>Create Playlist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter Playlist Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playlist Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -440,6 +460,17 @@
     <name>PlayerActionItem</name>
     <message>
         <source>Now Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PlaylistNameEntryPrompt</name>
+    <message>
+        <source>Enter Playlist Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -893,10 +924,6 @@
     </message>
     <message>
         <source>Remove from Favourites</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Append to Playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
