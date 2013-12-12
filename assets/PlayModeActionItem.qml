@@ -6,15 +6,15 @@ ActionItem {
         if(app.player.playlist.mode == Playlist.SongOnce) {
             return qsTr("Song Once")
         } else if(app.player.playlist.mode == Playlist.SongCycle) {
-            return qsTr("Song Loop")
+            return qsTr("Repeat Song")
         } else if(app.player.playlist.mode == Playlist.PlaylistOnce) {
-            return qsTr("List Once")
+            return qsTr("Playlist Once")
         } else if(app.player.playlist.mode == Playlist.PlaylistCycle) {
-            return qsTr("List Loop")
+            return qsTr("Repeat Playlist")
         } else if(app.player.playlist.mode == Playlist.PlaylistRandomOnce) {
-            return qsTr("List Rand")
+            return qsTr("Playlist Randomly")
         } else if(app.player.playlist.mode == Playlist.PlaylistRandomCycle) {
-            return qsTr("Rand Loop")
+            return qsTr("Cycle Playlist Randomly")
         }
         return ""
     }
