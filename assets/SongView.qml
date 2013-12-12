@@ -77,6 +77,10 @@ Page {
                 }
             }
         },
+        AppendPlaylistActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
+            currentSong: song
+        },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

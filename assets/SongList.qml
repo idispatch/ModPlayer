@@ -104,10 +104,10 @@ Page {
             bottomPadding: topPadding
             leftPadding: 10
             rightPadding: leftPadding
-            function playSong(songId) {
+            function playSong(song) {
                 showPlayerView()
                 app.player.playlist.clear()
-                app.player.playlist.add(songId)
+                app.player.playlist.add(song.id)
                 app.player.playPlaylist()
             }
             function addFavourite(song) {
@@ -115,6 +115,9 @@ Page {
             }
             function removeFavourite(song) {
                 app.catalog.removeFavourite(song)
+            }
+            function appendToPlaylist(song) {
+                app.player.playlist.add(song.id)
             }
             listItemComponents: [
                 ListItemComponent {
@@ -203,13 +206,16 @@ Page {
                         }
                         imageSource: ListItem.data ? ListItem.data.iconPath : ""
                         function playSong() {
-                            ListItem.view.playSong(ListItem.data.id)
+                            ListItem.view.playSong(ListItem.data)
                         }
                         function addFavourite() {
                             ListItem.view.addFavourite(ListItem.data)
                         }
                         function removeFavourite() {
                             ListItem.view.removeFavourite(ListItem.data)
+                        }
+                        function appendToPlaylist() {
+                            ListItem.view.appendToPlaylist(ListItem.data)
                         }
                         contextActions: [
                             ActionSet {
@@ -221,6 +227,13 @@ Page {
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {
                                             songEntry.playSong()
+                                        }
+                                    },
+                                    ActionItem {
+                                        title: qsTr("Append to Playlist")
+                                        imageSource: "asset:///images/actions/icon_append_playlist.png"
+                                        onTriggered: {
+                                            songEntry.appendToPlaylist()
                                         }
                                     },
                                     ActionItem {
