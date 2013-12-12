@@ -4,7 +4,6 @@ import player 1.0
 
 ActionItem {
     title: qsTr("Playlist Mode")
-    enabled: app.player.currentSong.songLoaded
     imageSource: "asset:///images/actions/icon_playlist_mode.png"
     onTriggered: selectPlayMode.run()
     attachedObjects: [
