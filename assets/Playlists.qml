@@ -20,6 +20,15 @@ Page {
             bottomPadding: topPadding
             leftPadding: 10
             rightPadding: leftPadding
+            function playPlaylist(playlist) {
+                app.player.playlist.clear()
+                //TODO:
+            }
+            function deletePlaylist(playlist) {
+                app.catalog.deletePlaylist(playlist.id)
+                unload()
+                load()
+            }
             listItemComponents: [
                 ListItemComponent {
                     type: "header"
@@ -35,9 +44,38 @@ Page {
                 ListItemComponent {
                     type: "item"
                     ModPlayerListItem {
+                        id: playlistEntry
                         title: ListItem.data.name
                         description: " "
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                        function playPlaylist() {
+                            ListItem.view.playPlaylist(ListItem.data)
+                        }
+                        function deletePlaylist() {
+                            ListItem.view.deletePlaylist(ListItem.data)
+                        }
+                        contextActions: [
+                            ActionSet {
+                                title: playlistEntry.ListItem.data.name
+                                subtitle: qsTr("Playlist %1").arg(playlistEntry.ListItem.data.name)
+                                actions: [
+                                    ActionItem {
+                                        title: qsTr("Play")
+                                        enabled: playlistEntry.ListItem.data.count > 0
+                                        imageSource: "asset:///images/actions/icon_play.png"
+                                        onTriggered: {
+                                            playlistEntry.playPlaylist()
+                                        }
+                                    },
+                                    DeleteActionItem {
+                                        title: qsTr("Delete Playlist")
+                                        onTriggered: {
+                                            playlistEntry.deletePlaylist()
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }
             ]

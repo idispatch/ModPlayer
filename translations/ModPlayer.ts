@@ -453,6 +453,18 @@
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PreviousActionItem</name>
