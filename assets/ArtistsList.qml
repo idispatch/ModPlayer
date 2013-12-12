@@ -4,6 +4,7 @@ Page {
     id: artistsPage
     objectName: "artistsPage"
     property variant navigationPane
+    property int requestId
     titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Artist")
     }
@@ -56,21 +57,6 @@ Page {
             ]
         }
     }
-    function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && navigationPane.top == artistsPage) {
-            var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
-        }
-    }
-    property int requestId
-    function updateView(responseId, result) {
-        if(responseId != requestId) 
-            return
-        progress.stop()
-        artistsList.visible = true
-        artistsList.dataModel = result
-    }
     function load() {
         if(artistsList.dataModel == null || artistsList.dataModel.size() == 0) {
             progress.start()
@@ -79,8 +65,22 @@ Page {
         }
     }
     onCreationCompleted: {
-        app.player.requestPlayerView.connect(showPlayerView)
-        app.catalog.resultReady.connect(updateView)
+        app.player.requestPlayerView.connect(function() {
+            if(mainTabPane.activePane == navigationPane && 
+               navigationPane.top == artistsPage) {
+                var view = songPlayer.createObject()
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
+        })
+        app.catalog.resultReady.connect(function(responseId, result) {
+            if(responseId != requestId) 
+                return
+            requestId = 0
+            progress.stop()
+            artistsList.visible = true
+            artistsList.dataModel = result
+        })
     }
     attachedObjects: [
         ComponentDefinition {

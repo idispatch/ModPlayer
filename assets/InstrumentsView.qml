@@ -4,16 +4,17 @@ import "functions.js" as Global
 
 VerticalContainer {
     property string mode: "samples"
-    function load() {
-        if(mode == 'samples') {
-            instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
-        } else {
-            instrumentsSamplesList.dataModel = app.player.currentSong.getInstrumentNames()
-        }
-    }
+    
     onCreationCompleted: {
-        selector.selectedIndexChanged.connect(load)
-        app.player.currentSong.songLoadedChanged.connect(load)
+        var handler = function() {
+            if(mode == 'samples') {
+                instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
+            } else {
+                instrumentsSamplesList.dataModel = app.player.currentSong.getInstrumentNames()
+            }
+        }
+        selector.selectedIndexChanged.connect(handler)
+        app.player.currentSong.songLoadedChanged.connect(handler)
     }
     GroupContainer {
         SegmentedControl {

@@ -374,7 +374,7 @@ GroupDataModel* Catalog::findArtists() {
 
 ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
     return selectSongBasicInfo(QString("WHERE format=%1").arg(formatId),
-                               " ORDER BY "
+                               "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
                                "downloads DESC, "
@@ -386,7 +386,7 @@ ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
 
 ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
     return selectSongBasicInfo(QString("WHERE genre=%1").arg(genreId),
-                               " ORDER BY "
+                               "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
                                "downloads DESC, "
@@ -398,7 +398,7 @@ ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
 
 ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
     return selectSongBasicInfo(QString("WHERE artist=%1").arg(artistId),
-                               " ORDER BY "
+                               "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
                                "downloads DESC, "
@@ -437,6 +437,7 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 #ifdef DEBUG_CATALOG
     qDebug() << "Resolving module id for file name " << fileName;
 #endif
+    //TODO: fix for absolute file names
     QString query = QString("SELECT id FROM songs WHERE fileName='%1'").arg(FileUtils::fileNameOnly(fileName));
     QVariantList data = m_dataAccess->execute(query).value<QVariantList>();
     if(data.size() == 1)
@@ -461,6 +462,7 @@ SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
 }
 
 SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
+    //TODO: fix for absolute file names
     QObject * parentObject = parent.value<QObject*>();
     return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(FileUtils::fileNameOnly(fileName)),
                           parentObject);
@@ -576,6 +578,7 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
                 " INNER JOIN artists ON artists.id=songs.artist "
                 " INNER JOIN genres ON genres.id=songs.genre ");
     if(whereClause.length() > 0) {
+        query += " ";
         query += whereClause;
     }
     SongExtendedInfo * song = NULL;
@@ -592,9 +595,11 @@ ArrayDataModel* Catalog::selectSongBasicInfo(QString const& whereClause,
                                              int limit) {
     QString query(SELECT_FROM_SONGS);
     if(whereClause.length() > 0) {
+        query += " ";
         query += whereClause;
     }
     if(orderByClause.length() > 0) {
+        query += " ";
         query += orderByClause;
     }
     if(limit > 0) {
@@ -647,38 +652,38 @@ ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
 }
 
 ArrayDataModel* Catalog::findMostDownloadedSongs(int limit) {
-    return selectSongBasicInfo(" WHERE downloads>0 ",
-                               " ORDER BY downloads DESC ",
+    return selectSongBasicInfo("WHERE downloads>0",
+                               "ORDER BY downloads DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMostFavouritedSongs(int limit) {
-    return selectSongBasicInfo(" WHERE favourited>0 ",
-                               " ORDER BY favourited DESC, downloads DESC, score DESC ",
+    return selectSongBasicInfo("WHERE favourited>0",
+                               "ORDER BY favourited DESC, downloads DESC, score DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMostScoredSongs(int limit) {
-    return selectSongBasicInfo(" WHERE score>0 ",
-                               " ORDER BY score DESC, downloads DESC, favourited DESC ",
+    return selectSongBasicInfo("WHERE score>0",
+                               "ORDER BY score DESC, downloads DESC, favourited DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findRecentlyPlayedSongs(int limit) {
-    return selectSongBasicInfo(" WHERE lastPlayed>0 ",
-                               " ORDER BY lastPlayed DESC ",
+    return selectSongBasicInfo("WHERE lastPlayed>0",
+                               "ORDER BY lastPlayed DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMyFavouriteSongs(int limit) {
-    return selectSongBasicInfo(" WHERE myFavourite>0 ",
-                               " ORDER BY playCount DESC, lastPlayed DESC ",
+    return selectSongBasicInfo("WHERE myFavourite>0",
+                               "ORDER BY playCount DESC, lastPlayed DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMostPlayedSongs(int limit) {
-    return selectSongBasicInfo(" WHERE playCount>0 ",
-                               " ORDER BY playCount DESC, lastPlayed DESC ",
+    return selectSongBasicInfo("WHERE playCount>0",
+                               "ORDER BY playCount DESC, lastPlayed DESC",
                                limit);
 }
 
@@ -809,7 +814,8 @@ void Catalog::run() {
         {
             m_cond.wait(&m_mutex);
         }
-        Command * command = m_commandQueue.dequeue();
+
+        std::auto_ptr<Command> command(m_commandQueue.dequeue());
         m_mutex.unlock();
 
         QVariant result;
@@ -832,7 +838,7 @@ void Catalog::run() {
             break;
         case Command::SearchSongs:
             {
-                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command);
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
                 ArrayDataModel * model = searchSongs(searchCommand->query(), searchCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -861,7 +867,7 @@ void Catalog::run() {
             break;
         case Command::SongsByFormatList:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findSongsByFormatId(findCommand->queryId(), findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -869,7 +875,7 @@ void Catalog::run() {
             break;
         case Command::SongsByArtistList:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findSongsByArtistId(findCommand->queryId(), findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -877,7 +883,7 @@ void Catalog::run() {
             break;
         case Command::SongsByGenreList:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findSongsByGenreId(findCommand->queryId(), findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -885,7 +891,7 @@ void Catalog::run() {
             break;
         case Command::MostDownloadedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findMostDownloadedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -893,7 +899,7 @@ void Catalog::run() {
             break;
         case Command::MostFavouritedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findMostFavouritedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -901,7 +907,7 @@ void Catalog::run() {
             break;
         case Command::MostScoredSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findMostScoredSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -909,7 +915,7 @@ void Catalog::run() {
             break;
         case Command::RecentlyPlayedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findRecentlyPlayedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -917,7 +923,7 @@ void Catalog::run() {
             break;
         case Command::MyFavouriteSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findMyFavouriteSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -925,7 +931,7 @@ void Catalog::run() {
             break;
         case Command::MostPlayedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command);
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findMostPlayedSongs(findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
@@ -944,8 +950,6 @@ void Catalog::run() {
             result.detach();
             delete p;
         }
-
-        delete command;
     }
     QThread::exit(0);
 }

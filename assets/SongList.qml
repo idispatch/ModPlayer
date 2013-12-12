@@ -6,6 +6,7 @@ Page {
     objectName: "songListPage"
     property variant navigationPane
     property int maximumSearchSongResults: 100
+    property int requestId
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
@@ -205,15 +206,6 @@ Page {
             ]
         }
     }
-    property int requestId
-    function updateView(responseId, result) {
-        if(responseId != requestId) 
-            return
-        songs.dataModel = result
-        progress.stop()
-        songs.visible = (songs.dataModel.size() > 0)
-        listEmpty.visible = (songs.dataModel.size() == 0)
-    }
     function showList(listName, modelName, request) {
         requestId = request
         songs.mode = listName
@@ -284,16 +276,24 @@ Page {
         maximumSearchSongResults = 5000
         showList("artist", artistName, app.player.catalog.findSongsByArtistIdAsync(artistId, maximumSearchSongResults))
     }
-    function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && navigationPane.top == songListPage) {
-            var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
-        }
-    }
     onCreationCompleted: {
-        app.player.requestPlayerView.connect(showPlayerView)
-        app.catalog.resultReady.connect(updateView)
+        app.player.requestPlayerView.connect(function() {
+            if(mainTabPane.activePane == navigationPane && 
+               navigationPane.top == songListPage) {
+                var view = songPlayer.createObject()
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
+        })
+        app.catalog.resultReady.connect(function(responseId, result) {
+            if(responseId != requestId) 
+                return
+            requestId = 0
+            songs.dataModel = result
+            progress.stop()
+            songs.visible = (songs.dataModel.size() > 0)
+            listEmpty.visible = (songs.dataModel.size() == 0)
+        })
     }
     attachedObjects: [
         ComponentDefinition {

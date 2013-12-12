@@ -91,29 +91,6 @@ private:
     };
     void notify(State const& state);
 Q_SIGNALS:
-#if defined(NO_QT)
-    void currentChanged() {
-        std::cout << " *currentChanged" << std::endl;
-    }
-    void countChanged() {
-        std::cout << " *countChanged" << std::endl;
-    }
-    void remainingChanged() {
-        std::cout << " *remainingChanged" << std::endl;
-    }
-    void emptyChanged() {
-        std::cout << " *emptyChanged" << std::endl;
-    }
-    void atEndChanged() {
-        std::cout << " *atEndChanged" << std::endl;
-    }
-    void nextAvailableChanged() {
-        std::cout << " *nextAvailableChanged" << std::endl;
-    }
-    void previousAvailableChanged() {
-        std::cout << " *previousAvailableChanged" << std::endl;
-    }
-#else
     void modeChanged();
     void currentChanged();
     void countChanged();
@@ -122,7 +99,6 @@ Q_SIGNALS:
     void atEndChanged();
     void nextAvailableChanged();
     void previousAvailableChanged();
-#endif
 private:
     Mode m_mode;
     std::vector<int> m_pending;

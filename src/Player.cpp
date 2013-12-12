@@ -430,6 +430,12 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
     return rv;
 }
 
+void Player::playPlaylist() {
+    if(m_playlist->remaining() > 0) {
+        playByModuleId(m_playlist->current());
+    }
+}
+
 void Player::play(QVariant value) {
     if(value.type() == QVariant::Int)
     {

@@ -26,7 +26,6 @@ class Player : public QObject,
                public InstanceCounter<Player> {
     Q_OBJECT
     Q_ENUMS(State)
-    Q_ENUMS(Mode)
 public:
     enum State
     {
@@ -65,6 +64,7 @@ public:
     Playlist * playlist() const;
     SongModule * currentSong() const;
 
+    Q_INVOKABLE void playPlaylist();
     Q_INVOKABLE void playLocalSong(QString const& fileName);
     Q_INVOKABLE void browseForLocalSong();
     Q_INVOKABLE void play(QVariant value); /* loads and plays */
@@ -85,7 +85,6 @@ Q_SIGNALS:
     void stateChanged();
     void statusTextChanged();
     void userDirectoryChanged();
-    void modeChanged();
     void cacheChanged();
     void catalogChanged();
     void playbackChanged();

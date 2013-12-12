@@ -4,6 +4,7 @@ Page {
     id: formatsPage
     objectName: "formatsPage"
     property variant navigationPane
+    property int requestId
     titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Format")
     }
@@ -42,14 +43,6 @@ Page {
             ]
         }
     }
-    property int requestId
-    function updateView(responseId, result) {
-        if(responseId != requestId) 
-            return
-        progress.stop()
-        formatsList.visible = true
-        formatsList.dataModel = result
-    }
     function load() {
         if(formatsList.dataModel == null || formatsList.dataModel.size() == 0) {
             progress.start()
@@ -57,16 +50,23 @@ Page {
             requestId = app.player.catalog.findFormatsAsync()
         }
     }
-    function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && navigationPane.top == formatsPage) {
-            var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
-        }
-    }
     onCreationCompleted: {
-        app.player.requestPlayerView.connect(showPlayerView)
-        app.catalog.resultReady.connect(updateView)
+        app.player.requestPlayerView.connect(function() {
+            if(mainTabPane.activePane == navigationPane && 
+               navigationPane.top == formatsPage) {
+                var view = songPlayer.createObject()
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
+        })
+        app.catalog.resultReady.connect(function(responseId, result) {
+            if(responseId != requestId) 
+                return
+            requestId = 0
+            progress.stop()
+            formatsList.visible = true
+            formatsList.dataModel = result
+        })
     }
     attachedObjects: [
         ComponentDefinition {

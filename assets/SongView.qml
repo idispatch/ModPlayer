@@ -49,7 +49,9 @@ Page {
         }
     }
     onCreationCompleted: {
-        app.player.requestPlayerView.connect(showPlayerView)
+        app.player.requestPlayerView.connect(function() { 
+            showPlayerView()
+        })
     }
     attachedObjects: [
         ComponentDefinition {
@@ -69,7 +71,10 @@ Page {
             onTriggered: {
                 if(song) {
                     showPlayerView()
-                    app.player.play(song)
+                    app.player.playlist.clear()
+                    app.player.playlist.add(song.id)
+                    app.player.playPlaylist()
+                    //app.player.play(song)
                 }
             }
         },

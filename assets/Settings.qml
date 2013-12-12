@@ -67,6 +67,7 @@ Sheet {
                                 text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...")
                                 app.catalog.resultReady.connect(function(responseId, result) {
                                     if(responseId == requestId) {
+                                        requestId = 0
                                         text = qsTr("Catalog songs: <b>%1</b>").arg(result)
                                     }
                                 })
@@ -84,6 +85,7 @@ Sheet {
                                 text = qsTr("Personal songs: <b>%1</b>").arg("calculating...")
                                 app.catalog.resultReady.connect(function(responseId, result) {
                                         if(responseId == requestId) {
+                                            requestId = 0
                                             text = qsTr("Personal songs: <b>%1</b>").arg(result)
                                         }
                                 })
