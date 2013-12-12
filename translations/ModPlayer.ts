@@ -16,6 +16,13 @@
     </message>
 </context>
 <context>
+    <name>AppendPlaylistActionItem</name>
+    <message>
+        <source>Append to Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ApplicationUI</name>
     <message>
         <source>Hello, ModPlayer Author!</source>
@@ -825,6 +832,10 @@
     </message>
     <message>
         <source>Remove from Favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append to Playlist</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

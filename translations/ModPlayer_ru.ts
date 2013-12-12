@@ -16,6 +16,13 @@
     </message>
 </context>
 <context>
+    <name>AppendPlaylistActionItem</name>
+    <message>
+        <source>Append to Playlist</source>
+        <translation>Добавить в плейлист</translation>
+    </message>
+</context>
+<context>
     <name>ApplicationUI</name>
     <message>
         <source>Hello, ModPlayer Author!</source>
@@ -114,7 +121,7 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is a tracker music player.</source>
-        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; - проигрыватель трекерной музыки.</translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; - проигрыватель трэкерной музыки.</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
@@ -181,14 +188,14 @@
     </message>
     <message>
         <source>Would you like to import local tracker songs?</source>
-        <translation>Вы хотите импортировать песни в трекерном формате с телефона?</translation>
+        <translation>Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
     </message>
 </context>
 <context>
     <name>Importer</name>
     <message>
         <source>Importing Tracker Songs</source>
-        <translation>Импорт трекерных песен</translation>
+        <translation>Импорт трэкерных песен</translation>
     </message>
     <message>
         <source>Importing %1</source>
@@ -200,11 +207,11 @@
     </message>
     <message>
         <source>No tracker songs found</source>
-        <translation>Песни в трекерном формате не найдены</translation>
+        <translation>Песни в трэкерном формате не найдены</translation>
     </message>
     <message>
         <source>Searching for tracker songs in %1...</source>
-        <translation>Поиск трекерных песен для импорта</translation>
+        <translation>Поиск трэкерных песен для импорта</translation>
     </message>
 </context>
 <context>
@@ -255,7 +262,7 @@
     <name>NextActionItem</name>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>След.</translation>
     </message>
 </context>
 <context>
@@ -295,7 +302,7 @@
     </message>
     <message>
         <source>Play</source>
-        <translation type="unfinished">Играть</translation>
+        <translation>Играть</translation>
     </message>
 </context>
 <context>
@@ -312,44 +319,36 @@
 <context>
     <name>PlayModeActionItem</name>
     <message>
-        <source>Play Once</source>
-        <translation type="obsolete">Один раз</translation>
-    </message>
-    <message>
         <source>Playlist Once</source>
-        <translation type="unfinished">Один раз</translation>
-    </message>
-    <message>
-        <source>Repeat</source>
-        <translation type="obsolete">Повторить</translation>
+        <translation>Плейлист один раз</translation>
     </message>
     <message>
         <source>Song Once</source>
-        <translation type="unfinished"></translation>
+        <translation>Песню один раз</translation>
     </message>
     <message>
         <source>Playlist Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Порядок воспроизведения</translation>
     </message>
     <message>
         <source>Select Play Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите порядок воспроизведения</translation>
     </message>
     <message>
         <source>Song Repeat</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторять песню</translation>
     </message>
     <message>
         <source>Playlist Repeat</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторять плейлист</translation>
     </message>
     <message>
         <source>Shuffle Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемешать плейлист</translation>
     </message>
     <message>
         <source>Repeat Shuffle Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторять перемеш. плейлист</translation>
     </message>
 </context>
 <context>
@@ -410,7 +409,7 @@
     <name>PreviousActionItem</name>
     <message>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Пред.</translation>
     </message>
 </context>
 <context>
@@ -692,7 +691,7 @@
     </message>
     <message>
         <source>Would you like to import local tracker songs?</source>
-        <translation>Вы хотите импортировать песни в трекерном формате с телефона?</translation>
+        <translation>Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
     </message>
     <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -834,6 +833,10 @@
     <message>
         <source>Remove from Favourites</source>
         <translation>Удалить из избранных</translation>
+    </message>
+    <message>
+        <source>Append to Playlist</source>
+        <translation>Добавить в плейлист</translation>
     </message>
 </context>
 <context>
