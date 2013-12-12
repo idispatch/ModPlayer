@@ -107,7 +107,7 @@ void Catalog::copyCatalogToDataFolder() {
                 }
             }
 
-            if(version == 1)
+            if(version == 2)
             {
                 qDebug() << "Database migration not required, version" << version;
                 QSqlDatabase::removeDatabase("catalog");
@@ -753,7 +753,7 @@ void Catalog::clearPersonalSongs() {
 
 void Catalog::addPersonalSong(SongExtendedInfo const& info) {
     QString query = QString("INSERT INTO songs"
-                            " id,"
+                            " (id,"
                             " fileName,"
                             " title,"
                             " format,"
@@ -772,7 +772,7 @@ void Catalog::addPersonalSong(SongExtendedInfo const& info) {
                             " orders,"
                             " instruments,"
                             " samples,"
-                            " channels "
+                            " channels) "
                             "VALUES "
                             "(?,?,?,?,?,?,?,?,?,?,"
                             "?,?,?,?,?,?,?,?,?,?)");

@@ -74,9 +74,13 @@ Sheet {
                             }
                         }
                         BlackLabel {
+                            id: personalSongCount
                             property int requestId
                             textFormat: TextFormat.Html
                             onCreationCompleted: {
+                                updateCount()
+                            }
+                            function updateCount() {
                                 text = qsTr("Personal songs: <b>%1</b>").arg("calculating...")
                                 app.catalog.resultReady.connect(function(responseId, result) {
                                         if(responseId == requestId) {
@@ -290,6 +294,7 @@ Sheet {
                                     onFinished: {
                                         if (result == SystemUiResult.ConfirmButtonSelection) {
                                             app.player.importSongs()
+                                            personalSongCount.updateCount()
                                         }
                                     }
                                 }

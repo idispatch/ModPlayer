@@ -77,28 +77,36 @@ int Importer::import()
 
 int Importer::scanDirectory(QDir const& root)
 {
-   QStack<QString> stack;
-   stack.push(root.absolutePath());
-   while(!stack.isEmpty()) {
-      QString directoryPath = stack.pop();
 #ifdef DETAILED_LOG
-      qDebug() << "Scanning " << directoryPath;
+    qDebug() << "Filters: " << m_filters;
 #endif
-      QString progressMessage = QString(tr("Searching for tracker songs in %1...")).arg(directoryPath.remove(0, 15)); // "/accounts/1000/"
-      updateProgressUI(progressMessage, INDEFINITE);
+    QStack<QString> stack;
+    stack.push(root.absolutePath());
+    while(!stack.isEmpty()) {
+        QString directoryPath = stack.pop();
+#ifdef DETAILED_LOG
+        qDebug() << "Scanning " << directoryPath;
+#endif
+        QString location = directoryPath;
+        location.remove(0, 15);
+        QString progressMessage = QString(tr("Searching for tracker songs in %1...")).arg(location);
+        updateProgressUI(progressMessage, INDEFINITE);
 
-      QDir directory(directoryPath);
-      QStringList entries = directory.entryList(m_filters, QDir::Files);
-      for (int i = 0; i < entries.size(); i++) {
-          QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
-          importFile(absoluteFileName);
-      }
+        QDir directory(directoryPath);
+        QStringList entries = directory.entryList(m_filters, QDir::Files);
+#ifdef DETAILED_LOG
+        qDebug() << "Found songs: " << entries.size();
+#endif
+        for(int i = 0; i < entries.size(); i++) {
+            QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
+            importFile(absoluteFileName);
+        }
 
-      QFileInfoList infoEntries = directory.entryInfoList(QStringList(),
-                                                          QDir::AllDirs | QDir::NoDotAndDotDot);
-      for (int i = 0; i < infoEntries.size(); i++) {
-         stack.push(infoEntries[i].absoluteFilePath());
-      }
+        QFileInfoList infoEntries = directory.entryInfoList(QStringList(),
+                                                            QDir::AllDirs | QDir::NoDotAndDotDot);
+        for (int i = 0; i < infoEntries.size(); i++) {
+            stack.push(infoEntries[i].absoluteFilePath());
+        }
    }
    return m_numImportedSongs;
 }
