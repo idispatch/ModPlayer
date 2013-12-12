@@ -59,9 +59,6 @@ Page {
     function unload() {
         progress.start()
         playlistsList.visible = false
-        if (playlistsList.dataModel) {
-            playlistsList.dataModel.clear()
-        }
         playlistsList.resetDataModel()
     }
     function load() {
@@ -98,10 +95,21 @@ Page {
     actions: [
         CreatePlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
+            onPlaylistCreated: {
+                unload()
+                load()
+            }
         },
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: playlistsPage.navigationPane
+        },
+        DeleteAllPlaylistsActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            onPlaylistsDeleted: {
+                unload()
+                load()
+            }
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

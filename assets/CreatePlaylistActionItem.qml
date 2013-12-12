@@ -3,22 +3,24 @@ import bb.system 1.0
 import player 1.0
 
 ActionItem {
+    signal playlistCreated()
     title: qsTr("Create Playlist")
     imageSource: "asset:///images/actions/icon_append_playlist.png"
     onTriggered: {
-        var name = playlistName.run()
-        if(name.length < 1)
+        var playlistName = playlistNamePrompt.run()
+        if(playlistName.length < 1)
             return;
-        app.catalog.createPlaylist(name)
-        playlistCreated.body = qsTr("Playlist '%1' has been created").arg(name)
-        playlistCreated.show()
+        app.catalog.createPlaylist(playlistName)
+        playlistCreatedToast.body = qsTr("Playlist '%1' has been created").arg(playlistName)
+        playlistCreatedToast.show()
+        playlistCreated()
     }
     attachedObjects: [
         SystemToast {
-            id: playlistCreated
+            id: playlistCreatedToast
         },
         SystemPrompt {
-            id: playlistName
+            id: playlistNamePrompt
             title: qsTr("Enter Playlist Name")
             modality: SystemUiModality.Application
             dismissAutomatically: true

@@ -246,6 +246,10 @@ int Catalog::findSongsByArtistIdAsync(int artistId, int limit) {
     return asyncFindCommand(Command::SongsByArtistList, artistId, limit);
 }
 
+int Catalog::findSongsByPlaylistIdAsync(int playlistId, int limit) {
+    return asyncFindCommand(Command::SongsByPlaylist, playlistId, limit);
+}
+
 int Catalog::findMostDownloadedSongsAsync(int limit) {
     return asyncFindCommand(Command::MostDownloadedSongs, 0, limit);
 }
@@ -410,7 +414,8 @@ GroupDataModel* Catalog::findPlaylists() {
 }
 
 ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
-    return selectSongBasicInfo(QString("WHERE format=%1").arg(formatId),
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               QString("WHERE format=%1").arg(formatId),
                                "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
@@ -422,7 +427,8 @@ ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
 }
 
 ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
-    return selectSongBasicInfo(QString("WHERE genre=%1").arg(genreId),
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               QString("WHERE genre=%1").arg(genreId),
                                "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
@@ -434,7 +440,8 @@ ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
 }
 
 ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
-    return selectSongBasicInfo(QString("WHERE artist=%1").arg(artistId),
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               QString("WHERE artist=%1").arg(artistId),
                                "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
@@ -442,6 +449,19 @@ ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
                                "playCount DESC, "
                                "lastPlayed DESC, "
                                "fileName ASC ",
+                               limit);
+}
+
+ArrayDataModel* Catalog::findSongsByPlaylistId(int playlistId, int limit) {
+    QString selectClause(SELECT_FROM_SONGS);
+    selectClause += " INNER JOIN playlistEntries ON songs.id=playlistEntries.songId ";
+    return selectSongBasicInfo(selectClause,
+                               QString("WHERE playlistEntries.playlistId=%1").arg(playlistId),
+                               "ORDER BY "
+                               "playlistEntries.songOrder ASC, "
+                               "songs.playCount DESC, "
+                               "songs.lastPlayed DESC, "
+                               "songs.fileName ASC ",
                                limit);
 }
 
@@ -614,10 +634,11 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
     return song;
 }
 
-ArrayDataModel* Catalog::selectSongBasicInfo(QString const& whereClause,
+ArrayDataModel* Catalog::selectSongBasicInfo(QString const& selectClause,
+                                             QString const& whereClause,
                                              QString const& orderByClause,
                                              int limit) {
-    QString query(SELECT_FROM_SONGS);
+    QString query(selectClause);
     if(whereClause.length() > 0) {
         query += " ";
         query += whereClause;
@@ -676,43 +697,50 @@ ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
 }
 
 ArrayDataModel* Catalog::findMostDownloadedSongs(int limit) {
-    return selectSongBasicInfo("WHERE downloads>0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE downloads>0",
                                "ORDER BY downloads DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMostFavouritedSongs(int limit) {
-    return selectSongBasicInfo("WHERE favourited>0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE favourited>0",
                                "ORDER BY favourited DESC, downloads DESC, score DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMyLocalSongs(int limit) {
-    return selectSongBasicInfo("WHERE id<0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE id<0",
                                "ORDER BY fileName",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMostScoredSongs(int limit) {
-    return selectSongBasicInfo("WHERE score>0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE score>0",
                                "ORDER BY score DESC, downloads DESC, favourited DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findRecentlyPlayedSongs(int limit) {
-    return selectSongBasicInfo("WHERE lastPlayed>0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE lastPlayed>0",
                                "ORDER BY lastPlayed DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMyFavouriteSongs(int limit) {
-    return selectSongBasicInfo("WHERE myFavourite>0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE myFavourite>0",
                                "ORDER BY playCount DESC, lastPlayed DESC",
                                limit);
 }
 
 ArrayDataModel* Catalog::findMostPlayedSongs(int limit) {
-    return selectSongBasicInfo("WHERE playCount>0",
+    return selectSongBasicInfo(SELECT_FROM_SONGS,
+                               "WHERE playCount>0",
                                "ORDER BY playCount DESC, lastPlayed DESC",
                                limit);
 }
@@ -783,8 +811,9 @@ void Catalog::resetMyFavourites() {
 }
 
 void Catalog::clearPersonalSongs() {
-    QString query = QString("DELETE FROM songs "
-                            "WHERE id < 0");
+    QString query = "DELETE FROM playlistEntries WHERE songId < 0";
+    m_dataAccess->execute(query);
+    query = "DELETE FROM songs WHERE id < 0";
     m_dataAccess->execute(query);
 }
 
@@ -867,6 +896,13 @@ void Catalog::deletePlaylist(int playlistId) {
 
     query = "DELETE FROM playlists WHERE id=?";
     m_dataAccess->execute(query, params);
+}
+
+void Catalog::deleteAllPlaylists() {
+    QString query = "DELETE FROM playlistEntries";
+    m_dataAccess->execute(query);
+    query = "DELETE FROM playlists";
+    m_dataAccess->execute(query);
 }
 
 void Catalog::run() {
@@ -956,6 +992,14 @@ void Catalog::run() {
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findSongsByGenreId(findCommand->queryId(), findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::SongsByPlaylist:
+            {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
+                ArrayDataModel * model = findSongsByPlaylistId(findCommand->queryId(), findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }

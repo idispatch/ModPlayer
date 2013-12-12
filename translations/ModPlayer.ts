@@ -88,6 +88,44 @@
     </message>
 </context>
 <context>
+    <name>CreatePlaylistActionItem</name>
+    <message>
+        <source>Create Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter Playlist Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist &apos;%1&apos; has been created</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DeleteAllPlaylistsActionItem</name>
+    <message>
+        <source>Delete All Playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All playlists will be deleted. Please confirm.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All playlists have been deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -402,6 +440,17 @@
     <name>PlayerActionItem</name>
     <message>
         <source>Now Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Playlists</name>
+    <message>
+        <source>Select Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -838,6 +887,10 @@
         <source>Append to Playlist</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 Playlist Songs (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongMainInfo</name>
@@ -1128,6 +1181,14 @@
     </message>
     <message>
         <source>Songs on My Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Playlists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

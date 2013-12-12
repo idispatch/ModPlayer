@@ -68,6 +68,9 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByArtistId(int artistId, int limit);
     Q_INVOKABLE int findSongsByArtistIdAsync(int artistId, int limit);
 
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByPlaylistId(int playlistId, int limit);
+    Q_INVOKABLE int findSongsByPlaylistIdAsync(int playlistId, int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm, int limit);
     Q_INVOKABLE int searchSongsAsync(QString const& searchTerm, int limit);
 
@@ -110,6 +113,7 @@ public:
 
     Q_INVOKABLE int createPlaylist(QString const& name);
     Q_INVOKABLE void deletePlaylist(int playlistId);
+    Q_INVOKABLE void deleteAllPlaylists();
 
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;
@@ -124,7 +128,8 @@ private:
 
     SongExtendedInfo * selectSongInfo(QString const& whereClause, QObject *parent);
 
-    bb::cascades::ArrayDataModel* selectSongBasicInfo(QString const& whereClause,
+    bb::cascades::ArrayDataModel* selectSongBasicInfo(QString const& selectClause,
+                                                      QString const& whereClause,
                                                       QString const& orderByClause,
                                                       int limit);
 
@@ -150,6 +155,7 @@ private:
             SongsByFormatList,
             SongsByGenreList,
             SongsByArtistList,
+            SongsByPlaylist,
 
             MostDownloadedSongs,
             MostFavouritedSongs,
