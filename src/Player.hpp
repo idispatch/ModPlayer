@@ -71,6 +71,8 @@ public:
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
+    Q_INVOKABLE void playNext();
+    Q_INVOKABLE void playPrevious();
 
     Q_INVOKABLE void exportMp3(QString const& inputFileName,
                                QString const& outputFileName);
@@ -114,6 +116,12 @@ private slots:
     void onNowPlayingPlay();
     void onNowPlayingStop();
     void onNowPlayingPause();
+    void onNowPlayingNext();
+    void onNowPlayingPrevious();
+
+    /* For Playlist */
+    void onPlaylistNextAvailableChanged();
+    void onPlaylistPreviousAvailableChanged();
 protected:
     void timerEvent(QTimerEvent *event);
 private:
@@ -124,6 +132,7 @@ private:
     void initDownloader();
     void initPlayback();
     void initNowPlaying();
+    void initPlaylist();
 
     void changeStatus(State state, QString const& statusText);
     bool beginPlay(bool fromCatalog, QString const& fileName);

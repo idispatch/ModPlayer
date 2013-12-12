@@ -66,6 +66,7 @@ Player::Player(QSettings &settings, QObject * parent)
     initDownloader();
     initPlayback();
     initNowPlaying();
+    initPlaylist();
     initCatalog();
 }
 
@@ -160,7 +161,47 @@ void Player::initNowPlaying() {
     rc = QObject::connect(m_nowPlaying, SIGNAL(stop()),
                           this,         SLOT(onNowPlayingStop()));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(m_nowPlaying, SIGNAL(next()),
+                          this,         SLOT(onNowPlayingNext()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_nowPlaying, SIGNAL(previous()),
+                          this,         SLOT(onNowPlayingPrevious()));
+    Q_ASSERT(rc);
     Q_UNUSED(rc);
+}
+
+void Player::initPlaylist() {
+    bool rc;
+    rc = QObject::connect(m_playlist, SIGNAL(nextAvailableChanged()),
+                          this,       SLOT(onPlaylistNextAvailableChanged()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_playlist, SIGNAL(previousAvailableChanged()),
+                          this,       SLOT(onPlaylistPreviousAvailableChanged()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+}
+
+void Player::onPlaylistNextAvailableChanged() {
+    if(m_nowPlaying!=NULL && m_playlist!=NULL) {
+        m_nowPlaying->setNextEnabled(m_playlist->nextAvailable());
+    }
+}
+
+void Player::onPlaylistPreviousAvailableChanged() {
+    if(m_nowPlaying!=NULL && m_playlist!=NULL) {
+        m_nowPlaying->setPreviousEnabled(m_playlist->previousAvailable());
+    }
+}
+
+void Player::onNowPlayingNext() {
+    playNext();
+}
+
+void Player::onNowPlayingPrevious() {
+    playPrevious();
 }
 
 void Player::changeStatus(State state, QString const& statusText) {
@@ -533,26 +574,7 @@ void Player::onStopped() {
 }
 
 void Player::onFinished() {
-    switch(m_playlist->mode()){
-    case Playlist::SongOnce:
-        m_playlist->reset();
-        break;
-    case Playlist::SongCycle:
-        m_playback->play();
-        break;
-    case Playlist::PlaylistOnce:
-    case Playlist::PlaylistRandomOnce:
-    case Playlist::PlaylistCycle:
-    case Playlist::PlaylistRandomCycle:
-        if(m_playlist->atEnd()) {
-            m_playlist->reset();
-        } else {
-            playByModuleId(m_playlist->next());
-	}
-        break;
-    default:
-        break;
-    }
+    playNext();
 }
 
 void Player::timerEvent(QTimerEvent *event) {
@@ -568,6 +590,40 @@ void Player::timerEvent(QTimerEvent *event) {
 void Player::onCurrentFilesChanged() {
     if(m_cache->currentFiles() == 5) {
         startTimer(3000);
+    }
+}
+
+void Player::playNext() {
+    if(m_playlist->nextAvailable()) {
+        switch(m_playlist->mode()){
+        case Playlist::SongOnce:
+            m_playlist->reset();
+            break;
+        case Playlist::SongCycle:
+            m_playback->play();
+            break;
+        case Playlist::PlaylistOnce:
+        case Playlist::PlaylistRandomOnce:
+            if(m_playlist->atEnd()) {
+                m_playlist->reset();
+            } else {
+                playByModuleId(m_playlist->next());
+            }
+            break;
+        case Playlist::PlaylistCycle:
+        case Playlist::PlaylistRandomCycle:
+            playByModuleId(m_playlist->next());
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void Player::playPrevious() {
+    if(m_playlist->previousAvailable()) {
+        int songId = m_playlist->previous();
+        playByModuleId(songId);
     }
 }
 

@@ -3,12 +3,19 @@
 #include <algorithm>
 #include <iterator>
 
+template<>
+int InstanceCounter<Playlist>::s_count;
+template<>
+int InstanceCounter<Playlist>::s_maxCount;
+
 Playlist::Playlist(QObject * parent)
-    : QObject(parent), m_mode(PlaylistOnce)
+    : QObject(parent),
+      m_mode(PlaylistOnce)
 {}
 
 Playlist::Playlist(Playlist::Mode mode, QObject * parent)
-    : QObject(parent), m_mode(mode)
+    : QObject(parent),
+      m_mode(mode)
 {}
 
 Playlist::~Playlist()
@@ -236,14 +243,13 @@ void Playlist::notify(State const& state) {
     }
 }
 
-#if 0
-void dump(Playlist const& p) {
-    std::cout << "CurrentID: " << p.current() << std::endl;
-    std::cout << "Count: " << p.count() << std::endl;
-    std::cout << "Remaining: " << p.remaining() << std::endl;
-    std::cout << "Empty: " << (p.empty() ? "true":"false") << std::endl;
-    std::cout << "AtEnd: " << (p.atEnd() ? "true":"false") << std::endl;
-    std::cout << "PreviousAvailble: " << (p.previousAvailable() ? "true":"false") << std::endl;
-    std::cout << "NextAvailable: " << (p.nextAvailable() ? "true":"false") << std::endl;
+QDebug operator << (QDebug dbg, Playlist const &p) {
+    dbg.nospace() << "CurrentID: " << p.current()
+                  << ", Count: " << p.count()
+                  << ", Remaining: " << p.remaining()
+                  << ", Empty: " << (p.empty() ? "true":"false")
+                  << ", AtEnd: " << (p.atEnd() ? "true":"false")
+                  << ", PreviousAvailble: " << (p.previousAvailable() ? "true":"false")
+                  << ", NextAvailable: " << (p.nextAvailable() ? "true":"false");
+    return dbg.space();
 }
-#endif

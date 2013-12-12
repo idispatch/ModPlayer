@@ -32,6 +32,7 @@
 #include "ModPlayback.hpp"
 #include "PatternView.hpp"
 #include "VUMeter.hpp"
+#include "Playlist.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -161,6 +162,8 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<SongExtendedInfo>(QmlNamespace, versionMajor, versionMinor, "SongExtendedInfo", "");
     qmlRegisterUncreatableType<Artist>(QmlNamespace, versionMajor, versionMinor, "Artist", "");
     qmlRegisterUncreatableType<Analytics>(QmlNamespace, versionMajor, versionMinor, "Analytics", "");
+
+    qmlRegisterUncreatableType<Playlist>(QmlNamespace, versionMajor, versionMinor, "Playlist", "");
 }
 
 void ApplicationUI::initApp() {

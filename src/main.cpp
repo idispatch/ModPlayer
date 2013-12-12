@@ -28,6 +28,7 @@
 #include "VUMeter.hpp"
 #include "TouchHandler.hpp"
 #include "ItemGroupBase.hpp"
+#include "Playlist.hpp"
 
 template<typename T>
 void dumpInstanceCount(const char * className) {
@@ -62,6 +63,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(PatternView)
     DUMP_COUNT(VUMeter)
     DUMP_COUNT(TouchHandler)
+    DUMP_COUNT(Playlist)
 #undef DUMP_COUNT
 }
 #endif

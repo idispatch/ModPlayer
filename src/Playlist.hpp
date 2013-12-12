@@ -2,10 +2,16 @@
 #define PLAYLIST_HPP_
 
 #include <QObject>
+#include <QMetaType>
+#include <QDebug>
 #include <vector>
 #include <deque>
+#include "InstanceCounter.hpp"
 
-class Playlist : public QObject {
+class Playlist : public QObject,
+                 public InstanceCounter<Playlist> {
+    Q_OBJECT
+    Q_DISABLE_COPY(Playlist)
 public:
     enum Mode {
         // 1st bit: 0=song,       1=playlist
@@ -20,8 +26,6 @@ public:
     };
     Q_ENUMS(Mode)
 private:
-    Q_OBJECT
-    Q_DISABLE_COPY(Playlist)
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
     Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
     Q_PROPERTY(int remaining READ remaining NOTIFY remainingChanged FINAL)
@@ -53,6 +57,9 @@ public:
     bool nextAvailable() const;
     Mode mode() const;
     void setMode(Mode mode);
+
+    using InstanceCounter<Playlist>::getInstanceCount;
+    using InstanceCounter<Playlist>::getMaxInstanceCount;
 private:
     class State {
         const int m_current;
@@ -122,5 +129,8 @@ private:
     std::deque<int> m_history;
 };
 
-//Q_DECLARE_METATYPE(Playlist*);
+Q_DECLARE_METATYPE(Playlist*);
+
+QDebug operator << (QDebug dbg, Playlist const &p);
+
 #endif
