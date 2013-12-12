@@ -4,14 +4,16 @@ import "functions.js" as Global
 
 VerticalContainer {
     property string mode: "samples"
-    
+    function load() {
+        if(mode == 'samples') {
+            instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
+        } else {
+            instrumentsSamplesList.dataModel = app.player.currentSong.getInstrumentNames()
+        }
+    }
     onCreationCompleted: {
         var handler = function() {
-            if(mode == 'samples') {
-                instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
-            } else {
-                instrumentsSamplesList.dataModel = app.player.currentSong.getInstrumentNames()
-            }
+            load()
         }
         selector.selectedIndexChanged.connect(handler)
         app.player.currentSong.songLoadedChanged.connect(handler)
