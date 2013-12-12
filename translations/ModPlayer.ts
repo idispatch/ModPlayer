@@ -789,6 +789,18 @@
         <source>Songs on My Device (%1)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to Favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongMainInfo</name>

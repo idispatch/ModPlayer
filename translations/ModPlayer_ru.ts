@@ -789,6 +789,18 @@
         <source>Songs on My Device (%1)</source>
         <translation>Песни на моем телефоне (%1)</translation>
     </message>
+    <message>
+        <source>Play</source>
+        <translation>Играть</translation>
+    </message>
+    <message>
+        <source>Add to Favourites</source>
+        <translation>Добавить в избранные</translation>
+    </message>
+    <message>
+        <source>Remove from Favourites</source>
+        <translation>Удалить из избранных</translation>
+    </message>
 </context>
 <context>
     <name>SongMainInfo</name>

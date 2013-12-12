@@ -74,7 +74,6 @@ Page {
                     app.player.playlist.clear()
                     app.player.playlist.add(song.id)
                     app.player.playPlaylist()
-                    //app.player.play(song)
                 }
             }
         },

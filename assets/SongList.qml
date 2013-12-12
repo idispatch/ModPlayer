@@ -104,9 +104,22 @@ Page {
             bottomPadding: topPadding
             leftPadding: 10
             rightPadding: leftPadding
+            function playSong(songId) {
+                showPlayerView()
+                app.player.playlist.clear()
+                app.player.playlist.add(songId)
+                app.player.playPlaylist()
+            }
+            function addFavourite(song) {
+                app.catalog.addFavourite(song)
+            }
+            function removeFavourite(song) {
+                app.catalog.removeFavourite(song)
+            }
             listItemComponents: [
                 ListItemComponent {
                     ModPlayerListItem {
+                        id: songEntry
                         title: ListItem.data.title
                         description: Global.fileNameOnly(ListItem.data.fileName)
                         text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 
@@ -189,6 +202,44 @@ Page {
                             return ""
                         }
                         imageSource: ListItem.data ? ListItem.data.iconPath : ""
+                        function playSong() {
+                            ListItem.view.playSong(ListItem.data.id)
+                        }
+                        function addFavourite() {
+                            ListItem.view.addFavourite(ListItem.data)
+                        }
+                        function removeFavourite() {
+                            ListItem.view.removeFavourite(ListItem.data)
+                        }
+                        contextActions: [
+                            ActionSet {
+                                title: songEntry.ListItem.data.title
+                                subtitle: Global.fileNameOnly(songEntry.ListItem.data.fileName)
+                                actions: [
+                                    ActionItem {
+                                        title: qsTr("Play")
+                                        imageSource: "asset:///images/actions/icon_play.png"
+                                        onTriggered: {
+                                            songEntry.playSong()
+                                        }
+                                    },
+                                    ActionItem {
+                                        title: qsTr("Add to Favourites")
+                                        imageSource: "asset:///images/actions/icon_like.png"
+                                        onTriggered: {
+                                            songEntry.addFavourite()
+                                        }
+                                    },
+                                    ActionItem {
+                                        title: qsTr("Remove from Favourites")
+                                        imageSource: "asset:///images/actions/icon_unlike.png"
+                                        onTriggered: {
+                                            songEntry.removeFavourite()
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }
             ]
@@ -282,14 +333,17 @@ Page {
         maximumSearchSongResults = 5000
         showList("artist", artistName, app.player.catalog.findSongsByArtistIdAsync(artistId, maximumSearchSongResults))
     }
+    function showPlayerView() {
+        if(mainTabPane.activePane == navigationPane && 
+           navigationPane.top == songListPage) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == navigationPane && 
-               navigationPane.top == songListPage) {
-                var view = songPlayer.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-            }
+            showPlayerView()
         })
         app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId != requestId) 
