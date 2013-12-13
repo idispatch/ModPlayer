@@ -48,10 +48,23 @@ ActionItem {
                 } else if(songList != null) {
                     var songCount = songList.size()
                     if(songCount > 0) {
-                        for(var i = 0; i < songCount; i++) {
-                            var songId = songList.value(i).id
-                            root.catalog.appendToPlaylist(playlistId, songId)
+                        if(songCount > 200) {
+                            songCount = 200
                         }
+                        progress.statusMessage = qsTr("Adding to playlist '%1'...").arg(playlistName)
+                        progress.show()
+                        
+                        for(var i = 0; i < songCount; i++) {
+                            var song = songList.value(i)
+
+                            progress.progress = (i + 1) * 100 / songCount
+                            progress.body = song.title
+                            progress.show()
+                            
+                            root.catalog.appendToPlaylist(playlistId, song.id)
+                        }
+                        progress.cancel()
+                        
                         notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName)
                         notificationToast.show()
                     }
@@ -122,6 +135,9 @@ ActionItem {
         },
         SystemToast {
             id: notificationToast
+        },
+        ProgressToast {
+            id: progress
         },
         PlaylistNameEntryPrompt {
             id: playlistNameEntryPrompt

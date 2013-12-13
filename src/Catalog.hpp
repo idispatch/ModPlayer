@@ -116,6 +116,7 @@ public:
     Q_INVOKABLE void deleteAllPlaylists();
     Q_INVOKABLE void appendToPlaylist(int playlistId, int songId);
     Q_INVOKABLE void deleteSongFromPlaylist(int playlistId, int songId);
+    Q_INVOKABLE QVector<int> getPlaylistSongs(int playlistId);
 
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;

@@ -21,8 +21,14 @@ Page {
             leftPadding: 10
             rightPadding: leftPadding
             function playPlaylist(playlist) {
-                app.player.playlist.clear()
-                //TODO:
+                var songs = app.catalog.getPlaylistSongs(playlist.id)
+                if(songs.length > 0) {
+                    app.player.playlist.clear()
+	                for(var songId in songs) {
+	                    app.player.playlist.add(songId)    
+	                }
+	                app.player.play(app.player.playlist.current)
+	            }
             }
             function deletePlaylist(playlist) {
                 app.catalog.deletePlaylist(playlist.id)
@@ -54,7 +60,7 @@ Page {
                                 subtitle: qsTr("Playlist %1").arg(playlistEntry.ListItem.data.name)
                                 actions: [
                                     ActionItem {
-                                        title: qsTr("Play")
+                                        title: qsTr("Play Playlist")
                                         enabled: playlistEntry.ListItem.data.count > 0
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {

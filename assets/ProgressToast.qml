@@ -7,4 +7,5 @@ SystemProgressToast {
     position: SystemUiPosition.MiddleCenter
     statusMessage: ""
     button.label: qsTr("Hide")
+    button.enabled: false
 }

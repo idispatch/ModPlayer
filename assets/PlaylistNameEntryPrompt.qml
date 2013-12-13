@@ -14,6 +14,6 @@ SystemPrompt {
         exec()
         if(result != SystemUiResult.ConfirmButtonSelection)
             return ""
-        return inputFieldTextEntry()
+        return inputFieldTextEntry().trim()
     }
 }
