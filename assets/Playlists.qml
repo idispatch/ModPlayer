@@ -141,6 +141,7 @@ Page {
         },
         DeleteAllPlaylistsActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+            enabled: playlistsList.dataModel != null && playlistsList.dataModel.size() > 0 
             onPlaylistsDeleted: {
                 unload()
                 load()

@@ -57,16 +57,19 @@ ActionItem {
                 clearList()
                 appendItem(qsTr("Current Playlist"), true, true)
                 appendItem(qsTr("New Playlist..."), true, false)
-                appendHeader(qsTr("Existing Playlists"))
-                
                 var model = app.catalog.findPlaylists()
                 var playlists = {}
                 var counter = 3
+                var headerAdded = false
                 for(var i = model.first(); 
                     i.length > 0; 
                     i = model.after(i)) {
                     var value = model.data(i)
                     playlists[counter++] = value
+                    if(!headerAdded) {
+                        appendHeader(qsTr("Existing Playlists"))
+                        headerAdded = true
+                    }
                     appendItem(value.name, true, false)
                 }
                 exec()
