@@ -117,6 +117,9 @@ Page {
             function removeFavourite(song) {
                 app.catalog.removeFavourite(song)
             }
+            function getRootObject() {
+                return app
+            }
             listItemComponents: [
                 ListItemComponent {
                     ModPlayerListItem {
@@ -219,6 +222,7 @@ Page {
                                     AppendPlaylistActionItem {
                                         currentSong: songEntry.ListItem.data
                                         mode: songEntry.ListItem.view.mode
+                                        rootObject: songEntry.ListItem.view.getRootObject() 
                                     },
                                     ActionItem {
                                         title: qsTr("Add to Favourites")

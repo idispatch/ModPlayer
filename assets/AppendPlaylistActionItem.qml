@@ -3,8 +3,9 @@ import bb.system 1.0
 import player 1.0
 
 ActionItem {
-    property variant songList: null
+    property variant songList
     property variant currentSong
+    property variant rootObject
     property string mode: ""
     title: qsTr("Append to Playlist")
     imageSource: "asset:///images/actions/icon_append_playlist.png"
@@ -34,8 +35,14 @@ ActionItem {
             defaultButton: SystemUiButton.confirmButton
             dismissAutomatically: true
             function appendToPlaylist(playlistId, playlistName) {
+                var root = null
+                if(rootObject != null) {
+                    root = rootObject 
+                } else {
+                    root = app
+                }
                 if(currentSong != null) {
-                    app.catalog.appendToPlaylist(playlistId, currentSong.id)
+                    root.catalog.appendToPlaylist(playlistId, currentSong.id)
                     notificationToast.body = qsTr("Song '%1' was added to playlist '%2'").arg(currentSong.title).arg(playlistName)
                     notificationToast.show()
                 } else if(songList != null) {
@@ -43,7 +50,7 @@ ActionItem {
                     if(songCount > 0) {
                         for(var i = 0; i < songCount; i++) {
                             var songId = songList.value(i).id
-                            app.catalog.appendToPlaylist(playlistId, songId)
+                            root.catalog.appendToPlaylist(playlistId, songId)
                         }
                         notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName)
                         notificationToast.show()
@@ -53,11 +60,16 @@ ActionItem {
             function run() {
                 if(currentSong == null && songList == null)
                     return
-
+                var root = null
+                if(rootObject != null) {
+                    root = rootObject 
+                } else {
+                    root = app
+                }
                 clearList()
                 appendItem(qsTr("Current Playlist"), true, true)
                 appendItem(qsTr("New Playlist..."), true, false)
-                var model = app.catalog.findPlaylists()
+                var model = root.catalog.findPlaylists()
                 var playlists = {}
                 var counter = 3
                 var headerAdded = false
@@ -83,13 +95,13 @@ ActionItem {
                 if(item == 0) {
                     // Add to current playlist
                     if(currentSong != null) {
-                        app.player.playlist.add(currentSong.id)
+                        root.player.playlist.add(currentSong.id)
                     } else if(songList != null) {
                         var songCount = songList.size()
                         if(songCount > 0) {
                             for(var i = 0; i < songCount; i++) {
                                 var songId = songList.value(i).id
-                                app.player.playlist.add(songId)
+                                root.player.playlist.add(songId)
                             }
                         }
                     }
@@ -98,7 +110,7 @@ ActionItem {
                     var playlistName = playlistNameEntryPrompt.run()
                     if(playlistName.length < 1)
                         return;
-                    var playlistId = app.catalog.createPlaylist(playlistName)
+                    var playlistId = root.catalog.createPlaylist(playlistName)
                     appendToPlaylist(playlistId, playlistName)
                 } else if(item >= 3) {
                     // Add to existing playlist
