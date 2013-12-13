@@ -3,12 +3,10 @@ import player 1.0
 
 ActionItem {
     title: {
-        if(app.player.state == Player.Paused) {
-            return qsTr("Resume")
-        } else if(app.player.state == Player.Playing) {
-        	return qsTr("Pause")
+        if(app.player.state == Player.Playing) {
+            return qsTr("Pause")
         } else {
-            return qsTr("Play")
+            return qsTr("Resume")
         }
     }
     enabled: {
