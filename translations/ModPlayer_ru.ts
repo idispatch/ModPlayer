@@ -45,6 +45,10 @@
         <source>%1 songs added to playlist &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Adding to playlist &apos;%1&apos;...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ApplicationUI</name>
@@ -482,7 +486,7 @@
     </message>
     <message>
         <source>Play</source>
-        <translation type="unfinished">Играть</translation>
+        <translation type="obsolete">Играть</translation>
     </message>
     <message>
         <source>Delete Playlist</source>
@@ -490,6 +494,10 @@
     </message>
     <message>
         <source>Playlist %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play Playlist</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

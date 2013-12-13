@@ -242,12 +242,12 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: app.player.currentSong
         },
+        ImportSongsActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         SaveSongActionItem{
             currentSong: app.player.currentSong.fileName
             enabled: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
-            ActionBar.placement: ActionBarPlacement.InOverflow
-        },
-        ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem{

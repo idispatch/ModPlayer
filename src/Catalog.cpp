@@ -931,16 +931,16 @@ void Catalog::deleteSongFromPlaylist(int playlistId, int songId) {
     m_dataAccess->execute(query, params);
 }
 
-QVector<int> Catalog::getPlaylistSongs(int playlistId) {
-    QVector<int> result;
+QVariant Catalog::getPlaylistSongs(int playlistId) {
+    QVariantList result;
     QString query = QString("SELECT songId FROM playlistEntries WHERE playlistId=%1").arg(playlistId);
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
         int songId = sqlQuery.value(0).toInt();
-        result.append(songId);
+        result << QVariant::fromValue(songId);
     }
-    return result;
+    return QVariant::fromValue(result);
 }
 
 void Catalog::run() {

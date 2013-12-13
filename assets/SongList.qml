@@ -220,7 +220,6 @@ Page {
                                 actions: [
                                     ActionItem {
                                         title: qsTr("Play")
-                                        enabled: songEntry.ListItem.view.mode != "playlist"
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {
                                             songEntry.ListItem.view.playSong(songEntry.ListItem.data)

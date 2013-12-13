@@ -33,10 +33,7 @@ ActionItem {
                                  Playlist.PlaylistCycle,
                                  Playlist.PlaylistRandomOnce,
                                  Playlist.PlaylistRandomCycle];
-                    console.log(selectedIndices[0])
-                    console.log(modes[selectedIndices[0]])
                     app.player.playlist.mode = modes[selectedIndices[0]]
-                    console.log(app.player.playlist.mode)
                 }
             }
         }

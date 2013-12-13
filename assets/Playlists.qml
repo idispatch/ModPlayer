@@ -24,11 +24,12 @@ Page {
                 var songs = app.catalog.getPlaylistSongs(playlist.id)
                 if(songs.length > 0) {
                     app.player.playlist.clear()
-	                for(var songId in songs) {
-	                    app.player.playlist.add(songId)    
-	                }
-	                app.player.play(app.player.playlist.current)
-	            }
+                    for(var i = 0; i < songs.length; ++i) {
+                        app.player.playlist.add(songs[i])
+                    }
+                    app.player.playPlaylist()
+                    showPlayer()
+                }
             }
             function deletePlaylist(playlist) {
                 app.catalog.deletePlaylist(playlist.id)
@@ -109,14 +110,17 @@ Page {
             requestId = app.player.catalog.findPlaylistsAsync()
         }
     }
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        view.navigationPane = navigationPane
+        navigationPane.push(view)
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
-                if(mainTabPane.activePane == navigationPane && 
-                   navigationPane.top == playlistsPage) {
-                    var view = songPlayer.createObject()
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
-                }
+            if(mainTabPane.activePane == navigationPane && 
+               navigationPane.top == playlistsPage) {
+                showPlayer()
+            }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId != requestId) 
