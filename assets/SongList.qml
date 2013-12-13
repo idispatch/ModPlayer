@@ -377,6 +377,11 @@ Page {
         PreviousActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        AppendPlaylistActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            songList: songs.dataModel
+            mode: songs.mode 
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

@@ -42,7 +42,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Song &apos;%1&apos; was added to new playlist &apos;%2&apos;</source>
+        <source>%1 songs added to playlist &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -9,7 +9,7 @@ SystemPrompt {
     inputField.emptyText: qsTr("Playlist Name")
     inputField.defaultText: "Playlist"
     inputField.inputMode: SystemUiInputMode.Default
-    inputField.maximumLength: 20
+    inputField.maximumLength: 30
     function run() {
         exec()
         if(result != SystemUiResult.ConfirmButtonSelection)
