@@ -918,12 +918,16 @@ void Catalog::appendToPlaylist(int playlistId, int songId) {
         qDebug() << "Failed to find song order in playlist" << playlistId;
         return;
     }
-#ifdef DEBUG_CATALOG
-    qDebug() << "Playlist order:" << songOrder;
-#endif
     query = "INSERT INTO playlistEntries (playlistId, songId, songOrder) VALUES (?,?,?)";
     QVariantList params;
     params << playlistId << songId << songOrder;
+    m_dataAccess->execute(query, params);
+}
+
+void Catalog::deleteSongFromPlaylist(int playlistId, int songId) {
+    QString query = "DELETE FROM playlistEntries WHERE playlistId=? AND songId=?";
+    QVariantList params;
+    params << playlistId << songId;
     m_dataAccess->execute(query, params);
 }
 

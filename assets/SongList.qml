@@ -7,6 +7,7 @@ Page {
     property variant navigationPane
     property int maximumSearchSongResults: 100
     property int requestId
+    property int listId
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
@@ -105,6 +106,9 @@ Page {
             bottomPadding: topPadding
             leftPadding: 10
             rightPadding: leftPadding
+            function updateList() {
+                loadSongsByPlaylist(listId, modelName)
+            }
             function playSong(song) {
                 showPlayerView()
                 app.player.playlist.clear()
@@ -116,6 +120,9 @@ Page {
             }
             function removeFavourite(song) {
                 app.catalog.removeFavourite(song)
+            }
+            function deleteSongFromPlaylist(song) {
+                app.catalog.deleteSongFromPlaylist(listId, song.id)
             }
             function getRootObject() {
                 return app
@@ -237,6 +244,13 @@ Page {
                                         onTriggered: {
                                             songEntry.ListItem.view.removeFavourite(songEntry.ListItem.data)
                                         }
+                                    },
+                                    DeleteActionItem {
+                                        enabled: songEntry.ListItem.view.mode == 'playlist'
+                                        onTriggered: {
+                                            songEntry.ListItem.view.deleteSongFromPlaylist(songEntry.ListItem.data)
+                                            songEntry.ListItem.view.updateList()
+                                        }
                                     }
                                 ]
                             }
@@ -281,61 +295,73 @@ Page {
     }
     function loadRecentlyPlayedSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("recent", "", app.player.catalog.findRecentlyPlayedSongsAsync(maximumSearchSongResults))
     }
     function loadMyFavouriteSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("myFavourite", "", app.player.catalog.findMyFavouriteSongsAsync(maximumSearchSongResults))
     }
     function loadMyLocalSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("myLocal", "", app.player.catalog.findMyLocalSongsAsync(maximumSearchSongResults))
     }
     function loadMostPlayedSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("mostPlayed", "", app.player.catalog.findMostPlayedSongsAsync(maximumSearchSongResults))
     }
     function loadMostFavouritedSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("topFavourited", "", app.player.catalog.findMostFavouritedSongsAsync(maximumSearchSongResults))
     }
     function loadMostScoredSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("topScored", "", app.player.catalog.findMostScoredSongsAsync(maximumSearchSongResults))
     }
     function loadMostDownloadedSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 5000
         showList("topDownloads", "", app.player.catalog.findMostDownloadedSongsAsync(maximumSearchSongResults))
     }
     function loadSearchSongs() {
         unload()
+        listId = 0
         maximumSearchSongResults = 100
         showList("search", "", app.player.catalog.searchSongsAsync(searchArea.searchTerm, maximumSearchSongResults))
     }
     function loadSongsByFormat(formatId, formatName) {
         unload()
+        listId = formatId
         maximumSearchSongResults = 5000
         showList("format", formatName, app.player.catalog.findSongsByFormatIdAsync(formatId, maximumSearchSongResults))
     }
     function loadSongsByGenre(genreId, genreName) {
         unload()
+        listId = genreId
         maximumSearchSongResults = 5000
         showList("genre", genreName, app.player.catalog.findSongsByGenreIdAsync(genreId, maximumSearchSongResults))
     }
     function loadSongsByArtist(artistId, artistName) {
         unload()
+        listId = artistId
         maximumSearchSongResults = 5000
         showList("artist", artistName, app.player.catalog.findSongsByArtistIdAsync(artistId, maximumSearchSongResults))
     }
     function loadSongsByPlaylist(playlistId, playlistName) {
         unload()
+        listId = playlistId
         maximumSearchSongResults = 5000
         showList("playlist", playlistName, app.player.catalog.findSongsByPlaylistIdAsync(playlistId, maximumSearchSongResults))
     }
