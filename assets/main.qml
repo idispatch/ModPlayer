@@ -31,7 +31,7 @@ TabbedPane {
         id: localSongsTab
         title: qsTr("Local songs")
         objectName: title
-        imageSource: "asset:///images/actions/icon_myfavourite.png"
+        imageSource: "asset:///images/actions/icon_my_songs.png"
         description: qsTr("Songs on My Device")
         onTriggered: {
             app.analytics.showPage(title)
