@@ -19,16 +19,14 @@ ActionItem {
             function run() {
                 var mode = app.player.playlist.mode
                 clearList()
-                appendItem(qsTr("Song Once"), true, mode == Playlist.SongOnce)
-                appendItem(qsTr("Song Repeat"), true, mode == Playlist.SongCycle)
+                appendItem(qsTr("One Song in Loop"), true, mode == Playlist.SongCycle)
                 appendItem(qsTr("Playlist Once"), true, mode == Playlist.PlaylistOnce)
-                appendItem(qsTr("Playlist Repeat"), true, mode == Playlist.PlaylistCycle)
-                appendItem(qsTr("Shuffle Playlist"), true, mode == Playlist.PlaylistRandomOnce)
-                appendItem(qsTr("Repeat Shuffle Playlist"), true, mode == Playlist.PlaylistRandomCycle)
+                appendItem(qsTr("Playlist in Loop"), true, mode == Playlist.PlaylistCycle)
+                appendItem(qsTr("Playlist in Random Order"), true, mode == Playlist.PlaylistRandomOnce)
+                appendItem(qsTr("Playlist Repeating Random"), true, mode == Playlist.PlaylistRandomCycle)
                 exec()
                 if(result == SystemUiResult.ConfirmButtonSelection ){
-                    var modes = [Playlist.SongOnce, 
-                                 Playlist.SongCycle,
+                    var modes = [Playlist.SongCycle,
                                  Playlist.PlaylistOnce, 
                                  Playlist.PlaylistCycle,
                                  Playlist.PlaylistRandomOnce,
