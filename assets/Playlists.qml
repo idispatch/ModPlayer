@@ -27,6 +27,8 @@ Page {
                     for(var i = 0; i < songs.length; ++i) {
                         app.player.playlist.add(songs[i])
                     }
+                }
+                if(app.player.playlist.count > 0) {
                     app.player.playPlaylist()
                     showPlayer()
                 }
@@ -129,7 +131,7 @@ Page {
             progress.stop()
             playlistsList.visible = true
             playlistsList.dataModel = result
-    })
+        })
     }
     attachedObjects: [
         ComponentDefinition {

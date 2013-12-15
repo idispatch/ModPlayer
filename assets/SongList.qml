@@ -399,6 +399,7 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
+            playlistId: songs.mode == 'playlist' ? listId : null  
         },
         NextActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

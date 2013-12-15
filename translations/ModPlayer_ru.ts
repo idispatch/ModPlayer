@@ -358,6 +358,10 @@
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
+    <message>
+        <source>Play Playlist</source>
+        <translation>Играть плейлист</translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
