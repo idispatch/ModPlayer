@@ -384,15 +384,10 @@ GroupDataModel* Catalog::findArtists() {
 }
 
 GroupDataModel* Catalog::findPlaylists() {
-    const char * query =
-            "SELECT"
-            " playlists.id,"
-            " playlists.name, "
-            " COUNT(playlistEntries.songId) AS songCount "
-            "FROM playlists "
-            "LEFT JOIN playlistEntries "
-            " ON playlists.id=playlistEntries.playlistId "
-            "GROUP BY playlists.id";
+    const char * query = "SELECT id, name, COUNT(playlistEntries.songId) AS songCount "
+                         "FROM playlists "
+                         "LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
+                         "GROUP BY playlists.id";
     GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
@@ -401,13 +396,10 @@ GroupDataModel* Catalog::findPlaylists() {
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
         int column    = 0;
-        int id        = sqlQuery.value(column++).toInt();
-        QString name  = sqlQuery.value(column++).toString();
-        int count     = sqlQuery.value(column++).toInt();
-        QObject *value = new NamedPlaylist(id,
-                                           name,
-                                           count,
-                                           model);
+        const int id        = sqlQuery.value(column++).toInt();
+        const QString name  = sqlQuery.value(column++).toString();
+        const int count     = sqlQuery.value(column++).toInt();
+        QObject *value = new NamedPlaylist(id, name, count, model);
         model->insert(value);
     }
     return model;

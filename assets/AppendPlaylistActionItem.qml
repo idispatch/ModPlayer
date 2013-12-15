@@ -98,40 +98,39 @@ ActionItem {
                     var playlistTitle = qsTr("%1 (%2 songs)").arg(value.name).arg(value.count) 
                     appendItem(playlistTitle, true, false)
                 }
+                model.destroy()
                 exec()
-                
-                if(result != SystemUiResult.ConfirmButtonSelection )
-                    return
-                if(selectedIndices.length < 1)
-                    return
-                
-                var item = selectedIndices[0]
-                if(item == 0) {
-                    // Add to current playlist
-                    if(currentSong != null) {
-                        root.player.playlist.add(currentSong.id)
-                    } else if(songList != null) {
-                        var songCount = songList.size()
-                        if(songCount > 0) {
-                            for(var i = 0; i < songCount; i++) {
-                                var songId = songList.value(i).id
-                                root.player.playlist.add(songId)
+                if(result == SystemUiResult.ConfirmButtonSelection && 
+                   selectedIndices.length == 1) {
+                    var item = selectedIndices[0]
+                    if(item == 0) {
+                        // Add to current playlist
+                        if(currentSong != null) {
+                            root.player.playlist.add(currentSong.id)
+                        } else if(songList != null) {
+                            var songCount = songList.size()
+                            if(songCount > 0) {
+                                for(var i = 0; i < songCount; i++) {
+                                    var songId = songList.value(i).id
+                                    root.player.playlist.add(songId)
+                                }
                             }
                         }
+                    } else if(item == 1) {
+                        // Add to new playlist
+                        var playlistName = playlistNameEntryPrompt.run()
+                        if(playlistName.length < 1)
+                            return;
+                        var playlistId = root.catalog.createPlaylist(playlistName)
+                        appendToPlaylist(playlistId, playlistName)
+                    } else if(item >= 3) {
+                        // Add to existing playlist
+                        var playlistId = playlists[item].id
+                        var playlistName = playlists[item].name
+                        appendToPlaylist(playlistId, playlistName)
                     }
-                } else if(item == 1) {
-                    // Add to new playlist
-                    var playlistName = playlistNameEntryPrompt.run()
-                    if(playlistName.length < 1)
-                        return;
-                    var playlistId = root.catalog.createPlaylist(playlistName)
-                    appendToPlaylist(playlistId, playlistName)
-                } else if(item >= 3) {
-                    // Add to existing playlist
-                    var playlistId = playlists[item].id
-                    var playlistName = playlists[item].name
-                    appendToPlaylist(playlistId, playlistName)
                 }
+                playlists = undefined
             }
         },
         SystemToast {
