@@ -218,6 +218,17 @@ void Analytics::importedSongCount(int count) const {
     Flurry::Analytics::LogEvent("ImportCount", parameters, false);
 }
 
+void Analytics::createPlaylist(QString const& name) const {
+    Flurry::Map parameters;
+    parameters["name"] = name;
+    Flurry::Analytics::LogEvent("CreatePlaylist", parameters, false);
+}
+
+void Analytics::deleteAllPlaylists() const {
+    Flurry::Analytics::LogEvent("DeleteAllPlaylists", false);
+}
+
+
 void Analytics::play() const {
     Flurry::Analytics::LogEvent("PlayCmd", false);
 }

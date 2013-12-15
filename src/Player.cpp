@@ -25,31 +25,6 @@ int InstanceCounter<Player>::s_count;
 template<>
 int InstanceCounter<Player>::s_maxCount;
 
-static const char * g_song_extensions_array[] = {
-    "*.mod",
-    "*.med",
-    "*.mt2",
-    "*.mtm",
-    "*.s3m",
-    "*.it",
-    "*.stm",
-    "*.xm",
-    "*.669",
-    "*.oct",
-    "*.okt",
-
-    "*.MOD",
-    "*.MED",
-    "*.MT2",
-    "*.MTM",
-    "*.S3M",
-    "*.IT",
-    "*.STM",
-    "*.XM",
-    "*.OCT",
-    "*.OKT"
-};
-
 Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_settings(settings),
@@ -62,6 +37,27 @@ Player::Player(QSettings &settings, QObject * parent)
       m_playback(new ModPlayback(settings, this)),
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
+    m_fileNameFilters << "*.mod"
+                      << "*.med"
+                      << "*.mt2"
+                      << "*.mtm"
+                      << "*.s3m"
+                      << "*.it"
+                      << "*.stm"
+                      << "*.xm"
+                      << "*.669"
+                      << "*.oct"
+                      << "*.okt"
+                      << "*.MOD"
+                      << "*.MED"
+                      << "*.MT2"
+                      << "*.MTM"
+                      << "*.S3M"
+                      << "*.IT"
+                      << "*.STM"
+                      << "*.XM"
+                      << "*.OCT"
+                      << "*.OKT";
     initCache();
     initDownloader();
     initPlayback();
@@ -91,13 +87,7 @@ void Player::initCache() {
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    QStringList fileNameFilters;
-    for(size_t i = 0;
-        i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
-        ++i) {
-        fileNameFilters << g_song_extensions_array[i];
-    }
-    m_cache->setFileNameFilters(fileNameFilters);
+    m_cache->setFileNameFilters(m_fileNameFilters);
 }
 
 void Player::initDownloader() {
@@ -519,13 +509,7 @@ void Player::browseForLocalSong() {
         filePicker->setDirectories(directories);
     }
 
-    QStringList fileNameFilters;
-    for(size_t i = 0;
-            i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
-            ++i) {
-        fileNameFilters << g_song_extensions_array[i];
-    }
-    filePicker->setFilter(fileNameFilters);
+    filePicker->setFilter(m_fileNameFilters);
 
     rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
                           this,       SLOT(onLocalSongSelected(const QStringList&)));
@@ -641,13 +625,7 @@ void Player::importSongs() {
     Analytics::getInstance()->importSongs(true);
     SuspendPlayback suspender(playback());
     try {
-        QStringList fileNameFilters;
-        for(size_t i = 0;
-                i < sizeof(g_song_extensions_array)/sizeof(g_song_extensions_array[0]);
-                ++i) {
-            fileNameFilters << g_song_extensions_array[i];
-        }
-        Importer importer(fileNameFilters, catalog());
+        Importer importer(m_fileNameFilters, catalog());
         importer.import();
     } catch(...) {
 
