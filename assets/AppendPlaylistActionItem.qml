@@ -48,8 +48,8 @@ ActionItem {
                 } else if(songList != null) {
                     var songCount = songList.size()
                     if(songCount > 0) {
-                        if(songCount > 5000) {
-                            songCount = 5000
+                        if(songCount > 1000) {
+                            songCount = 1000
                         }
                         progress.statusMessage = qsTr("Adding to playlist '%1'...").arg(playlistName)
                         progress.show()
