@@ -2,14 +2,15 @@ import bb.cascades 1.0
 
 TGroupContainer {
     property variant song
-    visible: song != null && song.id > 0
+    visible: song != null && !song.isLocal
     VerticalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
+        visible: song != null && !song.isLocal
         HorizontalContainer {
-            visible: song != null && song.downloads > 0
+            visible: song != null && song.downloads > 0 && !song.isLocal
             ImageView {
                 imageSource: "asset:///images/badges/badge_downloads.png"
-                visible: song && song.downloads > 0
+                visible: song && song.downloads > 0 && !song.isLocal
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
             }
@@ -21,15 +22,15 @@ TGroupContainer {
                             return qsTr("Dowloaded <b>%1</b> times by others").arg(song.downloads)
                         }
                     }
-                    return "";
+                    return ""
                 }
             }
         }
         HorizontalContainer {
-            visible: song != null
+            visible: song != null && !song.isLocal
             ImageView {
                 imageSource: "asset:///images/badges/badge_favourite.png"
-                visible: song && song.favourited > 0
+                visible: song && song.favourited > 0 && !song.isLocal
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
             }
@@ -42,17 +43,17 @@ TGroupContainer {
                         }
                         return qsTr("Not favourited by anyone yet")
                     }
-                    return "";
+                    return ""
                 }
             }
         }
         HorizontalContainer {
-            visible: song != null
+            visible: song != null && !song.isLocal
             ImageView {
                 imageSource: "asset:///images/badges/badge_score.png"
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
-                visible: song && song.score > 0
+                visible: song && song.score > 0 && !song.isLocal
             }
             BlackLabel {
                 textFormat: TextFormat.Html
@@ -63,7 +64,7 @@ TGroupContainer {
                         }
                         return qsTr("Not rated by anyone yet")
                     }
-                    return "";
+                    return ""
                 }
             }
         }

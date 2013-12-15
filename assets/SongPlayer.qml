@@ -152,7 +152,7 @@ Page {
                     SongPublicInfo {
                         id: songPublicInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0 && !app.player.currentSong.isLocal 
                     }
                     SongParametersInfo {
                         id: songParametersInfo

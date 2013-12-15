@@ -412,10 +412,8 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
 }
 
 void Player::playPlaylist() {
-    qDebug() << "playPlaylist:" << m_playlist->remaining();
-    if(m_playlist->remaining() > 0) {
+    if(m_playlist->current() != 0) {
         int songId = m_playlist->current();
-        qDebug() << "playPlaylist: current:" << songId;
         playByModuleId(songId);
     }
 }
