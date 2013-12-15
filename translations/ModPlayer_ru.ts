@@ -23,31 +23,31 @@
     </message>
     <message>
         <source>Select Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите плейлист</translation>
     </message>
     <message>
         <source>Existing Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>Мои плейлисты</translation>
     </message>
     <message>
         <source>Current Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Текущий плейлист</translation>
     </message>
     <message>
         <source>New Playlist...</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый плейлист...</translation>
     </message>
     <message>
         <source>Song &apos;%1&apos; was added to playlist &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Песня &apos;%1&apos; была добавлена в плейлист &apos;%2&apos;</translation>
     </message>
     <message>
         <source>%1 songs added to playlist &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 песен добавлено в плейлист &apos;%2&apos;</translation>
     </message>
     <message>
         <source>Adding to playlist &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавляется в плейлист &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -119,30 +119,30 @@
     <name>CreatePlaylistActionItem</name>
     <message>
         <source>Create Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать плейлист</translation>
     </message>
     <message>
         <source>Playlist &apos;%1&apos; has been created</source>
-        <translation type="unfinished"></translation>
+        <translation>Плейлист &apos;%1&apos; создан</translation>
     </message>
 </context>
 <context>
     <name>DeleteAllPlaylistsActionItem</name>
     <message>
         <source>Delete All Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить все плейлисты</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">Подтверждение</translation>
+        <translation>Подтверждение</translation>
     </message>
     <message>
         <source>All playlists will be deleted. Please confirm.</source>
-        <translation type="unfinished"></translation>
+        <translation>Все плейлисты будут удалены. Подтвердите.</translation>
     </message>
     <message>
         <source>All playlists have been deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Все плейлисты были удалены</translation>
     </message>
 </context>
 <context>
@@ -358,10 +358,6 @@
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
-    <message>
-        <source>Play</source>
-        <translation type="obsolete">Играть</translation>
-    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
@@ -381,10 +377,6 @@
         <translation>Плейлист один раз</translation>
     </message>
     <message>
-        <source>Song Once</source>
-        <translation type="obsolete">Песню один раз</translation>
-    </message>
-    <message>
         <source>Playlist Mode</source>
         <translation>Порядок воспроизведения</translation>
     </message>
@@ -393,36 +385,20 @@
         <translation>Выберите порядок воспроизведения</translation>
     </message>
     <message>
-        <source>Song Repeat</source>
-        <translation type="obsolete">Повторять песню</translation>
-    </message>
-    <message>
-        <source>Playlist Repeat</source>
-        <translation type="obsolete">Повторять плейлист</translation>
-    </message>
-    <message>
-        <source>Shuffle Playlist</source>
-        <translation type="obsolete">Перемешать плейлист</translation>
-    </message>
-    <message>
-        <source>Repeat Shuffle Playlist</source>
-        <translation type="obsolete">Повторять перемеш. плейлист</translation>
-    </message>
-    <message>
         <source>One Song in Loop</source>
-        <translation type="unfinished"></translation>
+        <translation>Песня в цикле</translation>
     </message>
     <message>
         <source>Playlist in Loop</source>
-        <translation type="unfinished"></translation>
+        <translation>Плейлист в цикле</translation>
     </message>
     <message>
         <source>Playlist in Random Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Плейлист в случайном порядке</translation>
     </message>
     <message>
         <source>Playlist Repeating Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Плейлист случайно в цикле</translation>
     </message>
 </context>
 <context>
@@ -483,38 +459,34 @@
     <name>PlaylistNameEntryPrompt</name>
     <message>
         <source>Enter Playlist Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите название плейлиста</translation>
     </message>
     <message>
         <source>Playlist Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название плейлиста</translation>
     </message>
 </context>
 <context>
     <name>Playlists</name>
     <message>
         <source>%1 songs</source>
-        <translation type="unfinished">%1 песен</translation>
+        <translation>%1 песен</translation>
     </message>
     <message>
         <source>Select Playlist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play</source>
-        <translation type="obsolete">Играть</translation>
+        <translation>Выберите плейлист</translation>
     </message>
     <message>
         <source>Delete Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить плейлист</translation>
     </message>
     <message>
         <source>Playlist %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Плейлист %1</translation>
     </message>
     <message>
         <source>Play Playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Играть плейлист</translation>
     </message>
 </context>
 <context>
@@ -947,12 +919,8 @@
         <translation>Удалить из избранных</translation>
     </message>
     <message>
-        <source>Append to Playlist</source>
-        <translation type="obsolete">Добавить в плейлист</translation>
-    </message>
-    <message>
         <source>%1 Playlist Songs (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Песни плейлиста %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1239,24 +1207,20 @@
         <translation>Искать песни</translation>
     </message>
     <message>
-        <source>Local songs</source>
-        <translation type="obsolete">Песни на телефоне</translation>
-    </message>
-    <message>
         <source>Songs on My Device</source>
         <translation>Песни на моем телефоне</translation>
     </message>
     <message>
         <source>Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>Плейлисты</translation>
     </message>
     <message>
         <source>My Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>Мои плейлисты</translation>
     </message>
     <message>
         <source>Local Songs</source>
-        <translation type="unfinished"></translation>
+        <translation>Мои песни в телефоне</translation>
     </message>
 </context>
 </TS>
