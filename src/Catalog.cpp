@@ -911,21 +911,10 @@ void Catalog::deleteAllPlaylists() {
 }
 
 void Catalog::appendToPlaylist(int playlistId, int songId) {
-    int songOrder = 0;
-    QString query = QString("SELECT COALESCE(MAX(songOrder),0)+1 "
-                            "FROM playlistEntries "
-                            "WHERE playlistId=%1").arg(playlistId);
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    if(sqlQuery.next()) {
-        songOrder = sqlQuery.value(0).toInt();
-    } else {
-        qDebug() << "Failed to find song order in playlist" << playlistId;
-        return;
-    }
-    query = "INSERT INTO playlistEntries (playlistId, songId, songOrder) VALUES (?,?,?)";
+    QString query = QString("SELECT COALESCE(MAX(songOrder),0)+1 FROM playlistEntries WHERE playlistId=%1").arg(playlistId);
+    query = QString("INSERT INTO playlistEntries (playlistId, songId, songOrder) VALUES (?,?,(%1))").arg(query);
     QVariantList params;
-    params << playlistId << songId << songOrder;
+    params << playlistId << songId;
     m_dataAccess->execute(query, params);
 }
 
