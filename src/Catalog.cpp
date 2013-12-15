@@ -1,13 +1,13 @@
 #include "FileUtils.hpp"
 #include "Catalog.hpp"
 #include "Analytics.hpp"
-#include  <QDebug>
+#include <QDebug>
 
-#include  <QtSql/QSqlDatabase>
-#include  <QtSql/QSqlQuery>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
 
-#include  <bb/data/SqlDataAccess>
-#include  <bb/data/DataSource>
+#include <bb/data/SqlDataAccess>
+#include <bb/data/DataSource>
 
 using namespace bb::data;
 using namespace bb::cascades;

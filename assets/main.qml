@@ -22,9 +22,7 @@ TabbedPane {
                 id: songMyFavouriteView
                 navigationPane: myFavouriteNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -46,9 +44,7 @@ TabbedPane {
                 id: songMyLocalView
                 navigationPane: myLocalNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -70,9 +66,7 @@ TabbedPane {
                 id: songRecentlyPlayedView
                 navigationPane: recentlyPlayedNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -94,9 +88,7 @@ TabbedPane {
                 id: songPlaylists
                 navigationPane: playlistsNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -118,9 +110,7 @@ TabbedPane {
                 id: songMostPlayedView
                 navigationPane: mostPlayedNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -142,9 +132,7 @@ TabbedPane {
                 id: songSearchView
                 navigationPane: searchNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -166,9 +154,7 @@ TabbedPane {
                 id: songsTopDownloadedView
                 navigationPane: topDownloadsNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -190,9 +176,7 @@ TabbedPane {
                 id: songTopFavouritedView
                 navigationPane: topFavouritedNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -214,9 +198,7 @@ TabbedPane {
                 id: songTopScoredView
                 navigationPane: topScoredNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -237,9 +219,7 @@ TabbedPane {
                 id: songArtistsList
                 navigationPane: artistsNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -259,9 +239,7 @@ TabbedPane {
                 id: songGenresList
                 navigationPane: genresNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     Tab {
@@ -281,15 +259,11 @@ TabbedPane {
                 id: songFormatsList
                 navigationPane: formatsNavigationPane
             }
-            onPopTransitionEnded: {
-                page.destroy()
-            }
+            onPopTransitionEnded: page.destroy()
         }
     }
     activeTab: searchTab
-    onCreationCompleted: {
-        songSearchView.loadSearchSongs()
-    } 
+    onCreationCompleted: songSearchView.loadSearchSongs()
     onActiveTabChanged: {
         var c = mainTabPane.count()
         for (var i = 0; i < c; ++i) {
@@ -303,10 +277,8 @@ TabbedPane {
         helpAction: HelpActionItem {
             id: helpActionItem
             title: qsTr("Help")
-            onTriggered: {
-                var view = helpView.createObject(mainTabPane)
-                view.open()
-            }
+            enabled: true
+            onTriggered: helpView.createObject(mainTabPane).open()
             attachedObjects: [
                 ComponentDefinition {
                     id: helpView
@@ -314,13 +286,34 @@ TabbedPane {
                 }
             ]
         }
+        actions: [
+            ActionItem {
+                title: qsTr("Twit!")
+                imageSource: "asset:///images/actions/icon_twitter.png"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                enabled: true
+                onTriggered: app.twit()
+            },
+            ActionItem {
+                title: qsTr("BBM")
+                imageSource: "asset:///images/actions/icon_bbm.png"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                enabled: true
+                onTriggered: app.bbm()
+            },
+            ActionItem {
+                title: qsTr("Email Author")
+                imageSource: "asset:///images/actions/icon_email.png"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                enabled: true
+                onTriggered: app.emailAuthor()
+            }
+        ]
         settingsAction: SettingsActionItem {
             id: settingsActionItem
             title: qsTr("Settings")
-            onTriggered : {
-                var view = settingsView.createObject(mainTabPane)
-                view.open()
-            }
+            enabled: true
+            onTriggered : settingsView.createObject(mainTabPane).open()
             attachedObjects: [
                 ComponentDefinition {
                     id: settingsView
@@ -328,28 +321,5 @@ TabbedPane {
                 }
             ] 
         }
-        actions: [
-            ActionItem {
-                title: qsTr("Twit!")
-                imageSource: "asset:///images/actions/icon_twitter.png"
-                onTriggered: {
-                    app.twit()
-                }
-            },
-            ActionItem {
-                title: qsTr("BBM")
-                imageSource: "asset:///images/actions/icon_bbm.png"
-                onTriggered: {
-                    app.bbm()
-                }
-            },
-            ActionItem {
-                title: qsTr("Email Author")
-                imageSource: "asset:///images/actions/icon_email.png"
-                onTriggered: {
-                    app.emailAuthor()
-                }
-            }
-        ]
     }
 }
