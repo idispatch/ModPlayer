@@ -2,7 +2,7 @@ import bb.cascades 1.0
 import player 1.0
 
 ActionItem {
-    property variant playlistId: none
+    property variant playlistId: null
     title: {
         if(playlistId != null) {
             return qsTr("Play Playlist")
