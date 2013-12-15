@@ -73,14 +73,18 @@ TGroupContainer {
         }
     }
     BlackLabel {
-        visible: song && app.cache.exists(song.fileName)
+        visible: song != null && (song.id < 0 || app.cache.exists(song.fileName))
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
         text: getLabelText()
         function getLabelText() {
             if(song) {
-                if(app.cache.exists(song.fileName)) {
-                    return qsTr("<i>You have this song in the cache already</i>")
+                if(song.id < 0) {
+                    return qsTr("<i>This song is on your device</i>")
+                } else {
+                    if(app.cache.exists(song.fileName)) {
+                        return qsTr("<i>You have this song in the cache already</i>")
+                    }
                 }
             }
             return ""

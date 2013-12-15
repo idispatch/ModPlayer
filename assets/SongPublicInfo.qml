@@ -2,6 +2,7 @@ import bb.cascades 1.0
 
 TGroupContainer {
     property variant song
+    visible: song != null && song.id > 0
     VerticalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         HorizontalContainer {

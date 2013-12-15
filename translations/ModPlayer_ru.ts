@@ -991,6 +991,10 @@
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
         <translation>&lt;i&gt;Вы уже скачали эту песню&lt;/i&gt;</translation>
     </message>
+    <message>
+        <source>&lt;i&gt;This song is on your device&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Эта песня на вашем телефоне&lt;/i&gt;</translation>
+    </message>
 </context>
 <context>
     <name>SongPlayer</name>

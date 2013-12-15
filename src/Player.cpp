@@ -277,8 +277,8 @@ void Player::updateNowPlaying() {
     metadata[MetaData::Artist] = currentSong()->title();
 
     m_nowPlaying->setOverlayStyle(OverlayStyle::Fancy);
-    m_nowPlaying->setNextEnabled(false);
-    m_nowPlaying->setPreviousEnabled(false);
+    m_nowPlaying->setNextEnabled(m_playlist->nextAvailable());
+    m_nowPlaying->setPreviousEnabled(m_playlist->previousAvailable());
     m_nowPlaying->setMetaData(metadata);
     m_nowPlaying->setIconUrl(currentSong()->iconPath());
 }
@@ -581,26 +581,28 @@ void Player::onCurrentFilesChanged() {
 }
 
 void Player::playNext() {
-    if(m_playlist->nextAvailable()) {
-        switch(m_playlist->mode()){
-        case Playlist::SongCycle:
+    switch(m_playlist->mode()){
+    case Playlist::SongCycle:
+        if(m_playlist->count() > 0) {
             m_playback->play();
-            break;
-        case Playlist::PlaylistOnce:
-        case Playlist::PlaylistRandomOnce:
-            if(!m_playlist->nextAvailable()) {
-                m_playlist->reset();
-            } else {
-                playByModuleId(m_playlist->next());
-            }
-            break;
-        case Playlist::PlaylistCycle:
-        case Playlist::PlaylistRandomCycle:
-            playByModuleId(m_playlist->next());
-            break;
-        default:
-            break;
         }
+        break;
+    case Playlist::PlaylistOnce:
+    case Playlist::PlaylistRandomOnce:
+        if(!m_playlist->nextAvailable()) {
+            m_playlist->reset();
+        } else {
+            playByModuleId(m_playlist->next());
+        }
+        break;
+    case Playlist::PlaylistCycle:
+    case Playlist::PlaylistRandomCycle:
+        if(m_playlist->nextAvailable()) {
+            playByModuleId(m_playlist->next());
+        }
+        break;
+    default:
+        break;
     }
 }
 
@@ -628,7 +630,6 @@ void Player::importSongs() {
         Importer importer(m_fileNameFilters, catalog());
         importer.import();
     } catch(...) {
-
     }
     Analytics::getInstance()->importSongs(false);
 }

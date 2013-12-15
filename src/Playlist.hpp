@@ -96,6 +96,6 @@ private:
 
 Q_DECLARE_METATYPE(Playlist*);
 
-QDebug operator << (QDebug dbg, Playlist const &p);
+QDebug operator << (QDebug dbg, Playlist const&p);
 
 #endif

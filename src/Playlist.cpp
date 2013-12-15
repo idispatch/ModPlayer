@@ -37,8 +37,9 @@ bool Playlist::isCyclic() const {
 int Playlist::current() const {
     if(m_songs.empty())
         return 0;
-    if(m_position >= m_songs.size())
+    if(m_position >= m_songs.size()) {
         return m_songs[0];
+    }
     return m_songs[m_position];
 }
 
@@ -61,6 +62,9 @@ void Playlist::reset() {
 void Playlist::add(int id) {
     State state(this);
     m_songs.push_back(id);
+    if(m_position >= m_songs.size()) {
+        m_position = 0;
+    }
     notify(state);
 }
 
@@ -127,9 +131,8 @@ int Playlist::next() {
     default:
         break;
     }
-    int result = current();
     notify(state);
-    return result;
+    return current();
 }
 
 int Playlist::previous() {
@@ -172,9 +175,8 @@ int Playlist::previous() {
     default:
         break;
     }
-    int result = current();
     notify(state);
-    return result;
+    return current();
 }
 
 bool Playlist::previousAvailable() const {
