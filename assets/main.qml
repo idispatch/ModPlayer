@@ -29,7 +29,7 @@ TabbedPane {
     }
     Tab {
         id: localSongsTab
-        title: qsTr("Local songs")
+        title: qsTr("Local Songs")
         objectName: title
         imageSource: "asset:///images/actions/icon_my_songs.png"
         description: qsTr("Songs on My Device")

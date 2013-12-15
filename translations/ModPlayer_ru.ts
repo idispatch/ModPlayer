@@ -360,7 +360,7 @@
     </message>
     <message>
         <source>Play</source>
-        <translation>Играть</translation>
+        <translation type="obsolete">Играть</translation>
     </message>
 </context>
 <context>
@@ -382,7 +382,7 @@
     </message>
     <message>
         <source>Song Once</source>
-        <translation>Песню один раз</translation>
+        <translation type="obsolete">Песню один раз</translation>
     </message>
     <message>
         <source>Playlist Mode</source>
@@ -394,19 +394,35 @@
     </message>
     <message>
         <source>Song Repeat</source>
-        <translation>Повторять песню</translation>
+        <translation type="obsolete">Повторять песню</translation>
     </message>
     <message>
         <source>Playlist Repeat</source>
-        <translation>Повторять плейлист</translation>
+        <translation type="obsolete">Повторять плейлист</translation>
     </message>
     <message>
         <source>Shuffle Playlist</source>
-        <translation>Перемешать плейлист</translation>
+        <translation type="obsolete">Перемешать плейлист</translation>
     </message>
     <message>
         <source>Repeat Shuffle Playlist</source>
-        <translation>Повторять перемеш. плейлист</translation>
+        <translation type="obsolete">Повторять перемеш. плейлист</translation>
+    </message>
+    <message>
+        <source>One Song in Loop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist in Loop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist in Random Order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlist Repeating Random</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1224,7 +1240,7 @@
     </message>
     <message>
         <source>Local songs</source>
-        <translation>Песни на телефоне</translation>
+        <translation type="obsolete">Песни на телефоне</translation>
     </message>
     <message>
         <source>Songs on My Device</source>
@@ -1236,6 +1252,10 @@
     </message>
     <message>
         <source>My Playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -10,12 +10,14 @@ int InstanceCounter<Playlist>::s_maxCount;
 
 Playlist::Playlist(QObject * parent)
     : QObject(parent),
-      m_mode(PlaylistOnce)
+      m_mode(PlaylistOnce),
+      m_position(0)
 {}
 
 Playlist::Playlist(Playlist::Mode mode, QObject * parent)
     : QObject(parent),
-      m_mode(mode)
+      m_mode(mode),
+      m_position(0)
 {}
 
 Playlist::~Playlist()
@@ -33,169 +35,174 @@ bool Playlist::isCyclic() const {
 }
 
 int Playlist::current() const {
-    return m_pending.empty() ? -1 : m_pending[0];
+    if(m_songs.empty())
+        return 0;
+    if(m_position >= m_songs.size())
+        return m_songs[0];
+    return m_songs[m_position];
 }
 
 void Playlist::clear() {
     State state(this);
-    m_history.clear();
-    m_pending.clear();
+    m_songs.clear();
+    m_position = 0;
     notify(state);
 }
 
 void Playlist::reset() {
     State state(this);
-    std::copy(m_pending.begin(), m_pending.end(), std::back_inserter(m_history));
-    m_pending.assign(m_history.begin(), m_history.end());
-    m_history.clear();
-    switch(m_mode) {
-    case PlaylistRandomOnce:
-    case PlaylistRandomCycle:
-        std::random_shuffle(m_pending.begin(), m_pending.end());
-        break;
-    default:
-        break;
+    m_position = 0;
+    if(isRandom()) {
+        std::random_shuffle(m_songs.begin(), m_songs.end());
     }
     notify(state);
 }
 
 void Playlist::add(int id) {
     State state(this);
-    m_pending.push_back(id);
+    m_songs.push_back(id);
     notify(state);
 }
 
 int Playlist::count() const {
-    return m_pending.size() + m_history.size();
+    return m_songs.size();
 }
 
 int Playlist::remaining() const {
+    if(m_songs.empty())
+        return 0;
     switch(m_mode) {
-    case SongOnce:
-        return m_pending.empty() ? 0 : 1;
-    case SongCycle:
-        return m_pending.empty() && m_history.empty() ? 0 : 1;
     case PlaylistOnce:
     case PlaylistRandomOnce:
-        return m_pending.size();
+        return m_position >= m_songs.size() ? 0 : (m_songs.size() - m_position - 1);
+    case SongCycle:
+        return 1;
     case PlaylistCycle:
     case PlaylistRandomCycle:
-        return m_pending.size() + m_history.size();
+        return m_songs.size();
     default:
         return 0;
     }
 }
 
-bool Playlist::empty() const {
-    return m_pending.empty();
-}
-
 int Playlist::next() {
     State state(this);
-    int result = -1;
     switch(m_mode) {
-    case SongOnce:
     case PlaylistOnce:
-        if(!m_pending.empty()) {
-            m_history.push_back(m_pending.front());
-            m_pending.erase(m_pending.begin());
+        if(!m_songs.empty()) {
+            if(m_position < m_songs.size() - 1) {
+                ++m_position;
+            }
         }
         break;
     case SongCycle:
         break;
     case PlaylistCycle:
-        if(!m_pending.empty()) {
-            m_history.push_back(m_pending.front());
-            m_pending.erase(m_pending.begin());
-        }
-        if(m_pending.empty()) {
-            m_pending.assign(m_history.begin(), m_history.end());
-            m_history.clear();
+        if(!m_songs.empty()) {
+            if(++m_position >= m_songs.size()) {
+                m_position = 0;
+            }
         }
         break;
     case PlaylistRandomOnce:
-        if(!m_pending.empty()) {
-            m_history.push_back(m_pending.front());
-            m_pending.erase(m_pending.begin());
-
-            if(!m_pending.empty()) {
-                std::vector<int>::iterator i = m_pending.begin();
-                std::advance(i, std::rand() % m_pending.size());
-                std::iter_swap(m_pending.begin(), i);
+        if(!m_songs.empty()) {
+            if(m_position < m_songs.size() - 1) {
+                ++m_position;
             }
+            std::vector<int>::iterator i = m_songs.begin();
+            std::advance(i, m_position);
+            std::random_shuffle(i, m_songs.end());
         }
         break;
     case PlaylistRandomCycle:
-        if(m_pending.empty()) {
-            m_pending.assign(m_history.begin(), m_history.end());
-            m_history.clear();
-            std::random_shuffle(m_pending.begin(), m_pending.end());
-        } else {
-            m_history.push_back(m_pending.front());
-            m_pending.erase(m_pending.begin());
-
-            if(m_pending.empty()) {
-                m_pending.assign(m_history.begin(), m_history.end());
-                m_history.clear();
-                std::random_shuffle(m_pending.begin(), m_pending.end());
-            } else {
-                std::vector<int>::iterator i = m_pending.begin();
-                std::advance(i, std::rand() % m_pending.size());
-                std::iter_swap(m_pending.begin(), i);
+        if(!m_songs.empty()) {
+            if(++m_position >= m_songs.size()) {
+                m_position = 0;
             }
+            std::vector<int>::iterator i = m_songs.begin();
+            std::advance(i, m_position);
+            std::random_shuffle(i, m_songs.end());
         }
         break;
     default:
         break;
     }
-
-    result = current();
-
+    int result = current();
     notify(state);
     return result;
 }
 
 int Playlist::previous() {
     State state(this);
-    int result = -1;
-    //TODO:
+    switch(m_mode) {
+    case PlaylistOnce:
+        if(!m_songs.empty()) {
+            if(m_position > 0) {
+                --m_position;
+            }
+        }
+        break;
+    case SongCycle:
+        break;
+    case PlaylistCycle:
+        if(!m_songs.empty()) {
+            if(m_position == 0) {
+                m_position = m_songs.size() - 1;
+            } else {
+                --m_position;
+            }
+        }
+        break;
+    case PlaylistRandomOnce:
+        if(!m_songs.empty()) {
+            if(m_position > 0) {
+                --m_position;
+            }
+        }
+        break;
+    case PlaylistRandomCycle:
+        if(!m_songs.empty()) {
+            if(m_position == 0) {
+                m_position = m_songs.size() - 1;
+            } else {
+                --m_position;
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    int result = current();
     notify(state);
     return result;
 }
 
-bool Playlist::atEnd() const {
-    switch(m_mode) {
-    case SongOnce:
-        return true;
-    case PlaylistOnce:
-    case PlaylistRandomOnce:
-        return m_pending.size() <= 1;
-    case SongCycle:
-    case PlaylistCycle:
-    case PlaylistRandomCycle:
-        return (m_pending.size() + m_history.size()) == 0;
-    default:
-        return true;
-    }
-}
-
 bool Playlist::previousAvailable() const {
     switch(m_mode) {
-    case SongOnce:
     case PlaylistOnce:
     case PlaylistRandomOnce:
-        return !m_history.empty();
+        return m_songs.empty() ? false : (m_position > 0);
     case SongCycle:
     case PlaylistCycle:
     case PlaylistRandomCycle:
-        return (m_pending.size() + m_history.size()) > 0;
+        return !m_songs.empty();
     default:
         return false;
     }
 }
 
 bool Playlist::nextAvailable() const {
-    return !atEnd();
+    switch(m_mode) {
+    case PlaylistOnce:
+    case PlaylistRandomOnce:
+        return m_songs.empty() ? false : (m_position < m_songs.size() - 1);
+    case SongCycle:
+    case PlaylistCycle:
+    case PlaylistRandomCycle:
+        return !m_songs.empty();
+    default:
+        return false;
+    }
 }
 
 Playlist::Mode Playlist::mode() const {
@@ -204,7 +211,6 @@ Playlist::Mode Playlist::mode() const {
 
 void Playlist::setMode(Playlist::Mode mode) {
     switch(mode) {
-    case SongOnce:
     case PlaylistOnce:
     case PlaylistRandomOnce:
     case SongCycle:
@@ -232,12 +238,6 @@ void Playlist::notify(State const& state) {
     if(state.remaining() != remaining()) {
         emit remainingChanged();
     }
-    if(state.empty() != empty()) {
-        emit emptyChanged();
-    }
-    if(state.atEnd() != atEnd()) {
-        emit atEndChanged();
-    }
     if(state.nextAvailable() != nextAvailable()) {
         emit nextAvailableChanged();
     }
@@ -253,8 +253,6 @@ QDebug operator << (QDebug dbg, Playlist const &p) {
     dbg.nospace() << "CurrentID: " << p.current()
                   << ", Count: " << p.count()
                   << ", Remaining: " << p.remaining()
-                  << ", Empty: " << (p.empty() ? "true":"false")
-                  << ", AtEnd: " << (p.atEnd() ? "true":"false")
                   << ", PreviousAvailble: " << (p.previousAvailable() ? "true":"false")
                   << ", NextAvailable: " << (p.nextAvailable() ? "true":"false");
     return dbg.space();

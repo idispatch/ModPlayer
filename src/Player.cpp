@@ -599,15 +599,12 @@ void Player::onCurrentFilesChanged() {
 void Player::playNext() {
     if(m_playlist->nextAvailable()) {
         switch(m_playlist->mode()){
-        case Playlist::SongOnce:
-            m_playlist->reset();
-            break;
         case Playlist::SongCycle:
             m_playback->play();
             break;
         case Playlist::PlaylistOnce:
         case Playlist::PlaylistRandomOnce:
-            if(m_playlist->atEnd()) {
+            if(!m_playlist->nextAvailable()) {
                 m_playlist->reset();
             } else {
                 playByModuleId(m_playlist->next());

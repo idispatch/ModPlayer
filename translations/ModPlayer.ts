@@ -358,10 +358,6 @@
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Play</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PlayActionItem</name>
@@ -377,10 +373,6 @@
 <context>
     <name>PlayModeActionItem</name>
     <message>
-        <source>Song Once</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Playlist Once</source>
         <translation type="unfinished"></translation>
     </message>
@@ -393,19 +385,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Song Repeat</source>
+        <source>One Song in Loop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playlist Repeat</source>
+        <source>Playlist in Loop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shuffle Playlist</source>
+        <source>Playlist in Random Order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Repeat Shuffle Playlist</source>
+        <source>Playlist Repeating Random</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1215,10 +1207,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Songs on My Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1228,6 +1216,10 @@
     </message>
     <message>
         <source>My Playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

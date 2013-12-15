@@ -11,7 +11,7 @@ ActionItem {
             return qsTr("Play")
         }
     }
-    enabled: app.player.currentSong.songLoaded || !app.player.playlist.empty
+    enabled: app.player.currentSong.songLoaded || app.player.playlist.remaining > 0
     imageSource: {
         if(app.player.state == Player.Playing) {
             return "asset:///images/actions/icon_stop.png"
