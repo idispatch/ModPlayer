@@ -884,6 +884,9 @@ int Catalog::createPlaylist(QString const& name) {
     QVariantList params;
     params << primaryKey << name;
     m_dataAccess->execute(query, params);
+
+    Analytics::getInstance()->createPlaylist(name);
+
     return primaryKey;
 }
 
@@ -903,6 +906,8 @@ void Catalog::deleteAllPlaylists() {
     m_dataAccess->execute(query);
     query = "DELETE FROM playlists";
     m_dataAccess->execute(query);
+
+    Analytics::getInstance()->deleteAllPlaylists();
 }
 
 void Catalog::appendToPlaylist(int playlistId, int songId) {

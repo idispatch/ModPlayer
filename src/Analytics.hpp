@@ -63,6 +63,9 @@ public:
     Q_INVOKABLE void importSongs(bool started) const;
     Q_INVOKABLE void importedSongCount(int count) const;
 
+    Q_INVOKABLE void createPlaylist(QString const& name) const;
+    Q_INVOKABLE void deleteAllPlaylists() const;
+
     using InstanceCounter<Analytics>::getInstanceCount;
     using InstanceCounter<Analytics>::getMaxInstanceCount;
 Q_SIGNALS:

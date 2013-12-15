@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QUrl>
 #include <QSettings>
+#include <QStringList>
 #include "InstanceCounter.hpp"
 
 class Cache;
@@ -141,6 +142,7 @@ private:
 
     void updateNowPlaying();
 private:
+    QStringList m_fileNameFilters;
     QSettings &m_settings;
     State m_state;
     QMap<int, QUrl> m_formatIdToIconUrlMap;

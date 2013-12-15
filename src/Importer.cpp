@@ -1,4 +1,7 @@
 #include "modplug/modplug.h"
+#include <dirent.h>
+#include <fnmatch.h>
+#include <errno.h>
 #include "Importer.hpp"
 #include "FileUtils.hpp"
 #include "Analytics.hpp"
@@ -62,12 +65,9 @@ int Importer::import()
         scanDirectory(QDir(path));
     }
 
-    if(m_numImportedSongs == 0)
-    {
+    if(m_numImportedSongs == 0) {
         updateProgressUI(tr("No tracker songs found"), 100);
-    }
-    else
-    {
+    } else {
         updateProgressUI(QString(tr("Imported %1 songs")).arg(m_numImportedSongs), 100);
     }
 
@@ -76,7 +76,6 @@ int Importer::import()
     completeProgressUI();
     return m_numImportedSongs;
 }
-
 
 int Importer::scanDirectory(QDir const& root)
 {
@@ -94,19 +93,40 @@ int Importer::scanDirectory(QDir const& root)
         location.remove(0, 15);
         QString progressMessage = QString(tr("Searching for tracker songs in %1...")).arg(location);
         updateProgressUI(progressMessage, INDEFINITE);
-
         QDir directory(directoryPath);
-        QStringList entries = directory.entryList(m_filters, QDir::Files);
+#if 0
+        QStringList entries = directory.entryList(m_filters,
+                                                  QDir::Files | QDir::Readable | QDir::CaseSensitive,
+                                                  QDir::NoSort);
+#endif
+        QStringList entries;
+        DIR *dirp;
+        if ((dirp = opendir(directoryPath.toStdString().c_str())) != NULL) {
+            struct dirent64 *dp;
+            do {
+                if ((dp = readdir64(dirp)) != NULL) {
+                    if(dp->d_name[0] == '.' && (dp->d_name[1] == '\0' || (dp->d_name[1] == '.' && dp->d_name[2] == '\0')))
+                        continue;
+                    for(QStringList::const_iterator i = m_filters.begin(); i != m_filters.end(); ++i) {
+                        if(fnmatch(i->toStdString().c_str(), dp->d_name, 0) == 0) {
+                            entries << dp->d_name;
+                            break;
+                        }
+                    }
+                }
+            } while (dp != NULL);
+            closedir(dirp);
+        }
 #ifdef DETAILED_LOG
-        qDebug() << "Found songs: " << entries.size();
+        qDebug() << "Found songs: " << entries;
 #endif
         for(int i = 0; i < entries.size(); i++) {
             QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
             importFile(absoluteFileName);
         }
-
         QFileInfoList infoEntries = directory.entryInfoList(QStringList(),
-                                                            QDir::AllDirs | QDir::NoDotAndDotDot);
+                                                            QDir::AllDirs | QDir::NoDotAndDotDot,
+                                                            QDir::NoSort);
         for (int i = 0; i < infoEntries.size(); i++) {
             stack.push(infoEntries[i].absoluteFilePath());
         }
