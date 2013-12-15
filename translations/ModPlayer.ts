@@ -30,10 +30,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current Playlist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Playlist...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -47,6 +43,14 @@
     </message>
     <message>
         <source>Adding to playlist &apos;%1&apos;...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Playlist (%1 songs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2 songs)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

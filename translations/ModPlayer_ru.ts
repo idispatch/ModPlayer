@@ -30,14 +30,6 @@
         <translation>Мои плейлисты</translation>
     </message>
     <message>
-        <source>Current Playlist</source>
-        <translation>Текущий плейлист</translation>
-    </message>
-    <message>
-        <source>New Playlist...</source>
-        <translation>Новый плейлист...</translation>
-    </message>
-    <message>
         <source>Song &apos;%1&apos; was added to playlist &apos;%2&apos;</source>
         <translation>Песня &apos;%1&apos; была добавлена в плейлист &apos;%2&apos;</translation>
     </message>
@@ -48,6 +40,18 @@
     <message>
         <source>Adding to playlist &apos;%1&apos;...</source>
         <translation>Добавляется в плейлист &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <source>Current Playlist (%1 songs)</source>
+        <translation>Текущий плейлист (%1 песен)</translation>
+    </message>
+    <message>
+        <source>%1 (%2 songs)</source>
+        <translation>%1 (%2 песен)</translation>
+    </message>
+    <message>
+        <source>New Playlist...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
