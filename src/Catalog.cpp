@@ -919,7 +919,7 @@ void Catalog::deleteSongFromPlaylist(int playlistId, int songId) {
 
 QVariant Catalog::getPlaylistSongs(int playlistId) {
     QVariantList result;
-    QString query = QString("SELECT songId FROM playlistEntries WHERE playlistId=%1").arg(playlistId);
+    QString query = QString("SELECT songId FROM playlistEntries WHERE playlistId=%1 ORDER BY songOrder").arg(playlistId);
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
