@@ -273,7 +273,7 @@
     </message>
     <message>
         <source>Searching for tracker songs in %1...</source>
-        <translation>Поиск трэкерных песен для импорта</translation>
+        <translation>Поиск трэкерных песен для импорта в %1...</translation>
     </message>
 </context>
 <context>
