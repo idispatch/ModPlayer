@@ -100,7 +100,6 @@ int Playlist::next() {
         }
         break;
     case SongCycle:
-        break;
     case PlaylistCycle:
         if(!m_songs.empty()) {
             if(++m_position >= m_songs.size()) {
@@ -146,7 +145,6 @@ int Playlist::previous() {
         }
         break;
     case SongCycle:
-        break;
     case PlaylistCycle:
         if(!m_songs.empty()) {
             if(m_position == 0) {
