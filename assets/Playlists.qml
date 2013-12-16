@@ -57,6 +57,7 @@ Page {
                         title: ListItem.data.name
                         description: " "
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                        imageSource: "asset:///images/formats/icon_playlist.png"
                         contextActions: [
                             ActionSet {
                                 title: playlistEntry.ListItem.data.name
