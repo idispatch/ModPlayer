@@ -7,6 +7,7 @@
 
 #include "modplug.h"
 #include "Analytics.hpp"
+#include "applicationui.hpp"
 
 template<>
 int InstanceCounter<ModPlayback>::s_count;
@@ -14,7 +15,6 @@ template<>
 int InstanceCounter<ModPlayback>::s_maxCount;
 
 //#define PERFORMANCE_MEASURE
-#undef PERFORMANCE_MEASURE
 
 #ifdef PERFORMANCE_MEASURE
 static _Uint64t get_clock()
@@ -808,7 +808,9 @@ int ModPlayback::updateChunk() {
 #ifdef PERFORMANCE_MEASURE
     time_update_start = get_clock();
 #endif
-    m_song.update();
+    if(ApplicationUI::instance().isForeground()) {
+        m_song.update();
+    }
 #ifdef PERFORMANCE_MEASURE
     time_update_end = get_clock();
 #endif

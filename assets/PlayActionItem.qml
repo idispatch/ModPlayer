@@ -25,7 +25,11 @@ ActionItem {
         if(app.player.state == Player.Playing || app.player.state == Player.Paused) {
             app.player.stop()
         } else {
-            app.player.play(app.player.currentSong)
+            if(app.player.currentSong && app.player.currentSong.songLoaded) {
+                app.player.play(app.player.currentSong)
+            } else {
+                app.player.playPlaylist()
+            }
         }
     }
 }

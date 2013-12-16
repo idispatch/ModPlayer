@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>New Playlist...</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый плейлист...</translation>
     </message>
 </context>
 <context>

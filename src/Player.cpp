@@ -37,27 +37,8 @@ Player::Player(QSettings &settings, QObject * parent)
       m_playback(new ModPlayback(settings, this)),
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
-    m_fileNameFilters << "*.mod"
-                      << "*.med"
-                      << "*.mt2"
-                      << "*.mtm"
-                      << "*.s3m"
-                      << "*.it"
-                      << "*.stm"
-                      << "*.xm"
-                      << "*.669"
-                      << "*.oct"
-                      << "*.okt"
-                      << "*.MOD"
-                      << "*.MED"
-                      << "*.MT2"
-                      << "*.MTM"
-                      << "*.S3M"
-                      << "*.IT"
-                      << "*.STM"
-                      << "*.XM"
-                      << "*.OCT"
-                      << "*.OKT";
+    m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
+                      << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
     initCache();
     initDownloader();
     initPlayback();
@@ -559,7 +540,29 @@ void Player::onStopped() {
 }
 
 void Player::onFinished() {
-    playNext();
+    switch(m_playlist->mode()){
+    case Playlist::SongCycle:
+        if(m_playlist->current() != 0) {
+            m_playback->play();
+        }
+        break;
+    case Playlist::PlaylistOnce:
+    case Playlist::PlaylistRandomOnce:
+        if(m_playlist->nextAvailable()) {
+            playByModuleId(m_playlist->next());
+        } else {
+            m_playlist->reset();
+        }
+        break;
+    case Playlist::PlaylistCycle:
+    case Playlist::PlaylistRandomCycle:
+        if(m_playlist->nextAvailable()) {
+            playByModuleId(m_playlist->next());
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 void Player::timerEvent(QTimerEvent *event) {
@@ -580,19 +583,15 @@ void Player::onCurrentFilesChanged() {
 
 void Player::playNext() {
     switch(m_playlist->mode()){
-    case Playlist::SongCycle:
-        if(m_playlist->count() > 0) {
-            m_playback->play();
-        }
-        break;
     case Playlist::PlaylistOnce:
     case Playlist::PlaylistRandomOnce:
-        if(!m_playlist->nextAvailable()) {
-            m_playlist->reset();
-        } else {
+        if(m_playlist->nextAvailable()) {
             playByModuleId(m_playlist->next());
+        } else {
+            m_playlist->reset();
         }
         break;
+    case Playlist::SongCycle:
     case Playlist::PlaylistCycle:
     case Playlist::PlaylistRandomCycle:
         if(m_playlist->nextAvailable()) {

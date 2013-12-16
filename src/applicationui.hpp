@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <QUrl>
 #include <QSettings>
+#include <bb/ProcessState>
 
 namespace bb
 {
@@ -29,6 +30,7 @@ class Cache;
 class ApplicationUI : public QObject {
     Q_OBJECT
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
+    Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
@@ -38,7 +40,10 @@ public:
     ApplicationUI(bb::cascades::Application *app);
     ~ApplicationUI();
 
+    static ApplicationUI& instance();
     bool isExtendedVersion() const;
+
+    bool isForeground() const;
 
     QString version() const;
     Player * player() const;
@@ -54,6 +59,7 @@ public:
     static const char * QmlNamespace;
 Q_SIGNALS:
     void isExtendedVersionChanged();
+    void isForegroundChanged();
     void versionChanged();
     void playerChanged();
     void catalogChanged();
@@ -65,6 +71,7 @@ private slots:
     void onCatalogChanged();
     void onCacheChanged();
     void onAboutToQuit();
+    void onProcessStateChanged(bb::ProcessState::Type);
 private:
     void initSignals();
     void initTypes();
@@ -73,7 +80,8 @@ private:
     void initPlayer();
     void initTranslator();
 private:
-    static ApplicationUI * instance;
+    static ApplicationUI * s_instance;
+    bb::ProcessState::Type m_appState;
     QSettings m_settings;
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;

@@ -40,14 +40,17 @@ using namespace bb::cascades;
 using namespace bb::system;
 
 const char * ApplicationUI::QmlNamespace = "player";
+ApplicationUI* ApplicationUI::s_instance;
 
 ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     : QObject(app),
+      m_appState(bb::ProcessState::Foreground),
       m_pTranslator(new QTranslator(this)),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)),
       m_invokeManager(new InvokeManager(this)) {
+    s_instance = this;
     m_app = app;
     m_analytics->active(1);
     initTranslator();
@@ -59,7 +62,30 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
 }
 
 ApplicationUI::~ApplicationUI() {
-    m_analytics->active(0);
+    if(m_analytics != NULL) {
+        m_analytics->active(0);
+    }
+    s_instance = NULL;
+}
+
+bool ApplicationUI::isForeground() const {
+    return m_appState == bb::ProcessState::Foreground;
+}
+
+
+void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
+    if(m_appState != processState) {
+        bool wasForeground = isForeground();
+        m_appState = processState;
+        if(wasForeground != isForeground()) {
+            qDebug() << "ModPlayer is foreground:" << isForeground();
+            emit isForeground();
+        }
+    }
+}
+
+ApplicationUI& ApplicationUI::instance() {
+    return *s_instance;
 }
 
 void ApplicationUI::initSignals() {
@@ -67,6 +93,10 @@ void ApplicationUI::initSignals() {
     rc = QObject::connect(m_app, SIGNAL(aboutToQuit()),
                           this,  SLOT(onAboutToQuit()));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(m_app, SIGNAL(processStateChanged(bb::ProcessState::Type)),
+                              this,  SLOT(onProcessStateChanged(bb::ProcessState::Type)));
+        Q_ASSERT(rc);
 
     rc = QObject::connect(m_invokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)),
                           this,            SLOT(onInvoked(const bb::system::InvokeRequest&)));
@@ -101,7 +131,6 @@ void ApplicationUI::onInvoked(const InvokeRequest& request) {
 }
 
 void ApplicationUI::onAboutToQuit() {
-    m_settings.setValue("library/version", 1);
     LCDDigits::finalize();
     if(m_player != 0) {
         m_player->setParent(0);
