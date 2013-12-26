@@ -262,9 +262,13 @@ void Downloader::finishDownload(QNetworkReply * reply) {
 
     if(file.open(QIODevice::WriteOnly))
     {
-        qint64 writtenBytes = file.write(data);
+
+
 #ifdef DEBUG_DOWNLOADER
+        qint64 writtenBytes = file.write(data);
         qDebug() << "Written bytes:" << writtenBytes;
+#else
+        file.write(data);
 #endif
         file.close();
         emit downloadFinished(file.fileName());

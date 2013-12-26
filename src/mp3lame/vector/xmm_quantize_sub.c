@@ -28,8 +28,9 @@
 #include "machine.h"
 #include "encoder.h"
 #include "util.h"
+#if 0
 #include "lame_intrin.h"
-
+#endif
 
 
 #ifdef HAVE_XMMINTRIN_H

@@ -4,6 +4,10 @@
 /* Define if building universal (internal helper macro) */
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
+#define HAVE_ASSERT_H 1
+
+#define HAVE_LIBZ 1
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
@@ -42,6 +46,10 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
+
+#define HAVE_ERRNO_H 1
+
+#define HAVE_FCNTL_H 1
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

@@ -7,10 +7,10 @@ function pathJoin(pathOne, pathTwo) {
        if(pathOne.charAt(pathOne.length - 1) == '/') {
            return pathOne + pathTwo;
        } else {
-           return pathOne + '/' + pathTwo
+           return pathOne + '/' + pathTwo;
        }
     }
-    return pathTwo
+    return pathTwo;
 }
 
 function fileNameOnly(path) {
