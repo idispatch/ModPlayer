@@ -39,23 +39,35 @@ device {
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
-                 $$quote($$BASEDIR/src/libid3tag/compat.c) \
-                 $$quote($$BASEDIR/src/libid3tag/crc.c) \
-                 $$quote($$BASEDIR/src/libid3tag/debug.c) \
-                 $$quote($$BASEDIR/src/libid3tag/field.c) \
-                 $$quote($$BASEDIR/src/libid3tag/file.c) \
-                 $$quote($$BASEDIR/src/libid3tag/frame.c) \
-                 $$quote($$BASEDIR/src/libid3tag/frametype.c) \
-                 $$quote($$BASEDIR/src/libid3tag/genre.c) \
-                 $$quote($$BASEDIR/src/libid3tag/id3util.c) \
-                 $$quote($$BASEDIR/src/libid3tag/id3version.c) \
-                 $$quote($$BASEDIR/src/libid3tag/latin1.c) \
-                 $$quote($$BASEDIR/src/libid3tag/parse.c) \
-                 $$quote($$BASEDIR/src/libid3tag/render.c) \
-                 $$quote($$BASEDIR/src/libid3tag/tag.c) \
-                 $$quote($$BASEDIR/src/libid3tag/ucs4.c) \
-                 $$quote($$BASEDIR/src/libid3tag/utf16.c) \
-                 $$quote($$BASEDIR/src/libid3tag/utf8.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_debug.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_field.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_file.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frame.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frametype.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_genre.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_latin1.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_parse.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_render.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_tag.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_ucs4.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf16.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf8.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_util.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_version.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_bit.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_decoder.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_fixed.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_frame.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_huffman.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer12.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer3.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_minimad.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_stream.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_synth.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_timer.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_version.c) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
                  $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -157,26 +169,41 @@ device {
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
-                 $$quote($$BASEDIR/src/libid3tag/compat.h) \
-                 $$quote($$BASEDIR/src/libid3tag/crc.h) \
-                 $$quote($$BASEDIR/src/libid3tag/debug.h) \
-                 $$quote($$BASEDIR/src/libid3tag/field.h) \
-                 $$quote($$BASEDIR/src/libid3tag/file.h) \
-                 $$quote($$BASEDIR/src/libid3tag/frame.h) \
-                 $$quote($$BASEDIR/src/libid3tag/frametype.h) \
-                 $$quote($$BASEDIR/src/libid3tag/genre.h) \
-                 $$quote($$BASEDIR/src/libid3tag/global.h) \
-                 $$quote($$BASEDIR/src/libid3tag/id3tag.h) \
-                 $$quote($$BASEDIR/src/libid3tag/latin1.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_debug.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_field.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_file.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frame.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frametype.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_genre.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_global.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_id3tag.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_latin1.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_parse.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_render.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_tag.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_ucs4.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf16.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf8.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_util.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_version.h) \
                  $$quote($$BASEDIR/src/libid3tag/msvc++/config.h) \
-                 $$quote($$BASEDIR/src/libid3tag/parse.h) \
-                 $$quote($$BASEDIR/src/libid3tag/render.h) \
-                 $$quote($$BASEDIR/src/libid3tag/tag.h) \
-                 $$quote($$BASEDIR/src/libid3tag/ucs4.h) \
-                 $$quote($$BASEDIR/src/libid3tag/utf16.h) \
-                 $$quote($$BASEDIR/src/libid3tag/utf8.h) \
-                 $$quote($$BASEDIR/src/libid3tag/util.h) \
-                 $$quote($$BASEDIR/src/libid3tag/version.h) \
+                 $$quote($$BASEDIR/src/libmad/mad.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_bit.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_decoder.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_fixed.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_frame.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_global.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_huffman.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer12.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer3.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_stream.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_synth.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_timer.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_version.h) \
+                 $$quote($$BASEDIR/src/libmad/msvc++/config.h) \
+                 $$quote($$BASEDIR/src/libmad/msvc++/mad.h) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
                  $$quote($$BASEDIR/src/modplug/it_defs.h) \
                  $$quote($$BASEDIR/src/modplug/load_pat.h) \
@@ -262,23 +289,35 @@ device {
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
                  $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
-                 $$quote($$BASEDIR/src/libid3tag/compat.c) \
-                 $$quote($$BASEDIR/src/libid3tag/crc.c) \
-                 $$quote($$BASEDIR/src/libid3tag/debug.c) \
-                 $$quote($$BASEDIR/src/libid3tag/field.c) \
-                 $$quote($$BASEDIR/src/libid3tag/file.c) \
-                 $$quote($$BASEDIR/src/libid3tag/frame.c) \
-                 $$quote($$BASEDIR/src/libid3tag/frametype.c) \
-                 $$quote($$BASEDIR/src/libid3tag/genre.c) \
-                 $$quote($$BASEDIR/src/libid3tag/id3util.c) \
-                 $$quote($$BASEDIR/src/libid3tag/id3version.c) \
-                 $$quote($$BASEDIR/src/libid3tag/latin1.c) \
-                 $$quote($$BASEDIR/src/libid3tag/parse.c) \
-                 $$quote($$BASEDIR/src/libid3tag/render.c) \
-                 $$quote($$BASEDIR/src/libid3tag/tag.c) \
-                 $$quote($$BASEDIR/src/libid3tag/ucs4.c) \
-                 $$quote($$BASEDIR/src/libid3tag/utf16.c) \
-                 $$quote($$BASEDIR/src/libid3tag/utf8.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_debug.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_field.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_file.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frame.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frametype.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_genre.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_latin1.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_parse.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_render.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_tag.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_ucs4.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf16.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf8.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_util.c) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_version.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_bit.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_decoder.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_fixed.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_frame.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_huffman.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer12.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer3.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_minimad.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_stream.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_synth.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_timer.c) \
+                 $$quote($$BASEDIR/src/libmad/mad_version.c) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
                  $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -380,26 +419,41 @@ device {
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
                  $$quote($$BASEDIR/src/applicationui.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
-                 $$quote($$BASEDIR/src/libid3tag/compat.h) \
-                 $$quote($$BASEDIR/src/libid3tag/crc.h) \
-                 $$quote($$BASEDIR/src/libid3tag/debug.h) \
-                 $$quote($$BASEDIR/src/libid3tag/field.h) \
-                 $$quote($$BASEDIR/src/libid3tag/file.h) \
-                 $$quote($$BASEDIR/src/libid3tag/frame.h) \
-                 $$quote($$BASEDIR/src/libid3tag/frametype.h) \
-                 $$quote($$BASEDIR/src/libid3tag/genre.h) \
-                 $$quote($$BASEDIR/src/libid3tag/global.h) \
-                 $$quote($$BASEDIR/src/libid3tag/id3tag.h) \
-                 $$quote($$BASEDIR/src/libid3tag/latin1.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_debug.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_field.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_file.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frame.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_frametype.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_genre.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_global.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_id3tag.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_latin1.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_parse.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_render.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_tag.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_ucs4.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf16.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_utf8.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_util.h) \
+                 $$quote($$BASEDIR/src/libid3tag/id3_version.h) \
                  $$quote($$BASEDIR/src/libid3tag/msvc++/config.h) \
-                 $$quote($$BASEDIR/src/libid3tag/parse.h) \
-                 $$quote($$BASEDIR/src/libid3tag/render.h) \
-                 $$quote($$BASEDIR/src/libid3tag/tag.h) \
-                 $$quote($$BASEDIR/src/libid3tag/ucs4.h) \
-                 $$quote($$BASEDIR/src/libid3tag/utf16.h) \
-                 $$quote($$BASEDIR/src/libid3tag/utf8.h) \
-                 $$quote($$BASEDIR/src/libid3tag/util.h) \
-                 $$quote($$BASEDIR/src/libid3tag/version.h) \
+                 $$quote($$BASEDIR/src/libmad/mad.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_bit.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_decoder.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_fixed.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_frame.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_global.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_huffman.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer12.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_layer3.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_stream.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_synth.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_timer.h) \
+                 $$quote($$BASEDIR/src/libmad/mad_version.h) \
+                 $$quote($$BASEDIR/src/libmad/msvc++/config.h) \
+                 $$quote($$BASEDIR/src/libmad/msvc++/mad.h) \
                  $$quote($$BASEDIR/src/modplug/config.h) \
                  $$quote($$BASEDIR/src/modplug/it_defs.h) \
                  $$quote($$BASEDIR/src/modplug/load_pat.h) \
@@ -454,6 +508,8 @@ INCLUDEPATH +=  $$quote($$BASEDIR/src/libid3tag) \
          $$quote($$BASEDIR/src/zip) \
          $$quote($$BASEDIR/src/mp3lame/vector) \
          $$quote($$BASEDIR/src/mp3lame) \
+         $$quote($$BASEDIR/src/libmad/msvc++) \
+         $$quote($$BASEDIR/src/libmad) \
          $$quote($$BASEDIR/src/modplug) \
          $$quote($$BASEDIR/src/libid3tag/msvc++) \
          $$quote($$BASEDIR/src)
@@ -483,6 +539,16 @@ lupdate_inclusion {
              $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cc) \
              $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cpp) \
              $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cxx) \
+             $$quote($$BASEDIR/../src/libmad/*.c) \
+             $$quote($$BASEDIR/../src/libmad/*.c++) \
+             $$quote($$BASEDIR/../src/libmad/*.cc) \
+             $$quote($$BASEDIR/../src/libmad/*.cpp) \
+             $$quote($$BASEDIR/../src/libmad/*.cxx) \
+             $$quote($$BASEDIR/../src/libmad/msvc++/*.c) \
+             $$quote($$BASEDIR/../src/libmad/msvc++/*.c++) \
+             $$quote($$BASEDIR/../src/libmad/msvc++/*.cc) \
+             $$quote($$BASEDIR/../src/libmad/msvc++/*.cpp) \
+             $$quote($$BASEDIR/../src/libmad/msvc++/*.cxx) \
              $$quote($$BASEDIR/../src/modplug/*.c) \
              $$quote($$BASEDIR/../src/modplug/*.c++) \
              $$quote($$BASEDIR/../src/modplug/*.cc) \
