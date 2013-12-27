@@ -37,8 +37,8 @@ Player::Player(QSettings &settings, QObject * parent)
       m_playback(new ModPlayback(settings, this)),
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
-    m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
-                      << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
+    m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
+                      << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.MP3" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
     initCache();
     initDownloader();
     initPlayback();

@@ -7,7 +7,7 @@
 
 #include "modplug.h"
 #include "Analytics.hpp"
-#include "applicationui.hpp"
+#include "ApplicationUI.hpp"
 
 template<>
 int InstanceCounter<ModPlayback>::s_count;

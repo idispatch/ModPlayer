@@ -1,5 +1,5 @@
 #include <bb/cascades/Application>
-#include "applicationui.hpp"
+#include "ApplicationUI.hpp"
 
 #define DUMP_INSTANCE_COUNTS 1
 

@@ -10,6 +10,7 @@ device {
         PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
         SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+                 $$quote($$BASEDIR/src/ApplicationUI.cpp) \
                  $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
                  $$quote($$BASEDIR/src/Cache.cpp) \
@@ -37,7 +38,6 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
-                 $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
@@ -139,6 +139,7 @@ device {
                  $$quote($$BASEDIR/src/zip/zip.c)
 
         HEADERS +=  $$quote($$BASEDIR/src/Analytics.hpp) \
+                 $$quote($$BASEDIR/src/ApplicationUI.hpp) \
                  $$quote($$BASEDIR/src/Artist.hpp) \
                  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
@@ -167,7 +168,6 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
-                 $$quote($$BASEDIR/src/applicationui.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
@@ -260,6 +260,7 @@ device {
         PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
         SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+                 $$quote($$BASEDIR/src/ApplicationUI.cpp) \
                  $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
                  $$quote($$BASEDIR/src/Cache.cpp) \
@@ -287,7 +288,6 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
-                 $$quote($$BASEDIR/src/applicationui.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
@@ -389,6 +389,7 @@ device {
                  $$quote($$BASEDIR/src/zip/zip.c)
 
         HEADERS +=  $$quote($$BASEDIR/src/Analytics.hpp) \
+                 $$quote($$BASEDIR/src/ApplicationUI.hpp) \
                  $$quote($$BASEDIR/src/Artist.hpp) \
                  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
@@ -417,7 +418,6 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
-                 $$quote($$BASEDIR/src/applicationui.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
