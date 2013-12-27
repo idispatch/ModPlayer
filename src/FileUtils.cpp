@@ -11,42 +11,41 @@ bool FileUtils::isRelative(QString const& fileName) {
 
 QString FileUtils::fileNameOnly(QString const& fileName) {
     int index = fileName.lastIndexOf('/');
-    if(index < 0)
-    {
+    if(index < 0) {
         return fileName;
-    }
-    else
-    {
+    } else {
         return fileName.mid(index + 1);
+    }
+}
+
+QString FileUtils::extension(QString const& fileName) {
+    int index = fileName.lastIndexOf('.');
+    if(index < 0) {
+        return "";
+    } else {
+        return fileName.mid(index);
     }
 }
 
 QString FileUtils::directoryOnly(QString const& fileName) {
     int index = fileName.lastIndexOf('/');
-    if(index < 0)
-    {
+    if(index < 0) {
         return fileName;
-    }
-    else
-    {
+    } else {
         return fileName.left(index);
     }
 }
 
 QString FileUtils::joinPath(QString const& directory,
                             QString const& fileName) {
-    if(isAbsolute(fileName))
-    {
+    if(isAbsolute(fileName)) {
         return fileName; // already absolute
     }
 
     QString result = directory;
-    if(directory.endsWith('/'))
-    {
+    if(directory.endsWith('/')) {
         result += fileName;
-    }
-    else
-    {
+    } else {
         result = result + "/" + fileName;
     }
 

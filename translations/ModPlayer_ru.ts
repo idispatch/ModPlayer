@@ -257,7 +257,7 @@
     <name>Importer</name>
     <message>
         <source>Importing Tracker Songs</source>
-        <translation>Импорт трэкерных песен</translation>
+        <translation type="obsolete">Импорт трэкерных песен</translation>
     </message>
     <message>
         <source>Importing %1</source>
@@ -269,11 +269,23 @@
     </message>
     <message>
         <source>No tracker songs found</source>
-        <translation>Песни в трэкерном формате не найдены</translation>
+        <translation type="obsolete">Песни в трэкерном формате не найдены</translation>
     </message>
     <message>
         <source>Searching for tracker songs in %1...</source>
-        <translation>Поиск трэкерных песен для импорта в %1...</translation>
+        <translation type="obsolete">Поиск трэкерных песен для импорта в %1...</translation>
+    </message>
+    <message>
+        <source>No songs found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for songs in %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Songs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

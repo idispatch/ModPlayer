@@ -256,10 +256,6 @@
 <context>
     <name>Importer</name>
     <message>
-        <source>Importing Tracker Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Importing %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -268,11 +264,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No tracker songs found</source>
+        <source>No songs found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Searching for tracker songs in %1...</source>
+        <source>Searching for songs in %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

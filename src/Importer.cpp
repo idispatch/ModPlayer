@@ -66,7 +66,7 @@ int Importer::import()
     }
 
     if(m_numImportedSongs == 0) {
-        updateProgressUI(tr("No tracker songs found"), 100);
+        updateProgressUI(tr("No songs found"), 100);
     } else {
         updateProgressUI(QString(tr("Imported %1 songs")).arg(m_numImportedSongs), 100);
     }
@@ -91,7 +91,7 @@ int Importer::scanDirectory(QDir const& root)
 #endif
         QString location = directoryPath;
         location.remove(0, 15);
-        QString progressMessage = QString(tr("Searching for tracker songs in %1...")).arg(location);
+        QString progressMessage = QString(tr("Searching for songs in %1...")).arg(location);
         updateProgressUI(progressMessage, INDEFINITE);
         QDir directory(directoryPath);
 #if 0
@@ -122,7 +122,12 @@ int Importer::scanDirectory(QDir const& root)
 #endif
         for(int i = 0; i < entries.size(); i++) {
             QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
-            importFile(absoluteFileName);
+            QString extenion = FileUtils::extension(absoluteFileName).toLower();
+            if(extenion == ".mp3") {
+                importMp3File(absoluteFileName);
+            } else {
+                importTrackerSong(absoluteFileName);
+            }
         }
         QFileInfoList infoEntries = directory.entryInfoList(QStringList(),
                                                             QDir::AllDirs | QDir::NoDotAndDotDot,
@@ -134,7 +139,11 @@ int Importer::scanDirectory(QDir const& root)
    return m_numImportedSongs;
 }
 
-bool Importer::importFile(QString const& fileName)
+bool Importer::importMp3File(QString const& fileName) {
+    return false;
+}
+
+bool Importer::importTrackerSong(QString const& fileName)
 {
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
     QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
@@ -158,7 +167,7 @@ bool Importer::importFile(QString const& fileName)
 
     ModPlugFile* module = ::ModPlug_Load(data.data(), data.size());
     if(module == NULL) {
-        qDebug() << "Failed to load module" << fileName;
+        qDebug() << "Failed to load tracker module" << fileName;
         return false;
     }
 
@@ -202,7 +211,7 @@ void Importer::createProgressUI() {
     m_progress = new SystemProgressDialog(0);
     m_progress->setModality(SystemUiModality::Application);
     m_progress->setState(SystemUiProgressState::Active);
-    m_progress->setTitle(tr("Importing Tracker Songs"));
+    m_progress->setTitle(tr("Importing Songs"));
     m_progress->confirmButton()->setEnabled(false);
     m_progress->setProgress(INDEFINITE);
     m_progress->show();

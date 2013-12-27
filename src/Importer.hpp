@@ -36,7 +36,8 @@ public:
     int import();
 private:
     int scanDirectory(QDir const& dir);
-    bool importFile(QString const& fileName);
+    bool importTrackerSong(QString const& fileName);
+    bool importMp3File(QString const& fileName);
 
     void createProgressUI();
     void destroyProgressUI();
