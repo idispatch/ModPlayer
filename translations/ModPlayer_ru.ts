@@ -795,7 +795,7 @@
     </message>
     <message>
         <source>Would you like to import local tracker songs?</source>
-        <translation>Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
+        <translation type="obsolete">Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
     </message>
     <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -807,7 +807,15 @@
     </message>
     <message>
         <source>Import My Tracker Songs</source>
-        <translation>Импортировать мои песни</translation>
+        <translation type="obsolete">Импортировать мои песни</translation>
+    </message>
+    <message>
+        <source>Import My Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -39,7 +39,8 @@ public:
         FORMAT_XM = 10,
         FORMAT_AHX = 11,
         FORMAT_HVL = 12,
-        FORMAT_MO3 = 1
+        FORMAT_MO3 = 1,
+        FORMAT_MP3 = 100
     };
 Q_SIGNALS:
     void descriptionChanged();

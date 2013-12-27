@@ -281,7 +281,7 @@ Sheet {
                         }
                         
                         Button {
-                            text: qsTr("Import My Tracker Songs")
+                            text: qsTr("Import My Songs")
                             horizontalAlignment: HorizontalAlignment.Center
                             topMargin: 40
                             bottomMargin: 40
@@ -292,7 +292,7 @@ Sheet {
                                 SystemDialog {
                                     id: confirmImport
                                     title: qsTr("Confirm")
-                                    body: qsTr("Would you like to import local tracker songs?")
+                                    body: qsTr("Would you like to import local songs?")
                                     onFinished: {
                                         if (result == SystemUiResult.ConfirmButtonSelection) {
                                             app.player.importSongs()

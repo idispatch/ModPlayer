@@ -56,6 +56,8 @@ QUrl SongFormat::getIconPath(int formatId) {
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("ahx"));
     case FORMAT_HVL:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("hvl"));
+    case FORMAT_MP3:
+        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mp3"));
     default:
         return QUrl(QString("%1/icon_unknown.png").arg(icons));
     }
@@ -100,6 +102,9 @@ int SongFormat::getFormatIdByFileName(QString const& fileName) {
     }
     if(fileName.endsWith(".mo3", Qt::CaseInsensitive)) {
         return FORMAT_MO3;
+    }
+    if(fileName.endsWith(".mp3", Qt::CaseInsensitive)) {
+        return FORMAT_MP3;
     }
     return 0;
 }

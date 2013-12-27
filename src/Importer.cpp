@@ -16,8 +16,10 @@
 #include <QStack>
 #include <QByteArray>
 #include <bb/system/SystemProgressDialog>
+#include "libid3tag/id3_id3tag.h"
 
-//#define DETAILED_LOG
+#define DETAILED_LOG
+#define REDUCED_SEARCH_SCOPE
 
 using namespace bb::system;
 
@@ -49,7 +51,11 @@ int Importer::import()
 
     clean();
     createProgressUI();
-
+#ifdef REDUCED_SEARCH_SCOPE
+    static const char * locations[] = {
+        "removable/sdcard",
+    };
+#else
     static const char * locations[] = {
         "shared/documents",
         "shared/downloads",
@@ -58,7 +64,7 @@ int Importer::import()
         "shared/Dropbox",
         "removable/sdcard"
     };
-
+#endif
     for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
         const char * location = locations[i];
         QString path = FileUtils::joinPath("/accounts/1000", location);
@@ -140,6 +146,93 @@ int Importer::scanDirectory(QDir const& root)
 }
 
 bool Importer::importMp3File(QString const& fileName) {
+    QString fileNameOnly = FileUtils::fileNameOnly(fileName);
+    QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
+    updateProgressUI(progressMessage, INDEFINITE);
+
+#ifdef DETAILED_LOG
+    qDebug() << "Found Mp3: " << fileName;
+#endif
+
+    ::id3_file * mp3file = ::id3_file_open(fileName.toStdString().c_str(), ID3_FILE_MODE_READONLY);
+    if(mp3file == NULL) {
+        qDebug() << "Could not open Mp3 file" << fileName;
+        return false;
+    }
+
+#ifdef DETAILED_LOG
+    qDebug() << "Loaded Mp3 file" << fileName;
+#endif
+
+    ::id3_tag * tag = ::id3_file_tag(mp3file);
+    if(tag != NULL) {
+#ifdef DETAILED_LOG
+        qDebug() << "Found Mp3 tags";
+#endif
+        ++m_numImportedSongs;
+        SongExtendedInfo info(NULL);
+        info.setId(-m_numImportedSongs);
+        info.setFileName(fileName);
+        {
+            QFile file(fileName);
+            info.setFileSize(file.size());
+        }
+        info.setInstruments(0);
+        info.setChannels(0);
+        info.setSamples(0);
+        info.setPatterns(0);
+        info.setOrders(0);
+
+        info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
+        info.setFormat("");
+#if 0
+        info.setSongLength(::ModPlug_GetLength(module));
+        info.setTitle(::ModPlug_GetName(module));
+
+        info.setTracker("");
+        info.setGenre("");
+        info.setArtistId(0);
+        info.setArtist("");
+
+        m_catalog->addPersonalSong(info);
+#endif
+
+#if 0
+        ID3_FRAME_TITLE
+        ID3_FRAME_ARTIST
+        ID3_FRAME_ALBUM
+        ID3_FRAME_TRACK
+        ID3_FRAME_YEAR
+        ID3_FRAME_GENRE
+        ID3_FRAME_COMMENT
+
+        //Search for given frame by frame id
+        ::id3_frame *pFrame = ::id3_tag_findframe(tag, frameID, 0);
+        if (pFrame == NULL) {
+            return ustring((unsigned char *)"");
+        }
+
+        union id3_field field = pFrame->fields[1];
+        id3_ucs4_t const *pTemp = id3_field_getstrings(&field,0);
+        if ( !strcmp(frameID,"TCON") ){
+            //If the frameID is TCON, we then retrieve genre name using id3_genre_name
+            id3_ucs4_t const *pGenre = id3_genre_name(pTemp);
+            pTemp = pGenre;
+        }
+
+        id3_latin1_t *pStrLatinl;
+        if ( pTemp != NULL ){
+           pStrLatinl = id3_ucs4_latin1duplicate(pTemp);
+           str = pStrLatinl;
+           delete pStrLatinl;
+        }
+
+        return str;
+#endif
+    }
+
+
+    ::id3_file_close(mp3file);
     return false;
 }
 
@@ -151,6 +244,7 @@ bool Importer::importTrackerSong(QString const& fileName)
 
     QFile inputFile(fileName);
     if(!inputFile.exists()) {
+        qDebug() << "File does not exist" << fileName;
         return false;
     }
 

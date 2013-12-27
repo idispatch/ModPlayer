@@ -782,10 +782,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Would you like to import local tracker songs?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -794,7 +790,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import My Tracker Songs</source>
+        <source>Import My Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
