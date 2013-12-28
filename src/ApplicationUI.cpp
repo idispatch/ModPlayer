@@ -34,6 +34,7 @@
 #include "VUMeter.hpp"
 #include "Playlist.hpp"
 #include "NamedPlaylist.hpp"
+#include "Album.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -195,6 +196,7 @@ void ApplicationUI::initTypes() {
 
     qmlRegisterUncreatableType<Playlist>(QmlNamespace, versionMajor, versionMinor, "Playlist", "");
     qmlRegisterUncreatableType<NamedPlaylist>(QmlNamespace, versionMajor, versionMinor, "NamedPlaylist", "");
+    qmlRegisterUncreatableType<Album>(QmlNamespace, versionMajor, versionMinor, "Album", "");
 }
 
 void ApplicationUI::initApp() {

@@ -107,7 +107,7 @@ void Catalog::copyCatalogToDataFolder() {
                 }
             }
 
-            if(version == 2)
+            if(version == 3)
             {
                 qDebug() << "Database migration not required, version" << version;
                 QSqlDatabase::removeDatabase("catalog");
@@ -232,6 +232,10 @@ int Catalog::findArtistsAsync() {
 
 int Catalog::findPlaylistsAsync() {
     return asyncCommand(Command::Playlists);
+}
+
+int Catalog::findAlbumsAsync() {
+    return asyncCommand(Command::Albums);
 }
 
 int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
@@ -400,6 +404,28 @@ GroupDataModel* Catalog::findPlaylists() {
         const QString name  = sqlQuery.value(column++).toString();
         const int count     = sqlQuery.value(column++).toInt();
         QObject *value = new NamedPlaylist(id, name, count, model);
+        model->insert(value);
+    }
+    return model;
+}
+
+GroupDataModel* Catalog::findAlbums() {
+    const char * query = "SELECT id, name, COUNT(albumEntries.songId) AS songCount "
+                         "FROM albums "
+                         "LEFT JOIN albumEntries ON albums.id=albumEntries.albumId "
+                         "GROUP BY albums.id";
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        int column    = 0;
+        const int id        = sqlQuery.value(column++).toInt();
+        const QString name  = sqlQuery.value(column++).toString();
+        const int count     = sqlQuery.value(column++).toInt();
+        QObject *value = new Album(id, name, count, model);
         model->insert(value);
     }
     return model;
@@ -992,6 +1018,13 @@ void Catalog::run() {
         case Command::Playlists:
             {
                 GroupDataModel * model = findPlaylists();
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::Albums:
+            {
+                GroupDataModel * model = findAlbums();
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }

@@ -15,6 +15,7 @@
 #include "SongExtendedInfo.hpp"
 #include "Artist.hpp"
 #include "NamedPlaylist.hpp"
+#include "Album.hpp"
 #include "InstanceCounter.hpp"
 
 namespace bb {
@@ -58,6 +59,9 @@ public:
 
     Q_INVOKABLE bb::cascades::GroupDataModel* findPlaylists();
     Q_INVOKABLE int findPlaylistsAsync();
+
+    Q_INVOKABLE bb::cascades::GroupDataModel* findAlbums();
+    Q_INVOKABLE int findAlbumsAsync();
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(int formatId, int limit);
     Q_INVOKABLE int findSongsByFormatIdAsync(int formatId, int limit);
@@ -154,6 +158,7 @@ private:
             GenresList,
             ArtistsList,
             Playlists,
+            Albums,
 
             SongsByFormatList,
             SongsByGenreList,

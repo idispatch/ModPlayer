@@ -1,6 +1,6 @@
 PRAGMA foreign_keys=1;
 PRAGMA page_size=8192;
-PRAGMA user_version=2;
+PRAGMA user_version=3;
 
 CREATE TABLE artists
 (
@@ -15,6 +15,12 @@ CREATE TABLE genres
 (
 	id INTEGER PRIMARY KEY,
 	name TEXT NOT NULL
+);
+
+CREATE TABLE albums
+(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
 );
 
 CREATE TABLE formats
@@ -78,6 +84,18 @@ CREATE TABLE playlistEntries
     CONSTRAINT FK_playlistEntries_playlists FOREIGN KEY (playlistId) REFERENCES playlists (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_playlistEntries_songs FOREIGN KEY (songId) REFERENCES songs (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE albumEntries
+(
+    albumId INTEGER,
+    songId INTEGER,
+    trackNumber INTEGER,
+    CONSTRAINT PK_albumEntries PRIMARY KEY (albumId,songId,trackNumber), 
+    CONSTRAINT FK_albumEntries_albums FOREIGN KEY (albumId) REFERENCES albums (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_albumEntries_songs FOREIGN KEY (songId) REFERENCES songs (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE        INDEX IX_albums_name ON albums (name);
 
 CREATE        INDEX IX_artists_name ON artists (name);
 CREATE        INDEX IX_artists_score ON artists (score);
@@ -186,3 +204,4 @@ INSERT INTO formats (id, name, description) VALUES (10, 'XM','FastTracker 2 Modu
 INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Module');
 INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');
 INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/OGG Module');
+INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Songs');

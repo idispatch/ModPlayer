@@ -9,6 +9,25 @@
     </message>
 </context>
 <context>
+    <name>Albums</name>
+    <message>
+        <source>Select Album</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 songs</source>
+        <translation type="unfinished">%1 песен</translation>
+    </message>
+    <message>
+        <source>Album %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play Album</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AppWorldActionItem</name>
     <message>
         <source>Review in AppWorld</source>
@@ -1253,6 +1272,10 @@
     <message>
         <source>Local Songs</source>
         <translation>Мои песни в телефоне</translation>
+    </message>
+    <message>
+        <source>Albums</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -9,7 +9,8 @@ device {
 
         PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
-        SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+        SOURCES +=  $$quote($$BASEDIR/src/Album.cpp) \
+                 $$quote($$BASEDIR/src/Analytics.cpp) \
                  $$quote($$BASEDIR/src/ApplicationUI.cpp) \
                  $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
@@ -138,7 +139,8 @@ device {
                  $$quote($$BASEDIR/src/zip/unzip.c) \
                  $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/Analytics.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/Album.hpp) \
+                 $$quote($$BASEDIR/src/Analytics.hpp) \
                  $$quote($$BASEDIR/src/ApplicationUI.hpp) \
                  $$quote($$BASEDIR/src/Artist.hpp) \
                  $$quote($$BASEDIR/src/Cache.hpp) \
@@ -259,7 +261,8 @@ device {
 
         PRE_TARGETDEPS +=  $$quote($$BASEDIR/libs/armle-v7)
 
-        SOURCES +=  $$quote($$BASEDIR/src/Analytics.cpp) \
+        SOURCES +=  $$quote($$BASEDIR/src/Album.cpp) \
+                 $$quote($$BASEDIR/src/Analytics.cpp) \
                  $$quote($$BASEDIR/src/ApplicationUI.cpp) \
                  $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
                  $$quote($$BASEDIR/src/Artist.cpp) \
@@ -388,7 +391,8 @@ device {
                  $$quote($$BASEDIR/src/zip/unzip.c) \
                  $$quote($$BASEDIR/src/zip/zip.c)
 
-        HEADERS +=  $$quote($$BASEDIR/src/Analytics.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/Album.hpp) \
+                 $$quote($$BASEDIR/src/Analytics.hpp) \
                  $$quote($$BASEDIR/src/ApplicationUI.hpp) \
                  $$quote($$BASEDIR/src/Artist.hpp) \
                  $$quote($$BASEDIR/src/Cache.hpp) \

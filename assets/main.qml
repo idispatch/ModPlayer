@@ -92,6 +92,28 @@ TabbedPane {
         }
     }
     Tab {
+        id: albumsTab
+        title: qsTr("Albums")
+        objectName: title
+        description: qsTr("Albums")
+        imageSource: "asset:///images/actions/icon_albums.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            songAlbums.load()
+        }
+        function unload() {
+            songAlbums.unload()
+        }
+        content: NavigationPane {
+            id: albumsNavigationPane 
+            Albums {
+                id: songAlbums
+                navigationPane: albumsNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
         id: mostPlayedTab
         title: qsTr("Most Played")
         objectName: title

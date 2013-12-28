@@ -30,6 +30,7 @@
 #include "ItemGroupBase.hpp"
 #include "Playlist.hpp"
 #include "NamedPlaylist.hpp"
+#include "Album.hpp"
 
 template<typename T>
 void dumpInstanceCount(const char * className) {
@@ -66,6 +67,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(TouchHandler)
     DUMP_COUNT(Playlist)
     DUMP_COUNT(NamedPlaylist)
+    DUMP_COUNT(Album)
 #undef DUMP_COUNT
 }
 #endif
