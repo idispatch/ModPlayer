@@ -39,7 +39,7 @@ Page {
                         title: ListItem.data.name
                         description: " "
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
-                        imageSource: "asset:///images/formats/icon_playlist.png"
+                        imageSource: "asset:///images/formats/icon_album.png"
                         contextActions: [
                             ActionSet {
                                 title: albumEntry.ListItem.data.name
@@ -117,19 +117,12 @@ Page {
         }
     ]
     actions: [
-        CreatePlaylistActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
-            onPlaylistCreated: {
-                unload()
-                load()
-            }
-        },
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: albumsPage.navigationPane
         },
         PauseActionItem {
-            ActionBar.placement: ActionBarPlacement.InOverflow
+            ActionBar.placement: ActionBarPlacement.OnBar
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow

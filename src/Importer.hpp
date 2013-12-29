@@ -31,10 +31,9 @@ public:
     ~Importer();
 
     int numImportedSongs() const;
-
-    void clean();
     int import();
 private:
+    void clean();
     int scanDirectory(QDir const& dir);
     bool importTrackerSong(QString const& fileName);
     bool importMp3File(QString const& fileName);

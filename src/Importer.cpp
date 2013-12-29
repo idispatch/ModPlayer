@@ -42,6 +42,7 @@ int Importer::numImportedSongs() const {
 }
 
 void Importer::clean() {
+    //TODO: do not clean everything, clean only missing songs
     m_catalog->clearPersonalSongs();
 }
 
@@ -85,22 +86,17 @@ int Importer::import()
 
 int Importer::scanDirectory(QDir const& root)
 {
-#ifdef DETAILED_LOG
-    qDebug() << "Filters: " << m_filters;
-#endif
     QStack<QString> stack;
     stack.push(root.absolutePath());
     while(!stack.isEmpty()) {
         QString directoryPath = stack.pop();
-#ifdef DETAILED_LOG
-        qDebug() << "Scanning " << directoryPath;
-#endif
         QString location = directoryPath;
         location.remove(0, 15);
         QString progressMessage = QString(tr("Searching for songs in %1...")).arg(location);
         updateProgressUI(progressMessage, INDEFINITE);
         QDir directory(directoryPath);
 #if 0
+        // This does not work because file system uses 64 bit inodes
         QStringList entries = directory.entryList(m_filters,
                                                   QDir::Files | QDir::Readable | QDir::CaseSensitive,
                                                   QDir::NoSort);
@@ -123,9 +119,6 @@ int Importer::scanDirectory(QDir const& root)
             } while (dp != NULL);
             closedir(dirp);
         }
-#ifdef DETAILED_LOG
-        qDebug() << "Found songs: " << entries;
-#endif
         for(int i = 0; i < entries.size(); i++) {
             QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
             QString extenion = FileUtils::extension(absoluteFileName).toLower();
@@ -177,19 +170,11 @@ bool Importer::importMp3File(QString const& fileName) {
     QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
     updateProgressUI(progressMessage, INDEFINITE);
 
-#ifdef DETAILED_LOG
-    qDebug() << "Found Mp3: " << fileName;
-#endif
-
     ::id3_file * mp3file = ::id3_file_open(fileName.toStdString().c_str(), ID3_FILE_MODE_READONLY);
     if(mp3file == NULL) {
         qDebug() << "Could not open Mp3 file" << fileName;
         return false;
     }
-
-#ifdef DETAILED_LOG
-    qDebug() << "Loaded Mp3 file" << fileName;
-#endif
 
     ::id3_tag * tag = ::id3_file_tag(mp3file);
     if(tag != NULL) {
@@ -224,12 +209,12 @@ bool Importer::importMp3File(QString const& fileName) {
         while(track.length() > 1 && track[0] == '0') {
             track = track.mid(1);
         }
-        int trackId = 0;
+        int trackId = -1;
         if(track.length() > 0) {
             bool bOk = false;
             trackId = track.toInt(&bOk, 10);
             if(!bOk) {
-                trackId = 0;
+                trackId = -1;
             }
         }
         QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);

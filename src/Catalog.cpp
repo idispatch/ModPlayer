@@ -549,30 +549,30 @@ SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVar
 
 SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int column       = 0;
-    int id           = sqlQuery.value(column++).toInt();
-    QString fileName = sqlQuery.value(column++).toString();
-    QString title    = sqlQuery.value(column++).toString();
-    int formatId     = sqlQuery.value(column++).toInt();
-    int downloads    = sqlQuery.value(column++).toInt();
-    int favourited   = sqlQuery.value(column++).toInt();
-    int score        = sqlQuery.value(column++).toInt();
-    int size         = sqlQuery.value(column++).toInt();
-    int length       = sqlQuery.value(column++).toInt();
-    int playCount    = sqlQuery.value(column++).toInt();
-    int lastPlayed   = sqlQuery.value(column++).toInt();
-    int myFavourite  = sqlQuery.value(column++).toInt();
-    QString format   = sqlQuery.value(column++).toString();
-    QString tracker  = sqlQuery.value(column++).toString();
-    QString genre    = sqlQuery.value(column++).toString();
-    int artistId     = sqlQuery.value(column++).toInt();
-    int genreId      = sqlQuery.value(column++).toInt();
-    int trackerId    = sqlQuery.value(column++).toInt();
-    QString artist   = sqlQuery.value(column++).toString();
-    int patterns     = sqlQuery.value(column++).toInt();
-    int orders       = sqlQuery.value(column++).toInt();
-    int instruments  = sqlQuery.value(column++).toInt();
-    int samples      = sqlQuery.value(column++).toInt();
-    int channels     = sqlQuery.value(column++).toInt();
+    const int id           = sqlQuery.value(column++).toInt();
+    const QString fileName = sqlQuery.value(column++).toString();
+    const QString title    = sqlQuery.value(column++).toString();
+    const int formatId     = sqlQuery.value(column++).toInt();
+    const int downloads    = sqlQuery.value(column++).toInt();
+    const int favourited   = sqlQuery.value(column++).toInt();
+    const int score        = sqlQuery.value(column++).toInt();
+    const int size         = sqlQuery.value(column++).toInt();
+    const int length       = sqlQuery.value(column++).toInt();
+    const int playCount    = sqlQuery.value(column++).toInt();
+    const int lastPlayed   = sqlQuery.value(column++).toInt();
+    const int myFavourite  = sqlQuery.value(column++).toInt();
+    const QString format   = sqlQuery.value(column++).toString();
+    const QString tracker  = sqlQuery.value(column++).toString();
+    const QString genre    = sqlQuery.value(column++).toString();
+    const int artistId     = sqlQuery.value(column++).toInt();
+    const int genreId      = sqlQuery.value(column++).toInt();
+    const int trackerId    = sqlQuery.value(column++).toInt();
+    const QString artist   = sqlQuery.value(column++).toString();
+    const int patterns     = sqlQuery.value(column++).toInt();
+    const int orders       = sqlQuery.value(column++).toInt();
+    const int instruments  = sqlQuery.value(column++).toInt();
+    const int samples      = sqlQuery.value(column++).toInt();
+    const int channels     = sqlQuery.value(column++).toInt();
     return new SongExtendedInfo(
                         id,
                         fileName,
@@ -854,6 +854,14 @@ void Catalog::resetMyFavourites() {
 void Catalog::clearPersonalSongs() {
     QString query = "DELETE FROM playlistEntries WHERE songId < 0";
     m_dataAccess->execute(query);
+
+    query = "DELETE FROM albumEntries WHERE songId < 0";
+    m_dataAccess->execute(query);
+
+    query = "DELETE FROM albums WHERE id IN "
+            " (SELECT id FROM albums WHERE id NOT IN (SELECT albumId FROM albumEntries)";
+    m_dataAccess->execute(query);
+
     query = "DELETE FROM songs WHERE id < 0";
     m_dataAccess->execute(query);
 }
@@ -916,43 +924,55 @@ void Catalog::addSongToAlbum(int albumId, int songId, int trackNumber) {
 
 int Catalog::createGenre(QString const& name) {
     int primaryKey = 0;
-    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM genres";
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    if(sqlQuery.next()) {
-        primaryKey = sqlQuery.value(0).toInt();
-    } else {
-        return primaryKey; // error
-    }
-#ifdef DEBUG_CATALOG
-    qDebug().nospace() << "Creating genre (" << primaryKey << "," << name << ")";
-    qDebug().space();
-#endif
-    query = "INSERT INTO genres (id, name) VALUES (?,?)";
+    QString query = "SELECT id FROM genres WHERE name=?";
     QVariantList params;
-    params << primaryKey << name;
-    m_dataAccess->execute(query, params);
+    params << name;
+    QVariant result = m_dataAccess->execute(query, params);
+    QVariantList list = result.value<QVariantList>();
+    if(list.size() >= 1) {
+        primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
+    } else {
+        query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM genres";
+        QSqlDatabase db = m_dataAccess->connection();
+        QSqlQuery sqlQuery = db.exec(query);
+        if(sqlQuery.next()) {
+            primaryKey = sqlQuery.value(0).toInt();
+        } else {
+            return primaryKey; // error
+        }
+
+        query = "INSERT INTO genres (id, name) VALUES (?,?)";
+        QVariantList params;
+        params << primaryKey << name;
+        m_dataAccess->execute(query, params);
+    }
     return primaryKey;
 }
 
 int Catalog::createArtist(QString const& name) {
     int primaryKey = 0;
-    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM artists";
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    if(sqlQuery.next()) {
-        primaryKey = sqlQuery.value(0).toInt();
-    } else {
-        return primaryKey; // error
-    }
-#ifdef DEBUG_CATALOG
-    qDebug().nospace() << "Creating artist (" << primaryKey << "," << name << ")";
-    qDebug().space();
-#endif
-    query = "INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,0,0,0)";
+    QString query = "SELECT id FROM artists WHERE name=?";
     QVariantList params;
-    params << primaryKey << name;
-    m_dataAccess->execute(query, params);
+    params << name;
+    QVariant result = m_dataAccess->execute(query, params);
+    QVariantList list = result.value<QVariantList>();
+    if(list.size() >= 1) {
+        primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
+    } else {
+        query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM artists";
+        QSqlDatabase db = m_dataAccess->connection();
+        QSqlQuery sqlQuery = db.exec(query);
+        if(sqlQuery.next()) {
+            primaryKey = sqlQuery.value(0).toInt();
+        } else {
+            return primaryKey; // error
+        }
+
+        query = "INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,0,0,0)";
+        QVariantList params;
+        params << primaryKey << name;
+        m_dataAccess->execute(query, params);
+    }
     return primaryKey;
 }
 
@@ -994,6 +1014,7 @@ void Catalog::deletePlaylist(int playlistId) {
 void Catalog::deleteAllPlaylists() {
     QString query = "DELETE FROM playlistEntries";
     m_dataAccess->execute(query);
+
     query = "DELETE FROM playlists";
     m_dataAccess->execute(query);
 
@@ -1029,25 +1050,30 @@ QVariant Catalog::getPlaylistSongs(int playlistId) {
 
 int Catalog::createAlbum(QString const& name) {
     int primaryKey = 0;
-    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM albums";
-    QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
-    if(sqlQuery.next()) {
-        primaryKey = sqlQuery.value(0).toInt();
-    } else {
-        return primaryKey; // error
-    }
-#ifdef DEBUG_CATALOG
-    qDebug().nospace() << "Creating album (" << primaryKey << "," << name << ")";
-    qDebug().space();
-#endif
-    query = "INSERT INTO albums (id, name) VALUES (?,?)";
+    QString query = "SELECT id FROM albums WHERE name=?";
     QVariantList params;
-    params << primaryKey << name;
-    m_dataAccess->execute(query, params);
+    params << name;
+    QVariant result = m_dataAccess->execute(query, params);
+    QVariantList list = result.value<QVariantList>();
+    if(list.size() >= 1) {
+        primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
+    } else {
+        query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM albums";
+        QSqlDatabase db = m_dataAccess->connection();
+        QSqlQuery sqlQuery = db.exec(query);
+        if(sqlQuery.next()) {
+            primaryKey = sqlQuery.value(0).toInt();
+        } else {
+            return primaryKey; // error
+        }
 
-    Analytics::getInstance()->createAlbum(name);
+        query = "INSERT INTO albums (id, name) VALUES (?,?)";
+        QVariantList params;
+        params << primaryKey << name;
+        m_dataAccess->execute(query, params);
 
+        Analytics::getInstance()->createAlbum(name);
+    }
     return primaryKey;
 }
 
