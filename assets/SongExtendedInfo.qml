@@ -20,7 +20,7 @@ TGroupContainer {
             textFormat: TextFormat.Html
         }
         BlackLabel {
-            visible: song != null
+            visible: song != null && song.isTrackerSong
             text: song ? qsTr("Tracker: %1").arg(Global.escapeHtml(song.tracker)) : ""
             textFormat: TextFormat.Html
         }
