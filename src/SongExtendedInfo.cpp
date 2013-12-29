@@ -8,6 +8,8 @@ int InstanceCounter<SongExtendedInfo>::s_maxCount;
 SongExtendedInfo::SongExtendedInfo(QObject *parent)
  : SongBasicInfo(parent),
    m_artistId(0),
+   m_genreId(0),
+   m_trackerId(0),
    m_patterns(0),
    m_orders(0),
    m_instruments(0),
@@ -31,6 +33,8 @@ SongExtendedInfo::SongExtendedInfo(int id,
                                    QString const& tracker,
                                    QString const& genre,
                                    int artistId,
+                                   int genreId,
+                                   int trackerId,
                                    QString const& artist,
                                    int patterns,
                                    int orders,
@@ -55,6 +59,8 @@ SongExtendedInfo::SongExtendedInfo(int id,
       m_tracker(tracker),
       m_genre(genre),
       m_artistId(artistId),
+      m_genreId(genreId),
+      m_trackerId(trackerId),
       m_artist(artist),
       m_patterns(patterns),
       m_orders(orders),
@@ -116,6 +122,17 @@ void SongExtendedInfo::setGenre(const QString &value) {
     }
 }
 
+int SongExtendedInfo::genreId() const {
+    return m_genreId;
+}
+
+void SongExtendedInfo::setGenreId(int value) {
+    if(m_genreId != value) {
+        m_genreId = value;
+        emit genreIdChanged();
+    }
+}
+
 int SongExtendedInfo::artistId() const {
     return m_artistId;
 }
@@ -124,6 +141,17 @@ void SongExtendedInfo::setArtistId(int value) {
     if(m_artistId != value) {
         m_artistId = value;
         emit artistIdChanged();
+    }
+}
+
+int SongExtendedInfo::trackerId() const {
+    return m_trackerId;
+}
+
+void SongExtendedInfo::setTrackerId(int value) {
+    if(m_trackerId != value) {
+        m_trackerId = value;
+        emit trackerIdChanged();
     }
 }
 

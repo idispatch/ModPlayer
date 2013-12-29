@@ -228,6 +228,11 @@ void Analytics::deleteAllPlaylists() const {
     Flurry::Analytics::LogEvent("DeleteAllPlaylists", false);
 }
 
+void Analytics::createAlbum(QString const& name) const {
+    Flurry::Map parameters;
+    parameters["name"] = name;
+    Flurry::Analytics::LogEvent("CreateAlbum", parameters, false);
+}
 
 void Analytics::play() const {
     Flurry::Analytics::LogEvent("PlayCmd", false);

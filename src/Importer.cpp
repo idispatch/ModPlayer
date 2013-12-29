@@ -53,7 +53,7 @@ int Importer::import()
     createProgressUI();
 #ifdef REDUCED_SEARCH_SCOPE
     static const char * locations[] = {
-        "removable/sdcard",
+        "shared/music",
     };
 #else
     static const char * locations[] = {
@@ -185,15 +185,16 @@ bool Importer::importMp3File(QString const& fileName) {
 
         info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
         info.setFormat("");
-#if 0
-        info.setSongLength(::ModPlug_GetLength(module));
-        info.setTitle(::ModPlug_GetName(module));
+
+        info.setSongLength(60);
+        info.setTitle(fileName);
 
         info.setTracker("");
         info.setGenre("");
+
         info.setArtistId(0);
         info.setArtist("");
-
+#if 0
         m_catalog->addPersonalSong(info);
 #endif
 
@@ -228,6 +229,11 @@ bool Importer::importMp3File(QString const& fileName) {
         }
 
         return str;
+#endif
+
+#if 0
+        QString albumName;
+        int albumId = m_catalog->createAlbum(albumName);
 #endif
     }
 
@@ -272,7 +278,6 @@ bool Importer::importTrackerSong(QString const& fileName)
     info.setFileSize(data.size());
     info.setSongLength(::ModPlug_GetLength(module));
     info.setTitle(::ModPlug_GetName(module));
-    info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
 
     info.setInstruments(::ModPlug_NumInstruments(module));
     info.setChannels(::ModPlug_NumChannels(module));
@@ -280,13 +285,19 @@ bool Importer::importTrackerSong(QString const& fileName)
     info.setPatterns(::ModPlug_NumPatterns(module));
     info.setOrders(::ModPlug_NumOrders(module));
 
+    ::ModPlug_Unload(module);
+
+    info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
     info.setFormat("");
+
+    info.setTrackerId(0);
     info.setTracker("");
+
+    info.setGenreId(0);
     info.setGenre("");
+
     info.setArtistId(0);
     info.setArtist("");
-
-    ::ModPlug_Unload(module);
 
     m_catalog->addPersonalSong(info);
     return true;

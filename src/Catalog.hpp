@@ -75,6 +75,9 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByPlaylistId(int playlistId, int limit);
     Q_INVOKABLE int findSongsByPlaylistIdAsync(int playlistId, int limit);
 
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByAlbumId(int albumId, int limit);
+    Q_INVOKABLE int findSongsByAlbumIdAsync(int albumId, int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm, int limit);
     Q_INVOKABLE int searchSongsAsync(QString const& searchTerm, int limit);
 
@@ -122,6 +125,8 @@ public:
     Q_INVOKABLE void deleteSongFromPlaylist(int playlistId, int songId);
     Q_INVOKABLE QVariant getPlaylistSongs(int playlistId);
 
+    Q_INVOKABLE int createAlbum(QString const& name);
+
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;
 Q_SIGNALS:
@@ -164,6 +169,7 @@ private:
             SongsByGenreList,
             SongsByArtistList,
             SongsByPlaylist,
+            SongsByAlbum,
 
             MostDownloadedSongs,
             MostFavouritedSongs,

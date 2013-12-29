@@ -254,6 +254,10 @@ int Catalog::findSongsByPlaylistIdAsync(int playlistId, int limit) {
     return asyncFindCommand(Command::SongsByPlaylist, playlistId, limit);
 }
 
+int Catalog::findSongsByAlbumIdAsync(int albumId, int limit) {
+    return asyncFindCommand(Command::SongsByAlbum, albumId, limit);
+}
+
 int Catalog::findMostDownloadedSongsAsync(int limit) {
     return asyncFindCommand(Command::MostDownloadedSongs, 0, limit);
 }
@@ -483,6 +487,19 @@ ArrayDataModel* Catalog::findSongsByPlaylistId(int playlistId, int limit) {
                                limit);
 }
 
+ArrayDataModel* Catalog::findSongsByAlbumId(int albumId, int limit) {
+    QString selectClause(SELECT_FROM_SONGS);
+    selectClause += " INNER JOIN albumEntries ON songs.id=albumEntries.songId ";
+    return selectSongBasicInfo(selectClause,
+                               QString("WHERE albumEntries.albumId=%1").arg(albumId),
+                               "ORDER BY "
+                               "albumEntries.trackNumber ASC, "
+                               "songs.playCount DESC, "
+                               "songs.lastPlayed DESC, "
+                               "songs.fileName ASC ",
+                               limit);
+}
+
 QString Catalog::resolveFileNameById(int id) {
     QString query = "SELECT fileName FROM songs WHERE id=?";
     QVariantList params;
@@ -548,6 +565,8 @@ SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
     QString tracker  = sqlQuery.value(column++).toString();
     QString genre    = sqlQuery.value(column++).toString();
     int artistId     = sqlQuery.value(column++).toInt();
+    int genreId      = sqlQuery.value(column++).toInt();
+    int trackerId    = sqlQuery.value(column++).toInt();
     QString artist   = sqlQuery.value(column++).toString();
     int patterns     = sqlQuery.value(column++).toInt();
     int orders       = sqlQuery.value(column++).toInt();
@@ -571,6 +590,8 @@ SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
                         tracker,
                         genre,
                         artistId,
+                        genreId,
+                        trackerId,
                         artist,
                         patterns,
                         orders,
@@ -628,6 +649,8 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
                 " trackers.name AS tracker, "
                 " genres.name AS genre, "
                 " songs.artist AS artistId, "
+                " songs.genre AS genreId, "
+                " songs.tracker AS trackerId, "
                 " artists.name AS artist, "
                 " songs.patterns AS patterns, "
                 " songs.orders AS orders, "
@@ -873,9 +896,9 @@ void Catalog::addPersonalSong(SongExtendedInfo const& info) {
             << info.playCount()
             << info.lastPlayed()
             << info.myFavourite()
-            << 0  // tracker
-            << 0  // genre
-            << 0  // artist
+            << info.trackerId()
+            << info.genreId()
+            << info.artistId()
             << info.patterns()
             << info.orders()
             << info.instruments()
@@ -953,6 +976,30 @@ QVariant Catalog::getPlaylistSongs(int playlistId) {
         result << QVariant::fromValue(songId);
     }
     return QVariant::fromValue(result);
+}
+
+int Catalog::createAlbum(QString const& name) {
+    int primaryKey = 0;
+    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM albums";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        primaryKey = sqlQuery.value(0).toInt();
+    } else {
+        return primaryKey; // error
+    }
+#ifdef DEBUG_CATALOG
+    qDebug().nospace() << "Creating album (" << primaryKey << "," << name << ")";
+    qDebug().space();
+#endif
+    query = "INSERT INTO albums (id, name) VALUES (?,?)";
+    QVariantList params;
+    params << primaryKey << name;
+    m_dataAccess->execute(query, params);
+
+    Analytics::getInstance()->createAlbum(name);
+
+    return primaryKey;
 }
 
 void Catalog::run() {
@@ -1057,6 +1104,14 @@ void Catalog::run() {
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
                 ArrayDataModel * model = findSongsByPlaylistId(findCommand->queryId(), findCommand->limit());
+                model->moveToThread(command->thread());
+                result = QVariant::fromValue(model);
+            }
+            break;
+        case Command::SongsByAlbum:
+            {
+                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
+                ArrayDataModel * model = findSongsByAlbumId(findCommand->queryId(), findCommand->limit());
                 model->moveToThread(command->thread());
                 result = QVariant::fromValue(model);
             }

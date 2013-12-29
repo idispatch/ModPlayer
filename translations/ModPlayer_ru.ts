@@ -969,6 +969,10 @@
         <source>%1 Playlist Songs (%2)</source>
         <translation>Песни плейлиста %1 (%2)</translation>
     </message>
+    <message>
+        <source>%1 Album Songs (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongMainInfo</name>

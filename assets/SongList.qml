@@ -26,6 +26,7 @@ Page {
             if (songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'playlist') return qsTr("%1 Playlist Songs (%2)").arg(songs.modelName).arg(c)
+            if (songs.mode == 'album') return qsTr("%1 Album Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'search') {
                 if(searchArea.searchTerm.length > 0) {
                     return qsTr("Search Songs (%1) - '%2'").arg(c).arg(searchArea.searchTerm)
@@ -107,7 +108,11 @@ Page {
             leftPadding: 10
             rightPadding: leftPadding
             function updateList() {
-                loadSongsByPlaylist(listId, modelName)
+                if(mode == 'playlist') {
+                    loadSongsByPlaylist(listId, modelName)
+                } else if(mode == 'album') {
+                    loadSongsByAlbum(listId, modelName)
+                }
             }
             function playSong(song) {
                 showPlayerView()
@@ -152,7 +157,7 @@ Page {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
                                 }
-                                if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist") {
+                                if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
                                     if (ListItem.data.score > 0) {
                                         return qsTr("score %1 of 10").arg(ListItem.data.score)
                                     }
@@ -178,7 +183,7 @@ Page {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
                                 }
-                                if (mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist") {
+                                if (mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
                                     if(ListItem.data.favourited > 0) {
                                         return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                     }
@@ -199,7 +204,7 @@ Page {
                                         return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                     }
                                 }
-                                if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist") {
+                                if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
                                     if (ListItem.data.downloads > 0) {
                                         return qsTr("%1 downloads").arg(ListItem.data.downloads)
                                     }
@@ -363,6 +368,12 @@ Page {
         listId = playlistId
         maximumSearchSongResults = 5000
         showList("playlist", playlistName, app.player.catalog.findSongsByPlaylistIdAsync(playlistId, maximumSearchSongResults))
+    }
+    function loadSongsByAlbum(albumId, albumName) {
+        unload()
+        listId = albumId
+        maximumSearchSongResults = 5000
+        showList("album", albumName, app.player.catalog.findSongsByAlbumIdAsync(albumId, maximumSearchSongResults))
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && 
