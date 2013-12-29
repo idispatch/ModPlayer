@@ -116,6 +116,7 @@ CREATE        INDEX IX_songs_playCount ON songs (playCount);
 CREATE        INDEX IX_songs_lastPlayed ON songs (lastPlayed);
 CREATE        INDEX IX_songs_myFavourite ON songs (myFavourite);
 
+INSERT INTO genres (id, name) VALUES (0, '- N/A -');
 INSERT INTO genres (id, name) VALUES (48, 'Alternative');
 INSERT INTO genres (id, name) VALUES (38, 'Gothic');
 INSERT INTO genres (id, name) VALUES (103, 'Grunge');
@@ -191,7 +192,6 @@ INSERT INTO genres (id, name) VALUES (26, 'R & B');
 INSERT INTO genres (id, name) VALUES (27, 'Reggae');
 INSERT INTO genres (id, name) VALUES (24, 'Ska');
 INSERT INTO genres (id, name) VALUES (25, 'Soul');
-INSERT INTO genres (id, name) VALUES (0, '- N/A -');
 
 INSERT INTO formats (id, name, description) VALUES (1, 'MOD', 'Amiga Module');
 INSERT INTO formats (id, name, description) VALUES (2, '669', '669 Mod Composer Module');
@@ -209,3 +209,5 @@ INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/O
 INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Song');
 
 INSERT INTO trackers (id, name) VALUES (0, '- N/A -');
+
+INSERT INTO "artists" VALUES(0,'- N/A -',NULL,NULL,NULL);

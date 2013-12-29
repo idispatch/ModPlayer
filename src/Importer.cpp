@@ -160,12 +160,10 @@ QString Importer::getMp3Attribute(void const * tag, const char * attributeName) 
 
         if(strcmp(attributeName, ID3_FRAME_GENRE) == 0)
             ucs4 = ::id3_genre_name(ucs4);
-
         id3_utf8_t *utf8 = ::id3_ucs4_utf8duplicate(ucs4);
         if (utf8 == 0)
             return "";
-
-        QString result = QString::fromUtf8(reinterpret_cast<const char*>(utf8), ::id3_utf8_size(utf8));
+        QString result = QString::fromUtf8(reinterpret_cast<const char*>(utf8));
         free(utf8);
         return result.trimmed();
     }
@@ -374,14 +372,14 @@ int Importer::calculateMp3Duration(char const *path,
                                    mad_timer_t *duration,
                                    signed int *kbps,
                                    unsigned long *kbytes) {
-    int fd = open(path, O_RDONLY | O_BINARY);
+    int fd = ::open(path, O_RDONLY | O_BINARY);
     if (fd == -1) {
         qDebug() << "Could not open file" << path;
         return -1;
     }
 
     struct stat stat;
-    if (fstat(fd, &stat) == -1) {
+    if (::fstat(fd, &stat) == -1) {
         qDebug() << "Could not fstat file" << path;
         close(fd);
         return -1;
@@ -397,7 +395,11 @@ int Importer::calculateMp3Duration(char const *path,
         *kbytes = (stat.st_size + 512) / 1024;
     }
 
-    void * fdm = mmap(0, stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+#if 0
+    void * fdm = ::mmap(0, stat.st_size, PROT_READ, MAP_PRIVATE | MAP_LAZY | MAP_NOINIT, fd, 0);
+#else
+    void * fdm = ::mmap(0, stat.st_size, PROT_READ, MAP_PRIVATE | MAP_NOINIT, fd, 0);
+#endif
     if (fdm == MAP_FAILED) {
         qDebug() << "Could not mmap" << stat.st_size << "bytes for file" << path;
         close(fd);
@@ -410,7 +412,7 @@ int Importer::calculateMp3Duration(char const *path,
             *kbps = result;
         }
 
-        if (munmap(fdm, stat.st_size) == -1) {
+        if(::munmap(fdm, stat.st_size) == -1) {
             qDebug() << "Could not munmap" << stat.st_size << "bytes for file" << path;
             close(fd);
             return -1;
@@ -421,7 +423,7 @@ int Importer::calculateMp3Duration(char const *path,
         }
     }
 
-    if (close(fd) == -1) {
+    if (::close(fd) == -1) {
         qDebug() << "Could not close file" << path;
         return -1;
     }

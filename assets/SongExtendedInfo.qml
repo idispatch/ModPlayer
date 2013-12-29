@@ -5,12 +5,12 @@ TGroupContainer {
     property variant song
     VerticalContainer {
         BlackLabel {
-            visible: song && song.artist.length > 0
+            visible: song && song.artist && song.artist.length > 0
             text: song ? qsTr("Artist: <b>%1</b>").arg(Global.escapeHtml(song.artist)) : ""
             textFormat: TextFormat.Html
         }
         BlackLabel {
-            visible: song && song.genre.length > 0
+            visible: song && song.genre && song.genre.length > 0
             text: song ? qsTr("Genre: <b>%1</b>").arg(Global.escapeHtml(song.genre)) : ""
             textFormat: TextFormat.Html
         }

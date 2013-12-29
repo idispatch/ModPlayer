@@ -995,7 +995,7 @@ int Catalog::createGenre(QString const& name) {
     int primaryKey = 0;
     QString query = "SELECT id FROM genres WHERE name=?";
     QVariantList params;
-    params << name;
+    params << name.trimmed();
     QVariant result = m_dataAccess->execute(query, params);
     QVariantList list = result.value<QVariantList>();
     if(list.size() >= 1) {
@@ -1012,7 +1012,7 @@ int Catalog::createGenre(QString const& name) {
 
         query = "INSERT INTO genres (id, name) VALUES (?,?)";
         QVariantList params;
-        params << primaryKey << name;
+        params << primaryKey << name.trimmed();
         m_dataAccess->execute(query, params);
     }
     return primaryKey;
@@ -1022,7 +1022,7 @@ int Catalog::createArtist(QString const& name) {
     int primaryKey = 0;
     QString query = "SELECT id FROM artists WHERE name=?";
     QVariantList params;
-    params << name;
+    params << name.trimmed();
     QVariant result = m_dataAccess->execute(query, params);
     QVariantList list = result.value<QVariantList>();
     if(list.size() >= 1) {
@@ -1039,7 +1039,7 @@ int Catalog::createArtist(QString const& name) {
 
         query = "INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,0,0,0)";
         QVariantList params;
-        params << primaryKey << name;
+        params << primaryKey << name.trimmed();
         m_dataAccess->execute(query, params);
     }
     return primaryKey;
@@ -1056,15 +1056,15 @@ int Catalog::createPlaylist(QString const& name) {
         return primaryKey; // error
     }
 #ifdef DEBUG_CATALOG
-    qDebug().nospace() << "Creating playlist (" << primaryKey << "," << name << ")";
+    qDebug().nospace() << "Creating playlist (" << primaryKey << "," << name.trimmed() << ")";
     qDebug().space();
 #endif
     query = "INSERT INTO playlists (id, name) VALUES (?,?)";
     QVariantList params;
-    params << primaryKey << name;
+    params << primaryKey << name.trimmed();
     m_dataAccess->execute(query, params);
 
-    Analytics::getInstance()->createPlaylist(name);
+    Analytics::getInstance()->createPlaylist(name.trimmed());
 
     return primaryKey;
 }
@@ -1131,10 +1131,10 @@ QVariant Catalog::getAlbumSongs(int albumId) {
 
 int Catalog::createAlbum(QString const& artistName, QString const& albumName) {
     int primaryKey = 0;
-    int artistId = createArtist(artistName);
+    int artistId = createArtist(artistName.trimmed());
     QString query = "SELECT id FROM albums WHERE artistId=? AND name=?";
     QVariantList params;
-    params << artistId << albumName;
+    params << artistId << albumName.trimmed();
     QVariant result = m_dataAccess->execute(query, params);
     QVariantList list = result.value<QVariantList>();
     if(list.size() >= 1) {
@@ -1151,10 +1151,10 @@ int Catalog::createAlbum(QString const& artistName, QString const& albumName) {
 
         query = "INSERT INTO albums (id, artistId, name) VALUES (?,?,?)";
         QVariantList params;
-        params << primaryKey << artistId << albumName;
+        params << primaryKey << artistId << albumName.trimmed();
         m_dataAccess->execute(query, params);
 
-        Analytics::getInstance()->createAlbum(artistName, albumName);
+        Analytics::getInstance()->createAlbum(artistName.trimmed(), albumName.trimmed());
     }
     return primaryKey;
 }
