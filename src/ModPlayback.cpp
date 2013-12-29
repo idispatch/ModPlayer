@@ -14,6 +14,7 @@ int InstanceCounter<ModPlayback>::s_count;
 template<>
 int InstanceCounter<ModPlayback>::s_maxCount;
 
+#ifdef _DEBUG
 //#define PERFORMANCE_MEASURE
 
 #ifdef PERFORMANCE_MEASURE
@@ -26,6 +27,9 @@ static _Uint64t get_clock()
     }
     return 0;
 }
+#endif
+
+#else
 #endif
 
 ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
@@ -126,7 +130,7 @@ void ModPlayback::configure() {
 void ModPlayback::closePlayback() {
     // called from playback thread only
     if(m_playback_handle != NULL) {
-        snd_pcm_close(m_playback_handle);
+        ::snd_pcm_close(m_playback_handle);
         m_playback_handle = NULL;
     }
     m_pcmFd = -1;
@@ -138,9 +142,9 @@ void ModPlayback::stopAudioDevice() {
     // when called from user thread must be in locked state
     if(m_playback_handle != NULL)
     {
-        snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-        snd_pcm_plugin_playback_drain(m_playback_handle);
-        snd_pcm_close(m_playback_handle);
+        ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+        ::snd_pcm_plugin_playback_drain(m_playback_handle);
+        ::snd_pcm_close(m_playback_handle);
         m_playback_handle = NULL;
     }
     m_audioBuffer.resize(0);
@@ -178,6 +182,16 @@ PlaybackConfig* ModPlayback::configuration() {
     return &m_config;
 }
 
+bool ModPlayback::submitCommadAndWait(Command command) {
+    QMutexLocker locker(&m_mutex);
+    m_command = command;
+    m_cond.wakeAll();
+    while(m_command != NoCommand) {
+        m_cond.wait(&m_mutex);
+    }
+    return true;
+}
+
 bool ModPlayback::load(SongExtendedInfo const& info, QString const& fileName) {
     QMutexLocker locker(&m_mutex);
     m_command = LoadCommand;
@@ -191,68 +205,32 @@ bool ModPlayback::load(SongExtendedInfo const& info, QString const& fileName) {
 }
 
 bool ModPlayback::unload() {
-    QMutexLocker locker(&m_mutex);
-    m_command = UnloadCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
-    }
-    return true;
+    return submitCommadAndWait(UnloadCommand);
 }
 
 bool ModPlayback::play() {
     Analytics::getInstance()->play();
-    QMutexLocker locker(&m_mutex);
-    m_command = PlayCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
-    }
-    return true;
+    return submitCommadAndWait(PlayCommand);
 }
 
 bool ModPlayback::stop() {
     Analytics::getInstance()->stop();
-    QMutexLocker locker(&m_mutex);
-    m_command = StopCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
-    }
-    return true;
+    return submitCommadAndWait(StopCommand);
 }
 
 bool ModPlayback::pause() {
     Analytics::getInstance()->pause();
-    QMutexLocker locker(&m_mutex);
-    m_command = PauseCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
-    }
-    return true;
+    return submitCommadAndWait(PauseCommand);
 }
 
 bool ModPlayback::resume() {
     Analytics::getInstance()->resume();
-    QMutexLocker locker(&m_mutex);
-    m_command = ResumeCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
-    }
-    return true;
+    return submitCommadAndWait(ResumeCommand);
 }
 
 bool ModPlayback::rewind() {
     Analytics::getInstance()->rewind();
-    QMutexLocker locker(&m_mutex);
-    m_command = RewindCommand;
-    m_cond.wakeAll();
-    while(m_command != NoCommand) {
-        m_cond.wait(&m_mutex);
-    }
-    return true;
+    return submitCommadAndWait(RewindCommand);
 }
 
 void ModPlayback::configure_audio() {
@@ -391,8 +369,8 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
-                snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-                snd_pcm_plugin_playback_drain(m_playback_handle);
+                ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 if(m_song.load(m_pendingSong, m_pendingFileName)) {
                     m_state = Loaded;
                 } else {
@@ -408,8 +386,8 @@ void ModPlayback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-                snd_pcm_plugin_playback_drain(m_playback_handle);
+                ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 m_song.unload();
                 m_state = Idle;
                 emit stopped();
@@ -437,8 +415,8 @@ void ModPlayback::run() {
             m_command = NoCommand;
             if(m_state == Playing || m_state == Paused) {
                 m_state = Loaded;
-                snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-                snd_pcm_plugin_playback_drain(m_playback_handle);
+                ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 m_song.rewind();
                 emit stopped();
             }
@@ -492,15 +470,15 @@ void ModPlayback::run() {
 bool ModPlayback::detectAudioDevice() {
     int rc;
     qDebug() << "Detecting available audio devices for playback...";
-    int ncards = snd_cards();
+    int ncards = ::snd_cards();
     qDebug() << "Number of audio cards" << ncards;
     char buffer[256];
     for(int i = 0; i < ncards; ++i) {
-        rc = snd_card_get_name(i, buffer, sizeof(buffer));
+        rc = ::snd_card_get_name(i, buffer, sizeof(buffer));
         if(rc != -1) {
             qDebug() << "Card" << i << "name:" << buffer;
         }
-        rc = snd_card_get_longname (i, buffer, sizeof(buffer));
+        rc = ::snd_card_get_longname (i, buffer, sizeof(buffer));
         if(rc != -1) {
             qDebug() << "Card" << i << "long name:" << buffer;
         }
@@ -509,11 +487,11 @@ bool ModPlayback::detectAudioDevice() {
     QVector<int> cards(m_numDevices);
     QVector<int> devices(m_numDevices);
 
-    rc = snd_pcm_find(SND_PCM_FMT_S16_LE,
-                      &m_numDevices,
-                      cards.data(),
-                      devices.data(),
-                      SND_PCM_OPEN_PLAYBACK);
+    rc = ::snd_pcm_find(SND_PCM_FMT_S16_LE,
+                        &m_numDevices,
+                        cards.data(),
+                        devices.data(),
+                        SND_PCM_OPEN_PLAYBACK);
 
     qDebug() << "Found" << m_numDevices << "audio devices for playback";
 
@@ -563,25 +541,25 @@ unsigned
 0 for signed; 1 for unsigned.
 big_endian
 0 for little endian; 1 for big endian.*/
-    int fmt = snd_pcm_build_linear_format(16, 0, 0);
+    int fmt = ::snd_pcm_build_linear_format(16, 0, 0);
 #endif
 
     qDebug() << "PCM format: voices:" << pcm_format.voices
              << ", rate:" << pcm_format.rate
              << ", format:" << pcm_format.format;
 
-    if((err = snd_pcm_open_preferred(&m_playback_handle,
-                                     &card,
-                                     &device,
-                                     SND_PCM_OPEN_PLAYBACK)) < 0) {
-        qDebug() << "Failed to open preferred PCM device:" << snd_strerror(err);
+    if((err = ::snd_pcm_open_preferred(&m_playback_handle,
+                                       &card,
+                                       &device,
+                                       SND_PCM_OPEN_PLAYBACK)) < 0) {
+        qDebug() << "Failed to open preferred PCM device:" << ::snd_strerror(err);
         return false;
     } else {
         qDebug() << "Opened preferred PCM device: card" << card << "device" << device;
     }
 
     // GET
-    if(snd_pcm_info(m_playback_handle, &pcm_info) != -1) {
+    if(::snd_pcm_info(m_playback_handle, &pcm_info) != -1) {
 #if 0
         qDebug() << "type:" << pcm_info.type;
         qDebug() << "flags:" << pcm_info.flags;
@@ -597,15 +575,15 @@ big_endian
     }
 
     // GET
-    m_pcmFd = snd_pcm_file_descriptor(m_playback_handle,
-                                      SND_PCM_CHANNEL_PLAYBACK);
+    m_pcmFd = ::snd_pcm_file_descriptor(m_playback_handle,
+                                        SND_PCM_CHANNEL_PLAYBACK);
 
     /* Get information about a PCM channel's capabilities from a control handle */
     /* https://developer.blackberry.com/native/reference/bb10/audio_libref/topic/libs/snd_pcm_channel_info.html */
     memset(&channel_info, 0, sizeof(channel_info));
     channel_info.channel = SND_PCM_CHANNEL_PLAYBACK;
-    if ((err = snd_pcm_plugin_info(m_playback_handle, &channel_info)) < 0) {
-        qDebug() << "Failed to get PCM plugin info:" << snd_strerror(err);
+    if ((err = ::snd_pcm_plugin_info(m_playback_handle, &channel_info)) < 0) {
+        qDebug() << "Failed to get PCM plugin info:" << ::snd_strerror(err);
         return false;
     }
 
@@ -696,7 +674,7 @@ big_endian
     // SET
     if ((err = snd_pcm_plugin_set_disable(m_playback_handle,
                                           PLUGIN_BUFFER_PARTIAL_BLOCKS)) < 0) {
-        fprintf(stderr, "snd_pcm_plugin_set_disable: %s\n", snd_strerror(err));
+        fprintf(stderr, "snd_pcm_plugin_set_disable: %s\n", ::snd_strerror(err));
         snd_pcm_close(m_playback_handle);
         m_playback_handle = NULL;
         return err;
@@ -705,7 +683,7 @@ big_endian
     // SET
     if ((err = snd_pcm_plugin_set_disable(m_playback_handle,
                                           PLUGIN_MMAP)) < 0) {
-        fprintf(stderr, "snd_pcm_plugin_set_disable: %s\n", snd_strerror(err));
+        fprintf(stderr, "snd_pcm_plugin_set_disable: %s\n", ::snd_strerror(err));
         snd_pcm_close(m_playback_handle);
         m_playback_handle = NULL;
         return err;
@@ -731,17 +709,17 @@ big_endian
 
     strcpy(channel_params.sw_mixer_subchn_name, "ModPlayer");
 
-    if ((err = snd_pcm_plugin_params(m_playback_handle,
-                                     &channel_params)) < 0)
+    if ((err = ::snd_pcm_plugin_params(m_playback_handle,
+                                       &channel_params)) < 0)
     {
-        qDebug() << "Failed to configure PCM plugin:" << snd_strerror(err);
+        qDebug() << "Failed to configure PCM plugin:" << ::snd_strerror(err);
         return false;
     }
 
-    if ((err = snd_pcm_plugin_prepare(m_playback_handle,
-                                      SND_PCM_CHANNEL_PLAYBACK)) < 0)
+    if ((err = ::snd_pcm_plugin_prepare(m_playback_handle,
+                                        SND_PCM_CHANNEL_PLAYBACK)) < 0)
     {
-        qDebug() << "Failed to prepare PCM plugin:" << snd_strerror(err);
+        qDebug() << "Failed to prepare PCM plugin:" << ::snd_strerror(err);
         return false;
     }
 
@@ -750,10 +728,10 @@ big_endian
     channel_setup.mode = SND_PCM_MODE_BLOCK;
     channel_setup.channel = SND_PCM_CHANNEL_PLAYBACK;
 
-    if ((err = snd_pcm_plugin_setup(m_playback_handle,
-                                    &channel_setup)) < 0)
+    if ((err = ::snd_pcm_plugin_setup(m_playback_handle,
+                                      &channel_setup)) < 0)
     {
-        qDebug() << "Failed to get PCM plugin configuration:" << snd_strerror(err);
+        qDebug() << "Failed to get PCM plugin configuration:" << ::snd_strerror(err);
         return false;
     }
 
@@ -819,9 +797,9 @@ int ModPlayback::updateChunk() {
     time_write_start = get_clock();
 #endif
 
-    numWritten = snd_pcm_plugin_write(m_playback_handle,
-                                      m_audioBuffer.data(),
-                                      bytesGenerated);
+    numWritten = ::snd_pcm_plugin_write(m_playback_handle,
+                                        m_audioBuffer.data(),
+                                        bytesGenerated);
 #ifdef PERFORMANCE_MEASURE
     time_write_end = get_clock();
 #endif
@@ -845,12 +823,12 @@ int ModPlayback::updateChunk() {
         memset(&status, 0, sizeof(status));
         status.channel = SND_PCM_CHANNEL_PLAYBACK;
 
-        if ((err = snd_pcm_plugin_status(m_playback_handle, &status)) < 0)
+        if ((err = ::snd_pcm_plugin_status(m_playback_handle, &status)) < 0)
         {
             qDebug() << "Failed to get PCM plugin status: error="
                      << err
                      << ","
-                     << snd_strerror(err);
+                     << ::snd_strerror(err);
             m_song.update(true);
             return -1;
         }
@@ -865,12 +843,12 @@ int ModPlayback::updateChunk() {
 #ifdef PERFORMANCE_MEASURE
                 time_prepare_start = get_clock();
 #endif
-                if((err = snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0)
+                if((err = ::snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0)
                 {
                     qDebug() << "Failed to prepare PCM plugin: error="
                              << err
                              << ","
-                             << snd_strerror(err);
+                             << ::snd_strerror(err);
                     m_song.update(true);
                     return -1;
                 }
@@ -881,9 +859,9 @@ int ModPlayback::updateChunk() {
 
                     time_rewrite_start = get_clock();
 #endif
-                    numWritten = snd_pcm_plugin_write(m_playback_handle,
-                                                      m_audioBuffer.data(),
-                                                      bytesGenerated);
+                    numWritten = ::snd_pcm_plugin_write(m_playback_handle,
+                                                        m_audioBuffer.data(),
+                                                        bytesGenerated);
 #ifdef PERFORMANCE_MEASURE
                     time_rewrite_end = get_clock();
 #endif

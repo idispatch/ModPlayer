@@ -86,6 +86,7 @@ private:
         RewindCommand
     };
 
+    bool submitCommadAndWait(Command);
     void loadSettings();
     void saveSettings();
     void configure_audio();
