@@ -29,7 +29,7 @@
 #include "Cache.hpp"
 #include "Catalog.hpp"
 #include "Downloader.hpp"
-#include "ModPlayback.hpp"
+#include "Playback.hpp"
 #include "PatternView.hpp"
 #include "VUMeter.hpp"
 #include "Playlist.hpp"

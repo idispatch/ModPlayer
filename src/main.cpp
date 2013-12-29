@@ -23,7 +23,7 @@
 #include "Cache.hpp"
 #include "Player.hpp"
 #include "PlaybackConfig.hpp"
-#include "ModPlayback.hpp"
+#include "Playback.hpp"
 #include "PatternView.hpp"
 #include "VUMeter.hpp"
 #include "TouchHandler.hpp"

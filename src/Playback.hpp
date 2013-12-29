@@ -1,5 +1,5 @@
-#ifndef MODPLAYBACK_HPP_
-#define MODPLAYBACK_HPP_
+#ifndef PLAYBACK_HPP_
+#define PLAYBACK_HPP_
 
 #include <QObject>
 #include <QThread>

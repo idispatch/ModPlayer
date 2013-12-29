@@ -10,7 +10,7 @@
 #include "Unpacker.hpp"
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
-#include "ModPlayback.hpp"
+#include "Playback.hpp"
 #include "Playlist.hpp"
 #include "SuspendPlayback.hpp"
 #include "Mp3Export.hpp"

@@ -1,5 +1,5 @@
 #include "SuspendPlayback.hpp"
-#include "ModPlayback.hpp"
+#include "Playback.hpp"
 
 SuspendPlayback::SuspendPlayback(Playback * playback)
     : m_playback(playback),
