@@ -22,6 +22,7 @@ public:
 
     static QUrl getIconPath(int formatId);
     static int getFormatIdByFileName(QString const& fileName);
+    static bool isTrackerSong(int formatId);
 
     using InstanceCounter<SongFormat>::getInstanceCount;
     using InstanceCounter<SongFormat>::getMaxInstanceCount;

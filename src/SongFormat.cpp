@@ -109,6 +109,24 @@ int SongFormat::getFormatIdByFileName(QString const& fileName) {
     return 0;
 }
 
+bool SongFormat::isTrackerSong(int formatId) {
+    switch(formatId) {
+    case FORMAT_MOD:
+    case FORMAT_669:
+    case FORMAT_IT:
+    case FORMAT_MED:
+    case FORMAT_MTM:
+    case FORMAT_OCT:
+    case FORMAT_OKT:
+    case FORMAT_S3M:
+    case FORMAT_STM:
+    case FORMAT_XM:
+        return true;
+    default:
+        return false;
+    }
+}
+
 QDebug operator << (QDebug dbg, SongFormat const &format) {
     dbg.nospace() << "(SongFormat:"
                   << "id="

@@ -9,6 +9,12 @@
 #include <bb/data/SqlDataAccess>
 #include <bb/data/DataSource>
 
+#ifdef _DEBUG
+//#define DEBUG_CATALOG
+#else
+#undef DEBUG_CATALOG
+#endif
+
 using namespace bb::data;
 using namespace bb::cascades;
 
@@ -34,6 +40,26 @@ static const char * SELECT_FROM_SONGS =
         "FROM songs";
 
 int Catalog::Command::s_commandCounter = 0;
+
+
+class SqlReader {
+    QSqlQuery &m_query;
+    int m_index;
+
+    SqlReader(SqlReader const&);
+    SqlReader& operator = (SqlReader const&);
+public:
+    SqlReader(QSqlQuery &query) : m_query(query), m_index(0) {
+    }
+    inline SqlReader& operator >> (int &value) {
+        value = m_query.value(m_index++).toInt();
+        return *this;
+    }
+    inline SqlReader& operator >> (QString &value) {
+        value = m_query.value(m_index++).toString();
+        return *this;
+    }
+};
 
 struct PersonalData {
     int id;
@@ -103,7 +129,8 @@ void Catalog::copyCatalogToDataFolder() {
                 QSqlDatabase db = dataAccess.connection();
                 QSqlQuery sqlQuery = db.exec("PRAGMA user_version");
                 if(sqlQuery.next()) {
-                    version = sqlQuery.value(0).toInt();
+                    SqlReader reader(sqlQuery);
+                    reader >> version;
                 }
             }
 
@@ -127,11 +154,8 @@ void Catalog::copyCatalogToDataFolder() {
                 QSqlQuery sqlQuery = db.exec(query);
                 while(sqlQuery.next()) {
                     PersonalData song;
-                    int column = 0;
-                    song.id          = sqlQuery.value(column++).toInt();
-                    song.playCount   = sqlQuery.value(column++).toInt();
-                    song.lastPlayed  = sqlQuery.value(column++).toInt();
-                    song.myFavourite = sqlQuery.value(column++).toInt();
+                    SqlReader reader(sqlQuery);
+                    reader >> song.id >> song.playCount >> song.lastPlayed >> song.myFavourite;
                     data.push_back(song);
                 }
                 qDebug() << "Migrating" << data.size() << "songs";
@@ -309,11 +333,12 @@ ArrayDataModel* Catalog::findFormats() {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        int column   = 0;
-        int id       = sqlQuery.value(column++).toInt();
-        QString name = sqlQuery.value(column++).toString();
-        QString desc = sqlQuery.value(column++).toString();
-        int count    = sqlQuery.value(column++).toInt();
+        SqlReader reader(sqlQuery);
+        int id;
+        QString name;
+        QString desc;
+        int count;
+        reader >> id >> name >> desc >> count;
         QObject* value = new SongFormat(id,
                                         name,
                                         desc,
@@ -342,10 +367,11 @@ GroupDataModel* Catalog::findGenres() {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        int column   = 0;
-        int id       = sqlQuery.value(column++).toInt();
-        QString name = sqlQuery.value(column++).toString();
-        int count    = sqlQuery.value(column++).toInt();
+        SqlReader reader(sqlQuery);
+        int id;
+        QString name;
+        int count;
+        reader >> id >> name >> count;
         QObject* value = new SongGenre(id, name, count, model);
         model->insert(value);
     }
@@ -372,13 +398,14 @@ GroupDataModel* Catalog::findArtists() {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        int column    = 0;
-        int id        = sqlQuery.value(column++).toInt();
-        QString name  = sqlQuery.value(column++).toString();
-        int score     = sqlQuery.value(column++).toInt();
-        int downloads = sqlQuery.value(column++).toInt();
-        int rating    = sqlQuery.value(column++).toInt();
-        int count     = sqlQuery.value(column++).toInt();
+        SqlReader reader(sqlQuery);
+        int id;
+        QString name;
+        int score;
+        int downloads;
+        int rating;
+        int count;
+        reader >> id >> name >> score >> downloads >> rating >> count;
         QObject *value = new Artist(id,
                                     name,
                                     score,
@@ -403,10 +430,11 @@ GroupDataModel* Catalog::findPlaylists() {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        int column    = 0;
-        const int id        = sqlQuery.value(column++).toInt();
-        const QString name  = sqlQuery.value(column++).toString();
-        const int count     = sqlQuery.value(column++).toInt();
+        SqlReader reader(sqlQuery);
+        int id;
+        QString name;
+        int count;
+        reader >> id >> name >> count;
         QObject *value = new NamedPlaylist(id, name, count, model);
         model->insert(value);
     }
@@ -425,10 +453,11 @@ GroupDataModel* Catalog::findAlbums() {
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
-        int column    = 0;
-        const int id        = sqlQuery.value(column++).toInt();
-        const QString name  = sqlQuery.value(column++).toString();
-        const int count     = sqlQuery.value(column++).toInt();
+        SqlReader reader(sqlQuery);
+        int id;
+        QString name;
+        int count;
+        reader >> id >> name >> count;
         QObject *value = new Album(id, name, count, model);
         model->insert(value);
     }
@@ -548,31 +577,55 @@ SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVar
 }
 
 SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
-    int column       = 0;
-    const int id           = sqlQuery.value(column++).toInt();
-    const QString fileName = sqlQuery.value(column++).toString();
-    const QString title    = sqlQuery.value(column++).toString();
-    const int formatId     = sqlQuery.value(column++).toInt();
-    const int downloads    = sqlQuery.value(column++).toInt();
-    const int favourited   = sqlQuery.value(column++).toInt();
-    const int score        = sqlQuery.value(column++).toInt();
-    const int size         = sqlQuery.value(column++).toInt();
-    const int length       = sqlQuery.value(column++).toInt();
-    const int playCount    = sqlQuery.value(column++).toInt();
-    const int lastPlayed   = sqlQuery.value(column++).toInt();
-    const int myFavourite  = sqlQuery.value(column++).toInt();
-    const QString format   = sqlQuery.value(column++).toString();
-    const QString tracker  = sqlQuery.value(column++).toString();
-    const QString genre    = sqlQuery.value(column++).toString();
-    const int artistId     = sqlQuery.value(column++).toInt();
-    const int genreId      = sqlQuery.value(column++).toInt();
-    const int trackerId    = sqlQuery.value(column++).toInt();
-    const QString artist   = sqlQuery.value(column++).toString();
-    const int patterns     = sqlQuery.value(column++).toInt();
-    const int orders       = sqlQuery.value(column++).toInt();
-    const int instruments  = sqlQuery.value(column++).toInt();
-    const int samples      = sqlQuery.value(column++).toInt();
-    const int channels     = sqlQuery.value(column++).toInt();
+    int id;
+    QString fileName;
+    QString title;
+    int formatId;
+    int downloads;
+    int favourited;
+    int score;
+    int size;
+    int length;
+    int playCount;
+    int lastPlayed;
+    int myFavourite;
+    QString format;
+    QString tracker;
+    QString genre;
+    int artistId;
+    int genreId;
+    int trackerId;
+    QString artist;
+    int patterns;
+    int orders;
+    int instruments;
+    int samples;
+    int channels;
+    SqlReader reader(sqlQuery);
+    reader  >> id
+            >> fileName
+            >> title
+            >> formatId
+            >> downloads
+            >> favourited
+            >> score
+            >> size
+            >> length
+            >> playCount
+            >> lastPlayed
+            >> myFavourite
+            >> format
+            >> tracker
+            >> genre
+            >> artistId
+            >> genreId
+            >> trackerId
+            >> artist
+            >> patterns
+            >> orders
+            >> instruments
+            >> samples
+            >> channels;
     return new SongExtendedInfo(
                         id,
                         fileName,
@@ -602,19 +655,20 @@ SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
 }
 
 SongBasicInfo* Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
-    int column       = 0;
-    int id           = sqlQuery.value(column++).toInt();
-    QString fileName = sqlQuery.value(column++).toString();
-    QString title    = sqlQuery.value(column++).toString();
-    int format       = sqlQuery.value(column++).toInt();
-    int downloads    = sqlQuery.value(column++).toInt();
-    int favourited   = sqlQuery.value(column++).toInt();
-    int score        = sqlQuery.value(column++).toInt();
-    int size         = sqlQuery.value(column++).toInt();
-    int length       = sqlQuery.value(column++).toInt();
-    int playCount    = sqlQuery.value(column++).toInt();
-    int lastPlayed   = sqlQuery.value(column++).toInt();
-    int myFavourite  = sqlQuery.value(column++).toInt();
+    SqlReader reader(sqlQuery);
+    int id;
+    QString fileName;
+    QString title;
+    int format;
+    int downloads;
+    int favourited;
+    int score;
+    int size;
+    int length;
+    int playCount;
+    int lastPlayed;
+    int myFavourite;
+    reader >> id >> fileName >> title >> format >> downloads >> favourited >> score >> size >> length >> playCount >> lastPlayed >> myFavourite;
     return new SongBasicInfo(id,
                              fileName,
                              title,
@@ -666,6 +720,16 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
         query += " ";
         query += whereClause;
     }
+#ifdef DEBUG_CATALOG
+    qDebug() << "Catalog::selectSongInfo:";
+    QString dumpQuery(query);
+    while(dumpQuery.length() > 0) {
+        QString part = dumpQuery.left(std::min(80, dumpQuery.length()));
+        qDebug() << part;
+        dumpQuery = dumpQuery.mid(part.length());
+    }
+
+#endif
     SongExtendedInfo * song = NULL;
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);

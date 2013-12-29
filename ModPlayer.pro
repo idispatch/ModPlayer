@@ -11,4 +11,13 @@ QMAKE_LFLAGS += -flto
 
 # -mcpu=cortex-a15 for QCT CPU
 
+device {
+    CONFIG(debug, debug|release) {
+        DEFINES += _DEBUG 
+    }
+    CONFIG(release, debug|release) {
+        DEFINES += NDEBUG
+    }
+}
+
 include(config.pri)

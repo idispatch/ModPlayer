@@ -150,6 +150,10 @@ void SongBasicInfo::setFileSize(int value) {
     }
 }
 
+bool SongBasicInfo::isTrackerSong() const {
+    return SongFormat::isTrackerSong(m_formatId);
+}
+
 int SongBasicInfo::songLength() const {
     return m_songLength;
 }

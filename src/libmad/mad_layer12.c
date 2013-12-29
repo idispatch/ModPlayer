@@ -452,7 +452,7 @@ int mad_layer_II(struct mad_stream *stream, struct mad_frame *frame)
 
 	case 0:
 	  scalefactor[ch][sb][1] = mad_bit_read(&stream->ptr, 6);
-	  /* fall through */
+	  /* no break */
 
 	case 1:
 	case 3:

@@ -109,12 +109,15 @@ void id3_parse_immediate(id3_byte_t const **ptr, unsigned int bytes,
   switch (bytes) {
   case 8: *value++ = *(*ptr)++;
           *value++ = *(*ptr)++;
-    *value++ = *(*ptr)++;
-    *value++ = *(*ptr)++;
+          *value++ = *(*ptr)++;
+          *value++ = *(*ptr)++;
+          /* no break */
   case 4: *value++ = *(*ptr)++;
+          /* no break */
   case 3: *value++ = *(*ptr)++;
           *value++ = *(*ptr)++;
-    *value++ = *(*ptr)++;
+          *value++ = *(*ptr)++;
+          /* no break */
   }
 
   *value = 0;
@@ -168,6 +171,7 @@ id3_ucs4_t *id3_parse_string(id3_byte_t const **ptr, id3_length_t length,
 
   case ID3_FIELD_TEXTENCODING_UTF_16BE:
     byteorder = ID3_UTF16_BYTEORDER_BE;
+    /* no break */
   case ID3_FIELD_TEXTENCODING_UTF_16:
     ucs4 = id3_utf16_deserialize(ptr, length, byteorder);
     break;

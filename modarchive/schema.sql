@@ -204,4 +204,4 @@ INSERT INTO formats (id, name, description) VALUES (10, 'XM','FastTracker 2 Modu
 INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Module');
 INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');
 INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/OGG Module');
-INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Songs');
+INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Song');

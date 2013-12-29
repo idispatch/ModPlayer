@@ -105,6 +105,7 @@ id3_length_t id3_utf16_decodechar(id3_utf16_t const *utf16, id3_ucs4_t *ucs4)
 
     ++utf16;
   }
+  return 0;
 }
 
 /*
@@ -227,7 +228,9 @@ id3_length_t id3_utf16_serialize(id3_byte_t **ptr, id3_ucs4_t const *ucs4,
   while (*ucs4) {
     switch (id3_utf16_encodechar(out = utf16, *ucs4++)) {
     case 2: size += id3_utf16_put(ptr, *out++, byteorder);
+    /* no break */
     case 1: size += id3_utf16_put(ptr, *out++, byteorder);
+    /* no break */
     case 0: break;
     }
   }

@@ -30,14 +30,17 @@ Page {
                 }
                 SongPublicInfo {
                     song: songView.song
+                    visible: songView.song.isTrackerSong
                 }
                 SongParametersInfo {
                     song: songView.song
+                    visible: songView.song.isTrackerSong
                 }
             }
         }
     }
     function load(songId) {
+        console.log("SongID=" + songId)
         song = app.player.catalog.resolveModuleById(songId, songView)
         app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
     }

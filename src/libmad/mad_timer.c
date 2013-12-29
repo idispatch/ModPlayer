@@ -455,9 +455,7 @@ void mad_timer_string(mad_timer_t timer,
       /* not yet implemented */
       sub = 0;
     }
-
-    /* fall through */
-
+    /* no break */
   case MAD_UNITS_DECISECONDS:
   case MAD_UNITS_CENTISECONDS:
   case MAD_UNITS_MILLISECONDS:
