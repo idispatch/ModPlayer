@@ -69,7 +69,7 @@ function formatTimeStamp(unix_timestamp) {
 }
 
 function formatDuration(duration) {
-	duration = Math.floor(duration / 1000);
+    duration = Math.floor(duration / 1000);
     var seconds = duration % 60;
     var minutes = Math.floor(duration / 60) % 60;
     var hours   = Math.floor(duration / 3600);
@@ -85,7 +85,17 @@ function formatDuration(duration) {
     }
     hours = "" + hours;
     if(hours == "0") {
-        return minutes + "m " + seconds + "s";
+        if(minutes == "00") {
+            if(seconds == "00") 
+                return "0s";
+            return seconds + "s";
+        } else {
+            if(seconds == "00") {
+                return minutes + "m";
+            } else {
+                return minutes + "m " + seconds + "s";
+            }
+        }
     } else {
         return hours + "h " + minutes + "m " + seconds + "s";
     }
