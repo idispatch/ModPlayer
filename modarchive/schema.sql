@@ -20,7 +20,9 @@ CREATE TABLE genres
 CREATE TABLE albums
 (
     id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL
+    artistId INT,
+    name TEXT NOT NULL,
+    CONSTRAINT FK_albums_artists FOREIGN KEY (artistId) REFERENCES artists (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
 CREATE TABLE formats
@@ -205,3 +207,5 @@ INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Mo
 INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');
 INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/OGG Module');
 INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Song');
+
+INSERT INTO trackers (id, name) VALUES (0, '- N/A -');

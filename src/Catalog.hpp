@@ -125,7 +125,10 @@ public:
     Q_INVOKABLE void deleteSongFromPlaylist(int playlistId, int songId);
     Q_INVOKABLE QVariant getPlaylistSongs(int playlistId);
 
-    Q_INVOKABLE int createAlbum(QString const& name);
+
+    Q_INVOKABLE int createAlbum(QString const& artistName, QString const& albumName);
+    Q_INVOKABLE QVariant getAlbumSongs(int albumId);
+
     Q_INVOKABLE int createGenre(QString const& name);
     Q_INVOKABLE int createArtist(QString const& name);
 

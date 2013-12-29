@@ -20,6 +20,19 @@ Page {
             bottomPadding: topPadding
             leftPadding: 10
             rightPadding: leftPadding
+            function playAlbum(album) {
+                var songs = app.catalog.getAlbumSongs(album.id)
+                if(songs.length > 0) {
+                    app.player.playlist.clear()
+                    for(var i = 0; i < songs.length; ++i) {
+                        app.player.playlist.add(songs[i])
+                    }
+                }
+                if(app.player.playlist.count > 0) {
+                    app.player.playPlaylist()
+                    showPlayer()
+                }
+            }
             listItemComponents: [
                 ListItemComponent {
                     type: "header"
@@ -37,7 +50,7 @@ Page {
                     ModPlayerListItem {
                         id: albumEntry
                         title: ListItem.data.name
-                        description: " "
+                        description: ListItem.data.artistName
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
                         imageSource: "asset:///images/formats/icon_album.png"
                         contextActions: [
@@ -50,7 +63,7 @@ Page {
                                         enabled: albumEntry.ListItem.data.count > 0
                                         imageSource: "asset:///images/actions/icon_play.png"
                                         onTriggered: {
-                                            //albumEntry.ListItem.view.playPlaylist(playlistEntry.ListItem.data)
+                                            albumEntry.ListItem.view.playAlbum(albumEntry.ListItem.data)
                                         }
                                     }
                                 ]

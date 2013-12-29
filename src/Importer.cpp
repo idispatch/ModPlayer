@@ -219,10 +219,18 @@ bool Importer::importMp3File(QString const& fileName) {
         }
         QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);
 
+        int artistId = 0;
+        QString artist = getMp3Attribute(tag, ID3_FRAME_ARTIST);
+        if(artist.length() > 0) {
+            artistId = m_catalog->createArtist(artist);
+        }
+        info.setArtistId(artistId);
+        info.setArtist(artist);
+
         QString album = getMp3Attribute(tag, ID3_FRAME_ALBUM);
         int albumId = 0;
         if(album.length() > 0) {
-            albumId = m_catalog->createAlbum(album);
+            albumId = m_catalog->createAlbum(artist, album);
             m_catalog->addSongToAlbum(albumId, -m_numImportedSongs, trackId);
         }
 
@@ -233,14 +241,6 @@ bool Importer::importMp3File(QString const& fileName) {
         }
         info.setGenre(genre);
         info.setGenreId(genreId);
-
-        int artistId = 0;
-        QString artist = getMp3Attribute(tag, ID3_FRAME_ARTIST);
-        if(artist.length() > 0) {
-            artistId = m_catalog->createArtist(artist);
-        }
-        info.setArtistId(artistId);
-        info.setArtist(artist);
 
         m_catalog->addPersonalSong(info);
 

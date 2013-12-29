@@ -442,11 +442,16 @@ GroupDataModel* Catalog::findPlaylists() {
 }
 
 GroupDataModel* Catalog::findAlbums() {
-    const char * query = "SELECT id, name, COUNT(albumEntries.songId) AS songCount "
+    const char * query = "SELECT"
+                         " albums.id,"
+                         " artists.name AS artistName,"
+                         " albums.name AS albumName,"
+                         " COUNT(albumEntries.songId) AS songCount "
                          "FROM albums "
-                         "LEFT JOIN albumEntries ON albums.id=albumEntries.albumId "
+                         " INNER JOIN artists ON albums.artistId=artists.id"
+                         " LEFT JOIN albumEntries ON albums.id=albumEntries.albumId "
                          "GROUP BY albums.id";
-    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
+    GroupDataModel * model = new GroupDataModel(QStringList() << "artistName" << "albumName");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
@@ -455,10 +460,11 @@ GroupDataModel* Catalog::findAlbums() {
     while(sqlQuery.next()) {
         SqlReader reader(sqlQuery);
         int id;
-        QString name;
+        QString artistName;
+        QString albumName;
         int count;
-        reader >> id >> name >> count;
-        QObject *value = new Album(id, name, count, model);
+        reader >> id >> artistName >> albumName >> count;
+        QObject *value = new Album(id, artistName, albumName, count, model);
         model->insert(value);
     }
     return model;
@@ -1112,11 +1118,24 @@ QVariant Catalog::getPlaylistSongs(int playlistId) {
     return QVariant::fromValue(result);
 }
 
-int Catalog::createAlbum(QString const& name) {
+QVariant Catalog::getAlbumSongs(int albumId) {
+    QVariantList result;
+    QString query = QString("SELECT songId FROM albumEntries WHERE albumId=%1 ORDER BY trackNumber").arg(albumId);
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        int songId = sqlQuery.value(0).toInt();
+        result << QVariant::fromValue(songId);
+    }
+    return QVariant::fromValue(result);
+}
+
+int Catalog::createAlbum(QString const& artistName, QString const& albumName) {
     int primaryKey = 0;
-    QString query = "SELECT id FROM albums WHERE name=?";
+    int artistId = createArtist(artistName);
+    QString query = "SELECT id FROM albums WHERE artistId=? AND name=?";
     QVariantList params;
-    params << name;
+    params << artistId << albumName;
     QVariant result = m_dataAccess->execute(query, params);
     QVariantList list = result.value<QVariantList>();
     if(list.size() >= 1) {
@@ -1131,12 +1150,12 @@ int Catalog::createAlbum(QString const& name) {
             return primaryKey; // error
         }
 
-        query = "INSERT INTO albums (id, name) VALUES (?,?)";
+        query = "INSERT INTO albums (id, artistId, name) VALUES (?,?,?)";
         QVariantList params;
-        params << primaryKey << name;
+        params << primaryKey << artistId << albumName;
         m_dataAccess->execute(query, params);
 
-        Analytics::getInstance()->createAlbum(name);
+        Analytics::getInstance()->createAlbum(artistName, albumName);
     }
     return primaryKey;
 }

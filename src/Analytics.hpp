@@ -66,7 +66,7 @@ public:
     Q_INVOKABLE void createPlaylist(QString const& name) const;
     Q_INVOKABLE void deleteAllPlaylists() const;
 
-    Q_INVOKABLE void createAlbum(QString const& name) const;
+    Q_INVOKABLE void createAlbum(QString const& artistName, QString const& albumName) const;
 
     using InstanceCounter<Analytics>::getInstanceCount;
     using InstanceCounter<Analytics>::getMaxInstanceCount;

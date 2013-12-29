@@ -30,19 +30,20 @@ Page {
                 }
                 SongPublicInfo {
                     song: songView.song
-                    visible: songView.song.isTrackerSong
+                    visible: songView.song && songView.song.isTrackerSong
                 }
                 SongParametersInfo {
                     song: songView.song
-                    visible: songView.song.isTrackerSong
+                    visible: songView.song && songView.song.isTrackerSong
                 }
             }
         }
     }
     function load(songId) {
-        console.log("SongID=" + songId)
         song = app.player.catalog.resolveModuleById(songId, songView)
-        app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
+        if(song) {
+            app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
+        }
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && navigationPane.top == songView) {
@@ -112,13 +113,7 @@ Page {
         },
         SaveSongActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
-            currentSong: {
-                if(song != null) { 
-                    return song.fileName 
-                } else { 
-                    return "" 
-                }
-            }
+            currentSong: song ? song.fileName : ""
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
