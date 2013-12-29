@@ -41,7 +41,7 @@ Page {
                         id: songVUMeter
                         topMargin: 10
                         horizontalAlignment: HorizontalAlignment.Center
-                        visible: app.player.currentSong.songLoaded && app.player.state == Player.Playing
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && app.player.state == Player.Playing
                         song: app.player.currentSong
                     }
                     Slider {
@@ -123,10 +123,12 @@ Page {
                         Option {
                             id: patternViewOption
                             text: qsTr("Pattern")
+                            enabled: app.player.currentSong.isTrackerSong
                         }
                         Option {
                             id: samplesViewOption
                             text: qsTr("Samples")
+                            enabled: app.player.currentSong.isTrackerSong
                         }
                         onSelectedOptionChanged: {
                             songMainInfo.visible = (selectedOption == basicViewOption)
@@ -157,12 +159,12 @@ Page {
                     SongParametersInfo {
                         id: songParametersInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
                     }
                     SongDynamicInfo {
                         id: songDynamicInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
                     }
                     TGroupContainer {
                         id: patternView
@@ -224,10 +226,12 @@ Page {
         },
         InstrumentsActionItem {
             navigationPane: songPlayer.navigationPane
+            enabled: app.player.currentSong.isTrackerSong
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         PatternsActionItem {
             navigationPane: songPlayer.navigationPane
+            enabled: app.player.currentSong.isTrackerSong
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AddFavouriteActionItem {
@@ -247,7 +251,7 @@ Page {
         },
         SaveSongActionItem{
             currentSong: app.player.currentSong.fileName
-            enabled: app.player.currentSong.songLoaded && app.player.currentSong.id != 0
+            enabled: app.player.currentSong.songLoaded && app.player.currentSong.id > 0
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem{
