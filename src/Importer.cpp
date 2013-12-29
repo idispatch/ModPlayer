@@ -17,6 +17,9 @@
 #include <QByteArray>
 #include <bb/system/SystemProgressDialog>
 #include "libid3tag/id3_id3tag.h"
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
 
 #define DETAILED_LOG
 #define REDUCED_SEARCH_SCOPE
@@ -195,7 +198,19 @@ bool Importer::importMp3File(QString const& fileName) {
         info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
         info.setFormat("MP3 format");
 
-        info.setSongLength(60);
+        mad_timer_t duration;
+        signed int kbps;
+        unsigned long kbytes;
+        mad_timer_reset(&duration);
+        int result = calculateMp3Duration(fileName.toStdString().c_str(), &duration, &kbps, &kbytes);
+        if(result == 0) {
+            duration = ::mad_timer_abs(duration);
+            unsigned long milliseconds = duration.seconds * 1000 + duration.fraction * 1000/MAD_TIMER_RESOLUTION;
+            info.setSongLength(milliseconds);
+#ifdef DETAILED_LOG
+            qDebug() << "Song Length" << info.songLength();
+#endif
+        }
 
         QString title = getMp3Attribute(tag, ID3_FRAME_TITLE);
         info.setTitle(title);
@@ -349,4 +364,105 @@ void Importer::updateProgressUI(QString const& body, int progress) {
         m_progress->setProgress(progress);
         m_progress->show();
     }
+}
+
+int Importer::calculateMp3Duration(char const *path,
+                                   mad_timer_t *duration,
+                                   signed int *kbps,
+                                   unsigned long *kbytes) {
+    int fd = open(path, O_RDONLY | O_BINARY);
+    if (fd == -1) {
+        qDebug() << "Could not open file" << path;
+        return -1;
+    }
+
+    struct stat stat;
+    if (fstat(fd, &stat) == -1) {
+        qDebug() << "Could not fstat file" << path;
+        close(fd);
+        return -1;
+    }
+
+    if (!S_ISREG(stat.st_mode)) {
+        qDebug() << "Not a regular file" << path;
+        close(fd);
+        return -1;
+    }
+
+    if(kbytes) {
+        *kbytes = (stat.st_size + 512) / 1024;
+    }
+
+    void * fdm = mmap(0, stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    if (fdm == MAP_FAILED) {
+        qDebug() << "Could not mmap" << stat.st_size << "bytes for file" << path;
+        close(fd);
+        return -1;
+    }
+
+    if (fdm) {
+        int result = scanMp3(reinterpret_cast<unsigned char const*>(fdm), stat.st_size, duration);
+        if(kbps) {
+            *kbps = result;
+        }
+
+        if (munmap(fdm, stat.st_size) == -1) {
+            qDebug() << "Could not munmap" << stat.st_size << "bytes for file" << path;
+            close(fd);
+            return -1;
+        }
+    } else {
+        if(kbps) {
+            *kbps = 0;
+        }
+    }
+
+    if (close(fd) == -1) {
+        qDebug() << "Could not close file" << path;
+        return -1;
+    }
+
+    return 0;
+}
+
+int Importer::scanMp3(unsigned char const *ptr,
+                      unsigned long len,
+                      mad_timer_t *duration) {
+    struct mad_stream stream;
+    struct mad_header header;
+
+    ::mad_stream_init(&stream);
+    ::mad_header_init(&header);
+    ::mad_stream_buffer(&stream, ptr, len);
+
+    unsigned long bitrate = 0;
+    unsigned long kbps = 0;
+    unsigned long count = 0;
+    int vbr = 0;
+
+    while (1) {
+        if (::mad_header_decode(&header, &stream) == -1) {
+            if (MAD_RECOVERABLE(stream.error))
+                continue;
+            else
+                break;
+        }
+
+        if (bitrate && header.bitrate != bitrate)
+            vbr = 1;
+
+        bitrate = header.bitrate;
+
+        kbps += bitrate / 1000;
+        ++count;
+
+        ::mad_timer_add(duration, header.duration);
+    }
+    mad_header_finish(&header);
+    ::mad_stream_finish(&stream);
+
+    if (count == 0)
+        count = 1;
+
+    return ((kbps * 2) / count + 1) / 2 * (vbr ? -1 : 1);
 }

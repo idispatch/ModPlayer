@@ -5,6 +5,7 @@
 #include <QString>
 #include <QStringList>
 #include "PlaybackConfig.hpp"
+#include "libmad/mad.h"
 
 namespace bb {
     namespace system {
@@ -38,6 +39,9 @@ private:
     bool importTrackerSong(QString const& fileName);
     bool importMp3File(QString const& fileName);
     QString getMp3Attribute(void const * tag, const char * attributeName);
+
+    int calculateMp3Duration(char const *path, mad_timer_t *duration, signed int *kbps, unsigned long *kbytes);
+    int scanMp3(unsigned char const *ptr, unsigned long len, mad_timer_t *duration);
 
     void createProgressUI();
     void destroyProgressUI();
