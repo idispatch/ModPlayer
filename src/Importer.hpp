@@ -38,6 +38,7 @@ private:
     int scanDirectory(QDir const& dir);
     bool importTrackerSong(QString const& fileName);
     bool importMp3File(QString const& fileName);
+    QString getMp3Attribute(void const * tag, const char * attributeName);
 
     void createProgressUI();
     void destroyProgressUI();

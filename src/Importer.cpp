@@ -145,6 +145,33 @@ int Importer::scanDirectory(QDir const& root)
    return m_numImportedSongs;
 }
 
+QString Importer::getMp3Attribute(void const * tag, const char * attributeName) {
+    struct id3_frame const *frame = ::id3_tag_findframe((struct id3_tag const *)tag,
+                                                        attributeName,
+                                                        0);
+    if (frame == 0)
+        return "";
+
+    union id3_field const *field = ::id3_frame_field(frame, 1);
+    unsigned int nstrings = ::id3_field_getnstrings(field);
+
+    for (unsigned int j = 0; j < nstrings; ++j) {
+        id3_ucs4_t const *ucs4 = ::id3_field_getstrings(field, j);
+
+        if(strcmp(attributeName, ID3_FRAME_GENRE) == 0)
+            ucs4 = ::id3_genre_name(ucs4);
+
+        id3_latin1_t *latin1 = ::id3_ucs4_latin1duplicate(ucs4);
+        if (latin1 == 0)
+            return "";
+
+        QString result = QString((const char*)latin1);
+        free(latin1);
+        return result;
+    }
+    return "";
+}
+
 bool Importer::importMp3File(QString const& fileName) {
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
     QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
@@ -166,9 +193,6 @@ bool Importer::importMp3File(QString const& fileName) {
 
     ::id3_tag * tag = ::id3_file_tag(mp3file);
     if(tag != NULL) {
-#ifdef DETAILED_LOG
-        qDebug() << "Found Mp3 tags";
-#endif
         ++m_numImportedSongs;
         SongExtendedInfo info(NULL);
         info.setId(-m_numImportedSongs);
@@ -184,51 +208,36 @@ bool Importer::importMp3File(QString const& fileName) {
         info.setOrders(0);
 
         info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
-        info.setFormat("");
+        info.setFormat("MP3 format");
 
         info.setSongLength(60);
-        info.setTitle(fileName);
+
+        QString title = getMp3Attribute(tag, ID3_FRAME_TITLE);
+        info.setTitle(title);
 
         info.setTracker("");
-        info.setGenre("");
+        info.setTrackerId(0);
 
+        QString genre = getMp3Attribute(tag, ID3_FRAME_GENRE);
+        info.setGenreId(0);
+        info.setGenre(genre);
+
+        QString artist = getMp3Attribute(tag, ID3_FRAME_ARTIST);
         info.setArtistId(0);
-        info.setArtist("");
-#if 0
-        m_catalog->addPersonalSong(info);
+        info.setArtist(artist);
+
+        QString album = getMp3Attribute(tag, ID3_FRAME_ALBUM);
+
+        QString track = getMp3Attribute(tag, ID3_FRAME_TRACK);
+        QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);
+
+#ifdef DETAILED_LOG
+        qDebug() << "Tags:" << "Title=" << title << "Artist=" << artist << "Album=" << album << "Track=" << track << "Year=" << year << "Genre=" << genre;
 #endif
 
+        // length, comment
 #if 0
-        ID3_FRAME_TITLE
-        ID3_FRAME_ARTIST
-        ID3_FRAME_ALBUM
-        ID3_FRAME_TRACK
-        ID3_FRAME_YEAR
-        ID3_FRAME_GENRE
-        ID3_FRAME_COMMENT
-
-        //Search for given frame by frame id
-        ::id3_frame *pFrame = ::id3_tag_findframe(tag, frameID, 0);
-        if (pFrame == NULL) {
-            return ustring((unsigned char *)"");
-        }
-
-        union id3_field field = pFrame->fields[1];
-        id3_ucs4_t const *pTemp = id3_field_getstrings(&field,0);
-        if ( !strcmp(frameID,"TCON") ){
-            //If the frameID is TCON, we then retrieve genre name using id3_genre_name
-            id3_ucs4_t const *pGenre = id3_genre_name(pTemp);
-            pTemp = pGenre;
-        }
-
-        id3_latin1_t *pStrLatinl;
-        if ( pTemp != NULL ){
-           pStrLatinl = id3_ucs4_latin1duplicate(pTemp);
-           str = pStrLatinl;
-           delete pStrLatinl;
-        }
-
-        return str;
+        m_catalog->addPersonalSong(info);
 #endif
 
 #if 0
@@ -236,7 +245,6 @@ bool Importer::importMp3File(QString const& fileName) {
         int albumId = m_catalog->createAlbum(albumName);
 #endif
     }
-
 
     ::id3_file_close(mp3file);
     return false;
