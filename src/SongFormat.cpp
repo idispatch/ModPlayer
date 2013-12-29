@@ -11,8 +11,9 @@ SongFormat::SongFormat(int id,
                        QString const& name,
                        QString const& description,
                        int count,
+                       int duration,
                        QObject *parent)
-    : ItemGroupBase(id, name, count, parent),
+    : ItemGroupBase(id, name, count, duration, parent),
       m_description(description) {
 }
 

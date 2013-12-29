@@ -9,11 +9,13 @@ int InstanceCounter<ItemGroupBase>::s_maxCount;
 ItemGroupBase::ItemGroupBase(int id,
                              QString const& name,
                              int count,
+                             int duration,
                              QObject *parent)
     : QObject(parent),
       m_id(id),
       m_name(name),
-      m_count(count) {
+      m_count(count),
+      m_duration(duration){
 }
 
 ItemGroupBase::~ItemGroupBase() {
@@ -31,6 +33,10 @@ int ItemGroupBase::count() const {
     return m_count;
 }
 
+int ItemGroupBase::duration() const {
+    return m_duration;
+}
+
 QDebug operator << (QDebug dbg, ItemGroupBase const &group) {
     dbg.nospace() << "(ItemGroupBase: id="
                   << group.id()
@@ -38,6 +44,8 @@ QDebug operator << (QDebug dbg, ItemGroupBase const &group) {
                   << group.name()
                   << ",count="
                   << group.count()
+                  << ",duration="
+                  << group.duration()
                   << ")";
     return dbg.space();
 }

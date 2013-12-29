@@ -63,8 +63,6 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(ModPlayback)
 
-    void initAsync();
-    void doneAsync();
     bool detectAudioDevice();
     bool initPlayback();
     int  updateChunk();

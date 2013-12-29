@@ -11,6 +11,7 @@ public:
     NamedPlaylist(int id,
                   QString const& name,
                   int count,
+                  int duration,
                   QObject *parent);
     ~NamedPlaylist();
 

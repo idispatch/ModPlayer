@@ -68,6 +68,29 @@ function formatTimeStamp(unix_timestamp) {
            qsTr("long ago");
 }
 
+function formatDuration(duration) {
+	duration = Math.floor(duration / 1000);
+    var seconds = duration % 60;
+    var minutes = Math.floor(duration / 60) % 60;
+    var hours   = Math.floor(duration / 3600);
+    if(seconds < 10) {
+        seconds = "0" + seconds;
+    } else {
+        seconds = "" + seconds;
+    }
+    if(minutes < 10) {
+        minutes = "0" + minutes;
+    } else {
+        minutes = "" + minutes;
+    }
+    hours = "" + hours;
+    if(hours == "0") {
+        return minutes + "m " + seconds + "s";
+    } else {
+        return hours + "h " + minutes + "m " + seconds + "s";
+    }
+}
+
 var entityMap = {
     "&": "&amp;",
     "<": "&lt;",

@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 Page {
     id: playlistsPage
@@ -57,6 +58,7 @@ Page {
                         title: ListItem.data.name
                         description: " "
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                        lowerStatus: Global.formatDuration(ListItem.data.duration)
                         imageSource: "asset:///images/formats/icon_playlist.png"
                         contextActions: [
                             ActionSet {

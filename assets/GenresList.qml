@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 Page {
     id: genresPage
@@ -38,6 +39,7 @@ Page {
                         title: ListItem.data.name
                         description: " "
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                        lowerStatus: Global.formatDuration(ListItem.data.duration)
                     }
                 }
             ]

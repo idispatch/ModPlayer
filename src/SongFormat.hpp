@@ -15,6 +15,7 @@ public:
                QString const& name,
                QString const& description,
                int count,
+               int duration,
                QObject *parent);
     ~SongFormat();
     QString const& description() const;

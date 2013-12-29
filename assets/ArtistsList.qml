@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 Page {
     id: artistsPage
@@ -38,7 +39,13 @@ Page {
                         title: ListItem.data.name
                         upperStatus: ListItem.data.count > 0 ? qsTr("%1 songs").arg(ListItem.data.count) : ""
                         middleStatus: ListItem.data.score > 0 ? qsTr("score %1 of 10").arg(ListItem.data.score) : ""
-                        lowerStatus: ListItem.data.rating > 0 ? qsTr("rating %1").arg(ListItem.data.rating) : ""
+                        lowerStatus: {
+                            if(ListItem.data.rating > 0) {
+                                return qsTr("rating %1").arg(ListItem.data.rating)
+                            } else {
+                                return Global.formatDuration(ListItem.data.duration)
+                            }
+                        }
                     }
                 }
             ]

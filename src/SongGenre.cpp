@@ -9,8 +9,9 @@ int InstanceCounter<SongGenre>::s_maxCount;
 SongGenre::SongGenre(int id,
                      QString const& name,
                      int count,
+                     int duration,
                      QObject *parent)
-    : ItemGroupBase(id, name, count, parent) {
+    : ItemGroupBase(id, name, count, duration, parent) {
 }
 
 SongGenre::~SongGenre() {

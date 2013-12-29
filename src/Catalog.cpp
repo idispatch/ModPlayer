@@ -324,10 +324,10 @@ ArrayDataModel* Catalog::findFormats() {
             " formats.id AS id, "
             " formats.name AS name, "
             " formats.description AS description, "
-            " count(formats.id) AS count "
+            " COUNT(formats.id) AS songCount, "
+            " SUM(songs.length) AS duration "
             "FROM formats "
-            "INNER JOIN songs "
-            " ON songs.format=formats.id "
+            "INNER JOIN songs ON songs.format=formats.id "
             "GROUP BY formats.id";
     ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
@@ -337,12 +337,14 @@ ArrayDataModel* Catalog::findFormats() {
         int id;
         QString name;
         QString desc;
-        int count;
-        reader >> id >> name >> desc >> count;
+        int songCount;
+        int totalDuration;
+        reader >> id >> name >> desc >> songCount >> totalDuration;
         QObject* value = new SongFormat(id,
                                         name,
                                         desc,
-                                        count,
+                                        songCount,
+                                        totalDuration,
                                         model);
         QVariant v = QVariant::fromValue(value);
         model->append(v);
@@ -355,10 +357,10 @@ GroupDataModel* Catalog::findGenres() {
             "SELECT"
             " genres.id,"
             " genres.name,"
-            " COUNT(songs.id) AS count "
+            " COUNT(songs.id) AS songCount, "
+            " SUM(songs.length) AS duration "
             "FROM genres "
-            "LEFT JOIN songs "
-            " ON songs.genre=genres.id "
+            "LEFT JOIN songs ON songs.genre=genres.id "
             "GROUP BY genres.id";
     GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -370,9 +372,14 @@ GroupDataModel* Catalog::findGenres() {
         SqlReader reader(sqlQuery);
         int id;
         QString name;
-        int count;
-        reader >> id >> name >> count;
-        QObject* value = new SongGenre(id, name, count, model);
+        int songCount;
+        int totalDuration;
+        reader >> id >> name >> songCount >> totalDuration;
+        QObject* value = new SongGenre(id,
+                                       name,
+                                       songCount,
+                                       totalDuration,
+                                       model);
         model->insert(value);
     }
     return model;
@@ -386,7 +393,8 @@ GroupDataModel* Catalog::findArtists() {
             " artists.score,"
             " artists.downloads,"
             " artists.rating,"
-            " COUNT(songs.id) AS count "
+            " COUNT(songs.id) AS count, "
+            " SUM(songs.length) AS duration "
             "FROM artists "
             "LEFT JOIN songs "
             " ON songs.artist=artists.id "
@@ -404,14 +412,16 @@ GroupDataModel* Catalog::findArtists() {
         int score;
         int downloads;
         int rating;
-        int count;
-        reader >> id >> name >> score >> downloads >> rating >> count;
+        int songCount;
+        int totalDuration;
+        reader >> id >> name >> score >> downloads >> rating >> songCount >> totalDuration;
         QObject *value = new Artist(id,
                                     name,
                                     score,
                                     downloads,
                                     rating,
-                                    count,
+                                    songCount,
+                                    totalDuration,
                                     model);
         model->insert(value);
     }
@@ -419,9 +429,14 @@ GroupDataModel* Catalog::findArtists() {
 }
 
 GroupDataModel* Catalog::findPlaylists() {
-    const char * query = "SELECT id, name, COUNT(playlistEntries.songId) AS songCount "
+    const char * query = "SELECT"
+                         " playlists.id AS id,"
+                         " playlists.name AS name,"
+                         " COUNT(playlistEntries.songId) AS songCount,"
+                         " SUM(songs.length) AS duration "
                          "FROM playlists "
-                         "LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
+                         " LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
+                         " INNER JOIN songs ON playlistEntries.songId=songs.id "
                          "GROUP BY playlists.id";
     GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -433,9 +448,14 @@ GroupDataModel* Catalog::findPlaylists() {
         SqlReader reader(sqlQuery);
         int id;
         QString name;
-        int count;
-        reader >> id >> name >> count;
-        QObject *value = new NamedPlaylist(id, name, count, model);
+        int songCount;
+        int totalDuration;
+        reader >> id >> name >> songCount >> totalDuration;
+        QObject *value = new NamedPlaylist(id,
+                                           name,
+                                           songCount,
+                                           totalDuration,
+                                           model);
         model->insert(value);
     }
     return model;
@@ -443,13 +463,15 @@ GroupDataModel* Catalog::findPlaylists() {
 
 GroupDataModel* Catalog::findAlbums() {
     const char * query = "SELECT"
-                         " albums.id,"
+                         " albums.id AS id,"
                          " artists.name AS artistName,"
                          " albums.name AS albumName,"
-                         " COUNT(albumEntries.songId) AS songCount "
+                         " COUNT(albumEntries.songId) AS songCount, "
+                         " SUM(songs.length) AS duration "
                          "FROM albums "
                          " INNER JOIN artists ON albums.artistId=artists.id"
-                         " LEFT JOIN albumEntries ON albums.id=albumEntries.albumId "
+                         " INNER JOIN albumEntries ON albums.id=albumEntries.albumId"
+                         " INNER JOIN songs ON albumEntries.songId=songs.id "
                          "GROUP BY albums.id";
     GroupDataModel * model = new GroupDataModel(QStringList() << "artistName" << "albumName");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -462,11 +484,20 @@ GroupDataModel* Catalog::findAlbums() {
         int id;
         QString artistName;
         QString albumName;
-        int count;
-        reader >> id >> artistName >> albumName >> count;
-        QObject *value = new Album(id, artistName, albumName, count, model);
+        int songCount;
+        int totalDuration;
+        reader >> id >> artistName >> albumName >> songCount >> totalDuration;
+        QObject *value = new Album(id,
+                                   artistName,
+                                   albumName,
+                                   songCount,
+                                   totalDuration,
+                                   model);
         model->insert(value);
     }
+#ifdef DEBUG_CATALOG
+    qDebug() << "Albums=" << model->size();
+#endif
     return model;
 }
 

@@ -12,8 +12,9 @@ Album::Album(int id,
              QString const& artistName,
              QString const& name,
              int count,
+             int duration,
              QObject *parent)
-    : ItemGroupBase(id, name, count, parent),
+    : ItemGroupBase(id, name, count, duration, parent),
       m_artistName(artistName) {
 }
 

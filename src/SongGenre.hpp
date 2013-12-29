@@ -11,6 +11,7 @@ public:
     SongGenre(int id,
               QString const& name,
               int count,
+              int duration,
               QObject *parent);
     ~SongGenre();
 
