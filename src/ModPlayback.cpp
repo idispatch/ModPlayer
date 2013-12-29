@@ -10,9 +10,9 @@
 #include "ApplicationUI.hpp"
 
 template<>
-int InstanceCounter<ModPlayback>::s_count;
+int InstanceCounter<Playback>::s_count;
 template<>
-int InstanceCounter<ModPlayback>::s_maxCount;
+int InstanceCounter<Playback>::s_maxCount;
 
 #ifdef _DEBUG
 //#define PERFORMANCE_MEASURE
@@ -32,7 +32,7 @@ static _Uint64t get_clock()
 #else
 #endif
 
-ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
+Playback::Playback(QSettings &settings, QObject * parent)
     : QThread(parent),
       m_config(NULL),
       m_settings(settings),
@@ -47,12 +47,12 @@ ModPlayback::ModPlayback(QSettings &settings, QObject * parent)
     loadSettings();
 }
 
-ModPlayback::~ModPlayback() {
+Playback::~Playback() {
     saveSettings();
     closePlayback(); // called from playback thread only
 }
 
-void ModPlayback::loadSettings() {
+void Playback::loadSettings() {
     m_settings.beginGroup("mixer");
 
     m_config.setStereo(m_settings.value("stereo", true).toBool());
@@ -83,7 +83,7 @@ void ModPlayback::loadSettings() {
     m_config.configureModPlug();
 }
 
-void ModPlayback::saveSettings() {
+void Playback::saveSettings() {
     m_settings.beginGroup("mixer");
 
     m_settings.setValue("stereo", m_config.stereo());
@@ -114,7 +114,7 @@ void ModPlayback::saveSettings() {
     m_settings.sync();
 }
 
-void ModPlayback::configure() {
+void Playback::configure() {
     QMutexLocker locker(&m_mutex); // called from user thread
     if(!m_config.isAudioReconfigurationRequired()) {
         qDebug() << "No audio reconfiguration required";
@@ -127,7 +127,7 @@ void ModPlayback::configure() {
     }
 }
 
-void ModPlayback::closePlayback() {
+void Playback::closePlayback() {
     // called from playback thread only
     if(m_playback_handle != NULL) {
         ::snd_pcm_close(m_playback_handle);
@@ -137,7 +137,7 @@ void ModPlayback::closePlayback() {
     m_audioBuffer.resize(0);
 }
 
-void ModPlayback::stopAudioDevice() {
+void Playback::stopAudioDevice() {
     // called from playback or user thread
     // when called from user thread must be in locked state
     if(m_playback_handle != NULL)
@@ -152,13 +152,13 @@ void ModPlayback::stopAudioDevice() {
     m_song.rewind();
 }
 
-void ModPlayback::changeState(State state) {
+void Playback::changeState(State state) {
     QMutexLocker locker(&m_mutex);
     m_state = state;
     m_cond.wakeAll();
 }
 
-void ModPlayback::stopThread() {
+void Playback::stopThread() {
     if(isRunning())
     {
         {
@@ -170,19 +170,19 @@ void ModPlayback::stopThread() {
     }
 }
 
-ModPlayback::State ModPlayback::state() {
+Playback::State Playback::state() {
     return m_state;
 }
 
-SongModule* ModPlayback::currentSong() {
+SongModule* Playback::currentSong() {
     return &m_song;
 }
 
-PlaybackConfig* ModPlayback::configuration() {
+PlaybackConfig* Playback::configuration() {
     return &m_config;
 }
 
-bool ModPlayback::submitCommadAndWait(Command command) {
+bool Playback::submitCommadAndWait(Command command) {
     QMutexLocker locker(&m_mutex);
     m_command = command;
     m_cond.wakeAll();
@@ -192,7 +192,7 @@ bool ModPlayback::submitCommadAndWait(Command command) {
     return true;
 }
 
-bool ModPlayback::load(SongExtendedInfo const& info, QString const& fileName) {
+bool Playback::load(SongExtendedInfo const& info, QString const& fileName) {
     QMutexLocker locker(&m_mutex);
     m_command = LoadCommand;
     m_pendingFileName = fileName;
@@ -204,36 +204,36 @@ bool ModPlayback::load(SongExtendedInfo const& info, QString const& fileName) {
     return true;
 }
 
-bool ModPlayback::unload() {
+bool Playback::unload() {
     return submitCommadAndWait(UnloadCommand);
 }
 
-bool ModPlayback::play() {
+bool Playback::play() {
     Analytics::getInstance()->play();
     return submitCommadAndWait(PlayCommand);
 }
 
-bool ModPlayback::stop() {
+bool Playback::stop() {
     Analytics::getInstance()->stop();
     return submitCommadAndWait(StopCommand);
 }
 
-bool ModPlayback::pause() {
+bool Playback::pause() {
     Analytics::getInstance()->pause();
     return submitCommadAndWait(PauseCommand);
 }
 
-bool ModPlayback::resume() {
+bool Playback::resume() {
     Analytics::getInstance()->resume();
     return submitCommadAndWait(ResumeCommand);
 }
 
-bool ModPlayback::rewind() {
+bool Playback::rewind() {
     Analytics::getInstance()->rewind();
     return submitCommadAndWait(RewindCommand);
 }
 
-void ModPlayback::configure_audio() {
+void Playback::configure_audio() {
     QString fileName;
 
     if(m_config.isAudioReconfigurationRequired()) {
@@ -308,7 +308,7 @@ void ModPlayback::configure_audio() {
     saveSettings();
 }
 
-void ModPlayback::run() {
+void Playback::run() {
     moveToThread(this);
     m_song.moveToThread(this);
 
@@ -467,7 +467,7 @@ void ModPlayback::run() {
     QThread::exit(0);
 }
 
-bool ModPlayback::detectAudioDevice() {
+bool Playback::detectAudioDevice() {
     int rc;
     qDebug() << "Detecting available audio devices for playback...";
     int ncards = ::snd_cards();
@@ -498,7 +498,7 @@ bool ModPlayback::detectAudioDevice() {
     return rc > 0 && m_numDevices > 0;
 }
 
-bool ModPlayback::initPlayback() {
+bool Playback::initPlayback() {
     int err;
     int card;
     int device;
@@ -742,7 +742,7 @@ big_endian
     return true;
 }
 
-int ModPlayback::updateChunk() {
+int Playback::updateChunk() {
 #ifdef PERFORMANCE_MEASURE
     _Uint64t time_read_start = 0;
     _Uint64t time_read_end = 0;

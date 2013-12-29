@@ -52,7 +52,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(Cache)
     DUMP_COUNT(Canvas)
     DUMP_COUNT(Player)
-    DUMP_COUNT(ModPlayback)
+    DUMP_COUNT(Playback)
     DUMP_COUNT(ItemGroupBase)
     DUMP_COUNT(LCDDigits)
     DUMP_COUNT(LCDDisplay)

@@ -34,7 +34,7 @@ Player::Player(QSettings &settings, QObject * parent)
       m_cache(new Cache(m_settings, this)),
       m_downloader(new Downloader(this)),
       m_unpacker(new Unpacker(this)),
-      m_playback(new ModPlayback(settings, this)),
+      m_playback(new Playback(settings, this)),
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
@@ -321,7 +321,7 @@ Downloader * Player::downloader() const {
     return m_downloader;
 }
 
-ModPlayback * Player::playback() const {
+Playback * Player::playback() const {
     return m_playback;
 }
 

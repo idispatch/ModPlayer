@@ -14,7 +14,7 @@ class Catalog;
 class Downloader;
 class Unpacker;
 class SongModule;
-class ModPlayback;
+class Playback;
 class Playlist;
 
 namespace bb {
@@ -48,7 +48,7 @@ public:
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Downloader* downloader READ downloader FINAL)
-    Q_PROPERTY(ModPlayback* playback READ playback NOTIFY playbackChanged FINAL)
+    Q_PROPERTY(Playback* playback READ playback NOTIFY playbackChanged FINAL)
     Q_PROPERTY(Playlist* playlist READ playlist NOTIFY playlistChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
@@ -61,7 +61,7 @@ public:
     Cache * cache() const;
     Catalog * catalog() const;
     Downloader * downloader() const;
-    ModPlayback * playback() const;
+    Playback * playback() const;
     Playlist * playlist() const;
     SongModule * currentSong() const;
 
@@ -104,7 +104,7 @@ private slots:
     void onDownloadFinished(QString fileName);
     void onDownloadFailure(int id);
 
-    /* For ModPlayback */
+    /* For Playback */
     void onPaused();
     void onPlaying();
     void onStopped();
@@ -152,7 +152,7 @@ private:
     Cache * m_cache;
     Downloader * m_downloader;
     Unpacker * m_unpacker;
-    ModPlayback * m_playback;
+    Playback * m_playback;
     Playlist * m_playlist;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
 };

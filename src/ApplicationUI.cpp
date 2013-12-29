@@ -162,7 +162,7 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<Downloader*>();
     qRegisterMetaType<ItemGroupBase*>();
     qRegisterMetaType<LCDDigits*>();
-    qRegisterMetaType<ModPlayback*>();
+    qRegisterMetaType<Playback*>();
     qRegisterMetaType<PlaybackConfig*>();
     qRegisterMetaType<Player*>();
     qRegisterMetaType<SongBasicInfo*>();
@@ -184,7 +184,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Downloader>(QmlNamespace, versionMajor, versionMinor, "Downloader", "");
 
     qmlRegisterUncreatableType<SongModule>(QmlNamespace, versionMajor, versionMinor, "Module", "");
-    qmlRegisterUncreatableType<ModPlayback>(QmlNamespace, versionMajor, versionMinor, "Playback", "");
+    qmlRegisterUncreatableType<Playback>(QmlNamespace, versionMajor, versionMinor, "Playback", "");
     qmlRegisterUncreatableType<PlaybackConfig>(QmlNamespace, versionMajor, versionMinor, "PlaybackConfig", "");
 
     qmlRegisterUncreatableType<SongFormat>(QmlNamespace, versionMajor, versionMinor, "SongFormat", "");

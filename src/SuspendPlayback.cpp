@@ -1,9 +1,9 @@
 #include "SuspendPlayback.hpp"
 #include "ModPlayback.hpp"
 
-SuspendPlayback::SuspendPlayback(ModPlayback * playback)
+SuspendPlayback::SuspendPlayback(Playback * playback)
     : m_playback(playback),
-      m_wasPlaying(playback->state() == ModPlayback::Playing)
+      m_wasPlaying(playback->state() == Playback::Playing)
 {
     try
     {

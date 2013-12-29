@@ -12,8 +12,8 @@
 #include "PlaybackConfig.hpp"
 #include "InstanceCounter.hpp"
 
-class ModPlayback : public QThread,
-                    public InstanceCounter<ModPlayback> {
+class Playback : public QThread,
+                 public InstanceCounter<Playback> {
     Q_OBJECT
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
     Q_PROPERTY(PlaybackConfig* configuration READ configuration NOTIFY configurationChanged FINAL)
@@ -28,8 +28,8 @@ public:
         Exit       /* no module loaded and thread loop exited */
     };
 
-    ModPlayback(QSettings &settings, QObject * parent);
-    virtual ~ModPlayback();
+    Playback(QSettings &settings, QObject * parent);
+    virtual ~Playback();
 
     State state();
     SongModule* currentSong();
@@ -49,8 +49,8 @@ public:
     Q_INVOKABLE bool resume();
     Q_INVOKABLE bool rewind();
 
-    using InstanceCounter<ModPlayback>::getInstanceCount;
-    using InstanceCounter<ModPlayback>::getMaxInstanceCount;
+    using InstanceCounter<Playback>::getInstanceCount;
+    using InstanceCounter<Playback>::getMaxInstanceCount;
 Q_SIGNALS:
     void currentSongChanged(); // will never be emitted because song is created once
     void configurationChanged(); // will never be emitted because song is created once
@@ -61,7 +61,7 @@ Q_SIGNALS:
     void finished();
     void paused();
 private:
-    Q_DISABLE_COPY(ModPlayback)
+    Q_DISABLE_COPY(Playback)
 
     bool detectAudioDevice();
     bool initPlayback();
@@ -108,6 +108,6 @@ private:
     snd_pcm_t * m_playback_handle;
 };
 
-Q_DECLARE_METATYPE(ModPlayback*);
+Q_DECLARE_METATYPE(Playback*);
 
 #endif
