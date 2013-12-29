@@ -907,6 +907,55 @@ void Catalog::addPersonalSong(SongExtendedInfo const& info) {
     m_dataAccess->execute(query, params);
 }
 
+void Catalog::addSongToAlbum(int albumId, int songId, int trackNumber) {
+    QString query = "INSERT INTO albumEntries (albumId, songId, trackNumber) VALUES (?,?,?)";
+    QVariantList params;
+    params << albumId << songId << trackNumber;
+    m_dataAccess->execute(query, params);
+}
+
+int Catalog::createGenre(QString const& name) {
+    int primaryKey = 0;
+    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM genres";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        primaryKey = sqlQuery.value(0).toInt();
+    } else {
+        return primaryKey; // error
+    }
+#ifdef DEBUG_CATALOG
+    qDebug().nospace() << "Creating genre (" << primaryKey << "," << name << ")";
+    qDebug().space();
+#endif
+    query = "INSERT INTO genres (id, name) VALUES (?,?)";
+    QVariantList params;
+    params << primaryKey << name;
+    m_dataAccess->execute(query, params);
+    return primaryKey;
+}
+
+int Catalog::createArtist(QString const& name) {
+    int primaryKey = 0;
+    QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM artists";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        primaryKey = sqlQuery.value(0).toInt();
+    } else {
+        return primaryKey; // error
+    }
+#ifdef DEBUG_CATALOG
+    qDebug().nospace() << "Creating artist (" << primaryKey << "," << name << ")";
+    qDebug().space();
+#endif
+    query = "INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,0,0,0)";
+    QVariantList params;
+    params << primaryKey << name;
+    m_dataAccess->execute(query, params);
+    return primaryKey;
+}
+
 int Catalog::createPlaylist(QString const& name) {
     int primaryKey = 0;
     QString query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM playlists";

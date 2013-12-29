@@ -167,7 +167,7 @@ QString Importer::getMp3Attribute(void const * tag, const char * attributeName) 
 
         QString result = QString((const char*)latin1);
         free(latin1);
-        return result;
+        return result.trimmed();
     }
     return "";
 }
@@ -218,31 +218,49 @@ bool Importer::importMp3File(QString const& fileName) {
         info.setTracker("");
         info.setTrackerId(0);
 
-        QString genre = getMp3Attribute(tag, ID3_FRAME_GENRE);
-        info.setGenreId(0);
-        info.setGenre(genre);
+        QString track = getMp3Attribute(tag, ID3_FRAME_TRACK);
 
-        QString artist = getMp3Attribute(tag, ID3_FRAME_ARTIST);
-        info.setArtistId(0);
-        info.setArtist(artist);
+        // remove leading zeroes
+        while(track.length() > 1 && track[0] == '0') {
+            track = track.mid(1);
+        }
+        int trackId = 0;
+        if(track.length() > 0) {
+            bool bOk = false;
+            trackId = track.toInt(&bOk, 10);
+            if(!bOk) {
+                trackId = 0;
+            }
+        }
+        QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);
 
         QString album = getMp3Attribute(tag, ID3_FRAME_ALBUM);
+        int albumId = 0;
+        if(album.length() > 0) {
+            albumId = m_catalog->createAlbum(album);
+            m_catalog->addSongToAlbum(albumId, -m_numImportedSongs, trackId);
+        }
 
-        QString track = getMp3Attribute(tag, ID3_FRAME_TRACK);
-        QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);
+        int genreId = 0;
+        QString genre = getMp3Attribute(tag, ID3_FRAME_GENRE);
+        if(genre.length() > 0) {
+            genreId = m_catalog->createGenre(genre);
+        }
+        info.setGenre(genre);
+        info.setGenreId(genreId);
+
+        int artistId = 0;
+        QString artist = getMp3Attribute(tag, ID3_FRAME_ARTIST);
+        if(artist.length() > 0) {
+            artistId = m_catalog->createArtist(artist);
+        }
+        info.setArtistId(artistId);
+        info.setArtist(artist);
+
+        m_catalog->addPersonalSong(info);
 
 #ifdef DETAILED_LOG
         qDebug() << "Tags:" << "Title=" << title << "Artist=" << artist << "Album=" << album << "Track=" << track << "Year=" << year << "Genre=" << genre;
-#endif
-
-        // length, comment
-#if 0
-        m_catalog->addPersonalSong(info);
-#endif
-
-#if 0
-        QString albumName;
-        int albumId = m_catalog->createAlbum(albumName);
 #endif
     }
 

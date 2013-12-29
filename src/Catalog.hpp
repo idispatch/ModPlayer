@@ -126,6 +126,10 @@ public:
     Q_INVOKABLE QVariant getPlaylistSongs(int playlistId);
 
     Q_INVOKABLE int createAlbum(QString const& name);
+    Q_INVOKABLE int createGenre(QString const& name);
+    Q_INVOKABLE int createArtist(QString const& name);
+
+    Q_INVOKABLE void addSongToAlbum(int albumId, int songId, int trackNumber);
 
     using InstanceCounter<Catalog>::getInstanceCount;
     using InstanceCounter<Catalog>::getMaxInstanceCount;
