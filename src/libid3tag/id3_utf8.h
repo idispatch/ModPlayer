@@ -24,6 +24,9 @@
 
 # include "id3_id3tag.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 id3_length_t id3_utf8_length(id3_utf8_t const *);
 id3_length_t id3_utf8_size(id3_utf8_t const *);
 
@@ -38,5 +41,9 @@ id3_utf8_t id3_utf8_get(id3_byte_t const **);
 
 id3_length_t id3_utf8_serialize(id3_byte_t **, id3_ucs4_t const *, int);
 id3_ucs4_t *id3_utf8_deserialize(id3_byte_t const **, id3_length_t);
+
+#ifdef __cplusplus
+}
+#endif
 
 # endif

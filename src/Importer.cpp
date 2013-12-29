@@ -17,12 +17,16 @@
 #include <QByteArray>
 #include <bb/system/SystemProgressDialog>
 #include "libid3tag/id3_id3tag.h"
+#include "libid3tag/id3_utf8.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 
-#define DETAILED_LOG
-#define REDUCED_SEARCH_SCOPE
+#ifdef _DEBUG
+//#define DETAILED_LOG
+//#define REDUCED_SEARCH_SCOPE
+#else
+#endif
 
 using namespace bb::system;
 
@@ -157,12 +161,12 @@ QString Importer::getMp3Attribute(void const * tag, const char * attributeName) 
         if(strcmp(attributeName, ID3_FRAME_GENRE) == 0)
             ucs4 = ::id3_genre_name(ucs4);
 
-        id3_latin1_t *latin1 = ::id3_ucs4_latin1duplicate(ucs4);
-        if (latin1 == 0)
+        id3_utf8_t *utf8 = ::id3_ucs4_utf8duplicate(ucs4);
+        if (utf8 == 0)
             return "";
 
-        QString result = QString((const char*)latin1);
-        free(latin1);
+        QString result = QString::fromUtf8(reinterpret_cast<const char*>(utf8), ::id3_utf8_size(utf8));
+        free(utf8);
         return result.trimmed();
     }
     return "";
