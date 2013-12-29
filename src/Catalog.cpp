@@ -928,8 +928,7 @@ void Catalog::clearPersonalSongs() {
     query = "DELETE FROM albumEntries WHERE songId < 0";
     m_dataAccess->execute(query);
 
-    query = "DELETE FROM albums WHERE id IN "
-            " (SELECT id FROM albums WHERE id NOT IN (SELECT albumId FROM albumEntries)";
+    query = "DELETE FROM albums WHERE id IN (SELECT id FROM albums WHERE id NOT IN (SELECT albumId FROM albumEntries))";
     m_dataAccess->execute(query);
 
     query = "DELETE FROM songs WHERE id < 0";
