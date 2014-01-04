@@ -20,15 +20,23 @@ public:
     ~SongFormat();
     QString const& description() const;
     QUrl iconPath() const;
+    bool isTrackerSong() const;
+    bool isMp3Song() const;
 
     static QUrl getIconPath(int formatId);
     static int getFormatIdByFileName(QString const& fileName);
+
+    static bool isTrackerSong(QString const& fileName);
     static bool isTrackerSong(int formatId);
+
+    static bool isMp3Song(QString const& fileName);
+    static bool isMp3Song(int formatId);
 
     using InstanceCounter<SongFormat>::getInstanceCount;
     using InstanceCounter<SongFormat>::getMaxInstanceCount;
 
     enum Format {
+        FORMAT_UNKNOWN = 0,
         FORMAT_MOD = 1,
         FORMAT_669 = 2,
         FORMAT_IT = 3,
@@ -42,7 +50,9 @@ public:
         FORMAT_AHX = 11,
         FORMAT_HVL = 12,
         FORMAT_MO3 = 1,
-        FORMAT_MP3 = 100
+        FORMAT_MP3 = 100,
+        FORMAT_OGG = 101,
+        FORMAT_FLAC = 102
     };
 Q_SIGNALS:
     void descriptionChanged();

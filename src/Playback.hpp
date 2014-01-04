@@ -7,6 +7,7 @@
 #include <QWaitCondition>
 #include <QByteArray>
 #include <QSettings>
+#include <bb/multimedia/MediaPlayer>
 #include <sys/asoundlib.h>
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
@@ -101,6 +102,7 @@ private:
 
     QByteArray m_audioBuffer;
     SongModule m_song;
+    bb::multimedia::MediaPlayer * m_mediaPlayer;
 
     /* Device audio subsystem */
     int m_numDevices;

@@ -33,7 +33,7 @@ SongModule::~SongModule() {
 }
 
 bool SongModule::songLoaded() const {
-    return m_modPlug != NULL;
+    return m_modPlug != NULL || SongFormat::isMp3Song(m_absoluteFileName);
 }
 
 QString SongModule::absoluteFileName() const {
@@ -134,57 +134,67 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         return true; // not loading the same song twice
     }
 
-    bool songWasLoaded = false;
+    const bool songWasLoaded = m_modPlug != NULL || m_absoluteFileName.length() > 0;
     if (m_modPlug != NULL) {
-        songWasLoaded = true;
         ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
         setCurrentOrder(0);
     }
-    m_absoluteFileName = ""; // no song loaded
-    emit absoluteFileNameChanged();
 
-    QFile fileIn(fileName);
-    if(fileIn.open(QFile::ReadOnly)) {
-        QByteArray data = fileIn.readAll();
-        m_modPlug = ::ModPlug_Load(data.data(), data.size());
-        if (m_modPlug != NULL) {
-            m_absoluteFileName = fileName;
-            emit absoluteFileNameChanged();
-
-            setFileName(fileName);
-            setTitle(::ModPlug_GetName(m_modPlug));
-
-            assignInfo(info);
-
-            const char * description = ::ModPlug_GetMessage(m_modPlug);
-            setDescription(description ? description : "");
-
-            setInstruments(::ModPlug_NumInstruments(m_modPlug));
-            setChannels(::ModPlug_NumChannels(m_modPlug));
-            setSamples(::ModPlug_NumSamples(m_modPlug));
-            setPatterns(::ModPlug_NumPatterns(m_modPlug));
-            setOrders(::ModPlug_NumOrders(m_modPlug));
-
-            setFileSize(data.size());
-            setSongLength(::ModPlug_GetLength(m_modPlug));
-
-            update();
-
-            emit songLoadedChanged();
-        }
-        else
-        {
-            unload();
-        }
+    if(m_absoluteFileName.length() > 0) {
+        m_absoluteFileName = ""; // no song loaded
+        emit absoluteFileNameChanged();
     }
-    else
-    {
-        qDebug() << "Could not open" << fileName;
-        if (songWasLoaded)
-        {
-            emit songLoadedChanged();
+
+    if(SongFormat::isTrackerSong(fileName)) {
+        QFile fileIn(fileName);
+        if(fileIn.open(QFile::ReadOnly)) {
+            QByteArray data = fileIn.readAll();
+            m_modPlug = ::ModPlug_Load(data.data(), data.size());
+            if (m_modPlug != NULL) {
+                m_absoluteFileName = fileName;
+                emit absoluteFileNameChanged();
+
+                setFileName(fileName);
+                setTitle(::ModPlug_GetName(m_modPlug));
+
+                assignInfo(info);
+
+                const char * description = ::ModPlug_GetMessage(m_modPlug);
+                setDescription(description ? description : "");
+
+                setInstruments(::ModPlug_NumInstruments(m_modPlug));
+                setChannels(::ModPlug_NumChannels(m_modPlug));
+                setSamples(::ModPlug_NumSamples(m_modPlug));
+                setPatterns(::ModPlug_NumPatterns(m_modPlug));
+                setOrders(::ModPlug_NumOrders(m_modPlug));
+
+                setFileSize(data.size());
+                setSongLength(::ModPlug_GetLength(m_modPlug));
+
+                update();
+
+                emit songLoadedChanged();
+            } else {
+                unload();
+            }
+        } else {
+            qDebug() << "Could not open tracker song" << fileName;
+            if(songWasLoaded) {
+                emit songLoadedChanged();
+            }
         }
+    } else {
+        m_absoluteFileName = fileName;
+        emit absoluteFileNameChanged();
+
+        setFileName(fileName);
+
+        assignInfo(info);
+
+        update();
+
+        emit songLoadedChanged();
     }
     return songLoaded();
 }
@@ -213,30 +223,36 @@ void SongModule::save(QString const& fileName) {
 }
 
 bool SongModule::unload() {
-    if (m_modPlug != NULL)
-    {
+    bool songWasLoaded = songLoaded();
+    if (m_modPlug != NULL) {
         ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
 
+    }
+
+    if(m_absoluteFileName.length() > 0) {
         m_absoluteFileName = ""; // no song loaded
         emit absoluteFileNameChanged();
+    }
 
-        setFileName("");
-        setTitle("");
-        setDescription("");
+    setFileName("");
+    setTitle("");
+    setDescription("");
 
-        setInstruments(0);
-        setChannels(0);
-        setSamples(0);
-        setPatterns(0);
-        setOrders(0);
+    setInstruments(0);
+    setChannels(0);
+    setSamples(0);
+    setPatterns(0);
+    setOrders(0);
 
-        setFileSize(0);
+    setFileSize(0);
 
-        update(true);
+    update(true);
 
+    if(songWasLoaded) {
         emit songLoadedChanged();
     }
+
     return true;
 }
 
@@ -249,41 +265,47 @@ bool SongModule::rewind() {
     return false;
 }
 
-void SongModule::seekToOrder(int order) {
+bool SongModule::seekToOrder(int order) {
     if (m_modPlug != NULL) {
         if(order != currentOrder()) {
             ::ModPlug_SeekOrder(m_modPlug, order);
             update();
         }
+        return true;
     }
+    return false;
 }
 
 ArrayDataModel* SongModule::getSampleNames() {
     ArrayDataModel * model = new ArrayDataModel();
-    unsigned sampleCount = ::ModPlug_NumSamples(m_modPlug);
-    unsigned int i = 0;
-    while (sampleCount-- > 0) {
-        char buffer[64];
-        ::ModPlug_SampleName(m_modPlug, i++, buffer);
-        QVariantMap sampleInfo;
-        sampleInfo["id"] = i;
-        sampleInfo["name"] = QVariant::fromValue(QString(buffer));
-        model->append(QVariant::fromValue(sampleInfo));
+    if(m_modPlug != NULL) {
+        unsigned sampleCount = ::ModPlug_NumSamples(m_modPlug);
+        unsigned int i = 0;
+        while (sampleCount-- > 0) {
+            char buffer[64];
+            ::ModPlug_SampleName(m_modPlug, i++, buffer);
+            QVariantMap sampleInfo;
+            sampleInfo["id"] = i;
+            sampleInfo["name"] = QVariant::fromValue(QString(buffer));
+            model->append(QVariant::fromValue(sampleInfo));
+        }
     }
     return model;
 }
 
 ArrayDataModel* SongModule::getInstrumentNames() {
     ArrayDataModel * model = new ArrayDataModel();
-    unsigned sampleCount = ::ModPlug_NumInstruments(m_modPlug);
-    unsigned int i = 0;
-    while (sampleCount-- > 0) {
-        char buffer[64];
-        ::ModPlug_InstrumentName(m_modPlug, i++, buffer);
-        QVariantMap instrumentInfo;
-        instrumentInfo["id"] = i;
-        instrumentInfo["name"] = QVariant::fromValue(QString(buffer));
-        model->append(QVariant::fromValue(instrumentInfo));
+    if(m_modPlug != NULL) {
+        unsigned sampleCount = ::ModPlug_NumInstruments(m_modPlug);
+        unsigned int i = 0;
+        while (sampleCount-- > 0) {
+            char buffer[64];
+            ::ModPlug_InstrumentName(m_modPlug, i++, buffer);
+            QVariantMap instrumentInfo;
+            instrumentInfo["id"] = i;
+            instrumentInfo["name"] = QVariant::fromValue(QString(buffer));
+            model->append(QVariant::fromValue(instrumentInfo));
+        }
     }
     return model;
 }
@@ -307,19 +329,31 @@ void SongModule::assignInfo(SongExtendedInfo const& other) {
     setFormat(other.format());
     setTracker(other.tracker());
     setGenre(other.genre());
+    setGenreId(other.genreId());
     setArtistId(other.artistId());
     setArtist(other.artist());
 }
 
 void SongModule::update(bool endOfSong) {
-    setCurrentOrder(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentOrder(m_modPlug) : 0);
-    setCurrentPattern(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentPattern(m_modPlug) : 0);
-    setCurrentRow(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentRow(m_modPlug) : 0);
-    setCurrentSpeed(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentSpeed(m_modPlug) : 0);
-    setCurrentTempo(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetCurrentTempo(m_modPlug) : 0);
-    setMasterVolume(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetMasterVolume(m_modPlug) : 0);
-    setPlayingChannels(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetPlayingChannels(m_modPlug) : 0);
-    setSongLength(m_modPlug != NULL && !endOfSong ? ::ModPlug_GetLength(m_modPlug) : 0);
+    if(m_modPlug != NULL && !endOfSong) {
+        setCurrentOrder(::ModPlug_GetCurrentOrder(m_modPlug));
+        setCurrentPattern(::ModPlug_GetCurrentPattern(m_modPlug));
+        setCurrentRow(::ModPlug_GetCurrentRow(m_modPlug));
+        setCurrentSpeed(::ModPlug_GetCurrentSpeed(m_modPlug));
+        setCurrentTempo(::ModPlug_GetCurrentTempo(m_modPlug));
+        setMasterVolume(::ModPlug_GetMasterVolume(m_modPlug));
+        setPlayingChannels(::ModPlug_GetPlayingChannels(m_modPlug));
+        setSongLength(::ModPlug_GetLength(m_modPlug));
+    } else {
+        setCurrentOrder(0);
+        setCurrentPattern(0);
+        setCurrentRow(0);
+        setCurrentSpeed(0);
+        setCurrentTempo(0);
+        setMasterVolume(0);
+        setPlayingChannels(0);
+        setSongLength(0);
+    }
 
     updateChannelVU(endOfSong);
 }
@@ -355,12 +389,16 @@ void SongModule::updateChannelVU(bool endOfSong) {
 }
 
 int SongModule::getChannelVU(int channel) {
-    return m_channelVU[channel];
+    if(m_modPlug != NULL) {
+        return m_channelVU[channel];
+    } else {
+        return 0;
+    }
 }
 
 ModPlugNote* SongModule::getPattern(int pattern, int* numrows) {
     ModPlugNote* result = NULL;
-    if(m_modPlug != 0) {
+    if(m_modPlug != NULL) {
         result = ::ModPlug_GetPattern(m_modPlug,
                                       pattern,
                                       reinterpret_cast<unsigned int*>(numrows));
@@ -369,13 +407,26 @@ ModPlugNote* SongModule::getPattern(int pattern, int* numrows) {
 }
 
 void SongModule::muteChannel(int channel, bool mute) {
-    ::ModPlug_MuteChannel(m_modPlug, channel, mute);
+    if(m_modPlug != NULL) {
+        ::ModPlug_MuteChannel(m_modPlug, channel, mute);
+    }
 }
 
 bool SongModule::isChannelMuted(int channel) {
-    return ::ModPlug_IsChannelMuted(m_modPlug, channel);
+    if(m_modPlug != NULL) {
+        return ::ModPlug_IsChannelMuted(m_modPlug, channel);
+    }
+    return false;
 }
 
 SongModule::operator ModPlugFile*() {
     return m_modPlug;
+}
+
+bool SongModule::isTrackerSong() const {
+    return SongFormat::isTrackerSong(m_absoluteFileName);
+}
+
+bool SongModule::isMp3Song() const {
+    return SongFormat::isMp3Song(m_absoluteFileName);
 }

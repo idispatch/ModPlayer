@@ -15,6 +15,7 @@ template<>
 int InstanceCounter<Playback>::s_maxCount;
 
 #ifdef _DEBUG
+#define VERBOSE_LOGGING
 //#define PERFORMANCE_MEASURE
 
 #ifdef PERFORMANCE_MEASURE
@@ -41,9 +42,11 @@ Playback::Playback(QSettings &settings, QObject * parent)
       m_command(NoCommand),
       m_pendingSong(NULL),
       m_song(NULL),
+      m_mediaPlayer(new bb::multimedia::MediaPlayer(this)),
       m_numDevices(0),
       m_pcmFd(-1),
       m_playback_handle(NULL) {
+    m_mediaPlayer->setAudioOutput(bb::multimedia::AudioOutput::Default);
     loadSettings();
 }
 
@@ -128,6 +131,10 @@ void Playback::configure() {
 }
 
 void Playback::closePlayback() {
+    if(m_mediaPlayer != NULL) {
+        m_mediaPlayer->stop();
+    }
+
     // called from playback thread only
     if(m_playback_handle != NULL) {
         ::snd_pcm_close(m_playback_handle);
@@ -138,6 +145,9 @@ void Playback::closePlayback() {
 }
 
 void Playback::stopAudioDevice() {
+    if(m_mediaPlayer != NULL) {
+        m_mediaPlayer->stop();
+    }
     // called from playback or user thread
     // when called from user thread must be in locked state
     if(m_playback_handle != NULL)
@@ -237,25 +247,37 @@ void Playback::configure_audio() {
     QString fileName;
 
     if(m_config.isAudioReconfigurationRequired()) {
+#ifdef VERBOSE_LOGGING
         qDebug() << "Audio reconfiguration required";
         qDebug() << "Stopping audio device";
+#endif
         stopAudioDevice();
+#ifdef VERBOSE_LOGGING
         qDebug() << "Stopped audio device";
-
         qDebug() << "Initializing audio playback";
+#endif
         initPlayback();
+#ifdef VERBOSE_LOGGING
         qDebug() << "Audio playback initialized";
-
+#endif
         if(m_song.songLoaded()) {
             fileName = m_song.absoluteFileName();
+#ifdef VERBOSE_LOGGING
             qDebug() << "Unloading song module" << fileName;
+#endif
             m_song.unload();
+#ifdef VERBOSE_LOGGING
             qDebug() << "Song module" << fileName << "unloaded";
+#endif
         } else {
+#ifdef VERBOSE_LOGGING
             qDebug() << "Song module is not loaded";
+#endif
         }
     } else {
+#ifdef VERBOSE_LOGGING
         qDebug() << "No audio reconfiguration required";
+#endif
     }
 
     ModPlug_Settings settings;
@@ -300,9 +322,13 @@ void Playback::configure_audio() {
     ::ModPlug_SetSettings(&settings);
 
     if(fileName.length() > 0) {
+#ifdef VERBOSE_LOGGING
         qDebug() << "Reloading song module" << fileName;
+#endif
         m_song.load(m_pendingSong, fileName);
+#ifdef VERBOSE_LOGGING
         qDebug() << "Song module" << fileName << "reloaded";
+#endif
     }
 
     saveSettings();
@@ -311,8 +337,9 @@ void Playback::configure_audio() {
 void Playback::run() {
     moveToThread(this);
     m_song.moveToThread(this);
-
+#ifdef VERBOSE_LOGGING
     qDebug() << "Entering playback thread";
+#endif
     changeState(Idle);
 
     if(!detectAudioDevice()) {
@@ -321,19 +348,19 @@ void Playback::run() {
         QThread::exit(1);
         return;
     }
-
+#ifdef VERBOSE_LOGGING
     qDebug() << "Audio device detected successfully";
-
+#endif
     if(!initPlayback()) {
         changeState(Exit);
         qDebug() << "Failed to initialize audio device for playback";
         QThread::exit(2);
         return;
     }
-
+#ifdef VERBOSE_LOGGING
     qDebug() << "Audio device playback initialized successfully";
     qDebug() << "Starting playback loop";
-
+#endif
     m_mutex.lock();
     while(m_state != Exit && m_state != Exiting)
     {
@@ -460,9 +487,13 @@ void Playback::run() {
     } // while loop
 
     m_mutex.unlock();
+#ifdef VERBOSE_LOGGING
     qDebug() << "Stopping playback...";
+#endif
     stopAudioDevice();
+#ifdef VERBOSE_LOGGING
     qDebug() << "Exiting playback thread";
+#endif
     changeState(Exit);
     QThread::exit(0);
 }
@@ -492,9 +523,9 @@ bool Playback::detectAudioDevice() {
                         cards.data(),
                         devices.data(),
                         SND_PCM_OPEN_PLAYBACK);
-
+#ifdef VERBOSE_LOGGING
     qDebug() << "Found" << m_numDevices << "audio devices for playback";
-
+#endif
     return rc > 0 && m_numDevices > 0;
 }
 
@@ -508,9 +539,9 @@ bool Playback::initPlayback() {
     snd_pcm_channel_info_t      channel_info;
     snd_pcm_channel_params_t    channel_params;
     snd_pcm_channel_setup_t     channel_setup;
-
+#ifdef VERBOSE_LOGGING
     qDebug() << "Initializing selected audio device for playback...";
-
+#endif
     if(m_numDevices == 0) {
         qDebug() << "No audio devices available!";
         return false;
@@ -543,11 +574,11 @@ big_endian
 0 for little endian; 1 for big endian.*/
     int fmt = ::snd_pcm_build_linear_format(16, 0, 0);
 #endif
-
+#ifdef VERBOSE_LOGGING
     qDebug() << "PCM format: voices:" << pcm_format.voices
              << ", rate:" << pcm_format.rate
              << ", format:" << pcm_format.format;
-
+#endif
     if((err = ::snd_pcm_open_preferred(&m_playback_handle,
                                        &card,
                                        &device,
@@ -555,7 +586,9 @@ big_endian
         qDebug() << "Failed to open preferred PCM device:" << ::snd_strerror(err);
         return false;
     } else {
+#ifdef VERBOSE_LOGGING
         qDebug() << "Opened preferred PCM device: card" << card << "device" << device;
+#endif
     }
 
     // GET

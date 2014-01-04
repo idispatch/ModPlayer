@@ -65,7 +65,7 @@ public:
     Q_INVOKABLE void save(QString const& fileName);
     Q_INVOKABLE bool unload();
     Q_INVOKABLE bool rewind();
-    Q_INVOKABLE void seekToOrder(int order);
+    Q_INVOKABLE bool seekToOrder(int order);
 
     Q_INVOKABLE int getChannelVU(int channel);
     Q_INVOKABLE ModPlugNote* getPattern(int pattern, int* numrows);
@@ -75,6 +75,9 @@ public:
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* getSampleNames();
     Q_INVOKABLE bb::cascades::ArrayDataModel* getInstrumentNames();
+
+    bool isTrackerSong() const;
+    bool isMp3Song() const;
 
     operator ModPlugFile* ();
 

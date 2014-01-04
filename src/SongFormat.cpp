@@ -59,55 +59,260 @@ QUrl SongFormat::getIconPath(int formatId) {
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("hvl"));
     case FORMAT_MP3:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mp3"));
+    case FORMAT_OGG:
+        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("ogg"));
+    case FORMAT_FLAC:
+        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("flac"));
     default:
         return QUrl(QString("%1/icon_unknown.png").arg(icons));
     }
 }
 
 int SongFormat::getFormatIdByFileName(QString const& fileName) {
-    if(fileName.endsWith(".mod", Qt::CaseInsensitive)) {
-        return FORMAT_MOD;
+    int len = fileName.length();
+    if(len > 0) {
+        switch(fileName[len - 1].unicode()) {
+        case 'c': case 'C': // .flac
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'a': case 'A':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'l': case 'L':
+                            if(len > 3) {
+                                switch(fileName[len - 4].unicode()) {
+                                case 'f': case 'F':
+                                    if(len > 4 && fileName[len - 5] == '.') {
+                                        return FORMAT_FLAC;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'x': case 'X': // .ahx
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'h': case 'H':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'a': case 'A':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_AHX;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'l': case 'L': // .hvl
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'v': case 'V':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'h': case 'H':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_HVL;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'g': case 'G': // .ogg
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'g': case 'G':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'o': case 'O':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_OGG;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'd': case 'D': // .mod, .med
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'o': case 'O':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MOD;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case 'e': case 'E':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MED;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 't': case 'T': // .it .oct .okt
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'i': case 'I':
+                    if(len > 2 && fileName[len - 3] == '.') {
+                        return FORMAT_IT;
+                    }
+                    break;
+                case 'c': case 'C':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'o': case 'O':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_OCT;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case 'k': case 'K':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'o': case 'O':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_OKT;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case '3': // .mo3 .mp3
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'o': case 'O':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MO3;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case 'p': case 'P':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MP3;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case '9': // .669
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case '6':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case '6':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_669;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'm': case 'M': // .mtm .stm .s3m .xm
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'x': case 'X':
+                    if(len > 2 && fileName[len - 3] == '.') {
+                        return FORMAT_XM;
+                    }
+                    break;
+                case 't': case 'T':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MTM;
+                            }
+                            break;
+                        case 's': case 'S':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_STM;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case '3':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 's': case 'S':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_S3M;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        }
     }
-    if(fileName.endsWith(".669", Qt::CaseInsensitive)) {
-        return FORMAT_669;
-    }
-    if(fileName.endsWith(".it", Qt::CaseInsensitive)) {
-        return FORMAT_IT;
-    }
-    if(fileName.endsWith(".med", Qt::CaseInsensitive)) {
-        return FORMAT_MED;
-    }
-    if(fileName.endsWith(".mtm", Qt::CaseInsensitive)) {
-        return FORMAT_MTM;
-    }
-    if(fileName.endsWith(".oct", Qt::CaseInsensitive)) {
-        return FORMAT_OCT;
-    }
-    if(fileName.endsWith(".okt", Qt::CaseInsensitive)) {
-        return FORMAT_OKT;
-    }
-    if(fileName.endsWith(".s3m", Qt::CaseInsensitive)) {
-        return FORMAT_S3M;
-    }
-    if(fileName.endsWith(".stm", Qt::CaseInsensitive)) {
-        return FORMAT_STM;
-    }
-    if(fileName.endsWith(".xm", Qt::CaseInsensitive)) {
-        return FORMAT_XM;
-    }
-    if(fileName.endsWith(".ahx", Qt::CaseInsensitive)) {
-        return FORMAT_AHX;
-    }
-    if(fileName.endsWith(".hvl", Qt::CaseInsensitive)) {
-        return FORMAT_HVL;
-    }
-    if(fileName.endsWith(".mo3", Qt::CaseInsensitive)) {
-        return FORMAT_MO3;
-    }
-    if(fileName.endsWith(".mp3", Qt::CaseInsensitive)) {
-        return FORMAT_MP3;
-    }
-    return 0;
+    return FORMAT_UNKNOWN;
+}
+
+bool SongFormat::isMp3Song() const {
+    return id() == FORMAT_MP3;
+}
+
+bool SongFormat::isMp3Song(QString const& fileName) {
+    return SongFormat::isMp3Song(SongFormat::getFormatIdByFileName(fileName));
+}
+
+bool SongFormat::isMp3Song(int formatId) {
+    return formatId == FORMAT_MP3;
+}
+
+bool SongFormat::isTrackerSong() const {
+    return SongFormat::isTrackerSong(id());
+}
+
+bool SongFormat::isTrackerSong(QString const& fileName) {
+    return SongFormat::isTrackerSong(SongFormat::getFormatIdByFileName(fileName));
 }
 
 bool SongFormat::isTrackerSong(int formatId) {
@@ -130,14 +335,11 @@ bool SongFormat::isTrackerSong(int formatId) {
 
 QDebug operator << (QDebug dbg, SongFormat const &format) {
     dbg.nospace() << "(SongFormat:"
-                  << "id="
-                  << format.id()
-                  << ",name="
-                  << format.name()
-                  << ",description="
-                  << format.description()
-                  << ",count="
-                  << format.count()
+                  << "id=" << format.id()
+                  << ",name=" << format.name()
+                  << ",description=" << format.description()
+                  << ",count=" << format.count()
+                  << ",duration=" << format.duration()
                   << ")";
     return dbg.space();
 }
