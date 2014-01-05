@@ -30,7 +30,7 @@ Page {
                 }
                 SongPublicInfo {
                     song: songView.song
-                    visible: songView.song && songView.song.isTrackerSong
+                    visible: songView.song && songView.song.isTrackerSong && songView.song.id > 0
                 }
                 SongParametersInfo {
                     song: songView.song

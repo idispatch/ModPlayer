@@ -465,8 +465,12 @@ void Playback::run() {
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
-                ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-                ::snd_pcm_plugin_playback_drain(m_playback_handle);
+                if(m_song.isTrackerSong()) {
+                    ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                    ::snd_pcm_plugin_playback_drain(m_playback_handle);
+                } else {
+                    m_mediaPlayer->stop();
+                }
                 if(m_song.load(m_pendingSong, m_pendingFileName) == true) {
                     m_state = Loaded;
                 } else {
@@ -485,11 +489,10 @@ void Playback::run() {
                 if(m_song.isTrackerSong()) {
                     ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
-                }
-                m_song.unload();
-                if(m_song.isMp3Song()) {
+                } else {
                     m_mediaPlayer->stop();
                 }
+                m_song.unload();
                 m_state = Idle;
                 emit stopped();
             }
@@ -500,10 +503,10 @@ void Playback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                m_song.rewind();
                 if(m_song.isMp3Song()) {
                     m_mediaPlayer->seekTime(0);
                 }
+                m_song.rewind();
             }
             m_cond.wakeAll();
             continue; // process next command
@@ -560,12 +563,11 @@ void Playback::run() {
                 if(m_song.isTrackerSong()) {
                     ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
-                }
-                m_song.rewind();
-                if(m_song.isMp3Song()) {
+                } else {
                     m_mediaPlayer->stop();
                     m_mediaPlayer->seekTime(0);
                 }
+                m_song.rewind();
                 emit stopped();
             }
             m_cond.wakeAll();
@@ -1068,7 +1070,7 @@ void Playback::onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type t
 }
 
 void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
-#if 1//def VERBOSE_LOGGING
+#ifdef VERBOSE_LOGGING
     qDebug().nospace() << "Playback::onMediaPlayerMetaDataChanged: metadata=" << metaData;
     qDebug().space();
 
