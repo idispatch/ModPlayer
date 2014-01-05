@@ -52,7 +52,9 @@ Page {
                         value: app.player.currentSong.currentOrder
                         horizontalAlignment: HorizontalAlignment.Fill
                         onValueChanged: {
-                            app.player.currentSong.seekToOrder(value)
+                            if(app.player.currentSong.currentOrder != value) {
+                                app.player.seek(value)
+                            }
                         }
                     }
                     Label {
@@ -113,7 +115,7 @@ Page {
                     bottomPadding: 16
                     leftPadding: 16
                     rightPadding: 16
-                    visible: app.player.currentSong.songLoaded
+                    visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
                     SegmentedControl {
                         Option {
                             id: basicViewOption

@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE bool pause();
     Q_INVOKABLE bool resume();
     Q_INVOKABLE bool rewind();
+    Q_INVOKABLE bool seek(int position);
 
     using InstanceCounter<Playback>::getInstanceCount;
     using InstanceCounter<Playback>::getMaxInstanceCount;
@@ -89,7 +90,8 @@ private:
         StopCommand,
         PauseCommand,
         ResumeCommand,
-        RewindCommand
+        RewindCommand,
+        SeekCommand
     };
 
     bool submitCommadAndWait(Command);
@@ -107,6 +109,7 @@ private:
     Command m_command;
     QString m_pendingFileName;
     SongExtendedInfo m_pendingSong;
+    int m_pendingPosition;
 
     QByteArray m_audioBuffer;
     SongModule m_song;

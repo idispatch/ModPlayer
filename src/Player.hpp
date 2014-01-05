@@ -72,6 +72,7 @@ public:
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
+    Q_INVOKABLE void seek(int position);
     Q_INVOKABLE void playNext();
     Q_INVOKABLE void playPrevious();
 

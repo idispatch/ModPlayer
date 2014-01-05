@@ -475,6 +475,10 @@ void Player::resume() {
     m_playback->resume();
 }
 
+void Player::seek(int position) {
+    m_playback->seek(position);
+}
+
 void Player::browseForLocalSong() {
     using namespace bb::cascades::pickers;
     bool rc;

@@ -299,6 +299,11 @@ bool Playback::rewind() {
     return submitCommadAndWait(RewindCommand);
 }
 
+bool Playback::seek(int position) {
+    m_pendingPosition = position;
+    return submitCommadAndWait(SeekCommand);
+}
+
 void Playback::configureAudio() {
     QString fileName;
 
@@ -499,6 +504,20 @@ void Playback::run() {
                 if(m_song.isMp3Song()) {
                     m_mediaPlayer->seekTime(0);
                 }
+            }
+            m_cond.wakeAll();
+            continue; // process next command
+        case SeekCommand:
+            m_command = NoCommand;
+            if(m_state == Loaded ||
+               m_state == Paused ||
+               m_state == Playing) {
+                if(m_song.isTrackerSong()) {
+                    m_song.seekToOrder(m_pendingPosition);
+                } else {
+                    m_mediaPlayer->seekTime(m_pendingPosition);
+                }
+                m_pendingPosition = 0;
             }
             m_cond.wakeAll();
             continue; // process next command
