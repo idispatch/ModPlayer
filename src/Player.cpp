@@ -355,6 +355,7 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
             }
         } else {
             absoluteFileName = fileName;
+            info->setFileSize(QFile(absoluteFileName).size());
         }
 
         if(m_playback->load(*info, absoluteFileName)) {

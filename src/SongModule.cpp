@@ -32,9 +32,34 @@ SongModule::~SongModule() {
     }
 }
 
+void SongModule::reset() {
+    setCurrentOrder(0);
+    setCurrentPattern(0);
+    setCurrentRow(0);
+    setCurrentSpeed(0);
+    setCurrentTempo(0);
+    setMasterVolume(0);
+    setPlayingChannels(0);
+
+    setChannels(0);
+    setInstruments(0);
+    setChannels(0);
+    setSamples(0);
+    setPatterns(0);
+    setOrders(0);
+
+
+    setAbsoluteFileName("");
+    m_format = SongFormat::FORMAT_UNKNOWN;
+    setDescription("");
+
+    memset(&m_channelVU[0], 0, sizeof(m_channelVU));
+}
+
 bool SongModule::songLoaded() const {
-    return m_modPlug != NULL ||
-           m_format == SongFormat::FORMAT_MP3 ||
+    if(m_modPlug != NULL)
+        return true;
+    return m_format == SongFormat::FORMAT_MP3 ||
            m_format == SongFormat::FORMAT_OGG ||
            m_format == SongFormat::FORMAT_FLAC;
 }
@@ -141,10 +166,10 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     if (m_modPlug != NULL) {
         ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
-        setCurrentOrder(0);
+
     }
 
-    setAbsoluteFileName("");
+    reset();
 
     if(SongFormat::isTrackerSong(fileName)) {
         QFile fileIn(fileName);
@@ -185,12 +210,26 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         }
     } else {
         setAbsoluteFileName(fileName);
-
         setFileName(fileName);
+        setDescription("");
+
+        setCurrentOrder(0);
+        setCurrentPattern(0);
+        setCurrentRow(0);
+        setCurrentSpeed(0);
+        setCurrentTempo(0);
+        setMasterVolume(0);
+        setChannels(0);
+
+        setInstruments(0);
+        setChannels(0);
+        setSamples(0);
+        setPatterns(0);
+        setOrders(0);
 
         assignInfo(info);
+        setCurrentOrder(0);
         setOrders(info.songLength()); // song length in milliseconds
-
         update();
 
         emit songLoadedChanged();
@@ -229,19 +268,7 @@ bool SongModule::unload() {
 
     }
 
-    setAbsoluteFileName("");
-
-    setFileName("");
-    setTitle("");
-    setDescription("");
-
-    setInstruments(0);
-    setChannels(0);
-    setSamples(0);
-    setPatterns(0);
-    setOrders(0);
-
-    setFileSize(0);
+    reset();
 
     update(true);
 
@@ -358,7 +385,6 @@ void SongModule::update(bool endOfSong) {
             setCurrentTempo(0);
             setMasterVolume(0);
             setPlayingChannels(0);
-            setSongLength(0);
         }
     }
 

@@ -105,6 +105,7 @@ private:
     void setAbsoluteFileName(QString const& fileName);
     void assignInfo(SongExtendedInfo const& other);
     void updateChannelVU(bool endOfSong);
+    void reset();
 private:
     SongFormat::Format m_format;
     QString m_absoluteFileName;

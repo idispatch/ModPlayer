@@ -15,7 +15,7 @@ template<>
 int InstanceCounter<Playback>::s_maxCount;
 
 #ifdef _DEBUG
-#   define VERBOSE_LOGGING
+//# define VERBOSE_LOGGING
 //# define PERFORMANCE_MEASURE
 #   ifdef PERFORMANCE_MEASURE
 static _Uint64t get_clock()
@@ -1045,12 +1045,15 @@ int Playback::updateChunk() {
 }
 
 void Playback::onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type) {
+    Q_UNUSED(type)
 #ifdef VERBOSE_LOGGING
     qDebug() << "Playback::onMediaPlayerBufferStatusChanged" << type;
 #endif
 }
 
 void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, unsigned int position) {
+    Q_UNUSED(mediaError)
+    Q_UNUSED(position)
 #ifdef VERBOSE_LOGGING
     qDebug().nospace() << "Playback::onMediaPlayerError: error=" << mediaError << ", position=" << position;
     qDebug().space();
@@ -1058,16 +1061,43 @@ void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, u
 }
 
 void Playback::onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type type) {
+    Q_UNUSED(type)
 #ifdef VERBOSE_LOGGING
     qDebug() << "Playback::onMediaPlayerMediaStateChanged" << type;
 #endif
 }
 
 void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
-#ifdef VERBOSE_LOGGING
+#if 1//def VERBOSE_LOGGING
     qDebug().nospace() << "Playback::onMediaPlayerMetaDataChanged: metadata=" << metaData;
     qDebug().space();
+
+    QStringList keys = metaData.keys();
+    foreach(QString key, keys) {
+        qDebug() << key << "=" << metaData[key].toString();
+    }
 #endif
+    if(metaData.contains("title")) {
+        m_song.setTitle(metaData["title"].toString());
+    }
+    if(metaData.contains("artist")) {
+        m_song.setArtist(metaData["artist"].toString());
+    }
+    if(metaData.contains("description")) {
+        m_song.setDescription(metaData["description"].toString());
+    }
+    if(metaData.contains("genre")) {
+        m_song.setGenre(metaData["genre"].toString());
+    }
+    if(metaData.contains("duration")) {
+        QString duration(metaData["duration"].toString());
+        bool bOk = false;
+        int value = duration.toInt(&bOk, 10);
+        if(bOk) {
+            m_song.setSongLength(value);
+            m_song.setOrders(value);
+        }
+    }
 }
 
 void Playback::onMediaPlayerPlaybackCompleted() {
