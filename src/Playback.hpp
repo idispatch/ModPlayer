@@ -21,12 +21,12 @@ class Playback : public QThread,
 public:
     enum State
     {
-        Idle,      /* no module loaded and not playing, thread loop is running */
-        Loaded,    /* module loaded and stopped */
-        Playing,   /* module loaded and playing */
-        Paused,    /* module loaded and paused */
-        Exiting,   /* currently exiting */
-        Exit       /* no module loaded and thread loop exited */
+        Idle = 0,      /* no module loaded and not playing, thread loop is running */
+        Loaded = 1,    /* module loaded and stopped */
+        Playing = 2,   /* module loaded and playing */
+        Paused = 3,    /* module loaded and paused */
+        Exiting = 4,   /* currently exiting */
+        Exit = 5       /* no module loaded and thread loop exited */
     };
 
     Playback(QSettings &settings, QObject * parent);

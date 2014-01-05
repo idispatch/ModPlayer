@@ -505,18 +505,14 @@ void Playback::run() {
         case PlayCommand:
             m_command = NoCommand;
             if(m_state == Loaded || m_state == Paused) {
-                m_state = Playing;
                 if(m_song.isMp3Song()) {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
-#ifdef VERBOSE_LOGGING
-                        qDebug() << "MediaPlayer: setSourceUrl:" << m_song.absoluteFileName();
-#endif
                         bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(m_song.absoluteFileName());
                         if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;
                         } else {
-                            qDebug() << "MediaPlayer: setSourceUrl:" << mediaError;
+                            qDebug() << "Error: MediaPlayer: setSourceUrl:" << mediaError;
                             okToPlay = false;
                         }
                     } else {
@@ -525,15 +521,14 @@ void Playback::run() {
                     if(okToPlay) {
                         bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->play();
                         if(mediaError == bb::multimedia::MediaError::None) {
-#ifdef VERBOSE_LOGGING
-                            qDebug() << "MediaPlayer: play";
-#endif
+                            m_state = Playing;
                             emit playing();
                         } else {
-                            qDebug() << "MediaPlayer: play:" << mediaError;
+                            qDebug() << "Error: MediaPlayer: play:" << mediaError;
                         }
                     }
                 } else {
+                    m_state = Playing;
                     emit playing();
                 }
             }
@@ -1061,6 +1056,7 @@ void Playback::onMediaPlayerPlaybackCompleted() {
     qDebug().nospace() << "Playback::onMediaPlayerPlaybackCompleted";
     qDebug().space();
 #endif
+    m_song.update(true);
 }
 
 void Playback::onMediaPlayerPositionChanged(unsigned int position) {
