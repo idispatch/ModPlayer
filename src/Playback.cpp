@@ -1060,8 +1060,11 @@ void Playback::onMediaPlayerPlaybackCompleted() {
 }
 
 void Playback::onMediaPlayerPositionChanged(unsigned int position) {
+#if 0
 #ifdef VERBOSE_LOGGING
     qDebug().nospace() << "Playback::onMediaPlayerPositionChanged: position=" << position;
     qDebug().space();
 #endif
+#endif
+    m_song.setCurrentOrder(position);
 }

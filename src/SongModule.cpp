@@ -189,6 +189,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         setFileName(fileName);
 
         assignInfo(info);
+        setOrders(info.songLength()); // song length in milliseconds
 
         update();
 
@@ -349,14 +350,16 @@ void SongModule::update(bool endOfSong) {
         setPlayingChannels(::ModPlug_GetPlayingChannels(m_modPlug));
         setSongLength(::ModPlug_GetLength(m_modPlug));
     } else {
-        setCurrentOrder(0);
-        setCurrentPattern(0);
-        setCurrentRow(0);
-        setCurrentSpeed(0);
-        setCurrentTempo(0);
-        setMasterVolume(0);
-        setPlayingChannels(0);
-        setSongLength(0);
+        if(endOfSong) {
+            setCurrentOrder(0);
+            setCurrentPattern(0);
+            setCurrentRow(0);
+            setCurrentSpeed(0);
+            setCurrentTempo(0);
+            setMasterVolume(0);
+            setPlayingChannels(0);
+            setSongLength(0);
+        }
     }
 
     updateChannelVU(endOfSong);
