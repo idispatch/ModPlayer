@@ -61,6 +61,13 @@ Q_SIGNALS:
     void stopped();
     void finished();
     void paused();
+private slots:
+    void onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type);
+    void onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, unsigned int position);
+    void onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type type);
+    void onMediaPlayerMetaDataChanged(const QVariantMap &metaData);
+    void onMediaPlayerPlaybackCompleted();
+    void onMediaPlayerPositionChanged(unsigned int);
 private:
     Q_DISABLE_COPY(Playback)
 
@@ -86,9 +93,10 @@ private:
     };
 
     bool submitCommadAndWait(Command);
+    void initMediaPlayer();
     void loadSettings();
     void saveSettings();
-    void configure_audio();
+    void configureAudio();
 
     PlaybackConfig m_config;
 

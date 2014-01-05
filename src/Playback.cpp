@@ -15,10 +15,9 @@ template<>
 int InstanceCounter<Playback>::s_maxCount;
 
 #ifdef _DEBUG
-#define VERBOSE_LOGGING
-//#define PERFORMANCE_MEASURE
-
-#ifdef PERFORMANCE_MEASURE
+#   define VERBOSE_LOGGING
+//# define PERFORMANCE_MEASURE
+#   ifdef PERFORMANCE_MEASURE
 static _Uint64t get_clock()
 {
     struct timespec t;
@@ -28,8 +27,7 @@ static _Uint64t get_clock()
     }
     return 0;
 }
-#endif
-
+#   endif
 #else
 #endif
 
@@ -46,13 +44,63 @@ Playback::Playback(QSettings &settings, QObject * parent)
       m_numDevices(0),
       m_pcmFd(-1),
       m_playback_handle(NULL) {
-    m_mediaPlayer->setAudioOutput(bb::multimedia::AudioOutput::Default);
+    initMediaPlayer();
     loadSettings();
 }
 
 Playback::~Playback() {
     saveSettings();
     closePlayback(); // called from playback thread only
+}
+
+void Playback::initMediaPlayer() {
+    bool rc;
+    Q_UNUSED(rc);
+    bb::multimedia::MediaError::Type mediaError;
+
+    mediaError = m_mediaPlayer->setAudioOutput(bb::multimedia::AudioOutput::Default);
+    if(mediaError != bb::multimedia::MediaError::None) {
+        qDebug() << "initMediaPlayer" << "setAudioOutput:" << mediaError;
+    }
+
+    mediaError = m_mediaPlayer->setStatusInterval(200);
+    if(mediaError != bb::multimedia::MediaError::None) {
+        qDebug() << "initMediaPlayer" << "setStatusInterval:" << mediaError;
+    }
+
+    mediaError = m_mediaPlayer->setSpeed(1.0);
+    if(mediaError != bb::multimedia::MediaError::None) {
+        qDebug() << "initMediaPlayer" << "setSpeed:" << mediaError;
+    }
+
+    mediaError = m_mediaPlayer->setRepeatMode(bb::multimedia::RepeatMode::None);
+    if(mediaError != bb::multimedia::MediaError::None) {
+        qDebug() << "initMediaPlayer" << "setRepeatMode:" << mediaError;
+    }
+
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(bufferStatusChanged(bb::multimedia::BufferStatus::Type)),
+                          this,          SLOT(onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type)));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(error(bb::multimedia::MediaError::Type, unsigned int)),
+                          this,          SLOT(onMediaPlayerError(bb::multimedia::MediaError::Type, unsigned int)));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(mediaStateChanged(bb::multimedia::MediaState::Type)),
+                          this,          SLOT(onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type)));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(metaDataChanged(const QVariantMap&)),
+                          this,          SLOT(onMediaPlayerMetaDataChanged(const QVariantMap&)));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(playbackCompleted()),
+                          this,          SLOT(onMediaPlayerPlaybackCompleted()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(positionChanged(unsigned int)),
+                          this,          SLOT(onMediaPlayerPositionChanged(unsigned int)));
+    Q_ASSERT(rc);
 }
 
 void Playback::loadSettings() {
@@ -120,7 +168,9 @@ void Playback::saveSettings() {
 void Playback::configure() {
     QMutexLocker locker(&m_mutex); // called from user thread
     if(!m_config.isAudioReconfigurationRequired()) {
-        qDebug() << "No audio reconfiguration required";
+#ifdef VERBOSE_LOGGING
+        qDebug() << "Playback::configure:" << "No audio reconfiguration required";
+#endif
         return;
     }
     m_command = ConfigureCommand;
@@ -243,7 +293,7 @@ bool Playback::rewind() {
     return submitCommadAndWait(RewindCommand);
 }
 
-void Playback::configure_audio() {
+void Playback::configureAudio() {
     QString fileName;
 
     if(m_config.isAudioReconfigurationRequired()) {
@@ -373,12 +423,18 @@ void Playback::run() {
             case Paused:
             case Loaded:
                 m_cond.wait(&m_mutex);
-                continue;
-            case Playing: // go playing
-                break;
+                continue; // process next command
+            case Playing:
+                if(m_song.isTrackerSong()) {
+                    // go playing tracker music
+                    break;
+                } else {
+                    m_cond.wait(&m_mutex);
+                    continue; // process next command
+                }
             case Exit:
             case Exiting:
-                continue;
+                continue; // process next command - exit thread
             }
             break;
         case ExitCommand:
@@ -386,19 +442,19 @@ void Playback::run() {
             m_state = Exiting;
             m_cond.wakeAll();
             emit stopped();
-            continue;
+            continue; // process next command - exit thread
         case ConfigureCommand:
             m_command = NoCommand;
             m_cond.wakeAll();
-            configure_audio();
-            continue;
+            configureAudio();
+            continue; // process next command
         case LoadCommand:
             m_command = NoCommand;
             if(m_state != Exiting &&
                m_state != Exit) {
                 ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
                 ::snd_pcm_plugin_playback_drain(m_playback_handle);
-                if(m_song.load(m_pendingSong, m_pendingFileName)) {
+                if(m_song.load(m_pendingSong, m_pendingFileName) == true) {
                     m_state = Loaded;
                 } else {
                     m_state = Idle;
@@ -407,64 +463,100 @@ void Playback::run() {
                 emit stopped();
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         case UnloadCommand:
             m_command = NoCommand;
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-                ::snd_pcm_plugin_playback_drain(m_playback_handle);
+                if(m_song.isTrackerSong()) {
+                    ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                    ::snd_pcm_plugin_playback_drain(m_playback_handle);
+                }
                 m_song.unload();
+                if(m_song.isMp3Song()) {
+                    m_mediaPlayer->stop();
+                }
                 m_state = Idle;
                 emit stopped();
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         case RewindCommand:
             m_command = NoCommand;
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
                 m_song.rewind();
+                if(m_song.isMp3Song()) {
+                    m_mediaPlayer->seekTime(0);
+                }
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         case PlayCommand:
             m_command = NoCommand;
             if(m_state == Loaded || m_state == Paused) {
                 m_state = Playing;
-                emit playing();
+                if(m_song.isMp3Song()) {
+                    bool okToPlay = false;
+                    if(m_state == Loaded) {
+                        if(m_mediaPlayer->setSourceUrl(m_song.absoluteFileName()) == bb::multimedia::MediaError::None) {
+                            okToPlay = true;
+                        }
+                    } else {
+                        okToPlay = true;
+                    }
+                    if(okToPlay) {
+                        if(m_mediaPlayer->play() == bb::multimedia::MediaError::None) {
+                            emit playing();
+                        }
+                    }
+                } else {
+                    emit playing();
+                }
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         case StopCommand:
             m_command = NoCommand;
             if(m_state == Playing || m_state == Paused) {
                 m_state = Loaded;
-                ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
-                ::snd_pcm_plugin_playback_drain(m_playback_handle);
+                if(m_song.isTrackerSong()) {
+                    ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
+                    ::snd_pcm_plugin_playback_drain(m_playback_handle);
+                }
                 m_song.rewind();
+                if(m_song.isMp3Song()) {
+                    m_mediaPlayer->stop();
+                    m_mediaPlayer->seekTime(0);
+                }
                 emit stopped();
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         case PauseCommand:
             m_command = NoCommand;
             if(m_state == Playing) {
                 m_state = Paused;
+                if(m_song.isMp3Song()) {
+                    m_mediaPlayer->pause();
+                }
                 emit paused();
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         case ResumeCommand:
             m_command = NoCommand;
             if(m_state == Paused) {
                 m_state = Playing;
+                if(m_song.isMp3Song()) {
+                    m_mediaPlayer->play();
+                }
                 emit playing();
             }
             m_cond.wakeAll();
-            continue;
+            continue; // process next command
         }
         m_mutex.unlock();
 
@@ -847,8 +939,7 @@ int Playback::updateChunk() {
         }
     }
 
-    if(numWritten < bytesGenerated)
-    {
+    if(numWritten < bytesGenerated) {
 #ifdef PERFORMANCE_MEASURE
         time_status_start = get_clock();
 #endif
@@ -856,17 +947,12 @@ int Playback::updateChunk() {
         memset(&status, 0, sizeof(status));
         status.channel = SND_PCM_CHANNEL_PLAYBACK;
 
-        if ((err = ::snd_pcm_plugin_status(m_playback_handle, &status)) < 0)
-        {
-            qDebug() << "Failed to get PCM plugin status: error="
-                     << err
-                     << ","
-                     << ::snd_strerror(err);
+        if ((err = ::snd_pcm_plugin_status(m_playback_handle, &status)) < 0) {
+            qDebug().nospace() << "Failed to get PCM plugin status: error=" << err << "," << ::snd_strerror(err);
+            qDebug().space();
             m_song.update(true);
             return -1;
-        }
-        else
-        {
+        } else {
 #ifdef PERFORMANCE_MEASURE
             time_status_end = get_clock();
 #endif
@@ -876,17 +962,12 @@ int Playback::updateChunk() {
 #ifdef PERFORMANCE_MEASURE
                 time_prepare_start = get_clock();
 #endif
-                if((err = ::snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0)
-                {
-                    qDebug() << "Failed to prepare PCM plugin: error="
-                             << err
-                             << ","
-                             << ::snd_strerror(err);
+                if((err = ::snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0) {
+                    qDebug().nospace() << "Failed to prepare PCM plugin: error=" << err << "," << ::snd_strerror(err);
+                    qDebug().space();
                     m_song.update(true);
                     return -1;
-                }
-                else
-                {
+                } else {
 #ifdef PERFORMANCE_MEASURE
                     time_prepare_end = get_clock();
 
@@ -898,19 +979,17 @@ int Playback::updateChunk() {
 #ifdef PERFORMANCE_MEASURE
                     time_rewrite_end = get_clock();
 #endif
-                    if(numWritten != bytesGenerated)
-                    {
-                        qDebug() << "Failed to write to PCM plugin: written="
-                                 << numWritten
-                                 << ", wanted="
-                                 << bytesGenerated;
+                    if(numWritten != bytesGenerated) {
+                        qDebug().nospace() << "Failed to write to PCM plugin: written="
+                                           << numWritten
+                                           << ", wanted="
+                                           << bytesGenerated;
+                        qDebug().space();
                         m_song.update(true);
                         return -1;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 qDebug() << "Failed to write to PCM plugin: status=" << status.status;
                 m_song.update(true);
                 return -1;
@@ -928,4 +1007,44 @@ int Playback::updateChunk() {
     qDebug().space();
 #endif
     return bytesGenerated;
+}
+
+void Playback::onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type) {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Playback::onMediaPlayerBufferStatusChanged" << type;
+#endif
+}
+
+void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, unsigned int position) {
+#ifdef VERBOSE_LOGGING
+    qDebug().nospace() << "Playback::onMediaPlayerError: error=" << mediaError << ", position=" << position;
+    qDebug().space();
+#endif
+}
+
+void Playback::onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type type) {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Playback::onMediaPlayerMediaStateChanged" << type;
+#endif
+}
+
+void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
+#ifdef VERBOSE_LOGGING
+    qDebug().nospace() << "Playback::onMediaPlayerMetaDataChanged: metadata=" << metaData;
+    qDebug().space();
+#endif
+}
+
+void Playback::onMediaPlayerPlaybackCompleted() {
+#ifdef VERBOSE_LOGGING
+    qDebug().nospace() << "Playback::onMediaPlayerPlaybackCompleted";
+    qDebug().space();
+#endif
+}
+
+void Playback::onMediaPlayerPositionChanged(unsigned int position) {
+#ifdef VERBOSE_LOGGING
+    qDebug().nospace() << "Playback::onMediaPlayerPositionChanged: position=" << position;
+    qDebug().space();
+#endif
 }

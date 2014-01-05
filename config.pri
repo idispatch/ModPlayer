@@ -17,6 +17,8 @@ device {
                  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
+                 $$quote($$BASEDIR/src/CatalogAsync.cpp) \
+                 $$quote($$BASEDIR/src/CatalogInit.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/FileUtils.cpp) \
                  $$quote($$BASEDIR/src/Importer.cpp) \
@@ -146,6 +148,7 @@ device {
                  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
+                 $$quote($$BASEDIR/src/CatalogMigration.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/FileUtils.hpp) \
                  $$quote($$BASEDIR/src/Flurry/Flurry.h) \
@@ -166,6 +169,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
+                 $$quote($$BASEDIR/src/SqlReader.hpp) \
                  $$quote($$BASEDIR/src/SuspendPlayback.hpp) \
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
@@ -269,6 +273,8 @@ device {
                  $$quote($$BASEDIR/src/Cache.cpp) \
                  $$quote($$BASEDIR/src/Canvas.cpp) \
                  $$quote($$BASEDIR/src/Catalog.cpp) \
+                 $$quote($$BASEDIR/src/CatalogAsync.cpp) \
+                 $$quote($$BASEDIR/src/CatalogInit.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
                  $$quote($$BASEDIR/src/FileUtils.cpp) \
                  $$quote($$BASEDIR/src/Importer.cpp) \
@@ -398,6 +404,7 @@ device {
                  $$quote($$BASEDIR/src/Cache.hpp) \
                  $$quote($$BASEDIR/src/Canvas.hpp) \
                  $$quote($$BASEDIR/src/Catalog.hpp) \
+                 $$quote($$BASEDIR/src/CatalogMigration.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
                  $$quote($$BASEDIR/src/FileUtils.hpp) \
                  $$quote($$BASEDIR/src/Flurry/Flurry.h) \
@@ -418,6 +425,7 @@ device {
                  $$quote($$BASEDIR/src/SongFormat.hpp) \
                  $$quote($$BASEDIR/src/SongGenre.hpp) \
                  $$quote($$BASEDIR/src/SongModule.hpp) \
+                 $$quote($$BASEDIR/src/SqlReader.hpp) \
                  $$quote($$BASEDIR/src/SuspendPlayback.hpp) \
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \

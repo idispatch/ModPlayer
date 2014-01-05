@@ -1,5 +1,4 @@
 #include "SongModule.hpp"
-#include "SongFormat.hpp"
 #include "FileUtils.hpp"
 #include <QDebug>
 #include <QFile>
@@ -14,6 +13,7 @@ using namespace bb::cascades;
 
 SongModule::SongModule(QObject *parent) :
     SongExtendedInfo(parent),
+    m_format(SongFormat::FORMAT_UNKNOWN),
     m_currentOrder(0),
     m_currentPattern(0),
     m_currentRow(0),
@@ -33,14 +33,14 @@ SongModule::~SongModule() {
 }
 
 bool SongModule::songLoaded() const {
-    return m_modPlug != NULL || SongFormat::isMp3Song(m_absoluteFileName);
+    return m_modPlug != NULL || m_format == SongFormat::FORMAT_MP3;
 }
 
-QString SongModule::absoluteFileName() const {
+QString const& SongModule::absoluteFileName() const {
     return m_absoluteFileName;
 }
 
-QString SongModule::description() const {
+QString const& SongModule::description() const {
     return m_description;
 }
 
@@ -141,10 +141,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         setCurrentOrder(0);
     }
 
-    if(m_absoluteFileName.length() > 0) {
-        m_absoluteFileName = ""; // no song loaded
-        emit absoluteFileNameChanged();
-    }
+    setAbsoluteFileName("");
 
     if(SongFormat::isTrackerSong(fileName)) {
         QFile fileIn(fileName);
@@ -152,8 +149,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
             QByteArray data = fileIn.readAll();
             m_modPlug = ::ModPlug_Load(data.data(), data.size());
             if (m_modPlug != NULL) {
-                m_absoluteFileName = fileName;
-                emit absoluteFileNameChanged();
+                setAbsoluteFileName(fileName);
 
                 setFileName(fileName);
                 setTitle(::ModPlug_GetName(m_modPlug));
@@ -185,8 +181,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
             }
         }
     } else {
-        m_absoluteFileName = fileName;
-        emit absoluteFileNameChanged();
+        setAbsoluteFileName(fileName);
 
         setFileName(fileName);
 
@@ -230,10 +225,7 @@ bool SongModule::unload() {
 
     }
 
-    if(m_absoluteFileName.length() > 0) {
-        m_absoluteFileName = ""; // no song loaded
-        emit absoluteFileNameChanged();
-    }
+    setAbsoluteFileName("");
 
     setFileName("");
     setTitle("");
@@ -310,6 +302,14 @@ ArrayDataModel* SongModule::getInstrumentNames() {
     return model;
 }
 
+void SongModule::setAbsoluteFileName(QString const& fileName) {
+    if(fileName != m_absoluteFileName) {
+        m_absoluteFileName = fileName;
+        m_format = static_cast<SongFormat::Format>(SongFormat::getFormatIdByFileName(fileName));
+        emit absoluteFileNameChanged();
+    }
+}
+
 void SongModule::assignInfo(SongExtendedInfo const& other) {
     setId(other.id());
     setFormatId(other.formatId());
@@ -360,30 +360,24 @@ void SongModule::update(bool endOfSong) {
 
 void SongModule::updateChannelVU(bool endOfSong) {
     bool bChanged = false;
-    if(m_modPlug != NULL)
-    {
-        if(endOfSong)
-        {
+    if(m_modPlug != NULL) {
+        if(endOfSong) {
             // Set all channel VU to 0
             memset(&m_channelVU[0], 0, sizeof(m_channelVU));
             bChanged = true;
-        }
-        else
-        {
+        } else {
             // Update all channel VU values
             const int numChannels = channels();
             unsigned result[128];
             ::ModPlug_GetChannelVUs(m_modPlug, 0, numChannels, result);
             const size_t numBytes = sizeof(unsigned) * numChannels;
-            if(memcmp(m_channelVU, result, numBytes))
-            {
+            if(memcmp(m_channelVU, result, numBytes)) {
                 memcpy(m_channelVU, result, numBytes);
                 bChanged = true;
             }
         }
     }
-    if(bChanged)
-    {
+    if(bChanged) {
         emit channelVUChanged();
     }
 }
@@ -424,9 +418,9 @@ SongModule::operator ModPlugFile*() {
 }
 
 bool SongModule::isTrackerSong() const {
-    return SongFormat::isTrackerSong(m_absoluteFileName);
+    return SongFormat::isTrackerSong(m_format);
 }
 
 bool SongModule::isMp3Song() const {
-    return SongFormat::isMp3Song(m_absoluteFileName);
+    return SongFormat::isMp3Song(m_format);
 }

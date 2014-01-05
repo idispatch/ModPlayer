@@ -5,6 +5,7 @@
 #include <QObject>
 #include  <bb/cascades/ArrayDataModel>
 #include "SongExtendedInfo.hpp"
+#include "SongFormat.hpp"
 #include "InstanceCounter.hpp"
 #include "modplug.h"
 
@@ -34,10 +35,10 @@ public:
 
     bool songLoaded() const;
 
-    QString description() const;
+    QString const& description() const;
     void setDescription(const QString &value);
 
-    QString absoluteFileName() const;
+    QString const& absoluteFileName() const;
 
     int currentOrder() const;
     void setCurrentOrder(int value);
@@ -101,9 +102,11 @@ private slots:
 private:
     Q_DISABLE_COPY(SongModule)
 
+    void setAbsoluteFileName(QString const& fileName);
     void assignInfo(SongExtendedInfo const& other);
     void updateChannelVU(bool endOfSong);
 private:
+    SongFormat::Format m_format;
     QString m_absoluteFileName;
     QString m_description;
 

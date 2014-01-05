@@ -18,6 +18,12 @@
 #include "Album.hpp"
 #include "InstanceCounter.hpp"
 
+#ifdef _DEBUG
+//#define DEBUG_CATALOG
+#else
+#undef DEBUG_CATALOG
+#endif
+
 namespace bb {
     namespace data {
         class SqlDataAccess;
@@ -35,6 +41,7 @@ class Catalog : public QThread,
     Q_PROPERTY(QString catalogPath READ catalogPath NOTIFY catalogPathChanged FINAL)
     Q_PROPERTY(int songCount READ songCount NOTIFY songCountChanged FINAL)
 public:
+    static int Version;
     Catalog(QObject * parent);
 
     void run();

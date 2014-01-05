@@ -9,11 +9,7 @@
 #include <bb/data/SqlDataAccess>
 #include <bb/data/DataSource>
 
-#ifdef _DEBUG
-//#define DEBUG_CATALOG
-#else
-#undef DEBUG_CATALOG
-#endif
+#include "SqlReader.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -40,45 +36,12 @@ static const char * SELECT_FROM_SONGS =
         "FROM songs";
 
 int Catalog::Command::s_commandCounter = 0;
-
-
-class SqlReader {
-    QSqlQuery &m_query;
-    int m_index;
-
-    SqlReader(SqlReader const&);
-    SqlReader& operator = (SqlReader const&);
-public:
-    SqlReader(QSqlQuery &query) : m_query(query), m_index(0) {
-    }
-    inline SqlReader& operator >> (int &value) {
-        value = m_query.value(m_index++).toInt();
-        return *this;
-    }
-    inline SqlReader& operator >> (QString &value) {
-        value = m_query.value(m_index++).toString();
-        return *this;
-    }
-};
-
-struct PersonalData {
-    int id;
-    int playCount;
-    int lastPlayed;
-    int myFavourite;
-};
-
-typedef QVector<PersonalData> MigrationData;
+int Catalog::Version = 3;
 
 Catalog::Catalog(QObject * parent)
     : QThread(parent),
       m_dataAccess(NULL) {
     initCatalog();
-}
-
-void Catalog::initCatalog() {
-    copyCatalogToDataFolder();
-    m_dataAccess = new SqlDataAccess(catalogPath(), "catalog", this);
 }
 
 void Catalog::stopThread() {
@@ -93,229 +56,24 @@ void Catalog::stopThread() {
     }
 }
 
-void Catalog::copyCatalogToDataFolder() {
-    QFile catalogFile(catalogPath());
-    if(!catalogFile.exists())
-    {
-        qDebug() << "Personal catalog does not exist at" << catalogFile.fileName();
-
-        QString appFolder(QDir::homePath());
-        appFolder.chop(4);
-        QString originalFileName = appFolder + "app/native/assets/catalog.sqlite";
-        QFile originalFile(originalFileName);
-
-        if(originalFile.exists())
-        {
-            qDebug() << "Original catalog is at" << originalFile.fileName();
-
-            if(!originalFile.copy(catalogFile.fileName()))
-            {
-                qDebug() << "Failed to copy catalog to path: " << catalogFile.fileName();
-            }
-        }
-        else
-        {
-            qDebug() << "Failed to copy catalog - file does not exists";
-        }
-    }
-    else
-    {
-        // catalog exists
-        MigrationData data;
-        {
-            int version = 0;
-            SqlDataAccess dataAccess(catalogPath(), "catalog");
-            {
-                QSqlDatabase db = dataAccess.connection();
-                QSqlQuery sqlQuery = db.exec("PRAGMA user_version");
-                if(sqlQuery.next()) {
-                    SqlReader reader(sqlQuery);
-                    reader >> version;
-                }
-            }
-
-            if(version == 3)
-            {
-                qDebug() << "Database migration not required, version" << version;
-                QSqlDatabase::removeDatabase("catalog");
-                return;
-            }
-            else
-            {
-                qDebug() << "Starting database migration from version" << version;
-                const char * query =    "SELECT"
-                                        " id,"
-                                        " playCount,"
-                                        " lastPlayed,"
-                                        " myFavourite "
-                                        "FROM songs "
-                                        "WHERE playCount>0 OR lastPlayed>0 OR myFavourite>0";
-                QSqlDatabase db = dataAccess.connection();
-                QSqlQuery sqlQuery = db.exec(query);
-                while(sqlQuery.next()) {
-                    PersonalData song;
-                    SqlReader reader(sqlQuery);
-                    reader >> song.id >> song.playCount >> song.lastPlayed >> song.myFavourite;
-                    data.push_back(song);
-                }
-                qDebug() << "Migrating" << data.size() << "songs";
-            }
-        }
-
-        QSqlDatabase::removeDatabase("catalog");
-
-        qDebug() << "Removing old database";
-        catalogFile.remove();
-
-        qDebug() << "Removed old database";
-        copyCatalogToDataFolder();
-
-        qDebug() << "About to update" << data.size() << "songs";
-        if(!data.empty())
-        {
-            SqlDataAccess dataAccess(catalogPath(), "catalog");
-            for(int i = 0; i<data.size(); ++i) {
-                QString query =
-                    "UPDATE songs SET playCount=?, lastPlayed=?, myFavourite=? WHERE id=?";
-                QVariantList params;
-                params << data[i].playCount
-                       << data[i].lastPlayed
-                       << data[i].myFavourite
-                       << data[i].id;
-                qDebug() << "Updating song:" << data[i].id;
-                dataAccess.execute(query, params);
-            }
-
-            QSqlDatabase::removeDatabase("catalog");
-        } else {
-            qDebug() << "No song updates required";
-        }
-
-        qDebug() << "Migration completed successfully";
-    }
-}
-
-int Catalog::asyncCommandSubmit(Command * command) {
-    QMutexLocker locker(&m_mutex);
-    m_commandQueue.enqueue(command);
-    m_cond.wakeOne();
-    return command->id();
-}
-
-int Catalog::asyncCommand(Command::CommandType commandType) {
-    return asyncCommandSubmit(new Command(commandType));
-}
-
-int Catalog::asyncFindCommand(Command::CommandType commandType, int id, int limit) {
-    return asyncCommandSubmit(new FindCommand(commandType, id, limit));
-}
-
-int Catalog::asyncSearchCommand(QString const& query, int limit) {
-    return asyncCommandSubmit(new SearchCommand(query, limit));
-}
-
 int Catalog::songCount() {
-    const char * query = "SELECT count(id) FROM songs WHERE id > 0";
+    const char * query = "SELECT COUNT(id) FROM songs WHERE id > 0";
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
         return sqlQuery.value(0).toInt();
     }
     return 0;
-}
-
-int Catalog::songCountAsync() {
-    return asyncCommand(Command::SongCount);
 }
 
 int Catalog::personalSongCount() {
-    const char * query = "SELECT count(id) FROM songs WHERE id < 0";
+    const char * query = "SELECT COUNT(id) FROM songs WHERE id < 0";
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
         return sqlQuery.value(0).toInt();
     }
     return 0;
-}
-
-int Catalog::personalSongCountAsync() {
-    return asyncCommand(Command::PersonalSongCount);
-}
-
-int Catalog::findFormatsAsync() {
-    return asyncCommand(Command::FormatsList);
-}
-
-int Catalog::findGenresAsync() {
-    return asyncCommand(Command::GenresList);
-}
-
-int Catalog::findArtistsAsync() {
-    return asyncCommand(Command::ArtistsList);
-}
-
-int Catalog::findPlaylistsAsync() {
-    return asyncCommand(Command::Playlists);
-}
-
-int Catalog::findAlbumsAsync() {
-    return asyncCommand(Command::Albums);
-}
-
-int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
-    return asyncFindCommand(Command::SongsByFormatList, formatId, limit);
-}
-
-int Catalog::findSongsByGenreIdAsync(int genreId, int limit) {
-    return asyncFindCommand(Command::SongsByGenreList, genreId, limit);
-}
-
-int Catalog::findSongsByArtistIdAsync(int artistId, int limit) {
-    return asyncFindCommand(Command::SongsByArtistList, artistId, limit);
-}
-
-int Catalog::findSongsByPlaylistIdAsync(int playlistId, int limit) {
-    return asyncFindCommand(Command::SongsByPlaylist, playlistId, limit);
-}
-
-int Catalog::findSongsByAlbumIdAsync(int albumId, int limit) {
-    return asyncFindCommand(Command::SongsByAlbum, albumId, limit);
-}
-
-int Catalog::findMostDownloadedSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostDownloadedSongs, 0, limit);
-}
-
-int Catalog::findMostFavouritedSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostFavouritedSongs, 0, limit);
-}
-
-int Catalog::findMostScoredSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostScoredSongs, 0, limit);
-}
-
-int Catalog::findRecentlyPlayedSongsAsync(int limit) {
-    return asyncFindCommand(Command::RecentlyPlayedSongs, 0, limit);
-}
-
-int Catalog::findMyFavouriteSongsAsync(int limit) {
-    return asyncFindCommand(Command::MyFavouriteSongs, 0, limit);
-}
-
-int Catalog::findMyLocalSongsAsync(int limit) {
-    return asyncFindCommand(Command::MyLocalSongs, 0, limit);
-}
-
-int Catalog::findMostPlayedSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostPlayedSongs, 0, limit);
-}
-
-int Catalog::searchSongsAsync(QString const& searchTerm, int limit) {
-    return asyncSearchCommand(searchTerm, limit);
-}
-
-QString Catalog::catalogPath() const {
-    return QDir::homePath() + "/catalog.sqlite";
 }
 
 ArrayDataModel* Catalog::findFormats() {
@@ -1190,189 +948,3 @@ int Catalog::createAlbum(QString const& artistName, QString const& albumName) {
     return primaryKey;
 }
 
-void Catalog::run() {
-    bool exitRequested = false;
-    while(!exitRequested)
-    {
-        m_mutex.lock();
-        while(m_commandQueue.empty())
-        {
-            m_cond.wait(&m_mutex);
-        }
-
-        std::auto_ptr<Command> command(m_commandQueue.dequeue());
-        m_mutex.unlock();
-
-        QVariant result;
-        switch(command->command())
-        {
-        case Command::ExitCommand:
-            exitRequested = true;
-            m_mutex.lock();
-            while(!m_commandQueue.empty())
-            {
-                delete m_commandQueue.dequeue();
-            }
-            m_mutex.unlock();
-            break;
-        case Command::SongCount:
-            result = QVariant::fromValue(songCount());
-            break;
-        case Command::PersonalSongCount:
-            result = QVariant::fromValue(personalSongCount());
-            break;
-        case Command::SearchSongs:
-            {
-                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
-                ArrayDataModel * model = searchSongs(searchCommand->query(), searchCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::FormatsList:
-            {
-                ArrayDataModel * model = findFormats();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::GenresList:
-            {
-                GroupDataModel * model = findGenres();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::ArtistsList:
-            {
-                GroupDataModel * model = findArtists();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::Playlists:
-            {
-                GroupDataModel * model = findPlaylists();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::Albums:
-            {
-                GroupDataModel * model = findAlbums();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::SongsByFormatList:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByFormatId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::SongsByArtistList:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByArtistId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::SongsByGenreList:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByGenreId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::SongsByPlaylist:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByPlaylistId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::SongsByAlbum:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByAlbumId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::MostDownloadedSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostDownloadedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::MostFavouritedSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostFavouritedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::MostScoredSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostScoredSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::RecentlyPlayedSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findRecentlyPlayedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::MyFavouriteSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMyFavouriteSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::MyLocalSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMyLocalSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        case Command::MostPlayedSongs:
-            {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostPlayedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
-            break;
-        default:
-            qDebug() << "Unknown command:" << command->command();
-            break;
-        }
-
-        emit resultReady(command->id(), result);
-
-        QObject* p = result.value<QObject*>();
-        if(p != NULL && p->parent() == NULL)
-        {
-            result.detach();
-            delete p;
-        }
-    }
-    QThread::exit(0);
-}
