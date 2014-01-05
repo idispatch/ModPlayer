@@ -263,6 +263,12 @@ private:
     int asyncCommand(Command::CommandType commandType);
     int asyncFindCommand(Command::CommandType commandType, int id, int limit);
     int asyncSearchCommand(QString const& query, int limit);
+
+    QVariant assign(std::auto_ptr<Command> &command,
+                    bb::cascades::DataModel * value) {
+        value->moveToThread(command->thread());
+        return QVariant::fromValue(value);
+    }
 private:
     QQueue<Command*> m_commandQueue;
     QMutex m_mutex;

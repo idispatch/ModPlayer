@@ -207,6 +207,8 @@ INSERT INTO formats (id, name, description) VALUES (11, 'AHX','Amiga Chiptune Mo
 INSERT INTO formats (id, name, description) VALUES (12, 'HVL','HivelyTracker Module');
 INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/OGG Module');
 INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Song');
+INSERT INTO formats (id, name, description) VALUES (101, 'OGG','Xiph.org Foundation OGG Song');
+INSERT INTO formats (id, name, description) VALUES (102, 'FLAC','Free Lossless Audio Codec Song');
 
 INSERT INTO trackers (id, name) VALUES (0, '- N/A -');
 

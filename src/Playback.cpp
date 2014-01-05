@@ -58,9 +58,11 @@ void Playback::initMediaPlayer() {
     Q_UNUSED(rc);
     bb::multimedia::MediaError::Type mediaError;
 
-    mediaError = m_mediaPlayer->setAudioOutput(bb::multimedia::AudioOutput::Default);
-    if(mediaError != bb::multimedia::MediaError::None) {
-        qDebug() << "initMediaPlayer" << "setAudioOutput:" << mediaError;
+    if(m_mediaPlayer->audioOutput() != bb::multimedia::AudioOutput::Default) {
+        mediaError = m_mediaPlayer->setAudioOutput(bb::multimedia::AudioOutput::Default);
+        if(mediaError != bb::multimedia::MediaError::None) {
+            qDebug() << "initMediaPlayer" << "setAudioOutput:" << mediaError;
+        }
     }
 
     mediaError = m_mediaPlayer->setStatusInterval(200);
@@ -68,14 +70,18 @@ void Playback::initMediaPlayer() {
         qDebug() << "initMediaPlayer" << "setStatusInterval:" << mediaError;
     }
 
-    mediaError = m_mediaPlayer->setSpeed(1.0);
-    if(mediaError != bb::multimedia::MediaError::None) {
-        qDebug() << "initMediaPlayer" << "setSpeed:" << mediaError;
+    if(m_mediaPlayer->speed() != 1.0) {
+        mediaError = m_mediaPlayer->setSpeed(1.0);
+        if(mediaError != bb::multimedia::MediaError::None) {
+            qDebug() << "initMediaPlayer" << "setSpeed:" << mediaError;
+        }
     }
 
-    mediaError = m_mediaPlayer->setRepeatMode(bb::multimedia::RepeatMode::None);
-    if(mediaError != bb::multimedia::MediaError::None) {
-        qDebug() << "initMediaPlayer" << "setRepeatMode:" << mediaError;
+    if(m_mediaPlayer->repeatMode() != bb::multimedia::RepeatMode::None) {
+        mediaError = m_mediaPlayer->setRepeatMode(bb::multimedia::RepeatMode::None);
+        if(mediaError != bb::multimedia::MediaError::None) {
+            qDebug() << "initMediaPlayer" << "setRepeatMode:" << mediaError;
+        }
     }
 
     rc = QObject::connect(m_mediaPlayer, SIGNAL(bufferStatusChanged(bb::multimedia::BufferStatus::Type)),
@@ -385,7 +391,9 @@ void Playback::configureAudio() {
 }
 
 void Playback::run() {
+#if 0
     moveToThread(this);
+#endif
     m_song.moveToThread(this);
 #ifdef VERBOSE_LOGGING
     qDebug() << "Entering playback thread";
@@ -501,15 +509,28 @@ void Playback::run() {
                 if(m_song.isMp3Song()) {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
-                        if(m_mediaPlayer->setSourceUrl(m_song.absoluteFileName()) == bb::multimedia::MediaError::None) {
+#ifdef VERBOSE_LOGGING
+                        qDebug() << "MediaPlayer: setSourceUrl:" << m_song.absoluteFileName();
+#endif
+                        bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(m_song.absoluteFileName());
+                        if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;
+                        } else {
+                            qDebug() << "MediaPlayer: setSourceUrl:" << mediaError;
+                            okToPlay = false;
                         }
                     } else {
                         okToPlay = true;
                     }
                     if(okToPlay) {
-                        if(m_mediaPlayer->play() == bb::multimedia::MediaError::None) {
+                        bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->play();
+                        if(mediaError == bb::multimedia::MediaError::None) {
+#ifdef VERBOSE_LOGGING
+                            qDebug() << "MediaPlayer: play";
+#endif
                             emit playing();
+                        } else {
+                            qDebug() << "MediaPlayer: play:" << mediaError;
                         }
                     }
                 } else {

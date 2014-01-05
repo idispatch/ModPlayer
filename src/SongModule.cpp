@@ -33,7 +33,10 @@ SongModule::~SongModule() {
 }
 
 bool SongModule::songLoaded() const {
-    return m_modPlug != NULL || m_format == SongFormat::FORMAT_MP3;
+    return m_modPlug != NULL ||
+           m_format == SongFormat::FORMAT_MP3 ||
+           m_format == SongFormat::FORMAT_OGG ||
+           m_format == SongFormat::FORMAT_FLAC;
 }
 
 QString const& SongModule::absoluteFileName() const {
@@ -151,10 +154,10 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
             if (m_modPlug != NULL) {
                 setAbsoluteFileName(fileName);
 
+                assignInfo(info);
+
                 setFileName(fileName);
                 setTitle(::ModPlug_GetName(m_modPlug));
-
-                assignInfo(info);
 
                 const char * description = ::ModPlug_GetMessage(m_modPlug);
                 setDescription(description ? description : "");
@@ -312,6 +315,7 @@ void SongModule::setAbsoluteFileName(QString const& fileName) {
 
 void SongModule::assignInfo(SongExtendedInfo const& other) {
     setId(other.id());
+    setTitle(other.title());
     setFormatId(other.formatId());
     if(formatId() == 0) {
         setFormatId(SongFormat::getFormatIdByFileName(fileName()));

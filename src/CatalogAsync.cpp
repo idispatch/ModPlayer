@@ -137,140 +137,100 @@ void Catalog::run() {
         case Command::SearchSongs:
             {
                 SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
-                ArrayDataModel * model = searchSongs(searchCommand->query(), searchCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, searchSongs(searchCommand->query(),
+                                                     searchCommand->limit()));
             }
             break;
         case Command::FormatsList:
-            {
-                ArrayDataModel * model = findFormats();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
+            result = assign(command, findFormats());
             break;
         case Command::GenresList:
-            {
-                GroupDataModel * model = findGenres();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
+            result = assign(command, findGenres());
             break;
         case Command::ArtistsList:
-            {
-                GroupDataModel * model = findArtists();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
+            result = assign(command, findArtists());
             break;
         case Command::Playlists:
-            {
-                GroupDataModel * model = findPlaylists();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
+            result = assign(command, findPlaylists());
             break;
         case Command::Albums:
-            {
-                GroupDataModel * model = findAlbums();
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
-            }
+            result = assign(command, findAlbums());
             break;
         case Command::SongsByFormatList:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByFormatId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findSongsByFormatId(findCommand->queryId(),
+                                                             findCommand->limit()));
             }
             break;
         case Command::SongsByArtistList:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByArtistId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findSongsByArtistId(findCommand->queryId(),
+                                                             findCommand->limit()));
             }
             break;
         case Command::SongsByGenreList:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByGenreId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findSongsByGenreId(findCommand->queryId(),
+                                                            findCommand->limit()));
             }
             break;
         case Command::SongsByPlaylist:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByPlaylistId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findSongsByPlaylistId(findCommand->queryId(),
+                                                               findCommand->limit()));
             }
             break;
         case Command::SongsByAlbum:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findSongsByAlbumId(findCommand->queryId(), findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findSongsByAlbumId(findCommand->queryId(),
+                                                            findCommand->limit()));
             }
             break;
         case Command::MostDownloadedSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostDownloadedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findMostDownloadedSongs(findCommand->limit()));
             }
             break;
         case Command::MostFavouritedSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostFavouritedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findMostFavouritedSongs(findCommand->limit()));
             }
             break;
         case Command::MostScoredSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostScoredSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findMostScoredSongs(findCommand->limit()));
             }
             break;
         case Command::RecentlyPlayedSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findRecentlyPlayedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findRecentlyPlayedSongs(findCommand->limit()));
             }
             break;
         case Command::MyFavouriteSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMyFavouriteSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findMyFavouriteSongs(findCommand->limit()));
             }
             break;
         case Command::MyLocalSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMyLocalSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findMyLocalSongs(findCommand->limit()));
             }
             break;
         case Command::MostPlayedSongs:
             {
                 FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                ArrayDataModel * model = findMostPlayedSongs(findCommand->limit());
-                model->moveToThread(command->thread());
-                result = QVariant::fromValue(model);
+                result = assign(command, findMostPlayedSongs(findCommand->limit()));
             }
             break;
         default:
