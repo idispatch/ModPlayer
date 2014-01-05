@@ -1056,7 +1056,12 @@ void Playback::onMediaPlayerPlaybackCompleted() {
     qDebug().nospace() << "Playback::onMediaPlayerPlaybackCompleted";
     qDebug().space();
 #endif
+    m_mediaPlayer->stop();
     m_song.update(true);
+    changeState(Loaded);
+    emit stopped();
+    m_song.rewind();
+    emit finished();
 }
 
 void Playback::onMediaPlayerPositionChanged(unsigned int position) {
