@@ -102,6 +102,7 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+            navigationPane: artistsPage.navigationPane
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow

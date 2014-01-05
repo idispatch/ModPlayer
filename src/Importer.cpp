@@ -23,8 +23,8 @@
 #include <sys/mman.h>
 
 #ifdef _DEBUG
-//#define DETAILED_LOG
-//#define REDUCED_SEARCH_SCOPE
+#define DETAILED_LOG
+#define REDUCED_SEARCH_SCOPE
 #else
 #endif
 
@@ -61,7 +61,7 @@ int Importer::import()
     createProgressUI();
 #ifdef REDUCED_SEARCH_SCOPE
     static const char * locations[] = {
-        "shared/music",
+        "removable/sdcard/music"
     };
 #else
     static const char * locations[] = {
@@ -128,8 +128,7 @@ int Importer::scanDirectory(QDir const& root)
         }
         for(int i = 0; i < entries.size(); i++) {
             QString absoluteFileName = FileUtils::joinPath(directoryPath, entries[i]);
-            QString extenion = FileUtils::extension(absoluteFileName).toLower();
-            if(extenion == ".mp3") {
+            if(absoluteFileName.endsWith(".mp3", Qt::CaseInsensitive)) {
                 importMp3File(absoluteFileName);
             } else {
                 importTrackerSong(absoluteFileName);
@@ -171,6 +170,9 @@ QString Importer::getMp3Attribute(void const * tag, const char * attributeName) 
 }
 
 bool Importer::importMp3File(QString const& fileName) {
+#ifdef DETAILED_LOG
+    qDebug() << "Importing" << fileName;
+#endif
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
     QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
     updateProgressUI(progressMessage, INDEFINITE);
@@ -221,7 +223,6 @@ bool Importer::importMp3File(QString const& fileName) {
         info.setTrackerId(0);
 
         QString track = getMp3Attribute(tag, ID3_FRAME_TRACK);
-
         // remove leading zeroes
         while(track.length() > 1 && track[0] == '0') {
             track = track.mid(1);
@@ -234,6 +235,10 @@ bool Importer::importMp3File(QString const& fileName) {
                 trackId = -1;
             }
         }
+#ifdef DETAILED_LOG
+        qDebug() << "File" << fileName << ", Track=" << track << ", TrackID=" << trackId;
+#endif
+
         QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);
 
         int artistId = 0;

@@ -87,6 +87,7 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+            navigationPane: songView.navigationPane
         },
         PreviousActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

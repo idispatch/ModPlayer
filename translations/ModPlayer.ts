@@ -385,6 +385,10 @@
         <source>Play Playlist</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Play Album</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayActionItem</name>

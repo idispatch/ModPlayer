@@ -12,19 +12,19 @@
     <name>Albums</name>
     <message>
         <source>Select Album</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите альбом</translation>
     </message>
     <message>
         <source>%1 songs</source>
-        <translation type="unfinished">%1 песен</translation>
+        <translation>%1 песен</translation>
     </message>
     <message>
         <source>Album %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Альбом %1</translation>
     </message>
     <message>
         <source>Play Album</source>
-        <translation type="unfinished"></translation>
+        <translation>Играть альбом</translation>
     </message>
 </context>
 <context>
@@ -296,15 +296,15 @@
     </message>
     <message>
         <source>No songs found</source>
-        <translation type="unfinished"></translation>
+        <translation>Песни не найдены</translation>
     </message>
     <message>
         <source>Searching for songs in %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск песен в %1...</translation>
     </message>
     <message>
         <source>Importing Songs</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортирую песни</translation>
     </message>
 </context>
 <context>
@@ -396,6 +396,10 @@
     <message>
         <source>Play Playlist</source>
         <translation>Играть плейлист</translation>
+    </message>
+    <message>
+        <source>Play Album</source>
+        <translation>Играть альбом</translation>
     </message>
 </context>
 <context>
@@ -830,11 +834,11 @@
     </message>
     <message>
         <source>Import My Songs</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировать мои песни</translation>
     </message>
     <message>
         <source>Would you like to import local songs?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите импортировать песни с телефона?</translation>
     </message>
 </context>
 <context>
@@ -971,7 +975,7 @@
     </message>
     <message>
         <source>%1 Album Songs (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Песни альбома %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1279,7 +1283,7 @@
     </message>
     <message>
         <source>Albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Альбомы</translation>
     </message>
 </context>
 </TS>

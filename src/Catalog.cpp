@@ -318,9 +318,9 @@ ArrayDataModel* Catalog::findSongsByAlbumId(int albumId, int limit) {
                                QString("WHERE albumEntries.albumId=%1").arg(albumId),
                                "ORDER BY "
                                "albumEntries.trackNumber ASC, "
+                               "songs.fileName ASC, "
                                "songs.playCount DESC, "
-                               "songs.lastPlayed DESC, "
-                               "songs.fileName ASC ",
+                               "songs.lastPlayed DESC ",
                                limit);
 }
 
@@ -360,15 +360,14 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 
 SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.id=%1").arg(id),
-                          parentObject);
+    return selectSongInfo(QString("WHERE songs.id=%1").arg(id), parentObject);
 }
 
 SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
-    //TODO: fix SQL injection
     QObject * parentObject = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(fileName),
-                          parentObject);
+    QString escaped(fileName);
+    escaped.replace("'", "''");
+    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(escaped), parentObject);
 }
 
 SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
@@ -480,7 +479,7 @@ SongBasicInfo* Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) 
 }
 
 SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
-    QString query = QString(
+    QString query =
                 "SELECT"
                 " songs.id AS id,"
                 " songs.fileName AS fileName,"
@@ -510,21 +509,11 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
                 " INNER JOIN trackers ON trackers.id=songs.tracker "
                 " INNER JOIN formats ON formats.id=songs.format "
                 " INNER JOIN artists ON artists.id=songs.artist "
-                " INNER JOIN genres ON genres.id=songs.genre ");
+                " INNER JOIN genres ON genres.id=songs.genre ";
     if(whereClause.length() > 0) {
         query += " ";
         query += whereClause;
     }
-#ifdef DEBUG_CATALOG
-    qDebug() << "Catalog::selectSongInfo:";
-    QString dumpQuery(query);
-    while(dumpQuery.length() > 0) {
-        QString part = dumpQuery.left(std::min(80, dumpQuery.length()));
-        qDebug() << part;
-        dumpQuery = dumpQuery.mid(part.length());
-    }
-
-#endif
     SongExtendedInfo * song = NULL;
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
@@ -790,7 +779,7 @@ int Catalog::createGenre(QString const& name) {
     if(list.size() >= 1) {
         primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
     } else {
-        query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM genres";
+        query = "SELECT MIN(id)-1 FROM genres";
         QSqlDatabase db = m_dataAccess->connection();
         QSqlQuery sqlQuery = db.exec(query);
         if(sqlQuery.next()) {
@@ -817,7 +806,7 @@ int Catalog::createArtist(QString const& name) {
     if(list.size() >= 1) {
         primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
     } else {
-        query = "SELECT COALESCE(MAX(id) , 0) + 1 FROM artists";
+        query = "SELECT MIN(id)-1 FROM artists";
         QSqlDatabase db = m_dataAccess->connection();
         QSqlQuery sqlQuery = db.exec(query);
         if(sqlQuery.next()) {
@@ -896,7 +885,7 @@ void Catalog::deleteSongFromPlaylist(int playlistId, int songId) {
 
 QVariant Catalog::getPlaylistSongs(int playlistId) {
     QVariantList result;
-    QString query = QString("SELECT songId FROM playlistEntries WHERE playlistId=%1 ORDER BY songOrder").arg(playlistId);
+    QString query = QString("SELECT songId FROM playlistEntries WHERE playlistId=%1 ORDER BY songOrder ASC").arg(playlistId);
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
@@ -908,7 +897,11 @@ QVariant Catalog::getPlaylistSongs(int playlistId) {
 
 QVariant Catalog::getAlbumSongs(int albumId) {
     QVariantList result;
-    QString query = QString("SELECT songId FROM albumEntries WHERE albumId=%1 ORDER BY trackNumber").arg(albumId);
+    QString query = QString("SELECT songId "
+                            "FROM albumEntries "
+                            "INNER JOIN songs ON songs.id = albumEntries.songId "
+                            "WHERE albumEntries.albumId=%1 "
+                            "ORDER BY albumEntries.trackNumber ASC, songs.fileName ASC").arg(albumId);
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {

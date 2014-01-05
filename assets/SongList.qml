@@ -410,7 +410,9 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
-            playlistId: songs.mode == 'playlist' ? listId : null  
+            navigationPane: songListPage.navigationPane
+            playlistId: songs.mode == 'playlist' ? listId : null
+            albumId: songs.mode == 'album' ? listId : null  
         },
         NextActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

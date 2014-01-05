@@ -530,11 +530,15 @@ void Playback::run() {
                 if(m_song.isMp3Song()) {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
-                        bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(m_song.absoluteFileName());
+                        QUrl url = QUrl::fromLocalFile(m_song.absoluteFileName());
+#if 1//def VERBOSE_LOGGING
+                        qDebug() << "------ setSourceUrl:" << url;
+#endif
+                        bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(url);
                         if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;
                         } else {
-                            qDebug() << "Error: MediaPlayer: setSourceUrl:" << mediaError;
+                            qDebug() << "Error: MediaPlayer: setSourceUrl:" << url << ", error=" << mediaError;
                             okToPlay = false;
                         }
                     } else {
