@@ -20,8 +20,6 @@
 
 #ifdef _DEBUG
 //#define VERBOSE_LOGGING
-#else
-#undef VERBOSE_LOGGING
 #endif
 
 namespace bb {

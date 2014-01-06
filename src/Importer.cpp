@@ -111,7 +111,7 @@ int Importer::scanDirectory(QDir const& root)
 #endif
         QStringList entries;
         DIR *dirp;
-        if ((dirp = ::opendir(directoryPath.toStdString().c_str())) != NULL) {
+        if ((dirp = ::opendir(directoryPath.toUtf8().constData())) != NULL) {
             struct dirent64 *dp;
             do {
                 if ((dp = ::readdir64(dirp)) != NULL) {
@@ -119,9 +119,9 @@ int Importer::scanDirectory(QDir const& root)
                         continue;
                     }
 
-                    QString absoluteFileName = FileUtils::joinPath(directoryPath, dp->d_name);
+                    QString absoluteFileName = FileUtils::joinPath(directoryPath, QString::fromUtf8(dp->d_name));
                     struct stat64 st;
-                    if(0 == ::stat64(absoluteFileName.toStdString().c_str(), &st)) {
+                    if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
                         if(st.st_mode & S_IFDIR) {
                             stack.push(absoluteFileName);
                         } else {
@@ -186,7 +186,7 @@ bool Importer::importMp3File(QString const& fileName) {
     QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
     updateProgressUI(progressMessage, INDEFINITE);
 
-    ::id3_file * mp3file = ::id3_file_open(fileName.toStdString().c_str(), ID3_FILE_MODE_READONLY);
+    ::id3_file * mp3file = ::id3_file_open(fileName.toUtf8().constData(), ID3_FILE_MODE_READONLY);
     if(mp3file == NULL) {
         qDebug() << "Could not open Mp3 file" << fileName;
         return false;
@@ -215,7 +215,7 @@ bool Importer::importMp3File(QString const& fileName) {
         signed int kbps;
         unsigned long kbytes;
         mad_timer_reset(&duration);
-        int result = calculateMp3Duration(fileName.toStdString().c_str(), &duration, &kbps, &kbytes);
+        int result = calculateMp3Duration(fileName.toUtf8().constData(), &duration, &kbps, &kbytes);
         if(result == 0) {
             duration = ::mad_timer_abs(duration);
             unsigned long milliseconds = duration.seconds * 1000 + duration.fraction * 1000/MAD_TIMER_RESOLUTION;

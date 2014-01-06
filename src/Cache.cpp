@@ -189,7 +189,7 @@ bool Cache::exists(QString const& fileName) {
         QString absoluteFilePath = absoluteFileName(fileName);
         QFileInfo fileInfo(absoluteFilePath);
         bExists = m_files.indexOf(fileInfo) != -1 && QFile::exists(absoluteFilePath);
-#if VERBOSE_LOGGING
+#ifdef VERBOSE_LOGGING
     qDebug() << "Cache::exists:" << fileName << "(" << absoluteFilePath << ") =" << bExists;
 #endif
     }
