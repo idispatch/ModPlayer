@@ -77,9 +77,6 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* getSampleNames();
     Q_INVOKABLE bb::cascades::ArrayDataModel* getInstrumentNames();
 
-    bool isTrackerSong() const;
-    bool isMp3Song() const;
-
     operator ModPlugFile* ();
 
     using InstanceCounter<SongModule>::getInstanceCount;
@@ -107,7 +104,6 @@ private:
     void updateChannelVU(bool endOfSong);
     void reset();
 private:
-    SongFormat::Format m_format;
     QString m_absoluteFileName;
     QString m_description;
 

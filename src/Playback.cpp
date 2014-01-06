@@ -503,7 +503,7 @@ void Playback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                if(m_song.isMp3Song()) {
+                if(!m_song.isTrackerSong()) {
                     m_mediaPlayer->seekTime(0);
                 }
                 m_song.rewind();
@@ -527,7 +527,7 @@ void Playback::run() {
         case PlayCommand:
             m_command = NoCommand;
             if(m_state == Loaded || m_state == Paused) {
-                if(m_song.isMp3Song()) {
+                if(!m_song.isTrackerSong()) {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
                         QUrl url = QUrl::fromLocalFile(m_song.absoluteFileName());
@@ -580,7 +580,7 @@ void Playback::run() {
             m_command = NoCommand;
             if(m_state == Playing) {
                 m_state = Paused;
-                if(m_song.isMp3Song()) {
+                if(!m_song.isTrackerSong()) {
                     m_mediaPlayer->pause();
                 }
                 emit paused();
@@ -591,7 +591,7 @@ void Playback::run() {
             m_command = NoCommand;
             if(m_state == Paused) {
                 m_state = Playing;
-                if(m_song.isMp3Song()) {
+                if(!m_song.isTrackerSong()) {
                     m_mediaPlayer->play();
                 }
                 emit playing();

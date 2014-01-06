@@ -13,7 +13,6 @@ using namespace bb::cascades;
 
 SongModule::SongModule(QObject *parent) :
     SongExtendedInfo(parent),
-    m_format(SongFormat::FORMAT_UNKNOWN),
     m_currentOrder(0),
     m_currentPattern(0),
     m_currentRow(0),
@@ -50,7 +49,6 @@ void SongModule::reset() {
 
 
     setAbsoluteFileName("");
-    m_format = SongFormat::FORMAT_UNKNOWN;
     setDescription("");
 
     memset(&m_channelVU[0], 0, sizeof(m_channelVU));
@@ -59,9 +57,7 @@ void SongModule::reset() {
 bool SongModule::songLoaded() const {
     if(m_modPlug != NULL)
         return true;
-    return m_format == SongFormat::FORMAT_MP3 ||
-           m_format == SongFormat::FORMAT_OGG ||
-           m_format == SongFormat::FORMAT_FLAC;
+    return m_absoluteFileName.length() > 0 && !isTrackerSong();
 }
 
 QString const& SongModule::absoluteFileName() const {
@@ -199,6 +195,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
                 update();
 
                 emit songLoadedChanged();
+                emit isTrackerSongChanged();
             } else {
                 unload();
             }
@@ -233,6 +230,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         update();
 
         emit songLoadedChanged();
+        emit isTrackerSongChanged();
     }
     return songLoaded();
 }
@@ -336,8 +334,8 @@ ArrayDataModel* SongModule::getInstrumentNames() {
 void SongModule::setAbsoluteFileName(QString const& fileName) {
     if(fileName != m_absoluteFileName) {
         m_absoluteFileName = fileName;
-        m_format = static_cast<SongFormat::Format>(SongFormat::getFormatIdByFileName(fileName));
         emit absoluteFileNameChanged();
+        setFormatId(SongFormat::getFormatIdByFileName(m_absoluteFileName));
     }
 }
 
@@ -448,12 +446,4 @@ bool SongModule::isChannelMuted(int channel) {
 
 SongModule::operator ModPlugFile*() {
     return m_modPlug;
-}
-
-bool SongModule::isTrackerSong() const {
-    return SongFormat::isTrackerSong(m_format);
-}
-
-bool SongModule::isMp3Song() const {
-    return SongFormat::isMp3Song(m_format);
 }

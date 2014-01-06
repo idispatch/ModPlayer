@@ -129,9 +129,13 @@ int SongBasicInfo::formatId() const {
 
 void SongBasicInfo::setFormatId(int value) {
     if(m_formatId != value) {
+        bool wasTrackerSong = isTrackerSong();
         m_formatId = value;
         emit formatIdChanged();
         emit iconPathChanged();
+        if(wasTrackerSong != isTrackerSong()) {
+            emit isTrackerSongChanged();
+        }
     }
 }
 
