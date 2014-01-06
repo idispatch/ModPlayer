@@ -51,6 +51,9 @@ Playback::Playback(QSettings &settings, QObject * parent)
 Playback::~Playback() {
     saveSettings();
     closePlayback(); // called from playback thread only
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Playback::~Playback()";
+#endif
 }
 
 void Playback::initMediaPlayer() {

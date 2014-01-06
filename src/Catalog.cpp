@@ -44,6 +44,12 @@ Catalog::Catalog(QObject * parent)
     initCatalog();
 }
 
+Catalog::~Catalog() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Catalog::~Catalog()";
+#endif
+}
+
 void Catalog::stopThread() {
     if(isRunning())
     {

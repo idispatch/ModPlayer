@@ -19,6 +19,9 @@ Mp3Export::Mp3Export(QObject * parent)
 
 Mp3Export::~Mp3Export() {
     destroyProgressUI();
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Mp3Export::~Mp3Export()";
+#endif
 }
 
 void Mp3Export::destroyProgressUI() {

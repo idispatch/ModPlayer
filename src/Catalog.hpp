@@ -41,6 +41,7 @@ class Catalog : public QThread,
 public:
     static int Version;
     Catalog(QObject * parent);
+    ~Catalog();
 
     void run();
     void stopThread();

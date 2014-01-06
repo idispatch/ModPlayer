@@ -21,6 +21,9 @@ Artist::Artist(int id,
 }
 
 Artist::~Artist() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Artist::~Artist()";
+#endif
 }
 
 int Artist::score() const {

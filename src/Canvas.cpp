@@ -20,6 +20,12 @@ Canvas::Canvas(int width, int height, QObject * parent)
       m_img(PixelFormat::RGBA_Premultiplied, width, height) {
 }
 
+Canvas::~Canvas() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Canvas::~Canvas()";
+#endif
+}
+
 ImageData Canvas::loadImageData(const char * url) {
     return ImageConverter::decode(QUrl(url), PixelFormat::RGBA_Premultiplied);
 }

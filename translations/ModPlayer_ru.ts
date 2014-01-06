@@ -841,6 +841,25 @@
     </message>
 </context>
 <context>
+    <name>SongArtistInfo</name>
+    <message>
+        <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">Композитор: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">Жанр: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Format: %1</source>
+        <translation type="unfinished">Формат: %1</translation>
+    </message>
+    <message>
+        <source>Tracker: %1</source>
+        <translation type="unfinished">Трэкер: %1</translation>
+    </message>
+</context>
+<context>
     <name>SongDynamicInfo</name>
     <message>
         <source>Order</source>
@@ -875,19 +894,19 @@
     <name>SongExtendedInfo</name>
     <message>
         <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Композитор: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation type="obsolete">Композитор: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Жанр: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation type="obsolete">Жанр: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Format: %1</source>
-        <translation>Формат: %1</translation>
+        <translation type="obsolete">Формат: %1</translation>
     </message>
     <message>
         <source>Tracker: %1</source>
-        <translation>Трэкер: %1</translation>
+        <translation type="obsolete">Трэкер: %1</translation>
     </message>
 </context>
 <context>
@@ -1067,6 +1086,22 @@
     <message>
         <source>Samples</source>
         <translation>Сэмплы</translation>
+    </message>
+    <message>
+        <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="obsolete">Композитор: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="obsolete">Жанр: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Format: %1</source>
+        <translation type="obsolete">Формат: %1</translation>
+    </message>
+    <message>
+        <source>Tracker: %1</source>
+        <translation type="obsolete">Трэкер: %1</translation>
     </message>
 </context>
 <context>

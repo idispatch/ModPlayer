@@ -15,4 +15,7 @@ SongGenre::SongGenre(int id,
 }
 
 SongGenre::~SongGenre() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "SongGenre::~SongGenre()";
+#endif
 }

@@ -21,6 +21,7 @@ class VUMeter : public bb::cascades::CustomControl,
     Q_OBJECT
 public:
     VUMeter(bb::cascades::Container *parent = 0);
+    ~VUMeter();
 
     Q_PROPERTY(QVariant song READ song WRITE setSong NOTIFY songChanged FINAL)
 

@@ -14,6 +14,12 @@ Unpacker::Unpacker(QObject * parent)
     : QObject(parent) {
 }
 
+Unpacker::~Unpacker() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Unpacker::~Unpacker()";
+#endif
+}
+
 QString Unpacker::tempPath() const {
     return QDir::tempPath();
 }

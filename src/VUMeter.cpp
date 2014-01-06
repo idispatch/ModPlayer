@@ -30,6 +30,12 @@ VUMeter::VUMeter(Container *parent)
     setRoot(NULL);
 }
 
+VUMeter::~VUMeter() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "VUMeter::~VUMeter()";
+#endif
+}
+
 void VUMeter::createVU()
 {
     if(m_rootContainer == NULL)

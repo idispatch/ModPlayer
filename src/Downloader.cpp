@@ -38,6 +38,12 @@ Downloader::Downloader(QObject * parent)
     Q_ASSERT(rc);
 }
 
+Downloader::~Downloader() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Downloader::~Downloader()";
+#endif
+}
+
 void Downloader::openNetworkConfiguration()
 {
     InvokeManager invokeManager;
@@ -60,7 +66,7 @@ void Downloader::cancelAllPendingDownloads() {
     if(pending.size() > 0)
     {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Canceling" << pending.size() << "downloads";
+        qDebug() << "Cancelling" << pending.size() << "downloads";
 #endif
         QList<int>::const_iterator i;
         for(i = pending.begin(); i != pending.end(); ++i)

@@ -17,6 +17,7 @@ class Canvas : public QObject,
     Q_OBJECT
 public:
     Canvas(int width, int height, QObject * parent);
+    ~Canvas();
 
     int width() const;
     int height() const;

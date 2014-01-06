@@ -70,16 +70,26 @@ SongExtendedInfo::SongExtendedInfo(int id,
 }
 
 SongExtendedInfo::~SongExtendedInfo() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "SongExtendedInfo::~SongExtendedInfo()";
+#endif
 }
 
 SongExtendedInfo& SongExtendedInfo::operator = (SongExtendedInfo const& other) {
     if(this != &other) {
         SongBasicInfo::operator = (other);
+
         setFormat(other.format());
+
         setTracker(other.tracker());
+        setTrackerId(other.trackerId());
+
         setGenre(other.genre());
-        setArtistId(other.artistId());
+        setGenreId(other.genreId());
+
         setArtist(other.artist());
+        setArtistId(other.artistId());
+
         setPatterns(other.patterns());
         setOrders(other.orders());
         setInstruments(other.instruments());

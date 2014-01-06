@@ -42,6 +42,9 @@ Importer::Importer(QStringList const& filters,
 
 Importer::~Importer() {
     destroyProgressUI();
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Importer::~Importer()";
+#endif
 }
 
 int Importer::numImportedSongs() const {

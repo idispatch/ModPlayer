@@ -4,6 +4,28 @@ TabbedPane {
     id: mainTabPane
     objectName: "mainTabPane"
     Tab {
+        id: searchTab
+        title: qsTr("Search")
+        objectName: title
+        imageSource: "asset:///images/actions/icon_search.png"
+        description: qsTr("Search Songs")
+        onTriggered: {
+            app.analytics.showPage(title)
+            songSearchView.loadSearchSongs()
+        }
+        function unload() {
+            songSearchView.unload()
+        }
+        content: NavigationPane {
+            id: searchNavigationPane
+            SongList {
+                id: songSearchView
+                navigationPane: searchNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
         id: myFavouriteTab
         title: qsTr("My Favourite")
         objectName: title
@@ -131,28 +153,6 @@ TabbedPane {
             SongList {
                 id: songMostPlayedView
                 navigationPane: mostPlayedNavigationPane
-            }
-            onPopTransitionEnded: page.destroy()
-        }
-    }
-    Tab {
-        id: searchTab
-        title: qsTr("Search")
-        objectName: title
-        imageSource: "asset:///images/actions/icon_search.png"
-        description: qsTr("Search Songs")
-        onTriggered: {
-            app.analytics.showPage(title)
-            songSearchView.loadSearchSongs()
-        }
-        function unload() {
-            songSearchView.unload()
-        }
-        content: NavigationPane {
-            id: searchNavigationPane
-            SongList {
-                id: songSearchView
-                navigationPane: searchNavigationPane
             }
             onPopTransitionEnded: page.destroy()
         }

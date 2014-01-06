@@ -117,6 +117,7 @@ Page {
                     rightPadding: 16
                     visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
                     SegmentedControl {
+                        id: viewOption
                         Option {
                             id: basicViewOption
                             text: qsTr("Basic")
@@ -132,54 +133,48 @@ Page {
                             text: qsTr("Samples")
                             enabled: app.player.currentSong.isTrackerSong
                         }
-                        onSelectedOptionChanged: {
-                            songMainInfo.visible = (selectedOption == basicViewOption)
-                            songPublicInfo.visible = (selectedOption == basicViewOption)
-                            songParametersInfo.visible = (selectedOption != samplesViewOption)
-                            songDynamicInfo.visible = (selectedOption != samplesViewOption)
-                            
-                            patternView.visible = (selectedOption == patternViewOption)
-                            if(selectedOption == samplesViewOption) {
-                                instrumentsView.load()
-                            }
-                            instrumentsView.visible = (selectedOption == samplesViewOption)
-                        }
                     }
                 }
                 VerticalContainer {
                     horizontalAlignment: HorizontalAlignment.Fill
+                    visible: app.player.currentSong.songLoaded
                     SongMainInfo {
                         id: songMainInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded
+                        visible: app.player.currentSong.songLoaded && (viewOption.selectedOption == basicViewOption || !app.player.currentSong.isTrackerSong) 
+                    }
+                    SongArtistInfo {
+                        id: songArtistInfo
+                        song: app.player.currentSong
+                        visible: app.player.currentSong.songLoaded && !app.player.currentSong.isTrackerSong
                     }
                     SongPublicInfo {
                         id: songPublicInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0 && !app.player.currentSong.isLocal 
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0 && !app.player.currentSong.isLocal && viewOption.selectedOption == basicViewOption 
                     }
                     SongParametersInfo {
                         id: songParametersInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption != samplesViewOption
                     }
                     SongDynamicInfo {
                         id: songDynamicInfo
                         song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption != samplesViewOption
                     }
                     TGroupContainer {
                         id: patternView
-                        visible: false
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption == patternViewOption
                         PatternView {
                             song: app.player.currentSong
-                            visible: app.player.currentSong.songLoaded
+                            visible: patternView.visible 
                             horizontalAlignment: HorizontalAlignment.Center
                         }
                     }
                     InstrumentsView {
                         id: instrumentsView
-                        visible: false
+                        visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption == samplesViewOption
                         maxHeight: 600
                         preferredHeight: 600
                     }

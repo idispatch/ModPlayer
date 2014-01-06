@@ -25,6 +25,9 @@ Cache::~Cache() {
     m_settings.setValue("maxSize", maxSize());
     m_settings.setValue("maxFiles", maxFiles());
     m_settings.endGroup();
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Cache::~Cache()";
+#endif
 }
 
 void Cache::initCache() {

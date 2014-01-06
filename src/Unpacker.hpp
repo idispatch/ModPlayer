@@ -12,6 +12,7 @@ class Unpacker : public QObject,
     Q_PROPERTY(QString cachePath READ cachePath FINAL)
 public:
     Unpacker(QObject * parent);
+    ~Unpacker();
 
     QString unpackFile(QString const& compressedFile);
 

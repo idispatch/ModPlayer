@@ -55,6 +55,9 @@ Player::~Player() {
     if(m_playback != NULL) {
         m_playback->stopThread();
     }
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Player::~Player()";
+#endif
 }
 
 void Player::initCatalog() {

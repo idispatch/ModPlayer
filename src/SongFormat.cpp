@@ -18,6 +18,9 @@ SongFormat::SongFormat(int id,
 }
 
 SongFormat::~SongFormat() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "SongFormat::~SongFormat()";
+#endif
 }
 
 QString const& SongFormat::description() const {

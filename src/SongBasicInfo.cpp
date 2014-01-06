@@ -55,7 +55,9 @@ SongBasicInfo::SongBasicInfo(int id,
 }
 
 SongBasicInfo::~SongBasicInfo() {
-    //qDebug() << "SongBasicInfo::~SongBasicInfo()";
+#ifdef VERBOSE_LOGGING
+    qDebug() << "SongBasicInfo::~SongBasicInfo()";
+#endif
 }
 
 SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {

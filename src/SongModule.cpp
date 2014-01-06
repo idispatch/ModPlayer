@@ -29,6 +29,9 @@ SongModule::~SongModule() {
         ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
     }
+#ifdef VERBOSE_LOGGING
+    qDebug() << "SongModule::~SongModule()";
+#endif
 }
 
 void SongModule::reset() {
@@ -47,6 +50,17 @@ void SongModule::reset() {
     setPatterns(0);
     setOrders(0);
 
+    setArtist("");
+    setArtistId(0);
+
+    setFormat("");
+    setFormatId(0);
+
+    setTracker("");
+    setTrackerId(0);
+
+    setGenre("");
+    setGenreId(0);
 
     setAbsoluteFileName("");
     setDescription("");
@@ -225,6 +239,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         setOrders(0);
 
         assignInfo(info);
+
         setCurrentOrder(0);
         setOrders(info.songLength()); // song length in milliseconds
         update();

@@ -22,7 +22,7 @@ Page {
                 SongMainInfo {
                     song: songView.song
                 }
-                SongExtendedInfo {
+                SongArtistInfo {
                     song: songView.song
                 }
                 SongPersonalInfo {

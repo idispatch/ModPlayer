@@ -841,6 +841,25 @@
     </message>
 </context>
 <context>
+    <name>SongArtistInfo</name>
+    <message>
+        <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tracker: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SongDynamicInfo</name>
     <message>
         <source>Order</source>
@@ -868,25 +887,6 @@
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SongExtendedInfo</name>
-    <message>
-        <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Format: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tracker: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

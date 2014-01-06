@@ -20,8 +20,11 @@ Playlist::Playlist(Playlist::Mode mode, QObject * parent)
       m_position(0)
 {}
 
-Playlist::~Playlist()
-{}
+Playlist::~Playlist() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Playlist::~Playlist()";
+#endif
+}
 
 bool Playlist::isRandom() const {
     return m_mode == PlaylistRandomCycle ||
