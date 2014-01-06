@@ -280,7 +280,7 @@
     </message>
     <message>
         <source>Importing %1</source>
-        <translation type="unfinished">Импортирую %1</translation>
+        <translation>Импортирую %1</translation>
     </message>
     <message>
         <source>Imported %1 songs</source>
@@ -304,7 +304,7 @@
     </message>
     <message>
         <source>Importing Songs</source>
-        <translation type="unfinished">Импортирую песни</translation>
+        <translation>Импортирую песни</translation>
     </message>
 </context>
 <context>
