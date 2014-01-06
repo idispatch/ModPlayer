@@ -79,19 +79,18 @@ struct CatalogMigrationData {
 
         Catalog(int v = 0) : version(v) {}
 
+        int totalUpdates() const {
+            return v1.songs.size() +
+                   v2.playlists.size() +
+                   v2.songs.size() +
+                   v2.playlistEntries.size();
+        }
+
         bool empty() const {
-            switch(version) {
-            case 0:
-            case 1:
-                return v1.songs.empty();
-            case 2:
-                return v1.songs.empty() &&
-                       v2.songs.empty() &&
-                       v2.playlists.empty() &&
-                       v2.playlistEntries.empty();
-            default:
-                return true;
-            }
+            return v1.songs.empty() &&
+                   v2.songs.empty() &&
+                   v2.playlists.empty() &&
+                   v2.playlistEntries.empty();
         }
     };
 };

@@ -108,6 +108,25 @@
     </message>
 </context>
 <context>
+    <name>Catalog</name>
+    <message>
+        <source>Updating Catalog</source>
+        <translation>Обновление каталога песен</translation>
+    </message>
+    <message>
+        <source>Your song catalog is being updated. Please wait.</source>
+        <translation>Каталог песен обновляется. Пожалуйста, подождите.</translation>
+    </message>
+    <message>
+        <source>Your song catalog has been successfully updated.</source>
+        <translation>Каталог песен был успешно обновлен.</translation>
+    </message>
+    <message>
+        <source>Optimizing catalog...</source>
+        <translation>Оптимизирую каталог...</translation>
+    </message>
+</context>
+<context>
     <name>Cover</name>
     <message>
         <source>Playing</source>
@@ -266,10 +285,6 @@
     <message>
         <source>Confirm</source>
         <translation>Подтверждение</translation>
-    </message>
-    <message>
-        <source>Would you like to import local tracker songs?</source>
-        <translation type="obsolete">Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
     </message>
     <message>
         <source>Would you like to import local songs?</source>

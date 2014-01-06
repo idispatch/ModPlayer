@@ -108,6 +108,25 @@
     </message>
 </context>
 <context>
+    <name>Catalog</name>
+    <message>
+        <source>Updating Catalog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your song catalog is being updated. Please wait.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your song catalog has been successfully updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimizing catalog...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Cover</name>
     <message>
         <source>Playing</source>
