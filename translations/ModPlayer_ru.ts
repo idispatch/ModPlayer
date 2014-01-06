@@ -269,15 +269,15 @@
     </message>
     <message>
         <source>Would you like to import local tracker songs?</source>
-        <translation>Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
+        <translation type="obsolete">Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs?</source>
+        <translation>Вы хотите импортировать песни с телефона?</translation>
     </message>
 </context>
 <context>
     <name>Importer</name>
-    <message>
-        <source>Importing Tracker Songs</source>
-        <translation type="obsolete">Импорт трэкерных песен</translation>
-    </message>
     <message>
         <source>Importing %1</source>
         <translation>Импортирую %1</translation>
@@ -285,14 +285,6 @@
     <message>
         <source>Imported %1 songs</source>
         <translation>Импортировано %1 песен</translation>
-    </message>
-    <message>
-        <source>No tracker songs found</source>
-        <translation type="obsolete">Песни в трэкерном формате не найдены</translation>
-    </message>
-    <message>
-        <source>Searching for tracker songs in %1...</source>
-        <translation type="obsolete">Поиск трэкерных песен для импорта в %1...</translation>
     </message>
     <message>
         <source>No songs found</source>
@@ -817,20 +809,12 @@
         <translation>Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
     </message>
     <message>
-        <source>Would you like to import local tracker songs?</source>
-        <translation type="obsolete">Вы хотите импортировать песни в трэкерном формате с телефона?</translation>
-    </message>
-    <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>Песен в каталоге: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Personal songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>Песен в телефоне: &lt;b&gt;%1&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Import My Tracker Songs</source>
-        <translation type="obsolete">Импортировать мои песни</translation>
     </message>
     <message>
         <source>Import My Songs</source>

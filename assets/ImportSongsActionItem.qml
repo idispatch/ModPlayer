@@ -12,7 +12,7 @@ ActionItem {
         SystemDialog {
             id: confirmImport
             title: qsTr("Confirm")
-            body: qsTr("Would you like to import local tracker songs?")
+            body: qsTr("Would you like to import local songs?")
             onFinished: {
                 if (result == SystemUiResult.ConfirmButtonSelection) {
                     app.player.importSongs()

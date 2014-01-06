@@ -268,7 +268,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Would you like to import local tracker songs?</source>
+        <source>Would you like to import local songs?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
