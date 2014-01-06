@@ -6,7 +6,7 @@ int InstanceCounter<NamedPlaylist>::s_count;
 template<>
 int InstanceCounter<NamedPlaylist>::s_maxCount;
 
-//#define DETAILED_LOGGING
+//#define VERBOSE_LOGGING
 
 NamedPlaylist::NamedPlaylist(int id,
                              QString const& name,
@@ -17,7 +17,7 @@ NamedPlaylist::NamedPlaylist(int id,
 }
 
 NamedPlaylist::~NamedPlaylist() {
-#ifdef DETAILED_LOGGING
+#ifdef VERBOSE_LOGGING
     qDebug() << "NamedPlaylist::~NamedPlaylist()";
 #endif
 }

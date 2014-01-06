@@ -5,6 +5,8 @@
 #include "FileUtils.hpp"
 #include "Analytics.hpp"
 
+//#define VERBOSE_LOGGING
+
 template<>
 int InstanceCounter<Cache>::s_count;
 template<>
@@ -38,7 +40,7 @@ void Cache::initCache() {
     {
         m_files.clear();
     }
-#ifdef DEBUG_CACHE
+#ifdef VERBOSE_LOGGING
     qDebug() << "Cache::initCache: files=" << files();
     if(!m_files.empty()) {
         qDebug() << "Cache::initCache: first file=" << m_files.first().absoluteFilePath();
@@ -151,7 +153,7 @@ void Cache::houseKeep() {
                              totalFiles > maxFiles()))
     {
         QFileInfo const& fileInfo = m_files.first();
-#ifdef DEBUG_CACHE
+#ifdef VERBOSE_LOGGING
         qDebug() << "Cache::houseKeep: removing " << fileInfo.fileName();
 #endif
         remove(fileInfo);
@@ -161,7 +163,7 @@ void Cache::houseKeep() {
 }
 
 void Cache::cache(QString const& fileName) {
-#ifdef DEBUG_CACHE
+#ifdef VERBOSE_LOGGING
     qDebug() << "Cache::cache: caching" << fileName;
 #endif
     QString file = absoluteFileName(fileName);
@@ -187,7 +189,7 @@ bool Cache::exists(QString const& fileName) {
         QString absoluteFilePath = absoluteFileName(fileName);
         QFileInfo fileInfo(absoluteFilePath);
         bExists = m_files.indexOf(fileInfo) != -1 && QFile::exists(absoluteFilePath);
-#if DEBUG_CACHE
+#if VERBOSE_LOGGING
     qDebug() << "Cache::exists:" << fileName << "(" << absoluteFilePath << ") =" << bExists;
 #endif
     }
@@ -200,7 +202,7 @@ void Cache::remove(QFileInfo const& fileInfo) {
 
 void Cache::remove(QString const& fileName) {
     if(exists(fileName)) {
-#ifdef DEBUG_CACHE
+#ifdef VERBOSE_LOGGING
         qDebug() << "Cache::remove: removing" << fileName;
 #endif
         QString absoluteFilePath = absoluteFileName(fileName);

@@ -531,7 +531,7 @@ void Playback::run() {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
                         QUrl url = QUrl::fromLocalFile(m_song.absoluteFileName());
-#if 1//def VERBOSE_LOGGING
+#if VERBOSE_LOGGING
                         qDebug() << "------ setSourceUrl:" << url;
 #endif
                         bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(url);

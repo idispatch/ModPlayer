@@ -19,9 +19,9 @@
 #include "InstanceCounter.hpp"
 
 #ifdef _DEBUG
-//#define DEBUG_CATALOG
+//#define VERBOSE_LOGGING
 #else
-#undef DEBUG_CATALOG
+#undef VERBOSE_LOGGING
 #endif
 
 namespace bb {

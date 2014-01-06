@@ -59,7 +59,7 @@ void Downloader::cancelAllPendingDownloads() {
     QList<int> pending = m_pendingDownloads.values();
     if(pending.size() > 0)
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Canceling" << pending.size() << "downloads";
 #endif
         QList<int>::const_iterator i;
@@ -89,14 +89,14 @@ void Downloader::download(int id) {
     {
         QString url = ModArchiveSite.arg(id);
         if(m_pendingDownloads.contains(url)) {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
             qDebug() << "Already downloading" << url;
 #endif
         }
         else
         {
             m_pendingDownloads.insert(url, id);
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
             qDebug() << "Starting downloading" << url;
 #endif
             QNetworkRequest request = QNetworkRequest(QUrl(url));
@@ -123,7 +123,7 @@ void Downloader::handleRedirect(QNetworkReply * reply) {
 
     if(!redirectURL.isEmpty() && redirectURL != originalURL)
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Redirected from" << originalURL << "to" << redirectURL;
 #endif
         int id = m_pendingDownloads.value(originalURL, InvalidModuleId);
@@ -161,13 +161,13 @@ void Downloader::onHttpFinished(QNetworkReply * reply) {
     int id = m_pendingDownloads.value(originalURL, InvalidModuleId);
     if(id != InvalidModuleId)
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Received reply for module" << id << "from" << originalURL;
 #endif
     }
     else
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Could not match download URL " << originalURL;
 #endif
         reply->deleteLater();
@@ -178,7 +178,7 @@ void Downloader::onHttpFinished(QNetworkReply * reply) {
     if (reply->error() == QNetworkReply::NoError)
     {
         QVariant statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "URL=" << reply->request().url();
         qDebug() << "HTTP status=" << statusCode;
 #endif
@@ -194,7 +194,7 @@ void Downloader::onHttpFinished(QNetworkReply * reply) {
     }
     else
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Could not download module" << id << "from" << originalURL;
 #endif
         m_pendingDownloads.remove(originalURL);
@@ -206,7 +206,7 @@ void Downloader::onHttpFinished(QNetworkReply * reply) {
 
 void Downloader::finishDownload(QNetworkReply * reply) {
     QUrl originalURL = reply->request().url();
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
     qDebug() << "Reading reply from" << originalURL << "(bytes=" << reply->size() << ")";
 #endif
     int id = InvalidModuleId;
@@ -218,7 +218,7 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     }
     else
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Could not match download URL " << originalURL;
 #endif
         reply->deleteLater();
@@ -236,24 +236,24 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     fileName = fileName.mid(pos);
 
     QString diskPath = QDir::tempPath() + fileName;
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
     qDebug() << "Saving file" << diskPath;
 #endif
     QFile file(diskPath);
     if(file.exists())
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "File" << diskPath << "already exists";
 #endif
         if(file.remove())
         {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
             qDebug() << "Deleted file" << diskPath;
 #endif
         }
         else
         {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
             qDebug() << "Failed to delete file" << diskPath;
 #endif
             emit downloadFailure(id);
@@ -264,7 +264,7 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     {
 
 
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qint64 writtenBytes = file.write(data);
         qDebug() << "Written bytes:" << writtenBytes;
 #else
@@ -275,7 +275,7 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     }
     else
     {
-#ifdef DEBUG_DOWNLOADER
+#ifdef VERBOSE_LOGGING
         qDebug() << "Could not open file" << file.fileName();
 #endif
         emit downloadFailure(id);

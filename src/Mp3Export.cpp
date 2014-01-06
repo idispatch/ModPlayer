@@ -7,8 +7,7 @@
 #include <QByteArray>
 #include <bb/system/SystemProgressDialog>
 
-//#define DETAILED_LOG
-#undef DETAILED_LOG
+//#define VERBOSE_LOGGING
 #undef WRITE_ID3V1_TAG
 
 using namespace bb::system;
@@ -53,11 +52,11 @@ bool Mp3Export::convert(PlaybackConfig &config,
                         QString const& inputFileName,
                         QString const& outputFileName) {
     bool result = false;
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
     qDebug() << "Starting converting" << inputFileName << "to" << outputFileName;
 #endif
     QString comment = QString("Created by ModPlayer from %1").arg(FileUtils::fileNameOnly(inputFileName));
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
     qDebug() << "Comment:" << comment;
 #endif
     QFile inputFile(inputFileName);
@@ -90,7 +89,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         return result;
     }
 
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
     qDebug() << "Read" << data.size() << "bytes from file" << inputFileName;
 #endif
 
@@ -100,7 +99,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         return result;
     }
 
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
     qDebug() << "Module" << inputFileName << " loaded successfully";
 #endif
 
@@ -122,7 +121,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Failed to initialize lame encoder";
             break;
         }
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
         qDebug() << "Lame encoder initialized successfully";
 #endif
         const int frequency = config.frequency();
@@ -130,7 +129,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
         const int sampleBitSize = config.sampleSize();
         const int numBytesPerSample = sampleBitSize >> 3;
         const int numChannels = (isStereo ? 2 : 1);
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
         qDebug().nospace()
                  << "Frequency: "
                  << frequency
@@ -186,7 +185,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
             qDebug() << "Failed to initialize lame encoder parameters";
             break;
         }
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
         qDebug().nospace()
                  << "Starting encoding, input buffer="
                  << mod_buffer.size()
@@ -198,11 +197,11 @@ bool Mp3Export::convert(PlaybackConfig &config,
             readBytes = ::ModPlug_Read(module,
                                        mod_buffer.data(),
                                        mod_buffer.size());
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
             qDebug() << "Read" << readBytes << "bytes";
 #endif
             if (readBytes == 0) {
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
                 qDebug() << "Flushing lame encoder";
 #endif
                 writeBytes = lame_encode_flush(lame,
@@ -284,7 +283,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
                 qDebug() << "Failed to flush";
                 break;
             }
-#ifdef DETAILED_LOG
+#ifdef VERBOSE_LOGGING
             qDebug() << "Wrote" << bytesWritten << "bytes";
 #endif
 

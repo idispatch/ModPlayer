@@ -253,7 +253,7 @@ GroupDataModel* Catalog::findAlbums() {
                                    model);
         model->insert(value);
     }
-#ifdef DEBUG_CATALOG
+#ifdef VERBOSE_LOGGING
     qDebug() << "Albums=" << model->size();
 #endif
     return model;
@@ -571,7 +571,7 @@ ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
     }
 
     QString const query = selectClause + whereClause + orderClause + limitClause;
-#ifdef DEBUG_CATALOG
+#ifdef VERBOSE_LOGGING
     qDebug() << "Search query:" << query;
 #endif
     ArrayDataModel * model = new ArrayDataModel();
@@ -709,6 +709,9 @@ void Catalog::clearPersonalSongs() {
     query = "DELETE FROM albums WHERE id IN (SELECT id FROM albums WHERE id NOT IN (SELECT albumId FROM albumEntries))";
     m_dataAccess->execute(query);
 
+    query = "DELETE FROM artists WHERE id IN (SELECT id FROM artists WHERE id NOT IN (SELECT artist FROM songs))";
+    m_dataAccess->execute(query);
+
     query = "DELETE FROM songs WHERE id < 0";
     m_dataAccess->execute(query);
 }
@@ -833,7 +836,7 @@ int Catalog::createPlaylist(QString const& name) {
     } else {
         return primaryKey; // error
     }
-#ifdef DEBUG_CATALOG
+#ifdef VERBOSE_LOGGING
     qDebug().nospace() << "Creating playlist (" << primaryKey << "," << name.trimmed() << ")";
     qDebug().space();
 #endif

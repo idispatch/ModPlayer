@@ -6,7 +6,7 @@ int InstanceCounter<Album>::s_count;
 template<>
 int InstanceCounter<Album>::s_maxCount;
 
-//#define DETAILED_LOGGING
+//#define VERBOSE_LOGGING
 
 Album::Album(int id,
              QString const& artistName,
@@ -19,7 +19,7 @@ Album::Album(int id,
 }
 
 Album::~Album() {
-#ifdef DETAILED_LOGGING
+#ifdef VERBOSE_LOGGING
     qDebug() << "Album::~Album()";
 #endif
 }
