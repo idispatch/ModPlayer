@@ -8,8 +8,8 @@
 
 #include <bb/data/SqlDataAccess>
 #include <bb/data/DataSource>
-#include <bb/system/SystemProgressDialog>
 
+#include "MessageBox.hpp"
 #include "SqlReader.hpp"
 #include "FileUtils.hpp"
 #include "CatalogMigration.hpp"
@@ -32,6 +32,9 @@ void Catalog::copyCatalogToDataFolder() {
     // Copy the initial catalog to the app sandbox
     if(!catalogFile.exists()) {
         qDebug() << "Personal catalog does not exist at" << catalogFile.fileName();
+
+        MessageBox message(tr("Initializing Catalog"),
+                           tr("Your song catalog is being initialized. Please wait."));
 
         QString appFolder(QDir::homePath());
         appFolder.chop(4);
@@ -67,6 +70,9 @@ void Catalog::copyCatalogToDataFolder() {
                 return;
             } else {
                 qDebug() << "Starting database migration from version" << data.version << "to version" << Catalog::Version;
+
+                MessageBox message(tr("Updating Catalog"),
+                                   tr("Your song catalog is being updated. Please wait."));
 
                 if(data.version >= 0) {
                     // All formats support play count, last played, my favourite
@@ -136,18 +142,16 @@ void Catalog::copyCatalogToDataFolder() {
         if(!data.empty()) {
             using namespace bb::system;
 
-            SystemProgressDialog progress(0);
-            progress.setModality(SystemUiModality::Application);
-            progress.setState(SystemUiProgressState::Active);
-            progress.setTitle(tr("Updating Catalog"));
-            progress.setBody(tr("Your song catalog is being updated. Please wait."));
-            progress.confirmButton()->setEnabled(false);
-            progress.setProgress(0);
-            progress.show();
+            MessageBox message(tr("Updating Catalog"),
+                               tr("Your song catalog is being updated. Please wait."));
 
             SqlDataAccess dataAccess(catalogPath(), "catalog");
             int totalProgress = data.totalUpdates();
             int currentProgress = 0;
+
+            if(totalProgress <= 0) {
+                totalProgress = 1;
+            }
 
             // Migrate schema version 1 data
             for(int i = 0; i < data.v1.songs.size(); ++i) {
@@ -158,8 +162,7 @@ void Catalog::copyCatalogToDataFolder() {
                        << data.v1.songs[i].myFavourite
                        << data.v1.songs[i].id;
                 dataAccess.execute(query, params);
-                progress.setProgress((++currentProgress) * 100 / totalProgress);
-                progress.show();
+                message.setProgress((++currentProgress) * 100 / totalProgress);
             }
 
             // Migrate schema version 2 data
@@ -169,8 +172,7 @@ void Catalog::copyCatalogToDataFolder() {
                 params << data.v2.playlists[i].id
                        << data.v2.playlists[i].name;
                 dataAccess.execute(query, params);
-                progress.setProgress((++currentProgress) * 100 / totalProgress);
-                progress.show();
+                message.setProgress((++currentProgress) * 100 / totalProgress);
             }
 
             for(int i = 0; i < data.v2.songs.size(); ++i) {
@@ -220,8 +222,7 @@ void Catalog::copyCatalogToDataFolder() {
                        << data.v2.songs[i].samples
                        << data.v2.songs[i].channels;
                 dataAccess.execute(query, params);
-                progress.setProgress((++currentProgress) * 100 / totalProgress);
-                progress.show();
+                message.setProgress((++currentProgress) * 100 / totalProgress);
             }
 
             for(int i = 0; i < data.v2.playlistEntries.size(); ++i) {
@@ -231,24 +232,20 @@ void Catalog::copyCatalogToDataFolder() {
                        << data.v2.playlistEntries[i].songId
                        << data.v2.playlistEntries[i].songOrder;
                 dataAccess.execute(query, params);
-                progress.setProgress((++currentProgress) * 100 / totalProgress);
-                progress.show();
+                message.setProgress((++currentProgress) * 100 / totalProgress);
             }
 
-            progress.setProgress(-1);
-            progress.setBody(tr("Optimizing catalog..."));
-            progress.show();
+            message.setProgress(-1);
+            message.setBody(tr("Optimizing catalog..."));
 
             dataAccess.execute("VACUUM");
 
-            progress.setProgress(100);
-            progress.show();
+            message.setProgress(100);
 
             qDebug() << "Migration completed successfully";
-
-            progress.setBody(tr("Your song catalog has been successfully updated."));
-            progress.confirmButton()->setEnabled(true);
-            progress.exec();
+#if 0
+            message.setBody(tr("Your song catalog has been successfully updated.")).enableButton(true).run();
+#endif
         } else {
             qDebug() << "No migration required";
         }

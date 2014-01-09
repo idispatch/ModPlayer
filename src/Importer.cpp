@@ -367,6 +367,7 @@ void Importer::destroyProgressUI() {
 
 void Importer::createProgressUI() {
     destroyProgressUI();
+    // TODO: refactor
     m_progress = new SystemProgressDialog(0);
     m_progress->setModality(SystemUiModality::Application);
     m_progress->setState(SystemUiProgressState::Active);

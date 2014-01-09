@@ -157,6 +157,7 @@ device {
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
+                 $$quote($$BASEDIR/src/MessageBox.hpp) \
                  $$quote($$BASEDIR/src/Mp3Export.hpp) \
                  $$quote($$BASEDIR/src/NamedPlaylist.hpp) \
                  $$quote($$BASEDIR/src/PatternView.hpp) \
@@ -413,6 +414,7 @@ device {
                  $$quote($$BASEDIR/src/ItemGroupBase.hpp) \
                  $$quote($$BASEDIR/src/LCDDigits.hpp) \
                  $$quote($$BASEDIR/src/LCDDisplay.hpp) \
+                 $$quote($$BASEDIR/src/MessageBox.hpp) \
                  $$quote($$BASEDIR/src/Mp3Export.hpp) \
                  $$quote($$BASEDIR/src/NamedPlaylist.hpp) \
                  $$quote($$BASEDIR/src/PatternView.hpp) \

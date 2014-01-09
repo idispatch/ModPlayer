@@ -34,6 +34,7 @@ void Mp3Export::destroyProgressUI() {
 
 void Mp3Export::createProgressUI(QString const& fileName) {
     destroyProgressUI();
+    // TODO: refactor
     m_progress = new SystemProgressDialog(0);
     m_progress->setModality(SystemUiModality::Application);
     m_progress->setState(SystemUiProgressState::Active);

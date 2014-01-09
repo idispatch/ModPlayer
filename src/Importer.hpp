@@ -9,6 +9,7 @@
 
 namespace bb {
     namespace system {
+        // TODO: refactor
         class SystemProgressDialog;
     }
 }

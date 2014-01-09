@@ -125,6 +125,14 @@
         <source>Optimizing catalog...</source>
         <translation>Оптимизирую каталог...</translation>
     </message>
+    <message>
+        <source>Initializing Catalog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your song catalog is being initialized. Please wait.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cover</name>
