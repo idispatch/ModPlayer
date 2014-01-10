@@ -622,7 +622,7 @@ void Player::playPrevious() {
 void Player::exportMp3(QString const& inputFileName,
                        QString const& outputFileName) {
     Analytics::getInstance()->exportMp3(inputFileName, outputFileName);
-    SuspendPlayback suspender(playback());
+    m_playBackSuspend.reset(new SuspendPlayback(playback()));
     Mp3Export exporter;
     exporter.convert(*m_playback->configuration(),
                      inputFileName,

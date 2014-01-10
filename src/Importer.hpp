@@ -24,10 +24,10 @@ public:
              Catalog * catalog,
              QObject * parent = 0);
     ~Importer();
-    Q_SLOT void start();
-    int numImportedSongs() const;
 public:
+    Q_SLOT void start();
     Q_SIGNAL void searchCompleted();
+    int numImportedSongs() const;
 private:
     Q_SLOT void onFoundFile(QString const& fileName);
     Q_SLOT void onSearchCompleted();
