@@ -303,7 +303,7 @@
     <name>Importer</name>
     <message>
         <source>Importing %1</source>
-        <translation>Импортирую %1</translation>
+        <translation type="unfinished">Импортирую %1</translation>
     </message>
     <message>
         <source>Imported %1 songs</source>
@@ -315,7 +315,7 @@
     </message>
     <message>
         <source>Searching for songs in %1...</source>
-        <translation>Поиск песен в %1...</translation>
+        <translation type="unfinished">Поиск песен в %1...</translation>
     </message>
     <message>
         <source>Importing Songs</source>

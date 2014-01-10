@@ -16,6 +16,8 @@ class Unpacker;
 class SongModule;
 class Playback;
 class Playlist;
+class Importer;
+class SuspendPlayback;
 
 namespace bb {
     namespace multimedia {
@@ -123,6 +125,9 @@ private slots:
     /* For Playlist */
     void onPlaylistNextAvailableChanged();
     void onPlaylistPreviousAvailableChanged();
+
+    /* For Importer */
+    void onImportSongsCompleted();
 protected:
     void timerEvent(QTimerEvent *event);
 private:
@@ -155,6 +160,8 @@ private:
     Unpacker * m_unpacker;
     Playback * m_playback;
     Playlist * m_playlist;
+    Importer * m_importer;
+    std::auto_ptr<SuspendPlayback> m_playBackSuspend;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
 };
 

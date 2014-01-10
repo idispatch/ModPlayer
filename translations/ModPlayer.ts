@@ -310,7 +310,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Searching for songs in %1...</source>
+        <source>Importing Songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -318,7 +318,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Importing Songs</source>
+        <source>Searching for songs in %1...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

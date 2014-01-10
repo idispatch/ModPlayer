@@ -36,6 +36,7 @@ Player::Player(QSettings &settings, QObject * parent)
       m_unpacker(new Unpacker(this)),
       m_playback(new Playback(settings, this)),
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
+      m_importer(NULL),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
                       << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.MP3" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
@@ -630,12 +631,24 @@ void Player::exportMp3(QString const& inputFileName,
 
 void Player::importSongs() {
     Analytics::getInstance()->importSongs(true);
-    SuspendPlayback suspender(playback());
-    try {
-        Importer importer(m_fileNameFilters, catalog());
-        importer.import();
-    } catch(...) {
+    m_playBackSuspend.reset(new SuspendPlayback(playback()));
+    if(m_importer != NULL) {
+        delete m_importer;
+        m_importer = NULL;
     }
+    m_importer = new Importer(m_fileNameFilters, catalog(), NULL);
+    bool rc;
+    Q_UNUSED(rc);
+    rc = QObject::connect(m_importer, SIGNAL(searchCompleted()),
+                          this,       SLOT(onImportSongsCompleted()));
+    Q_ASSERT(rc);
+    m_importer->start();
+}
+
+void Player::onImportSongsCompleted() {
+    m_importer->deleteLater();
+    m_importer = NULL;
     Analytics::getInstance()->importSongs(false);
+    m_playBackSuspend.reset();
 }
 

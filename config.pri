@@ -20,6 +20,7 @@ device {
                  $$quote($$BASEDIR/src/CatalogAsync.cpp) \
                  $$quote($$BASEDIR/src/CatalogInit.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/FileSelector.cpp) \
                  $$quote($$BASEDIR/src/FileUtils.cpp) \
                  $$quote($$BASEDIR/src/Importer.cpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.cpp) \
@@ -150,6 +151,7 @@ device {
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/CatalogMigration.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/FileSelector.hpp) \
                  $$quote($$BASEDIR/src/FileUtils.hpp) \
                  $$quote($$BASEDIR/src/Flurry/Flurry.h) \
                  $$quote($$BASEDIR/src/Importer.hpp) \
@@ -277,6 +279,7 @@ device {
                  $$quote($$BASEDIR/src/CatalogAsync.cpp) \
                  $$quote($$BASEDIR/src/CatalogInit.cpp) \
                  $$quote($$BASEDIR/src/Downloader.cpp) \
+                 $$quote($$BASEDIR/src/FileSelector.cpp) \
                  $$quote($$BASEDIR/src/FileUtils.cpp) \
                  $$quote($$BASEDIR/src/Importer.cpp) \
                  $$quote($$BASEDIR/src/ItemGroupBase.cpp) \
@@ -407,6 +410,7 @@ device {
                  $$quote($$BASEDIR/src/Catalog.hpp) \
                  $$quote($$BASEDIR/src/CatalogMigration.hpp) \
                  $$quote($$BASEDIR/src/Downloader.hpp) \
+                 $$quote($$BASEDIR/src/FileSelector.hpp) \
                  $$quote($$BASEDIR/src/FileUtils.hpp) \
                  $$quote($$BASEDIR/src/Flurry/Flurry.h) \
                  $$quote($$BASEDIR/src/Importer.hpp) \

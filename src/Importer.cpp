@@ -1,21 +1,12 @@
-#include "modplug/modplug.h"
-#include <dirent.h>
-#include <fnmatch.h>
-#include <errno.h>
 #include "Importer.hpp"
 #include "FileUtils.hpp"
+#include "FileSelector.hpp"
 #include "Analytics.hpp"
 #include "SongExtendedInfo.hpp"
 #include "SongFormat.hpp"
 #include "Catalog.hpp"
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QFileInfoList>
-#include <QDebug>
-#include <QStack>
 #include <QByteArray>
-#include <bb/system/SystemProgressDialog>
+#include "modplug/modplug.h"
 #include "libid3tag/id3_id3tag.h"
 #include "libid3tag/id3_utf8.h"
 #include <fcntl.h>
@@ -30,18 +21,18 @@
 
 using namespace bb::system;
 
+
 Importer::Importer(QStringList const& filters,
                    Catalog * catalog,
                    QObject * parent)
     : QObject(parent),
-      m_catalog(catalog),
-      m_progress(NULL),
       m_filters(filters),
+      m_catalog(catalog),
+      m_messageBox(tr("Importing Songs"), ""),
       m_numImportedSongs(0) {
 }
 
 Importer::~Importer() {
-    destroyProgressUI();
 #ifdef VERBOSE_LOGGING
     qDebug() << "Importer::~Importer()";
 #endif
@@ -56,104 +47,51 @@ void Importer::clean() {
     m_catalog->clearPersonalSongs();
 }
 
-int Importer::import()
-{
+void Importer::start() {
     m_numImportedSongs = 0;
 
     clean();
-    createProgressUI();
-#ifdef REDUCED_SEARCH_SCOPE
-    static const char * locations[] = {
-        "removable/sdcard/music/Dimitri from Paris"
-    };
-#else
-    static const char * locations[] = {
-        "shared/documents",
-        "shared/downloads",
-        "shared/music",
-        "shared/Box",
-        "shared/Dropbox",
-        "removable/sdcard"
-    };
-#endif
-    for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
-        const char * location = locations[i];
-        QString path = FileUtils::joinPath("/accounts/1000", location);
-        scanDirectory(QDir(path));
-    }
+    FileSelector * selector = new FileSelector(m_filters);
 
-    if(m_numImportedSongs == 0) {
-        updateProgressUI(tr("No songs found"), 100);
-    } else {
-        updateProgressUI(QString(tr("Imported %1 songs")).arg(m_numImportedSongs), 100);
-    }
+    bool rc;
+    Q_UNUSED(rc);
+    rc = QObject::connect(selector, SIGNAL(foundFile(QString const&)),
+                          this,     SLOT(onFoundFile(QString const&)),
+                          Qt::QueuedConnection);
+    Q_ASSERT(rc);
+    rc = QObject::connect(selector, SIGNAL(searchingDirectory(QString const&)),
+                          this,     SLOT(onSearchingDirectory(QString const&)),
+                          Qt::QueuedConnection);
+    Q_ASSERT(rc);
+    rc = QObject::connect(selector, SIGNAL(done()),
+                          this,     SLOT(onSearchCompleted()),
+                          Qt::QueuedConnection);
+    Q_ASSERT(rc);
 
-    Analytics::getInstance()->importedSongCount(m_numImportedSongs);
-
-    completeProgressUI();
-    return m_numImportedSongs;
+    selector->start();
 }
 
-int Importer::scanDirectory(QDir const& root)
-{
-    QStack<QString> stack;
-    stack.push(root.absolutePath());
-    while(!stack.isEmpty()) {
-        QString directoryPath = stack.pop();
-        QString locationDisplay = directoryPath;
-        locationDisplay.remove(0, 15);
-        QString progressMessage = QString(tr("Searching for songs in %1...")).arg(locationDisplay);
-        updateProgressUI(progressMessage, INDEFINITE);
+void Importer::onSearchCompleted() {
+    if(m_numImportedSongs == 0) {
+        m_messageBox.setBody(tr("No songs found")).setProgress(100);
+    } else {
+        m_messageBox.setBody(QString(tr("Imported %1 songs")).arg(m_numImportedSongs)).setProgress(100);
+    }
+    Analytics::getInstance()->importedSongCount(m_numImportedSongs);
+    m_messageBox.run();
+    emit searchCompleted();
+}
 
-        QDir directory(directoryPath);
-#if 0
-        // This does not work because file system uses 64 bit inodes
-        QStringList entries = directory.entryList(m_filters,
-                                                  QDir::Files | QDir::Readable | QDir::CaseSensitive,
-                                                  QDir::NoSort);
-#endif
-        QStringList entries;
-        DIR *dirp;
-        if ((dirp = ::opendir(directoryPath.toUtf8().constData())) != NULL) {
-            struct dirent64 *dp;
-            do {
-                if ((dp = ::readdir64(dirp)) != NULL) {
-                    if(dp->d_name[0] == '.' && (dp->d_name[1] == '\0' || (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))) {
-                        continue;
-                    }
+void Importer::onSearchingDirectory(QString const& location) {
+    m_messageBox.setBody(QString(tr("Searching for songs in %1...")).arg(location));
+}
 
-                    QString absoluteFileName = FileUtils::joinPath(directoryPath, QString::fromUtf8(dp->d_name));
-                    struct stat64 st;
-                    if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
-                        if(st.st_mode & S_IFDIR) {
-                            stack.push(absoluteFileName);
-                        } else {
-                            if(st.st_mode & S_IFREG) {
-                                foreach(QString const& filter, m_filters) {
-                                    if(::fnmatch(filter.toStdString().c_str(), dp->d_name, 0) == 0) {
-                                        entries << absoluteFileName;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } while (dp != NULL);
-            ::closedir(dirp);
-        }
-#ifdef VERBOSE_LOGGING
-        qDebug() << "Files:" << entries;
-#endif
-        for(int i = 0; i < entries.size(); ++i) {
-            if(entries[i].endsWith(".mp3", Qt::CaseInsensitive)) {
-                importMp3File(entries[i]);
-            } else {
-                importTrackerSong(entries[i]);
-            }
-        }
-   }
-   return m_numImportedSongs;
+void Importer::onFoundFile(QString const& fileName) {
+    if(FileSelector::isMp3(fileName)) {
+        importMp3File(fileName);
+    } else {
+        importTrackerSong(fileName);
+    }
 }
 
 QString Importer::getMp3Attribute(void const * tag, const char * attributeName) {
@@ -186,8 +124,7 @@ bool Importer::importMp3File(QString const& fileName) {
     qDebug() << "Importing" << fileName;
 #endif
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
-    QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
-    updateProgressUI(progressMessage, INDEFINITE);
+    m_messageBox.setBody(QString(tr("Importing %1")).arg(fileNameOnly));
 
     ::id3_file * mp3file = ::id3_file_open(fileName.toUtf8().constData(), ID3_FILE_MODE_READONLY);
     if(mp3file == NULL) {
@@ -299,8 +236,7 @@ bool Importer::importMp3File(QString const& fileName) {
 bool Importer::importTrackerSong(QString const& fileName)
 {
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
-    QString progressMessage = QString(tr("Importing %1")).arg(fileNameOnly);
-    updateProgressUI(progressMessage, INDEFINITE);
+    m_messageBox.setBody(QString(tr("Importing %1")).arg(fileNameOnly));
 
     QFile inputFile(fileName);
     if(!inputFile.exists()) {
@@ -355,44 +291,6 @@ bool Importer::importTrackerSong(QString const& fileName)
 
     m_catalog->addPersonalSong(info);
     return true;
-}
-
-void Importer::destroyProgressUI() {
-    if(m_progress != NULL) {
-        m_progress->cancel();
-        delete m_progress;
-        m_progress = NULL;
-    }
-}
-
-void Importer::createProgressUI() {
-    destroyProgressUI();
-    // TODO: refactor
-    m_progress = new SystemProgressDialog(0);
-    m_progress->setModality(SystemUiModality::Application);
-    m_progress->setState(SystemUiProgressState::Active);
-    m_progress->setTitle(tr("Importing Songs"));
-    m_progress->confirmButton()->setEnabled(false);
-    m_progress->setProgress(INDEFINITE);
-    m_progress->show();
-}
-
-void Importer::completeProgressUI() {
-    if(m_progress) {
-        m_progress->confirmButton()->setEnabled(true);
-        m_progress->exec();
-    }
-}
-
-void Importer::updateProgressUI(QString const& body, int progress) {
-#ifdef VERBOSE_LOGGING
-    qDebug() << body;
-#endif
-    if(m_progress) {
-        m_progress->setBody(body);
-        m_progress->setProgress(progress);
-        m_progress->show();
-    }
 }
 
 int Importer::calculateMp3Duration(char const *path,
