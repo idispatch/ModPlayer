@@ -849,7 +849,7 @@
     </message>
     <message>
         <source>Master Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Громкость</translation>
     </message>
 </context>
 <context>
