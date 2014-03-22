@@ -421,6 +421,27 @@ Sheet {
                         leftPadding: 20
                         rightPadding: leftPadding
                         Label {
+                            text: qsTr("Master Volume")
+                            textStyle {
+                                fontSize: FontSize.Large
+                                color: Color.Black
+                            }
+                        }
+                        VerticalContainer {
+                            leftPadding: groupSettingIndent
+                            rightPadding: leftPadding
+                            Slider {
+                                id: masterVolume
+                                fromValue: 1
+                                toValue: 512
+                                value: settingsRoot.configuration.masterVolume
+                                onValueChanged: {
+                                    app.player.playback.currentSong.masterVolume = masterVolume.value
+                                    settingsRoot.configuration.masterVolume = masterVolume.value
+                                }
+                            }
+                        }
+                        Label {
                             text: qsTr("Stereo Separation")
                             textStyle {
                                 fontSize: FontSize.Large

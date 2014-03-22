@@ -18,7 +18,7 @@ SongModule::SongModule(QObject *parent) :
     m_currentRow(0),
     m_currentSpeed(0),
     m_currentTempo(0),
-    m_masterVolume(0),
+    m_masterVolume(256),
     m_playingChannels(0),
     m_modPlug(NULL) {
     memset(&m_channelVU[0], 0, sizeof(m_channelVU));
@@ -163,6 +163,9 @@ int SongModule::masterVolume() const {
 void SongModule::setMasterVolume(int value) {
     if (m_masterVolume != value) {
         m_masterVolume = value;
+        if (m_modPlug != NULL) {
+            ::ModPlug_SetMasterVolume(m_modPlug, m_masterVolume);
+        }
         emit masterVolumeChanged();
     }
 }

@@ -56,8 +56,7 @@ void Downloader::openNetworkConfiguration()
 }
 
 bool Downloader::isNetworkAvailable() const {
-    QNetworkConfigurationManager mgr;
-    QList<QNetworkConfiguration> active = mgr.allConfigurations(QNetworkConfiguration::Active);
+    QList<QNetworkConfiguration> active = QNetworkConfigurationManager().allConfigurations(QNetworkConfiguration::Active);
     return active.count();
 }
 

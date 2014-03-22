@@ -15,6 +15,7 @@ class PlaybackConfig : public QObject,
     Q_PROPERTY(int sampleSize READ sampleSize WRITE setSampleSize NOTIFY sampleSizeChanged FINAL)
 
     Q_PROPERTY(int resamplingMode READ resamplingMode WRITE setResamplingMode NOTIFY resamplingModeChanged FINAL)
+    Q_PROPERTY(int masterVolume READ masterVolume WRITE setMasterVolume NOTIFY masterVolumeChanged FINAL)
     Q_PROPERTY(int stereoSeparation READ stereoSeparation WRITE setStereoSeparation NOTIFY stereoSeparationChanged FINAL)
     Q_PROPERTY(int maximumMixingChannels READ maximumMixingChannels WRITE setMaximumMixingChannels NOTIFY maximumMixingChannelsChanged FINAL)
 
@@ -50,6 +51,9 @@ public:
 
     int resamplingMode() const;
     void setResamplingMode(int);
+
+    int masterVolume() const;
+    void setMasterVolume(int);
 
     int stereoSeparation() const;
     void setStereoSeparation(int);
@@ -98,6 +102,7 @@ Q_SIGNALS:
     void sampleSizeChanged();
 
     void resamplingModeChanged();
+    void masterVolumeChanged();
     void stereoSeparationChanged();
     void maximumMixingChannelsChanged();
 
@@ -122,6 +127,7 @@ private:
     int m_sampleSize;
 
     int m_resamplingMode;
+    int m_masterVolume;
     int m_stereoSeparation;
     int m_maximumMixingChannels;
 

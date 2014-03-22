@@ -847,6 +847,10 @@
         <source>Would you like to import local songs?</source>
         <translation>Вы хотите импортировать песни с телефона?</translation>
     </message>
+    <message>
+        <source>Master Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongArtistInfo</name>

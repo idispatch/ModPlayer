@@ -137,9 +137,7 @@ unsigned int ModPlug_GetMasterVolume(ModPlugFile* file)
 
 void ModPlug_SetMasterVolume(ModPlugFile* file,unsigned int cvol)
 {
-	(void)file->mSoundFile.SetMasterVolume( (UINT)cvol,
-						FALSE );
-	return ;
+	file->mSoundFile.SetMasterVolume((UINT)cvol, TRUE);
 }
 
 int ModPlug_GetCurrentSpeed(ModPlugFile* file)
@@ -279,8 +277,9 @@ void ModPlug_Seek(ModPlugFile* file, int millisecond)
 	int maxtime = file->mSoundFile.GetSongTime() * 1000;
 	float postime;
 
-	if(millisecond > maxtime)
+	if(millisecond > maxtime) {
 		millisecond = maxtime;
+	}
 	maxpos = file->mSoundFile.GetMaxPosition();
 	postime = (float)maxpos / (float)maxtime;
 
@@ -295,5 +294,5 @@ void ModPlug_GetSettings(ModPlug_Settings* settings)
 void ModPlug_SetSettings(const ModPlug_Settings* settings)
 {
 	memcpy(&ModPlug::gSettings, settings, sizeof(ModPlug_Settings));
-	ModPlug::UpdateSettings(false); // do not update basic config.
+	ModPlug::UpdateSettings(false); // do not update basic configuration
 }

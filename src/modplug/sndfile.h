@@ -685,7 +685,7 @@ public:
     void GetChannelVUs(UINT firstChannel, UINT lastChannel, DWORD *result) const;
     void MuteChannel(UINT channel, bool mute);
     BOOL IsChannelMuted(UINT channel) const;
-    BOOL SetMasterVolume(UINT vol, BOOL bAdjustAGC=FALSE);
+    BOOL SetMasterVolume(UINT vol, BOOL bAdjustAGC);
     UINT GetMasterVolume() const { return m_nMasterVolume; }
     UINT GetNumOrders() const;
     UINT GetNumPatterns() const;

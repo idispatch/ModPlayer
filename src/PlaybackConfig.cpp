@@ -12,6 +12,7 @@ PlaybackConfig::PlaybackConfig(QObject *parent)
       m_frequency(44100),
       m_sampleSize(16),
       m_resamplingMode(3),
+      m_masterVolume(256),
       m_stereoSeparation(128),
       m_maximumMixingChannels(128),
       m_reverbEnabled(true),
@@ -105,8 +106,9 @@ int PlaybackConfig::frequency() const {
 }
 
 void PlaybackConfig::setFrequency(int value) {
-    if(!(value == 11025 || value == 22050 || value == 44100))
+    if(!(value == 11025 || value == 22050 || value == 44100)) {
         return;
+    }
     if(m_frequency != value) {
         m_frequency = value;
         // Not applying immediately
@@ -119,8 +121,9 @@ int PlaybackConfig::sampleSize() const {
 }
 
 void PlaybackConfig::setSampleSize(int value) {
-    if(!(value == 8 || value == 16 || value == 32))
+    if(!(value == 8 || value == 16 || value == 32)) {
         return;
+    }
     if(m_sampleSize != value) {
         m_sampleSize = value;
         // Not applying immediately
@@ -133,8 +136,9 @@ int PlaybackConfig::resamplingMode() const {
 }
 
 void PlaybackConfig::setResamplingMode(int value) {
-    if(value < 0 || value > 3)
+    if(value < 0 || value > 3) {
         return;
+    }
     if(m_resamplingMode != value) {
         m_resamplingMode = value;
 
@@ -147,13 +151,34 @@ void PlaybackConfig::setResamplingMode(int value) {
     }
 }
 
+int PlaybackConfig::masterVolume() const {
+    return m_masterVolume;
+}
+
+void PlaybackConfig::setMasterVolume(int value) {
+    if(value < 1) {
+        value = 1;
+    }
+    if(value > 512) {
+        value = 512;
+    }
+    if(m_masterVolume != value) {
+        m_masterVolume = value;
+        emit masterVolumeChanged();
+    }
+}
+
 int PlaybackConfig::stereoSeparation() const {
     return m_stereoSeparation;
 }
 
 void PlaybackConfig::setStereoSeparation(int value) {
-    if(value < 1) value = 1;
-    if(value > 256) value = 256;
+    if(value < 1) {
+        value = 1;
+    }
+    if(value > 256) {
+        value = 256;
+    }
     if(m_stereoSeparation != value) {
         m_stereoSeparation = value;
 
@@ -171,8 +196,12 @@ int PlaybackConfig::maximumMixingChannels() const {
 }
 
 void PlaybackConfig::setMaximumMixingChannels(int value) {
-    if(value < 32) value = 32;
-    if(value > 256) value = 256;
+    if(value < 32) {
+        value = 32;
+    }
+    if(value > 256) {
+        value = 256;
+    }
     if(m_maximumMixingChannels != value) {
         m_maximumMixingChannels = value;
 
@@ -230,8 +259,12 @@ int PlaybackConfig::reverbDelay() const {
 }
 
 void PlaybackConfig::setReverbDelay(int value) {
-    if(value < 0) value = 0;
-    if(value > 400) value = 400;
+    if(value < 0) {
+        value = 0;
+    }
+    if(value > 400) {
+        value = 400;
+    }
     if(m_reverbDelay != value) {
         m_reverbDelay = value;
 
@@ -270,8 +303,12 @@ int PlaybackConfig::bassLevel() const {
 }
 
 void PlaybackConfig::setBassLevel(int value) {
-    if(value < 0) value = 0;
-    if(value > 100) value = 100;
+    if(value < 0) {
+        value = 0;
+    }
+    if(value > 100) {
+        value = 100;
+    }
     if(m_bassLevel != value) {
         m_bassLevel = value;
 
@@ -289,8 +326,12 @@ int PlaybackConfig::bassCutOff() const {
 }
 
 void PlaybackConfig::setBassCutOff(int value) {
-    if(value < 10) value = 10;
-    if(value > 100) value = 100;
+    if(value < 10) {
+        value = 10;
+    }
+    if(value > 100) {
+        value = 100;
+    }
     if(m_bassCutoff != value) {
         m_bassCutoff = value;
 
@@ -328,8 +369,12 @@ int PlaybackConfig::surroundLevel() const {
 }
 
 void PlaybackConfig::setSurroundLevel(int value) {
-    if(value < 0) value = 0;
-    if(value > 100) value = 100;
+    if(value < 0) {
+        value = 0;
+    }
+    if(value > 100) {
+        value = 100;
+    }
     if(m_surroundLevel != value) {
         m_surroundLevel = value;
 
@@ -347,8 +392,12 @@ int PlaybackConfig::surroundDelay() const {
 }
 
 void PlaybackConfig::setSurroundDelay(int value) {
-    if(value < 5) value = 5;
-    if(value > 100) value = 100;
+    if(value < 5) {
+        value = 5;
+    }
+    if(value > 100) {
+        value = 100;
+    }
     if(m_surroundDelay != value) {
         m_surroundDelay = value;
 
@@ -409,6 +458,7 @@ QDebug operator << (QDebug dbg, PlaybackConfig const & config) {
             << ", sampleSize=" << config.sampleSize()
             << ", frequency=" << config.frequency()
             << ", resampling=" << config.resamplingMode()
+            << ", masterVolume=" << config.masterVolume()
             << ", stereoSeparation=" << config.stereoSeparation()
             << ", maximumChannels=" << config.maximumMixingChannels()
             << ", oversampling=" << config.oversamplingEnabled()

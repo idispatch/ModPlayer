@@ -120,6 +120,7 @@ void Playback::loadSettings() {
     m_config.setFrequency(m_settings.value("frequency", 44100).toInt());
 
     m_config.setResamplingMode(m_settings.value("resamplingMode", 3).toInt());
+    m_config.setMasterVolume(m_settings.value("masterVolume", 256).toInt());
     m_config.setStereoSeparation(m_settings.value("stereoSeparation", 128).toInt());
     m_config.setMaximumMixingChannels(m_settings.value("mixingChannels", 128).toInt());
 
@@ -151,6 +152,7 @@ void Playback::saveSettings() {
     m_settings.setValue("frequency", m_config.frequency());
 
     m_settings.setValue("resamplingMode", m_config.resamplingMode());
+    m_settings.setValue("masterVolume", m_config.masterVolume());
     m_settings.setValue("stereoSeparation", m_config.stereoSeparation());
     m_settings.setValue("mixingChannels", m_config.maximumMixingChannels());
 
@@ -344,7 +346,7 @@ void Playback::configureAudio() {
 #endif
     }
 
-    ModPlug_Settings settings;
+    ::ModPlug_Settings settings;
     memset(&settings, 0, sizeof(settings));
 
     settings.mFlags = 0;
@@ -384,6 +386,8 @@ void Playback::configureAudio() {
     settings.mLoopCount = 0;
 
     ::ModPlug_SetSettings(&settings);
+
+    m_song.setMasterVolume(m_config.masterVolume());
 
     if(fileName.length() > 0) {
 #ifdef VERBOSE_LOGGING
@@ -475,6 +479,9 @@ void Playback::run() {
                     m_mediaPlayer->stop();
                 }
                 if(m_song.load(m_pendingSong, m_pendingFileName) == true) {
+                    if(m_song.isTrackerSong()) {
+                        m_song.setMasterVolume(m_config.masterVolume());
+                    }
                     m_state = Loaded;
                 } else {
                     m_state = Idle;
