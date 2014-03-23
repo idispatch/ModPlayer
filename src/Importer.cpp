@@ -15,7 +15,6 @@
 
 #ifdef _DEBUG
 //#define VERBOSE_LOGGING
-//#define REDUCED_SEARCH_SCOPE
 #else
 #endif
 
@@ -80,6 +79,7 @@ void Importer::onSearchCompleted() {
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
     m_messageBox.run();
     emit searchCompleted();
+    sender()->deleteLater();
 }
 
 void Importer::onSearchingDirectory(QString const& location) {

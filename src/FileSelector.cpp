@@ -59,11 +59,6 @@ void FileSelector::start() {
 }
 
 void FileSelector::selectFiles() {
-#ifdef REDUCED_SEARCH_SCOPE
-    static const char * locations[] = {
-        "removable/sdcard/music/Dimitri from Paris"
-    };
-#else
     static const char * locations[] = {
         "/accounts/1000/shared/documents",
         "/accounts/1000/shared/downloads",
@@ -72,7 +67,6 @@ void FileSelector::selectFiles() {
         "/accounts/1000/shared/Dropbox",
         "/accounts/1000/removable/sdcard"
     };
-#endif
     for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
         scanDirectory(locations[i]);
     }
@@ -112,7 +106,9 @@ void FileSelector::scanDirectory(const char * path) {
                             stack.push(absoluteFileName);
                         } else {
                             if(st.st_mode & S_IFREG) {
-                                emit foundFile(absoluteFileName);
+                                if(fileMatches(absoluteFileName)) {
+                                    emit foundFile(absoluteFileName);
+                                }
                             }
                         }
                     }
