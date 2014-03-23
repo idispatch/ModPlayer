@@ -44,6 +44,7 @@ Page {
                         visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && app.player.state == Player.Playing
                         song: app.player.currentSong
                     }
+                    PlaybackSettings {}
                     Slider {
                         id: songProgress
                         visible: app.player.currentSong.songLoaded
