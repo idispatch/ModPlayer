@@ -5,6 +5,7 @@ import player 1.0
 HorizontalContainer {
     visible: app.player.currentSong.songLoaded
     horizontalAlignment: HorizontalAlignment.Center
+    topPadding: 20
     ImageView {
         verticalAlignment: VerticalAlignment.Center
         scalingMethod: ScalingMethod.Fill
