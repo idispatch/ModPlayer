@@ -28,6 +28,7 @@ Page {
                 SongPersonalInfo {
                     song: songView.song
                 }
+                
                 SongPublicInfo {
                     song: songView.song
                     visible: songView.song && songView.song.isTrackerSong && songView.song.id > 0
@@ -36,6 +37,7 @@ Page {
                     song: songView.song
                     visible: songView.song && songView.song.isTrackerSong
                 }
+                Animation {}
             }
         }
     }

@@ -3,7 +3,7 @@ import bb.system 1.0
 import player 1.0
 
 HorizontalContainer {
-    visible: app.player.currentSong.songLoaded
+    visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
     horizontalAlignment: HorizontalAlignment.Center
     topPadding: 20
     ImageView {

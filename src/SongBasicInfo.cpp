@@ -84,8 +84,12 @@ QString SongBasicInfo::fileName() const {
 
 void SongBasicInfo::setFileName(const QString &value) {
     if(m_fileName != value) {
+        bool wasTrackerSong = isTrackerSong();
         m_fileName = value;
         emit fileNameChanged();
+        if(wasTrackerSong != isTrackerSong()) {
+            emit isTrackerSongChanged();
+        }
     }
 }
 

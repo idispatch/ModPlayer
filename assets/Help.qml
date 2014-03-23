@@ -34,6 +34,8 @@ Sheet {
                 topPadding: 20
                 bottomPadding: 20
 
+                Animation {}
+
                 Label {
                     multiline: true
                     textFormat: TextFormat.Html

@@ -56,6 +56,7 @@ Sheet {
                                 color: Color.Black
                             }
                         }
+                        Animation {}
                         BlackLabel {
                             text: qsTr("Version: <b>%1</b>").arg(app.version)
                             textFormat: TextFormat.Html

@@ -596,6 +596,9 @@ lupdate_inclusion {
              $$quote($$BASEDIR/../assets/images/actions/*.qml) \
              $$quote($$BASEDIR/../assets/images/actions/*.js) \
              $$quote($$BASEDIR/../assets/images/actions/*.qs) \
+             $$quote($$BASEDIR/../assets/images/animation/*.qml) \
+             $$quote($$BASEDIR/../assets/images/animation/*.js) \
+             $$quote($$BASEDIR/../assets/images/animation/*.qs) \
              $$quote($$BASEDIR/../assets/images/backgrounds/*.qml) \
              $$quote($$BASEDIR/../assets/images/backgrounds/*.js) \
              $$quote($$BASEDIR/../assets/images/backgrounds/*.qs) \
