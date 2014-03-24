@@ -18,10 +18,10 @@ public Q_SLOTS:
 signals:
     void urlChanged();
 private Q_SLOTS:
-    void imageLoaded();
+    void imageLoaded(QNetworkReply* reply);
 private:
     QNetworkAccessManager * m_netManager;
-    QUrl m_Url;
+    QUrl m_url;
 };
 
 Q_DECLARE_METATYPE(WebImageView*);
