@@ -9,7 +9,7 @@ TGroupContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         SongArtistIcon {
             song: songArtistInfo.song
-            rightMargin: 10
+            rightMargin: 15
         }
         VerticalContainer {
             layoutProperties: StackLayoutProperties {

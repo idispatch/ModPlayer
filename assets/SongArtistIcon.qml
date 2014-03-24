@@ -3,7 +3,8 @@ import player 1.0
 
 WebImageView {
     property variant song
-    url: "http://modarchive.org/data/image-member.php?id=%1".arg(song.artistId)
+    visible: song && song.artistId > 0
+    url: song ? "http://modarchive.org/data/image-member.php?id=%1".arg(song.artistId) : ""
     verticalAlignment: VerticalAlignment.Center
     scalingMethod: ScalingMethod.Fill
     loadEffect: ImageViewLoadEffect.FadeZoom
