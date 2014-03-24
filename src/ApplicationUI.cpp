@@ -35,6 +35,7 @@
 #include "Playlist.hpp"
 #include "NamedPlaylist.hpp"
 #include "Album.hpp"
+#include "WebImageView.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -173,6 +174,7 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<PatternView*>();
     qRegisterMetaType<VUMeter*>();
 
+    qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");
     qmlRegisterType<LCDDigits>(QmlNamespace, versionMajor, versionMinor, "LCDDigits");
     qmlRegisterType<VUMeter>(QmlNamespace, versionMajor, versionMinor, "VUMeter");

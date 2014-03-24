@@ -77,6 +77,7 @@ void Importer::onSearchCompleted() {
         m_messageBox.setBody(QString(tr("Imported %1 songs")).arg(m_numImportedSongs)).setProgress(100);
     }
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
+    m_messageBox.enableButton(true);
     m_messageBox.run();
     emit searchCompleted();
 }

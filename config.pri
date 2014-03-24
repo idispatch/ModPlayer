@@ -42,6 +42,7 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
+                 $$quote($$BASEDIR/src/WebImageView.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
@@ -177,6 +178,7 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
+                 $$quote($$BASEDIR/src/WebImageView.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
@@ -301,6 +303,7 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.cpp) \
                  $$quote($$BASEDIR/src/Unpacker.cpp) \
                  $$quote($$BASEDIR/src/VUMeter.cpp) \
+                 $$quote($$BASEDIR/src/WebImageView.cpp) \
                  $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
@@ -436,6 +439,7 @@ device {
                  $$quote($$BASEDIR/src/TouchHandler.hpp) \
                  $$quote($$BASEDIR/src/Unpacker.hpp) \
                  $$quote($$BASEDIR/src/VUMeter.hpp) \
+                 $$quote($$BASEDIR/src/WebImageView.hpp) \
                  $$quote($$BASEDIR/src/lcd_fonts.hpp) \
                  $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
                  $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
