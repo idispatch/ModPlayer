@@ -506,6 +506,7 @@ void Player::browseForLocalSong() {
     rc = QObject::connect(filePicker, SIGNAL(canceled()),
                           this,       SLOT(onLocalSongBrowseCanceled()));
     Q_ASSERT(rc);
+    Q_UNUSED(rc);
 
     filePicker->open();
 }
