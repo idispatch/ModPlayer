@@ -18,7 +18,7 @@ SongModule::SongModule(QObject *parent) :
     m_currentRow(0),
     m_currentSpeed(0),
     m_currentTempo(0),
-    m_masterVolume(256),
+    m_masterVolume(128),
     m_playingChannels(0),
     m_modPlug(NULL) {
     memset(&m_channelVU[0], 0, sizeof(m_channelVU));
@@ -40,7 +40,6 @@ void SongModule::reset() {
     setCurrentRow(0);
     setCurrentSpeed(0);
     setCurrentTempo(0);
-    setMasterVolume(0);
     setPlayingChannels(0);
 
     setChannels(0);
@@ -161,6 +160,12 @@ int SongModule::masterVolume() const {
 }
 
 void SongModule::setMasterVolume(int value) {
+    if(value < 1) {
+        value = 1;
+    }
+    if(value > 512) {
+        value = 512;
+    }
     if (m_masterVolume != value) {
         m_masterVolume = value;
         if (m_modPlug != NULL) {
@@ -179,7 +184,6 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     if (m_modPlug != NULL) {
         ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
-
     }
 
     reset();
@@ -232,7 +236,6 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
         setCurrentRow(0);
         setCurrentSpeed(0);
         setCurrentTempo(0);
-        setMasterVolume(0);
         setChannels(0);
 
         setInstruments(0);
@@ -389,7 +392,6 @@ void SongModule::update(bool endOfSong) {
         setCurrentRow(::ModPlug_GetCurrentRow(m_modPlug));
         setCurrentSpeed(::ModPlug_GetCurrentSpeed(m_modPlug));
         setCurrentTempo(::ModPlug_GetCurrentTempo(m_modPlug));
-        setMasterVolume(::ModPlug_GetMasterVolume(m_modPlug));
         setPlayingChannels(::ModPlug_GetPlayingChannels(m_modPlug));
         setSongLength(::ModPlug_GetLength(m_modPlug));
     } else {
@@ -399,7 +401,6 @@ void SongModule::update(bool endOfSong) {
             setCurrentRow(0);
             setCurrentSpeed(0);
             setCurrentTempo(0);
-            setMasterVolume(0);
             setPlayingChannels(0);
         }
     }
@@ -409,18 +410,23 @@ void SongModule::update(bool endOfSong) {
 
 void SongModule::updateChannelVU(bool endOfSong) {
     bool bChanged = false;
-    if(m_modPlug != NULL) {
-        if(endOfSong) {
+    if(m_modPlug != NULL)
+    {
+        if(endOfSong)
+        {
             // Set all channel VU to 0
             memset(&m_channelVU[0], 0, sizeof(m_channelVU));
             bChanged = true;
-        } else {
+        }
+        else
+        {
             // Update all channel VU values
             const int numChannels = channels();
-            unsigned result[128];
+            unsigned result[sizeof(m_channelVU) / sizeof(m_channelVU[0])];
             ::ModPlug_GetChannelVUs(m_modPlug, 0, numChannels, result);
             const size_t numBytes = sizeof(unsigned) * numChannels;
-            if(memcmp(m_channelVU, result, numBytes)) {
+            if(memcmp(m_channelVU, result, numBytes))
+            {
                 memcpy(m_channelVU, result, numBytes);
                 bChanged = true;
             }
@@ -432,11 +438,14 @@ void SongModule::updateChannelVU(bool endOfSong) {
 }
 
 int SongModule::getChannelVU(int channel) {
-    if(m_modPlug != NULL) {
-        return m_channelVU[channel];
-    } else {
-        return 0;
+    if(m_modPlug != NULL)
+    {
+        if(channel >= 0 && channel < static_cast<int>(sizeof(m_channelVU)/sizeof(m_channelVU[0])))
+        {
+            return m_channelVU[channel];
+        }
     }
+    return 0;
 }
 
 ModPlugNote* SongModule::getPattern(int pattern, int* numrows) {

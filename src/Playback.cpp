@@ -120,7 +120,7 @@ void Playback::loadSettings() {
     m_config.setFrequency(m_settings.value("frequency", 44100).toInt());
 
     m_config.setResamplingMode(m_settings.value("resamplingMode", 3).toInt());
-    m_config.setMasterVolume(m_settings.value("masterVolume", 256).toInt());
+     m_config.setMasterVolume(m_settings.value("masterVolume", 128).toInt());
     m_config.setStereoSeparation(m_settings.value("stereoSeparation", 128).toInt());
     m_config.setMaximumMixingChannels(m_settings.value("mixingChannels", 128).toInt());
 
@@ -541,9 +541,6 @@ void Playback::run() {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
                         QUrl url = QUrl::fromLocalFile(m_song.absoluteFileName());
-#ifdef VERBOSE_LOGGING
-                        qDebug() << "------ setSourceUrl:" << url;
-#endif
                         bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(url);
                         if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;
@@ -565,6 +562,7 @@ void Playback::run() {
                     }
                 } else {
                     m_state = Playing;
+                    m_song.setMasterVolume(m_config.masterVolume());
                     emit playing();
                 }
             }

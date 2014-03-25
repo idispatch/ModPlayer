@@ -222,7 +222,7 @@ void Player::onDownloadFinished(QString fileName) {
     Analytics::getInstance()->downloadFinished();
 
     QString relativeName = FileUtils::fileNameOnly(fileName);
-    changeStatus(Preparing, QString(tr("Unpacking song %1")).arg(relativeName));
+    changeStatus(Preparing, tr("Unpacking song %1").arg(relativeName));
 
     QString unpackedFileName = m_unpacker->unpackFile(fileName);
     if(!QFile::remove(fileName))
@@ -234,12 +234,12 @@ void Player::onDownloadFinished(QString fileName) {
 
     if(unpackedFileName.isEmpty())
     {
-        changeStatus(Stopped, QString(tr("Failed to prepare song %1")).arg(relativeName));
+        changeStatus(Stopped, tr("Failed to prepare song %1").arg(relativeName));
         return;
     }
 
     QString unpackedRelativeFileName = FileUtils::fileNameOnly(unpackedFileName);
-    changeStatus(Preparing, QString(tr("Caching song %1")).arg(unpackedRelativeFileName));
+    changeStatus(Preparing, tr("Caching song %1").arg(unpackedRelativeFileName));
 
     m_cache->cache(unpackedRelativeFileName);
 
@@ -369,7 +369,7 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
                 }
 
                 QString relativeFileName = FileUtils::fileNameOnly(currentSong()->fileName());
-                changeStatus(Playing, QString(tr("Playing %1")).arg(relativeFileName));
+                changeStatus(Playing, tr("Playing %1").arg(relativeFileName));
 
                 if(!m_nowPlaying->isAcquired()) {
                     m_nowPlaying->acquire();
@@ -435,13 +435,13 @@ void Player::play(QVariant value) {
 
 void Player::playByModuleFileName(QString const& fileName) {
     // relative path or within cache directory - play from cache
-    if(fileName.startsWith(m_cache->cachePath()) || !fileName.startsWith("/")) {
+    if(fileName.startsWith(m_cache->cachePath()) || FileUtils::isRelative(fileName)) {
         if(m_cache->exists(fileName)) {
             QString name = FileUtils::fileNameOnly(fileName);
             beginPlay(true, name);
         } else {
             QString name = FileUtils::fileNameOnly(fileName);
-            changeStatus(Resolving, QString(tr("Resolving %1")).arg(name));
+            changeStatus(Resolving, tr("Resolving %1").arg(name));
 
             int id = m_catalog->resolveModuleIdByFileName(fileName);
             m_downloader->download(id);
@@ -539,9 +539,8 @@ void Player::onPaused() {
 }
 
 void Player::onPlaying() {
-    QString songFileName = currentSong()->fileName();
-    QString songRelativeFileName = FileUtils::fileNameOnly(songFileName);
-    changeStatus(Playing, QString(tr("Playing %1")).arg(songRelativeFileName));
+    QString songName = FileUtils::fileNameOnly(currentSong()->fileName());
+    changeStatus(Playing, tr("Playing %1").arg(songName));
 }
 
 void Player::onStopped() {

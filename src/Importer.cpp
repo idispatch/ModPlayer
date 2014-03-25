@@ -74,7 +74,7 @@ void Importer::onSearchCompleted() {
     if(m_numImportedSongs == 0) {
         m_messageBox.setBody(tr("No songs found")).setProgress(100);
     } else {
-        m_messageBox.setBody(QString(tr("Imported %1 songs")).arg(m_numImportedSongs)).setProgress(100);
+        m_messageBox.setBody(tr("Imported %1 songs").arg(m_numImportedSongs)).setProgress(100);
     }
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
     m_messageBox.enableButton(true);
@@ -83,7 +83,7 @@ void Importer::onSearchCompleted() {
 }
 
 void Importer::onSearchingDirectory(QString const& location) {
-    m_messageBox.setBody(QString(tr("Searching for songs in %1...")).arg(location));
+    m_messageBox.setBody(tr("Searching for songs in %1...").arg(location));
 }
 
 void Importer::onFoundFile(QString const& fileName) {
@@ -124,7 +124,7 @@ bool Importer::importMp3File(QString const& fileName) {
     qDebug() << "Importing" << fileName;
 #endif
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
-    m_messageBox.setBody(QString(tr("Importing %1")).arg(fileNameOnly));
+    m_messageBox.setBody(tr("Importing %1").arg(fileNameOnly));
 
     ::id3_file * mp3file = ::id3_file_open(fileName.toUtf8().constData(), ID3_FILE_MODE_READONLY);
     if(mp3file == NULL) {
@@ -236,7 +236,7 @@ bool Importer::importMp3File(QString const& fileName) {
 bool Importer::importTrackerSong(QString const& fileName)
 {
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
-    m_messageBox.setBody(QString(tr("Importing %1")).arg(fileNameOnly));
+    m_messageBox.setBody(tr("Importing %1").arg(fileNameOnly));
 
     QFile inputFile(fileName);
     if(!inputFile.exists()) {

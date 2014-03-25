@@ -81,7 +81,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
     int currentOrder = 0;
 
     MessageBox message(tr("Creating MP3 file"),
-                       QString(tr("Creating %1")).arg(FileUtils::fileNameOnly(outputFileName)),
+                       tr("Creating %1").arg(FileUtils::fileNameOnly(outputFileName)),
                        false,
                        0);
 
