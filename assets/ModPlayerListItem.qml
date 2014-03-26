@@ -11,7 +11,7 @@ GroupContainer {
     property alias imageSource: imageView.imageSource
 
     leftPadding: 10
-    rightPadding: leftPadding 
+    rightPadding: 10
 
     VerticalContainer {
         HorizontalContainer {
@@ -73,37 +73,89 @@ GroupContainer {
                 }
                 VerticalContainer {
                     verticalAlignment: VerticalAlignment.Center
-                    Label {
-                        id: statusUpperField
-                        visible: text.length > 0
+                    Container {
+                        visible: upperStatus.length > 0
                         horizontalAlignment: HorizontalAlignment.Right
-                        textStyle {
-                            base: SystemDefaults.TextStyles.SubtitleText
-                            fontWeight: FontWeight.W100
-                            fontStyle: FontStyle.Italic
-                            color: Color.Black
+                        background: upperInfoPaint.imagePaint
+                        bottomMargin: 10
+                        topPadding: 4
+                        bottomPadding: 8
+                        leftPadding: 20
+                        rightPadding: 16
+                        attachedObjects: [
+                            ImagePaintDefinition {
+                                id: upperInfoPaint
+                                repeatPattern: RepeatPattern.Fill
+                                imageSource: "asset:///images/backgrounds/infoback.amd"
+                            }
+                        ]
+                        Label {
+                            id: statusUpperField
+                            visible: text.length > 0
+                            horizontalAlignment: HorizontalAlignment.Right
+                            textStyle {
+                                base: SystemDefaults.TextStyles.SubtitleText
+                                fontWeight: FontWeight.W100
+                                fontStyle: FontStyle.Italic
+                                color: Color.Black
+                            }
                         }
                     }
-                    Label {
-                        id: statusMiddleField
-                        visible: text.length > 0
+                    Container {
+                        visible: middleStatus.length > 0
                         horizontalAlignment: HorizontalAlignment.Right
-                        textStyle {
-                            base: SystemDefaults.TextStyles.SubtitleText
-                            fontWeight: FontWeight.W100
-                            fontStyle: FontStyle.Italic
-                            color: Color.Black
+                        background: middleInfoPaint.imagePaint
+                        topMargin: 10
+                        bottomMargin: 10
+                        topPadding: 4
+                        bottomPadding: 8
+                        leftPadding: 20
+                        rightPadding: 16
+                        attachedObjects: [
+                            ImagePaintDefinition {
+                                id: middleInfoPaint
+                                repeatPattern: RepeatPattern.Fill
+                                imageSource: "asset:///images/backgrounds/infoback.amd"
+                            }
+                        ]
+                        Label {
+                            id: statusMiddleField
+                            visible: text.length > 0
+                            horizontalAlignment: HorizontalAlignment.Right
+                            textStyle {
+                                base: SystemDefaults.TextStyles.SubtitleText
+                                fontWeight: FontWeight.W100
+                                fontStyle: FontStyle.Italic
+                                color: Color.Black
+                            }
                         }
                     }
-                    Label {
-                        id: statusLowerField
-                        visible: text.length > 0
+                    Container {
+                        visible: lowerStatus.length > 0
                         horizontalAlignment: HorizontalAlignment.Right
-                        textStyle {
-                            base: SystemDefaults.TextStyles.SubtitleText
-                            fontWeight: FontWeight.W100
-                            fontStyle: FontStyle.Italic
-                            color: Color.Black
+                        background: lowerInfoPaint.imagePaint
+                        topMargin: 10
+                        topPadding: 4
+                        bottomPadding: 8
+                        leftPadding: 20
+                        rightPadding: 16
+                        attachedObjects: [
+                            ImagePaintDefinition {
+                                id: lowerInfoPaint
+                                repeatPattern: RepeatPattern.Fill
+                                imageSource: "asset:///images/backgrounds/infoback.amd"
+                            }
+                        ]
+                        Label {
+                            id: statusLowerField
+                            visible: text.length > 0
+                            horizontalAlignment: HorizontalAlignment.Right
+                            textStyle {
+                                base: SystemDefaults.TextStyles.SubtitleText
+                                fontWeight: FontWeight.W100
+                                fontStyle: FontStyle.Italic
+                                color: Color.Black
+                            }
                         }
                     }
                 }

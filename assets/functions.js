@@ -72,7 +72,8 @@ function formatDuration(duration) {
     duration = Math.floor(duration / 1000);
     var seconds = duration % 60;
     var minutes = Math.floor(duration / 60) % 60;
-    var hours   = Math.floor(duration / 3600);
+    var hours   = Math.floor(duration / (60*60)) % 24;
+    var days    = Math.floor(duration / (60*60*24));
     if(seconds < 10) {
         seconds = "0" + seconds;
     } else {
@@ -84,20 +85,46 @@ function formatDuration(duration) {
         minutes = "" + minutes;
     }
     hours = "" + hours;
+    if(days == 0) {
+        days = "";
+    } else {
+        days = "" + days + "d ";
+    }
     if(hours == "0") {
         if(minutes == "00") {
-            if(seconds == "00") 
-                return "0s";
-            return seconds + "s";
+            if(seconds == "00") {
+                if(days.length == 0) {
+                    return "0s";
+                } else {
+                    return days;
+                }
+            }
+            if(days.length == 0) {
+                return seconds + "s";
+            } else {
+                return days;
+            }
         } else {
             if(seconds == "00") {
-                return minutes + "m";
+                if(days.length == 0) {
+                    return minutes + "m";
+                } else {
+                    return days;
+                }
             } else {
-                return minutes + "m " + seconds + "s";
+                if(days.length == 0) {
+                    return minutes + "m " + seconds + "s";
+                } else {
+                    return days;
+                }
             }
         }
     } else {
-        return hours + "h " + minutes + "m " + seconds + "s";
+        if(days.length == 0) {
+            return hours + "h " + minutes + "m " + seconds + "s";
+        } else {
+            return days + hours + "h " + minutes + "m " + seconds + "s";
+        }
     }
 }
 
