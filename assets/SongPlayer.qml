@@ -28,13 +28,16 @@ Page {
                     LCDDisplay {
                         text: {
                             if(app.player.currentSong.title.length == 0) {
-                                return Global.fileNameOnly(app.player.currentSong.fileName)
+                                if(app.player.currentSong.fileName.length > 0) {
+                                    return Global.fileNameOnly(app.player.currentSong.fileName)
+                                } else {
+                                    return "No song loaded"
+                                }
                             } else {
                                 return app.player.currentSong.title
                             }
                         }
                         bottomMargin: 10
-                        visible: app.player.currentSong.songLoaded
                         horizontalAlignment: HorizontalAlignment.Center
                     }
                     VUMeter {
