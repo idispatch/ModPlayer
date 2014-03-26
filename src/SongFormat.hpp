@@ -11,31 +11,6 @@ class SongFormat : public ItemGroupBase,
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged FINAL)
     Q_PROPERTY(QUrl iconPath READ iconPath NOTIFY iconPathChanged FINAL)
 public:
-    SongFormat(int id,
-               QString const& name,
-               QString const& description,
-               int count,
-               double duration,
-               QObject *parent);
-    ~SongFormat();
-    QString const& description() const;
-    QUrl iconPath() const;
-    bool isTrackerSong() const;
-    bool isMp3Song() const;
-
-    static QUrl getIconPath(int formatId);
-    static int getFormatIdByFileName(QString const& fileName);
-    static QString getFormatByFormatId(int formatId);
-
-    static bool isTrackerSong(QString const& fileName);
-    static bool isTrackerSong(int formatId);
-
-    static bool isMp3Song(QString const& fileName);
-    static bool isMp3Song(int formatId);
-
-    using InstanceCounter<SongFormat>::getInstanceCount;
-    using InstanceCounter<SongFormat>::getMaxInstanceCount;
-
     enum Format {
         FORMAT_UNKNOWN = 0,
         FORMAT_MOD = 1,
@@ -55,6 +30,31 @@ public:
         FORMAT_OGG = 101,
         FORMAT_FLAC = 102
     };
+    SongFormat(int id,
+               QString const& name,
+               QString const& description,
+               int count,
+               double duration,
+               QObject *parent);
+    ~SongFormat();
+    QString const& description() const;
+    QUrl iconPath() const;
+    bool isTrackerSong() const;
+    bool isMp3Song() const;
+
+    static QUrl getIconPath(Format formatId);
+    static Format getFormatIdByFileName(QString const& fileName);
+    static QString getFormatByFormatId(Format formatId);
+
+    static bool isTrackerSong(QString const& fileName);
+    static bool isTrackerSong(Format formatId);
+
+    static bool isMp3Song(QString const& fileName);
+    static bool isMp3Song(Format formatId);
+
+    using InstanceCounter<SongFormat>::getInstanceCount;
+    using InstanceCounter<SongFormat>::getMaxInstanceCount;
+
 Q_SIGNALS:
     void descriptionChanged();
     void iconPathChanged();

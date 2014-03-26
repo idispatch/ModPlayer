@@ -139,7 +139,7 @@ int SongBasicInfo::formatId() const {
 }
 
 QUrl SongBasicInfo::iconPath() const {
-    return SongFormat::getIconPath(formatId());
+    return SongFormat::getIconPath(static_cast<SongFormat::Format>(formatId()));
 }
 
 int SongBasicInfo::fileSize() const {
@@ -154,7 +154,7 @@ void SongBasicInfo::setFileSize(int value) {
 }
 
 bool SongBasicInfo::isTrackerSong() const {
-    return SongFormat::isTrackerSong(formatId());
+    return SongFormat::isTrackerSong(static_cast<SongFormat::Format>(formatId()));
 }
 
 int SongBasicInfo::songLength() const {

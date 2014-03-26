@@ -1035,31 +1035,27 @@
     <name>SongPersonalInfo</name>
     <message>
         <source>You played this song once</source>
-        <translation>Вы прослушали песню 1 раз</translation>
+        <translation type="unfinished">Вы прослушали песню 1 раз</translation>
     </message>
     <message>
         <source>You did not play this song yet</source>
-        <translation>Вы ещё не слушали эту песню</translation>
+        <translation type="unfinished">Вы ещё не слушали эту песню</translation>
     </message>
     <message>
         <source>You liked this song</source>
-        <translation>Вам понравилась эта песня</translation>
+        <translation type="unfinished">Вам понравилась эта песня</translation>
     </message>
     <message>
         <source>You played this song &lt;b&gt;%1&lt;/b&gt; times</source>
-        <translation>Вы слушали эту песню &lt;b&gt;%1&lt;/b&gt; раз</translation>
+        <translation type="unfinished">Вы слушали эту песню &lt;b&gt;%1&lt;/b&gt; раз</translation>
     </message>
     <message>
         <source>Last played %1</source>
-        <translation>Последний раз %1</translation>
+        <translation type="unfinished">Последний раз %1</translation>
     </message>
     <message>
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Вы уже скачали эту песню&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;i&gt;This song is on your device&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Эта песня на вашем телефоне&lt;/i&gt;</translation>
+        <translation type="unfinished">&lt;i&gt;Вы уже скачали эту песню&lt;/i&gt;</translation>
     </message>
 </context>
 <context>

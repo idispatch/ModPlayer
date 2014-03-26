@@ -80,7 +80,8 @@ TGroupContainer {
         function getLabelText() {
             if(song) {
                 if(song.id < 0) {
-                    return qsTr("<i>This song is on your device</i>")
+                    var fileName = String(song.fileName).replace(/^\/accounts\/1000\/removable/,'')
+                    return "<i>%1</i>".arg(Global.escapeHtml(fileName))
                 } else {
                     if(app.cache.exists(song.fileName)) {
                         return qsTr("<i>You have this song in the cache already</i>")

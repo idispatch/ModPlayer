@@ -100,7 +100,7 @@ SongExtendedInfo& SongExtendedInfo::operator = (SongExtendedInfo const& other) {
 
 QString SongExtendedInfo::format() const {
     if(m_format.isEmpty()) {
-        return SongFormat::getFormatByFormatId(formatId());
+        return SongFormat::getFormatByFormatId(static_cast<SongFormat::Format>(formatId()));
     } else {
         return m_format;
     }

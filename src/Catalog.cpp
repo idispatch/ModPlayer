@@ -84,6 +84,16 @@ int Catalog::personalSongCount() {
 
 bool Catalog::getLocalSongs(std::vector<LocalSongInfo> & songs) {
     songs.clear();
+    const char * query = "SELECT id, fileName FROM songs WHERE id < 0";
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    while(sqlQuery.next()) {
+        SqlReader reader(sqlQuery);
+        int id;
+        QString fileName;
+        reader >> id >> fileName;
+        songs.push_back(LocalSongInfo().setId(id).setFilePath(fileName));
+    }
     return true;
 }
 
@@ -205,7 +215,7 @@ GroupDataModel* Catalog::findPlaylists() {
                          " SUM(songs.length) AS duration "
                          "FROM playlists "
                          " LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
-                         " INNER JOIN songs ON playlistEntries.songId=songs.id "
+                         " LEFT JOIN songs ON playlistEntries.songId=songs.id "
                          "GROUP BY playlists.id";
     GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
@@ -708,20 +718,21 @@ void Catalog::resetMyFavourites() {
     Analytics::getInstance()->resetMyFavourites();
 }
 
-void Catalog::clearPersonalSongs() {
-    QString query = "DELETE FROM playlistEntries WHERE songId < 0";
+void Catalog::deleteSong(int songId) {
+    m_dataAccess->execute(QString("DELETE FROM songs WHERE id=%1").arg(songId));
+}
+
+void Catalog::houseKeep() {
+    QString query = "DELETE FROM playlistEntries WHERE songId NOT IN (SELECT id from songs)";
     m_dataAccess->execute(query);
 
-    query = "DELETE FROM albumEntries WHERE songId < 0";
+    query = "DELETE FROM albumEntries WHERE songId NOT IN (SELECT id from songs)";
     m_dataAccess->execute(query);
 
     query = "DELETE FROM albums WHERE id IN (SELECT id FROM albums WHERE id NOT IN (SELECT albumId FROM albumEntries))";
     m_dataAccess->execute(query);
 
     query = "DELETE FROM artists WHERE id IN (SELECT id FROM artists WHERE id NOT IN (SELECT artist FROM songs))";
-    m_dataAccess->execute(query);
-
-    query = "DELETE FROM songs WHERE id < 0";
     m_dataAccess->execute(query);
 }
 

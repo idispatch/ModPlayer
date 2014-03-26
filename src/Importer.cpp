@@ -20,7 +20,6 @@
 
 using namespace bb::system;
 
-
 Importer::Importer(QStringList const& filters,
                    Catalog * catalog,
                    QObject * parent)
@@ -41,16 +40,39 @@ int Importer::numImportedSongs() const {
     return m_numImportedSongs;
 }
 
-void Importer::clean() {
-    //TODO: do not clean everything, clean only missing songs
-    m_catalog->clearPersonalSongs();
+void Importer::houseKeep() {
+    m_catalog->houseKeep();
+}
+
+void Importer::removeMissingSongs() {
+    int numMissing = 0;
+    std::vector<LocalSongInfo> songs;
+    if(m_catalog->getLocalSongs(songs)) {
+        qDebug() << "Local songs:" << songs.size();
+        for(size_t i = 0; i < songs.size(); ++i) {
+            if(!QFile::exists(songs[i].filePath())) {
+                qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
+                m_catalog->deleteSong(songs[i].id());
+                numMissing++;
+            }
+        }
+    } else {
+        qDebug() << "Failed to get local songs";
+    }
+    qDebug() << "Missing songs:" << numMissing;
+    houseKeep();
 }
 
 void Importer::start() {
     m_numImportedSongs = 0;
 
-    clean();
-    FileSelector * selector = new FileSelector(m_filters);
+    removeMissingSongs();
+
+    m_messageBox.enableButton(true);
+    m_messageBox.run();
+    emit searchCompleted();
+
+    /*FileSelector * selector = new FileSelector(m_filters);
 
     bool rc;
     Q_UNUSED(rc);
@@ -67,7 +89,7 @@ void Importer::start() {
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
 
-    selector->start();
+    selector->start();*/
 }
 
 void Importer::onSearchCompleted() {

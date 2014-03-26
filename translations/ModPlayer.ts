@@ -1038,15 +1038,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You did not play this song yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You liked this song</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You played this song &lt;b&gt;%1&lt;/b&gt; times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You did not play this song yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1054,11 +1050,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
+        <source>You liked this song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;i&gt;This song is on your device&lt;/i&gt;</source>
+        <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -159,6 +159,7 @@ int SongModule::masterVolume() const {
 }
 
 void SongModule::setMasterVolume(int value) {
+    qDebug() << "******************************************************* SongModule::setMasterVolume" << value;
     if(value < 1) {
         value = 1;
     }
@@ -286,7 +287,6 @@ bool SongModule::unload() {
     }
 
     reset();
-
     update(true);
 
     if(songWasLoaded) {
@@ -352,8 +352,18 @@ ArrayDataModel* SongModule::getInstrumentNames() {
 
 void SongModule::setAbsoluteFileName(QString const& fileName) {
     if(fileName != m_absoluteFileName) {
+        bool oldSongLoaded = songLoaded();
+        bool oldIsTrackerSong = isTrackerSong();
+
         m_absoluteFileName = fileName;
         emit absoluteFileNameChanged();
+
+        if(oldSongLoaded != songLoaded()) {
+            emit songLoadedChanged();
+        }
+        if(oldIsTrackerSong != isTrackerSong()) {
+            emit isTrackerSongChanged();
+        }
     }
 }
 

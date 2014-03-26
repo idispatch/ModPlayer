@@ -387,8 +387,6 @@ void Playback::configureAudio() {
 
     ::ModPlug_SetSettings(&settings);
 
-    m_song.setMasterVolume(m_config.masterVolume());
-
     if(fileName.length() > 0) {
 #ifdef VERBOSE_LOGGING
         qDebug() << "Reloading song module" << fileName;
@@ -398,6 +396,8 @@ void Playback::configureAudio() {
         qDebug() << "Song module" << fileName << "reloaded";
 #endif
     }
+
+    m_song.setMasterVolume(m_config.masterVolume());
 
     saveSettings();
 }

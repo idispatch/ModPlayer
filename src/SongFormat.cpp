@@ -28,10 +28,10 @@ QString const& SongFormat::description() const {
 }
 
 QUrl SongFormat::iconPath() const {
-    return getIconPath(id());
+    return getIconPath(static_cast<Format>(id()));
 }
 
-QUrl SongFormat::getIconPath(int formatId) {
+QUrl SongFormat::getIconPath(SongFormat::Format formatId) {
     QString appFolder(QDir::homePath());
     appFolder.chop(4); // remove data directory from end
     QString icons = QString("file://%1/%2").arg(appFolder).arg("app/native/assets/images/formats");
@@ -71,7 +71,7 @@ QUrl SongFormat::getIconPath(int formatId) {
     }
 }
 
-QString SongFormat::getFormatByFormatId(int formatId) {
+QString SongFormat::getFormatByFormatId(SongFormat::Format formatId) {
     switch(formatId){
     case FORMAT_MOD:
         return "Amiga module file";
@@ -108,7 +108,7 @@ QString SongFormat::getFormatByFormatId(int formatId) {
     }
 }
 
-int SongFormat::getFormatIdByFileName(QString const& fileName) {
+SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
     int len = fileName.length();
     if(len > 0) {
         switch(fileName[len - 1].unicode()) {
@@ -343,19 +343,19 @@ bool SongFormat::isMp3Song(QString const& fileName) {
     return SongFormat::isMp3Song(SongFormat::getFormatIdByFileName(fileName));
 }
 
-bool SongFormat::isMp3Song(int formatId) {
+bool SongFormat::isMp3Song(SongFormat::Format formatId) {
     return formatId == FORMAT_MP3;
 }
 
 bool SongFormat::isTrackerSong() const {
-    return SongFormat::isTrackerSong(id());
+    return SongFormat::isTrackerSong(static_cast<Format>(id()));
 }
 
 bool SongFormat::isTrackerSong(QString const& fileName) {
     return SongFormat::isTrackerSong(SongFormat::getFormatIdByFileName(fileName));
 }
 
-bool SongFormat::isTrackerSong(int formatId) {
+bool SongFormat::isTrackerSong(SongFormat::Format formatId) {
     switch(formatId) {
     case FORMAT_MOD:
     case FORMAT_669:

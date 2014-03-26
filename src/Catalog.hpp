@@ -42,14 +42,16 @@ public:
     int id() const {
         return m_id;
     }
-    void setId(int value) {
+    LocalSongInfo& setId(int value) {
         m_id = value;
+        return *this;
     }
     QString const& filePath() const {
         return m_filePath;
     }
-    void setFilePath(QString const& value) {
+    LocalSongInfo& setFilePath(QString const& value) {
         m_filePath = value;
+        return *this;
     }
 };
 
@@ -73,6 +75,7 @@ public:
     Q_INVOKABLE int personalSongCountAsync();
 
     bool getLocalSongs(std::vector<LocalSongInfo> & songs);
+    void deleteSong(int songId);
 
     QString catalogPath() const;
 
@@ -143,7 +146,7 @@ public:
     Q_INVOKABLE void resetPlayCounts();
     Q_INVOKABLE void resetMyFavourites();
 
-    Q_INVOKABLE void clearPersonalSongs();
+    Q_INVOKABLE void houseKeep();
     Q_INVOKABLE void addPersonalSong(SongExtendedInfo const& info);
 
     Q_INVOKABLE int createPlaylist(QString const& name);
