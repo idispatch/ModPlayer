@@ -18,7 +18,6 @@ SongModule::SongModule(QObject *parent) :
     m_currentRow(0),
     m_currentSpeed(0),
     m_currentTempo(0),
-    m_masterVolume(128),
     m_playingChannels(0),
     m_modPlug(NULL) {
     memset(&m_channelVU[0], 0, sizeof(m_channelVU));
@@ -155,21 +154,25 @@ void SongModule::setPlayingChannels(int value) {
 }
 
 int SongModule::masterVolume() const {
-    return m_masterVolume;
+    if(m_modPlug != NULL) {
+        return ::ModPlug_GetMasterVolume(m_modPlug);
+    }
+    return 128;
 }
 
 void SongModule::setMasterVolume(int value) {
-    qDebug() << "******************************************************* SongModule::setMasterVolume" << value;
+#ifdef VERBOSE_LOGGING
+    qDebug() << "*** SongModule::setMasterVolume" << value;
+#endif
     if(value < 1) {
         value = 1;
     }
     if(value > 512) {
         value = 512;
     }
-    if (m_masterVolume != value) {
-        m_masterVolume = value;
+    if (masterVolume() != value) {
         if (m_modPlug != NULL) {
-            ::ModPlug_SetMasterVolume(m_modPlug, m_masterVolume);
+            ::ModPlug_SetMasterVolume(m_modPlug, value);
         }
         emit masterVolumeChanged();
     }

@@ -113,7 +113,6 @@ private:
     int m_currentSpeed;
     int m_currentTempo;
 
-    int m_masterVolume;
     int m_playingChannels;
 
     unsigned m_channelVU[128];
