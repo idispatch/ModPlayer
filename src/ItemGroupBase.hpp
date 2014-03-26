@@ -12,18 +12,18 @@ class ItemGroupBase : public QObject,
     Q_PROPERTY(int id READ id NOTIFY idChanged FINAL)
     Q_PROPERTY(QString name READ name NOTIFY nameChanged FINAL)
     Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
-    Q_PROPERTY(int duration READ duration NOTIFY durationChanged FINAL)
+    Q_PROPERTY(double duration READ duration NOTIFY durationChanged FINAL)
 public:
     ItemGroupBase(int id,
                   QString const& name,
                   int count,
-                  int duration,
+                  double duration,
                   QObject *parent);
     ~ItemGroupBase();
     int id() const;
     QString const& name() const;
     int count() const;
-    int duration() const;
+    double duration() const;
 
     using InstanceCounter<ItemGroupBase>::getInstanceCount;
     using InstanceCounter<ItemGroupBase>::getMaxInstanceCount;
@@ -38,7 +38,7 @@ private:
     int m_id;
     QString m_name;
     int m_count;
-    int m_duration;
+    double m_duration;
 };
 
 Q_DECLARE_METATYPE(ItemGroupBase*);

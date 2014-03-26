@@ -1,4 +1,5 @@
 #include "SongExtendedInfo.hpp"
+#include "SongFormat.hpp"
 
 template<>
 int InstanceCounter<SongExtendedInfo>::s_count;
@@ -20,7 +21,6 @@ SongExtendedInfo::SongExtendedInfo(QObject *parent)
 SongExtendedInfo::SongExtendedInfo(int id,
                                    QString const& fileName,
                                    QString const& title,
-                                   int formatId,
                                    int downloads,
                                    int favourited,
                                    int score,
@@ -45,7 +45,6 @@ SongExtendedInfo::SongExtendedInfo(int id,
     : SongBasicInfo(id,
                     fileName,
                     title,
-                    formatId,
                     downloads,
                     favourited,
                     score,
@@ -100,11 +99,15 @@ SongExtendedInfo& SongExtendedInfo::operator = (SongExtendedInfo const& other) {
 }
 
 QString SongExtendedInfo::format() const {
-    return m_format;
+    if(m_format.isEmpty()) {
+        return SongFormat::getFormatByFormatId(formatId());
+    } else {
+        return m_format;
+    }
 }
 
 void SongExtendedInfo::setFormat(const QString &value) {
-    if(m_format != value) {
+    if(format() != value) {
         m_format = value;
         emit formatChanged();
     }

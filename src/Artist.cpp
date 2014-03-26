@@ -12,7 +12,7 @@ Artist::Artist(int id,
                int downloads,
                int rating,
                int count,
-               int duration,
+               double duration,
                QObject *parent)
     : ItemGroupBase(id, name, count, duration, parent),
       m_score(score),

@@ -15,7 +15,7 @@ public:
                QString const& name,
                QString const& description,
                int count,
-               int duration,
+               double duration,
                QObject *parent);
     ~SongFormat();
     QString const& description() const;
@@ -25,6 +25,7 @@ public:
 
     static QUrl getIconPath(int formatId);
     static int getFormatIdByFileName(QString const& fileName);
+    static QString getFormatByFormatId(int formatId);
 
     static bool isTrackerSong(QString const& fileName);
     static bool isTrackerSong(int formatId);

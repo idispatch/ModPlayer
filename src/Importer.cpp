@@ -148,9 +148,6 @@ bool Importer::importMp3File(QString const& fileName) {
         info.setPatterns(0);
         info.setOrders(0);
 
-        info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
-        info.setFormat("MP3 format");
-
         mad_timer_t duration;
         signed int kbps;
         unsigned long kbytes;
@@ -277,7 +274,6 @@ bool Importer::importTrackerSong(QString const& fileName)
 
     ::ModPlug_Unload(module);
 
-    info.setFormatId(SongFormat::getFormatIdByFileName(fileName));
     info.setFormat("");
 
     info.setTrackerId(0);

@@ -15,6 +15,7 @@ class SongExtendedInfo : public SongBasicInfo,
     Q_PROPERTY(QString format READ format WRITE setFormat NOTIFY formatChanged FINAL)
     Q_PROPERTY(QString tracker READ tracker WRITE setTracker NOTIFY trackerChanged FINAL)
     Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged FINAL)
+
     Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged FINAL)
     Q_PROPERTY(int genreId READ genreId WRITE setGenreId NOTIFY genreIdChanged FINAL)
     Q_PROPERTY(int trackerId READ trackerId WRITE setTrackerId NOTIFY trackerIdChanged FINAL)
@@ -31,7 +32,6 @@ public:
     SongExtendedInfo(int id,
                      QString const& fileName,
                      QString const& title,
-                     int formatId,
                      int downloads,
                      int favourited,
                      int score,

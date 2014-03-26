@@ -9,7 +9,7 @@ int InstanceCounter<ItemGroupBase>::s_maxCount;
 ItemGroupBase::ItemGroupBase(int id,
                              QString const& name,
                              int count,
-                             int duration,
+                             double duration,
                              QObject *parent)
     : QObject(parent),
       m_id(id),
@@ -33,7 +33,7 @@ int ItemGroupBase::count() const {
     return m_count;
 }
 
-int ItemGroupBase::duration() const {
+double ItemGroupBase::duration() const {
     return m_duration;
 }
 

@@ -11,7 +11,6 @@ int InstanceCounter<SongBasicInfo>::s_maxCount;
 SongBasicInfo::SongBasicInfo(QObject *parent)
  : QObject(parent),
    m_id(0),
-   m_formatId(0),
    m_fileSize(0),
    m_songLength(0),
    m_downloads(0),
@@ -25,7 +24,6 @@ SongBasicInfo::SongBasicInfo(QObject *parent)
 SongBasicInfo::SongBasicInfo(int id,
                              QString const& fileName,
                              QString const& title,
-                             int format,
                              int downloads,
                              int favourited,
                              int score,
@@ -39,7 +37,6 @@ SongBasicInfo::SongBasicInfo(int id,
      m_id(id),
      m_fileName(fileName),
      m_title(title),
-     m_formatId(format),
      m_fileSize(size),
      m_songLength(length),
      m_downloads(downloads),
@@ -65,7 +62,6 @@ SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
         setId(other.id());
         setFileName(other.fileName());
         setTitle(other.title());
-        setFormatId(other.formatId());
         setFileSize(other.fileSize());
         setSongLength(other.songLength());
         setDownloads(other.downloads());
@@ -84,11 +80,21 @@ QString SongBasicInfo::fileName() const {
 
 void SongBasicInfo::setFileName(const QString &value) {
     if(m_fileName != value) {
-        bool wasTrackerSong = isTrackerSong();
+        int oldFormatId = formatId();
+        bool oldIsTrackerSong = isTrackerSong();
+        QUrl oldIconPath = iconPath();
+
         m_fileName = value;
+
         emit fileNameChanged();
-        if(wasTrackerSong != isTrackerSong()) {
+        if(oldIconPath != iconPath()) {
+            emit iconPathChanged();
+        }
+        if(oldIsTrackerSong != isTrackerSong()) {
             emit isTrackerSongChanged();
+        }
+        if(oldFormatId != formatId()) {
+            emit formatIdChanged();
         }
     }
 }
@@ -115,11 +121,10 @@ int SongBasicInfo::id() const {
 
 void SongBasicInfo::setId(int value) {
     if(m_id != value) {
-        int old = m_id;
+        bool oldIsLocal = isLocal();
         m_id = value;
         emit idChanged();
-        if((m_id < 0 && old >= 0) ||
-           (m_id >= 0 && old < 0)) {
+        if(oldIsLocal != isLocal()) {
             emit isLocalChanged();
         }
     }
@@ -130,23 +135,11 @@ bool SongBasicInfo::isLocal() const {
 }
 
 int SongBasicInfo::formatId() const {
-    return m_formatId;
-}
-
-void SongBasicInfo::setFormatId(int value) {
-    if(m_formatId != value) {
-        bool wasTrackerSong = isTrackerSong();
-        m_formatId = value;
-        emit formatIdChanged();
-        emit iconPathChanged();
-        if(wasTrackerSong != isTrackerSong()) {
-            emit isTrackerSongChanged();
-        }
-    }
+    return SongFormat::getFormatIdByFileName(m_fileName);
 }
 
 QUrl SongBasicInfo::iconPath() const {
-    return SongFormat::getIconPath(m_formatId);
+    return SongFormat::getIconPath(formatId());
 }
 
 int SongBasicInfo::fileSize() const {
@@ -161,7 +154,7 @@ void SongBasicInfo::setFileSize(int value) {
 }
 
 bool SongBasicInfo::isTrackerSong() const {
-    return SongFormat::isTrackerSong(m_formatId);
+    return SongFormat::isTrackerSong(formatId());
 }
 
 int SongBasicInfo::songLength() const {

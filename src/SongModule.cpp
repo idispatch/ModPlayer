@@ -53,7 +53,6 @@ void SongModule::reset() {
     setArtistId(0);
 
     setFormat("");
-    setFormatId(0);
 
     setTracker("");
     setTrackerId(0);
@@ -187,7 +186,6 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     }
 
     reset();
-
     if(SongFormat::isTrackerSong(fileName)) {
         QFile fileIn(fileName);
         if(fileIn.open(QFile::ReadOnly)) {
@@ -218,6 +216,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
                 emit songLoadedChanged();
                 emit isTrackerSongChanged();
             } else {
+                qDebug() << "Failed to load ModPlug file" << fileName;
                 unload();
             }
         } else {
@@ -284,7 +283,6 @@ bool SongModule::unload() {
     if (m_modPlug != NULL) {
         ::ModPlug_Unload(m_modPlug);
         m_modPlug = NULL;
-
     }
 
     reset();
@@ -356,17 +354,12 @@ void SongModule::setAbsoluteFileName(QString const& fileName) {
     if(fileName != m_absoluteFileName) {
         m_absoluteFileName = fileName;
         emit absoluteFileNameChanged();
-        setFormatId(SongFormat::getFormatIdByFileName(m_absoluteFileName));
     }
 }
 
 void SongModule::assignInfo(SongExtendedInfo const& other) {
     setId(other.id());
     setTitle(other.title());
-    setFormatId(other.formatId());
-    if(formatId() == 0) {
-        setFormatId(SongFormat::getFormatIdByFileName(fileName()));
-    }
     setFileSize(other.fileSize());
     setSongLength(other.songLength());
 

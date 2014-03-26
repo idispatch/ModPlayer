@@ -16,6 +16,10 @@ public:
         value = m_query.value(m_index++).toInt();
         return *this;
     }
+    inline SqlReader& operator >> (double &value) {
+        value = m_query.value(m_index++).toDouble();
+        return *this;
+    }
     inline SqlReader& operator >> (QString &value) {
         value = m_query.value(m_index++).toString();
         return *this;

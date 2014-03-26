@@ -11,7 +11,7 @@ SongFormat::SongFormat(int id,
                        QString const& name,
                        QString const& description,
                        int count,
-                       int duration,
+                       double duration,
                        QObject *parent)
     : ItemGroupBase(id, name, count, duration, parent),
       m_description(description) {
@@ -68,6 +68,43 @@ QUrl SongFormat::getIconPath(int formatId) {
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("flac"));
     default:
         return QUrl(QString("%1/icon_unknown.png").arg(icons));
+    }
+}
+
+QString SongFormat::getFormatByFormatId(int formatId) {
+    switch(formatId){
+    case FORMAT_MOD:
+        return "Amiga module file";
+    case FORMAT_669:
+        return "669 Mod Composer Module";
+    case FORMAT_IT:
+        return "Impulse Tracker Module";
+    case FORMAT_MED:
+        return "OctaMED Module";
+    case FORMAT_MTM:
+        return "MultiTracker Module";
+    case FORMAT_OCT:
+        return "OctaMED Module";
+    case FORMAT_OKT:
+        return "Oktalyzer Module";
+    case FORMAT_S3M:
+        return "ScreamTracker 3 Module";
+    case FORMAT_STM:
+        return "ScreamTracker 2 Module";
+    case FORMAT_XM:
+        return "FastTracker 2 Module";
+    case FORMAT_AHX:
+        return "Amiga Chiptune Module";
+    case FORMAT_HVL:
+        return "HivelyTracker Module";
+    case FORMAT_MP3:
+        return "MP3 Song";
+    case FORMAT_OGG:
+        return "Xiph.org Foundation OGG Song";
+    case FORMAT_FLAC:
+        return "Free Lossless Audio Codec Song";
+    default:
+        return "Unknown format";
     }
 }
 

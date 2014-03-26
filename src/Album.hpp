@@ -13,7 +13,7 @@ public:
           QString const& artistName,
           QString const& name,
           int count,
-          int duration,
+          double duration,
           QObject *parent);
     ~Album();
 

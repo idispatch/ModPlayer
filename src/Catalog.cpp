@@ -82,6 +82,11 @@ int Catalog::personalSongCount() {
     return 0;
 }
 
+bool Catalog::getLocalSongs(std::vector<LocalSongInfo> & songs) {
+    songs.clear();
+    return true;
+}
+
 ArrayDataModel* Catalog::findFormats() {
     const char * query =
             "SELECT"
@@ -102,7 +107,7 @@ ArrayDataModel* Catalog::findFormats() {
         QString name;
         QString desc;
         int songCount;
-        int totalDuration;
+        double totalDuration;
         reader >> id >> name >> desc >> songCount >> totalDuration;
         QObject* value = new SongFormat(id,
                                         name,
@@ -137,7 +142,7 @@ GroupDataModel* Catalog::findGenres() {
         int id;
         QString name;
         int songCount;
-        int totalDuration;
+        double totalDuration;
         reader >> id >> name >> songCount >> totalDuration;
         QObject* value = new SongGenre(id,
                                        name,
@@ -177,7 +182,7 @@ GroupDataModel* Catalog::findArtists() {
         int downloads;
         int rating;
         int songCount;
-        int totalDuration;
+        double totalDuration;
         reader >> id >> name >> score >> downloads >> rating >> songCount >> totalDuration;
         QObject *value = new Artist(id,
                                     name,
@@ -213,7 +218,7 @@ GroupDataModel* Catalog::findPlaylists() {
         int id;
         QString name;
         int songCount;
-        int totalDuration;
+        double totalDuration;
         reader >> id >> name >> songCount >> totalDuration;
         QObject *value = new NamedPlaylist(id,
                                            name,
@@ -249,7 +254,7 @@ GroupDataModel* Catalog::findAlbums() {
         QString artistName;
         QString albumName;
         int songCount;
-        int totalDuration;
+        double totalDuration;
         reader >> id >> artistName >> albumName >> songCount >> totalDuration;
         QObject *value = new Album(id,
                                    artistName,
@@ -430,7 +435,6 @@ SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
                         id,
                         fileName,
                         title,
-                        formatId,
                         downloads,
                         favourited,
                         score,
@@ -472,7 +476,6 @@ SongBasicInfo* Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) 
     return new SongBasicInfo(id,
                              fileName,
                              title,
-                             format,
                              downloads,
                              favourited,
                              score,

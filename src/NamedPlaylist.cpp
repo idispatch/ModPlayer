@@ -11,7 +11,7 @@ int InstanceCounter<NamedPlaylist>::s_maxCount;
 NamedPlaylist::NamedPlaylist(int id,
                              QString const& name,
                              int count,
-                             int duration,
+                             double duration,
                              QObject *parent)
     : ItemGroupBase(id, name, count, duration, parent) {
 }

@@ -33,6 +33,26 @@ class SongBasicInfo;
 class SongExtendedInfo;
 class Artist;
 
+class LocalSongInfo {
+    int m_id;
+    QString m_filePath;
+public:
+    LocalSongInfo() : m_id(0) {
+    }
+    int id() const {
+        return m_id;
+    }
+    void setId(int value) {
+        m_id = value;
+    }
+    QString const& filePath() const {
+        return m_filePath;
+    }
+    void setFilePath(QString const& value) {
+        m_filePath = value;
+    }
+};
+
 class Catalog : public QThread,
                 public InstanceCounter<Catalog> {
     Q_OBJECT
@@ -51,6 +71,8 @@ public:
 
     int personalSongCount();
     Q_INVOKABLE int personalSongCountAsync();
+
+    bool getLocalSongs(std::vector<LocalSongInfo> & songs);
 
     QString catalogPath() const;
 
