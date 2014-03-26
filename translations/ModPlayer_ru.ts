@@ -311,7 +311,7 @@
     </message>
     <message>
         <source>No songs found</source>
-        <translation>Песни не найдены</translation>
+        <translation type="obsolete">Песни не найдены</translation>
     </message>
     <message>
         <source>Searching for songs in %1...</source>
@@ -324,6 +324,10 @@
     <message>
         <source>Removing missing %1</source>
         <translation>Удаляю старую %1</translation>
+    </message>
+    <message>
+        <source>No new songs found</source>
+        <translation>Новых песен не найдено</translation>
     </message>
 </context>
 <context>

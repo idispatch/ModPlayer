@@ -101,7 +101,7 @@ void Importer::start() {
 
 void Importer::onSearchCompleted() {
     if(m_numImportedSongs == 0) {
-        m_messageBox.setBody(tr("No songs found")).setProgress(100);
+        m_messageBox.setBody(tr("No new songs found")).setProgress(100);
     } else {
         m_messageBox.setBody(tr("Imported %1 song(s)").arg(m_numImportedSongs)).setProgress(100);
     }
