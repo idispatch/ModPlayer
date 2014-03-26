@@ -80,7 +80,7 @@ TGroupContainer {
         function getLabelText() {
             if(song) {
                 if(song.id < 0) {
-                    var fileName = String(song.fileName).replace(/^\/accounts\/1000\/removable/,'')
+                    var fileName = String(song.fileName).replace(/^\/accounts\/1000\/(?:removable|shared)/,'')
                     return "<i>%1</i>".arg(Global.escapeHtml(fileName))
                 } else {
                     if(app.cache.exists(song.fileName)) {

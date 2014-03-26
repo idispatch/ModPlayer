@@ -302,10 +302,6 @@
 <context>
     <name>Importer</name>
     <message>
-        <source>Imported %1 songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No songs found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -319,6 +315,14 @@
     </message>
     <message>
         <source>Searching for songs in %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported %1 song(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing missing %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

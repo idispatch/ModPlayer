@@ -7,6 +7,7 @@
 #include "PlaybackConfig.hpp"
 #include "MessageBox.hpp"
 #include "libmad/mad.h"
+#include <set>
 
 class QDir;
 class Catalog;
@@ -18,7 +19,9 @@ private:
     QStringList m_filters;
     Catalog * m_catalog;
     MessageBox m_messageBox;
+    std::set<QString> m_knownFileNames;
     int m_numImportedSongs;
+    int m_nextId;
 public:
     Importer(QStringList const& filters,
              Catalog * catalog,

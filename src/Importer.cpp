@@ -27,7 +27,8 @@ Importer::Importer(QStringList const& filters,
       m_filters(filters),
       m_catalog(catalog),
       m_messageBox(tr("Importing Songs"), ""),
-      m_numImportedSongs(0) {
+      m_numImportedSongs(0),
+      m_nextId(-1) {
 }
 
 Importer::~Importer() {
@@ -45,34 +46,40 @@ void Importer::houseKeep() {
 }
 
 void Importer::removeMissingSongs() {
-    int numMissing = 0;
+    int missingSongs = 0;
+    m_nextId = -1;
+    m_knownFileNames.clear();
     std::vector<LocalSongInfo> songs;
     if(m_catalog->getLocalSongs(songs)) {
         qDebug() << "Local songs:" << songs.size();
         for(size_t i = 0; i < songs.size(); ++i) {
             if(!QFile::exists(songs[i].filePath())) {
                 qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
+                QString fileNameOnly = FileUtils::fileNameOnly(songs[i].filePath());
+                m_messageBox.setBody(tr("Removing missing %1").arg(fileNameOnly));
                 m_catalog->deleteSong(songs[i].id());
-                numMissing++;
+                missingSongs++;
+            } else {
+                m_knownFileNames.insert(m_knownFileNames.begin(), songs[i].filePath());
             }
+            m_nextId = std::min(songs[i].id() - 1, m_nextId);
         }
     } else {
         qDebug() << "Failed to get local songs";
     }
-    qDebug() << "Missing songs:" << numMissing;
+    qDebug() << "Missing songs:" << missingSongs;
+    qDebug() << "Next ID:" << m_nextId;
+
     houseKeep();
 }
 
 void Importer::start() {
     m_numImportedSongs = 0;
+    m_nextId = -1;
 
     removeMissingSongs();
 
-    m_messageBox.enableButton(true);
-    m_messageBox.run();
-    emit searchCompleted();
-
-    /*FileSelector * selector = new FileSelector(m_filters);
+    FileSelector * selector = new FileSelector(m_filters);
 
     bool rc;
     Q_UNUSED(rc);
@@ -89,15 +96,16 @@ void Importer::start() {
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
 
-    selector->start();*/
+    selector->start();
 }
 
 void Importer::onSearchCompleted() {
     if(m_numImportedSongs == 0) {
         m_messageBox.setBody(tr("No songs found")).setProgress(100);
     } else {
-        m_messageBox.setBody(tr("Imported %1 songs").arg(m_numImportedSongs)).setProgress(100);
+        m_messageBox.setBody(tr("Imported %1 song(s)").arg(m_numImportedSongs)).setProgress(100);
     }
+    m_knownFileNames.clear();
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
     m_messageBox.enableButton(true);
     m_messageBox.run();
@@ -109,6 +117,9 @@ void Importer::onSearchingDirectory(QString const& location) {
 }
 
 void Importer::onFoundFile(QString const& fileName) {
+    if(m_knownFileNames.find(fileName) != m_knownFileNames.end()) {
+        return; // already exists
+    }
     if(FileSelector::isMp3(fileName)) {
         importMp3File(fileName);
     } else {
@@ -155,10 +166,10 @@ bool Importer::importMp3File(QString const& fileName) {
     }
 
     ::id3_tag * tag = ::id3_file_tag(mp3file);
-    if(tag != NULL) {
-        ++m_numImportedSongs;
+    if(tag != NULL)
+    {
         SongExtendedInfo info(NULL);
-        info.setId(-m_numImportedSongs);
+        info.setId(m_nextId--);
         info.setFileName(fileName);
         {
             QFile file(fileName);
@@ -175,7 +186,8 @@ bool Importer::importMp3File(QString const& fileName) {
         unsigned long kbytes;
         mad_timer_reset(&duration);
         int result = calculateMp3Duration(fileName.toUtf8().constData(), &duration, &kbps, &kbytes);
-        if(result == 0) {
+        if(result == 0)
+        {
             duration = ::mad_timer_abs(duration);
             unsigned long milliseconds = duration.seconds * 1000 + duration.fraction * 1000/MAD_TIMER_RESOLUTION;
             info.setSongLength(milliseconds);
@@ -230,7 +242,7 @@ bool Importer::importMp3File(QString const& fileName) {
         int albumId = 0;
         if(album.length() > 0) {
             albumId = m_catalog->createAlbum(artist, album);
-            m_catalog->addSongToAlbum(albumId, -m_numImportedSongs, trackId);
+            m_catalog->addSongToAlbum(albumId, info.id(), trackId);
         }
 
         int genreId = 0;
@@ -242,7 +254,7 @@ bool Importer::importMp3File(QString const& fileName) {
         info.setGenreId(genreId);
 
         m_catalog->addPersonalSong(info);
-
+        ++m_numImportedSongs;
 #ifdef VERBOSE_LOGGING
         qDebug() << "Tags:" << "Title=" << title << "Artist=" << artist << "Album=" << album << "Track=" << track << "Year=" << year << "Genre=" << genre;
 #endif
@@ -280,9 +292,8 @@ bool Importer::importTrackerSong(QString const& fileName)
         return false;
     }
 
-    ++m_numImportedSongs;
     SongExtendedInfo info(NULL);
-    info.setId(-m_numImportedSongs);
+    info.setId(m_nextId--);
     info.setFileName(fileName);
     info.setFileSize(data.size());
     info.setSongLength(::ModPlug_GetLength(module));
@@ -308,6 +319,7 @@ bool Importer::importTrackerSong(QString const& fileName)
     info.setArtist("");
 
     m_catalog->addPersonalSong(info);
+    ++m_numImportedSongs;
     return true;
 }
 

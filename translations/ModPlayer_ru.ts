@@ -306,7 +306,7 @@
         <translation>Импортирую %1</translation>
     </message>
     <message>
-        <source>Imported %1 songs</source>
+        <source>Imported %1 song(s)</source>
         <translation>Импортировано %1 песен</translation>
     </message>
     <message>
@@ -320,6 +320,10 @@
     <message>
         <source>Importing Songs</source>
         <translation>Импортирую песни</translation>
+    </message>
+    <message>
+        <source>Removing missing %1</source>
+        <translation>Удаляю старую %1</translation>
     </message>
 </context>
 <context>
