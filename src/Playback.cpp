@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QVector>
 
+#include <audio/audio_manager_routing.h>
 #include "modplug.h"
 #include "Analytics.hpp"
 #include "ApplicationUI.hpp"
@@ -15,7 +16,7 @@ template<>
 int InstanceCounter<Playback>::s_maxCount;
 
 #ifdef _DEBUG
-//# define VERBOSE_LOGGING
+//#define VERBOSE_LOGGING
 //# define PERFORMANCE_MEASURE
 #   ifdef PERFORMANCE_MEASURE
 static _Uint64t get_clock()
@@ -43,17 +44,27 @@ Playback::Playback(QSettings &settings, QObject * parent)
       m_mediaPlayer(new bb::multimedia::MediaPlayer(this)),
       m_numDevices(0),
       m_pcmFd(-1),
+      m_audioman_handle(0),
       m_playback_handle(NULL) {
+    initAudioManager();
     initMediaPlayer();
     loadSettings();
 }
 
 Playback::~Playback() {
+    ::audio_manager_free_handle(m_audioman_handle);
+    m_audioman_handle = 0;
     saveSettings();
     closePlayback(); // called from playback thread only
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Playback::~Playback()";
+    qDebug() << "[PLAYBACK]" << "Playback::~Playback()";
 #endif
+}
+
+void Playback::initAudioManager() {
+    if (::audio_manager_get_handle(AUDIO_TYPE_MULTIMEDIA, 0, false, &m_audioman_handle ) < 0 ) {
+        qDebug() << "[PLAYBACK]" << "audio_manager_get_handle error, errno=" << errno;
+    }
 }
 
 void Playback::initMediaPlayer() {
@@ -64,26 +75,26 @@ void Playback::initMediaPlayer() {
     if(m_mediaPlayer->audioOutput() != bb::multimedia::AudioOutput::Default) {
         mediaError = m_mediaPlayer->setAudioOutput(bb::multimedia::AudioOutput::Default);
         if(mediaError != bb::multimedia::MediaError::None) {
-            qDebug() << "initMediaPlayer" << "setAudioOutput:" << mediaError;
+            qDebug() << "[PLAYBACK]" << "initMediaPlayer" << "setAudioOutput:" << mediaError;
         }
     }
 
     mediaError = m_mediaPlayer->setStatusInterval(200);
     if(mediaError != bb::multimedia::MediaError::None) {
-        qDebug() << "initMediaPlayer" << "setStatusInterval:" << mediaError;
+        qDebug() << "[PLAYBACK]" << "initMediaPlayer" << "setStatusInterval:" << mediaError;
     }
 
     if(m_mediaPlayer->speed() != 1.0) {
         mediaError = m_mediaPlayer->setSpeed(1.0);
         if(mediaError != bb::multimedia::MediaError::None) {
-            qDebug() << "initMediaPlayer" << "setSpeed:" << mediaError;
+            qDebug() << "[PLAYBACK]" << "initMediaPlayer" << "setSpeed:" << mediaError;
         }
     }
 
     if(m_mediaPlayer->repeatMode() != bb::multimedia::RepeatMode::None) {
         mediaError = m_mediaPlayer->setRepeatMode(bb::multimedia::RepeatMode::None);
         if(mediaError != bb::multimedia::MediaError::None) {
-            qDebug() << "initMediaPlayer" << "setRepeatMode:" << mediaError;
+            qDebug() << "[PLAYBACK]" << "initMediaPlayer" << "setRepeatMode:" << mediaError;
         }
     }
 
@@ -180,7 +191,7 @@ void Playback::configure() {
     QMutexLocker locker(&m_mutex); // called from user thread
     if(!m_config.isAudioReconfigurationRequired()) {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Playback::configure:" << "No audio reconfiguration required";
+        qDebug() << "[PLAYBACK]" << "Playback::configure:" << "No audio reconfiguration required";
 #endif
         return;
     }
@@ -314,35 +325,35 @@ void Playback::configureAudio() {
 
     if(m_config.isAudioReconfigurationRequired()) {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Audio reconfiguration required";
-        qDebug() << "Stopping audio device";
+        qDebug() << "[PLAYBACK]" << "Audio reconfiguration required";
+        qDebug() << "[PLAYBACK]" << "Stopping audio device";
 #endif
         stopAudioDevice();
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Stopped audio device";
-        qDebug() << "Initializing audio playback";
+        qDebug() << "[PLAYBACK]" << "Stopped audio device";
+        qDebug() << "[PLAYBACK]" << "Initializing audio playback";
 #endif
         initPlayback();
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Audio playback initialized";
+        qDebug() << "[PLAYBACK]" << "Audio playback initialized";
 #endif
         if(m_song.songLoaded()) {
             fileName = m_song.absoluteFileName();
 #ifdef VERBOSE_LOGGING
-            qDebug() << "Unloading song module" << fileName;
+            qDebug() << "[PLAYBACK]" << "Unloading song module" << fileName;
 #endif
             m_song.unload();
 #ifdef VERBOSE_LOGGING
-            qDebug() << "Song module" << fileName << "unloaded";
+            qDebug() << "[PLAYBACK]" << "Song module" << fileName << "unloaded";
 #endif
         } else {
 #ifdef VERBOSE_LOGGING
-            qDebug() << "Song module is not loaded";
+            qDebug() << "[PLAYBACK]" << "Song module is not loaded";
 #endif
         }
     } else {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "No audio reconfiguration required";
+        qDebug() << "[PLAYBACK]" << "No audio reconfiguration required";
 #endif
     }
 
@@ -389,11 +400,11 @@ void Playback::configureAudio() {
 
     if(fileName.length() > 0) {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Reloading song module" << fileName;
+        qDebug() << "[PLAYBACK]" << "Reloading song module" << fileName;
 #endif
         m_song.load(m_pendingSong, fileName);
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Song module" << fileName << "reloaded";
+        qDebug() << "[PLAYBACK]" << "Song module" << fileName << "reloaded";
 #endif
     }
 
@@ -408,28 +419,28 @@ void Playback::run() {
 #endif
     m_song.moveToThread(this);
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Entering playback thread";
+    qDebug() << "[PLAYBACK]" << "Entering playback thread";
 #endif
     changeState(Idle);
 
     if(!detectAudioDevice()) {
         changeState(Exit);
-        qDebug() << "Failed to detect audio device for playback";
+        qDebug() << "[PLAYBACK]" << "Failed to detect audio device for playback";
         QThread::exit(1);
         return;
     }
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Audio device detected successfully";
+    qDebug() << "[PLAYBACK]" << "Audio device detected successfully";
 #endif
     if(!initPlayback()) {
         changeState(Exit);
-        qDebug() << "Failed to initialize audio device for playback";
+        qDebug() << "[PLAYBACK]" << "Failed to initialize audio device for playback";
         QThread::exit(2);
         return;
     }
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Audio device playback initialized successfully";
-    qDebug() << "Starting playback loop";
+    qDebug() << "[PLAYBACK]" << "Audio device playback initialized successfully";
+    qDebug() << "[PLAYBACK]" << "Starting playback loop";
 #endif
     m_mutex.lock();
     while(m_state != Exit && m_state != Exiting)
@@ -545,7 +556,7 @@ void Playback::run() {
                         if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;
                         } else {
-                            qDebug() << "Error: MediaPlayer: setSourceUrl:" << url << ", error=" << mediaError;
+                            qDebug() << "[PLAYBACK]" << "Error: MediaPlayer: setSourceUrl:" << url << ", error=" << mediaError;
                             okToPlay = false;
                         }
                     } else {
@@ -557,7 +568,7 @@ void Playback::run() {
                             m_state = Playing;
                             emit playing();
                         } else {
-                            qDebug() << "Error: MediaPlayer: play:" << mediaError;
+                            qDebug() << "[PLAYBACK]" << "Error: MediaPlayer: play:" << mediaError;
                         }
                     }
                 } else {
@@ -629,11 +640,11 @@ void Playback::run() {
 
     m_mutex.unlock();
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Stopping playback...";
+    qDebug() << "[PLAYBACK]" << "Stopping playback...";
 #endif
     stopAudioDevice();
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Exiting playback thread";
+    qDebug() << "[PLAYBACK]" << "Exiting playback thread";
 #endif
     changeState(Exit);
     QThread::exit(0);
@@ -641,18 +652,18 @@ void Playback::run() {
 
 bool Playback::detectAudioDevice() {
     int rc;
-    qDebug() << "Detecting available audio devices for playback...";
+    qDebug() << "[PLAYBACK]" << "Detecting available audio devices for playback...";
     int ncards = ::snd_cards();
-    qDebug() << "Number of audio cards" << ncards;
+    qDebug() << "[PLAYBACK]" << "Number of audio cards" << ncards;
     char buffer[256];
     for(int i = 0; i < ncards; ++i) {
         rc = ::snd_card_get_name(i, buffer, sizeof(buffer));
         if(rc != -1) {
-            qDebug() << "Card" << i << "name:" << buffer;
+            qDebug() << "[PLAYBACK]" << "Card" << i << "name:" << buffer;
         }
         rc = ::snd_card_get_longname (i, buffer, sizeof(buffer));
         if(rc != -1) {
-            qDebug() << "Card" << i << "long name:" << buffer;
+            qDebug() << "[PLAYBACK]" << "Card" << i << "long name:" << buffer;
         }
     }
     m_numDevices = 32; /* guess */
@@ -665,7 +676,7 @@ bool Playback::detectAudioDevice() {
                         devices.data(),
                         SND_PCM_OPEN_PLAYBACK);
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Found" << m_numDevices << "audio devices for playback";
+    qDebug() << "[PLAYBACK]" << "Found" << m_numDevices << "audio devices for playback";
 #endif
     return rc > 0 && m_numDevices > 0;
 }
@@ -675,16 +686,16 @@ bool Playback::initPlayback() {
     int card;
     int device;
 
-    snd_pcm_format_t            pcm_format;
-    snd_pcm_info_t              pcm_info;
-    snd_pcm_channel_info_t      channel_info;
-    snd_pcm_channel_params_t    channel_params;
-    snd_pcm_channel_setup_t     channel_setup;
+    ::snd_pcm_format_t            pcm_format;
+    ::snd_pcm_info_t              pcm_info;
+    ::snd_pcm_channel_info_t      channel_info;
+    ::snd_pcm_channel_params_t    channel_params;
+    ::snd_pcm_channel_setup_t     channel_setup;
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Initializing selected audio device for playback...";
+    qDebug() << "[PLAYBACK]" << "Initializing selected audio device for playback...";
 #endif
     if(m_numDevices == 0) {
-        qDebug() << "No audio devices available!";
+        qDebug() << "[PLAYBACK]" << "No audio devices available!";
         return false;
     }
 
@@ -705,46 +716,38 @@ bool Playback::initPlayback() {
     pcm_format.voices = m_config.stereo() ? 2 : 1;
     pcm_format.rate = m_config.frequency();
 
-#if 0
-    /*
-     * width
-The width; one of 8, 16, 24, or 32.
-unsigned
-0 for signed; 1 for unsigned.
-big_endian
-0 for little endian; 1 for big endian.*/
-    int fmt = ::snd_pcm_build_linear_format(16, 0, 0);
-#endif
 #ifdef VERBOSE_LOGGING
-    qDebug() << "PCM format: voices:" << pcm_format.voices
-             << ", rate:" << pcm_format.rate
-             << ", format:" << pcm_format.format;
+    qDebug() << "[PLAYBACK]" << "PCM format: voices:" << pcm_format.voices << ", rate:" << pcm_format.rate << ", format:" << pcm_format.format;
 #endif
     if((err = ::snd_pcm_open_preferred(&m_playback_handle,
                                        &card,
                                        &device,
                                        SND_PCM_OPEN_PLAYBACK)) < 0) {
-        qDebug() << "Failed to open preferred PCM device:" << ::snd_strerror(err);
+        qDebug() << "[PLAYBACK]" << "Failed to open preferred PCM device:" << ::snd_strerror(err);
         return false;
     } else {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Opened preferred PCM device: card" << card << "device" << device;
+        qDebug() << "[PLAYBACK]" << "Opened preferred PCM device: card" << card << "device" << device;
 #endif
+    }
+
+    if (::snd_pcm_set_audioman_handle(m_playback_handle, m_audioman_handle) < 0 ) {
+        qDebug() << "[PLAYBACK]" << "Could not set the pcm_handle with the audioman_handle";
     }
 
     // GET
     if(::snd_pcm_info(m_playback_handle, &pcm_info) != -1) {
-#if 0
-        qDebug() << "type:" << pcm_info.type;
-        qDebug() << "flags:" << pcm_info.flags;
-        qDebug() << "id:" << pcm_info.id;
-        qDebug() << "name:" << pcm_info.name;
-        qDebug() << "playback:" << pcm_info.playback + 1;
-        qDebug() << "capture:" << pcm_info.capture + 1;
-        qDebug() << "card:" << pcm_info.card;
-        qDebug() << "device:" << pcm_info.device;
-        qDebug() << "shared_card:" << pcm_info.shared_card;
-        qDebug() << "shared_device:" << pcm_info.shared_device;
+#ifdef VERBOSE_LOGGING
+        qDebug() << "[PLAYBACK]" << "type:" << pcm_info.type;
+        qDebug() << "[PLAYBACK]" << "flags:" << pcm_info.flags;
+        qDebug() << "[PLAYBACK]" << "id:" << pcm_info.id;
+        qDebug() << "[PLAYBACK]" << "name:" << pcm_info.name;
+        qDebug() << "[PLAYBACK]" << "playback:" << pcm_info.playback + 1;
+        qDebug() << "[PLAYBACK]" << "capture:" << pcm_info.capture + 1;
+        qDebug() << "[PLAYBACK]" << "card:" << pcm_info.card;
+        qDebug() << "[PLAYBACK]" << "device:" << pcm_info.device;
+        qDebug() << "[PLAYBACK]" << "shared_card:" << pcm_info.shared_card;
+        qDebug() << "[PLAYBACK]" << "shared_device:" << pcm_info.shared_device;
 #endif
     }
 
@@ -757,22 +760,22 @@ big_endian
     memset(&channel_info, 0, sizeof(channel_info));
     channel_info.channel = SND_PCM_CHANNEL_PLAYBACK;
     if ((err = ::snd_pcm_plugin_info(m_playback_handle, &channel_info)) < 0) {
-        qDebug() << "Failed to get PCM plugin info:" << ::snd_strerror(err);
+        qDebug() << "[PLAYBACK]" << "Failed to get PCM plugin info:" << ::snd_strerror(err);
         return false;
     }
 
-#if 0
-    qDebug() << "PCM channel info for device" << device << ":";
-    qDebug() << "subdevice:" << channel_info.subdevice;
-    qDebug() << "subname:" << channel_info.subname;
-    qDebug() << "channel:" << channel_info.channel;
-    qDebug() << "flags:" << channel_info.flags;
-    qDebug() << "formats:" << channel_info.formats;
+#ifdef VERBOSE_LOGGING
+    qDebug() << "[PLAYBACK]" << "PCM channel info for device" << device << ":";
+    qDebug() << "[PLAYBACK]" << "    subdevice:" << channel_info.subdevice;
+    qDebug() << "[PLAYBACK]" << "    subname:" << channel_info.subname;
+    qDebug() << "[PLAYBACK]" << "    channel:" << channel_info.channel;
+    qDebug() << "[PLAYBACK]" << "    flags:" << channel_info.flags;
+    qDebug() << "[PLAYBACK]" << "    formats:" << channel_info.formats;
 #define DUMP_FORMAT(x) \
     if(channel_info.formats & x) { \
-        qDebug() << " +format:" << #x; \
+        qDebug() << "[PLAYBACK]" << "       +format:" << #x; \
     } else { \
-        qDebug() << " -format:" << #x; \
+        qDebug() << "[PLAYBACK]" << "       -format:" << #x; \
     }
 
     DUMP_FORMAT(SND_PCM_FMT_U8)
@@ -803,13 +806,13 @@ big_endian
     DUMP_FORMAT(SND_PCM_FMT_MPEG)
     DUMP_FORMAT(SND_PCM_FMT_SPECIAL)
 
-    qDebug() << "rates:" << channel_info.rates;
+    qDebug() << "[PLAYBACK]" << "    rates:" << channel_info.rates;
 
 #define DUMP_RATE(x) \
     if(channel_info.rates & x) { \
-        qDebug() << " +rate:" << #x; \
+        qDebug() << "[PLAYBACK]" << "       +rate:" << #x; \
     } else { \
-        qDebug() << " -rate:" << #x; \
+        qDebug() << "[PLAYBACK]" << "       -rate:" << #x; \
     }
 
     DUMP_RATE(SND_PCM_RATE_8000)
@@ -825,15 +828,15 @@ big_endian
     DUMP_RATE(SND_PCM_RATE_192000)
 #undef DUMP_RATE
 
-    qDebug() << "min_rate:" << channel_info.min_rate;
-    qDebug() << "max_rate:" << channel_info.max_rate;
-    qDebug() << "min_voices:" << channel_info.min_voices;
-    qDebug() << "max_voices:" << channel_info.max_voices;
-    qDebug() << "max_buffer_size:" << channel_info.max_buffer_size;
-    qDebug() << "min_fragment_size:" << channel_info.min_fragment_size;
-    qDebug() << "max_fragment_size:" << channel_info.max_fragment_size;
-    qDebug() << "fragment_align:" << channel_info.fragment_align;
-    qDebug() << "fifo_size:" << channel_info.fifo_size;
+    qDebug() << "[PLAYBACK]" << "min_rate:" << channel_info.min_rate;
+    qDebug() << "[PLAYBACK]" << "max_rate:" << channel_info.max_rate;
+    qDebug() << "[PLAYBACK]" << "min_voices:" << channel_info.min_voices;
+    qDebug() << "[PLAYBACK]" << "max_voices:" << channel_info.max_voices;
+    qDebug() << "[PLAYBACK]" << "max_buffer_size:" << channel_info.max_buffer_size;
+    qDebug() << "[PLAYBACK]" << "min_fragment_size:" << channel_info.min_fragment_size;
+    qDebug() << "[PLAYBACK]" << "max_fragment_size:" << channel_info.max_fragment_size;
+    qDebug() << "[PLAYBACK]" << "fragment_align:" << channel_info.fragment_align;
+    qDebug() << "[PLAYBACK]" << "fifo_size:" << channel_info.fifo_size;
 #endif
 
     if (channel_info.min_rate > pcm_format.rate ||
@@ -844,6 +847,12 @@ big_endian
     }
 
     int fragmentSize = channel_info.max_fragment_size;
+
+    if ((err = snd_pcm_plugin_set_enable(m_playback_handle,
+                                         PLUGIN_ROUTING)) < 0) {
+        qDebug() << "[PLAYBACK]" << "Failed to snd_pcm_plugin_set_enable PLUGIN_ROUTING, " << ::snd_strerror(err);
+        return false;
+    }
 #if 0
     // SET
     if ((err = snd_pcm_plugin_set_disable(m_playback_handle,
@@ -886,14 +895,14 @@ big_endian
     if ((err = ::snd_pcm_plugin_params(m_playback_handle,
                                        &channel_params)) < 0)
     {
-        qDebug() << "Failed to configure PCM plugin:" << ::snd_strerror(err);
+        qDebug() << "[PLAYBACK]" << "Failed to configure PCM plugin:" << ::snd_strerror(err);
         return false;
     }
 
     if ((err = ::snd_pcm_plugin_prepare(m_playback_handle,
                                         SND_PCM_CHANNEL_PLAYBACK)) < 0)
     {
-        qDebug() << "Failed to prepare PCM plugin:" << ::snd_strerror(err);
+        qDebug() << "[PLAYBACK]" << "Failed to prepare PCM plugin:" << ::snd_strerror(err);
         return false;
     }
 
@@ -905,14 +914,14 @@ big_endian
     if ((err = ::snd_pcm_plugin_setup(m_playback_handle,
                                       &channel_setup)) < 0)
     {
-        qDebug() << "Failed to get PCM plugin configuration:" << ::snd_strerror(err);
+        qDebug() << "[PLAYBACK]" << "Failed to get PCM plugin configuration:" << ::snd_strerror(err);
         return false;
     }
 
-    qDebug() << "Creating" <<  channel_setup.buf.block.frag_size << "bytes audio buffer";
+    qDebug() << "[PLAYBACK]" << "Creating audio buffer (" <<  channel_setup.buf.block.frag_size << " bytes)";
     m_audioBuffer.resize(channel_setup.buf.block.frag_size);
 
-    qDebug() << "Selected audio device was initialized successfully";
+    qDebug() << "[PLAYBACK]" << "Selected audio device was initialized successfully";
     return true;
 }
 
@@ -979,10 +988,10 @@ int Playback::updateChunk() {
 #endif
     if(numWritten < 0)
     {
-        qDebug() << "snd_pcm_plugin_write(numWritten < 0): " << errno << "," << strerror(errno);
+        qDebug() << "[PLAYBACK]" << "snd_pcm_plugin_write(numWritten < 0): " << errno << "," << strerror(errno);
         if(numWritten == -EINVAL)
         {
-            qDebug() << "Failed to write PCM plugin: error=" << errno << "," << strerror(errno);
+            qDebug() << "[PLAYBACK]" << "Failed to write PCM plugin: error=" << errno << "," << strerror(errno);
             m_song.update(true);
             return -1;
         }
@@ -997,7 +1006,7 @@ int Playback::updateChunk() {
         status.channel = SND_PCM_CHANNEL_PLAYBACK;
 
         if ((err = ::snd_pcm_plugin_status(m_playback_handle, &status)) < 0) {
-            qDebug().nospace() << "Failed to get PCM plugin status: error=" << err << "," << ::snd_strerror(err);
+            qDebug().nospace() << "[PLAYBACK]" << "Failed to get PCM plugin status: error=" << err << "," << ::snd_strerror(err);
             qDebug().space();
             m_song.update(true);
             return -1;
@@ -1012,7 +1021,7 @@ int Playback::updateChunk() {
                 time_prepare_start = get_clock();
 #endif
                 if((err = ::snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0) {
-                    qDebug().nospace() << "Failed to prepare PCM plugin: error=" << err << "," << ::snd_strerror(err);
+                    qDebug().nospace() << "[PLAYBACK]" << "Failed to prepare PCM plugin: error=" << err << "," << ::snd_strerror(err);
                     qDebug().space();
                     m_song.update(true);
                     return -1;
@@ -1029,7 +1038,7 @@ int Playback::updateChunk() {
                     time_rewrite_end = get_clock();
 #endif
                     if(numWritten != bytesGenerated) {
-                        qDebug().nospace() << "Failed to write to PCM plugin: written="
+                        qDebug().nospace() << "[PLAYBACK]" << "Failed to write to PCM plugin: written="
                                            << numWritten
                                            << ", wanted="
                                            << bytesGenerated;
@@ -1039,7 +1048,7 @@ int Playback::updateChunk() {
                     }
                 }
             } else {
-                qDebug() << "Failed to write to PCM plugin: status=" << status.status;
+                qDebug() << "[PLAYBACK]" << "Failed to write to PCM plugin: status=" << status.status;
                 m_song.update(true);
                 return -1;
             }
@@ -1047,7 +1056,8 @@ int Playback::updateChunk() {
     }
 #ifdef PERFORMANCE_MEASURE
     qDebug().nospace()
-             << "Read="      << (time_read_end - time_read_start) / 1000 << "us"
+             << "[PLAYBACK]" << "Read="
+                             << (time_read_end - time_read_start) / 1000 << "us"
              << ", Write="   << (time_write_end - time_write_start) / 1000 << "us"
              << ", Update="  << (time_update_end - time_update_start) / 1000 << "us"
              << ", Status="  << (time_status_end - time_status_start) / 1000 << "us"
@@ -1061,7 +1071,7 @@ int Playback::updateChunk() {
 void Playback::onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type) {
     Q_UNUSED(type)
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Playback::onMediaPlayerBufferStatusChanged" << type;
+    qDebug() << "[PLAYBACK]" << "Playback::onMediaPlayerBufferStatusChanged" << type;
 #endif
 }
 
@@ -1069,7 +1079,7 @@ void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, u
     Q_UNUSED(mediaError)
     Q_UNUSED(position)
 #ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "Playback::onMediaPlayerError: error=" << mediaError << ", position=" << position;
+    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerError: error=" << mediaError << ", position=" << position;
     qDebug().space();
 #endif
 }
@@ -1077,13 +1087,13 @@ void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, u
 void Playback::onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type type) {
     Q_UNUSED(type)
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Playback::onMediaPlayerMediaStateChanged" << type;
+    qDebug() << "[PLAYBACK]" << "Playback::onMediaPlayerMediaStateChanged" << type;
 #endif
 }
 
 void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
 #ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "Playback::onMediaPlayerMetaDataChanged: metadata=" << metaData;
+    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerMetaDataChanged: metadata=" << metaData;
     qDebug().space();
 
     QStringList keys = metaData.keys();
@@ -1116,7 +1126,7 @@ void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
 
 void Playback::onMediaPlayerPlaybackCompleted() {
 #ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "Playback::onMediaPlayerPlaybackCompleted";
+    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerPlaybackCompleted";
     qDebug().space();
 #endif
     m_mediaPlayer->stop();
@@ -1130,7 +1140,7 @@ void Playback::onMediaPlayerPlaybackCompleted() {
 void Playback::onMediaPlayerPositionChanged(unsigned int position) {
 #if 0
 #ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "Playback::onMediaPlayerPositionChanged: position=" << position;
+    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerPositionChanged: position=" << position;
     qDebug().space();
 #endif
 #endif

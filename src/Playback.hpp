@@ -99,6 +99,7 @@ private:
     void loadSettings();
     void saveSettings();
     void configureAudio();
+    void initAudioManager();
 
     PlaybackConfig m_config;
 
@@ -118,6 +119,7 @@ private:
     /* Device audio subsystem */
     int m_numDevices;
     int m_pcmFd;
+    unsigned int m_audioman_handle;
     snd_pcm_t * m_playback_handle;
 };
 
