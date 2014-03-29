@@ -140,6 +140,9 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: albumsPage.navigationPane
         },
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

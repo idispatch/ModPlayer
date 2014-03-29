@@ -104,6 +104,9 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
             navigationPane: artistsPage.navigationPane
         },
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

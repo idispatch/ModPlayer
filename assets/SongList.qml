@@ -425,6 +425,9 @@ Page {
             songList: songs.dataModel
             mode: songs.mode 
         },
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

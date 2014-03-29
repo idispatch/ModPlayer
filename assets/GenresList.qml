@@ -98,6 +98,9 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
             navigationPane: genresPage.navigationPane
         },
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

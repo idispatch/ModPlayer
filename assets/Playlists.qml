@@ -166,6 +166,9 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
             navigationPane: playlistsPage.navigationPane
         },
+        PlayModeActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
