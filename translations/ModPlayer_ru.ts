@@ -28,7 +28,7 @@
     </message>
     <message>
         <source>search albums</source>
-        <translation type="unfinished"></translation>
+        <translation>искать альбомы</translation>
     </message>
 </context>
 <context>
@@ -95,10 +95,6 @@
 <context>
     <name>ArtistsList</name>
     <message>
-        <source>Select Songs by Artist</source>
-        <translation type="obsolete">Выбрать песни по композитору</translation>
-    </message>
-    <message>
         <source>%1 songs</source>
         <translation>%1 песен</translation>
     </message>
@@ -112,11 +108,11 @@
     </message>
     <message>
         <source>search artists</source>
-        <translation type="unfinished"></translation>
+        <translation>искать композитора</translation>
     </message>
     <message>
         <source>Select Artist</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать композитора</translation>
     </message>
 </context>
 <context>
@@ -320,10 +316,6 @@
     <message>
         <source>Imported %1 song(s)</source>
         <translation>Импортировано %1 песен</translation>
-    </message>
-    <message>
-        <source>No songs found</source>
-        <translation type="obsolete">Песни не найдены</translation>
     </message>
     <message>
         <source>Searching for songs in %1...</source>
@@ -620,13 +612,6 @@
     <message>
         <source>MP3 format</source>
         <translation>MP3 формат</translation>
-    </message>
-</context>
-<context>
-    <name>SearchArea</name>
-    <message>
-        <source>search songs</source>
-        <translation type="obsolete">найти песни</translation>
     </message>
 </context>
 <context>
@@ -1010,7 +995,7 @@
     </message>
     <message>
         <source>search songs</source>
-        <translation type="unfinished">найти песни</translation>
+        <translation>найти песни</translation>
     </message>
 </context>
 <context>
@@ -1059,27 +1044,27 @@
     <name>SongPersonalInfo</name>
     <message>
         <source>You played this song once</source>
-        <translation type="unfinished">Вы прослушали песню 1 раз</translation>
+        <translation>Вы прослушали песню 1 раз</translation>
     </message>
     <message>
         <source>You did not play this song yet</source>
-        <translation type="unfinished">Вы ещё не слушали эту песню</translation>
+        <translation>Вы ещё не слушали эту песню</translation>
     </message>
     <message>
         <source>You liked this song</source>
-        <translation type="unfinished">Вам понравилась эта песня</translation>
+        <translation>Вам понравилась эта песня</translation>
     </message>
     <message>
         <source>You played this song &lt;b&gt;%1&lt;/b&gt; times</source>
-        <translation type="unfinished">Вы слушали эту песню &lt;b&gt;%1&lt;/b&gt; раз</translation>
+        <translation>Вы слушали эту песню &lt;b&gt;%1&lt;/b&gt; раз</translation>
     </message>
     <message>
         <source>Last played %1</source>
-        <translation type="unfinished">Последний раз %1</translation>
+        <translation>Последний раз %1</translation>
     </message>
     <message>
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
-        <translation type="unfinished">&lt;i&gt;Вы уже скачали эту песню&lt;/i&gt;</translation>
+        <translation>&lt;i&gt;Вы уже скачали эту песню&lt;/i&gt;</translation>
     </message>
 </context>
 <context>
