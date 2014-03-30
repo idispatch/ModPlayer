@@ -82,14 +82,14 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findFormats();
     Q_INVOKABLE int findFormatsAsync();
 
-    Q_INVOKABLE bb::cascades::GroupDataModel* findGenres();
-    Q_INVOKABLE int findGenresAsync();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findGenres(QString const& searchTerm);
+    Q_INVOKABLE int findGenresAsync(QString const& searchTerm);
 
     Q_INVOKABLE bb::cascades::GroupDataModel* findArtists(QString const& searchTerm);
     Q_INVOKABLE int findArtistsAsync(QString const& searchTerm);
 
-    Q_INVOKABLE bb::cascades::GroupDataModel* findPlaylists();
-    Q_INVOKABLE int findPlaylistsAsync();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findPlaylists(QString const& searchTerm);
+    Q_INVOKABLE int findPlaylistsAsync(QString const& searchTerm);
 
     Q_INVOKABLE bb::cascades::GroupDataModel* findAlbums(QString const& searchTerm);
     Q_INVOKABLE int findAlbumsAsync(QString const& searchTerm);

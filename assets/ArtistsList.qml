@@ -27,13 +27,7 @@ Page {
                     id: searchArea
                     hintText: qsTr("search artists")
                     onSearch: {
-                        progress.start()
-                        artistsList.visible = false
-                        if (artistsList.dataModel) {
-                            artistsList.dataModel.clear()
-                        }
-                        artistsList.resetDataModel()
-                        requestId = app.catalog.findArtistsAsync(searchArea.searchTerm)
+                        load()
                     }
                 }
                 expanded: true
@@ -48,6 +42,7 @@ Page {
         }
         ListView {
             id: artistsList
+            visible: !progress.running
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -99,7 +94,6 @@ Page {
     }
     function load() {
         progress.start()
-        artistsList.visible = false
         requestId = app.catalog.findArtistsAsync(searchArea.searchTerm)
     }
     onCreationCompleted: {
@@ -115,9 +109,8 @@ Page {
             if(responseId != requestId) 
                 return
             requestId = 0
-            progress.stop()
-            artistsList.visible = true
             artistsList.dataModel = result
+            progress.stop()
         })
     }
     attachedObjects: [

@@ -7,7 +7,34 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
+        id: titleBar
         title: qsTr("Select Playlist")
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            HorizontalContainer {
+                leftPadding: 10
+                Label {
+                    text: titleBar.title
+                    textStyle {
+                        color: Color.White 
+                        fontSize: FontSize.Large
+                    }
+                    verticalAlignment: VerticalAlignment.Center
+                }
+            }
+            expandableArea {
+                content: SearchArea {
+                    id: searchArea
+                    hintText: qsTr("search playlists")
+                    onSearch: {
+                        load()
+                    }
+                }
+                expanded: true
+                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
+                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
+            }
+        }
     }
     ViewContainer {
         ProgressComponent {
@@ -102,18 +129,14 @@ Page {
     }
     function unload() {
         progress.start()
-        playlistsList.visible = false
         if(playlistsList.dataModel) {
             playlistsList.dataModel.clear()
         }
         playlistsList.resetDataModel()
     }
     function load() {
-        if(playlistsList.dataModel == null || playlistsList.dataModel.size() == 0) {
-            progress.start()
-            playlistsList.visible = false
-            requestId = app.player.catalog.findPlaylistsAsync()
-        }
+        unload()
+        requestId = app.player.catalog.findPlaylistsAsync(searchArea.searchTerm)
     }
     function showPlayer() {
         var view = songPlayer.createObject()

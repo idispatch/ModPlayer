@@ -27,13 +27,7 @@ Page {
                     id: searchArea
                     hintText: qsTr("search albums")
                     onSearch: {
-                        progress.start()
-                        albumsList.visible = false
-                        if (albumsList.dataModel) {
-                            albumsList.dataModel.clear()
-                        }
-                        albumsList.resetDataModel()
-                        requestId = app.catalog.findAlbumsAsync(searchArea.searchTerm)
+                        load()
                     }
                 }
                 expanded: true
@@ -48,6 +42,7 @@ Page {
         }
         ListView {
             id: albumsList
+            visible: !progress.running
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -124,7 +119,6 @@ Page {
     }
     function unload() {
         progress.start()
-        albumsList.visible = false
         if(albumsList.dataModel) {
             albumsList.dataModel.clear()
         }
@@ -150,9 +144,8 @@ Page {
             if(responseId != requestId) 
                 return
             requestId = 0
-            progress.stop()
-            albumsList.visible = true
             albumsList.dataModel = result
+            progress.stop()
     })
     }
     attachedObjects: [

@@ -7,7 +7,34 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
+        id: titleBar
         title: qsTr("Select Songs by Genre")
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            HorizontalContainer {
+                leftPadding: 10
+                Label {
+                    text: titleBar.title
+                    textStyle {
+                        color: Color.White 
+                        fontSize: FontSize.Large
+                    }
+                    verticalAlignment: VerticalAlignment.Center
+                }
+            }
+            expandableArea {
+                content: SearchArea {
+                    id: searchArea
+                    hintText: qsTr("search genres")
+                    onSearch: {
+                        load()
+                    }
+                }
+                expanded: true
+                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
+                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
+            }
+        }
     }
     ViewContainer {
         ProgressComponent {
@@ -15,6 +42,7 @@ Page {
         }
         ListView {
             id: genresList
+            visible: !progress.running
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -58,12 +86,16 @@ Page {
             ]
         }
     }
-    function load() {
-        if(genresList.dataModel == null || genresList.dataModel.size() == 0) {
-            progress.start()
-            genresList.visible = false
-            requestId = app.player.catalog.findGenresAsync()
+    function unload() {
+        progress.start()
+        if(genresList.dataModel) {
+            genresList.dataModel.clear()
         }
+        genresList.resetDataModel()
+    }
+    function load() {
+        unload()
+        requestId = app.player.catalog.findGenresAsync(searchArea.searchTerm)
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {

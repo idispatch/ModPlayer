@@ -224,6 +224,10 @@
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>search genres</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Help</name>
@@ -556,6 +560,10 @@
     </message>
     <message>
         <source>Play Playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>search playlists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

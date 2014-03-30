@@ -39,16 +39,16 @@ int Catalog::findFormatsAsync() {
     return asyncCommand(Command::FormatsList);
 }
 
-int Catalog::findGenresAsync() {
-    return asyncCommand(Command::GenresList);
+int Catalog::findGenresAsync(QString const& searchTerm) {
+    return asyncSearchCommand(Command::GenresList, searchTerm, -1);
 }
 
 int Catalog::findArtistsAsync(QString const& searchTerm) {
     return asyncSearchCommand(Command::ArtistsList, searchTerm, -1);
 }
 
-int Catalog::findPlaylistsAsync() {
-    return asyncCommand(Command::Playlists);
+int Catalog::findPlaylistsAsync(QString const& searchTerm) {
+    return asyncSearchCommand(Command::Playlists, searchTerm, -1);
 }
 
 int Catalog::findAlbumsAsync(QString const& searchTerm) {
@@ -149,7 +149,10 @@ void Catalog::run() {
             result = assign(command, findFormats());
             break;
         case Command::GenresList:
-            result = assign(command, findGenres());
+            {
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findGenres(searchCommand->query()));
+            }
             break;
         case Command::ArtistsList:
             {
@@ -158,7 +161,10 @@ void Catalog::run() {
             }
             break;
         case Command::Playlists:
-            result = assign(command, findPlaylists());
+            {
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findPlaylists(searchCommand->query()));
+            }
             break;
         case Command::Albums:
             {

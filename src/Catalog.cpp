@@ -131,7 +131,7 @@ ArrayDataModel* Catalog::findFormats() {
     return model;
 }
 
-GroupDataModel* Catalog::findGenres() {
+GroupDataModel* Catalog::findGenres(QString const& searchTerm) {
     const char * query =
             "SELECT"
             " genres.id,"
@@ -139,14 +139,26 @@ GroupDataModel* Catalog::findGenres() {
             " COUNT(songs.id) AS songCount, "
             " SUM(songs.length) AS duration "
             "FROM genres "
-            "LEFT JOIN songs ON songs.genre=genres.id "
-            "GROUP BY genres.id";
+            "LEFT JOIN songs ON songs.genre=genres.id ";
+    QString whereClause;
+    if(searchTerm.length() > 0) {
+        QString expr = QString(searchTerm).replace("'", "''")
+                                          .replace("\\", "\\\\")
+                                          .replace("%", "\\%")
+                                          .replace("_", "\\_");
+        whereClause += QString(" WHERE (genres.name LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+    }
+
+    QString fullSql(query);
+    fullSql += whereClause;
+    fullSql += " GROUP BY genres.id";
+
     GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
     QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
+    QSqlQuery sqlQuery = db.exec(fullSql);
     while(sqlQuery.next()) {
         SqlReader reader(sqlQuery);
         int id;
@@ -218,7 +230,7 @@ GroupDataModel* Catalog::findArtists(QString const& searchTerm) {
     return model;
 }
 
-GroupDataModel* Catalog::findPlaylists() {
+GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
     const char * query = "SELECT"
                          " playlists.id AS id,"
                          " playlists.name AS name,"
@@ -228,12 +240,25 @@ GroupDataModel* Catalog::findPlaylists() {
                          " LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
                          " LEFT JOIN songs ON playlistEntries.songId=songs.id "
                          "GROUP BY playlists.id";
+    QString whereClause;
+    if(searchTerm.length() > 0) {
+        QString expr = QString(searchTerm).replace("'", "''")
+                                          .replace("\\", "\\\\")
+                                          .replace("%", "\\%")
+                                          .replace("_", "\\_");
+        whereClause += QString(" WHERE (playlists.name LIKE '%%%1%%' ESCAPE '\\')").arg(expr);
+    }
+
+    QString fullSql(query);
+    fullSql += whereClause;
+    fullSql += " GROUP BY playlists.id";
+
     GroupDataModel * model = new GroupDataModel(QStringList() << "name");
     model->setGrouping(ItemGrouping::ByFirstChar);
     model->setSortedAscending(true);
 
     QSqlDatabase db = m_dataAccess->connection();
-    QSqlQuery sqlQuery = db.exec(query);
+    QSqlQuery sqlQuery = db.exec(fullSql);
     while(sqlQuery.next()) {
         SqlReader reader(sqlQuery);
         int id;
