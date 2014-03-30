@@ -5,12 +5,16 @@ Page {
     id: songListPage
     objectName: "songListPage"
     property variant navigationPane
+    property int maxResults
     property int requestId
     property int listId
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
+            if(c > maxResults) {
+                c = "%1+".arg(maxResults)
+            }
             if (songs.mode == 'recent') return qsTr("Recently Played Songs (%1)").arg(c)
             if (songs.mode == 'myFavourite') return qsTr("My Favourite Songs (%1)").arg(c)
             if (songs.mode == 'myLocal') return qsTr("Songs on My Device (%1)").arg(c)
@@ -270,34 +274,22 @@ Page {
     }
     function load() {
         unload();
-        var maxResults = searchArea.searchTerm.length > 0 ? 100 : 5000
-        if(songs.mode == "search") {
-            requestId = app.player.catalog.searchSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "recent") {
-            requestId = app.player.catalog.findRecentlyPlayedSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "myFavourite") {
-            requestId = app.player.catalog.findMyFavouriteSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "myLocal") {
-            requestId = app.player.catalog.findMyLocalSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "mostPlayed") {
-            requestId = app.player.catalog.findMostPlayedSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "topFavourited") {
-            requestId = app.player.catalog.findMostFavouritedSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "topScored") {
-            requestId = app.player.catalog.findMostScoredSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "topDownloads") {
-            requestId = app.player.catalog.findMostDownloadedSongsAsync(searchArea.searchTerm, maxResults)
-        } else if(songs.mode == "format") {
-            requestId = app.player.catalog.findSongsByFormatIdAsync(searchArea.searchTerm, listId, maxResults)
-        } else if(songs.mode == "genre") {
-            requestId = app.player.catalog.findSongsByGenreIdAsync(searchArea.searchTerm, listId, maxResults)
-        } else if(songs.mode == "artist") {
-            requestId = app.player.catalog.findSongsByArtistIdAsync(searchArea.searchTerm, listId, maxResults)
-        } else if(songs.mode == "playlist") {
-            requestId = app.player.catalog.findSongsByPlaylistIdAsync(searchArea.searchTerm, listId, maxResults)
-        } else if(songs.mode == "album") {
-            requestId = app.player.catalog.findSongsByAlbumIdAsync(searchArea.searchTerm, listId, maxResults)
-        }
+        maxResults = searchArea.searchTerm.length > 0 ? 100 : 5000
+        requestId = {
+            search: app.player.catalog.searchSongsAsync,
+            recent: app.player.catalog.findRecentlyPlayedSongsAsync,
+            myFavourite: app.player.catalog.findMyFavouriteSongsAsync,
+            myLocal: app.player.catalog.findMyLocalSongsAsync,
+            mostPlayed: app.player.catalog.findMostPlayedSongsAsync,
+            topFavourited: app.player.catalog.findMostFavouritedSongsAsync,
+            topScored: app.player.catalog.findMostScoredSongsAsync,
+            topDownloads: app.player.catalog.findMostDownloadedSongsAsync,
+            format: function(searchTerm, maxResults) { app.player.catalog.findSongsByFormatIdAsync(searchTerm, listId, maxResults) },
+            genre: function(searchTerm, maxResults) { app.player.catalog.findSongsByGenreIdAsync(searchTerm, listId, maxResults) },
+            artist: function(searchTerm, maxResults) { app.player.catalog.findSongsByArtistIdAsync(searchTerm, listId, maxResults) },
+            playlist: function(searchTerm, maxResults) { app.player.catalog.findSongsByPlaylistIdAsync(searchTerm, listId, maxResults) },
+            album: function(searchTerm, maxResults) { app.player.catalog.findSongsByAlbumIdAsync(searchTerm, listId, maxResults) }
+        }[songs.mode](searchArea.searchTerm, maxResults)
     }
     function loadRecentlyPlayedSongs() {
         listId = 0
