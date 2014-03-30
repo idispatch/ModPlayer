@@ -234,6 +234,7 @@ TabbedPane {
             songArtistsList.load()
         }
         function unload() {
+            songArtistsList.unload()
         }
         content: NavigationPane {
             id: artistsNavigationPane
@@ -254,7 +255,9 @@ TabbedPane {
             app.analytics.showPage(title)
             songGenresList.load()
         }
-        function unload() {}
+        function unload() {
+            songGenresList.unload()
+        }
         content: NavigationPane {
             id: genresNavigationPane 
             GenresList {
