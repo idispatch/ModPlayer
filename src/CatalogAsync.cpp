@@ -15,16 +15,8 @@ int Catalog::asyncCommand(Command::CommandType commandType) {
     return asyncCommandSubmit(new Command(commandType));
 }
 
-int Catalog::asyncFindCommand(Command::CommandType commandType, int id, int limit) {
-    return asyncCommandSubmit(new FindCommand(commandType, id, limit));
-}
-
-int Catalog::asyncSearchCommand(QString const& query, int limit) {
-    return asyncCommandSubmit(new SearchCommand(query, limit));
-}
-
-int Catalog::asyncSearchCommand(Command::CommandType commandType, QString const& query, int limit) {
-    return asyncCommandSubmit(new SearchCommand(commandType, query, limit));
+int Catalog::asyncSearchCommand(Command::CommandType commandType, QString const& searchTerm, int queryId, int limit) {
+    return asyncCommandSubmit(new SearchCommand(commandType, searchTerm, queryId, limit));
 }
 
 int Catalog::songCountAsync() {
@@ -40,71 +32,71 @@ int Catalog::findFormatsAsync() {
 }
 
 int Catalog::findGenresAsync(QString const& searchTerm) {
-    return asyncSearchCommand(Command::GenresList, searchTerm, -1);
+    return asyncSearchCommand(Command::GenresList, searchTerm, 0, -1);
 }
 
 int Catalog::findArtistsAsync(QString const& searchTerm) {
-    return asyncSearchCommand(Command::ArtistsList, searchTerm, -1);
+    return asyncSearchCommand(Command::ArtistsList, searchTerm, 0, -1);
 }
 
 int Catalog::findPlaylistsAsync(QString const& searchTerm) {
-    return asyncSearchCommand(Command::Playlists, searchTerm, -1);
+    return asyncSearchCommand(Command::Playlists, searchTerm, 0, -1);
 }
 
 int Catalog::findAlbumsAsync(QString const& searchTerm) {
-    return asyncSearchCommand(Command::Albums, searchTerm, -1);
+    return asyncSearchCommand(Command::Albums, searchTerm, 0, -1);
 }
 
-int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
-    return asyncFindCommand(Command::SongsByFormatList, formatId, limit);
+int Catalog::findSongsByFormatIdAsync(QString const& searchTerm, int formatId, int limit) {
+    return asyncSearchCommand(Command::SongsByFormatList, searchTerm, formatId, limit);
 }
 
-int Catalog::findSongsByGenreIdAsync(int genreId, int limit) {
-    return asyncFindCommand(Command::SongsByGenreList, genreId, limit);
+int Catalog::findSongsByGenreIdAsync(QString const& searchTerm, int genreId, int limit) {
+    return asyncSearchCommand(Command::SongsByGenreList, searchTerm, genreId, limit);
 }
 
-int Catalog::findSongsByArtistIdAsync(int artistId, int limit) {
-    return asyncFindCommand(Command::SongsByArtistList, artistId, limit);
+int Catalog::findSongsByArtistIdAsync(QString const& searchTerm, int artistId, int limit) {
+    return asyncSearchCommand(Command::SongsByArtistList, searchTerm, artistId, limit);
 }
 
-int Catalog::findSongsByPlaylistIdAsync(int playlistId, int limit) {
-    return asyncFindCommand(Command::SongsByPlaylist, playlistId, limit);
+int Catalog::findSongsByPlaylistIdAsync(QString const& searchTerm, int playlistId, int limit) {
+    return asyncSearchCommand(Command::SongsByPlaylist, searchTerm, playlistId, limit);
 }
 
-int Catalog::findSongsByAlbumIdAsync(int albumId, int limit) {
-    return asyncFindCommand(Command::SongsByAlbum, albumId, limit);
+int Catalog::findSongsByAlbumIdAsync(QString const& searchTerm, int albumId, int limit) {
+    return asyncSearchCommand(Command::SongsByAlbum, searchTerm, albumId, limit);
 }
 
-int Catalog::findMostDownloadedSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostDownloadedSongs, 0, limit);
+int Catalog::findMostDownloadedSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::MostDownloadedSongs, searchTerm, 0, limit);
 }
 
-int Catalog::findMostFavouritedSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostFavouritedSongs, 0, limit);
+int Catalog::findMostFavouritedSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::MostFavouritedSongs, searchTerm, 0, limit);
 }
 
-int Catalog::findMostScoredSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostScoredSongs, 0, limit);
+int Catalog::findMostScoredSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::MostScoredSongs, searchTerm, 0, limit);
 }
 
-int Catalog::findRecentlyPlayedSongsAsync(int limit) {
-    return asyncFindCommand(Command::RecentlyPlayedSongs, 0, limit);
+int Catalog::findRecentlyPlayedSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::RecentlyPlayedSongs, searchTerm, 0, limit);
 }
 
-int Catalog::findMyFavouriteSongsAsync(int limit) {
-    return asyncFindCommand(Command::MyFavouriteSongs, 0, limit);
+int Catalog::findMyFavouriteSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::MyFavouriteSongs, searchTerm, 0, limit);
 }
 
-int Catalog::findMyLocalSongsAsync(int limit) {
-    return asyncFindCommand(Command::MyLocalSongs, 0, limit);
+int Catalog::findMyLocalSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::MyLocalSongs, searchTerm, 0, limit);
 }
 
-int Catalog::findMostPlayedSongsAsync(int limit) {
-    return asyncFindCommand(Command::MostPlayedSongs, 0, limit);
+int Catalog::findMostPlayedSongsAsync(QString const& searchTerm, int limit) {
+    return asyncSearchCommand(Command::MostPlayedSongs, searchTerm, 0, limit);
 }
 
 int Catalog::searchSongsAsync(QString const& searchTerm, int limit) {
-    return asyncSearchCommand(searchTerm, limit);
+    return asyncSearchCommand(Command::SearchSongs, searchTerm, 0, limit);
 }
 
 void Catalog::run() {
@@ -174,79 +166,91 @@ void Catalog::run() {
             break;
         case Command::SongsByFormatList:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findSongsByFormatId(findCommand->queryId(),
-                                                             findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findSongsByFormatId(searchCommand->query(),
+                                                             searchCommand->queryId(),
+                                                             searchCommand->limit()));
             }
             break;
         case Command::SongsByArtistList:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findSongsByArtistId(findCommand->queryId(),
-                                                             findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findSongsByArtistId(searchCommand->query(),
+                                                             searchCommand->queryId(),
+                                                             searchCommand->limit()));
             }
             break;
         case Command::SongsByGenreList:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findSongsByGenreId(findCommand->queryId(),
-                                                            findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findSongsByGenreId(searchCommand->query(),
+                                                            searchCommand->queryId(),
+                                                            searchCommand->limit()));
             }
             break;
         case Command::SongsByPlaylist:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findSongsByPlaylistId(findCommand->queryId(),
-                                                               findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findSongsByPlaylistId(searchCommand->query(),
+                                                               searchCommand->queryId(),
+                                                               searchCommand->limit()));
             }
             break;
         case Command::SongsByAlbum:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findSongsByAlbumId(findCommand->queryId(),
-                                                            findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findSongsByAlbumId(searchCommand->query(),
+                                                            searchCommand->queryId(),
+                                                            searchCommand->limit()));
             }
             break;
         case Command::MostDownloadedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findMostDownloadedSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findMostDownloadedSongs(searchCommand->query(),
+                                                                 searchCommand->limit()));
             }
             break;
         case Command::MostFavouritedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findMostFavouritedSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findMostFavouritedSongs(searchCommand->query(),
+                                                                 searchCommand->limit()));
             }
             break;
         case Command::MostScoredSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findMostScoredSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findMostScoredSongs(searchCommand->query(),
+                                                             searchCommand->limit()));
             }
             break;
         case Command::RecentlyPlayedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findRecentlyPlayedSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findRecentlyPlayedSongs(searchCommand->query(),
+                                                                 searchCommand->limit()));
             }
             break;
         case Command::MyFavouriteSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findMyFavouriteSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findMyFavouriteSongs(searchCommand->query(),
+                                                              searchCommand->limit()));
             }
             break;
         case Command::MyLocalSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findMyLocalSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findMyLocalSongs(searchCommand->query(),
+                                                          searchCommand->limit()));
             }
             break;
         case Command::MostPlayedSongs:
             {
-                FindCommand * findCommand = dynamic_cast<FindCommand*>(command.get());
-                result = assign(command, findMostPlayedSongs(findCommand->limit()));
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findMostPlayedSongs(searchCommand->query(),
+                                                             searchCommand->limit()));
             }
             break;
         default:

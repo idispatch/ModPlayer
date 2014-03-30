@@ -82,7 +82,7 @@ ActionItem {
                 clearList()
                 appendItem(qsTr("Current Playlist (%1 songs)").arg(root.player.playlist.count), true, true)
                 appendItem(qsTr("New Playlist..."), true, false)
-                var model = root.catalog.findPlaylists()
+                var model = root.catalog.findPlaylists("")
                 var playlists = {}
                 var counter = 3
                 var headerAdded = false

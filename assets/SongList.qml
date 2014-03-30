@@ -5,16 +5,12 @@ Page {
     id: songListPage
     objectName: "songListPage"
     property variant navigationPane
-    property int maximumSearchSongResults: 100
     property int requestId
     property int listId
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
-            if(c > maximumSearchSongResults) {
-                c = "%1+".arg(maximumSearchSongResults)
-            }
             if (songs.mode == 'recent') return qsTr("Recently Played Songs (%1)").arg(c)
             if (songs.mode == 'myFavourite') return qsTr("My Favourite Songs (%1)").arg(c)
             if (songs.mode == 'myLocal') return qsTr("Songs on My Device (%1)").arg(c)
@@ -54,27 +50,12 @@ Page {
                     hintText: qsTr("search songs")
                     onSearch: {
                         unload()
-                        maximumSearchSongResults = 100
-                        showList("search", "", 
-                                 app.player.catalog.searchSongsAsync(searchArea.searchTerm,
-                                                                     maximumSearchSongResults))
+                        load()
                     }
                 }
-                expanded: songs.mode == "search"
-                indicatorVisibility: {
-                    if(songs.mode == "search") {
-                        return TitleBarExpandableAreaIndicatorVisibility.Visible
-                    } else {
-                        return TitleBarExpandableAreaIndicatorVisibility.Hidden
-                    }
-                }
-                toggleArea: {
-                    if(songs.mode == "search") {
-                        return TitleBarExpandableAreaToggleArea.EntireTitleBar
-                    } else {
-                        return TitleBarExpandableAreaToggleArea.IndicatorOnly
-                    }
-                }
+                expanded: true
+                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
+                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
             }
         }
     }
@@ -278,15 +259,6 @@ Page {
             ]
         }
     }
-    function showList(listName, modelName, request) {
-        requestId = request
-        songs.mode = listName
-        songs.modelName = modelName
-        if(songs.dataModel) {
-            songs.dataModel.clear()
-        }
-        songs.resetDataModel()
-    }
     function unload() {
         progress.start()
         songs.visible = false
@@ -295,86 +267,115 @@ Page {
             songs.dataModel.clear()
         }
         songs.resetDataModel()
-        songs.mode = ""
-        songs.modelName = ""
+    }
+    function load() {
+        unload();
+        var maxResults = searchArea.searchTerm.length > 0 ? 100 : 5000
+        if(songs.mode == "search") {
+            requestId = app.player.catalog.searchSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "recent") {
+            requestId = app.player.catalog.findRecentlyPlayedSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "myFavourite") {
+            requestId = app.player.catalog.findMyFavouriteSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "myLocal") {
+            requestId = app.player.catalog.findMyLocalSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "mostPlayed") {
+            requestId = app.player.catalog.findMostPlayedSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "topFavourited") {
+            requestId = app.player.catalog.findMostFavouritedSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "topScored") {
+            requestId = app.player.catalog.findMostScoredSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "topDownloads") {
+            requestId = app.player.catalog.findMostDownloadedSongsAsync(searchArea.searchTerm, maxResults)
+        } else if(songs.mode == "format") {
+            requestId = app.player.catalog.findSongsByFormatIdAsync(searchArea.searchTerm, listId, maxResults)
+        } else if(songs.mode == "genre") {
+            requestId = app.player.catalog.findSongsByGenreIdAsync(searchArea.searchTerm, listId, maxResults)
+        } else if(songs.mode == "artist") {
+            requestId = app.player.catalog.findSongsByArtistIdAsync(searchArea.searchTerm, listId, maxResults)
+        } else if(songs.mode == "playlist") {
+            requestId = app.player.catalog.findSongsByPlaylistIdAsync(searchArea.searchTerm, listId, maxResults)
+        } else if(songs.mode == "album") {
+            requestId = app.player.catalog.findSongsByAlbumIdAsync(searchArea.searchTerm, listId, maxResults)
+        }
     }
     function loadRecentlyPlayedSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("recent", "", app.player.catalog.findRecentlyPlayedSongsAsync(maximumSearchSongResults))
+        songs.mode = "recent"
+        songs.modelName = ""
+        load()
     }
     function loadMyFavouriteSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("myFavourite", "", app.player.catalog.findMyFavouriteSongsAsync(maximumSearchSongResults))
+        songs.mode = "myFavourite"
+        songs.modelName = ""
+        load()
     }
     function loadMyLocalSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("myLocal", "", app.player.catalog.findMyLocalSongsAsync(maximumSearchSongResults))
+        songs.mode = "myLocal"
+        songs.modelName = ""
+        load()
     }
     function loadMostPlayedSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("mostPlayed", "", app.player.catalog.findMostPlayedSongsAsync(maximumSearchSongResults))
+        songs.mode = "mostPlayed"
+        songs.modelName = ""
+        load()
     }
     function loadMostFavouritedSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("topFavourited", "", app.player.catalog.findMostFavouritedSongsAsync(maximumSearchSongResults))
+        songs.mode = "topFavourited"
+        songs.modelName = ""
+        load()
     }
     function loadMostScoredSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("topScored", "", app.player.catalog.findMostScoredSongsAsync(maximumSearchSongResults))
+        songs.mode = "topScored"
+        songs.modelName = ""
+        load()
     }
     function loadMostDownloadedSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 5000
-        showList("topDownloads", "", app.player.catalog.findMostDownloadedSongsAsync(maximumSearchSongResults))
+        songs.mode = "topDownloads"
+        songs.modelName = ""
+        load()
     }
     function loadSearchSongs() {
-        unload()
         listId = 0
-        maximumSearchSongResults = 100
-        showList("search", "", app.player.catalog.searchSongsAsync(searchArea.searchTerm, maximumSearchSongResults))
+        songs.mode = "search"
+        songs.modelName = ""
+        load()
     }
     function loadSongsByFormat(formatId, formatName) {
-        unload()
         listId = formatId
-        maximumSearchSongResults = 5000
-        showList("format", formatName, app.player.catalog.findSongsByFormatIdAsync(formatId, maximumSearchSongResults))
+        songs.mode = "format"
+        songs.modelName = formatName
+        load()
     }
     function loadSongsByGenre(genreId, genreName) {
-        unload()
         listId = genreId
-        maximumSearchSongResults = 5000
-        showList("genre", genreName, app.player.catalog.findSongsByGenreIdAsync(genreId, maximumSearchSongResults))
+        songs.mode = "genre"
+        songs.modelName = genreName
+        load()
     }
     function loadSongsByArtist(artistId, artistName) {
-        unload()
         listId = artistId
-        maximumSearchSongResults = 5000
-        showList("artist", artistName, app.player.catalog.findSongsByArtistIdAsync(artistId, maximumSearchSongResults))
+        songs.mode = "artist"
+        songs.modelName = artistName
+        load()
     }
     function loadSongsByPlaylist(playlistId, playlistName) {
-        unload()
         listId = playlistId
-        maximumSearchSongResults = 5000
-        showList("playlist", playlistName, app.player.catalog.findSongsByPlaylistIdAsync(playlistId, maximumSearchSongResults))
+        songs.mode = "playlist"
+        songs.modelName = playlistName
+        load()
     }
     function loadSongsByAlbum(albumId, albumName) {
-        unload()
         listId = albumId
-        maximumSearchSongResults = 5000
-        showList("album", albumName, app.player.catalog.findSongsByAlbumIdAsync(albumId, maximumSearchSongResults))
+        songs.mode = "album"
+        songs.modelName = albumName
+        load()
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && 

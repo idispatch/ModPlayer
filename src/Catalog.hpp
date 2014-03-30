@@ -94,44 +94,44 @@ public:
     Q_INVOKABLE bb::cascades::GroupDataModel* findAlbums(QString const& searchTerm);
     Q_INVOKABLE int findAlbumsAsync(QString const& searchTerm);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(int formatId, int limit);
-    Q_INVOKABLE int findSongsByFormatIdAsync(int formatId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(QString const& searchTerm, int formatId, int limit);
+    Q_INVOKABLE int findSongsByFormatIdAsync(QString const& searchTerm, int formatId, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByGenreId(int genreId, int limit);
-    Q_INVOKABLE int findSongsByGenreIdAsync(int genreId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByGenreId(QString const& searchTerm, int genreId, int limit);
+    Q_INVOKABLE int findSongsByGenreIdAsync(QString const& searchTerm, int genreId, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByArtistId(int artistId, int limit);
-    Q_INVOKABLE int findSongsByArtistIdAsync(int artistId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByArtistId(QString const& searchTerm, int artistId, int limit);
+    Q_INVOKABLE int findSongsByArtistIdAsync(QString const& searchTerm, int artistId, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByPlaylistId(int playlistId, int limit);
-    Q_INVOKABLE int findSongsByPlaylistIdAsync(int playlistId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByPlaylistId(QString const& searchTerm, int playlistId, int limit);
+    Q_INVOKABLE int findSongsByPlaylistIdAsync(QString const& searchTerm, int playlistId, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByAlbumId(int albumId, int limit);
-    Q_INVOKABLE int findSongsByAlbumIdAsync(int albumId, int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByAlbumId(QString const& searchTerm, int albumId, int limit);
+    Q_INVOKABLE int findSongsByAlbumIdAsync(QString const& searchTerm, int albumId, int limit);
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm, int limit);
     Q_INVOKABLE int searchSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs(int limit);
-    Q_INVOKABLE int findMostDownloadedSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostDownloadedSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findMostDownloadedSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs(int limit);
-    Q_INVOKABLE int findMostFavouritedSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostFavouritedSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findMostFavouritedSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyLocalSongs(int limit);
-    Q_INVOKABLE int findMyLocalSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyLocalSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findMyLocalSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs(int limit);
-    Q_INVOKABLE int findMostScoredSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostScoredSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findMostScoredSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs(int limit);
-    Q_INVOKABLE int findRecentlyPlayedSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findRecentlyPlayedSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findRecentlyPlayedSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs(int limit);
-    Q_INVOKABLE int findMyFavouriteSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMyFavouriteSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findMyFavouriteSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(int limit);
-    Q_INVOKABLE int findMostPlayedSongsAsync(int limit);
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(QString const& searchTerm, int limit);
+    Q_INVOKABLE int findMostPlayedSongsAsync(QString const& searchTerm, int limit);
 
     // Synchronous only
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
@@ -247,12 +247,19 @@ private:
         QThread * m_thread;
     };
 
-    class FindCommand : public Command {
+    class SearchCommand : public Command {
     public:
-        FindCommand(CommandType command, int queryId, int limit)
-            : Command(command),
-              m_queryId(queryId),
-              m_limit(limit) {
+        SearchCommand(Command::CommandType commandType,
+                      QString const& query,
+                      int queryId,
+                      int limit)
+                    : Command(commandType),
+                      m_query(query),
+                      m_queryId(queryId),
+                      m_limit(limit) {
+                }
+        QString const& query() const {
+            return m_query;
         }
         int queryId() const {
             return m_queryId;
@@ -261,46 +268,24 @@ private:
             return m_limit;
         }
     private:
-        const int m_queryId;
-        const int m_limit;
-    };
-
-    class SearchCommand : public Command {
-    public:
-        SearchCommand(QString const& query, int limit)
-            : Command(Command::SearchSongs),
-              m_query(query),
-              m_limit(limit) {
-        }
-        SearchCommand(Command::CommandType commandType,
-                      QString const& query,
-                      int limit)
-                    : Command(commandType),
-                      m_query(query),
-                      m_limit(limit) {
-                }
-        QString const& query() const {
-            return m_query;
-        }
-        int limit() const {
-            return m_limit;
-        }
-    private:
         const QString m_query;
+        const int m_queryId;
         const int m_limit;
     };
 private:
     int asyncCommandSubmit(Command * command);
     int asyncCommand(Command::CommandType commandType);
-    int asyncFindCommand(Command::CommandType commandType, int id, int limit);
-    int asyncSearchCommand(QString const& query, int limit);
-    int asyncSearchCommand(Command::CommandType commandType, QString const& query, int limit);
+    int asyncSearchCommand(Command::CommandType commandType,
+                           QString const& searchTerm,
+                           int queryId,
+                           int limit);
 
     QVariant assign(std::auto_ptr<Command> &command,
                     bb::cascades::DataModel * value) {
         value->moveToThread(command->thread());
         return QVariant::fromValue(value);
     }
+    static QString escapeSql(QString const& value);
 private:
     QQueue<Command*> m_commandQueue;
     QMutex m_mutex;

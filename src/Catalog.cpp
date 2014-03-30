@@ -62,6 +62,14 @@ void Catalog::stopThread() {
     }
 }
 
+QString Catalog::escapeSql(QString const& value) {
+    QString result(value);
+    return result.replace("'", "''")
+                 .replace("\\", "\\\\")
+                 .replace("%", "\\%")
+                 .replace("_", "\\_");
+}
+
 int Catalog::songCount() {
     const char * query = "SELECT COUNT(id) FROM songs WHERE id > 0";
     QSqlDatabase db = m_dataAccess->connection();
@@ -142,11 +150,7 @@ GroupDataModel* Catalog::findGenres(QString const& searchTerm) {
             "LEFT JOIN songs ON songs.genre=genres.id ";
     QString whereClause;
     if(searchTerm.length() > 0) {
-        QString expr = QString(searchTerm).replace("'", "''")
-                                          .replace("\\", "\\\\")
-                                          .replace("%", "\\%")
-                                          .replace("_", "\\_");
-        whereClause += QString(" WHERE (genres.name LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+        whereClause += QString(" WHERE (genres.name LIKE '%%%1%%' ESCAPE '\\') ").arg(escapeSql(searchTerm));
     }
 
     QString fullSql(query);
@@ -190,11 +194,7 @@ GroupDataModel* Catalog::findArtists(QString const& searchTerm) {
             "LEFT JOIN songs ON songs.artist=artists.id ";
     QString whereClause;
     if(searchTerm.length() > 0) {
-        QString expr = QString(searchTerm).replace("'", "''")
-                                          .replace("\\", "\\\\")
-                                          .replace("%", "\\%")
-                                          .replace("_", "\\_");
-        whereClause += QString(" WHERE (artists.name LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+        whereClause += QString(" WHERE (artists.name LIKE '%%%1%%' ESCAPE '\\') ").arg(escapeSql(searchTerm));
     }
 
     QString fullSql(query);
@@ -241,11 +241,7 @@ GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
                          " LEFT JOIN songs ON playlistEntries.songId=songs.id";
     QString whereClause;
     if(searchTerm.length() > 0) {
-        QString expr = QString(searchTerm).replace("'", "''")
-                                          .replace("\\", "\\\\")
-                                          .replace("%", "\\%")
-                                          .replace("_", "\\_");
-        whereClause += QString(" WHERE (playlists.name LIKE '%%%1%%' ESCAPE '\\')").arg(expr);
+        whereClause += QString(" WHERE (playlists.name LIKE '%%%1%%' ESCAPE '\\')").arg(escapeSql(searchTerm));
     }
 
     QString fullSql(query);
@@ -288,12 +284,8 @@ GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {
                          " INNER JOIN songs ON albumEntries.songId=songs.id ";
     QString whereClause;
     if(searchTerm.length() > 0) {
-        QString expr = QString(searchTerm).replace("'", "''")
-                                          .replace("\\", "\\\\")
-                                          .replace("%", "\\%")
-                                          .replace("_", "\\_");
         whereClause += QString(" WHERE (albums.name LIKE '%%%1%%' ESCAPE '\\') OR"
-                               "       (artists.name LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+                               "       (artists.name LIKE '%%%1%%' ESCAPE '\\') ").arg(escapeSql(searchTerm));
     }
 
     QString fullSql(query);
@@ -328,9 +320,14 @@ GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {
     return model;
 }
 
-ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
+ArrayDataModel* Catalog::findSongsByFormatId(QString const& searchTerm, int formatId, int limit) {
+    QString whereClause = QString("WHERE format=%1").arg(formatId);
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               QString("WHERE format=%1").arg(formatId),
+                               whereClause,
                                "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
@@ -341,9 +338,14 @@ ArrayDataModel* Catalog::findSongsByFormatId(int formatId, int limit) {
                                limit);
 }
 
-ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
+ArrayDataModel* Catalog::findSongsByGenreId(QString const& searchTerm, int genreId, int limit) {
+    QString whereClause = QString("WHERE genre=%1").arg(genreId);
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               QString("WHERE genre=%1").arg(genreId),
+                               whereClause,
                                "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
@@ -354,9 +356,14 @@ ArrayDataModel* Catalog::findSongsByGenreId(int genreId, int limit) {
                                limit);
 }
 
-ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
+ArrayDataModel* Catalog::findSongsByArtistId(QString const& searchTerm, int artistId, int limit) {
+    QString whereClause = QString("WHERE artist=%1").arg(artistId);
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               QString("WHERE artist=%1").arg(artistId),
+                               whereClause,
                                "ORDER BY "
                                "favourited DESC, "
                                "score DESC, "
@@ -367,11 +374,16 @@ ArrayDataModel* Catalog::findSongsByArtistId(int artistId, int limit) {
                                limit);
 }
 
-ArrayDataModel* Catalog::findSongsByPlaylistId(int playlistId, int limit) {
+ArrayDataModel* Catalog::findSongsByPlaylistId(QString const& searchTerm, int playlistId, int limit) {
     QString selectClause(SELECT_FROM_SONGS);
     selectClause += " INNER JOIN playlistEntries ON songs.id=playlistEntries.songId ";
+    QString whereClause = QString("WHERE playlistEntries.playlistId=%1").arg(playlistId);
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(selectClause,
-                               QString("WHERE playlistEntries.playlistId=%1").arg(playlistId),
+                               whereClause,
                                "ORDER BY "
                                "playlistEntries.songOrder ASC, "
                                "songs.playCount DESC, "
@@ -380,11 +392,16 @@ ArrayDataModel* Catalog::findSongsByPlaylistId(int playlistId, int limit) {
                                limit);
 }
 
-ArrayDataModel* Catalog::findSongsByAlbumId(int albumId, int limit) {
+ArrayDataModel* Catalog::findSongsByAlbumId(QString const& searchTerm, int albumId, int limit) {
     QString selectClause(SELECT_FROM_SONGS);
     selectClause += " INNER JOIN albumEntries ON songs.id=albumEntries.songId ";
+    QString whereClause = QString("WHERE albumEntries.albumId=%1").arg(albumId);
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(selectClause,
-                               QString("WHERE albumEntries.albumId=%1").arg(albumId),
+                               whereClause,
                                "ORDER BY "
                                "albumEntries.trackNumber ASC, "
                                "songs.fileName ASC, "
@@ -421,10 +438,7 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
         QMap<QString, QVariant> map = first.toMap();
         return map["id"].toInt();
     }
-    else
-    {
-        return 0;
-    }
+    return 0;
 }
 
 SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
@@ -435,7 +449,7 @@ SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
 SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
     QString escaped(fileName);
-    escaped.replace("'", "''");
+    escaped.replace("'", "''").replace("\\", "\\\\");
     return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(escaped), parentObject);
 }
 
@@ -622,13 +636,8 @@ ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
     QString whereClause;
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
-
-        QString expr = QString(searchTerm).replace("'", "''")
-                                          .replace("\\", "\\\\")
-                                          .replace("%", "\\%")
-                                          .replace("_", "\\_");
-        whereClause += QString(" WHERE (fileName LIKE '%%%1%%' ESCAPE '\\'"
-                               " OR title LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+        whereClause += QString(" WHERE ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR "
+                               "        (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
     }
 
     QString orderClause(" ORDER BY favourited DESC, score DESC, downloads DESC ");
@@ -652,51 +661,86 @@ ArrayDataModel* Catalog::searchSongs(QString const& searchTerm, int limit) {
     return model;
 }
 
-ArrayDataModel* Catalog::findMostDownloadedSongs(int limit) {
+ArrayDataModel* Catalog::findMostDownloadedSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE downloads>0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE downloads>0",
+                               whereClause,
                                "ORDER BY downloads DESC",
                                limit);
 }
 
-ArrayDataModel* Catalog::findMostFavouritedSongs(int limit) {
+ArrayDataModel* Catalog::findMostFavouritedSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE favourited>0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE favourited>0",
+                               whereClause,
                                "ORDER BY favourited DESC, downloads DESC, score DESC",
                                limit);
 }
 
-ArrayDataModel* Catalog::findMyLocalSongs(int limit) {
+ArrayDataModel* Catalog::findMyLocalSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE id<0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE id<0",
+                               whereClause,
                                "ORDER BY fileName",
                                limit);
 }
 
-ArrayDataModel* Catalog::findMostScoredSongs(int limit) {
+ArrayDataModel* Catalog::findMostScoredSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE score>0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE score>0",
+                               whereClause,
                                "ORDER BY score DESC, downloads DESC, favourited DESC",
                                limit);
 }
 
-ArrayDataModel* Catalog::findRecentlyPlayedSongs(int limit) {
+ArrayDataModel* Catalog::findRecentlyPlayedSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE lastPlayed>0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE lastPlayed>0",
+                               whereClause,
                                "ORDER BY lastPlayed DESC",
                                limit);
 }
 
-ArrayDataModel* Catalog::findMyFavouriteSongs(int limit) {
+ArrayDataModel* Catalog::findMyFavouriteSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE myFavourite>0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE myFavourite>0",
+                               whereClause,
                                "ORDER BY playCount DESC, lastPlayed DESC",
                                limit);
 }
 
-ArrayDataModel* Catalog::findMostPlayedSongs(int limit) {
+ArrayDataModel* Catalog::findMostPlayedSongs(QString const& searchTerm, int limit) {
+    QString whereClause("WHERE playCount>0");
+    if(searchTerm.length() > 0) {
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
     return selectSongBasicInfo(SELECT_FROM_SONGS,
-                               "WHERE playCount>0",
+                               whereClause,
                                "ORDER BY playCount DESC, lastPlayed DESC",
                                limit);
 }

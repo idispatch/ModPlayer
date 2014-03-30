@@ -92,8 +92,15 @@ Page {
             ]
         }
     }
-    function load() {
+    function unload() {
         progress.start()
+        if(artistsList.dataModel) {
+            artistsList.dataModel.clear()
+        }
+        artistsList.resetDataModel()
+    }
+    function load() {
+        unload()
         requestId = app.catalog.findArtistsAsync(searchArea.searchTerm)
     }
     onCreationCompleted: {
