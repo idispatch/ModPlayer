@@ -23,6 +23,10 @@ int Catalog::asyncSearchCommand(QString const& query, int limit) {
     return asyncCommandSubmit(new SearchCommand(query, limit));
 }
 
+int Catalog::asyncSearchCommand(Command::CommandType commandType, QString const& query, int limit) {
+    return asyncCommandSubmit(new SearchCommand(commandType, query, limit));
+}
+
 int Catalog::songCountAsync() {
     return asyncCommand(Command::SongCount);
 }
@@ -39,16 +43,16 @@ int Catalog::findGenresAsync() {
     return asyncCommand(Command::GenresList);
 }
 
-int Catalog::findArtistsAsync() {
-    return asyncCommand(Command::ArtistsList);
+int Catalog::findArtistsAsync(QString const& searchTerm) {
+    return asyncSearchCommand(Command::ArtistsList, searchTerm, -1);
 }
 
 int Catalog::findPlaylistsAsync() {
     return asyncCommand(Command::Playlists);
 }
 
-int Catalog::findAlbumsAsync() {
-    return asyncCommand(Command::Albums);
+int Catalog::findAlbumsAsync(QString const& searchTerm) {
+    return asyncSearchCommand(Command::Albums, searchTerm, -1);
 }
 
 int Catalog::findSongsByFormatIdAsync(int formatId, int limit) {
@@ -148,13 +152,19 @@ void Catalog::run() {
             result = assign(command, findGenres());
             break;
         case Command::ArtistsList:
-            result = assign(command, findArtists());
+            {
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findArtists(searchCommand->query()));
+            }
             break;
         case Command::Playlists:
             result = assign(command, findPlaylists());
             break;
         case Command::Albums:
-            result = assign(command, findAlbums());
+            {
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findAlbums(searchCommand->query()));
+            }
             break;
         case Command::SongsByFormatList:
             {

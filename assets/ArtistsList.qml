@@ -68,7 +68,7 @@ Page {
         if(artistsList.dataModel == null || artistsList.dataModel.size() == 0) {
             progress.start()
             artistsList.visible = false
-            requestId = app.catalog.findArtistsAsync()
+            requestId = app.catalog.findArtistsAsync("")
         }
     }
     onCreationCompleted: {

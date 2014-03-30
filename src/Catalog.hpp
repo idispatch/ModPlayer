@@ -85,14 +85,14 @@ public:
     Q_INVOKABLE bb::cascades::GroupDataModel* findGenres();
     Q_INVOKABLE int findGenresAsync();
 
-    Q_INVOKABLE bb::cascades::GroupDataModel* findArtists();
-    Q_INVOKABLE int findArtistsAsync();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findArtists(QString const& searchTerm);
+    Q_INVOKABLE int findArtistsAsync(QString const& searchTerm);
 
     Q_INVOKABLE bb::cascades::GroupDataModel* findPlaylists();
     Q_INVOKABLE int findPlaylistsAsync();
 
-    Q_INVOKABLE bb::cascades::GroupDataModel* findAlbums();
-    Q_INVOKABLE int findAlbumsAsync();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findAlbums(QString const& searchTerm);
+    Q_INVOKABLE int findAlbumsAsync(QString const& searchTerm);
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(int formatId, int limit);
     Q_INVOKABLE int findSongsByFormatIdAsync(int formatId, int limit);
@@ -272,6 +272,13 @@ private:
               m_query(query),
               m_limit(limit) {
         }
+        SearchCommand(Command::CommandType commandType,
+                      QString const& query,
+                      int limit)
+                    : Command(commandType),
+                      m_query(query),
+                      m_limit(limit) {
+                }
         QString const& query() const {
             return m_query;
         }
@@ -287,6 +294,7 @@ private:
     int asyncCommand(Command::CommandType commandType);
     int asyncFindCommand(Command::CommandType commandType, int id, int limit);
     int asyncSearchCommand(QString const& query, int limit);
+    int asyncSearchCommand(Command::CommandType commandType, QString const& query, int limit);
 
     QVariant assign(std::auto_ptr<Command> &command,
                     bb::cascades::DataModel * value) {

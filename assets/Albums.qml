@@ -101,7 +101,7 @@ Page {
         if(albumsList.dataModel == null || albumsList.dataModel.size() == 0) {
             progress.start()
             albumsList.visible = false
-            requestId = app.player.catalog.findAlbumsAsync()
+            requestId = app.player.catalog.findAlbumsAsync("")
         }
     }
     function showPlayer() {
