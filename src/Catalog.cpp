@@ -238,8 +238,7 @@ GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
                          " SUM(songs.length) AS duration "
                          "FROM playlists "
                          " LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
-                         " LEFT JOIN songs ON playlistEntries.songId=songs.id "
-                         "GROUP BY playlists.id";
+                         " LEFT JOIN songs ON playlistEntries.songId=songs.id";
     QString whereClause;
     if(searchTerm.length() > 0) {
         QString expr = QString(searchTerm).replace("'", "''")
