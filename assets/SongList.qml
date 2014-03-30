@@ -5,9 +5,9 @@ Page {
     id: songListPage
     objectName: "songListPage"
     property variant navigationPane
-    property int maxResults
-    property int requestId
-    property int listId
+    property int maxResults: 100
+    property int requestId: 0
+    property int listId: 0
     titleBar: PlayerTitleBar {
         id: titleBar
         title: {
@@ -276,20 +276,20 @@ Page {
         unload();
         maxResults = searchArea.searchTerm.length > 0 ? 100 : 5000
         requestId = {
-            search: app.player.catalog.searchSongsAsync,
-            recent: app.player.catalog.findRecentlyPlayedSongsAsync,
-            myFavourite: app.player.catalog.findMyFavouriteSongsAsync,
-            myLocal: app.player.catalog.findMyLocalSongsAsync,
-            mostPlayed: app.player.catalog.findMostPlayedSongsAsync,
-            topFavourited: app.player.catalog.findMostFavouritedSongsAsync,
-            topScored: app.player.catalog.findMostScoredSongsAsync,
-            topDownloads: app.player.catalog.findMostDownloadedSongsAsync,
-            format: function(searchTerm, maxResults) { app.player.catalog.findSongsByFormatIdAsync(searchTerm, listId, maxResults) },
-            genre: function(searchTerm, maxResults) { app.player.catalog.findSongsByGenreIdAsync(searchTerm, listId, maxResults) },
-            artist: function(searchTerm, maxResults) { app.player.catalog.findSongsByArtistIdAsync(searchTerm, listId, maxResults) },
-            playlist: function(searchTerm, maxResults) { app.player.catalog.findSongsByPlaylistIdAsync(searchTerm, listId, maxResults) },
-            album: function(searchTerm, maxResults) { app.player.catalog.findSongsByAlbumIdAsync(searchTerm, listId, maxResults) }
-        }[songs.mode](searchArea.searchTerm, maxResults)
+            search: function(searchTerm, queryId, limit) { return app.player.catalog.searchSongsAsync(searchTerm, limit) },
+            recent: function(searchTerm, queryId, limit) { return app.player.catalog.findRecentlyPlayedSongsAsync(searchTerm, limit) },
+            myFavourite: function(searchTerm, queryId, limit) { return app.player.catalog.findMyFavouriteSongsAsync(searchTerm, limit) },
+            myLocal: function(searchTerm, queryId, limit) { return app.player.catalog.findMyLocalSongsAsync(searchTerm, limit) },
+            mostPlayed: function(searchTerm, queryId, limit) { return app.player.catalog.findMostPlayedSongsAsync(searchTerm, limit) },
+            topFavourited: function(searchTerm, queryId, limit) { return app.player.catalog.findMostFavouritedSongsAsync(searchTerm, limit) },
+            topScored: function(searchTerm, queryId, limit) { return app.player.catalog.findMostScoredSongsAsync(searchTerm, limit) },
+            topDownloads: function(searchTerm, queryId, limit) { return app.player.catalog.findMostDownloadedSongsAsync(searchTerm, limit) },
+            format: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByFormatIdAsync(searchTerm, queryId, limit) },
+            genre: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByGenreIdAsync(searchTerm, queryId, limit) },
+            artist: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByArtistIdAsync(searchTerm, queryId, limit) },
+            playlist: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByPlaylistIdAsync(searchTerm, queryId, limit) },
+            album: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByAlbumIdAsync(searchTerm, queryId, limit) }
+        }[songs.mode](searchArea.searchTerm, listId, maxResults)
     }
     function loadRecentlyPlayedSongs() {
         listId = 0
@@ -377,19 +377,20 @@ Page {
             navigationPane.push(view)
         }
     }
+    function onDataReceived(responseId, result) {
+        if(responseId != requestId) 
+            return
+        requestId = 0
+        songs.dataModel = result
+        progress.stop()
+        songs.visible = (songs.dataModel.size() > 0)
+        listEmpty.visible = (songs.dataModel.size() == 0)
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
             showPlayerView()
         })
-        app.catalog.resultReady.connect(function(responseId, result) {
-            if(responseId != requestId) 
-                return
-            requestId = 0
-            songs.dataModel = result
-            progress.stop()
-            songs.visible = (songs.dataModel.size() > 0)
-            listEmpty.visible = (songs.dataModel.size() == 0)
-        })
+        app.catalog.resultReady.connect(onDataReceived)
     }
     attachedObjects: [
         ComponentDefinition {
