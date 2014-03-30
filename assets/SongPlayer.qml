@@ -48,19 +48,7 @@ Page {
                         song: app.player.currentSong
                     }
                     PlaybackSettings {}
-                    Slider {
-                        id: songProgress
-                        visible: app.player.currentSong.songLoaded
-                        fromValue: 0
-                        toValue: app.player.currentSong.orders
-                        value: app.player.currentSong.currentOrder
-                        horizontalAlignment: HorizontalAlignment.Fill
-                        onValueChanged: {
-                            if(app.player.currentSong.currentOrder != value) {
-                                app.player.seek(value)
-                            }
-                        }
-                    }
+                    SongProgressView {}
                     Label {
                         id: statusText
                         text: app.player.statusText

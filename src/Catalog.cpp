@@ -269,7 +269,7 @@ GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {
                                           .replace("%", "\\%")
                                           .replace("_", "\\_");
         whereClause += QString(" WHERE (albums.name LIKE '%%%1%%' ESCAPE '\\') OR"
-                               "       (albums.name LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
+                               "       (artists.name LIKE '%%%1%%' ESCAPE '\\') ").arg(expr);
     }
 
     QString fullSql(query);

@@ -131,8 +131,7 @@ Page {
         albumsList.resetDataModel()
     }
     function load() {
-        progress.start()
-        albumsList.visible = false
+        unload()
         requestId = app.player.catalog.findAlbumsAsync(searchArea.searchTerm)
     }
     function showPlayer() {
