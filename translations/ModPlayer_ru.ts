@@ -226,7 +226,7 @@
     </message>
     <message>
         <source>search genres</source>
-        <translation type="unfinished"></translation>
+        <translation>искать жанры</translation>
     </message>
 </context>
 <context>
@@ -564,7 +564,7 @@
     </message>
     <message>
         <source>search playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>искать плейлисты</translation>
     </message>
 </context>
 <context>
