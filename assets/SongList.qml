@@ -51,6 +51,7 @@ Page {
             expandableArea {
                 content: SearchArea {
                     id: searchArea
+                    hintText: qsTr("search songs")
                     onSearch: {
                         unload()
                         maximumSearchSongResults = 100

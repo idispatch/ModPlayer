@@ -7,7 +7,40 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
-        title: qsTr("Select Songs by Artist")
+        id: titleBar
+        title: qsTr("Select Artist")
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            HorizontalContainer {
+                leftPadding: 10
+                Label {
+                    text: titleBar.title
+                    textStyle {
+                        color: Color.White 
+                        fontSize: FontSize.Large
+                    }
+                    verticalAlignment: VerticalAlignment.Center
+                }
+            }
+            expandableArea {
+                content: SearchArea {
+                    id: searchArea
+                    hintText: qsTr("search artists")
+                    onSearch: {
+                        progress.start()
+                        artistsList.visible = false
+                        if (artistsList.dataModel) {
+                            artistsList.dataModel.clear()
+                        }
+                        artistsList.resetDataModel()
+                        requestId = app.catalog.findArtistsAsync(searchArea.searchTerm)
+                    }
+                }
+                expanded: true
+                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
+                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
+            }
+        }
     }
     ViewContainer {
         ProgressComponent {
@@ -65,11 +98,9 @@ Page {
         }
     }
     function load() {
-        if(artistsList.dataModel == null || artistsList.dataModel.size() == 0) {
-            progress.start()
-            artistsList.visible = false
-            requestId = app.catalog.findArtistsAsync("")
-        }
+        progress.start()
+        artistsList.visible = false
+        requestId = app.catalog.findArtistsAsync(searchArea.searchTerm)
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {

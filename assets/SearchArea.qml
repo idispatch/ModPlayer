@@ -4,7 +4,8 @@ import player 1.0
 HorizontalContainer {
     id: searchArea
     signal search(string term)
-    property alias searchTerm: searchCriteria.text 
+    property alias searchTerm: searchCriteria.text
+    property alias hintText: searchCriteria.hintText 
     leftPadding: 10
     rightPadding: leftPadding
     topPadding: 10
@@ -28,7 +29,6 @@ HorizontalContainer {
     ]
     TextField {
         id: searchCriteria
-        hintText: qsTr("search songs")
         content {
             flags: TextContentFlag.ActiveTextOff | TextContentFlag.EmoticonsOff 
         }

@@ -26,6 +26,10 @@
         <source>Play Album</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>search albums</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppWorldActionItem</name>
@@ -91,10 +95,6 @@
 <context>
     <name>ArtistsList</name>
     <message>
-        <source>Select Songs by Artist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -104,6 +104,14 @@
     </message>
     <message>
         <source>rating %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>search artists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Artist</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -607,13 +615,6 @@
     </message>
 </context>
 <context>
-    <name>SearchArea</name>
-    <message>
-        <source>search songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Settings</name>
     <message>
         <source>Configuration</source>
@@ -990,6 +991,10 @@
     </message>
     <message>
         <source>%1 Album Songs (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>search songs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

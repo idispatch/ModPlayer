@@ -7,7 +7,40 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
+        id: titleBar
         title: qsTr("Select Album")
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            HorizontalContainer {
+                leftPadding: 10
+                Label {
+                    text: titleBar.title
+                    textStyle {
+                        color: Color.White 
+                        fontSize: FontSize.Large
+                    }
+                    verticalAlignment: VerticalAlignment.Center
+                }
+            }
+            expandableArea {
+                content: SearchArea {
+                    id: searchArea
+                    hintText: qsTr("search albums")
+                    onSearch: {
+                        progress.start()
+                        albumsList.visible = false
+                        if (albumsList.dataModel) {
+                            albumsList.dataModel.clear()
+                        }
+                        albumsList.resetDataModel()
+                        requestId = app.catalog.findAlbumsAsync(searchArea.searchTerm)
+                    }
+                }
+                expanded: true
+                indicatorVisibility: TitleBarExpandableAreaIndicatorVisibility.Visible
+                toggleArea: TitleBarExpandableAreaToggleArea.EntireTitleBar
+            }
+        }
     }
     ViewContainer {
         ProgressComponent {
@@ -98,11 +131,9 @@ Page {
         albumsList.resetDataModel()
     }
     function load() {
-        if(albumsList.dataModel == null || albumsList.dataModel.size() == 0) {
-            progress.start()
-            albumsList.visible = false
-            requestId = app.player.catalog.findAlbumsAsync("")
-        }
+        progress.start()
+        albumsList.visible = false
+        requestId = app.player.catalog.findAlbumsAsync(searchArea.searchTerm)
     }
     function showPlayer() {
         var view = songPlayer.createObject()
@@ -116,7 +147,7 @@ Page {
                     showPlayer()
                 }
         })
-    app.catalog.resultReady.connect(function(responseId, result) {
+        app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId != requestId) 
                 return
             requestId = 0

@@ -26,6 +26,10 @@
         <source>Play Album</source>
         <translation>Играть альбом</translation>
     </message>
+    <message>
+        <source>search albums</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppWorldActionItem</name>
@@ -92,7 +96,7 @@
     <name>ArtistsList</name>
     <message>
         <source>Select Songs by Artist</source>
-        <translation>Выбрать песни по композитору</translation>
+        <translation type="obsolete">Выбрать песни по композитору</translation>
     </message>
     <message>
         <source>%1 songs</source>
@@ -105,6 +109,14 @@
     <message>
         <source>rating %1</source>
         <translation>рейтинг %1</translation>
+    </message>
+    <message>
+        <source>search artists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Artist</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -614,7 +626,7 @@
     <name>SearchArea</name>
     <message>
         <source>search songs</source>
-        <translation>найти песни</translation>
+        <translation type="obsolete">найти песни</translation>
     </message>
 </context>
 <context>
@@ -995,6 +1007,10 @@
     <message>
         <source>%1 Album Songs (%2)</source>
         <translation>Песни альбома %1 (%2)</translation>
+    </message>
+    <message>
+        <source>search songs</source>
+        <translation type="unfinished">найти песни</translation>
     </message>
 </context>
 <context>
