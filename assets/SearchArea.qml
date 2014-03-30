@@ -19,6 +19,7 @@ HorizontalContainer {
             onTimeout : {
                 if(previousSearchTerm == searchTerm) {
                     stop()
+                    searchButton.enabled = false
                     searchArea.search(searchTerm)
                 } else {
                     previousSearchTerm = searchTerm
@@ -48,18 +49,22 @@ HorizontalContainer {
                    TextInputFlag.AutoPeriodOff | 
                    TextInputFlag.WordSubstitutionOff
             onSubmitted: {
+                searchButton.enabled = false
                 searchArea.search(searchTerm)
             }
         }
         clearButtonVisible: true
         autoFit: TextAutoFit.None
         onTextChanging: {
+            searchButton.enabled = text.length > 0
             if(!searchTimer.active) {
                 searchTimer.start()
             }
         }
     }
     Button {
+        id: searchButton
+        enabled: false
         imageSource: "asset:///images/actions/icon_search_dark.png"
         verticalAlignment: VerticalAlignment.Center
         leftMargin: 10
@@ -67,8 +72,8 @@ HorizontalContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1
         }
-        enabled: searchTerm.length > 0
         onClicked: {
+            enabled = false
             searchArea.search(searchTerm)
         }
     }
