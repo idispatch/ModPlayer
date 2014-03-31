@@ -28,6 +28,7 @@ public:
              QObject * parent = 0);
     ~Importer();
 public:
+    static bool lastImportPerformed(QDateTime &date);
     Q_SLOT void start();
     Q_SIGNAL void searchCompleted();
     int numImportedSongs() const;
@@ -36,6 +37,7 @@ private:
     Q_SLOT void onSearchCompleted();
     Q_SLOT void onSearchingDirectory(QString const& location);
 private:
+
     void removeMissingSongs();
     void houseKeep();
 

@@ -148,6 +148,8 @@ private:
 
     void updateNowPlaying();
 private:
+    int m_feedbackTimerId;
+    int m_importTimerId;
     QStringList m_fileNameFilters;
     QSettings &m_settings;
     State m_state;

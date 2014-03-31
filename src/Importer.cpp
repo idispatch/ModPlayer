@@ -73,6 +73,19 @@ void Importer::removeMissingSongs() {
     houseKeep();
 }
 
+bool Importer::lastImportPerformed(QDateTime &date) {
+    QFile file(FileUtils::joinPath(QDir::homePath(), "last_import.txt"));
+    if(!file.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+    QTextStream input(&file);
+    if(!file.atEnd()) {
+        date = QDateTime::fromString(input.readLine(), Qt::TextDate);
+        return true;
+    }
+    return false;
+}
+
 void Importer::start() {
     m_numImportedSongs = 0;
     m_nextId = -1;
@@ -107,6 +120,14 @@ void Importer::onSearchCompleted() {
     }
     m_knownFileNames.clear();
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
+
+    QString infoFile(FileUtils::joinPath(QDir::homePath(), "last_import.txt"));
+    QFile file(infoFile);
+    if(file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << QDateTime::currentDateTime().toString(Qt::TextDate);
+    }
+
     m_messageBox.enableButton(true);
     m_messageBox.run();
     emit searchCompleted();

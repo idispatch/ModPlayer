@@ -521,6 +521,14 @@
         <source>Please support ModPlayer - write a review in BlackBerry World!</source>
         <translation>Пожалуйста, поддержите ModPlayer - напишите отзыв в BlackBerry World!</translation>
     </message>
+    <message>
+        <source>Confirm</source>
+        <translation>Подтверждение</translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs?</source>
+        <translation>Вы хотите импортировать песни с телефона?</translation>
+    </message>
 </context>
 <context>
     <name>PlayerActionItem</name>

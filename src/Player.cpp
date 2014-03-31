@@ -2,6 +2,7 @@
 #include <bb/multimedia/NowPlayingConnection>
 #include <bb/cascades/pickers/FilePicker>
 #include <bb/system/SystemToast>
+#include <bb/system/SystemDialog>
 #include "FileUtils.hpp"
 #include "Player.hpp"
 #include "Catalog.hpp"
@@ -27,6 +28,8 @@ int InstanceCounter<Player>::s_maxCount;
 
 Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
+      m_feedbackTimerId(-1),
+      m_importTimerId(-1),
       m_settings(settings),
       m_state(Stopped),
       m_statusText(tr("Stopped")),
@@ -63,6 +66,7 @@ Player::~Player() {
 
 void Player::initCatalog() {
     m_catalog->start(QThread::LowPriority);
+    m_importTimerId = startTimer(8000);
 }
 
 void Player::initCache() {
@@ -575,18 +579,36 @@ void Player::onFinished() {
 }
 
 void Player::timerEvent(QTimerEvent *event) {
+    if(event->timerId() == m_feedbackTimerId)
+    {
+        SystemToast toast;
+        toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
+        toast.setModality(SystemUiModality::Application);
+        toast.setPosition(SystemUiPosition::MiddleCenter);
+        toast.button()->setLabel("Ok");
+        toast.exec();
+        m_feedbackTimerId = -1;
+    }
+    else if(event->timerId() == m_importTimerId)
+    {
+        QDateTime date;
+        if(!Importer::lastImportPerformed(date)) {
+            SystemDialog dlg;
+            dlg.setTitle(tr("Confirm"));
+            dlg.setBody(tr("Would you like to import local songs?"));
+            if(dlg.exec() == SystemUiResult::ConfirmButtonSelection) {
+                importSongs();
+            }
+        }
+        m_importTimerId = -1;
+    }
     killTimer(event->timerId());
-    SystemToast toast;
-    toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
-    toast.setModality(SystemUiModality::Application);
-    toast.setPosition(SystemUiPosition::MiddleCenter);
-    toast.button()->setLabel("Ok");
-    toast.exec();
 }
 
 void Player::onCurrentFilesChanged() {
+    // When use has downloaded and played 5 files ask them to support ModPlayer
     if(m_cache->currentFiles() == 5) {
-        startTimer(3000);
+        m_feedbackTimerId = startTimer(3000);
     }
 }
 
