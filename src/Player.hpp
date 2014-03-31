@@ -147,6 +147,9 @@ private:
     void playByModuleFileName(QString const& fileName);
 
     void updateNowPlaying();
+
+    void askToSupport();
+    void askToImport();
 private:
     int m_feedbackTimerId;
     int m_importTimerId;

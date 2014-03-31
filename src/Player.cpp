@@ -578,31 +578,37 @@ void Player::onFinished() {
     }
 }
 
-void Player::timerEvent(QTimerEvent *event) {
-    if(event->timerId() == m_feedbackTimerId)
-    {
-        SystemToast toast;
-        toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
-        toast.setModality(SystemUiModality::Application);
-        toast.setPosition(SystemUiPosition::MiddleCenter);
-        toast.button()->setLabel("Ok");
-        toast.exec();
-        m_feedbackTimerId = -1;
-    }
-    else if(event->timerId() == m_importTimerId)
-    {
-        QDateTime date;
-        if(!Importer::lastImportPerformed(date)) {
-            SystemDialog dlg;
-            dlg.setTitle(tr("Confirm"));
-            dlg.setBody(tr("Would you like to import local songs?"));
-            if(dlg.exec() == SystemUiResult::ConfirmButtonSelection) {
-                importSongs();
-            }
+void Player::askToSupport() {
+    SystemToast toast;
+    toast.setBody(tr("Please support ModPlayer - write a review in BlackBerry World!"));
+    toast.setModality(SystemUiModality::Application);
+    toast.setPosition(SystemUiPosition::MiddleCenter);
+    toast.button()->setLabel("Ok");
+    toast.exec();
+}
+
+void Player::askToImport() {
+    QDateTime date;
+    if(!Importer::lastImportPerformed(date)) {
+        SystemDialog dlg;
+        dlg.setTitle(tr("Confirm"));
+        dlg.setBody(tr("Would you like to import local songs?"));
+        if(dlg.exec() == SystemUiResult::ConfirmButtonSelection) {
+            importSongs();
         }
+    }
+}
+
+void Player::timerEvent(QTimerEvent *event) {
+    const int timerId = event->timerId();
+    killTimer(timerId);
+    if(timerId == m_feedbackTimerId) {
+        askToSupport();
+        m_feedbackTimerId = -1;
+    } else if(timerId == m_importTimerId) {
+        askToImport();
         m_importTimerId = -1;
     }
-    killTimer(event->timerId());
 }
 
 void Player::onCurrentFilesChanged() {
