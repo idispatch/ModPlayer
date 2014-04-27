@@ -79,14 +79,11 @@ Page {
     actions: [
         PlayerActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
-            navigationPane: formatsPage.navigationPane
+            navigationPane: difmPage.navigationPane
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: formatsPage.navigationPane
-        },
-        PlayModeActionItem {
-            ActionBar.placement: ActionBarPlacement.InOverflow
+            navigationPane: difmPage.navigationPane
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
