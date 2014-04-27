@@ -136,6 +136,28 @@ TabbedPane {
         }
     }
     Tab {
+        id: difmTab
+        title: qsTr("Digitally Imported")
+        objectName: title
+        description: qsTr("Digitally Imported Radio")
+        imageSource: "asset:///images/actions/icon_difm.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            difm.load()
+        }
+        function unload() {
+            songAlbums.unload()
+        }
+        content: NavigationPane {
+            id: difmNavigationPane 
+            Albums {
+                id: difm
+                navigationPane: difmNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
         id: mostPlayedTab
         title: qsTr("Most Played")
         objectName: title

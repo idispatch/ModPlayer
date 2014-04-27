@@ -1317,5 +1317,13 @@
         <source>Albums</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Digitally Imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Digitally Imported Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
