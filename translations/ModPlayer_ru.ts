@@ -204,6 +204,13 @@
     </message>
 </context>
 <context>
+    <name>DiFM</name>
+    <message>
+        <source>Select Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>

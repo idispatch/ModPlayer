@@ -94,6 +94,8 @@ public:
     Q_INVOKABLE bb::cascades::GroupDataModel* findAlbums(QString const& searchTerm);
     Q_INVOKABLE int findAlbumsAsync(QString const& searchTerm);
 
+    Q_INVOKABLE bb::cascades::GroupDataModel* findDigitallyImported();
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(QString const& searchTerm, int formatId, int limit);
     Q_INVOKABLE int findSongsByFormatIdAsync(QString const& searchTerm, int formatId, int limit);
 

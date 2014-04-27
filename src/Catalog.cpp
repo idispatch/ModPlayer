@@ -6,6 +6,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 
+#include <bb/data/JsonDataAccess>
 #include <bb/data/SqlDataAccess>
 #include <bb/data/DataSource>
 
@@ -271,6 +272,18 @@ GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
                                            model);
         model->insert(value);
     }
+    return model;
+}
+
+GroupDataModel* Catalog::findDigitallyImported()
+{
+    GroupDataModel *model = new GroupDataModel(QStringList() << "name");
+    JsonDataAccess jda;
+    QString appFolder(QDir::homePath());
+    appFolder.chop(4);
+    QString originalFileName = appFolder + "app/native/assets/difm.json";
+    QVariant list = jda.load(originalFileName);
+    model->insertList(list.value<QVariantList>());
     return model;
 }
 

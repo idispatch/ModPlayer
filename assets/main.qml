@@ -146,11 +146,11 @@ TabbedPane {
             difm.load()
         }
         function unload() {
-            songAlbums.unload()
+            difm.unload()
         }
         content: NavigationPane {
             id: difmNavigationPane 
-            Albums {
+            DiFM {
                 id: difm
                 navigationPane: difmNavigationPane
             }
