@@ -11,6 +11,7 @@
 #include "InternetRadio.hpp"
 #include "Unpacker.hpp"
 #include "SongModule.hpp"
+#include "SongFormat.hpp"
 #include "PlaybackConfig.hpp"
 #include "Playback.hpp"
 #include "Playlist.hpp"
@@ -208,6 +209,7 @@ void Player::changeStatus(State state, QString const& statusText) {
             case Resolving:
             case Downloading:
             case Preparing:
+                break;
             default:
                 m_nowPlaying->setMediaState(MediaState::Unprepared);
                 break;
@@ -268,14 +270,36 @@ void Player::updateNowPlaying() {
     m_nowPlaying->setPosition(0);
     QVariantMap metadata;
 
-    metadata[MetaData::Title] = FileUtils::fileNameOnly(currentSong()->fileName());
+    if(SongFormat::isHttpSong(currentSong()->fileName())) {
+        QString title;
+        QString iconName;
+        QString appFolder(QDir::homePath());
+        appFolder.chop(4); // remove data directory from end
+        if(currentSong()->fileName().indexOf("rockradio") != -1) {
+            title = "www.rockradio.com";
+            iconName = "icon-rockradio.png";
+        } else if(currentSong()->fileName().indexOf("jazzradio") != -1) {
+            title = "www.jazzradio.com";
+            iconName = "icon-jazzradio.png";
+        } else if(currentSong()->fileName().indexOf("sky.fm") != -1) {
+            title = "www.sky.fm";
+            iconName = "icon-skyfm.png";
+        } else {
+            title = "www.di.fm";
+            iconName = "icon-difm.png";
+        }
+        metadata[MetaData::Title] = title;
+        m_nowPlaying->setIconUrl(QString("file://%1app/native/assets/formats/%2").arg(appFolder).arg(iconName));
+    } else {
+        metadata[MetaData::Title] = FileUtils::fileNameOnly(currentSong()->fileName());
+        m_nowPlaying->setIconUrl(currentSong()->iconPath());
+    }
     metadata[MetaData::Artist] = currentSong()->title();
 
     m_nowPlaying->setOverlayStyle(OverlayStyle::Fancy);
     m_nowPlaying->setNextEnabled(m_playlist->nextAvailable());
     m_nowPlaying->setPreviousEnabled(m_playlist->previousAvailable());
     m_nowPlaying->setMetaData(metadata);
-    m_nowPlaying->setIconUrl(currentSong()->iconPath());
 }
 
 void Player::onNowPlayingAcquired() {

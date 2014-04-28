@@ -374,7 +374,7 @@
 <context>
     <name>InternetRadioList</name>
     <message>
-        <source>Select Channel</source>
+        <source>Select Internet Radio Channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

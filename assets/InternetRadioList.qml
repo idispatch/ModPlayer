@@ -7,7 +7,7 @@ Page {
     property variant navigationPane
     property alias channelList : internetRadioList.channelList
     titleBar: PlayerTitleBar {
-        title: qsTr("Select Channel")
+        title: qsTr("Select Internet Radio Channel")
     }
     ViewContainer {
         ListView {
