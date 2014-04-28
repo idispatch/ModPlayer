@@ -5,7 +5,7 @@ ActionItem {
     property variant navigationPane
     title: qsTr("Songs by Artist")
     imageSource: "asset:///images/actions/icon_artist.png"
-    enabled: currentSong && currentSong.artistId != 0 
+    enabled: currentSong && currentSong.artistId != 0 && !app.player.currentSong.isHttpSong 
     onTriggered: {
         var artistId = currentSong.artistId
         var artistName = currentSong.artist

@@ -15,6 +15,7 @@ class SongBasicInfo : public QObject,
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged FINAL)
     Q_PROPERTY(bool isLocal READ isLocal NOTIFY isLocalChanged FINAL)
     Q_PROPERTY(bool isTrackerSong READ isTrackerSong NOTIFY isTrackerSongChanged FINAL)
+    Q_PROPERTY(bool isHttpSong READ isTrackerSong NOTIFY isHttpSongChanged FINAL)
 
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
@@ -52,6 +53,7 @@ public:
     SongBasicInfo& operator = (SongBasicInfo const& other);
 
     bool isTrackerSong() const;
+    bool isHttpSong() const;
 
     QString fileName() const;
     void setFileName(const QString &value);
@@ -97,6 +99,7 @@ public:
     using InstanceCounter<SongBasicInfo>::getMaxInstanceCount;
 Q_SIGNALS:
     void isTrackerSongChanged();
+    void isHttpSongChanged();
     void fileNameChanged();
     void titleChanged();
     void idChanged();

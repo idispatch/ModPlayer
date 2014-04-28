@@ -82,6 +82,7 @@ void SongBasicInfo::setFileName(const QString &value) {
     if(m_fileName != value) {
         int oldFormatId = formatId();
         bool oldIsTrackerSong = isTrackerSong();
+        bool oldIsHttpSong = isHttpSong();
         QUrl oldIconPath = iconPath();
 
         m_fileName = value;
@@ -89,6 +90,9 @@ void SongBasicInfo::setFileName(const QString &value) {
         emit fileNameChanged();
         if(oldIconPath != iconPath()) {
             emit iconPathChanged();
+        }
+        if(oldIsHttpSong != isHttpSong()) {
+            emit isHttpSongChanged();
         }
         if(oldIsTrackerSong != isTrackerSong()) {
             emit isTrackerSongChanged();
@@ -155,6 +159,10 @@ void SongBasicInfo::setFileSize(int value) {
 
 bool SongBasicInfo::isTrackerSong() const {
     return SongFormat::isTrackerSong(static_cast<SongFormat::Format>(formatId()));
+}
+
+bool SongBasicInfo::isHttpSong() const {
+    return SongFormat::isHttpSong(static_cast<SongFormat::Format>(formatId()));
 }
 
 int SongBasicInfo::songLength() const {

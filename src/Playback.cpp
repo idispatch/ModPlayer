@@ -551,7 +551,15 @@ void Playback::run() {
                 if(!m_song.isTrackerSong()) {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
-                        QUrl url = QUrl::fromLocalFile(m_song.absoluteFileName());
+                        QUrl url;
+                        if(m_song.isHttpSong())
+                        {
+                            url = m_song.absoluteFileName();
+                        }
+                        else
+                        {
+                            url = QUrl::fromLocalFile(m_song.absoluteFileName());
+                        }
                         bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(url);
                         if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;

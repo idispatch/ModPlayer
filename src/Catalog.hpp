@@ -96,6 +96,8 @@ public:
 
     Q_INVOKABLE bb::cascades::GroupDataModel* findDigitallyImported();
     Q_INVOKABLE bb::cascades::GroupDataModel* findSkyFm();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findJazzRadio();
+    Q_INVOKABLE bb::cascades::GroupDataModel* findRockRadio();
 
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByFormatId(QString const& searchTerm, int formatId, int limit);
     Q_INVOKABLE int findSongsByFormatIdAsync(QString const& searchTerm, int formatId, int limit);
@@ -178,6 +180,7 @@ private:
     Q_DISABLE_COPY(Catalog)
     void initCatalog();
     void copyCatalogToDataFolder();
+    bb::cascades::GroupDataModel* findInternetRadio(QString const & channelList);
 
     SongExtendedInfo * selectSongInfo(QString const& whereClause, QObject *parent);
 

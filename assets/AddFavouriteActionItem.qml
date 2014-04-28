@@ -5,12 +5,12 @@ ActionItem {
     
     title: qsTr("Add to Favourites")
     imageSource: "asset:///images/actions/icon_like.png"
-    enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0
+    enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0 && !currentSong.isHttpSong
     shortcuts: Shortcut {
         key: "f"
     } 
     onTriggered: {
-        if (currentSong != null) {
+        if (currentSong != null && !currentSong.isHttpSong) {
             app.catalog.addFavourite(currentSong)
         }
     }

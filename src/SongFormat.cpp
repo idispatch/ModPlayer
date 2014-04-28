@@ -66,6 +66,7 @@ QUrl SongFormat::getIconPath(SongFormat::Format formatId) {
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("ogg"));
     case FORMAT_FLAC:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("flac"));
+    case FORMAT_HTTP:
     default:
         return QUrl(QString("%1/icon_unknown.png").arg(icons));
     }
@@ -103,6 +104,8 @@ QString SongFormat::getFormatByFormatId(SongFormat::Format formatId) {
         return "Xiph.org Foundation OGG Song";
     case FORMAT_FLAC:
         return "Free Lossless Audio Codec Song";
+    case FORMAT_HTTP:
+        return "Internet Radio";
     default:
         return "Unknown format";
     }
@@ -111,6 +114,37 @@ QString SongFormat::getFormatByFormatId(SongFormat::Format formatId) {
 SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
     int len = fileName.length();
     if(len > 0) {
+        switch(fileName[0].unicode()) {
+        case 'h': case 'H':
+            if(len > 1) {
+                switch(fileName[1].unicode()) {
+                case 't': case 'T':
+                    if(len > 2) {
+                        switch(fileName[2].unicode()) {
+                        case 't': case 'T':
+                            if(len > 3) {
+                                switch(fileName[3].unicode()) {
+                                case 'p': case 'P':
+                                    if(len > 4) {
+                                        switch(fileName[4].unicode()) {
+                                        case ':':
+                                            return FORMAT_HTTP;
+                                        }
+                                        break;
+                                    }
+                                    break;
+                                }
+                                break;
+                            }
+                            break;
+                        }
+                        break;
+                    }
+                    break;
+                }
+            }
+            break;
+        }
         switch(fileName[len - 1].unicode()) {
         case 'c': case 'C': // .flac
             if(len > 1) {
@@ -353,6 +387,18 @@ bool SongFormat::isTrackerSong() const {
 
 bool SongFormat::isTrackerSong(QString const& fileName) {
     return SongFormat::isTrackerSong(SongFormat::getFormatIdByFileName(fileName));
+}
+
+bool SongFormat::isHttpSong() const {
+    return id() == FORMAT_MP3;
+}
+
+bool SongFormat::isHttpSong(QString const& fileName) {
+    return SongFormat::isHttpSong(SongFormat::getFormatIdByFileName(fileName));
+}
+
+bool SongFormat::isHttpSong(SongFormat::Format formatId) {
+    return formatId == FORMAT_HTTP;
 }
 
 bool SongFormat::isTrackerSong(SongFormat::Format formatId) {

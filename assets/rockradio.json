@@ -1,0 +1,282 @@
+[
+   {
+      "id":287,
+      "key":"grunge",
+      "name":"Grunge",
+      "description":"Hardcore Punk meets Heavy Metal",
+      "playlist":"http://listen.rockradio.com/public1/grunge.pls"
+   },
+   {
+      "id":272,
+      "key":"industrial",
+      "name":"Industrial",
+      "description":"Industrialized Rock with heavy machinery",
+      "playlist":"http://listen.rockradio.com/public1/industrial.pls"
+   },
+   {
+      "id":143,
+      "key":"classicrock",
+      "name":"Classic Rock",
+      "description":"Classic rock hits from the 70s and 80s",
+      "playlist":"http://listen.rockradio.com/public1/classicrock.pls"
+   },
+   {
+      "id":189,
+      "key":"classicmetal",
+      "name":"Classic Metal",
+      "description":"Classic Metal hits and artists",
+      "playlist":"http://listen.rockradio.com/public1/classicmetal.pls"
+   },
+   {
+      "id":154,
+      "key":"80srock",
+      "name":"80's Rock",
+      "description":"Get your 80s rock nostalgia fix",
+      "playlist":"http://listen.rockradio.com/public1/80srock.pls"
+   },
+   {
+      "id":166,
+      "key":"90srock",
+      "name":"90's Rock",
+      "description":"If it ROCKED in the 90s you will hear it here",
+      "playlist":"http://listen.rockradio.com/public1/90srock.pls"
+   },
+   {
+      "id":160,
+      "key":"modernrock",
+      "name":"Modern Rock",
+      "description":"Modern hits from the greats to the new bands",
+      "playlist":"http://listen.rockradio.com/public1/modernrock.pls"
+   },
+   {
+      "id":150,
+      "key":"hardrock",
+      "name":"Hard Rock",
+      "description":"The best selection of Hard Rock hits anywhere",
+      "playlist":"http://listen.rockradio.com/public1/hardrock.pls"
+   },
+   {
+      "id":167,
+      "key":"classichardrock",
+      "name":"Classic Hard Rock",
+      "description":"Classic Hard Rock hits from the 70s, 80s, and 90s",
+      "playlist":"http://listen.rockradio.com/public1/classichardrock.pls"
+   },
+   {
+      "id":151,
+      "key":"harderrock",
+      "name":"Harder Rock",
+      "description":"The harder side of rock",
+      "playlist":"http://listen.rockradio.com/public1/harderrock.pls"
+   },
+   {
+      "id":152,
+      "key":"softrock",
+      "name":"Soft Rock",
+      "description":"The best variety of Soft Rock tracks you know and love",
+      "playlist":"http://listen.rockradio.com/public1/softrock.pls"
+   },
+   {
+      "id":153,
+      "key":"poprock",
+      "name":"Pop Rock",
+      "description":"The catchiest Rock channel on the net",
+      "playlist":"http://listen.rockradio.com/public1/poprock.pls"
+   },
+   {
+      "id":169,
+      "key":"hairbands",
+      "name":"Hair Bands",
+      "description":"Hair-flying metal and rock!",
+      "playlist":"http://listen.rockradio.com/public1/hairbands.pls"
+   },
+   {
+      "id":191,
+      "key":"progressiverock",
+      "name":"Progressive Rock",
+      "description":"Progressive Rock inspired by Jazz, Blues and Funk.",
+      "playlist":"http://listen.rockradio.com/public1/progressiverock.pls"
+   },
+   {
+      "id":193,
+      "key":"rockballads",
+      "name":"Rock Ballads",
+      "description":"Hold up your lighters for these Rock Ballads!",
+      "playlist":"http://listen.rockradio.com/public1/rockballads.pls"
+   },
+   {
+      "id":195,
+      "key":"alternative90s",
+      "name":"90's Alternative",
+      "description":"The best in Alternative hits from the 90s.",
+      "playlist":"http://listen.rockradio.com/public1/alternative90s.pls"
+   },
+   {
+      "id":194,
+      "key":"alternative80s",
+      "name":"80's Alternative",
+      "description":"The best in Alternative hits from the 80s.",
+      "playlist":"http://listen.rockradio.com/public1/alternative80s.pls"
+   },
+   {
+      "id":226,
+      "key":"60srock",
+      "name":"60's Rock",
+      "description":"The very best in classic 60s Rock!",
+      "playlist":"http://listen.rockradio.com/public1/60srock.pls"
+   },
+   {
+      "id":201,
+      "key":"bluesrock",
+      "name":"Blues Rock",
+      "description":"A fusion of Blues and Rock.",
+      "playlist":"http://listen.rockradio.com/public1/bluesrock.pls"
+   },
+   {
+      "id":147,
+      "key":"beatlestribute",
+      "name":"Beatles Tribute",
+      "description":"Featuring Beatles hits, remakes, and tributes",
+      "playlist":"http://listen.rockradio.com/public1/beatlestribute.pls"
+   },
+   {
+      "id":146,
+      "key":"poppunk",
+      "name":"Pop Punk",
+      "description":"A fusion of Punk and Pop",
+      "playlist":"http://listen.rockradio.com/public1/poppunk.pls"
+   },
+   {
+      "id":161,
+      "key":"punkrock",
+      "name":"Punk Rock",
+      "description":"The best variety in Punk from its inception until now",
+      "playlist":"http://listen.rockradio.com/public1/punkrock.pls"
+   },
+   {
+      "id":145,
+      "key":"ska",
+      "name":"Ska",
+      "description":"Put on your dance shoes and turn it up",
+      "playlist":"http://listen.rockradio.com/public1/ska.pls"
+   },
+   {
+      "id":148,
+      "key":"metal",
+      "name":"Metal",
+      "description":"Featuring all metal from its inception until today",
+      "playlist":"http://listen.rockradio.com/public1/metal.pls"
+   },
+   {
+      "id":149,
+      "key":"heavymetal",
+      "name":"Heavy Metal",
+      "description":"Where the heavier side of metal is heard",
+      "playlist":"http://listen.rockradio.com/public1/heavymetal.pls"
+   },
+   {
+      "id":192,
+      "key":"thrashmetal",
+      "name":"Thrash Metal",
+      "description":"Adrenaline fuelled, head-banging Thrash Metal!",
+      "playlist":"http://listen.rockradio.com/public1/thrashmetal.pls"
+   },
+   {
+      "id":222,
+      "key":"melodicdeathmetal",
+      "name":"Melodic Death Metal",
+      "description":"A Melodic blend of Heavy and Death Metal.",
+      "playlist":"http://listen.rockradio.com/public1/melodicdeathmetal.pls"
+   },
+   {
+      "id":155,
+      "key":"deathmetal",
+      "name":"Death Metal",
+      "description":"Get your death fix now",
+      "playlist":"http://listen.rockradio.com/public1/deathmetal.pls"
+   },
+   {
+      "id":163,
+      "key":"powermetal",
+      "name":"Power Metal",
+      "description":"Non-stop amazing guitar work and grandiose vocals",
+      "playlist":"http://listen.rockradio.com/public1/powermetal.pls"
+   },
+   {
+      "id":164,
+      "key":"symphonicmetal",
+      "name":"Symphonic Metal",
+      "description":"Soaring vocals with power riffs ",
+      "playlist":"http://listen.rockradio.com/public1/symphonicmetal.pls"
+   },
+   {
+      "id":190,
+      "key":"progressivemetal",
+      "name":"Progressive Metal",
+      "description":"A fusion of Progressive Rock and Heavy Metal.",
+      "playlist":"http://listen.rockradio.com/public1/progressivemetal.pls"
+   },
+   {
+      "id":221,
+      "key":"rapmetal",
+      "name":"Rap Metal",
+      "description":"A fusion of Rap, Hip Hop and alternative Metal.",
+      "playlist":"http://listen.rockradio.com/public1/rapmetal.pls"
+   },
+   {
+      "id":165,
+      "key":"numetal",
+      "name":"Nu Metal",
+      "description":"Nu Metal variety from the beginning to today",
+      "playlist":"http://listen.rockradio.com/public1/numetal.pls"
+   },
+   {
+      "id":162,
+      "key":"hardcore",
+      "name":"Hardcore",
+      "description":"From its roots until now, Hardcore is here to stay",
+      "playlist":"http://listen.rockradio.com/public1/hardcore.pls"
+   },
+   {
+      "id":158,
+      "key":"metalcore",
+      "name":"Metalcore",
+      "description":"Melodic choruses and Hardcore breakdowns",
+      "playlist":"http://listen.rockradio.com/public1/metalcore.pls"
+   },
+   {
+      "id":156,
+      "key":"deathcore",
+      "name":"Deathcore",
+      "description":"Death growls and breakdowns bring the mosh",
+      "playlist":"http://listen.rockradio.com/public1/deathcore.pls"
+   },
+   {
+      "id":144,
+      "key":"indierock",
+      "name":"Indie Rock",
+      "description":"Hear the best of Indie Rock",
+      "playlist":"http://listen.rockradio.com/public1/indierock.pls"
+   },
+   {
+      "id":159,
+      "key":"screamoemo",
+      "name":"Screamo-Emo",
+      "description":"Emotionally charged music",
+      "playlist":"http://listen.rockradio.com/public1/screamoemo.pls"
+   },
+   {
+      "id":168,
+      "key":"jambands",
+      "name":"Jam Bands",
+      "description":"The finest collection of songcraft and improvisation. ",
+      "playlist":"http://listen.rockradio.com/public1/jambands.pls"
+   },
+   {
+      "id":157,
+      "key":"blackmetal",
+      "name":"Black Metal",
+      "description":"From its dark inception until today",
+      "playlist":"http://listen.rockradio.com/public1/blackmetal.pls"
+   }
+]

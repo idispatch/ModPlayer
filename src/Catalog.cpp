@@ -275,28 +275,35 @@ GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
     return model;
 }
 
-GroupDataModel* Catalog::findDigitallyImported()
-{
+GroupDataModel* Catalog::findInternetRadio(QString const & channelList) {
     GroupDataModel *model = new GroupDataModel(QStringList() << "name");
     JsonDataAccess jda;
     QString appFolder(QDir::homePath());
     appFolder.chop(4);
-    QString originalFileName = appFolder + "app/native/assets/difm.json";
+    QString originalFileName = appFolder + "app/native/assets/" + channelList;
     QVariant list = jda.load(originalFileName);
     model->insertList(list.value<QVariantList>());
     return model;
 }
 
+GroupDataModel* Catalog::findDigitallyImported()
+{
+    return findInternetRadio("difm.json");
+}
+
 GroupDataModel* Catalog::findSkyFm()
 {
-    GroupDataModel *model = new GroupDataModel(QStringList() << "name");
-    JsonDataAccess jda;
-    QString appFolder(QDir::homePath());
-    appFolder.chop(4);
-    QString originalFileName = appFolder + "app/native/assets/skyfm.json";
-    QVariant list = jda.load(originalFileName);
-    model->insertList(list.value<QVariantList>());
-    return model;
+    return findInternetRadio("skyfm.json");
+}
+
+GroupDataModel* Catalog::findJazzRadio()
+{
+    return findInternetRadio("jazzradio.json");
+}
+
+GroupDataModel* Catalog::findRockRadio()
+{
+    return findInternetRadio("rockradio.json");
 }
 
 GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {

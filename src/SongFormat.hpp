@@ -28,7 +28,8 @@ public:
         FORMAT_MO3 = 1,
         FORMAT_MP3 = 100,
         FORMAT_OGG = 101,
-        FORMAT_FLAC = 102
+        FORMAT_FLAC = 102,
+        FORMAT_HTTP = 1000
     };
     SongFormat(int id,
                QString const& name,
@@ -41,6 +42,7 @@ public:
     QUrl iconPath() const;
     bool isTrackerSong() const;
     bool isMp3Song() const;
+    bool isHttpSong() const;
 
     static QUrl getIconPath(Format formatId);
     static Format getFormatIdByFileName(QString const& fileName);
@@ -51,6 +53,9 @@ public:
 
     static bool isMp3Song(QString const& fileName);
     static bool isMp3Song(Format formatId);
+
+    static bool isHttpSong(QString const& fileName);
+    static bool isHttpSong(Format formatId);
 
     using InstanceCounter<SongFormat>::getInstanceCount;
     using InstanceCounter<SongFormat>::getMaxInstanceCount;

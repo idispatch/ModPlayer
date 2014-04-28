@@ -373,7 +373,14 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
             }
         } else {
             absoluteFileName = fileName;
-            info->setFileSize(QFile(absoluteFileName).size());
+            if(SongFormat::isHttpSong(absoluteFileName))
+            {
+                info->setFileSize(0);
+            }
+            else
+            {
+                info->setFileSize(QFile(absoluteFileName).size());
+            }
         }
 
         if(m_playback->load(*info, absoluteFileName)) {
@@ -383,7 +390,14 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
                 }
 
                 QString relativeFileName = FileUtils::fileNameOnly(currentSong()->fileName());
-                changeStatus(Playing, tr("Playing %1").arg(relativeFileName));
+                if(SongFormat::isHttpSong(currentSong()->fileName()))
+                {
+                    changeStatus(Playing, tr("Playing Internet Radio Channel"));
+                }
+                else
+                {
+                    changeStatus(Playing, tr("Playing %1").arg(relativeFileName));
+                }
 
                 if(!m_nowPlaying->isAcquired()) {
                     m_nowPlaying->acquire();
@@ -448,21 +462,28 @@ void Player::play(QVariant value) {
 }
 
 void Player::playByModuleFileName(QString const& fileName) {
-    // relative path or within cache directory - play from cache
-    if(fileName.startsWith(m_cache->cachePath()) || FileUtils::isRelative(fileName)) {
-        if(m_cache->exists(fileName)) {
-            QString name = FileUtils::fileNameOnly(fileName);
-            beginPlay(true, name);
-        } else {
-            QString name = FileUtils::fileNameOnly(fileName);
-            changeStatus(Resolving, tr("Resolving %1").arg(name));
-
-            int id = m_catalog->resolveModuleIdByFileName(fileName);
-            m_downloader->download(id);
-        }
-    } else {
-        // otherwise play from the absolute path
+    if(SongFormat::isHttpSong(fileName))
+    {
         beginPlay(false, fileName);
+    }
+    else
+    {
+        // relative path or within cache directory - play from cache
+        if(fileName.startsWith(m_cache->cachePath()) || FileUtils::isRelative(fileName)) {
+            if(m_cache->exists(fileName)) {
+                QString name = FileUtils::fileNameOnly(fileName);
+                beginPlay(true, name);
+            } else {
+                QString name = FileUtils::fileNameOnly(fileName);
+                changeStatus(Resolving, tr("Resolving %1").arg(name));
+
+                int id = m_catalog->resolveModuleIdByFileName(fileName);
+                m_downloader->download(id);
+            }
+        } else {
+            // otherwise play from the absolute path
+            beginPlay(false, fileName);
+        }
     }
 }
 
@@ -554,8 +575,15 @@ void Player::onPaused() {
 }
 
 void Player::onPlaying() {
-    QString songName = FileUtils::fileNameOnly(currentSong()->fileName());
-    changeStatus(Playing, tr("Playing %1").arg(songName));
+    if(SongFormat::isHttpSong(currentSong()->fileName()))
+    {
+        changeStatus(Playing, tr("Playing Internet Radio Channel"));
+    }
+    else
+    {
+        QString songName = FileUtils::fileNameOnly(currentSong()->fileName());
+        changeStatus(Playing, tr("Playing %1").arg(songName));
+    }
 }
 
 void Player::onStopped() {

@@ -1,0 +1,254 @@
+[
+   {
+      "id":115,
+      "key":"currentjazz",
+      "name":"Current Jazz",
+      "description":"Explore the modern artists and sounds of jazz",
+      "playlist":"http://listen.jazzradio.com/public1/currentjazz.pls"
+   },
+   {
+      "id":84,
+      "key":"smoothjazz",
+      "name":"Smooth Jazz",
+      "description":"The world\u2019s best mix of instrumental Smooth Jazz",
+      "playlist":"http://listen.jazzradio.com/public1/smoothjazz.pls"
+   },
+   {
+      "id":116,
+      "key":"smoothjazz247",
+      "name":"Smooth Jazz 24'7",
+      "description":"Smooth Jazz DJs bring you the best music, 24 hours a day!",
+      "playlist":"http://listen.jazzradio.com/public1/smoothjazz247.pls"
+   },
+   {
+      "id":113,
+      "key":"gypsyjazz",
+      "name":"Gypsy Jazz",
+      "description":"Gypsy Jazz & Hot Club Swing with Django in mind",
+      "playlist":"http://listen.jazzradio.com/public1/gypsyjazz.pls"
+   },
+   {
+      "id":112,
+      "key":"pariscafe",
+      "name":"Paris Caf\u00e9",
+      "description":"Watch the world go by & enjoy the music on a sunny Paris day ",
+      "playlist":"http://listen.jazzradio.com/public1/pariscafe.pls"
+   },
+   {
+      "id":103,
+      "key":"trumpetjazz",
+      "name":"Trumpet Jazz",
+      "description":"Bright sounds of jazz\u2019s most exciting horns",
+      "playlist":"http://listen.jazzradio.com/public1/trumpetjazz.pls"
+   },
+   {
+      "id":102,
+      "key":"saxophonejazz",
+      "name":"Saxophone Jazz",
+      "description":"The signature sound of jazz",
+      "playlist":"http://listen.jazzradio.com/public1/saxophonejazz.pls"
+   },
+   {
+      "id":78,
+      "key":"cooljazz",
+      "name":"Cool Jazz",
+      "description":"Relaxed tempos and lighter tones from the West Coast",
+      "playlist":"http://listen.jazzradio.com/public1/cooljazz.pls"
+   },
+   {
+      "id":75,
+      "key":"classicjazz",
+      "name":"Classic Jazz",
+      "description":"The artists and music that started it all",
+      "playlist":"http://listen.jazzradio.com/public1/classicjazz.pls"
+   },
+   {
+      "id":82,
+      "key":"mellowjazz",
+      "name":"Mellow Jazz",
+      "description":"A more relaxed and laid-back selection of jazz",
+      "playlist":"http://listen.jazzradio.com/public1/mellowjazz.pls"
+   },
+   {
+      "id":301,
+      "key":"davekoz",
+      "name":"Dave Koz & Friends",
+      "description":"Smooth Jazz selected by Dave Koz himself!",
+      "playlist":"http://listen.jazzradio.com/public1/davekoz.pls"
+   },
+   {
+      "id":199,
+      "key":"mellowsmoothjazz",
+      "name":"Mellow Smooth Jazz",
+      "description":"Relaxing Smooth Jazz for your listening pleasure.",
+      "playlist":"http://listen.jazzradio.com/public1/mellowsmoothjazz.pls"
+   },
+   {
+      "id":170,
+      "key":"smoothlounge",
+      "name":"Smooth Lounge",
+      "description":"Relax and unwind with the smoothest lounge vibes",
+      "playlist":"http://listen.jazzradio.com/public1/smoothlounge.pls"
+   },
+   {
+      "id":73,
+      "key":"straightahead",
+      "name":"Straight-Ahead",
+      "description":"Keeping the traditions of classic jazz alive",
+      "playlist":"http://listen.jazzradio.com/public1/straightahead.pls"
+   },
+   {
+      "id":83,
+      "key":"pianojazz",
+      "name":"Piano Jazz",
+      "description":"Enjoy the past and present masters of the piano",
+      "playlist":"http://listen.jazzradio.com/public1/pianojazz.pls"
+   },
+   {
+      "id":134,
+      "key":"bassjazz",
+      "name":"Bass Jazz",
+      "description":"Rhythmic sounds of the double bass",
+      "playlist":"http://listen.jazzradio.com/public1/bassjazz.pls"
+   },
+   {
+      "id":81,
+      "key":"guitarjazz",
+      "name":"Guitar Jazz",
+      "description":"Hear guitar jazz legends and classic compositions",
+      "playlist":"http://listen.jazzradio.com/public1/guitarjazz.pls"
+   },
+   {
+      "id":300,
+      "key":"flamencojazz",
+      "name":"Flamenco Jazz",
+      "description":"A perfect blend of flamenco strings with jazz and spanish guitar",
+      "playlist":"http://listen.jazzradio.com/public1/flamencojazz.pls"
+   },
+   {
+      "id":135,
+      "key":"vibraphonejazz",
+      "name":"Vibraphone Jazz",
+      "description":"The masters who have made their mark on the vibes",
+      "playlist":"http://listen.jazzradio.com/public1/vibraphonejazz.pls"
+   },
+   {
+      "id":74,
+      "key":"bebop",
+      "name":"Bebop",
+      "description":"Enjoy the sounds of fast-tempo improvised jazz",
+      "playlist":"http://listen.jazzradio.com/public1/bebop.pls"
+   },
+   {
+      "id":77,
+      "key":"hardbop",
+      "name":"Hard Bop",
+      "description":"A funky combination of Bebop and Soul Jazz",
+      "playlist":"http://listen.jazzradio.com/public1/hardbop.pls"
+   },
+   {
+      "id":97,
+      "key":"pianotrios",
+      "name":"Piano Trios",
+      "description":"Piano, bass, and drums - the perfect combination!",
+      "playlist":"http://listen.jazzradio.com/public1/pianotrios.pls"
+   },
+   {
+      "id":85,
+      "key":"bossanova",
+      "name":"Bossa Nova",
+      "description":"Experience the gently swaying rhythms of Brazil",
+      "playlist":"http://listen.jazzradio.com/public1/bossanova.pls"
+   },
+   {
+      "id":196,
+      "key":"smoothbossanova",
+      "name":"Smooth Bossa Nova",
+      "description":"The smoothest Bossa Nova direct from Brazil.",
+      "playlist":"http://listen.jazzradio.com/public1/smoothbossanova.pls"
+   },
+   {
+      "id":87,
+      "key":"fusionlounge",
+      "name":"Fusion Lounge",
+      "description":"A unique blend of jazz, lounge, & bossa nova",
+      "playlist":"http://listen.jazzradio.com/public1/fusionlounge.pls"
+   },
+   {
+      "id":79,
+      "key":"vocaljazz",
+      "name":"Contemporary Vocals",
+      "description":"Modern singers from the new era of jazz",
+      "playlist":"http://listen.jazzradio.com/public1/vocaljazz.pls"
+   },
+   {
+      "id":99,
+      "key":"smoothvocals",
+      "name":"Smooth Vocals",
+      "description":"Hear only the best in vocal smooth jazz",
+      "playlist":"http://listen.jazzradio.com/public1/smoothvocals.pls"
+   },
+   {
+      "id":96,
+      "key":"vocallegends",
+      "name":"Vocal Legends",
+      "description":"Unforgettable voices sing the classics",
+      "playlist":"http://listen.jazzradio.com/public1/vocallegends.pls"
+   },
+   {
+      "id":86,
+      "key":"smoothuptempo",
+      "name":"Smooth Uptempo",
+      "description":"Upbeat smooth jazz grooves from your favorite artists",
+      "playlist":"http://listen.jazzradio.com/public1/smoothuptempo.pls"
+   },
+   {
+      "id":76,
+      "key":"swingnbigband",
+      "name":"Swing & Big Band",
+      "description":"Legendary big bands and star soloists of the swing era",
+      "playlist":"http://listen.jazzradio.com/public1/swingnbigband.pls"
+   },
+   {
+      "id":80,
+      "key":"latinjazz",
+      "name":"Latin Jazz",
+      "description":"Where the lively rhythms and spirit of Latin America meet jazz",
+      "playlist":"http://listen.jazzradio.com/public1/latinjazz.pls"
+   },
+   {
+      "id":98,
+      "key":"timelessclassics",
+      "name":"Timeless Classics",
+      "description":"A mix of early jazz, swing, big bands, and classic tunes",
+      "playlist":"http://listen.jazzradio.com/public1/timelessclassics.pls"
+   },
+   {
+      "id":95,
+      "key":"sinatrastyle",
+      "name":"Sinatra Style",
+      "description":"For fans of Sinatra and the Great American Songbook",
+      "playlist":"http://listen.jazzradio.com/public1/sinatrastyle.pls"
+   },
+   {
+      "id":200,
+      "key":"bluesrock",
+      "name":"Blues Rock",
+      "description":"A fusion of blues and rock music",
+      "playlist":"http://listen.jazzradio.com/public1/bluesrock.pls"
+   },
+   {
+      "id":89,
+      "key":"blues",
+      "name":"Blues",
+      "description":"America\u2019s roots music with sounds of guitar and harmonica",
+      "playlist":"http://listen.jazzradio.com/public1/blues.pls"
+   },
+   {
+      "id":88,
+      "key":"avantgarde",
+      "name":"Avant-Garde",
+      "description":"Innovative musicians who follow their own path",
+      "playlist":"http://listen.jazzradio.com/public1/avantgarde.pls"
+   }
+]

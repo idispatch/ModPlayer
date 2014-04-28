@@ -536,6 +536,10 @@
         <source>Would you like to import local songs?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Playing Internet Radio Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayerActionItem</name>
@@ -1338,6 +1342,14 @@
     </message>
     <message>
         <source>SKY.FM Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jazz Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rock Radio</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

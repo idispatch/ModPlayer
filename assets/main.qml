@@ -182,6 +182,52 @@ TabbedPane {
         }
     }
     Tab {
+        id: jazzRadioTab
+        title: qsTr("Jazz Radio")
+        objectName: title
+        description: qsTr("Jazz Radio")
+        imageSource: "asset:///images/actions/icon_jazzradio.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            jazzRadio.load()
+        }
+        function unload() {
+            jazzRadio.unload()
+        }
+        content: NavigationPane {
+            id: jazzRadioNavigationPane 
+            InternetRadioList {
+                id: jazzRadio
+                channelList: "app/native/assets/jazzradio.json"
+                navigationPane: jazzRadioNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
+        id: rockRadioTab
+        title: qsTr("Rock Radio")
+        objectName: title
+        description: qsTr("Rock Radio")
+        imageSource: "asset:///images/actions/icon_rockradio.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            rockRadio.load()
+        }
+        function unload() {
+            rockRadio.unload()
+        }
+        content: NavigationPane {
+            id: rockRadioNavigationPane 
+            InternetRadioList {
+                id: rockRadio
+                channelList: "app/native/assets/rockradio.json"
+                navigationPane: rockRadioNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
         id: mostPlayedTab
         title: qsTr("Most Played")
         objectName: title

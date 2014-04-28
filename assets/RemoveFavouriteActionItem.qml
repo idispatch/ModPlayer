@@ -6,12 +6,12 @@ ActionItem {
     
     title: qsTr("Remove from Favourites")
     imageSource: "asset:///images/actions/icon_unlike.png"
-    enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0
+    enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0 && !currentSong.isHttpSong
     shortcuts: Shortcut {
         key: "u"
     } 
     onTriggered: {
-        if (currentSong != null) {
+        if (currentSong != null && !currentSong.isHttpSong) {
             app.catalog.removeFavourite(currentSong)
         }
     }

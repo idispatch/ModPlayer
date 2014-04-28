@@ -41,6 +41,10 @@ Page {
                                 return "asset:///images/formats/icon-difm.png"
                             } else if(ListItem.view.channelList.indexOf("skyfm") != -1) {
                                 return "asset:///images/formats/icon-skyfm.png"
+                            } else if(ListItem.view.channelList.indexOf("jazzradio") != -1) {
+                                return "asset:///images/formats/icon-jazzradio.png"
+                            } else if(ListItem.view.channelList.indexOf("rockradio") != -1) {
+                                return "asset:///images/formats/icon-rockradio.png"
                             }
                             return ""
                         }
@@ -50,6 +54,8 @@ Page {
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 console.log(chosenItem.playlist)
+                app.player.play("http://pub4.di.fm:80/di_bassnjackinhouse_aac")
+                showPlayerView()
             }
             function showPlayerView() {
                 if(mainTabPane.activePane == navigationPane && 
@@ -66,6 +72,10 @@ Page {
             internetRadioList.dataModel = app.player.catalog.findDigitallyImported()
         } else if(channelList.indexOf("skyfm") != -1) {
             internetRadioList.dataModel = app.player.catalog.findSkyFm()
+        } else if(channelList.indexOf("jazzradio") != -1) {
+            internetRadioList.dataModel = app.player.catalog.findJazzRadio()
+        } else if(channelList.indexOf("rockradio") != -1) {
+            internetRadioList.dataModel = app.player.catalog.findRockRadio()
         }
     }
     function unload() {

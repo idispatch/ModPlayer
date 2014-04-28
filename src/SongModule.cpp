@@ -219,6 +219,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
 
                 emit songLoadedChanged();
                 emit isTrackerSongChanged();
+                emit isHttpSongChanged();
             } else {
                 qDebug() << "Failed to load ModPlug file" << fileName;
                 unload();
@@ -255,6 +256,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
 
         emit songLoadedChanged();
         emit isTrackerSongChanged();
+        emit isHttpSongChanged();
     }
     return songLoaded();
 }
@@ -357,6 +359,7 @@ void SongModule::setAbsoluteFileName(QString const& fileName) {
     if(fileName != m_absoluteFileName) {
         bool oldSongLoaded = songLoaded();
         bool oldIsTrackerSong = isTrackerSong();
+        bool oldIsHttpSong = isHttpSong();
 
         m_absoluteFileName = fileName;
         emit absoluteFileNameChanged();
@@ -366,6 +369,9 @@ void SongModule::setAbsoluteFileName(QString const& fileName) {
         }
         if(oldIsTrackerSong != isTrackerSong()) {
             emit isTrackerSongChanged();
+        }
+        if(oldIsHttpSong != isHttpSong()) {
+            emit isHttpSongChanged();
         }
     }
 }
