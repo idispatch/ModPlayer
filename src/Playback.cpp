@@ -488,6 +488,7 @@ void Playback::run() {
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 } else {
                     m_mediaPlayer->stop();
+                    m_mediaPlayer->reset();
                 }
                 if(m_song.load(m_pendingSong, m_pendingFileName) == true) {
                     if(m_song.isTrackerSong()) {
@@ -512,6 +513,7 @@ void Playback::run() {
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 } else {
                     m_mediaPlayer->stop();
+                    m_mediaPlayer->reset();
                 }
                 m_song.unload();
                 m_state = Idle;
@@ -524,6 +526,7 @@ void Playback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
+                qDebug() << "*** Rewind";
                 if(!m_song.isTrackerSong()) {
                     m_mediaPlayer->seekTime(0);
                 }
@@ -536,10 +539,13 @@ void Playback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
+                qDebug() << "*** Seek";
                 if(m_song.isTrackerSong()) {
                     m_song.seekToOrder(m_pendingPosition);
                 } else {
-                    m_mediaPlayer->seekTime(m_pendingPosition);
+                    if(!m_song.isHttpSong()) {
+                        m_mediaPlayer->seekTime(m_pendingPosition);
+                    }
                 }
                 m_pendingPosition = 0;
             }
@@ -596,7 +602,9 @@ void Playback::run() {
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 } else {
                     m_mediaPlayer->stop();
-                    m_mediaPlayer->seekTime(0);
+                    if(!m_song.isHttpSong()) {
+                        m_mediaPlayer->seekTime(0);
+                    }
                 }
                 m_song.rewind();
                 emit stopped();
@@ -1130,6 +1138,7 @@ void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
             m_song.setOrders(value);
         }
     }
+    emit metaDataChanged();
 }
 
 void Playback::onMediaPlayerPlaybackCompleted() {

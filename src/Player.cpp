@@ -119,6 +119,10 @@ void Player::initPlayback() {
     rc = QObject::connect(m_playback, SIGNAL(finished()),
                           this,       SLOT(onFinished()));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(m_playback, SIGNAL(metaDataChanged()),
+                          this,       SLOT(onMetaDataChanged()));
+    Q_ASSERT(rc);
     Q_UNUSED(rc);
 
     int mode = m_settings.value("player/mode", Playlist::PlaylistOnce).toInt();
@@ -638,6 +642,10 @@ void Player::onFinished() {
     default:
         break;
     }
+}
+
+void Player::onMetaDataChanged() {
+    updateNowPlaying();
 }
 
 void Player::askToSupport() {

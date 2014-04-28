@@ -53,7 +53,7 @@ Page {
             ]
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
-                console.log(chosenItem.playlist)
+                showPlayerView()
                 app.player.radio.download(chosenItem.playlist)
             }
         }
@@ -91,7 +91,6 @@ Page {
         app.player.radio.downloadFinished.connect(function(url,result) {
             if(result.length > 0) {
                 app.player.play(result[0])
-                showPlayerView()
             }
         })
     }

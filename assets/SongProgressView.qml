@@ -9,7 +9,8 @@ Slider {
     value: app.player.currentSong.currentOrder
     horizontalAlignment: HorizontalAlignment.Fill
     onValueChanged: {
-        if(app.player.currentSong.currentOrder != value) {
+        if(!app.player.currentSong.isHttpSong && 
+            app.player.currentSong.currentOrder != value) {
             app.player.seek(value)
         }
     }

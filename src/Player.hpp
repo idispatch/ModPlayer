@@ -115,6 +115,7 @@ private slots:
     void onPlaying();
     void onStopped();
     void onFinished();
+    void onMetaDataChanged();
 
     /* For NowPlayingConnection */
     void onNowPlayingAcquired();
