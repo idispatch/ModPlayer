@@ -5,7 +5,7 @@ ImageView {
     property variant song
     verticalAlignment: VerticalAlignment.Center
     horizontalAlignment: HorizontalAlignment.Center
-    visible: app.player.currentSong.songLoaded && app.player.currentSong.isHttpSong
+    visible: song.isHttpSong
     loadEffect: ImageViewLoadEffect.FadeZoom
     scalingMethod: ScalingMethod.Fill
     imageSource: {

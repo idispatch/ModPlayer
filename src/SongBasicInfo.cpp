@@ -58,7 +58,7 @@ SongBasicInfo::~SongBasicInfo() {
 }
 
 SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
-    if(this != & other) {
+    if(this != &other) {
         setId(other.id());
         setFileName(other.fileName());
         setTitle(other.title());
@@ -80,26 +80,12 @@ QString SongBasicInfo::fileName() const {
 
 void SongBasicInfo::setFileName(const QString &value) {
     if(m_fileName != value) {
-        int oldFormatId = formatId();
-        bool oldIsTrackerSong = isTrackerSong();
-        bool oldIsHttpSong = isHttpSong();
-        QUrl oldIconPath = iconPath();
-
         m_fileName = value;
-
         emit fileNameChanged();
-        if(oldIconPath != iconPath()) {
-            emit iconPathChanged();
-        }
-        if(oldIsHttpSong != isHttpSong()) {
-            emit isHttpSongChanged();
-        }
-        if(oldIsTrackerSong != isTrackerSong()) {
-            emit isTrackerSongChanged();
-        }
-        if(oldFormatId != formatId()) {
-            emit formatIdChanged();
-        }
+        emit iconPathChanged();
+        emit isHttpSongChanged();
+        emit isTrackerSongChanged();
+        emit formatIdChanged();
     }
 }
 
@@ -125,12 +111,9 @@ int SongBasicInfo::id() const {
 
 void SongBasicInfo::setId(int value) {
     if(m_id != value) {
-        bool oldIsLocal = isLocal();
         m_id = value;
         emit idChanged();
-        if(oldIsLocal != isLocal()) {
-            emit isLocalChanged();
-        }
+        emit isLocalChanged();
     }
 }
 
