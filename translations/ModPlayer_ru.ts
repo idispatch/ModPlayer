@@ -375,7 +375,7 @@
     <name>InternetRadioList</name>
     <message>
         <source>Select Internet Radio Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите канал интернет радио</translation>
     </message>
 </context>
 <context>
@@ -538,7 +538,7 @@
     </message>
     <message>
         <source>Playing Internet Radio Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Играет интернет радио канал</translation>
     </message>
 </context>
 <context>
@@ -1330,26 +1330,30 @@
     </message>
     <message>
         <source>Digitally Imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Digitally Imported</translation>
     </message>
     <message>
         <source>Digitally Imported Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Digitally Imported Радио</translation>
     </message>
     <message>
-        <source>SKY.FM</source>
-        <translation type="unfinished"></translation>
+        <source>SKY FM</source>
+        <translation type="obsolete">SKY FM</translation>
     </message>
     <message>
         <source>SKY.FM Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>SKY.FM Радио</translation>
     </message>
     <message>
         <source>Jazz Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Jazz Radio</translation>
     </message>
     <message>
         <source>Rock Radio</source>
+        <translation>Rock Radio</translation>
+    </message>
+    <message>
+        <source>SKY.FM</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

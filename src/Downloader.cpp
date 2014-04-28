@@ -1,4 +1,5 @@
 #include "Downloader.hpp"
+#include "FileUtils.hpp"
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -8,11 +9,15 @@
 #include <QtNetwork/QNetworkReply>
 #include <bb/system/InvokeManager>
 
+#if 0
+#define VERBOSE_LOGGING 1
+#endif
+
 const int Downloader::InvalidModuleId = -1;
 
 using namespace bb::system;
 
-const QString Downloader::ModArchiveSite = QString("http://modarchive.org/data/downloads.php?moduleid=%1");
+const QString Downloader::ModArchiveSite = QString("http://api.modarchive.org/downloads.php?moduleid=%1");
 
 template<>
 int InstanceCounter<Downloader>::s_count;
@@ -236,30 +241,26 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     QByteArray data = reply->readAll();
     reply->deleteLater();
 
-    QString fileName = reply->request().url().toString(QUrl::None);
-    int pos = fileName.lastIndexOf('/');
-    fileName = fileName.mid(pos);
-
-    QString diskPath = QDir::tempPath() + fileName;
+    const QString fileName = FileUtils::joinPath(QDir::tempPath(), QString("%1.zip").arg(id));
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Saving file" << diskPath;
+    qDebug() << "Saving file" << fileName;
 #endif
-    QFile file(diskPath);
+    QFile file(fileName);
     if(file.exists())
     {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "File" << diskPath << "already exists";
+        qDebug() << "File" << fileName << "already exists";
 #endif
         if(file.remove())
         {
 #ifdef VERBOSE_LOGGING
-            qDebug() << "Deleted file" << diskPath;
+            qDebug() << "Deleted file" << fileName;
 #endif
         }
         else
         {
 #ifdef VERBOSE_LOGGING
-            qDebug() << "Failed to delete file" << diskPath;
+            qDebug() << "Failed to delete file" << fileName;
 #endif
             emit downloadFailure(id);
         }
@@ -267,8 +268,6 @@ void Downloader::finishDownload(QNetworkReply * reply) {
 
     if(file.open(QIODevice::WriteOnly))
     {
-
-
 #ifdef VERBOSE_LOGGING
         qint64 writtenBytes = file.write(data);
         qDebug() << "Written bytes:" << writtenBytes;
@@ -276,12 +275,12 @@ void Downloader::finishDownload(QNetworkReply * reply) {
         file.write(data);
 #endif
         file.close();
-        emit downloadFinished(file.fileName());
+        emit downloadFinished(fileName);
     }
     else
     {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Could not open file" << file.fileName();
+        qDebug() << "Could not open file" << fileName;
 #endif
         emit downloadFailure(id);
     }

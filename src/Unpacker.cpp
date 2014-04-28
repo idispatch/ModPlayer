@@ -5,6 +5,10 @@
 #include <QDir>
 #include <QStringList>
 
+#if 0
+#define VERBOSE_LOGGING 1
+#endif
+
 template<>
 int InstanceCounter<Unpacker>::s_count;
 template<>
