@@ -389,18 +389,6 @@ bool SongFormat::isTrackerSong(QString const& fileName) {
     return SongFormat::isTrackerSong(SongFormat::getFormatIdByFileName(fileName));
 }
 
-bool SongFormat::isHttpSong() const {
-    return id() == FORMAT_MP3;
-}
-
-bool SongFormat::isHttpSong(QString const& fileName) {
-    return SongFormat::isHttpSong(SongFormat::getFormatIdByFileName(fileName));
-}
-
-bool SongFormat::isHttpSong(SongFormat::Format formatId) {
-    return formatId == FORMAT_HTTP;
-}
-
 bool SongFormat::isTrackerSong(SongFormat::Format formatId) {
     switch(formatId) {
     case FORMAT_MOD:
@@ -417,6 +405,18 @@ bool SongFormat::isTrackerSong(SongFormat::Format formatId) {
     default:
         return false;
     }
+}
+
+bool SongFormat::isHttpSong() const {
+    return id() == FORMAT_HTTP;
+}
+
+bool SongFormat::isHttpSong(QString const& fileName) {
+    return SongFormat::isHttpSong(SongFormat::getFormatIdByFileName(fileName));
+}
+
+bool SongFormat::isHttpSong(SongFormat::Format formatId) {
+    return formatId == FORMAT_HTTP;
 }
 
 QDebug operator << (QDebug dbg, SongFormat const &format) {

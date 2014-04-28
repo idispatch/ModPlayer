@@ -628,6 +628,9 @@ lupdate_inclusion {
              $$quote($$BASEDIR/../assets/images/led/*.qml) \
              $$quote($$BASEDIR/../assets/images/led/*.js) \
              $$quote($$BASEDIR/../assets/images/led/*.qs) \
+             $$quote($$BASEDIR/../assets/images/radio/*.qml) \
+             $$quote($$BASEDIR/../assets/images/radio/*.js) \
+             $$quote($$BASEDIR/../assets/images/radio/*.qs) \
              $$quote($$BASEDIR/../assets/images/vu/*.qml) \
              $$quote($$BASEDIR/../assets/images/vu/*.js) \
              $$quote($$BASEDIR/../assets/images/vu/*.qs)

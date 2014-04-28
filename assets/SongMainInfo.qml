@@ -8,6 +8,7 @@ TGroupContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         SongIconView {
             song: songMainInfo.song
+            visible: !songMainInfo.song.isHttpSong
         }
         VerticalContainer {
             layoutProperties: StackLayoutProperties {

@@ -43,6 +43,9 @@ TGroupContainer {
                 text: song != null ? qsTr("Tracker: %1").arg(Global.escapeHtml(song.tracker)) : ""
                 textFormat: TextFormat.Html
             }
+            RadioBadge {
+                song: songArtistInfo.song
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ class SongBasicInfo : public QObject,
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged FINAL)
     Q_PROPERTY(bool isLocal READ isLocal NOTIFY isLocalChanged FINAL)
     Q_PROPERTY(bool isTrackerSong READ isTrackerSong NOTIFY isTrackerSongChanged FINAL)
-    Q_PROPERTY(bool isHttpSong READ isTrackerSong NOTIFY isHttpSongChanged FINAL)
+    Q_PROPERTY(bool isHttpSong READ isHttpSong NOTIFY isHttpSongChanged FINAL)
 
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
@@ -39,7 +39,6 @@ public:
     SongBasicInfo(int id,
                   QString const& fileName,
                   QString const& title,
-                  //int format,
                   int downloads,
                   int favourited,
                   int score,
@@ -119,7 +118,6 @@ private:
     int m_id;
     QString m_fileName;
     QString m_title;
-    //int m_formatId;
     int m_fileSize;
     int m_songLength;
     int m_downloads;
