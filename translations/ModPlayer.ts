@@ -204,13 +204,6 @@
     </message>
 </context>
 <context>
-    <name>DiFM</name>
-    <message>
-        <source>Select Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -375,6 +368,13 @@
     </message>
     <message>
         <source>Instruments</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InternetRadioList</name>
+    <message>
+        <source>Select Channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1330,6 +1330,14 @@
     </message>
     <message>
         <source>Digitally Imported Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SKY.FM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SKY.FM Radio</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -12,6 +12,7 @@
 class Cache;
 class Catalog;
 class Downloader;
+class InternetRadio;
 class Unpacker;
 class SongModule;
 class Playback;
@@ -50,6 +51,7 @@ public:
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Downloader* downloader READ downloader FINAL)
+    Q_PROPERTY(InternetRadio* radio READ radio FINAL)
     Q_PROPERTY(Playback* playback READ playback NOTIFY playbackChanged FINAL)
     Q_PROPERTY(Playlist* playlist READ playlist NOTIFY playlistChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
@@ -63,6 +65,7 @@ public:
     Cache * cache() const;
     Catalog * catalog() const;
     Downloader * downloader() const;
+    InternetRadio * radio() const;
     Playback * playback() const;
     Playlist * playlist() const;
     SongModule * currentSong() const;
@@ -136,6 +139,7 @@ private:
     void initCatalog();
     void initCache();
     void initDownloader();
+    void initRadio();
     void initPlayback();
     void initNowPlaying();
     void initPlaylist();
@@ -162,6 +166,7 @@ private:
     Catalog * m_catalog;
     Cache * m_cache;
     Downloader * m_downloader;
+    InternetRadio * m_internetRadio;
     Unpacker * m_unpacker;
     Playback * m_playback;
     Playlist * m_playlist;

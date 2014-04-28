@@ -150,9 +150,33 @@ TabbedPane {
         }
         content: NavigationPane {
             id: difmNavigationPane 
-            DiFM {
+            InternetRadioList {
                 id: difm
+                channelList: "app/native/assets/difm.json"
                 navigationPane: difmNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
+        id: skyfmTab
+        title: qsTr("SKY.FM")
+        objectName: title
+        description: qsTr("SKY.FM Radio")
+        imageSource: "asset:///images/actions/icon_skyfm.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            skyfm.load()
+        }
+        function unload() {
+            skyfm.unload()
+        }
+        content: NavigationPane {
+            id: skyfmNavigationPane 
+            InternetRadioList {
+                id: skyfm
+                channelList: "app/native/assets/skyfm.json"
+                navigationPane: skyfmNavigationPane
             }
             onPopTransitionEnded: page.destroy()
         }

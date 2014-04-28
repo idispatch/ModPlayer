@@ -8,6 +8,7 @@
 #include "Catalog.hpp"
 #include "Cache.hpp"
 #include "Downloader.hpp"
+#include "InternetRadio.hpp"
 #include "Unpacker.hpp"
 #include "SongModule.hpp"
 #include "PlaybackConfig.hpp"
@@ -36,6 +37,7 @@ Player::Player(QSettings &settings, QObject * parent)
       m_catalog(new Catalog(this)),
       m_cache(new Cache(m_settings, this)),
       m_downloader(new Downloader(this)),
+      m_internetRadio(new InternetRadio(this)),
       m_unpacker(new Unpacker(this)),
       m_playback(new Playback(settings, this)),
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
@@ -45,6 +47,7 @@ Player::Player(QSettings &settings, QObject * parent)
                       << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.MP3" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
     initCache();
     initDownloader();
+    initRadio();
     initPlayback();
     initNowPlaying();
     initPlaylist();
@@ -93,6 +96,9 @@ void Player::initDownloader() {
                           this,         SLOT(onDownloadFailure(int)));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
+}
+
+void Player::initRadio() {
 }
 
 void Player::initPlayback() {
@@ -327,6 +333,10 @@ Cache * Player::cache() const {
 
 Downloader * Player::downloader() const {
     return m_downloader;
+}
+
+InternetRadio * Player::radio() const {
+    return m_internetRadio;
 }
 
 Playback * Player::playback() const {

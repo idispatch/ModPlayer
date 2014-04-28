@@ -287,6 +287,18 @@ GroupDataModel* Catalog::findDigitallyImported()
     return model;
 }
 
+GroupDataModel* Catalog::findSkyFm()
+{
+    GroupDataModel *model = new GroupDataModel(QStringList() << "name");
+    JsonDataAccess jda;
+    QString appFolder(QDir::homePath());
+    appFolder.chop(4);
+    QString originalFileName = appFolder + "app/native/assets/skyfm.json";
+    QVariant list = jda.load(originalFileName);
+    model->insertList(list.value<QVariantList>());
+    return model;
+}
+
 GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {
     const char * query = "SELECT"
                          " albums.id AS id,"

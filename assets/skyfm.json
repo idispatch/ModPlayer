@@ -1,0 +1,478 @@
+[
+   {
+      "id":299,
+      "key":"00srnb",
+      "name":"00's R&B",
+      "description":"The best in R&B from the noughties!",
+      "playlist":"http://listen.sky.fm/public3/00srnb.pls"
+   },
+   {
+      "id":297,
+      "key":"mellowsmoothjazz",
+      "name":"Mellow Smooth Jazz",
+      "description":"Relaxing Smooth Jazz for your listening pleasure.",
+      "playlist":"http://listen.sky.fm/public3/mellowsmoothjazz.pls"
+   },
+   {
+      "id":187,
+      "key":"smoothbossanova",
+      "name":"Smooth Bossa Nova",
+      "description":"The smoothest Bossa Nova direct from Brazil.",
+      "playlist":"http://listen.sky.fm/public3/smoothbossanova.pls"
+   },
+   {
+      "id":298,
+      "key":"davekoz",
+      "name":"Dave Koz & Friends",
+      "description":"Smooth Jazz selected by Dave Koz himself!",
+      "playlist":"http://listen.sky.fm/public3/davekoz.pls"
+   },
+   {
+      "id":20,
+      "key":"smoothjazz",
+      "name":"Smooth Jazz",
+      "description":"The worlds smoothest jazz 24 hours a day",
+      "playlist":"http://listen.sky.fm/public3/smoothjazz.pls"
+   },
+   {
+      "id":61,
+      "key":"lovemusic",
+      "name":"Love Music",
+      "description":"Easy listening and Romantic hits from the heart!!",
+      "playlist":"http://listen.sky.fm/public3/lovemusic.pls"
+   },
+   {
+      "id":21,
+      "key":"tophits",
+      "name":"Top Hits",
+      "description":"Who cares about the chart order, less rap & more hits!",
+      "playlist":"http://listen.sky.fm/public3/tophits.pls"
+   },
+   {
+      "id":120,
+      "key":"relaxation",
+      "name":"Relaxation",
+      "description":"relaxing music for the mind and soul",
+      "playlist":"http://listen.sky.fm/public3/relaxation.pls"
+   },
+   {
+      "id":52,
+      "key":"solopiano",
+      "name":"Solo Piano",
+      "description":"Musical journeys with piano masters and talented undiscovered pianists",
+      "playlist":"http://listen.sky.fm/public3/solopiano.pls"
+   },
+   {
+      "id":18,
+      "key":"newage",
+      "name":"New Age",
+      "description":"Soothing sounds of new age and world music!",
+      "playlist":"http://listen.sky.fm/public3/newage.pls"
+   },
+   {
+      "id":121,
+      "key":"vocalnewage",
+      "name":"Vocal New Age",
+      "description":"soothing vocal sounds of new age music!",
+      "playlist":"http://listen.sky.fm/public3/vocalnewage.pls"
+   },
+   {
+      "id":119,
+      "key":"nature",
+      "name":"Nature",
+      "description":"soothing sounds of nature music!",
+      "playlist":"http://listen.sky.fm/public3/nature.pls"
+   },
+   {
+      "id":22,
+      "key":"the80s",
+      "name":"Best of the 80's",
+      "description":"Hear your classic favorites right here!",
+      "playlist":"http://listen.sky.fm/public3/the80s.pls"
+   },
+   {
+      "id":46,
+      "key":"classicrock",
+      "name":"Classic Rock",
+      "description":"Relive the classic rock sounds of the 70s and 80s",
+      "playlist":"http://listen.sky.fm/public3/classicrock.pls"
+   },
+   {
+      "id":186,
+      "key":"hit90s",
+      "name":"90's Hits",
+      "description":"Reminisce and relive the hits of the 90s!",
+      "playlist":"http://listen.sky.fm/public3/hit90s.pls"
+   },
+   {
+      "id":228,
+      "key":"80sdance",
+      "name":"80's Dance",
+      "description":"The best 80s Dance Party on the web!",
+      "playlist":"http://listen.sky.fm/public3/80sdance.pls"
+   },
+   {
+      "id":141,
+      "key":"80srock",
+      "name":"80's Rock Hits",
+      "description":"Your favorite rock hits from the 80's!",
+      "playlist":"http://listen.sky.fm/public3/80srock.pls"
+   },
+   {
+      "id":139,
+      "key":"poprock",
+      "name":"Pop Rock",
+      "description":"Pop rock hits on SKY.FM!!!",
+      "playlist":"http://listen.sky.fm/public3/poprock.pls"
+   },
+   {
+      "id":132,
+      "key":"softrock",
+      "name":"Soft Rock",
+      "description":"The best in Soft Rock music!",
+      "playlist":"http://listen.sky.fm/public3/softrock.pls"
+   },
+   {
+      "id":130,
+      "key":"hardrock",
+      "name":"Hard Rock",
+      "description":"Bang along with the best Hard Rock tracks anywhere",
+      "playlist":"http://listen.sky.fm/public3/hardrock.pls"
+   },
+   {
+      "id":131,
+      "key":"modernrock",
+      "name":"Modern Rock",
+      "description":"Where Modern rock lives on the net.",
+      "playlist":"http://listen.sky.fm/public3/modernrock.pls"
+   },
+   {
+      "id":25,
+      "key":"country",
+      "name":"Country",
+      "description":"Today's Hit Country with a mix of your favorites",
+      "playlist":"http://listen.sky.fm/public3/country.pls"
+   },
+   {
+      "id":17,
+      "key":"classical",
+      "name":"Mostly Classical",
+      "description":"Listen and Relax, it's good for you!",
+      "playlist":"http://listen.sky.fm/public3/classical.pls"
+   },
+   {
+      "id":188,
+      "key":"mellowjazz",
+      "name":"Mellow Jazz",
+      "description":"Relax and unwind to the Mellow side of Jazz.",
+      "playlist":"http://listen.sky.fm/public3/mellowjazz.pls"
+   },
+   {
+      "id":197,
+      "key":"cafedeparis",
+      "name":"Caf\u00e9 de Paris",
+      "description":"Watch the world go by on a sunny Paris day.",
+      "playlist":"http://listen.sky.fm/public3/cafedeparis.pls"
+   },
+   {
+      "id":118,
+      "key":"smoothjazz247",
+      "name":"Smooth Jazz 24'7",
+      "description":"The best of Smooth Jazz 24/7 on SKY.fm",
+      "playlist":"http://listen.sky.fm/public3/smoothjazz247.pls"
+   },
+   {
+      "id":173,
+      "key":"smoothlounge",
+      "name":"Smooth Lounge",
+      "description":"Relax and unwind with the smoothest lounge vibes.",
+      "playlist":"http://listen.sky.fm/public3/smoothlounge.pls"
+   },
+   {
+      "id":41,
+      "key":"uptemposmoothjazz",
+      "name":"Uptempo Smooth Jazz",
+      "description":"The world's smoothest jazz, grooving 24 hours a day",
+      "playlist":"http://listen.sky.fm/public3/uptemposmoothjazz.pls"
+   },
+   {
+      "id":111,
+      "key":"vocalsmoothjazz",
+      "name":"Vocal Smooth Jazz",
+      "description":"The best of vocal smooth jazz!!",
+      "playlist":"http://listen.sky.fm/public3/vocalsmoothjazz.pls"
+   },
+   {
+      "id":54,
+      "key":"bossanova",
+      "name":"Bossa Nova",
+      "description":"100% pure bossa nova channel, enjoy the sweet flavors of Brazil!",
+      "playlist":"http://listen.sky.fm/public3/bossanova.pls"
+   },
+   {
+      "id":48,
+      "key":"datempolounge",
+      "name":"DaTempo Lounge",
+      "description":"Amazing combination of jazz, lounge, bossa, and much more!",
+      "playlist":"http://listen.sky.fm/public3/datempolounge.pls"
+   },
+   {
+      "id":109,
+      "key":"dreamscapes",
+      "name":"Dreamscapes",
+      "description":"relax to the sounds of dream and ibiza style chillout",
+      "playlist":"http://listen.sky.fm/public3/dreamscapes.pls"
+   },
+   {
+      "id":55,
+      "key":"pianojazz",
+      "name":"Piano Jazz",
+      "description":"Enjoy the sounds of piano jazz from historic and modern masters.",
+      "playlist":"http://listen.sky.fm/public3/pianojazz.pls"
+   },
+   {
+      "id":128,
+      "key":"modernblues",
+      "name":"Modern Blues",
+      "description":"Listen to the best in Modern Blues!",
+      "playlist":"http://listen.sky.fm/public3/modernblues.pls"
+   },
+   {
+      "id":72,
+      "key":"bebop",
+      "name":"Bebop Jazz",
+      "description":"Swinging to the sounds of bebop and straight ahead jazz",
+      "playlist":"http://listen.sky.fm/public3/bebop.pls"
+   },
+   {
+      "id":26,
+      "key":"jazzclassics",
+      "name":"Jazz Classics",
+      "description":"Classic Jazz hits from the golden age",
+      "playlist":"http://listen.sky.fm/public3/jazzclassics.pls"
+   },
+   {
+      "id":39,
+      "key":"oldies",
+      "name":"Oldies",
+      "description":"Three decades of great oldies on www.sky.fm",
+      "playlist":"http://listen.sky.fm/public3/oldies.pls"
+   },
+   {
+      "id":227,
+      "key":"60srock",
+      "name":"60's Rock",
+      "description":"The very best in classic 60s Rock!",
+      "playlist":"http://listen.sky.fm/public3/60srock.pls"
+   },
+   {
+      "id":24,
+      "key":"hit70s",
+      "name":"Hit 70's",
+      "description":"All Hits, All The Time!",
+      "playlist":"http://listen.sky.fm/public3/hit70s.pls"
+   },
+   {
+      "id":202,
+      "key":"classicmotown",
+      "name":"Classic Motown",
+      "description":"Relive the hits and discover the early sounds of Motown.",
+      "playlist":"http://listen.sky.fm/public3/classicmotown.pls"
+   },
+   {
+      "id":19,
+      "key":"guitar",
+      "name":"Classical Guitar",
+      "description":"A mix of classical, spanish, and flamenco guitar",
+      "playlist":"http://listen.sky.fm/public3/guitar.pls"
+   },
+   {
+      "id":94,
+      "key":"classicalpianotrios",
+      "name":"Classical Piano Trios",
+      "description":"Classical Piano Trios hits!",
+      "playlist":"http://listen.sky.fm/public3/classicalpianotrios.pls"
+   },
+   {
+      "id":27,
+      "key":"salsa",
+      "name":"Salsa",
+      "description":"Best Salsa Collection now on www.sky.fm",
+      "playlist":"http://listen.sky.fm/public3/salsa.pls"
+   },
+   {
+      "id":49,
+      "key":"altrock",
+      "name":"Alternative Rock",
+      "description":"Alternative rock hits You want to hear!!",
+      "playlist":"http://listen.sky.fm/public3/altrock.pls"
+   },
+   {
+      "id":37,
+      "key":"indierock",
+      "name":"Indie Rock",
+      "description":"Indie, Alternative, and Underground Rock!",
+      "playlist":"http://listen.sky.fm/public3/indierock.pls"
+   },
+   {
+      "id":129,
+      "key":"metal",
+      "name":"Metal",
+      "description":"Best Place for your METAL fix on the net",
+      "playlist":"http://listen.sky.fm/public3/metal.pls"
+   },
+   {
+      "id":23,
+      "key":"rootsreggae",
+      "name":"Roots Reggae",
+      "description":"The best of classic and modern Roots Reggae ",
+      "playlist":"http://listen.sky.fm/public3/rootsreggae.pls"
+   },
+   {
+      "id":108,
+      "key":"romantica",
+      "name":"Romantica",
+      "description":"Timeless pop classical voices!",
+      "playlist":"http://listen.sky.fm/public3/romantica.pls"
+   },
+   {
+      "id":214,
+      "key":"hit60s",
+      "name":"Best of the 60s",
+      "description":"Relive the memories of the 60\u2019s greatest hits.",
+      "playlist":"http://listen.sky.fm/public3/hit60s.pls"
+   },
+   {
+      "id":71,
+      "key":"dancehits",
+      "name":"Dance Hits",
+      "description":"The hottest dance tunes 24/7",
+      "playlist":"http://listen.sky.fm/public3/dancehits.pls"
+   },
+   {
+      "id":42,
+      "key":"urbanjamz",
+      "name":"Urban Jamz",
+      "description":"Kickin' with the baddest beats on the 'net",
+      "playlist":"http://listen.sky.fm/public3/urbanjamz.pls"
+   },
+   {
+      "id":229,
+      "key":"90srnb",
+      "name":"90's R&B",
+      "description":"The hottest 90s R&B hits and jams!",
+      "playlist":"http://listen.sky.fm/public3/90srnb.pls"
+   },
+   {
+      "id":38,
+      "key":"classicrap",
+      "name":"Classic Rap",
+      "description":"The best in classic rap and hip hop!!",
+      "playlist":"http://listen.sky.fm/public3/classicrap.pls"
+   },
+   {
+      "id":273,
+      "key":"oldschoolfunknsoul",
+      "name":"OldSchool Funk & Soul",
+      "description":"Classic Funky rhythms and Soulful grooves!",
+      "playlist":"http://listen.sky.fm/public3/oldschoolfunknsoul.pls"
+   },
+   {
+      "id":93,
+      "key":"americansongbook",
+      "name":"American Songbook",
+      "description":"Classic standard voices from the likes of Mel Torme & Nat King Cole",
+      "playlist":"http://listen.sky.fm/public3/americansongbook.pls"
+   },
+   {
+      "id":51,
+      "key":"christian",
+      "name":"Contemporary Christian",
+      "description":"Today's Christian favorites and undiscovered hits",
+      "playlist":"http://listen.sky.fm/public3/christian.pls"
+   },
+   {
+      "id":43,
+      "key":"world",
+      "name":"World",
+      "description":"New Age influenced world music",
+      "playlist":"http://listen.sky.fm/public3/world.pls"
+   },
+   {
+      "id":50,
+      "key":"soundtracks",
+      "name":"Movie Soundtracks",
+      "description":"A wide variety of Soundtracks from Movies, show themes, & more!",
+      "playlist":"http://listen.sky.fm/public3/soundtracks.pls"
+   },
+   {
+      "id":138,
+      "key":"relaxingexcursions",
+      "name":"Relaxing Excursions",
+      "description":"Sit back and enjoy the relaxing sounds",
+      "playlist":"http://listen.sky.fm/public3/relaxingexcursions.pls"
+   },
+   {
+      "id":140,
+      "key":"clubbollywood",
+      "name":"Club Bollywood",
+      "description":"Dance Hits from Bollywood!!",
+      "playlist":"http://listen.sky.fm/public3/clubbollywood.pls"
+   },
+   {
+      "id":205,
+      "key":"russianpop",
+      "name":"Russian Pop",
+      "description":"Top pop hits direct from Russia.",
+      "playlist":"http://listen.sky.fm/public3/russianpop.pls"
+   },
+   {
+      "id":204,
+      "key":"russiandance",
+      "name":"Russian Dance Hits",
+      "description":"Russia's hottest dance tunes.",
+      "playlist":"http://listen.sky.fm/public3/russiandance.pls"
+   },
+   {
+      "id":62,
+      "key":"beatles",
+      "name":"A Beatles Tribute",
+      "description":"Beatles Hits, Remakes, Tributes!!!",
+      "playlist":"http://listen.sky.fm/public3/beatles.pls"
+   },
+   {
+      "id":107,
+      "key":"poppunk",
+      "name":"Pop Punk",
+      "description":"A fusion of Punk and Pop!",
+      "playlist":"http://listen.sky.fm/public3/poppunk.pls"
+   },
+   {
+      "id":127,
+      "key":"ska",
+      "name":"Ska",
+      "description":"Ska hits from the past to the present!",
+      "playlist":"http://listen.sky.fm/public3/ska.pls"
+   },
+   {
+      "id":110,
+      "key":"jpop",
+      "name":"Jpop",
+      "description":"A fine assortment of fresh Jpop hits!!",
+      "playlist":"http://listen.sky.fm/public3/jpop.pls"
+   },
+   {
+      "id":207,
+      "key":"israelihits",
+      "name":"Israeli Hits",
+      "description":"The best of current and classic Israeli hits.",
+      "playlist":"http://listen.sky.fm/public3/israelihits.pls"
+   },
+   {
+      "id":179,
+      "key":"compactdiscoveries",
+      "name":"Compact Discoveries",
+      "description":"Theme-based shows of mostly classical music, jazz, folk, and other popular classics.",
+      "playlist":"http://listen.sky.fm/public3/compactdiscoveries.pls"
+   }
+]

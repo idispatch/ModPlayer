@@ -32,6 +32,7 @@
 #include "NamedPlaylist.hpp"
 #include "Album.hpp"
 #include "WebImageView.hpp"
+#include "InternetRadio.hpp"
 
 template<typename T>
 void dumpInstanceCount(const char * className) {
@@ -70,6 +71,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(NamedPlaylist)
     DUMP_COUNT(Album)
     DUMP_COUNT(WebImageView)
+    DUMP_COUNT(InternetRadio)
 #undef DUMP_COUNT
 }
 #endif
