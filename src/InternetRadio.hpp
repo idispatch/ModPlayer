@@ -27,9 +27,8 @@ public:
 Q_SIGNALS:
     void pendingDownloadCountChanged();
     void downloadStarted(QUrl const& url);
-    void downloadFinished(QUrl const& url);
+    void downloadFinished(QUrl const& url, QStringList const& result);
     void downloadFailure(QUrl const& url);
-
 private slots:
     void onHttpFinished(QNetworkReply * reply);
     void onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a);

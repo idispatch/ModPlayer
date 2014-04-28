@@ -54,16 +54,7 @@ Page {
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
                 console.log(chosenItem.playlist)
-                app.player.play("http://pub4.di.fm:80/di_bassnjackinhouse_aac")
-                showPlayerView()
-            }
-            function showPlayerView() {
-                if(mainTabPane.activePane == navigationPane && 
-                   navigationPane.top == internetRadioPage) {
-                    var view = songPlayer.createObject()
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
-                }
+                app.player.radio.download(chosenItem.playlist)
             }
         }
     }
@@ -80,6 +71,14 @@ Page {
     }
     function unload() {
     }
+    function showPlayerView() {
+        if(mainTabPane.activePane == navigationPane && 
+        navigationPane.top == internetRadioPage) {
+            var view = songPlayer.createObject()
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
             if(mainTabPane.activePane == navigationPane && 
@@ -87,6 +86,12 @@ Page {
                 var view = songPlayer.createObject()
                 view.navigationPane = navigationPane
                 navigationPane.push(view)
+            }
+        })
+        app.player.radio.downloadFinished.connect(function(url,result) {
+            if(result.length > 0) {
+                app.player.play(result[0])
+                showPlayerView()
             }
         })
     }

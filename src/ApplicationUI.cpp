@@ -36,6 +36,7 @@
 #include "NamedPlaylist.hpp"
 #include "Album.hpp"
 #include "WebImageView.hpp"
+#include "InternetRadio.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -184,6 +185,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Catalog>(QmlNamespace, versionMajor, versionMinor, "Catalog", "");
     qmlRegisterUncreatableType<Cache>(QmlNamespace, versionMajor, versionMinor, "Cache", "");
     qmlRegisterUncreatableType<Downloader>(QmlNamespace, versionMajor, versionMinor, "Downloader", "");
+    qmlRegisterUncreatableType<InternetRadio>(QmlNamespace, versionMajor, versionMinor, "InternetRadio", "");
 
     qmlRegisterUncreatableType<SongModule>(QmlNamespace, versionMajor, versionMinor, "Module", "");
     qmlRegisterUncreatableType<Playback>(QmlNamespace, versionMajor, versionMinor, "Playback", "");

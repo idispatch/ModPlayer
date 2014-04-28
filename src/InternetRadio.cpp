@@ -1,9 +1,7 @@
 #include "InternetRadio.hpp"
 #include <QDebug>
-#include <QDir>
-#include <QFile>
-#include <QList>
 #include <QByteArray>
+#include <QRegExp>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <bb/system/InvokeManager>
@@ -165,7 +163,7 @@ void InternetRadio::onHttpFinished(QNetworkReply * reply) {
     else
     {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Could not download module" << originalURL;
+        qDebug() << "Could not download" << originalURL;
 #endif
         m_pendingDownloads.remove(originalURL);
         reply->deleteLater();
@@ -199,55 +197,16 @@ void InternetRadio::finishDownload(QNetworkReply * reply) {
     QByteArray data = reply->readAll();
     reply->deleteLater();
 
-    QString fileName = reply->request().url().toString(QUrl::None);
-    int pos = fileName.lastIndexOf('/');
-    fileName = fileName.mid(pos);
-
-    QString diskPath = QDir::tempPath() + fileName;
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Saving file" << diskPath;
-#endif
-    QFile file(diskPath);
-    if(file.exists())
-    {
-#ifdef VERBOSE_LOGGING
-        qDebug() << "File" << diskPath << "already exists";
-#endif
-        if(file.remove())
-        {
-#ifdef VERBOSE_LOGGING
-            qDebug() << "Deleted file" << diskPath;
-#endif
-        }
-        else
-        {
-#ifdef VERBOSE_LOGGING
-            qDebug() << "Failed to delete file" << diskPath;
-#endif
-            emit downloadFailure(originalURL);
-        }
+    QString playlist(data);
+    QRegExp rx("(http://[^\\s]+)", Qt::CaseInsensitive, QRegExp::RegExp);
+    QStringList result;
+    int pos = 0;
+    while ((pos = rx.indexIn(playlist, pos)) != -1) {
+        result << rx.cap(1);
+        pos += rx.matchedLength();
     }
 
-    if(file.open(QIODevice::WriteOnly))
-    {
-
-
-#ifdef VERBOSE_LOGGING
-        qint64 writtenBytes = file.write(data);
-        qDebug() << "Written bytes:" << writtenBytes;
-#else
-        file.write(data);
-#endif
-        file.close();
-        emit downloadFinished(file.fileName());
-    }
-    else
-    {
-#ifdef VERBOSE_LOGGING
-        qDebug() << "Could not open file" << file.fileName();
-#endif
-        emit downloadFailure(originalURL);
-    }
+    emit downloadFinished(originalURL, result);
 }
 
 int InternetRadio::pendingDownloadCount() const {

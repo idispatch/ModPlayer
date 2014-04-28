@@ -8,5 +8,16 @@ ImageView {
     visible: app.player.currentSong.songLoaded && app.player.currentSong.isHttpSong
     loadEffect: ImageViewLoadEffect.FadeZoom
     scalingMethod: ScalingMethod.Fill
-    imageSource: "asset:///images/radio/difm.png"
+    imageSource: {
+        if(song) {
+            if(song.fileName.indexOf("rockradio") != -1) {
+                return "asset:///images/radio/rockradio.png"
+            } else if(song.fileName.indexOf("jazzradio") != -1) {
+                return "asset:///images/radio/jazzradio.png"
+            } else if(song.fileName.indexOf("sky.fm") != -1) {
+                return "asset:///images/radio/skyfm.png"
+            }
+        }
+        return "asset:///images/radio/difm.png"
+    }
 }
