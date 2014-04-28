@@ -177,7 +177,9 @@ Page {
     onCreationCompleted: {
         var theApp = app
         var showProgress = function() {
-            if(theApp.player.state == Player.Downloading || theApp.player.state == Player.Resolving || theApp.player.state == Player.Preparing) {
+            if(theApp.player.state == Player.Downloading || 
+               theApp.player.state == Player.Resolving || 
+               theApp.player.state == Player.Preparing) {
                 progress.body = qsTr("Downloading song")
                 progress.show()
             } else {

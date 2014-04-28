@@ -63,7 +63,10 @@ Q_SIGNALS:
     void finished();
     void paused();
     void metaDataChanged();
+    void bufferingLevelChanged(double level);
+    void bufferingStatusChanged(int type);
 private slots:
+    void onMediaPlayerBufferLevelChanged(double level);
     void onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type);
     void onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, unsigned int position);
     void onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type type);

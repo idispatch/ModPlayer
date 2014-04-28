@@ -7,6 +7,7 @@
 #include <QUrl>
 #include <QSettings>
 #include <QStringList>
+#include <bb/multimedia/BufferStatus.hpp>
 #include "InstanceCounter.hpp"
 
 class Cache;
@@ -116,6 +117,8 @@ private slots:
     void onStopped();
     void onFinished();
     void onMetaDataChanged();
+    void onBufferingLevelChanged(double level);
+    void onBufferingStatusChanged(int type);
 
     /* For NowPlayingConnection */
     void onNowPlayingAcquired();

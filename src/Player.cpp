@@ -123,6 +123,14 @@ void Player::initPlayback() {
     rc = QObject::connect(m_playback, SIGNAL(metaDataChanged()),
                           this,       SLOT(onMetaDataChanged()));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(m_playback, SIGNAL(bufferingLevelChanged(double)),
+                          this,       SLOT(onBufferingLevelChanged(double)));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(m_playback, SIGNAL(bufferingStatusChanged(int)),
+                          this,       SLOT(onBufferingStatusChanged(int)));
+    Q_ASSERT(rc);
     Q_UNUSED(rc);
 
     int mode = m_settings.value("player/mode", Playlist::PlaylistOnce).toInt();
@@ -646,6 +654,35 @@ void Player::onFinished() {
 
 void Player::onMetaDataChanged() {
     updateNowPlaying();
+}
+
+void Player::onBufferingLevelChanged(double level) {
+    changeStatus(Player::Playing, QString("Buffering %1\%").arg(int(level * 100.0)));
+}
+
+void Player::onBufferingStatusChanged(int type) {
+    switch(type)
+    {
+    case bb::multimedia::BufferStatus::Buffering:
+        changeStatus(Player::Playing, "Buffering");
+        break;
+    case bb::multimedia::BufferStatus::Idle:
+        changeStatus(Player::Stopped, "Idle");
+        break;
+    case bb::multimedia::BufferStatus::Playing:
+        {
+            QString relativeFileName = FileUtils::fileNameOnly(currentSong()->fileName());
+            if(SongFormat::isHttpSong(currentSong()->fileName()))
+            {
+                changeStatus(Playing, tr("Playing Internet Radio Channel"));
+            }
+            else
+            {
+                changeStatus(Playing, tr("Playing %1").arg(relativeFileName));
+            }
+        }
+        break;
+    }
 }
 
 void Player::askToSupport() {

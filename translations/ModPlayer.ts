@@ -485,10 +485,6 @@
 <context>
     <name>Player</name>
     <message>
-        <source>Paused</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
@@ -509,6 +505,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Failed to download song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playing Internet Radio Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Playing %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -517,11 +521,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to download song</source>
+        <source>Select Song Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Select Song Module</source>
+        <source>Paused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -534,10 +538,6 @@
     </message>
     <message>
         <source>Would you like to import local songs?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playing Internet Radio Channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

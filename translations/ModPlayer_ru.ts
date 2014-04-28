@@ -1337,10 +1337,6 @@
         <translation>Digitally Imported Радио</translation>
     </message>
     <message>
-        <source>SKY FM</source>
-        <translation type="obsolete">SKY FM</translation>
-    </message>
-    <message>
         <source>SKY.FM Radio</source>
         <translation>SKY.FM Радио</translation>
     </message>
@@ -1354,7 +1350,7 @@
     </message>
     <message>
         <source>SKY.FM</source>
-        <translation type="unfinished"></translation>
+        <translation>SKY.FM</translation>
     </message>
 </context>
 </TS>

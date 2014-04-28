@@ -98,6 +98,10 @@ void Playback::initMediaPlayer() {
         }
     }
 
+    rc = QObject::connect(m_mediaPlayer, SIGNAL(buffering(double)),
+                          this,          SLOT(onMediaPlayerBufferLevelChanged(double)));
+    Q_ASSERT(rc);
+
     rc = QObject::connect(m_mediaPlayer, SIGNAL(bufferStatusChanged(bb::multimedia::BufferStatus::Type)),
                           this,          SLOT(onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type)));
     Q_ASSERT(rc);
@@ -1084,11 +1088,12 @@ int Playback::updateChunk() {
     return bytesGenerated;
 }
 
+void Playback::onMediaPlayerBufferLevelChanged(double level) {
+    emit bufferingLevelChanged(level);
+}
+
 void Playback::onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type) {
-    Q_UNUSED(type)
-#ifdef VERBOSE_LOGGING
-    qDebug() << "[PLAYBACK]" << "Playback::onMediaPlayerBufferStatusChanged" << type;
-#endif
+    emit bufferingStatusChanged(static_cast<int>(type));
 }
 
 void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, unsigned int position) {

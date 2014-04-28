@@ -78,7 +78,7 @@ ViewContainer {
                 horizontalAlignment: HorizontalAlignment.Center
                 visible: {
                     return app.player.currentSong.songLoaded && 
-                            (app.player.state == Player.Playing || 
+                            (app.player.state == Player.Playing ||
                              app.player.state == Player.Paused || 
                              app.player.state == Player.Stopped);
                 } 
