@@ -11,6 +11,9 @@ TGroupContainer {
             song: songArtistInfo.song
             rightMargin: 15
         }
+        RadioMiniBadge {
+            song: songArtistInfo.song
+        }
         VerticalContainer {
             layoutProperties: StackLayoutProperties {
                 spaceQuota: 10

@@ -1161,5 +1161,9 @@ void Playback::onMediaPlayerPositionChanged(unsigned int position) {
     qDebug().space();
 #endif
 #endif
+
+    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerPositionChanged: position=" << position << "duration=" << m_mediaPlayer->duration();
+    qDebug().space();
+
     m_song.setCurrentOrder(position);
 }
