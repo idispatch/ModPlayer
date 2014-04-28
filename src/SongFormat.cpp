@@ -34,7 +34,7 @@ QUrl SongFormat::iconPath() const {
 QUrl SongFormat::getIconPath(SongFormat::Format formatId) {
     QString appFolder(QDir::homePath());
     appFolder.chop(4); // remove data directory from end
-    QString icons = QString("file://%1/%2").arg(appFolder).arg("app/native/assets/images/formats");
+    QString icons = QString("file://%1%2").arg(appFolder).arg("app/native/assets/images/formats");
     switch(formatId){
     case FORMAT_MOD:
         return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mod"));

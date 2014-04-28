@@ -293,7 +293,7 @@ void Player::updateNowPlaying() {
             iconName = "icon-difm.png";
         }
         metadata[MetaData::Title] = title;
-        m_nowPlaying->setIconUrl(QString("file://%1app/native/assets/formats/%2").arg(appFolder).arg(iconName));
+        m_nowPlaying->setIconUrl(QUrl(QString("file://%1app/native/assets/images/formats/%2").arg(appFolder).arg(iconName)));
     } else {
         metadata[MetaData::Title] = FileUtils::fileNameOnly(currentSong()->fileName());
         m_nowPlaying->setIconUrl(currentSong()->iconPath());
