@@ -59,21 +59,25 @@ Page {
         }
     }
     function load() {
+        var model
         if(channelList.indexOf("difm") != -1) {
-            internetRadioList.dataModel = app.player.catalog.findDigitallyImported()
+            model = app.player.catalog.findDigitallyImported()
         } else if(channelList.indexOf("skyfm") != -1) {
-            internetRadioList.dataModel = app.player.catalog.findSkyFm()
+            model = app.player.catalog.findSkyFm()
         } else if(channelList.indexOf("jazzradio") != -1) {
-            internetRadioList.dataModel = app.player.catalog.findJazzRadio()
+            model = app.player.catalog.findJazzRadio()
         } else if(channelList.indexOf("rockradio") != -1) {
-            internetRadioList.dataModel = app.player.catalog.findRockRadio()
+            model = app.player.catalog.findRockRadio()
+        } else {
+            model = null
         }
+        internetRadioList.dataModel = model
     }
     function unload() {
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && 
-        navigationPane.top == internetRadioPage) {
+           navigationPane.top == internetRadioPage) {
             var view = songPlayer.createObject()
             view.navigationPane = navigationPane
             navigationPane.push(view)
