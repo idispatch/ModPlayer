@@ -144,6 +144,18 @@ void Analytics::showPage(QString const& name) const {
     Flurry::Analytics::LogEvent("ShowPage", parameters, false);
 }
 
+void Analytics::playRadio(QString const& name) const {
+    Flurry::Map parameters;
+    parameters["Channel"] = name;
+    Flurry::Analytics::LogEvent("PlayRadio", parameters, false);
+}
+
+void Analytics::selectRadio(QString const& name) const {
+    Flurry::Map parameters;
+    parameters["Channel"] = name;
+    Flurry::Analytics::LogEvent("SelectRadio", parameters, false);
+}
+
 void Analytics::view(int moduleId, QString const& fileName) const {
     logModuleEvent("View", moduleId, fileName);
 }

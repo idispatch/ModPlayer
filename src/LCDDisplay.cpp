@@ -135,8 +135,8 @@ void LCDDisplay::setNumLetters(int value) {
     if(value < 1) {
         value = 1;
     }
-    if(value > 32) {
-        value = 32;
+    if(value > 64) {
+        value = 64;
     }
     if(m_numLetters != value)
     {

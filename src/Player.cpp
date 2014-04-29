@@ -20,6 +20,10 @@
 #include "Importer.hpp"
 #include "Analytics.hpp"
 
+#if 0
+#define VERBOSE_LOGGING 1
+#endif
+
 using namespace bb::multimedia;
 using namespace bb::system;
 
@@ -314,6 +318,9 @@ void Player::onNowPlayingRevoked() {
 }
 
 void Player::onNowPlayingPlay() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "****************** Player::onNowPlayingPlay()";
+#endif
     if(state() == Paused)
     {
         resume();
@@ -325,10 +332,16 @@ void Player::onNowPlayingPlay() {
 }
 
 void Player::onNowPlayingStop() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "****************** Player::onNowPlayingStop()";
+#endif
     stop();
 }
 
 void Player::onNowPlayingPause() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "****************** Player::onNowPlayingPause()";
+#endif
     pause();
 }
 

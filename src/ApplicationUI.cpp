@@ -150,12 +150,16 @@ void ApplicationUI::initTypes() {
     qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
 
     const char * PICKER_NAMESPACE = "bb.cascades.pickers";
-    qmlRegisterType<pickers::FilePicker>(PICKER_NAMESPACE, 1, 0, "FilePicker");
-    qmlRegisterUncreatableType<pickers::FilePickerMode>(PICKER_NAMESPACE, 1, 0, "FilePickerMode", "");
-    qmlRegisterUncreatableType<pickers::FilePickerSortFlag>(PICKER_NAMESPACE, 1, 0, "FilePickerSortFlag", "");
-    qmlRegisterUncreatableType<pickers::FilePickerSortOrder>(PICKER_NAMESPACE, 1, 0, "FilePickerSortOrder", "");
-    qmlRegisterUncreatableType<pickers::FileType>(PICKER_NAMESPACE, 1, 0, "FileType", "");
-    qmlRegisterUncreatableType<pickers::FilePickerViewMode>(PICKER_NAMESPACE, 1, 0, "FilePickerViewMode", "");
+    qmlRegisterType<bb::cascades::pickers::FilePicker>(PICKER_NAMESPACE, 1, 0, "FilePicker");
+    qmlRegisterUncreatableType<bb::cascades::pickers::FilePickerMode>(PICKER_NAMESPACE, 1, 0, "FilePickerMode", "");
+    qmlRegisterUncreatableType<bb::cascades::pickers::FilePickerSortFlag>(PICKER_NAMESPACE, 1, 0, "FilePickerSortFlag", "");
+    qmlRegisterUncreatableType<bb::cascades::pickers::FilePickerSortOrder>(PICKER_NAMESPACE, 1, 0, "FilePickerSortOrder", "");
+    qmlRegisterUncreatableType<bb::cascades::pickers::FileType>(PICKER_NAMESPACE, 1, 0, "FileType", "");
+    qmlRegisterUncreatableType<bb::cascades::pickers::FilePickerViewMode>(PICKER_NAMESPACE, 1, 0, "FilePickerViewMode", "");
+
+    const char * MULTIMEDIA_NAMESPACE = "bb.multimedia";
+    qmlRegisterUncreatableType<bb::multimedia::MediaState>(MULTIMEDIA_NAMESPACE, 1, 0, "MediaState", "");
+    qmlRegisterUncreatableType<bb::multimedia::BufferStatus>(MULTIMEDIA_NAMESPACE, 1, 0, "BufferStatus", "");
 
     qRegisterMetaType<Analytics*>();
     qRegisterMetaType<Artist*>();

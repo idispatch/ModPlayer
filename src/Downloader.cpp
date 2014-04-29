@@ -9,7 +9,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <bb/system/InvokeManager>
 
-#if 0
+#if 1
 #define VERBOSE_LOGGING 1
 #endif
 
@@ -241,7 +241,25 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     QByteArray data = reply->readAll();
     reply->deleteLater();
 
-    const QString fileName = FileUtils::joinPath(QDir::tempPath(), QString("%1.zip").arg(id));
+    QString fileName;
+    if(reply->hasRawHeader("Content-Disposition")) {
+        QString contentDisposition = reply->rawHeader("Content-Disposition");
+#ifdef VERBOSE_LOGGING
+        qDebug() << "Content-Disposition=" << contentDisposition;
+#endif
+        if(contentDisposition.length() > 0)
+        {
+            QRegExp rx("attachment;\\s*filename=(.+)", Qt::CaseInsensitive, QRegExp::RegExp);
+            int pos = 0;
+            if((pos = rx.indexIn(contentDisposition, pos)) != -1) {
+                fileName = FileUtils::joinPath(QDir::tempPath(), rx.cap(1));
+            }
+        }
+    }
+
+    if(fileName.length() == 0) {
+        fileName = FileUtils::joinPath(QDir::tempPath(), QString("%1.zip").arg(id));
+    }
 #ifdef VERBOSE_LOGGING
     qDebug() << "Saving file" << fileName;
 #endif

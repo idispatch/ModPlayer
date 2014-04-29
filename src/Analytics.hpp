@@ -68,6 +68,9 @@ public:
 
     Q_INVOKABLE void createAlbum(QString const& artistName, QString const& albumName) const;
 
+    Q_INVOKABLE void playRadio(QString const& name) const;
+    Q_INVOKABLE void selectRadio(QString const& name) const;
+
     using InstanceCounter<Analytics>::getInstanceCount;
     using InstanceCounter<Analytics>::getMaxInstanceCount;
 Q_SIGNALS:

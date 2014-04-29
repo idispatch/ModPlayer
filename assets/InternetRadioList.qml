@@ -56,6 +56,7 @@ Page {
                 app.player.statusText = qsTr("Tuning Internet Radio")
                 app.player.currentSong.title = "Internet Radio";
                 showPlayerView()
+                app.analytics.selectRadio(chosenItem.playlist)
                 app.player.radio.download(chosenItem.playlist)
             }
         }
@@ -96,6 +97,7 @@ Page {
         })
         app.player.radio.downloadFinished.connect(function(url,result) {
             if(result.length > 0) {
+                app.analytics.playRadio(result[0])
                 app.player.play(result[0])
             }
         })

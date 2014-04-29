@@ -68,6 +68,9 @@ void SongModule::reset() {
 bool SongModule::songLoaded() const {
     if(m_modPlug != NULL)
         return true;
+    if(isHttpSong()) {
+        return true;
+    }
     return m_absoluteFileName.length() > 0 && !isTrackerSong();
 }
 
