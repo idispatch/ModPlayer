@@ -46,7 +46,7 @@ public:
     ~Player();
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
-    Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged FINAL)
+    Q_PROPERTY(QString statusText READ statusText WRITE setStatusText NOTIFY statusTextChanged FINAL)
     Q_PROPERTY(QString userDirectory READ userDirectory WRITE setUserDirectory NOTIFY userDirectoryChanged FINAL)
 
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
@@ -58,7 +58,9 @@ public:
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
     State state() const;
+
     QString statusText() const;
+    void setStatusText(QString const& value);
 
     QString userDirectory() const;
     void setUserDirectory(QString const& value);
@@ -117,7 +119,6 @@ private slots:
     void onStopped();
     void onFinished();
     void onMetaDataChanged();
-    void onBufferingLevelChanged(double level);
     void onBufferingStatusChanged(int type);
 
     /* For NowPlayingConnection */

@@ -53,6 +53,8 @@ Page {
             ]
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
+                app.player.statusText = qsTr("Tuning Internet Radio")
+                app.player.currentSong.title = "Internet Radio";
                 showPlayerView()
                 app.player.radio.download(chosenItem.playlist)
             }

@@ -377,6 +377,10 @@
         <source>Select Internet Radio Channel</source>
         <translation>Выберите канал интернет радио</translation>
     </message>
+    <message>
+        <source>Tuning Internet Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mp3Export</name>

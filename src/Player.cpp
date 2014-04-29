@@ -124,10 +124,6 @@ void Player::initPlayback() {
                           this,       SLOT(onMetaDataChanged()));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(m_playback, SIGNAL(bufferingLevelChanged(double)),
-                          this,       SLOT(onBufferingLevelChanged(double)));
-    Q_ASSERT(rc);
-
     rc = QObject::connect(m_playback, SIGNAL(bufferingStatusChanged(int)),
                           this,       SLOT(onBufferingStatusChanged(int)));
     Q_ASSERT(rc);
@@ -229,11 +225,7 @@ void Player::changeStatus(State state, QString const& statusText) {
         }
         emit stateChanged();
     }
-    if(m_statusText != statusText)
-    {
-        m_statusText = statusText;
-        emit statusTextChanged();
-    }
+    setStatusText(statusText);
 }
 
 void Player::onDownloadStarted(int id) {
@@ -346,6 +338,14 @@ Player::State Player::state() const {
 
 QString Player::statusText() const {
     return m_statusText;
+}
+
+void Player::setStatusText(QString const& value) {
+    if(m_statusText != value)
+    {
+        m_statusText = value;
+        emit statusTextChanged();
+    }
 }
 
 QString Player::userDirectory() const {
@@ -654,10 +654,6 @@ void Player::onFinished() {
 
 void Player::onMetaDataChanged() {
     updateNowPlaying();
-}
-
-void Player::onBufferingLevelChanged(double level) {
-    changeStatus(Player::Playing, QString("Buffering %1\%").arg(int(level * 100.0)));
 }
 
 void Player::onBufferingStatusChanged(int type) {

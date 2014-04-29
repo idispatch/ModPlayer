@@ -11,10 +11,14 @@ ActionItem {
         } else if(albumId != null) {
             return qsTr("Play Album")
         } else {
-            if(app.player.state == Player.Playing) {
-                return qsTr("Pause")
+            if(app.player.currentSong.songLoaded) {
+                if(app.player.state == Player.Playing) {
+                    return qsTr("Pause")
+                } else {
+                    return qsTr("Resume")
+                }
             } else {
-                return qsTr("Resume")
+                return qsTr("Pause")
             }
         }
     }
