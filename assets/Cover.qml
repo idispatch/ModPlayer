@@ -110,7 +110,23 @@ ViewContainer {
                 bottomPadding: topPadding
                 Label {
                     horizontalAlignment: HorizontalAlignment.Center
-                    text: "("+Global.fileNameOnly(app.player.currentSong.fileName)+")"
+                    text: {
+                        var fileName
+                        if(app.player.currentSong.isHttpSong) {
+                            if(app.player.currentSong.fileName.indexOf("rockradio") != -1) {
+                                fileName = "www.rockradio.com"
+                            } else if(app.player.currentSong.fileName.indexOf("jazzradio") != -1) {
+                                fileName = "www.jazzradio.com"
+                            } else if(app.player.currentSong.fileName.indexOf("sky.fm") != -1) {
+                                fileName = "www.sky.fm"
+                            } else {
+                                fileName = "www.di.fm"
+                            }
+                        } else {
+                            fileName = Global.fileNameOnly(app.player.currentSong.fileName)
+                        }
+                        return "(%1)".arg(fileName)
+                    }
                     textStyle {
                         color: Color.White
                         fontSize: FontSize.XSmall

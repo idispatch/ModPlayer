@@ -157,10 +157,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Idle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Resolving</source>
         <translation type="unfinished"></translation>
     </message>
@@ -170,6 +166,10 @@
     </message>
     <message>
         <source>Preparing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

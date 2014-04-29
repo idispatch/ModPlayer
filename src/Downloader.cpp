@@ -9,7 +9,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <bb/system/InvokeManager>
 
-#if 1
+#if 0
 #define VERBOSE_LOGGING 1
 #endif
 

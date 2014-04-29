@@ -146,31 +146,31 @@
     <name>Cover</name>
     <message>
         <source>Playing</source>
-        <translation>Играет</translation>
+        <translation type="unfinished">Играет</translation>
     </message>
     <message>
         <source>Stopped</source>
-        <translation>Остановлен</translation>
+        <translation type="unfinished">Остановлен</translation>
     </message>
     <message>
         <source>Paused</source>
-        <translation>Пауза</translation>
+        <translation type="unfinished">Пауза</translation>
     </message>
     <message>
         <source>Idle</source>
-        <translation>Остановлен</translation>
+        <translation type="unfinished">Остановлен</translation>
     </message>
     <message>
         <source>Resolving</source>
-        <translation>Ищет</translation>
+        <translation type="unfinished">Ищет</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>Скачивает</translation>
+        <translation type="unfinished">Скачивает</translation>
     </message>
     <message>
         <source>Preparing</source>
-        <translation>Подготавливает</translation>
+        <translation type="unfinished">Подготавливает</translation>
     </message>
 </context>
 <context>
