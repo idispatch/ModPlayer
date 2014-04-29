@@ -18,7 +18,7 @@ ActionItem {
                     return qsTr("Resume")
                 }
             } else {
-                return qsTr("Pause")
+                return ""
             }
         }
     }
