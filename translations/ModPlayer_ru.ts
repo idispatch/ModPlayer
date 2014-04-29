@@ -146,31 +146,31 @@
     <name>Cover</name>
     <message>
         <source>Playing</source>
-        <translation type="unfinished">Играет</translation>
+        <translation>Играет</translation>
     </message>
     <message>
         <source>Stopped</source>
-        <translation type="unfinished">Остановлен</translation>
+        <translation>Остановлен</translation>
     </message>
     <message>
         <source>Paused</source>
-        <translation type="unfinished">Пауза</translation>
+        <translation>Пауза</translation>
     </message>
     <message>
         <source>Idle</source>
-        <translation type="unfinished">Остановлен</translation>
+        <translation>Остановлен</translation>
     </message>
     <message>
         <source>Resolving</source>
-        <translation type="unfinished">Ищет</translation>
+        <translation>Ищет</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished">Скачивает</translation>
+        <translation>Скачивает</translation>
     </message>
     <message>
         <source>Preparing</source>
-        <translation type="unfinished">Подготавливает</translation>
+        <translation>Подготавливает</translation>
     </message>
 </context>
 <context>
@@ -379,7 +379,7 @@
     </message>
     <message>
         <source>Tuning Internet Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройука интернет радио</translation>
     </message>
 </context>
 <context>
