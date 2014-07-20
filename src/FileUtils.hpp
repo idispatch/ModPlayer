@@ -10,6 +10,7 @@ public:
     static QString joinPath(QString const& directory,
                             QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
+    static QString fileNameWithoutExtension(QString const& fileName);
     static QString directoryOnly(QString const& fileName);
     static QString extension(QString const& fileName);
 

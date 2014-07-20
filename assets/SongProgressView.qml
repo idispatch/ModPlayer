@@ -20,7 +20,6 @@ Slider {
     onTouch: {
         if(event.isUp()) {
             sliderUpdatedByTouch = true
-            console.log("sliderUpdatedByTouch = true")
         }
     }
 }

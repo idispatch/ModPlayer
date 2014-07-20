@@ -708,10 +708,11 @@ void Player::askToImport() {
     if(!Importer::lastImportPerformed(date)) {
         SystemDialog dlg;
         dlg.setTitle(tr("Confirm"));
-        dlg.setBody(tr("Would you like to import local songs?"));
-        if(dlg.exec() == SystemUiResult::ConfirmButtonSelection) {
-            importSongs();
+        dlg.setBody(tr("Would you like to import local songs and playlists?"));
+        if(dlg.exec() != SystemUiResult::ConfirmButtonSelection) {
+            return;
         }
+        importSongs();
     }
 }
 

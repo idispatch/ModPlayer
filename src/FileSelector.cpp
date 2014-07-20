@@ -21,19 +21,51 @@ FileSelector::~FileSelector() {
 }
 
 QString FileSelector::createExtensionFilter(QString const& p) {
-    return p.mid(1);
+    if(p.startsWith(QChar('.')))
+        return p.mid(1); // remove dot from file extension
+    return p;
 }
 
 bool FileSelector::isMp3(QString const& fileName) {
     return fileName.endsWith(".mp3", Qt::CaseInsensitive);
 }
 
+bool FileSelector::isPlaylist(QString const& fileName) {
+    return fileName.endsWith(".m3u", Qt::CaseInsensitive);
+}
+
 bool FileSelector::fileMatches(QString const& fileName) {
     foreach(QString const& filter, m_filters) {
-        if(fileName.endsWith(filter, Qt::CaseInsensitive))
+        if(fileName.endsWith(filter, Qt::CaseInsensitive)) {
             return true;
+        }
     }
     return false;
+}
+
+bool FileSelector::playlistMatches(QString const& fileName) {
+    return isPlaylist(fileName);
+}
+
+void FileSelector::processPlaylist(QString const& playlist,
+                                   QSet<QString> const& foundFiles) {
+    Q_UNUSED(foundFiles);
+    qDebug() << "Processing playlist file" << playlist;
+    QString name = FileUtils::fileNameWithoutExtension(playlist);
+    qDebug() << "Processing playlist" << name;
+    int numListedSongs = 0;
+    if(numListedSongs > 0) {
+        emit foundPlaylist(name);
+    }
+}
+
+void FileSelector::processPlaylists(QSet<QString> const& playlists,
+                                    QSet<QString> const& foundFiles) {
+    const int numPlaylists = playlists.size();
+    qDebug() << "Processing" << numPlaylists << "playlists";
+    foreach(QString const& playlist, playlists) {
+        processPlaylist(playlist, foundFiles);
+    }
 }
 
 void FileSelector::start() {
@@ -60,20 +92,30 @@ void FileSelector::start() {
 
 void FileSelector::selectFiles() {
     static const char * locations[] = {
+        "/accounts/1000/shared/music"
+    };
+    /*static const char * locations[] = {
         "/accounts/1000/shared/documents",
         "/accounts/1000/shared/downloads",
         "/accounts/1000/shared/music",
         "/accounts/1000/shared/Box",
         "/accounts/1000/shared/Dropbox",
         "/accounts/1000/removable/sdcard"
-    };
+    };*/
+    QSet<QString> foundPlaylists;
+    QSet<QString> foundFiles;
     for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
-        scanDirectory(locations[i]);
+        scanDirectory(locations[i], foundFiles, foundPlaylists);
+    }
+    if(!foundPlaylists.empty()) {
+        processPlaylists(foundPlaylists, foundFiles);
     }
     emit done();
 }
 
-void FileSelector::scanDirectory(const char * path) {
+void FileSelector::scanDirectory(const char * path,
+                                 QSet<QString>& foundFiles,
+                                 QSet<QString>& foundPlaylists) {
     QStack<QString> stack;
     stack.push(path);
     while(!stack.isEmpty()) {
@@ -81,9 +123,7 @@ void FileSelector::scanDirectory(const char * path) {
         QString locationDisplay = directoryPath;
         locationDisplay.remove(0, 15);
         emit searchingDirectory(locationDisplay);
-
         QDir directory(directoryPath);
-
 #if 0
         // This does not work because file system uses 64 bit inodes
         QStringList entries = directory.entryList(m_filters,
@@ -95,18 +135,26 @@ void FileSelector::scanDirectory(const char * path) {
             struct dirent64 *dp;
             do {
                 if ((dp = ::readdir64(dirp)) != NULL) {
-                    if(dp->d_name[0] == '.' && (dp->d_name[1] == '\0' || (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))) {
+                    // Skip current directory and parent directory
+                    if(dp->d_name[0] == '.' &&
+                       (dp->d_name[1] == '\0' ||
+                        (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))) {
                         continue;
                     }
 
-                    QString absoluteFileName = FileUtils::joinPath(directoryPath, QString::fromUtf8(dp->d_name));
+                    QString absoluteFileName = FileUtils::joinPath(directoryPath,
+                                                                   QString::fromUtf8(dp->d_name));
                     struct stat64 st;
                     if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
                         if(st.st_mode & S_IFDIR) {
                             stack.push(absoluteFileName);
                         } else {
                             if(st.st_mode & S_IFREG) {
-                                if(fileMatches(absoluteFileName)) {
+                                if(playlistMatches(absoluteFileName)) {
+                                    foundPlaylists.insert(absoluteFileName);
+                                }
+                                else if(fileMatches(absoluteFileName)) {
+                                    foundFiles.insert(absoluteFileName);
                                     emit foundFile(absoluteFileName);
                                 }
                             }

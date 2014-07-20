@@ -62,6 +62,7 @@ public:
     Q_INVOKABLE void exportMp3(QString const& from, QString const& to) const;
     Q_INVOKABLE void importSongs(bool started) const;
     Q_INVOKABLE void importedSongCount(int count) const;
+    Q_INVOKABLE void importedPlaylistCount(int count) const;
 
     Q_INVOKABLE void createPlaylist(QString const& name) const;
     Q_INVOKABLE void deleteAllPlaylists() const;

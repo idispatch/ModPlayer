@@ -293,7 +293,7 @@ Sheet {
                                 SystemDialog {
                                     id: confirmImport
                                     title: qsTr("Confirm")
-                                    body: qsTr("Would you like to import local songs?")
+                                    body: qsTr("Would you like to import local songs and playlists?")
                                     onFinished: {
                                         if (result == SystemUiResult.ConfirmButtonSelection) {
                                             app.player.importSongs()

@@ -307,22 +307,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Would you like to import local songs?</source>
+        <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Importer</name>
     <message>
-        <source>Importing Songs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Importing %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching for songs in %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -334,7 +326,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No new songs found</source>
+        <source>No new songs or playlists found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported %1 playlist(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported %1 song(s) and %2 playlist(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for songs and playlists in %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Songs and Playlists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -541,7 +549,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Would you like to import local songs?</source>
+        <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -880,11 +888,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Would you like to import local songs?</source>
+        <source>Master Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Master Volume</source>
+        <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

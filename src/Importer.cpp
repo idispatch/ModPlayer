@@ -26,8 +26,9 @@ Importer::Importer(QStringList const& filters,
     : QObject(parent),
       m_filters(filters),
       m_catalog(catalog),
-      m_messageBox(tr("Importing Songs"), ""),
+      m_messageBox(tr("Importing Songs and Playlists"), ""),
       m_numImportedSongs(0),
+      m_numImportedPlaylists(0),
       m_nextId(-1) {
 }
 
@@ -39,6 +40,10 @@ Importer::~Importer() {
 
 int Importer::numImportedSongs() const {
     return m_numImportedSongs;
+}
+
+int Importer::numImportedPlaylists() const {
+    return m_numImportedPlaylists;
 }
 
 void Importer::houseKeep() {
@@ -68,7 +73,7 @@ void Importer::removeMissingSongs() {
         qDebug() << "Failed to get local songs";
     }
     qDebug() << "Missing songs:" << missingSongs;
-    qDebug() << "Next ID:" << m_nextId;
+    qDebug() << "Next Song ID:" << m_nextId;
 
     houseKeep();
 }
@@ -88,6 +93,7 @@ bool Importer::lastImportPerformed(QDateTime &date) {
 
 void Importer::start() {
     m_numImportedSongs = 0;
+    m_numImportedPlaylists = 0;
     m_nextId = -1;
 
     removeMissingSongs();
@@ -98,6 +104,10 @@ void Importer::start() {
     Q_UNUSED(rc);
     rc = QObject::connect(selector, SIGNAL(foundFile(QString const&)),
                           this,     SLOT(onFoundFile(QString const&)),
+                          Qt::QueuedConnection);
+    Q_ASSERT(rc);
+    rc = QObject::connect(selector, SIGNAL(foundPlaylist(QString const&)),
+                          this,     SLOT(onFoundPlaylist(QString const&)),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
     rc = QObject::connect(selector, SIGNAL(searchingDirectory(QString const&)),
@@ -113,13 +123,20 @@ void Importer::start() {
 }
 
 void Importer::onSearchCompleted() {
-    if(m_numImportedSongs == 0) {
-        m_messageBox.setBody(tr("No new songs found")).setProgress(100);
+    if(m_numImportedSongs == 0 && m_numImportedPlaylists == 0) {
+        m_messageBox.setBody(tr("No new songs or playlists found")).setProgress(100);
     } else {
-        m_messageBox.setBody(tr("Imported %1 song(s)").arg(m_numImportedSongs)).setProgress(100);
+        if(m_numImportedPlaylists == 0) {
+            m_messageBox.setBody(tr("Imported %1 song(s)").arg(m_numImportedSongs)).setProgress(100);
+        } else if(m_numImportedSongs == 0) {
+            m_messageBox.setBody(tr("Imported %1 playlist(s)").arg(m_numImportedPlaylists)).setProgress(100);
+        } else {
+            m_messageBox.setBody(tr("Imported %1 song(s) and %2 playlist(s)").arg(m_numImportedSongs).arg(m_numImportedPlaylists)).setProgress(100);
+        }
     }
     m_knownFileNames.clear();
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
+    Analytics::getInstance()->importedPlaylistCount(m_numImportedPlaylists);
 
     QString infoFile(FileUtils::joinPath(QDir::homePath(), "last_import.txt"));
     QFile file(infoFile);
@@ -134,7 +151,7 @@ void Importer::onSearchCompleted() {
 }
 
 void Importer::onSearchingDirectory(QString const& location) {
-    m_messageBox.setBody(tr("Searching for songs in %1...").arg(location));
+    m_messageBox.setBody(tr("Searching for songs and playlists in %1...").arg(location));
 }
 
 void Importer::onFoundFile(QString const& fileName) {
@@ -146,6 +163,10 @@ void Importer::onFoundFile(QString const& fileName) {
     } else {
         importTrackerSong(fileName);
     }
+}
+
+void Importer::onFoundPlaylist(QString const& playlistName) {
+    qDebug() << "Found playlist" << playlistName;
 }
 
 QString Importer::getMp3Attribute(void const * tag, const char * attributeName) {

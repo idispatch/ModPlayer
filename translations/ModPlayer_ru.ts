@@ -307,8 +307,8 @@
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <source>Would you like to import local songs?</source>
-        <translation>Вы хотите импортировать песни с телефона?</translation>
+        <source>Would you like to import local songs and playlists?</source>
+        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>
@@ -322,20 +322,28 @@
         <translation>Импортировано %1 песен</translation>
     </message>
     <message>
-        <source>Searching for songs in %1...</source>
-        <translation>Поиск песен в %1...</translation>
-    </message>
-    <message>
-        <source>Importing Songs</source>
-        <translation>Импортирую песни</translation>
+        <source>Importing Songs and Playlists</source>
+        <translation>Импортирую песни и плейлисты</translation>
     </message>
     <message>
         <source>Removing missing %1</source>
         <translation>Удаляю старую %1</translation>
     </message>
     <message>
-        <source>No new songs found</source>
-        <translation>Новых песен не найдено</translation>
+        <source>No new songs or playlists found</source>
+        <translation>Новых песен и плейлистов не найдено</translation>
+    </message>
+    <message>
+        <source>Imported %1 playlist(s)</source>
+        <translation>Импортировано %1 плейлистов</translation>
+    </message>
+    <message>
+        <source>Imported %1 song(s) and %2 playlist(s)</source>
+        <translation>Импортировано %1 песен и %2 плейлистов</translation>
+    </message>
+    <message>
+        <source>Searching for songs and playlists in %1...</source>
+        <translation>Поиск песен и плейлистов в %1...</translation>
     </message>
 </context>
 <context>
@@ -537,12 +545,12 @@
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <source>Would you like to import local songs?</source>
-        <translation>Вы хотите импортировать песни с телефона?</translation>
-    </message>
-    <message>
         <source>Playing Internet Radio Channel</source>
         <translation>Играет интернет радио канал</translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs and playlists?</source>
+        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>
@@ -880,12 +888,12 @@
         <translation>Импортировать мои песни</translation>
     </message>
     <message>
-        <source>Would you like to import local songs?</source>
-        <translation>Вы хотите импортировать песни с телефона?</translation>
-    </message>
-    <message>
         <source>Master Volume</source>
         <translation>Громкость</translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs and playlists?</source>
+        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>

@@ -18,6 +18,16 @@ QString FileUtils::fileNameOnly(QString const& fileName) {
     }
 }
 
+QString FileUtils::fileNameWithoutExtension(QString const& fileName) {
+    QString name = fileNameOnly(fileName);
+    int index = fileName.lastIndexOf('.');
+    if(index < 0) {
+        return name;
+    } else {
+        return fileName.mid(0, index);
+    }
+}
+
 QString FileUtils::extension(QString const& fileName) {
     int index = fileName.lastIndexOf('.');
     if(index < 0) {
