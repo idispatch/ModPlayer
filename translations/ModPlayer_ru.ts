@@ -345,6 +345,14 @@
         <source>Searching for songs and playlists in %1...</source>
         <translation>Поиск песен и плейлистов в %1...</translation>
     </message>
+    <message>
+        <source>Processing playlist %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing missing songs...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Instruments</name>

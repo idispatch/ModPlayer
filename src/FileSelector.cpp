@@ -120,12 +120,7 @@ void FileSelector::processPlaylist(QString const& playlist,
                  << "has" << playlistFiles.size()
                  << "songs and" << missingSongs << "missing";
 #endif
-        emit foundPlaylist(name);
-        foreach(QString const& songPath, playlistFiles) {
-#ifdef VERBOSE_LOGGING
-            qDebug() << songPath;
-#endif
-        }
+        emit foundPlaylist(name, playlistFiles);
     }
 }
 

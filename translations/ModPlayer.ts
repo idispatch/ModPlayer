@@ -345,6 +345,14 @@
         <source>Importing Songs and Playlists</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Processing playlist %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing missing songs...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Instruments</name>

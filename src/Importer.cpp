@@ -46,11 +46,9 @@ int Importer::numImportedPlaylists() const {
     return m_numImportedPlaylists;
 }
 
-void Importer::houseKeep() {
-    m_catalog->houseKeep();
-}
-
 void Importer::removeMissingSongs() {
+    m_messageBox.setBody(tr("Removing missing songs from library..."));
+
     int missingSongs = 0;
     m_nextId = -1;
     m_knownFileNames.clear();
@@ -70,12 +68,17 @@ void Importer::removeMissingSongs() {
             m_nextId = std::min(songs[i].id() - 1, m_nextId);
         }
     } else {
+#ifdef VERBOSE_LOGGING
         qDebug() << "Failed to get local songs";
+#endif
     }
+#ifdef VERBOSE_LOGGING
     qDebug() << "Missing songs:" << missingSongs;
     qDebug() << "Next Song ID:" << m_nextId;
+#endif
 
-    houseKeep();
+    m_messageBox.setBody(tr("Updating songs library..."));
+    m_catalog->houseKeep();
 }
 
 bool Importer::lastImportPerformed(QDateTime &date) {
@@ -106,8 +109,8 @@ void Importer::start() {
                           this,     SLOT(onFoundFile(QString const&)),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
-    rc = QObject::connect(selector, SIGNAL(foundPlaylist(QString const&)),
-                          this,     SLOT(onFoundPlaylist(QString const&)),
+    rc = QObject::connect(selector, SIGNAL(foundPlaylist(QString const&, QVector<QString> const&)),
+                          this,     SLOT(onFoundPlaylist(QString const&, QVector<QString> const&)),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
     rc = QObject::connect(selector, SIGNAL(searchingDirectory(QString const&)),
@@ -165,16 +168,34 @@ void Importer::onFoundFile(QString const& fileName) {
     }
 }
 
-void Importer::onFoundPlaylist(QString const& playlistName) {
+void Importer::onFoundPlaylist(QString const& playlistName,
+                               QVector<QString> const& songs) {
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Found playlist" << playlistName;
+    qDebug() << "Found playlist" << playlistName << "with" << songs << "songs";
 #endif
-    int id = m_catalog->createPlaylist(playlistName);
-    if(id == 0) {
+    if(songs.empty()) {
+        return;
+    }
+
+    m_messageBox.setBody(tr("Processing playlist %1...").arg(playlistName));
+
+    const int playlistId = m_catalog->createPlaylist(playlistName);
+    if(playlistId == 0) {
 #ifdef VERBOSE_LOGGING
         qDebug() << "Could not insert playlist" << playlistName;
 #endif
         return;
+    }
+
+    foreach(QString const songFileName, songs) {
+        const int songId = m_catalog->resolveModuleIdByFileName(songFileName);
+        if(songId == 0) {
+#ifdef VERBOSE_LOGGING
+            qDebug() << "Could not resolve song" << songFileName;
+#endif
+        } else {
+            m_catalog->appendToPlaylist(playlistId, songId);
+        }
     }
 }
 
@@ -212,7 +233,9 @@ bool Importer::importMp3File(QString const& fileName) {
 
     ::id3_file * mp3file = ::id3_file_open(fileName.toUtf8().constData(), ID3_FILE_MODE_READONLY);
     if(mp3file == NULL) {
+#ifdef VERBOSE_LOGGING
         qDebug() << "Could not open Mp3 file" << fileName;
+#endif
         return false;
     }
 

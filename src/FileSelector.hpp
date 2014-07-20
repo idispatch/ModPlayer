@@ -29,7 +29,8 @@ private:
 public:
     Q_SIGNAL void searchingDirectory(QString const& fileName);
     Q_SIGNAL void foundFile(QString const& fileName);
-    Q_SIGNAL void foundPlaylist(QString const& fileName);
+    Q_SIGNAL void foundPlaylist(QString const& fileName,
+                                QVector<QString> const& songs);
     Q_SIGNAL void done();
 private:
     Q_SLOT void selectFiles();

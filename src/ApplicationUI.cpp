@@ -146,6 +146,8 @@ void ApplicationUI::onAboutToQuit() {
 void ApplicationUI::initTypes() {
     const int versionMajor = 1, versionMinor = 0;
 
+    qRegisterMetaType<QVector<QString> >("QVector<QString>");
+
     DataSource::registerQmlTypes();
     qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
 

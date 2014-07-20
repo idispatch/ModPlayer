@@ -36,14 +36,12 @@ public:
     int numImportedPlaylists() const;
 private:
     Q_SLOT void onFoundFile(QString const& fileName);
-    Q_SLOT void onFoundPlaylist(QString const& playlistName);
+    Q_SLOT void onFoundPlaylist(QString const& playlistName,
+                                QVector<QString> const& songs);
     Q_SLOT void onSearchCompleted();
     Q_SLOT void onSearchingDirectory(QString const& location);
 private:
-
     void removeMissingSongs();
-    void houseKeep();
-
     bool importTrackerSong(QString const& fileName);
     bool importMp3File(QString const& fileName);
     QString getMp3Attribute(void const * tag, const char * attributeName);
