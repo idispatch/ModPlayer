@@ -347,11 +347,15 @@
     </message>
     <message>
         <source>Processing playlist %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортирую плейлист %1...</translation>
     </message>
     <message>
-        <source>Removing missing songs...</source>
-        <translation type="unfinished"></translation>
+        <source>Removing missing songs from library...</source>
+        <translation>Удаляю отсутствующие песни из каталога...</translation>
+    </message>
+    <message>
+        <source>Updating songs library...</source>
+        <translation>Обновляю каталог песен...</translation>
     </message>
 </context>
 <context>

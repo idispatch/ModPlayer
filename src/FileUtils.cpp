@@ -4,7 +4,10 @@
 #include <QFile>
 #include <QDebug>
 
-#define VERBOSE_LOGGING
+#ifdef _DEBUG
+//#define VERBOSE_LOGGING
+#else
+#endif
 
 bool FileUtils::isAbsolute(QString const& fileName) {
     return fileName.startsWith('/');

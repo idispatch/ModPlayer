@@ -20,8 +20,9 @@
 #include "Importer.hpp"
 #include "Analytics.hpp"
 
-#if 0
-#define VERBOSE_LOGGING 1
+#ifdef _DEBUG
+//#define VERBOSE_LOGGING
+#else
 #endif
 
 using namespace bb::multimedia;

@@ -350,7 +350,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Removing missing songs...</source>
+        <source>Removing missing songs from library...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updating songs library...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

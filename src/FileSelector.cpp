@@ -9,8 +9,9 @@
 #include <qtextcodec.h>
 
 #ifdef _DEBUG
-#define VERBOSE_LOGGING
-#define REDUCED_SEARCH_SCOPE
+//#define VERBOSE_LOGGING
+//#define REDUCED_SEARCH_SCOPE
+#else
 #endif
 
 FileSelector::FileSelector(QStringList const &filters) {
@@ -131,10 +132,7 @@ void FileSelector::processPlaylists(QSet<QString> const& playlists,
     foreach(QString const& songPath, foundFiles) {
         qDebug() << songPath;
     }
-#endif
-    const int numPlaylists = playlists.size();
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Processing" << numPlaylists << "playlists";
+    qDebug() << "Processing" << playlists.size() << "playlists";
 #endif
     foreach(QString const& playlist, playlists) {
         processPlaylist(playlist, foundFiles);

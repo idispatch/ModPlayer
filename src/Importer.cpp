@@ -187,6 +187,8 @@ void Importer::onFoundPlaylist(QString const& playlistName,
         return;
     }
 
+    m_numImportedPlaylists++;
+
     foreach(QString const songFileName, songs) {
         const int songId = m_catalog->resolveModuleIdByFileName(songFileName);
         if(songId == 0) {

@@ -9,8 +9,9 @@
 #include <QtNetwork/QNetworkReply>
 #include <bb/system/InvokeManager>
 
-#if 0
-#define VERBOSE_LOGGING 1
+#ifdef _DEBUG
+//#define VERBOSE_LOGGING
+#else
 #endif
 
 const int Downloader::InvalidModuleId = -1;

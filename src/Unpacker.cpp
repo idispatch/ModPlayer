@@ -5,8 +5,9 @@
 #include <QDir>
 #include <QStringList>
 
-#if 0
-#define VERBOSE_LOGGING 1
+#ifdef _DEBUG
+//#define VERBOSE_LOGGING
+#else
 #endif
 
 template<>
