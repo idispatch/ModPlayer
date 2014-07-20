@@ -39,7 +39,7 @@ QString Unpacker::unpackFile(QString const& compressedFile) {
     if(!compressedFile.toLower().endsWith(".zip")) {
         qDebug() << "Not a Zip file:" << compressedFile;
         newFile = FileUtils::joinPath(cachePath(), FileUtils::fileNameOnly(compressedFile.toLower()));
-        if(QFile::exists(newFile)) {
+        if(FileUtils::exists(newFile)) {
             qDebug() << "File" << newFile << "exists, deleting";
             if(!QFile::remove(newFile)) {
                 qDebug() << "Failed to delete file" << newFile;
@@ -69,7 +69,7 @@ QString Unpacker::unpackFile(QString const& compressedFile) {
                 QString newFileNameLowered = newFileName.toLower();
                 QString extractPath = FileUtils::joinPath(cachePath(), newFileNameLowered);
 
-                if(QFile::exists(extractPath)) {
+                if(FileUtils::exists(extractPath)) {
                     qDebug() << "File" << extractPath << "exists, deleting";
                     if(!QFile::remove(extractPath)) {
                         qDebug() << "Failed to delete file" << extractPath;

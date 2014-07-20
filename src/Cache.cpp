@@ -173,7 +173,7 @@ void Cache::cache(QString const& fileName) {
     QFileInfo fileInfo(file);
     if(m_files.indexOf(fileInfo) == -1)
     {
-        if(fileInfo.exists()) {
+        if(FileUtils::exists(file)) {
             int oldFiles = currentFiles();
             int oldSize = currentSize();
 
@@ -191,7 +191,7 @@ bool Cache::exists(QString const& fileName) {
     {
         QString absoluteFilePath = absoluteFileName(fileName);
         QFileInfo fileInfo(absoluteFilePath);
-        bExists = m_files.indexOf(fileInfo) != -1 && QFile::exists(absoluteFilePath);
+        bExists = m_files.indexOf(fileInfo) != -1 && FileUtils::exists(absoluteFilePath);
 #ifdef VERBOSE_LOGGING
     qDebug() << "Cache::exists:" << fileName << "(" << absoluteFilePath << ") =" << bExists;
 #endif
@@ -225,7 +225,7 @@ void Cache::save(QString const& cacheFileName, QString const& newFileName) {
     {
         QString absoluteCacheFileName = absoluteFileName(cacheFileName);
         bool copyOk;
-        if(QFile::exists(newFileName))
+        if(FileUtils::exists(newFileName))
         {
             if(QFile::remove(newFileName)) {
                 copyOk = true;
@@ -266,7 +266,7 @@ void Cache::exportCache(QString const& directory) {
             QString cacheFileName = m_files[i].fileName();
             QString newFileName(FileUtils::joinPath(targetDirectory, cacheFileName));
 
-            if(QFile::exists(newFileName))
+            if(FileUtils::exists(newFileName))
             {
                 if(!QFile::remove(newFileName))
                 {

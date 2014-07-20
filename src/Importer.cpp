@@ -58,7 +58,7 @@ void Importer::removeMissingSongs() {
     if(m_catalog->getLocalSongs(songs)) {
         qDebug() << "Local songs:" << songs.size();
         for(size_t i = 0; i < songs.size(); ++i) {
-            if(!QFile::exists(songs[i].filePath())) {
+            if(!FileUtils::exists(songs[i].filePath())) {
                 qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
                 QString fileNameOnly = FileUtils::fileNameOnly(songs[i].filePath());
                 m_messageBox.setBody(tr("Removing missing %1").arg(fileNameOnly));
@@ -166,7 +166,16 @@ void Importer::onFoundFile(QString const& fileName) {
 }
 
 void Importer::onFoundPlaylist(QString const& playlistName) {
+#ifdef VERBOSE_LOGGING
     qDebug() << "Found playlist" << playlistName;
+#endif
+    int id = m_catalog->createPlaylist(playlistName);
+    if(id == 0) {
+#ifdef VERBOSE_LOGGING
+        qDebug() << "Could not insert playlist" << playlistName;
+#endif
+        return;
+    }
 }
 
 QString Importer::getMp3Attribute(void const * tag, const char * attributeName) {
@@ -312,7 +321,7 @@ bool Importer::importTrackerSong(QString const& fileName)
     m_messageBox.setBody(tr("Importing %1").arg(fileNameOnly));
 
     QFile inputFile(fileName);
-    if(!inputFile.exists()) {
+    if(!FileUtils::exists(fileName)) {
         qDebug() << "File does not exist" << fileName;
         return false;
     }

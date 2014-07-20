@@ -264,7 +264,7 @@ void Downloader::finishDownload(QNetworkReply * reply) {
     qDebug() << "Saving file" << fileName;
 #endif
     QFile file(fileName);
-    if(file.exists())
+    if(FileUtils::exists(fileName))
     {
 #ifdef VERBOSE_LOGGING
         qDebug() << "File" << fileName << "already exists";

@@ -1,5 +1,10 @@
 #include "FileUtils.hpp"
+#include <dirent.h>
+#include <errno.h>
 #include <QFile>
+#include <QDebug>
+
+#define VERBOSE_LOGGING
 
 bool FileUtils::isAbsolute(QString const& fileName) {
     return fileName.startsWith('/');
@@ -18,13 +23,13 @@ QString FileUtils::fileNameOnly(QString const& fileName) {
     }
 }
 
-QString FileUtils::fileNameWithoutExtension(QString const& fileName) {
+QString FileUtils::fileNameOnlyWithoutExtension(QString const& fileName) {
     QString name = fileNameOnly(fileName);
-    int index = fileName.lastIndexOf('.');
+    int index = name.lastIndexOf('.');
     if(index < 0) {
         return name;
     } else {
-        return fileName.mid(0, index);
+        return name.mid(0, index);
     }
 }
 
@@ -68,4 +73,15 @@ bool FileUtils::adjustPermissions(QString const& fileName) {
                                  QFile::ReadUser | QFile::WriteUser |
                                  QFile::ReadGroup | QFile::WriteGroup |
                                  QFile::ReadOther | QFile::WriteOther);
+}
+
+bool FileUtils::exists(QString const& fileName) {
+    struct stat64 st;
+    int rc = ::stat64(fileName.toUtf8().constData(), &st);
+#ifdef VERBOSE_LOGGING
+    if(rc != 0) {
+        qDebug() << "File" << fileName << "does not exist";
+    }
+#endif
+    return rc == 0;
 }

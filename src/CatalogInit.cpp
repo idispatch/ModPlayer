@@ -27,10 +27,11 @@ QString Catalog::catalogPath() const {
 }
 
 void Catalog::copyCatalogToDataFolder() {
-    QFile catalogFile(catalogPath());
     // If the catalog does not exist in app sandbox then the app was started the first time
     // Copy the initial catalog to the app sandbox
-    if(!catalogFile.exists()) {
+    QFile catalogFile(catalogPath());
+    if(!FileUtils::exists(catalogPath())) {
+
         qDebug() << "Personal catalog does not exist at" << catalogFile.fileName();
 
         MessageBox message(tr("Initializing Catalog"),
@@ -39,9 +40,9 @@ void Catalog::copyCatalogToDataFolder() {
         QString appFolder(QDir::homePath());
         appFolder.chop(4);
         QString originalFileName = appFolder + "app/native/assets/catalog.sqlite";
-        QFile originalFile(originalFileName);
 
-        if(originalFile.exists()) {
+        if(FileUtils::exists(originalFileName)) {
+            QFile originalFile(originalFileName);
             qDebug() << "Original catalog is at" << originalFile.fileName();
 
             if(!originalFile.copy(catalogFile.fileName())) {

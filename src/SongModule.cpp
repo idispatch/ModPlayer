@@ -267,7 +267,7 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
 void SongModule::save(QString const& fileName) {
     const QString originalFileName = absoluteFileName();
     bool copyOk;
-    if(QFile::exists(fileName))
+    if(FileUtils::exists(fileName))
     {
         if(QFile::remove(fileName)) {
             copyOk = true;

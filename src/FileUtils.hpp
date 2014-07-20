@@ -10,11 +10,12 @@ public:
     static QString joinPath(QString const& directory,
                             QString const& fileName);
     static QString fileNameOnly(QString const& fileName);
-    static QString fileNameWithoutExtension(QString const& fileName);
+    static QString fileNameOnlyWithoutExtension(QString const& fileName);
     static QString directoryOnly(QString const& fileName);
     static QString extension(QString const& fileName);
 
     static bool adjustPermissions(QString const& fileName);
+    static bool exists(QString const& fileName);
 };
 
 #endif /* FILEUTILS_HPP_ */
