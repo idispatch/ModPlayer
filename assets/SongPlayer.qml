@@ -52,6 +52,7 @@ Page {
                     Label {
                         id: statusText
                         text: app.player.statusText
+                        textFormat: TextFormat.Plain
                         textStyle {
                             fontWeight: FontWeight.W100
                             fontSize: FontSize.Large
