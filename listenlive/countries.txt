@@ -1,0 +1,67 @@
+new.html|New additions
+albania.html|Albania
+andorra.html|Andorra
+armenia.html|Armenia
+austria.html|Austria
+azerbaijan.html|Azerbaijan
+belarus.html|Belarus
+belgium.html|Belgium
+bosnia.html|Bosnia-Herzegovina
+bulgaria.html|Bulgaria
+croatia.html|Croatia
+cyprus.html|Cyprus
+czech-republic.html|Czech Republic
+denmark.html|Denmark
+estonia.html|Estonia
+faroe.html|Faroe Islands
+finland.html|Finland
+france.html|France
+georgia.html|Georgia
+germany.html|Germany
+gibraltar.html|Gibraltar
+greece.html|Greece
+hungary.html|Hungary
+iceland.html|Iceland
+ireland.html|Ireland
+italy.html|Italy
+kosovo.html|Kosovo
+latvia.html|Latvia
+liechtenstein.html|Liechtenstein
+lithuania.html|Lithuania
+luxembourg.html|Luxembourg
+macedonia.html|Macedonia
+malta.html|Malta
+moldova.html|Moldova
+monaco.html|Monaco
+montenegro.html|Montenegro
+netherlands.html|Netherlands
+norway.html|Norway
+poland.html|Poland
+portugal.html|Portugal
+romania.html|Romania
+russia.html|Russia
+san-marino.html|San Marino
+serbia.html|Serbia
+slovakia.html|Slovakia
+slovenia.html|Slovenia
+spain.html|Spain
+sweden.html|Sweden
+switzerland.html|Switzerland
+turkey.html|Turkey
+ukraine.html|Ukraine
+uk.html|United Kingdom
+vatican.html|Vatican State
+top40.html|Top 40
+hotac.html|Hot Adult Contemporary
+ac.html|Adult Contemporary
+oldies.html|Oldies/80s/90s
+country.html|Country music
+rnb.html|RnB/HipHop
+dance.html|Dance/Techno
+rock.html|Rock/Classic Rock
+alternative.html|Alternative
+chillout.html|Chillout/Lounge
+jazz.html|Jazz
+classical.html|Classical
+student.html|Student/College radio
+external.html|External services
