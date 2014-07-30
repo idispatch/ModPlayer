@@ -62,3 +62,12 @@ int Radio::bitrate() const {
     return m_bitrate;
 }
 
+QDebug operator << (QDebug dbg, Radio const &p) {
+    dbg.nospace() << "id: " << p.id()
+                  << ", name: " << p.name()
+                  << ", playlist: " << p.radioPlaylist()
+                  << ", style: " << p.style()
+                  << ", country: " << p.country()
+                  << ", location: " << p.location();
+    return dbg.space();
+}

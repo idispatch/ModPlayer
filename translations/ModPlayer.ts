@@ -412,6 +412,14 @@
         <source>Tuning Internet Radio</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Country</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>search stations</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mp3Export</name>

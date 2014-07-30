@@ -5,14 +5,20 @@ Page {
     id: liveStreamRadioPage
     objectName: "liveStreamRadioPage"
     property variant navigationPane
-    property int limit: 500
+    property int limit: 200
     property int requestId
-
-    property string country: ""
 
     titleBar: PlayerTitleBar {
         id: titleBar
-        title: qsTr("Select Internet Radio Channel")
+        title: {
+            var c = radioList.dataModel ? radioList.dataModel.size() : 0
+            if(c > limit) {
+                c = " (%1+)".arg(limit)
+            } else {
+                c = " (%1)".arg(c)
+            }
+            qsTr("Select Internet Radio Channel") + c
+        }
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
             HorizontalContainer {
@@ -35,10 +41,6 @@ Page {
                         DropDown {
                             id: country
                             title: qsTr("Country")
-                            leftPadding: 10
-                            rightPadding: 10
-                            topPadding: 10
-                            bottomPadding: 10
                             Option {
                                 text: "Armenia"
                             }
@@ -207,8 +209,8 @@ Page {
             id: progress
         }
         ListView {
-            id: liveStreamRadioList
-            visible: ! progress.running
+            id: radioList
+            visible: !progress.running
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             topPadding: 20
@@ -231,9 +233,10 @@ Page {
                     type: "item"
                     ModPlayerListItem {
                         title: ListItem.data.name
-                        description: ListItem.data.style
-                        middleStatus: ListItem.data.country
-                        lowerStatus: ListItem.data.location
+                        description: ListItem.data.location + ", " + ListItem.data.country
+                        text: ListItem.data.style
+                        upperStatus: "Mp3"
+                        middleStatus: "%1 kBps".arg(ListItem.data.bitrate)
                         imageSource: ListItem.data.flag
                     }
                 }
@@ -250,14 +253,20 @@ Page {
     }
     function unload() {
         progress.start()
-        if(liveStreamRadioList.dataModel) {
-            liveStreamRadioList.dataModel.clear()
+        if(radioList.dataModel) {
+            radioList.dataModel.clear()
         }
-        liveStreamRadioList.resetDataModel()
+        radioList.resetDataModel()
     }
     function load() {
         unload()
-        requestId = app.player.catalog.findLiveStreamRadioAsync(searchArea.searchTerm, country, limit)
+        var countrySelection = ""
+        if(country.selectedOption) {
+            countrySelection = country.selectedOption.text
+        }
+        requestId = app.player.catalog.findLiveStreamRadioAsync(searchArea.searchTerm, 
+                                                                countrySelection, 
+                                                                limit)
     }
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && 
@@ -269,27 +278,27 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
-                if(mainTabPane.activePane == navigationPane && 
-                   navigationPane.top == liveStreamRadioPage) {
-                    var view = songPlayer.createObject()
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
-                }
+             if(mainTabPane.activePane == navigationPane && 
+                navigationPane.top == liveStreamRadioPage) {
+                 var view = songPlayer.createObject()
+                 view.navigationPane = navigationPane
+                 navigationPane.push(view)
+             }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
-                if(responseId != requestId) 
-                    return
-                requestId = 0
-                progress.stop()
-                liveStreamRadioList.visible = true
-                liveStreamRadioList.dataModel = result
+             if(responseId != requestId) 
+                 return
+             requestId = 0
+             progress.stop()
+             radioList.visible = true
+             radioList.dataModel = result
         })
-        app.player.radio.downloadFinished.connect(function(url,result) {
+        app.player.radio.downloadFinished.connect(function(playlist,result) {
             if(result.length > 0) {
                 app.analytics.playRadio(result[0])
                 app.player.play(result[0])
             }
-    })
+        })
     }
     attachedObjects: [
         ComponentDefinition {

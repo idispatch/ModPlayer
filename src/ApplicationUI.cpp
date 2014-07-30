@@ -181,6 +181,7 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<SongGenre*>();
     qRegisterMetaType<PatternView*>();
     qRegisterMetaType<VUMeter*>();
+    qRegisterMetaType<Radio*>();
 
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");

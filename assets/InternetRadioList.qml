@@ -52,13 +52,13 @@ Page {
     }
     function load() {
         var model
-        if(channelList.indexOf("listen.di.fm") != -1) {
+        if(channelList.indexOf("difm") != -1) {
             model = app.player.catalog.findDigitallyImported()
-        } else if(channelList.indexOf("listen.sky.fm") != -1) {
+        } else if(channelList.indexOf("skyfm") != -1) {
             model = app.player.catalog.findSkyFm()
-        } else if(channelList.indexOf("listen.jazzradio.com") != -1) {
+        } else if(channelList.indexOf("jazzradio") != -1) {
             model = app.player.catalog.findJazzRadio()
-        } else if(channelList.indexOf("listen.rockradio.com") != -1) {
+        } else if(channelList.indexOf("rockradio") != -1) {
             model = app.player.catalog.findRockRadio()
         } else {
             model = null

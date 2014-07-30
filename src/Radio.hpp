@@ -1,6 +1,9 @@
 #ifndef RADIO_HPP_
 #define RADIO_HPP_
 
+#include <QObject>
+#include <QMetaType>
+#include <QDebug>
 #include "ItemGroupBase.hpp"
 #include "InstanceCounter.hpp"
 
@@ -58,5 +61,6 @@ private:
 };
 
 Q_DECLARE_METATYPE(Radio*);
+QDebug operator << (QDebug dbg, Radio const&p);
 
 #endif

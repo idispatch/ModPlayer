@@ -1,11 +1,11 @@
 function getRadioIcon(name) {
-    if(name.indexOf("listen.rockradio.com") != -1) {
+    if(name.indexOf("rockradio") != -1) {
         return "asset:///images/formats/icon-rockradio.png";
-    } else if(name.indexOf("listen.jazzradio.com") != -1) {
+    } else if(name.indexOf("jazzradio") != -1) {
         return "asset:///images/formats/icon-jazzradio.png";
-    } else if(name.indexOf("listen.sky.fm") != -1) {
+    } else if(name.indexOf("skyfm") != -1) {
         return "asset:///images/formats/icon-skyfm.png";
-    } else if(name.indexOf("listen.di.fm") != -1) {
+    } else if(name.indexOf("difm") != -1) {
         return "asset:///images/formats/icon-difm.png";
     }
     return "";

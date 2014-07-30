@@ -25,16 +25,6 @@ int Catalog::asyncSearchCommand(Command::CommandType commandType,
                                                 limit));
 }
 
-int Catalog::findLiveStreamRadioAsync(QString const& searchTerm,
-                                      QString const& country,
-                                      int limit) {
-    return asyncCommandSubmit(new SearchRadioCommand(Command::Radio,
-                                                     searchTerm,
-                                                     country,
-                                                     Command::nextCommandId(),
-                                                     limit));
-}
-
 int Catalog::songCountAsync() {
     return asyncCommand(Command::SongCount);
 }
@@ -109,6 +99,16 @@ int Catalog::findMyLocalSongsAsync(QString const& searchTerm, int limit) {
 
 int Catalog::findMostPlayedSongsAsync(QString const& searchTerm, int limit) {
     return asyncSearchCommand(Command::MostPlayedSongs, searchTerm, 0, limit);
+}
+
+int Catalog::findLiveStreamRadioAsync(QString const& searchTerm,
+                                      QString const& country,
+                                      int limit) {
+    return asyncCommandSubmit(new SearchRadioCommand(Command::Radio,
+                                                     searchTerm,
+                                                     country,
+                                                     Command::nextCommandId(),
+                                                     limit));
 }
 
 int Catalog::searchSongsAsync(QString const& searchTerm, int limit) {

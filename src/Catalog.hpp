@@ -139,7 +139,7 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(QString const& searchTerm, int limit);
     Q_INVOKABLE int findMostPlayedSongsAsync(QString const& searchTerm, int limit);
 
-    Q_INVOKABLE bb::cascades::ArrayDataModel* findLiveStreamRadio(QString const& searchTerm,
+    Q_INVOKABLE bb::cascades::GroupDataModel* findLiveStreamRadio(QString const& searchTerm,
                                                                   QString const& country,
                                                                   int limit);
     Q_INVOKABLE int findLiveStreamRadioAsync(QString const& searchTerm,
@@ -197,7 +197,7 @@ private:
                                                       QString const& orderByClause,
                                                       int limit);
 
-    bb::cascades::ArrayDataModel* selectRadioInfo(QString const& selectClause,
+    bb::cascades::GroupDataModel* selectRadioInfo(QString const& selectClause,
                                                   QString const& whereClause,
                                                   QString const& orderByClause,
                                                   int limit);

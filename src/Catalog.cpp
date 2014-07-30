@@ -49,7 +49,7 @@ static const char * SELECT_FROM_RADIO =
         " countries.flag AS flag "
         "FROM radio"
         " INNER JOIN countries ON radio.countryId = countries.countryId"
-        " INNER JOIN radio_styles ON radio.styleId = radio_styles.styleId";
+        " INNER JOIN radio_styles ON radio.styleId = radio_styles.styleId ";
 
 int Catalog::Command::s_commandCounter = 0;
 int Catalog::Version = 4;
@@ -620,16 +620,17 @@ Radio* Catalog::readRadioInfo(QSqlQuery &sqlQuery, QObject *parent) {
     int id, bitrate;
     QString name, playlist, country, location, style, url, flag;
     reader >> id >> name >> playlist >> bitrate >> country >> location >> style >> url >> flag;
-    return new Radio(id,
-                     name,
-                     playlist,
-                     country,
-                     location,
-                     style,
-                     url,
-                     flag,
-                     bitrate,
-                     parent);
+    Radio * result = new Radio(id,
+                               name,
+                               playlist,
+                               country,
+                               location,
+                               style,
+                               url,
+                               flag,
+                               bitrate,
+                               parent);
+    return result;
 }
 
 SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *parent) {
@@ -704,10 +705,10 @@ ArrayDataModel* Catalog::selectSongBasicInfo(QString const& selectClause,
     return model;
 }
 
-ArrayDataModel* Catalog::selectRadioInfo(QString const& selectClause,
-                                         QString const& whereClause,
-                                         QString const& orderByClause,
-                                         int limit) {
+bb::cascades::GroupDataModel* Catalog::selectRadioInfo(QString const& selectClause,
+                                                       QString const& whereClause,
+                                                       QString const& orderByClause,
+                                                       int limit) {
     QString query(selectClause);
     if(whereClause.length() > 0) {
         query += " ";
@@ -720,13 +721,16 @@ ArrayDataModel* Catalog::selectRadioInfo(QString const& selectClause,
     if(limit > 0) {
         query += QString(" LIMIT %1").arg(limit + 1);
     }
-    ArrayDataModel * model = new ArrayDataModel();
+
+    GroupDataModel * model = new GroupDataModel(QStringList() << "name");
+    model->setGrouping(ItemGrouping::ByFirstChar);
+    model->setSortedAscending(true);
+
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
     while(sqlQuery.next()) {
         QObject* value = readRadioInfo(sqlQuery, model);
-        QVariant v = QVariant::fromValue(value);
-        model->append(v);
+        model->insert(value);
     }
     return model;
 }
@@ -852,18 +856,18 @@ ArrayDataModel* Catalog::findMostPlayedSongs(QString const& searchTerm, int limi
                                limit);
 }
 
-ArrayDataModel* Catalog::findLiveStreamRadio(QString const& searchTerm,
-                                             QString const& country,
-                                             int limit) {
+bb::cascades::GroupDataModel* Catalog::findLiveStreamRadio(QString const& searchTerm,
+                                                           QString const& country,
+                                                           int limit) {
     QString whereClause;
     if(country.length() > 0) {
-        whereClause = QString("WHERE countryName = '%1' ").arg(country);
+        whereClause = QString(" WHERE countryName = '%1' ").arg(country);
     }
     if(searchTerm.length() > 0) {
         if(whereClause.length() > 0) {
             whereClause += " AND ";
         } else {
-            whereClause += "WHERE";
+            whereClause += " WHERE";
         }
         whereClause += QString(" (radioName LIKE '%%%1%%' ESCAPE '\\') ").arg(escapeSql(searchTerm));
     }
