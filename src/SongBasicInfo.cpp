@@ -61,6 +61,7 @@ SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
     if(this != &other) {
         setId(other.id());
         setFileName(other.fileName());
+        setIconPath(other.iconPath());
         setTitle(other.title());
         setFileSize(other.fileSize());
         setSongLength(other.songLength());
@@ -126,7 +127,14 @@ int SongBasicInfo::formatId() const {
 }
 
 QUrl SongBasicInfo::iconPath() const {
-    return SongFormat::getIconPath(static_cast<SongFormat::Format>(formatId()));
+    return m_iconPath.isEmpty() ? SongFormat::getIconPath(static_cast<SongFormat::Format>(formatId())) : m_iconPath;
+}
+
+void SongBasicInfo::setIconPath(QUrl const& path) {
+    if(m_iconPath != path) {
+        m_iconPath = path;
+        emit iconPathChanged();
+    }
 }
 
 int SongBasicInfo::fileSize() const {

@@ -265,7 +265,7 @@ void Player::onDownloadFinished(QString fileName) {
     m_cache->cache(unpackedRelativeFileName);
 
     // Start playing from Catalog
-    beginPlay(true, unpackedRelativeFileName);
+    beginPlay(true, unpackedRelativeFileName, "");
 }
 
 void Player::onDownloadFailure(int id) {
@@ -401,7 +401,7 @@ SongModule * Player::currentSong() const {
     return m_playback->currentSong();
 }
 
-bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
+bool Player::beginPlay(bool fromCatalog, QString const& fileName, QString const& icon) {
     bool rv = false;
 
     std::auto_ptr<SongExtendedInfo> info;
@@ -411,6 +411,9 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName) {
     } else {
         info.reset(new SongExtendedInfo(NULL));
         info->setFileName(fileName);
+        if(SongFormat::isHttpSong(fileName)) {
+            info->setIconPath(QUrl(icon));
+        }
     }
 
     if(info.get()) {
@@ -498,23 +501,27 @@ void Player::play(QVariant value) {
         }
         else
         {
-            playByModuleFileName(valueString);
+            playByModuleFileName(valueString, "");
         }
     }
     else {
         SongExtendedInfo * info = songExtendedInfo(value);
         if(info != 0) {
-            playByModuleFileName(info->fileName());
+            playByModuleFileName(info->fileName(), "");
         } else {
             qDebug() << "Player::play: Unsupported variant type:" << value;
         }
     }
 }
 
-void Player::playByModuleFileName(QString const& fileName) {
+void Player::playRadio(QString const& radio, QString const& icon) {
+    playByModuleFileName(radio, icon);
+}
+
+void Player::playByModuleFileName(QString const& fileName, QString const& icon) {
     if(SongFormat::isHttpSong(fileName))
     {
-        beginPlay(false, fileName);
+        beginPlay(false, fileName, icon);
     }
     else
     {
@@ -522,7 +529,7 @@ void Player::playByModuleFileName(QString const& fileName) {
         if(fileName.startsWith(m_cache->cachePath()) || FileUtils::isRelative(fileName)) {
             if(m_cache->exists(fileName)) {
                 QString name = FileUtils::fileNameOnly(fileName);
-                beginPlay(true, name);
+                beginPlay(true, name, "");
             } else {
                 QString name = FileUtils::fileNameOnly(fileName);
                 changeStatus(Resolving, tr("Resolving %1").arg(name));
@@ -532,7 +539,7 @@ void Player::playByModuleFileName(QString const& fileName) {
             }
         } else {
             // otherwise play from the absolute path
-            beginPlay(false, fileName);
+            beginPlay(false, fileName, "");
         }
     }
 }
@@ -542,14 +549,14 @@ void Player::playByModuleId(int id) {
     if(id > 0) {
         if(m_cache->exists(fileName)) {
             // Play cached file from Catalog
-            beginPlay(true, fileName);
+            beginPlay(true, fileName, "");
         } else {
             changeStatus(Downloading, tr("Downloading song"));
             m_downloader->download(id);
         }
     } else {
         // Play local file from Catalog
-        beginPlay(true, fileName);
+        beginPlay(true, fileName, "");
     }
 }
 
@@ -616,7 +623,7 @@ void Player::onLocalSongBrowseCanceled() {
 }
 
 void Player::playLocalSong(QString const& fileName) {
-    beginPlay(false, fileName);
+    beginPlay(false, fileName, "");
     emit requestPlayerView();
 }
 

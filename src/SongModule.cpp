@@ -59,6 +59,7 @@ void SongModule::reset() {
     setGenre("");
     setGenreId(0);
 
+    setIconPath(QUrl(""));
     setAbsoluteFileName("");
     setDescription("");
 
@@ -236,6 +237,12 @@ bool SongModule::load(SongExtendedInfo const& info, QString const& fileName) {
     } else {
         setAbsoluteFileName(fileName);
         setFileName(fileName);
+        qDebug() << "ICON ICON ICON ICON" << info.iconPath();
+        if(!info.iconPath().isEmpty()) {
+            setIconPath(info.iconPath());
+        }
+        qDebug() << "ICON ICON ICON ICON" << iconPath();
+
         setDescription("");
 
         setCurrentOrder(0);

@@ -4,12 +4,7 @@ import "functions.js" as Global
 ImageView {
     property variant song
     visible: song && song.isHttpSong
-    imageSource: {
-        if(song) {
-            return Global.getRadioIcon(song.fileName)
-        }
-        return ""
-    }
+    imageSource: song.iconPath != "" ? song.iconPath : Global.getRadioIcon(song.fileName)
     horizontalAlignment: HorizontalAlignment.Left
     verticalAlignment: VerticalAlignment.Center
     scalingMethod: ScalingMethod.Fill

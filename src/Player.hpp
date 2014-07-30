@@ -77,6 +77,7 @@ public:
     Q_INVOKABLE void playLocalSong(QString const& fileName);
     Q_INVOKABLE void browseForLocalSong();
     Q_INVOKABLE void play(QVariant value); /* loads and plays */
+    Q_INVOKABLE void playRadio(QString const& radio, QString const& icon);
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
@@ -150,10 +151,10 @@ private:
     void initPlaylist();
 
     void changeStatus(State state, QString const& statusText);
-    bool beginPlay(bool fromCatalog, QString const& fileName);
+    bool beginPlay(bool fromCatalog, QString const& fileName, QString const& icon);
 
     void playByModuleId(int id);
-    void playByModuleFileName(QString const& fileName);
+    void playByModuleFileName(QString const& fileName, QString const& icon);
 
     void updateNowPlaying();
 

@@ -5,6 +5,7 @@ Page {
     id: liveStreamRadioPage
     objectName: "liveStreamRadioPage"
     property variant navigationPane
+    property variant selectedRadio
     property int limit: 200
     property int requestId
 
@@ -41,6 +42,10 @@ Page {
                         DropDown {
                             id: country
                             title: qsTr("Country")
+                            Option {
+                                text: "All European Radio Stations"
+                                selected: true
+                            }
                             Option {
                                 text: "Armenia"
                             }
@@ -242,12 +247,12 @@ Page {
                 }
             ]
             onTriggered: {
-                var chosenItem = dataModel.data(indexPath)
+                selectedRadio = dataModel.data(indexPath)
                 app.player.statusText = qsTr("Tuning Internet Radio")
                 app.player.currentSong.title = "Internet Radio";
                 showPlayerView()
-                app.analytics.selectRadio(chosenItem.radioPlaylist)
-                app.player.radio.download(chosenItem.radioPlaylist)
+                app.analytics.selectRadio(selectedRadio.radioPlaylist)
+                app.player.radio.download(selectedRadio.radioPlaylist)
             }
         }
     }
@@ -263,6 +268,9 @@ Page {
         var countrySelection = ""
         if(country.selectedOption) {
             countrySelection = country.selectedOption.text
+            if(countrySelection == "All European Radio Stations") {
+                countrySelection = ""
+            }
         }
         requestId = app.player.catalog.findLiveStreamRadioAsync(searchArea.searchTerm, 
                                                                 countrySelection, 
@@ -296,7 +304,11 @@ Page {
         app.player.radio.downloadFinished.connect(function(playlist,result) {
             if(result.length > 0) {
                 app.analytics.playRadio(result[0])
-                app.player.play(result[0])
+                var flag = ""
+                if(selectedRadio) {
+                    flag = selectedRadio.flag
+                }
+                app.player.playRadio(result[0], flag)
             }
         })
     }
