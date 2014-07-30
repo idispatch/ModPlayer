@@ -17,13 +17,17 @@
 using namespace bb::data;
 using namespace bb::cascades;
 
+namespace {
+    const char * CATALOG_NAME = "catalog.sqlite";
+}
+
 void Catalog::initCatalog() {
     copyCatalogToDataFolder();
     m_dataAccess = new SqlDataAccess(catalogPath(), "catalog", this);
 }
 
 QString Catalog::catalogPath() const {
-    return FileUtils::joinPath(QDir::homePath(), "catalog.sqlite");
+    return FileUtils::joinPath(QDir::homePath(), CATALOG_NAME);
 }
 
 void Catalog::copyCatalogToDataFolder() {
@@ -39,7 +43,8 @@ void Catalog::copyCatalogToDataFolder() {
 
         QString appFolder(QDir::homePath());
         appFolder.chop(4);
-        QString originalFileName = appFolder + "app/native/assets/catalog.sqlite";
+        QString originalFileName = FileUtils::joinPath(appFolder, "app/native/assets");
+        originalFileName = FileUtils::joinPath(originalFileName, CATALOG_NAME);
 
         if(FileUtils::exists(originalFileName)) {
             QFile originalFile(originalFileName);
@@ -238,6 +243,8 @@ void Catalog::copyCatalogToDataFolder() {
 
             message.setProgress(-1);
             message.setBody(tr("Optimizing catalog..."));
+
+            message.setProgress(50);
 
             dataAccess.execute("VACUUM");
 

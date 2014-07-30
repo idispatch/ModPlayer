@@ -1,3 +1,16 @@
+function getRadioIcon(name) {
+    if(name.indexOf("listen.rockradio.com") != -1) {
+        return "asset:///images/formats/icon-rockradio.png";
+    } else if(name.indexOf("listen.jazzradio.com") != -1) {
+        return "asset:///images/formats/icon-jazzradio.png";
+    } else if(name.indexOf("listen.sky.fm") != -1) {
+        return "asset:///images/formats/icon-skyfm.png";
+    } else if(name.indexOf("listen.di.fm") != -1) {
+        return "asset:///images/formats/icon-difm.png";
+    }
+    return "";
+}
+
 function isAbsolutePath(path) {
     return path.length > 0 && path.charAt(0) == '/';
 }
@@ -61,10 +74,10 @@ function formatTimeStamp(unix_timestamp) {
            diff < 7200 && qsTr("1 hour ago") ||
            diff < 86400 && qsTr("%1 hours ago").arg(Math.floor( diff / 3600 ))) ||
            
-           day_diff == 1 && qsTr("yesterday") ||
-           day_diff < 7 && qsTr("%1 days ago").arg(day_diff) ||
-           day_diff < 31 && qsTr("%1 weeks ago").arg(Math.ceil(day_diff / 7)) ||
-           day_diff < 365 && qsTr("%1 months ago").arg(Math.ceil(day_diff / 12)) ||
+           (day_diff == 1 && qsTr("yesterday") ||
+            day_diff < 7 && qsTr("%1 days ago").arg(day_diff) ||
+            day_diff < 31 && qsTr("%1 weeks ago").arg(Math.ceil(day_diff / 7)) ||
+            day_diff < 365 && qsTr("%1 months ago").arg(Math.ceil(day_diff / 12))) ||
            qsTr("long ago");
 }
 

@@ -6,6 +6,7 @@ CREATE TABLE country
 (
 	countryId INT,
 	name TEXT NOT NULL,
+	flag TEXT NULL,
 
 	CONSTRAINT PK_countries PRIMARY KEY (countryId)
 );

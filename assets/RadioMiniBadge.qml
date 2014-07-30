@@ -1,19 +1,14 @@
 import bb.cascades 1.0
+import "functions.js" as Global
 
 ImageView {
     property variant song
     visible: song && song.isHttpSong
     imageSource: {
         if(song) {
-            if(song.fileName.indexOf("rockradio") != -1) {
-                return "asset:///images/formats/icon-rockradio.png"
-            } else if(song.fileName.indexOf("jazzradio") != -1) {
-                return "asset:///images/formats/icon-jazzradio.png"
-            } else if(song.fileName.indexOf("sky.fm") != -1) {
-                return "asset:///images/formats/icon-skyfm.png"
-            }
+            return Global.getRadioIcon(song.fileName)
         }
-        return "asset:///images/formats/icon-difm.png"
+        return ""
     }
     horizontalAlignment: HorizontalAlignment.Left
     verticalAlignment: VerticalAlignment.Center

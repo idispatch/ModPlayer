@@ -5,11 +5,11 @@ HorizontalContainer {
     id: searchArea
     signal search(string term)
     property alias searchTerm: searchCriteria.text
-    property alias hintText: searchCriteria.hintText 
-    leftPadding: 10
-    rightPadding: leftPadding
-    topPadding: 10
-    bottomPadding: topPadding
+    property alias hintText: searchCriteria.hintText
+    leftPadding: 20.0
+    rightPadding: 20.0
+    topPadding: 20.0
+    bottomPadding: 20.0
     attachedObjects: [
         QTimer {
             id: searchTimer
@@ -28,6 +28,8 @@ HorizontalContainer {
             }
         }
     ]
+    leftMargin: 20.0
+    rightMargin: 20.0
     TextField {
         id: searchCriteria
         content {
@@ -61,13 +63,14 @@ HorizontalContainer {
                 searchTimer.start()
             }
         }
+        rightPadding: 20.0
     }
     Button {
         id: searchButton
         enabled: false
         imageSource: "asset:///images/actions/icon_search_dark.png"
         verticalAlignment: VerticalAlignment.Center
-        leftMargin: 10
+        leftMargin: 20.0
         rightMargin: leftMargin
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1

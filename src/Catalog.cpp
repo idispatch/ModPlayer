@@ -45,7 +45,8 @@ static const char * SELECT_FROM_RADIO =
         " countries.name AS countryName,"
         " radio.location AS location,"
         " radio_styles.name AS styleName,"
-        " radio.url AS radioUrl "
+        " radio.url AS radioUrl, "
+        " countries.flag AS flag "
         "FROM radio"
         " INNER JOIN countries ON radio.countryId = countries.countryId"
         " INNER JOIN radio_styles ON radio.styleId = radio_styles.styleId";
@@ -616,15 +617,9 @@ SongBasicInfo* Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) 
 
 Radio* Catalog::readRadioInfo(QSqlQuery &sqlQuery, QObject *parent) {
     SqlReader reader(sqlQuery);
-    int id;
-    QString name;
-    QString playlist;
-    QString country;
-    QString location;
-    QString style;
-    QString url;
-    int bitrate;
-    reader >> id >> name >> playlist >> bitrate >> country >> location >> style >> url;
+    int id, bitrate;
+    QString name, playlist, country, location, style, url, flag;
+    reader >> id >> name >> playlist >> bitrate >> country >> location >> style >> url >> flag;
     return new Radio(id,
                      name,
                      playlist,
@@ -632,6 +627,7 @@ Radio* Catalog::readRadioInfo(QSqlQuery &sqlQuery, QObject *parent) {
                      location,
                      style,
                      url,
+                     flag,
                      bitrate,
                      parent);
 }

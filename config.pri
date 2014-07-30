@@ -53,6 +53,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/InstrumentsActionItem.qml) \
         $$quote($$BASEDIR/assets/InstrumentsView.qml) \
         $$quote($$BASEDIR/assets/InternetRadioList.qml) \
+        $$quote($$BASEDIR/assets/LiveStreamRadio.qml) \
         $$quote($$BASEDIR/assets/ModPlayerListItem.qml) \
         $$quote($$BASEDIR/assets/NextActionItem.qml) \
         $$quote($$BASEDIR/assets/OpenSongActionItem.qml) \
@@ -122,6 +123,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_playlist_mode.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_playonce.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_previous.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_radio.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_recent.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_repeatsong.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_review.png) \
@@ -152,6 +154,55 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/badges/badge_score.png) \
         $$quote($$BASEDIR/assets/images/cover/cover_text_back.amd) \
         $$quote($$BASEDIR/assets/images/cover/cover_text_back.png) \
+        $$quote($$BASEDIR/assets/images/flags/Andorra-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Armenia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Austria-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Azerbaijan-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Belarus-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Belgium-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Bosnian-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Bulgaria-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Croatian-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Cyprus-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Czech-republic.png) \
+        $$quote($$BASEDIR/assets/images/flags/Denmark.png) \
+        $$quote($$BASEDIR/assets/images/flags/Estonia.png) \
+        $$quote($$BASEDIR/assets/images/flags/Faroe-islands.png) \
+        $$quote($$BASEDIR/assets/images/flags/Finland-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/France-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Georgia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Germany-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Gibraltar-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Greece-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Hungary-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Iceland-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Ireland-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Italy-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Kosovo.png) \
+        $$quote($$BASEDIR/assets/images/flags/Latvia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Liechtenstein-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Lithuania-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Luxembourg-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Macedonia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Malta-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Moldova-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Monaco-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Montenegro.png) \
+        $$quote($$BASEDIR/assets/images/flags/Netherlands-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Norway-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Poland-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Portugal-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Romania-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Russia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Serbia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Slovakia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Slovenia-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Spain-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Sweden-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Switzerland-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Turkey-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/Ukraine-flag.png) \
+        $$quote($$BASEDIR/assets/images/flags/United-kingdom-flag.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-difm.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-jazzradio.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-rockradio.png) \
@@ -556,6 +607,9 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/cover/*.qml) \
         $$quote($$BASEDIR/../assets/images/cover/*.js) \
         $$quote($$BASEDIR/../assets/images/cover/*.qs) \
+        $$quote($$BASEDIR/../assets/images/flags/*.qml) \
+        $$quote($$BASEDIR/../assets/images/flags/*.js) \
+        $$quote($$BASEDIR/../assets/images/flags/*.qs) \
         $$quote($$BASEDIR/../assets/images/formats/*.qml) \
         $$quote($$BASEDIR/../assets/images/formats/*.js) \
         $$quote($$BASEDIR/../assets/images/formats/*.qs) \

@@ -36,18 +36,7 @@ Page {
                     ModPlayerListItem {
                         title: ListItem.data.name
                         description: ListItem.data.description
-                        imageSource: {
-                            if(ListItem.view.channelList.indexOf("difm") != -1) {
-                                return "asset:///images/formats/icon-difm.png"
-                            } else if(ListItem.view.channelList.indexOf("skyfm") != -1) {
-                                return "asset:///images/formats/icon-skyfm.png"
-                            } else if(ListItem.view.channelList.indexOf("jazzradio") != -1) {
-                                return "asset:///images/formats/icon-jazzradio.png"
-                            } else if(ListItem.view.channelList.indexOf("rockradio") != -1) {
-                                return "asset:///images/formats/icon-rockradio.png"
-                            }
-                            return ""
-                        }
+                        imageSource: Global.getRadioIcon(ListItem.view.channelList)
                     }
                 }
             ]
@@ -63,13 +52,13 @@ Page {
     }
     function load() {
         var model
-        if(channelList.indexOf("difm") != -1) {
+        if(channelList.indexOf("listen.di.fm") != -1) {
             model = app.player.catalog.findDigitallyImported()
-        } else if(channelList.indexOf("skyfm") != -1) {
+        } else if(channelList.indexOf("listen.sky.fm") != -1) {
             model = app.player.catalog.findSkyFm()
-        } else if(channelList.indexOf("jazzradio") != -1) {
+        } else if(channelList.indexOf("listen.jazzradio.com") != -1) {
             model = app.player.catalog.findJazzRadio()
-        } else if(channelList.indexOf("rockradio") != -1) {
+        } else if(channelList.indexOf("listen.rockradio.com") != -1) {
             model = app.player.catalog.findRockRadio()
         } else {
             model = null

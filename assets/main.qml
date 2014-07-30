@@ -228,6 +228,28 @@ TabbedPane {
         }
     }
     Tab {
+        id: liveStreamTab
+        title: "Internet Radio"
+        objectName: title
+        description: qsTr("Live Stream Radio")
+        imageSource: "asset:///images/actions/icon_radio.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            liveStream.load()
+        }
+        function unload() {
+            liveStream.unload()
+        }
+        content: NavigationPane {
+            id: liveStreamNavigationPane 
+            LiveStreamRadio {
+                id: liveStream
+                navigationPane: liveStreamNavigationPane
+            }
+            onPopTransitionEnded: page.destroy()
+        }
+    }
+    Tab {
         id: mostPlayedTab
         title: qsTr("Most Played")
         objectName: title

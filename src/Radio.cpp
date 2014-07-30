@@ -15,6 +15,7 @@ Radio::Radio(int id,
              QString const& location,
              QString const& style,
              QString const& url,
+             QString const& flag,
              int bitrate,
              QObject *parent)
     : ItemGroupBase(id, name, 0, 0, parent),
@@ -23,6 +24,7 @@ Radio::Radio(int id,
       m_location(location),
       m_style(style),
       m_url(url),
+      m_flag(flag),
       m_bitrate(bitrate) {
 }
 
@@ -50,6 +52,10 @@ QString const& Radio::style() const {
 
 QString const& Radio::url() const {
     return m_url;
+}
+
+QString const& Radio::flag() const {
+    return m_flag;
 }
 
 int Radio::bitrate() const {

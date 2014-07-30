@@ -403,6 +403,17 @@
     </message>
 </context>
 <context>
+    <name>LiveStreamRadio</name>
+    <message>
+        <source>Select Internet Radio Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuning Internet Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Mp3Export</name>
     <message>
         <source>Creating %1</source>
@@ -1374,6 +1385,10 @@
     </message>
     <message>
         <source>Rock Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Live Stream Radio</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
