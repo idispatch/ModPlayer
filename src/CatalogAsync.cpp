@@ -15,8 +15,24 @@ int Catalog::asyncCommand(Command::CommandType commandType) {
     return asyncCommandSubmit(new Command(commandType));
 }
 
-int Catalog::asyncSearchCommand(Command::CommandType commandType, QString const& searchTerm, int queryId, int limit) {
-    return asyncCommandSubmit(new SearchCommand(commandType, searchTerm, queryId, limit));
+int Catalog::asyncSearchCommand(Command::CommandType commandType,
+                                QString const& searchTerm,
+                                int queryId,
+                                int limit) {
+    return asyncCommandSubmit(new SearchCommand(commandType,
+                                                searchTerm,
+                                                queryId,
+                                                limit));
+}
+
+int Catalog::findLiveStreamRadioAsync(QString const& searchTerm,
+                                      QString const& country,
+                                      int limit) {
+    return asyncCommandSubmit(new SearchRadioCommand(Command::Radio,
+                                                     searchTerm,
+                                                     country,
+                                                     Command::nextCommandId(),
+                                                     limit));
 }
 
 int Catalog::songCountAsync() {
@@ -162,6 +178,14 @@ void Catalog::run() {
             {
                 SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
                 result = assign(command, findAlbums(searchCommand->query()));
+            }
+            break;
+        case Command::Radio:
+            {
+                SearchRadioCommand * searchCommand = dynamic_cast<SearchRadioCommand*>(command.get());
+                result = assign(command, findLiveStreamRadio(searchCommand->query(),
+                                                             searchCommand->country(),
+                                                             searchCommand->limit()));
             }
             break;
         case Command::SongsByFormatList:

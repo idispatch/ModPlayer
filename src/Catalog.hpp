@@ -16,6 +16,7 @@
 #include "Artist.hpp"
 #include "NamedPlaylist.hpp"
 #include "Album.hpp"
+#include "Radio.hpp"
 #include "InstanceCounter.hpp"
 
 #ifdef _DEBUG
@@ -138,6 +139,13 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findMostPlayedSongs(QString const& searchTerm, int limit);
     Q_INVOKABLE int findMostPlayedSongsAsync(QString const& searchTerm, int limit);
 
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findLiveStreamRadio(QString const& searchTerm,
+                                                                  QString const& country,
+                                                                  int limit);
+    Q_INVOKABLE int findLiveStreamRadioAsync(QString const& searchTerm,
+                                             QString const& country,
+                                             int limit);
+
     // Synchronous only
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
@@ -189,11 +197,18 @@ private:
                                                       QString const& orderByClause,
                                                       int limit);
 
+    bb::cascades::ArrayDataModel* selectRadioInfo(QString const& selectClause,
+                                                  QString const& whereClause,
+                                                  QString const& orderByClause,
+                                                  int limit);
+
     static SongBasicInfo * readSongBasicInfo(QSqlQuery &sqlQuery,
                                              QObject *parent);
 
     static SongExtendedInfo * readSongInfo(QSqlQuery &sqlQuery,
                                            QObject *parent);
+
+    static Radio* readRadioInfo(QSqlQuery &sqlQuery, QObject *parent);
 private:
     class Command {
     public:
@@ -208,6 +223,7 @@ private:
             ArtistsList,
             Playlists,
             Albums,
+            Radio,
 
             SongsByFormatList,
             SongsByGenreList,
@@ -278,6 +294,23 @@ private:
         const int m_queryId;
         const int m_limit;
     };
+
+    class SearchRadioCommand : public SearchCommand {
+    public:
+        SearchRadioCommand(Command::CommandType commandType,
+                           QString const& query,
+                           QString const& country,
+                           int queryId,
+                           int limit)
+                        : SearchCommand(commandType, query, queryId, limit),
+                          m_country(country) {
+                }
+        QString const& country() const {
+            return m_country;
+        }
+    private:
+        const QString m_country;
+    };
 private:
     int asyncCommandSubmit(Command * command);
     int asyncCommand(Command::CommandType commandType);
@@ -285,6 +318,11 @@ private:
                            QString const& searchTerm,
                            int queryId,
                            int limit);
+    int asyncSearchRadioCommand(Command::CommandType commandType,
+                                QString const& searchTerm,
+                                QString const& country,
+                                int queryId,
+                                int limit);
 
     QVariant assign(std::auto_ptr<Command> &command,
                     bb::cascades::DataModel * value) {

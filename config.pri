@@ -234,6 +234,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
         $$quote($$BASEDIR/src/Player.cpp) \
         $$quote($$BASEDIR/src/Playlist.cpp) \
+        $$quote($$BASEDIR/src/Radio.cpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.cpp) \
         $$quote($$BASEDIR/src/SongFormat.cpp) \
@@ -371,6 +372,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
         $$quote($$BASEDIR/src/Player.hpp) \
         $$quote($$BASEDIR/src/Playlist.hpp) \
+        $$quote($$BASEDIR/src/Radio.hpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.hpp) \
         $$quote($$BASEDIR/src/SongFormat.hpp) \

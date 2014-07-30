@@ -35,6 +35,7 @@
 #include "Playlist.hpp"
 #include "NamedPlaylist.hpp"
 #include "Album.hpp"
+#include "Radio.hpp"
 #include "WebImageView.hpp"
 #include "InternetRadio.hpp"
 
@@ -207,6 +208,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Playlist>(QmlNamespace, versionMajor, versionMinor, "Playlist", "");
     qmlRegisterUncreatableType<NamedPlaylist>(QmlNamespace, versionMajor, versionMinor, "NamedPlaylist", "");
     qmlRegisterUncreatableType<Album>(QmlNamespace, versionMajor, versionMinor, "Album", "");
+    qmlRegisterUncreatableType<Radio>(QmlNamespace, versionMajor, versionMinor, "Radio", "");
 }
 
 void ApplicationUI::initApp() {

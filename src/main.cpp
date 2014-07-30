@@ -31,6 +31,7 @@
 #include "Playlist.hpp"
 #include "NamedPlaylist.hpp"
 #include "Album.hpp"
+#include "Radio.hpp"
 #include "WebImageView.hpp"
 #include "InternetRadio.hpp"
 
@@ -70,6 +71,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(Playlist)
     DUMP_COUNT(NamedPlaylist)
     DUMP_COUNT(Album)
+    DUMP_COUNT(Radio)
     DUMP_COUNT(WebImageView)
     DUMP_COUNT(InternetRadio)
 #undef DUMP_COUNT
