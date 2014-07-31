@@ -108,7 +108,9 @@ void InternetRadio::download(QUrl const& url) {
 }
 
 void InternetRadio::onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility a) {
+#ifdef VERBOSE_LOGGING
     qDebug() << "Network accessible changed to" << a;
+#endif
     if(a != QNetworkAccessManager::Accessible)
     {
         cancelAllPendingDownloads();

@@ -18,7 +18,7 @@ Radio::Radio(int id,
              QString const& flag,
              int bitrate,
              QObject *parent)
-    : ItemGroupBase(id, name, 0, 0, parent),
+    : NamedItem(id, name, parent),
       m_playlist(radioPlaylist),
       m_country(country),
       m_location(location),

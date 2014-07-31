@@ -4,10 +4,10 @@
 #include <QObject>
 #include <QMetaType>
 #include <QDebug>
-#include "ItemGroupBase.hpp"
+#include "NamedItem.hpp"
 #include "InstanceCounter.hpp"
 
-class Radio : public ItemGroupBase,
+class Radio : public NamedItem,
               public InstanceCounter<Radio> {
     Q_OBJECT
     Q_PROPERTY(QString radioPlaylist READ radioPlaylist NOTIFY radioPlaylistChanged FINAL)
