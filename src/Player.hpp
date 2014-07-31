@@ -77,7 +77,7 @@ public:
     Q_INVOKABLE void playLocalSong(QString const& fileName);
     Q_INVOKABLE void browseForLocalSong();
     Q_INVOKABLE void play(QVariant value); /* loads and plays */
-    Q_INVOKABLE void playRadio(QString const& radio, QString const& icon);
+    Q_INVOKABLE void playRadio(QString const& radioURL, QString const& icon);
     Q_INVOKABLE void stop(); /* stops but not unloads */
     Q_INVOKABLE void pause();
     Q_INVOKABLE void resume();
@@ -121,6 +121,7 @@ private slots:
     void onFinished();
     void onMetaDataChanged();
     void onBufferingStatusChanged(int type);
+    void onSongIconPathChanged();
 
     /* For NowPlayingConnection */
     void onNowPlayingAcquired();

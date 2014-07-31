@@ -132,6 +132,10 @@ void Player::initPlayback() {
     rc = QObject::connect(m_playback, SIGNAL(bufferingStatusChanged(int)),
                           this,       SLOT(onBufferingStatusChanged(int)));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(m_playback->currentSong(), SIGNAL(iconPathChanged()),
+                          this,                      SLOT(onSongIconPathChanged()));
+    Q_ASSERT(rc);
     Q_UNUSED(rc);
 
     int mode = m_settings.value("player/mode", Playlist::PlaylistOnce).toInt();
@@ -282,25 +286,25 @@ void Player::updateNowPlaying() {
     QVariantMap metadata;
 
     if(SongFormat::isHttpSong(currentSong()->fileName())) {
-        QString title;
-        QString iconName;
+        QUrl iconURL;
+
         QString appFolder(QDir::homePath());
         appFolder.chop(4); // remove data directory from end
-        if(currentSong()->fileName().indexOf("rockradio") != -1) {
-            title = "www.rockradio.com";
-            iconName = "icon-rockradio.png";
-        } else if(currentSong()->fileName().indexOf("jazzradio") != -1) {
-            title = "www.jazzradio.com";
-            iconName = "icon-jazzradio.png";
-        } else if(currentSong()->fileName().indexOf("sky.fm") != -1) {
-            title = "www.sky.fm";
-            iconName = "icon-skyfm.png";
+
+        metadata[MetaData::Title] = currentSong()->fileName();
+
+        QString iconPath = currentSong()->iconPath();
+
+        if(iconPath.startsWith("asset:///")) {
+            iconPath.remove("asset:///");
+            appFolder = QString("%1app/native/assets").arg(appFolder);
+            iconPath = FileUtils::joinPath(appFolder, iconPath);
+            iconURL = iconPath;
+            iconURL.setScheme("file");
         } else {
-            title = "www.di.fm";
-            iconName = "icon-difm.png";
+            iconURL = iconPath;
         }
-        metadata[MetaData::Title] = title;
-        m_nowPlaying->setIconUrl(QUrl(QString("file://%1app/native/assets/images/formats/%2").arg(appFolder).arg(iconName)));
+        m_nowPlaying->setIconUrl(iconURL);
     } else {
         metadata[MetaData::Title] = FileUtils::fileNameOnly(currentSong()->fileName());
         m_nowPlaying->setIconUrl(currentSong()->iconPath());
@@ -516,17 +520,17 @@ void Player::play(QVariant value) {
     }
 }
 
-void Player::playRadio(QString const& radio, QString const& icon) {
-    playByModuleFileName(radio, icon);
+void Player::playRadio(QString const& radioURL, QString const& icon) {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "Player::playRadio" << radioURL << icon;
+#endif
+    playByModuleFileName(radioURL, icon);
 }
 
 void Player::playByModuleFileName(QString const& fileName, QString const& icon) {
-    if(SongFormat::isHttpSong(fileName))
-    {
+    if(SongFormat::isHttpSong(fileName)) {
         beginPlay(false, fileName, icon);
-    }
-    else
-    {
+    } else {
         // relative path or within cache directory - play from cache
         if(fileName.startsWith(m_cache->cachePath()) || FileUtils::isRelative(fileName)) {
             if(m_cache->exists(fileName)) {
@@ -702,6 +706,13 @@ void Player::onBufferingStatusChanged(int type) {
         }
         break;
     }
+}
+
+void Player::onSongIconPathChanged() {
+#ifdef VERBOSE_LOGGING
+    qDebug() << "ICONPATH SongIconPathChanged" << currentSong()->iconPath();
+#endif
+    updateNowPlaying();
 }
 
 void Player::askToSupport() {

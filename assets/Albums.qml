@@ -136,10 +136,10 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
-                if(mainTabPane.activePane == navigationPane && 
-                   navigationPane.top == playlistsPage) {
-                    showPlayer()
-                }
+             if(mainTabPane.activePane == navigationPane && 
+                navigationPane.top == albumsPage) {
+                 showPlayer()
+             }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId != requestId) 

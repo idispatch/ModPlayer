@@ -6,6 +6,7 @@ Page {
     objectName: "internetRadioPage"
     property variant navigationPane
     property alias channelList : internetRadioList.channelList
+    property string playlistURL
     titleBar: PlayerTitleBar {
         title: qsTr("Select Internet Radio Channel")
     }
@@ -43,12 +44,16 @@ Page {
             ]
             onTriggered: {
                 var chosenItem = dataModel.data(indexPath)
+                playlistURL = chosenItem.playlist
+                
                 app.player.statusText = qsTr("Tuning Internet Radio")
                 app.player.currentSong.title = "Internet Radio";
-                app.player.currentSong.iconPath = Global.getRadioIcon(chosenItem.playlist)
+                app.player.currentSong.iconPath = Global.getRadioIcon(playlistURL)
+                
                 showPlayerView()
-                app.analytics.selectRadio(chosenItem.playlist)
-                app.player.radio.download(chosenItem.playlist)
+                
+                app.analytics.selectRadio(playlistURL)
+                app.player.radio.download(playlistURL)
             }
         }
     }
@@ -86,10 +91,11 @@ Page {
                 navigationPane.push(view)
             }
         })
-        app.player.radio.downloadFinished.connect(function(url,result) {
-            if(result.length > 0) {
-                app.analytics.playRadio(result[0])
-                app.player.play(result[0])
+        app.player.radio.downloadFinished.connect(function(playlist,result) {
+            if(playlistURL == playlist && result.length > 0) {
+                app.analytics.playRadio(playlist)
+                var iconURL = Global.getRadioIcon(channelList)
+                app.player.playRadio(result[0], iconURL)
             }
         })
     }

@@ -6,7 +6,8 @@ Page {
     objectName: "liveStreamRadioPage"
     property variant navigationPane
     property variant selectedRadio
-    property int limit: 500
+    property string playlistURL
+    property int limit: 1000
     property int requestId
 
     titleBar: PlayerTitleBar {
@@ -290,18 +291,19 @@ Page {
                         description: ListItem.data.location + ", " + ListItem.data.country
                         text: ListItem.data.style
                         upperStatus: "Mp3"
-                        middleStatus: "%1 kBps".arg(ListItem.data.bitrate)
+                        middleStatus: ListItem.data.bitrate > 0 ? "%1 kBps".arg(ListItem.data.bitrate) : ""
                         imageSource: ListItem.data.flag
                     }
                 }
             ]
             onTriggered: {
                 selectedRadio = dataModel.data(indexPath)
+                playlistURL = selectedRadio.radioPlaylist
                 app.player.statusText = qsTr("Tuning Internet Radio")
                 app.player.currentSong.title = "Internet Radio";
                 showPlayerView()
-                app.analytics.selectRadio(selectedRadio.radioPlaylist)
-                app.player.radio.download(selectedRadio.radioPlaylist)
+                app.analytics.selectRadio(playlistURL)
+                app.player.radio.download(playlistURL)
             }
         }
     }
@@ -351,8 +353,8 @@ Page {
              radioList.dataModel = result
         })
         app.player.radio.downloadFinished.connect(function(playlist,result) {
-            if(result.length > 0) {
-                app.analytics.playRadio(result[0])
+            if(playlist == playlistURL && result.length > 0) {
+                app.analytics.playRadio(playlist)
                 var flag = ""
                 if(selectedRadio) {
                     flag = selectedRadio.flag
