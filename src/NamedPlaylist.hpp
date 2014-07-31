@@ -7,6 +7,7 @@
 class NamedPlaylist : public ItemGroupBase,
                       public InstanceCounter<NamedPlaylist> {
     Q_OBJECT
+    Q_DISABLE_COPY(NamedPlaylist)
 public:
     NamedPlaylist(int id,
                   QString const& name,
@@ -17,8 +18,6 @@ public:
 
     using InstanceCounter<NamedPlaylist>::getInstanceCount;
     using InstanceCounter<NamedPlaylist>::getMaxInstanceCount;
-private:
-    Q_DISABLE_COPY(NamedPlaylist)
 };
 
 Q_DECLARE_METATYPE(NamedPlaylist*);

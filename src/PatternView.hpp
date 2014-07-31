@@ -48,6 +48,7 @@ private:
     void createPatternView();
     void updateCanvas();
 private:
+    Q_DISABLE_COPY(PatternView)
     bb::cascades::Container * m_rootContainer;
     bb::cascades::Container * m_cursor;
     bb::cascades::ImageView * m_patternImage;

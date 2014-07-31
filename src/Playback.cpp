@@ -282,7 +282,7 @@ bool Playback::load(SongExtendedInfo const& info, QString const& fileName) {
     QMutexLocker locker(&m_mutex);
     m_command = LoadCommand;
     m_pendingFileName = fileName;
-    m_pendingSong = info;
+    m_pendingSong.copyFrom(info);
     m_cond.wakeAll();
     while(m_command != NoCommand) {
         m_cond.wait(&m_mutex);

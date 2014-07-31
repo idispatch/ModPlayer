@@ -35,6 +35,7 @@ Page {
                     type: "item"
                     ModPlayerListItem {
                         title: ListItem.data.name
+                        favourite: false
                         description: ListItem.data.description
                         imageSource: Global.getRadioIcon(ListItem.view.channelList)
                     }
@@ -44,6 +45,7 @@ Page {
                 var chosenItem = dataModel.data(indexPath)
                 app.player.statusText = qsTr("Tuning Internet Radio")
                 app.player.currentSong.title = "Internet Radio";
+                app.player.currentSong.iconPath = Global.getRadioIcon(chosenItem.playlist)
                 showPlayerView()
                 app.analytics.selectRadio(chosenItem.playlist)
                 app.player.radio.download(chosenItem.playlist)

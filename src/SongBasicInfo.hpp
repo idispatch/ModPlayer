@@ -19,7 +19,7 @@ class SongBasicInfo : public QObject,
 
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged FINAL)
-    Q_PROPERTY(QUrl iconPath READ iconPath WRITE setIconPath NOTIFY iconPathChanged FINAL)
+    Q_PROPERTY(QString iconPath READ iconPath WRITE setIconPath NOTIFY iconPathChanged FINAL)
 
     Q_PROPERTY(int fileSize READ fileSize WRITE setFileSize NOTIFY fileSizeChanged FINAL)
     Q_PROPERTY(int songLength READ songLength WRITE setSongLength NOTIFY songLengthChanged FINAL)
@@ -49,7 +49,7 @@ public:
                   int myFavourite,
                   QObject * parent);
     ~SongBasicInfo();
-    SongBasicInfo& operator = (SongBasicInfo const& other);
+    SongBasicInfo& copyFrom(SongBasicInfo const& other);
 
     bool isTrackerSong() const;
     bool isHttpSong() const;
@@ -74,8 +74,8 @@ public:
 
     int formatId() const;
 
-    QUrl iconPath() const;
-    void setIconPath(QUrl const& path);
+    QString iconPath() const;
+    void setIconPath(QString const& path);
 
     int downloads() const;
     void setDownloads(int value);
@@ -116,10 +116,11 @@ Q_SIGNALS:
     void lastPlayedChanged();
     void myFavouriteChanged();
 private:
+    Q_DISABLE_COPY(SongBasicInfo)
     int m_id;
     QString m_fileName;
     QString m_title;
-    QUrl m_iconPath;
+    QString m_iconPath;
     int m_fileSize;
     int m_songLength;
     int m_downloads;

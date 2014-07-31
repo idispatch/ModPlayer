@@ -36,6 +36,7 @@ public:
     using InstanceCounter<LCDDigits>::getInstanceCount;
     using InstanceCounter<LCDDigits>::getMaxInstanceCount;
 private:
+    Q_DISABLE_COPY(LCDDigits)
     void createLCD();
 
     static bb::cascades::Image images[11];

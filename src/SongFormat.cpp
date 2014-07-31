@@ -27,48 +27,52 @@ QString const& SongFormat::description() const {
     return m_description;
 }
 
-QUrl SongFormat::iconPath() const {
+QString SongFormat::iconPath() const {
     return getIconPath(static_cast<Format>(id()));
 }
 
-QUrl SongFormat::getIconPath(SongFormat::Format formatId) {
+QString SongFormat::getIconPath(QString const& fileName) {
+    return getIconPath(getFormatIdByFileName(fileName));
+}
+
+QString SongFormat::getIconPath(SongFormat::Format formatId) {
     QString appFolder(QDir::homePath());
     appFolder.chop(4); // remove data directory from end
     QString icons = QString("file://%1%2").arg(appFolder).arg("app/native/assets/images/formats");
     switch(formatId){
     case FORMAT_MOD:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mod"));
+        return QString("%1/icon_%2.png").arg(icons).arg("mod");
     case FORMAT_669:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("669"));
+        return QString("%1/icon_%2.png").arg(icons).arg("669");
     case FORMAT_IT:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("it"));
+        return QString("%1/icon_%2.png").arg(icons).arg("it");
     case FORMAT_MED:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("med"));
+        return QString("%1/icon_%2.png").arg(icons).arg("med");
     case FORMAT_MTM:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mtm"));
+        return QString("%1/icon_%2.png").arg(icons).arg("mtm");
     case FORMAT_OCT:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("oct"));
+        return QString("%1/icon_%2.png").arg(icons).arg("oct");
     case FORMAT_OKT:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("okt"));
+        return QString("%1/icon_%2.png").arg(icons).arg("okt");
     case FORMAT_S3M:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("s3m"));
+        return QString("%1/icon_%2.png").arg(icons).arg("s3m");
     case FORMAT_STM:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("stm"));
+        return QString("%1/icon_%2.png").arg(icons).arg("stm");
     case FORMAT_XM:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("xm"));
+        return QString("%1/icon_%2.png").arg(icons).arg("xm");
     case FORMAT_AHX:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("ahx"));
+        return QString("%1/icon_%2.png").arg(icons).arg("ahx");
     case FORMAT_HVL:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("hvl"));
+        return QString("%1/icon_%2.png").arg(icons).arg("hvl");
     case FORMAT_MP3:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("mp3"));
+        return QString("%1/icon_%2.png").arg(icons).arg("mp3");
     case FORMAT_OGG:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("ogg"));
+        return QString("%1/icon_%2.png").arg(icons).arg("ogg");
     case FORMAT_FLAC:
-        return QUrl(QString("%1/icon_%2.png").arg(icons).arg("flac"));
+        return QString("%1/icon_%2.png").arg(icons).arg("flac");
     case FORMAT_HTTP:
     default:
-        return QUrl(QString("%1/icon_unknown.png").arg(icons));
+        return QString("%1/icon_unknown.png").arg(icons);
     }
 }
 

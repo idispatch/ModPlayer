@@ -11,6 +11,7 @@
 class SongExtendedInfo : public SongBasicInfo,
                          public InstanceCounter<SongExtendedInfo> {
     Q_OBJECT
+    Q_DISABLE_COPY(SongExtendedInfo)
 
     Q_PROPERTY(QString format READ format WRITE setFormat NOTIFY formatChanged FINAL)
     Q_PROPERTY(QString tracker READ tracker WRITE setTracker NOTIFY trackerChanged FINAL)
@@ -54,7 +55,7 @@ public:
                      int channels,
                      QObject * parent);
     ~SongExtendedInfo();
-    SongExtendedInfo& operator = (SongExtendedInfo const&);
+    SongExtendedInfo& copyFrom(SongExtendedInfo const&);
 
     QString format() const;
     void setFormat(const QString &value);

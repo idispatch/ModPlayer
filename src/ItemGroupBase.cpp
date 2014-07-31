@@ -11,22 +11,12 @@ ItemGroupBase::ItemGroupBase(int id,
                              int count,
                              double duration,
                              QObject *parent)
-    : QObject(parent),
-      m_id(id),
-      m_name(name),
+    : NamedItem(id, name, parent),
       m_count(count),
       m_duration(duration){
 }
 
 ItemGroupBase::~ItemGroupBase() {
-}
-
-int ItemGroupBase::id() const {
-    return m_id;
-}
-
-QString const& ItemGroupBase::name() const {
-    return m_name;
 }
 
 int ItemGroupBase::count() const {

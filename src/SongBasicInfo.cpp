@@ -57,7 +57,7 @@ SongBasicInfo::~SongBasicInfo() {
 #endif
 }
 
-SongBasicInfo& SongBasicInfo::operator = (SongBasicInfo const& other) {
+SongBasicInfo& SongBasicInfo::copyFrom(SongBasicInfo const& other) {
     if(this != &other) {
         setId(other.id());
         setFileName(other.fileName());
@@ -83,7 +83,6 @@ void SongBasicInfo::setFileName(const QString &value) {
     if(m_fileName != value) {
         m_fileName = value;
         emit fileNameChanged();
-        emit iconPathChanged();
         emit isHttpSongChanged();
         emit isTrackerSongChanged();
         emit formatIdChanged();
@@ -126,11 +125,11 @@ int SongBasicInfo::formatId() const {
     return SongFormat::getFormatIdByFileName(m_fileName);
 }
 
-QUrl SongBasicInfo::iconPath() const {
+QString SongBasicInfo::iconPath() const {
     return m_iconPath.isEmpty() ? SongFormat::getIconPath(static_cast<SongFormat::Format>(formatId())) : m_iconPath;
 }
 
-void SongBasicInfo::setIconPath(QUrl const& path) {
+void SongBasicInfo::setIconPath(QString const& path) {
     if(m_iconPath != path) {
         m_iconPath = path;
         emit iconPathChanged();

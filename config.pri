@@ -279,6 +279,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/LCDDigits.cpp) \
         $$quote($$BASEDIR/src/LCDDisplay.cpp) \
         $$quote($$BASEDIR/src/Mp3Export.cpp) \
+        $$quote($$BASEDIR/src/NamedItem.cpp) \
         $$quote($$BASEDIR/src/NamedPlaylist.cpp) \
         $$quote($$BASEDIR/src/PatternView.cpp) \
         $$quote($$BASEDIR/src/Playback.cpp) \
@@ -417,6 +418,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/LCDDisplay.hpp) \
         $$quote($$BASEDIR/src/MessageBox.hpp) \
         $$quote($$BASEDIR/src/Mp3Export.hpp) \
+        $$quote($$BASEDIR/src/NamedItem.hpp) \
         $$quote($$BASEDIR/src/NamedPlaylist.hpp) \
         $$quote($$BASEDIR/src/PatternView.hpp) \
         $$quote($$BASEDIR/src/Playback.hpp) \

@@ -9,6 +9,7 @@
 class WebImageView : public bb::cascades::ImageView,
                      public InstanceCounter<WebImageView> {
     Q_OBJECT
+    Q_DISABLE_COPY(WebImageView)
     Q_PROPERTY (QUrl url READ url WRITE setUrl NOTIFY urlChanged)
 public:
     WebImageView(bb::cascades::Container * parent = 0);

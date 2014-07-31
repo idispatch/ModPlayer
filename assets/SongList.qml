@@ -122,6 +122,7 @@ Page {
                 ListItemComponent {
                     ModPlayerListItem {
                         id: songEntry
+                        favourite: ListItem.data.myFavourite > 0
                         title: ListItem.data.title
                         description: Global.fileNameOnly(ListItem.data.fileName)
                         text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 

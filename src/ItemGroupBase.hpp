@@ -4,13 +4,12 @@
 #include <QDebug>
 #include <QMetaType>
 #include <QObject>
+#include "NamedItem.hpp"
 #include "InstanceCounter.hpp"
 
-class ItemGroupBase : public QObject,
+class ItemGroupBase : public NamedItem,
                       public InstanceCounter<ItemGroupBase> {
     Q_OBJECT
-    Q_PROPERTY(int id READ id NOTIFY idChanged FINAL)
-    Q_PROPERTY(QString name READ name NOTIFY nameChanged FINAL)
     Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
     Q_PROPERTY(double duration READ duration NOTIFY durationChanged FINAL)
 public:
@@ -20,23 +19,18 @@ public:
                   double duration,
                   QObject *parent);
     ~ItemGroupBase();
-    int id() const;
-    QString const& name() const;
+
     int count() const;
     double duration() const;
 
     using InstanceCounter<ItemGroupBase>::getInstanceCount;
     using InstanceCounter<ItemGroupBase>::getMaxInstanceCount;
 Q_SIGNALS:
-    void idChanged();
-    void nameChanged();
     void countChanged();
     void durationChanged();
 private:
     Q_DISABLE_COPY(ItemGroupBase)
 
-    int m_id;
-    QString m_name;
     int m_count;
     double m_duration;
 };

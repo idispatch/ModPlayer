@@ -9,7 +9,7 @@ class SongFormat : public ItemGroupBase,
                    public InstanceCounter<SongFormat> {
     Q_OBJECT
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged FINAL)
-    Q_PROPERTY(QUrl iconPath READ iconPath NOTIFY iconPathChanged FINAL)
+    Q_PROPERTY(QString iconPath READ iconPath NOTIFY iconPathChanged FINAL)
 public:
     enum Format {
         FORMAT_UNKNOWN = 0,
@@ -39,12 +39,14 @@ public:
                QObject *parent);
     ~SongFormat();
     QString const& description() const;
-    QUrl iconPath() const;
+    QString iconPath() const;
+
     bool isTrackerSong() const;
     bool isMp3Song() const;
     bool isHttpSong() const;
 
-    static QUrl getIconPath(Format formatId);
+    static QString getIconPath(Format formatId);
+    static QString getIconPath(QString const& fileName);
     static Format getFormatIdByFileName(QString const& fileName);
     static QString getFormatByFormatId(Format formatId);
 

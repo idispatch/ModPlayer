@@ -27,6 +27,7 @@
 #include "PatternView.hpp"
 #include "VUMeter.hpp"
 #include "TouchHandler.hpp"
+#include "NamedItem.hpp"
 #include "ItemGroupBase.hpp"
 #include "Playlist.hpp"
 #include "NamedPlaylist.hpp"
@@ -56,6 +57,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(Canvas)
     DUMP_COUNT(Player)
     DUMP_COUNT(Playback)
+    DUMP_COUNT(NamedItem)
     DUMP_COUNT(ItemGroupBase)
     DUMP_COUNT(LCDDigits)
     DUMP_COUNT(LCDDisplay)

@@ -559,60 +559,65 @@ SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
             >> instruments
             >> samples
             >> channels;
-    return new SongExtendedInfo(
-                        id,
-                        fileName,
-                        title,
-                        downloads,
-                        favourited,
-                        score,
-                        size,
-                        length,
-                        playCount,
-                        lastPlayed,
-                        myFavourite,
-                        format,
-                        tracker,
-                        genre,
-                        artistId,
-                        genreId,
-                        trackerId,
-                        artist,
-                        patterns,
-                        orders,
-                        instruments,
-                        samples,
-                        channels,
-                        parent);
+    SongExtendedInfo * info = new SongExtendedInfo( id,
+                                                    fileName,
+                                                    title,
+                                                    downloads,
+                                                    favourited,
+                                                    score,
+                                                    size,
+                                                    length,
+                                                    playCount,
+                                                    lastPlayed,
+                                                    myFavourite,
+                                                    format,
+                                                    tracker,
+                                                    genre,
+                                                    artistId,
+                                                    genreId,
+                                                    trackerId,
+                                                    artist,
+                                                    patterns,
+                                                    orders,
+                                                    instruments,
+                                                    samples,
+                                                    channels,
+                                                    parent);
+    info->setIconPath(SongFormat::getIconPath(fileName));
+    return info;
 }
 
 SongBasicInfo* Catalog::readSongBasicInfo(QSqlQuery &sqlQuery, QObject *parent) {
+    int id, format, downloads, favourited, score, size, length, playCount;
+    int lastPlayed, myFavourite;
+    QString fileName, title;
     SqlReader reader(sqlQuery);
-    int id;
-    QString fileName;
-    QString title;
-    int format;
-    int downloads;
-    int favourited;
-    int score;
-    int size;
-    int length;
-    int playCount;
-    int lastPlayed;
-    int myFavourite;
-    reader >> id >> fileName >> title >> format >> downloads >> favourited >> score >> size >> length >> playCount >> lastPlayed >> myFavourite;
-    return new SongBasicInfo(id,
-                             fileName,
-                             title,
-                             downloads,
-                             favourited,
-                             score,
-                             size,
-                             length,
-                             playCount,
-                             lastPlayed,
-                             myFavourite,
-                             parent);
+    reader >> id
+           >> fileName
+           >> title
+           >> format
+           >> downloads
+           >> favourited
+           >> score
+           >> size
+           >> length
+           >> playCount
+           >> lastPlayed
+           >> myFavourite;
+    SongBasicInfo * result = new SongBasicInfo(id,
+                                               fileName,
+                                               title,
+                                               downloads,
+                                               favourited,
+                                               score,
+                                               size,
+                                               length,
+                                               playCount,
+                                               lastPlayed,
+                                               myFavourite,
+                                               parent);
+    result->setIconPath(SongFormat::getIconPath(fileName));
+    return result;
 }
 
 Radio* Catalog::readRadioInfo(QSqlQuery &sqlQuery, QObject *parent) {

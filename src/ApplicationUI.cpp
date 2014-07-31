@@ -169,6 +169,7 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<Cache*>();
     qRegisterMetaType<Catalog*>();
     qRegisterMetaType<Downloader*>();
+    qRegisterMetaType<NamedItem*>();
     qRegisterMetaType<ItemGroupBase*>();
     qRegisterMetaType<LCDDigits*>();
     qRegisterMetaType<Playback*>();

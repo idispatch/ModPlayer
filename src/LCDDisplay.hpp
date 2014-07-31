@@ -41,6 +41,7 @@ public:
 private slots:
     void onUpdateTimeout();
 private:
+    Q_DISABLE_COPY(LCDDisplay)
     void createLCD();
     void updateLCD();
 

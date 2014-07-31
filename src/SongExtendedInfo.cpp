@@ -74,9 +74,9 @@ SongExtendedInfo::~SongExtendedInfo() {
 #endif
 }
 
-SongExtendedInfo& SongExtendedInfo::operator = (SongExtendedInfo const& other) {
+SongExtendedInfo& SongExtendedInfo::copyFrom(SongExtendedInfo const& other) {
     if(this != &other) {
-        SongBasicInfo::operator = (other);
+        SongBasicInfo::copyFrom(other);
 
         setFormat(other.format());
 

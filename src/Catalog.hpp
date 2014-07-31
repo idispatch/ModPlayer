@@ -59,6 +59,7 @@ public:
 class Catalog : public QThread,
                 public InstanceCounter<Catalog> {
     Q_OBJECT
+    Q_DISABLE_COPY(Catalog)
     Q_PROPERTY(QString catalogPath READ catalogPath NOTIFY catalogPathChanged FINAL)
     Q_PROPERTY(int songCount READ songCount NOTIFY songCountChanged FINAL)
 public:
@@ -185,7 +186,6 @@ Q_SIGNALS:
     void songCountChanged();
     void catalogPathChanged();
 private:
-    Q_DISABLE_COPY(Catalog)
     void initCatalog();
     void copyCatalogToDataFolder();
     bb::cascades::GroupDataModel* findInternetRadio(QString const & channelList);

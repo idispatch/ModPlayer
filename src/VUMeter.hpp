@@ -19,6 +19,7 @@ class VUMeter : public bb::cascades::CustomControl,
                 public InstanceCounter<VUMeter>
 {
     Q_OBJECT
+    Q_DISABLE_COPY(VUMeter)
 public:
     VUMeter(bb::cascades::Container *parent = 0);
     ~VUMeter();

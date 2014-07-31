@@ -9,6 +9,8 @@ GroupContainer {
     property alias middleStatus: statusMiddleField.text
     property alias lowerStatus: statusLowerField.text
     property alias imageSource: imageView.imageSource
+    
+    property alias favourite: favouriteImage.visible
 
     leftPadding: 10
     rightPadding: 10
@@ -70,6 +72,20 @@ GroupContainer {
                             color: Color.Black
                         }
                     }
+                }
+                ImageView {
+                    id: favouriteImage
+                    imageSource: "asset:///images/badges/badge_myfavourite.png"
+                    horizontalAlignment: HorizontalAlignment.Right
+                    verticalAlignment: VerticalAlignment.Center
+                    scalingMethod: ScalingMethod.None
+                    loadEffect: ImageViewLoadEffect.FadeZoom
+                    preferredWidth: 32
+                    preferredHeight: 32
+                    minWidth: 32
+                    maxWidth: 32
+                    minHeight: 32
+                    maxHeight: 32
                 }
                 VerticalContainer {
                     verticalAlignment: VerticalAlignment.Center

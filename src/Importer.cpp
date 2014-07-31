@@ -247,6 +247,7 @@ bool Importer::importMp3File(QString const& fileName) {
         SongExtendedInfo info(NULL);
         info.setId(m_nextId--);
         info.setFileName(fileName);
+        info.setIconPath(SongFormat::getIconPath(fileName));
         {
             QFile file(fileName);
             info.setFileSize(file.size());
@@ -371,6 +372,7 @@ bool Importer::importTrackerSong(QString const& fileName)
     SongExtendedInfo info(NULL);
     info.setId(m_nextId--);
     info.setFileName(fileName);
+    info.setIconPath(SongFormat::getIconPath(fileName));
     info.setFileSize(data.size());
     info.setSongLength(::ModPlug_GetLength(module));
     info.setTitle(::ModPlug_GetName(module));
