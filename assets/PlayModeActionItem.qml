@@ -5,6 +5,7 @@ import player 1.0
 ActionItem {
     title: qsTr("Playlist Mode")
     imageSource: "asset:///images/actions/icon_playlist_mode.png"
+    enabled: !app.player.currentSong.isHttpSong
     onTriggered: selectPlayMode.run()
     attachedObjects: [
         SystemListDialog {

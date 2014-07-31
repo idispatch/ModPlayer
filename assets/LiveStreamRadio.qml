@@ -289,9 +289,10 @@ Page {
                         title: ListItem.data.name
                         favourite: false
                         description: ListItem.data.location + ", " + ListItem.data.country
-                        text: ListItem.data.style
+                        text: ListItem.data.url
                         upperStatus: "Mp3"
                         middleStatus: ListItem.data.bitrate > 0 ? "%1 kBps".arg(ListItem.data.bitrate) : ""
+                        lowerStatus: ListItem.data.style
                         imageSource: ListItem.data.flag
                     }
                 }
