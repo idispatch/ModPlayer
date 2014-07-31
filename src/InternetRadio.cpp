@@ -198,11 +198,15 @@ void InternetRadio::finishDownload(QNetworkReply * reply) {
     reply->deleteLater();
 
     QString playlist(data);
-    QRegExp rx("(http://[^\\s]+)", Qt::CaseInsensitive, QRegExp::RegExp);
+    QRegExp rx("(http://[^\\s\\n]+)", Qt::CaseInsensitive, QRegExp::RegExp);
     QStringList result;
     int pos = 0;
     while ((pos = rx.indexIn(playlist, pos)) != -1) {
-        result << rx.cap(1);
+        QString url = rx.cap(1);
+        if(url.endsWith(QChar('/'))) {
+            url += ";";
+        }
+        result << url;
         pos += rx.matchedLength();
     }
 
