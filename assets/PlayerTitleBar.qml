@@ -1,7 +1,7 @@
-import bb.cascades 1.0
+import bb.cascades 1.3
 
 TitleBar {
-    appearance: TitleBarAppearance.Branded
+    appearance: TitleBarAppearance.Default
     kind: TitleBarKind.Default
     visibility: ChromeVisibility.Visible
 }
