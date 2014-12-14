@@ -1,4 +1,4 @@
-import bb.cascades 1.3
+import bb.cascades 1.0
 import player 1.0
 
 ActionItem {
@@ -12,7 +12,11 @@ ActionItem {
                 return qsTr("Play")
             }
         } else {
-            return ""
+            if(app.player.playlist.remaining > 0) {
+                return qsTr("Play")
+            } else {
+                return ""
+            }
         }
     }
     enabled: app.player.currentSong.songLoaded || app.player.playlist.remaining > 0 || app.player.currentSong.isHttpSong
@@ -26,7 +30,11 @@ ActionItem {
                 return "asset:///images/actions/icon_play.png"
             }
         } else {
-            return "asset:///images/actions/icon_stop.png"
+            if(app.player.playlist.remaining > 0) {
+                return "asset:///images/actions/icon_play.png"
+            } else {
+                return "asset:///images/actions/icon_stop.png"
+            }
         }
     }
     onTriggered: {

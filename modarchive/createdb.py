@@ -394,7 +394,7 @@ def createDatabase(databaseName):
 	cursor.close()
 	connection.close()
 
-	missing = '\n'.join(['%s|%s' % (modid, fileName) for modid, fileName in missing_files.items()])
+	missing = '\n'.join(['%s|%s' % (modid, fileName1) for modid, fileName1 in missing_files.items()])
 	missing = '# modid|filename\n' + missing
 	open('missing-songs.txt','w').write(missing)
 

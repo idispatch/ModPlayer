@@ -5,7 +5,7 @@
        ModPlayer
        <text xml:lang="ru">ModPlayer</text>
     </name>
-    <versionNumber>4.2.0</versionNumber>
+    <versionNumber>4.3.0</versionNumber>
     <packageLocale>ru</packageLocale>
     <buildId>0</buildId>
     <description>
@@ -50,7 +50,6 @@
     <initialWindow>
         <autoOrients>true</autoOrients>
         <systemChrome>none</systemChrome>
-        <transparent>false</transparent>
     </initialWindow>
     <invoke-target id="com.idispatch.modplayer">
         <invoke-target-type>application</invoke-target-type>

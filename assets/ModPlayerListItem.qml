@@ -1,4 +1,4 @@
-import bb.cascades 1.3
+import bb.cascades 1.0
 
 GroupContainer {
     property alias title: titleField.text
