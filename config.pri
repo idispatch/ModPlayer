@@ -76,6 +76,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SaveSongActionItem.qml) \
         $$quote($$BASEDIR/assets/SearchArea.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \
+        $$quote($$BASEDIR/assets/SongAlbumArt.qml) \
         $$quote($$BASEDIR/assets/SongArtistIcon.qml) \
         $$quote($$BASEDIR/assets/SongArtistInfo.qml) \
         $$quote($$BASEDIR/assets/SongDynamicInfo.qml) \

@@ -164,12 +164,13 @@ id3_length_t id3_utf16_put(id3_byte_t **ptr, id3_utf16_t utf16,
 {
   if (ptr) {
     switch (byteorder) {
-    default:
+
     case ID3_UTF16_BYTEORDER_BE:
       (*ptr)[0] = (utf16 >> 8) & 0xff;
       (*ptr)[1] = (utf16 >> 0) & 0xff;
       break;
 
+    default:
     case ID3_UTF16_BYTEORDER_LE:
       (*ptr)[0] = (utf16 >> 0) & 0xff;
       (*ptr)[1] = (utf16 >> 8) & 0xff;

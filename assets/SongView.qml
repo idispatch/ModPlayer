@@ -37,6 +37,10 @@ Page {
                     song: songView.song
                     visible: songView.song && songView.song.isTrackerSong
                 }
+                SongAlbumArt {
+                    id: albumArt
+                    song: songView.song
+                }
                 Animation {}
             }
         }

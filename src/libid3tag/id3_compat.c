@@ -76,6 +76,7 @@ error "gperf generated tables don't work with this execution character set. Plea
 # define TX(id)    #id, translate_##id
 
 static id3_compat_func_t translate_TCON;
+static id3_compat_func_t translate_APIC;
 
 #define TOTAL_KEYWORDS 73
 #define MIN_WORD_LENGTH 3
@@ -278,7 +279,7 @@ id3_compat_lookup (str, len)
 #line 127 "compat.gperf"
       {"WAF",  EQ(WOAF)  /* Official audio file webpage */},
 #line 75 "compat.gperf"
-      {"PIC",  EQ(APIC)  /* Attached picture */},
+      {"PIC",  TX(APIC)  /* Attached picture */},
 #line 122 "compat.gperf"
       {"TXX",  EQ(TXXX)  /* User defined text information frame */},
 #line 133 "compat.gperf"
@@ -338,6 +339,54 @@ id3_compat_lookup (str, len)
 }
 #line 134 "compat.gperf"
 
+static
+int translate_APIC(struct id3_frame *frame, char const *oldid,
+          id3_byte_t const *data, id3_length_t length)
+{
+  id3_byte_t const *end;
+  char type[16];
+  enum id3_field_textencoding encoding;
+  int result = 0;
+
+  encoding = ID3_FIELD_TEXTENCODING_ISO_8859_1;
+
+  end = data + length;
+  /* Text encoding */
+  if (id3_field_parse(&frame->fields[0], &data, end - data, &encoding) == -1)
+    goto fail;
+
+  /* Image format */
+  id3_parse_immediate(&data, 3, type);
+  if (type[0] == 'P' && type[1] == 'N' && type[2] == 'G') {
+    if (id3_field_setlatin1(&frame->fields[1], (id3_latin1_t const*)"image/png") == -1)
+      goto fail;
+  }
+  else if (type[0] == 'J' && type[1] == 'P' && type[2] == 'G') {
+    if (id3_field_setlatin1(&frame->fields[1], (id3_latin1_t const*)"image/jpeg") == -1)
+      goto fail;
+  }
+  else
+    goto fail;
+
+  /* Picture type */
+  if (id3_field_parse(&frame->fields[2], &data, end - data, &encoding) == -1)
+    goto fail;
+
+  /* Description */
+  if (id3_field_parse(&frame->fields[3], &data, end - data, &encoding) == -1)
+    goto fail;
+
+  /* Picture data */
+  if (id3_field_parse(&frame->fields[4], &data, end - data, &encoding) == -1)
+    goto fail;
+
+  if (0) {
+  fail:
+    result = -1;
+  }
+
+  return result;
+}
 
 static
 int translate_TCON(struct id3_frame *frame, char const *oldid,
@@ -442,6 +491,9 @@ int id3_compat_fixup(struct id3_tag *tag)
 
     encoding = id3_parse_uint(&data, 1);
     string   = id3_parse_string(&data, end - data, encoding, 0);
+
+    if (string == 0)
+        continue;
 
     if (id3_ucs4_length(string) < 4) {
       free(string);

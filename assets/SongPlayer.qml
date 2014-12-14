@@ -146,22 +146,9 @@ Page {
                         song: app.player.currentSong
                         visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0 && !app.player.currentSong.isLocal && viewOption.selectedOption == basicViewOption 
                     }
-                    TGroupContainer {
-                        topMargin: 16
-                        bottomMargin: 16
-                        topPadding: 16
-                        bottomPadding: 16
-                        leftPadding: 16
-                        rightPadding: 16
-                        visible: song && song.songLoaded && !song.isTrackerSong && !song.isHttpSong
-                        AlbumArtView {
-                            id: albumArt
-                            fileName: app.player.currentSong.fileName
-                            scalingMethod: ScalingMethod.Fill
-                            loadEffect: ImageViewLoadEffect.FadeZoom
-                            visible: song && song.songLoaded && !song.isTrackerSong && !song.isHttpSong
-                            horizontalAlignment: HorizontalAlignment.Center
-                        }
+                    SongAlbumArt {
+                        id: albumArt
+                        song: app.player.currentSong
                     }
                     SongParametersInfo {
                         id: songParametersInfo

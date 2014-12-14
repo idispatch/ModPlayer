@@ -17,6 +17,8 @@ public Q_SLOTS:
 signals:
     void fileNameChanged();
 private:
+    void loadAlbumArt();
+private:
     QString m_fileName;
 };
 
