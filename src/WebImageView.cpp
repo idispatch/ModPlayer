@@ -10,8 +10,10 @@ int InstanceCounter<WebImageView>::s_maxCount;
 WebImageView::WebImageView(bb::cascades::Container *parent)
     : bb::cascades::ImageView(parent),
       m_netManager(new QNetworkAccessManager(this)) {
-    bool rc = QObject::connect(m_netManager, SIGNAL(finished(QNetworkReply*)),
-                               this,  SLOT(imageLoaded(QNetworkReply*)));
+    bool rc = QObject::connect(m_netManager,
+                               SIGNAL(finished(QNetworkReply*)),
+                               this,
+                               SLOT(imageLoaded(QNetworkReply*)));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 }

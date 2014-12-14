@@ -37,6 +37,7 @@
 #include "Album.hpp"
 #include "Radio.hpp"
 #include "WebImageView.hpp"
+#include "AlbumArtView.hpp"
 #include "InternetRadio.hpp"
 
 using namespace bb::data;
@@ -185,6 +186,7 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<Radio*>();
 
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
+    qmlRegisterType<AlbumArtView>(QmlNamespace, versionMajor, versionMinor, "AlbumArtView");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");
     qmlRegisterType<LCDDigits>(QmlNamespace, versionMajor, versionMinor, "LCDDigits");
     qmlRegisterType<VUMeter>(QmlNamespace, versionMajor, versionMinor, "VUMeter");

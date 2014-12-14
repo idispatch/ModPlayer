@@ -34,6 +34,7 @@
 #include "Album.hpp"
 #include "Radio.hpp"
 #include "WebImageView.hpp"
+#include "AlbumArtView.hpp"
 #include "InternetRadio.hpp"
 
 template<typename T>
@@ -75,6 +76,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(Album)
     DUMP_COUNT(Radio)
     DUMP_COUNT(WebImageView)
+    DUMP_COUNT(AlbumArtView)
     DUMP_COUNT(InternetRadio)
 #undef DUMP_COUNT
 }

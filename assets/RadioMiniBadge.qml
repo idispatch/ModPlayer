@@ -4,7 +4,7 @@ import "functions.js" as Global
 ImageView {
     property variant song
     visible: song && song.isHttpSong
-    imageSource: song.iconPath
+    imageSource: song ? song.iconPath : ""
     horizontalAlignment: HorizontalAlignment.Left
     verticalAlignment: VerticalAlignment.Center
     scalingMethod: ScalingMethod.Fill
