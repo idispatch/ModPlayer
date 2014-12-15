@@ -103,7 +103,7 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
     QString albumArtFile = FileUtils::joinPath(directory, fileName);
     QByteArray data;
     if(FileUtils::exists(albumArtFile)) {
-        QFile file(fileName);
+        QFile file(albumArtFile);
         if (file.open(QIODevice::ReadOnly)) {
             data = file.readAll();
             file.close();
