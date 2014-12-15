@@ -20,6 +20,7 @@ TGroupContainer {
                 visible: song && !song.isHttpSong
                 text: song ? qsTr("File: <b>%1</b>").arg(Global.fileNameOnly(song.fileName)) : ""
                 textFormat: TextFormat.Html
+                multiline: true
             }
             BlackLabel {
                 topMargin: 0
@@ -40,6 +41,7 @@ TGroupContainer {
                 bottomMargin: 0
                 text: song ? qsTr("Title: <b>%1</b>").arg(Global.escapeHtml(song.title)) : ""
                 textFormat: TextFormat.Html
+                multiline: true
             }
         }
     }

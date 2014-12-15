@@ -62,7 +62,7 @@ Page {
                 }
             }
             function deletePlaylist(playlist) {
-                app.catalog.deletePlaylist(playlist.id)
+                app.catalog.deletePlaylistById(playlist.id)
                 unload()
                 load()
             }

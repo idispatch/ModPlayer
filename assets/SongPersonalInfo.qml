@@ -76,6 +76,7 @@ TGroupContainer {
         visible: song != null && (song.id < 0 || app.cache.exists(song.fileName))
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
+        multiline: true
         text: getLabelText()
         function getLabelText() {
             if(song) {

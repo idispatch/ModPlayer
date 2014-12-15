@@ -1099,7 +1099,7 @@ int Catalog::createPlaylist(QString const& name) {
     return primaryKey;
 }
 
-void Catalog::deletePlaylist(int playlistId) {
+void Catalog::deletePlaylistById(int playlistId) {
     QVariantList params;
     params << playlistId;
 
@@ -1107,6 +1107,17 @@ void Catalog::deletePlaylist(int playlistId) {
     m_dataAccess->execute(query, params);
 
     query = "DELETE FROM playlists WHERE id=?";
+    m_dataAccess->execute(query, params);
+}
+
+void Catalog::deletePlaylistByName(QString const& name) {
+    QVariantList params;
+    params << name;
+
+    QString query = "DELETE FROM playlistEntries WHERE playlistId IN (SELECT id FROM plylists WHERE name=?)";
+    m_dataAccess->execute(query, params);
+
+    query = "DELETE FROM playlists WHERE name=?";
     m_dataAccess->execute(query, params);
 }
 

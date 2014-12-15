@@ -179,6 +179,8 @@ void Importer::onFoundPlaylist(QString const& playlistName,
 
     m_messageBox.setBody(tr("Processing playlist %1...").arg(playlistName));
 
+    m_catalog->deletePlaylistByName(playlistName);
+
     const int playlistId = m_catalog->createPlaylist(playlistName);
     if(playlistId == 0) {
 #ifdef VERBOSE_LOGGING

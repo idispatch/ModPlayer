@@ -164,7 +164,8 @@ public:
     Q_INVOKABLE void addPersonalSong(SongExtendedInfo const& info);
 
     Q_INVOKABLE int createPlaylist(QString const& name);
-    Q_INVOKABLE void deletePlaylist(int playlistId);
+    Q_INVOKABLE void deletePlaylistById(int playlistId);
+    Q_INVOKABLE void deletePlaylistByName(QString const& name);
     Q_INVOKABLE void deleteAllPlaylists();
     Q_INVOKABLE void appendToPlaylist(int playlistId, int songId);
     Q_INVOKABLE void deleteSongFromPlaylist(int playlistId, int songId);

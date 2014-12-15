@@ -8,16 +8,46 @@ AlbumArtView {
     visible: song && song.fileName.length > 0 && !song.isTrackerSong && !song.isHttpSong
 
     scalingMethod: ScalingMethod.Fill
-    loadEffect: ImageViewLoadEffect.FadeZoom
+    loadEffect: ImageViewLoadEffect.None
 
     horizontalAlignment: HorizontalAlignment.Center
 
     topMargin: 20
     bottomMargin: 20
 
-    minHeight: 200
+    minHeight: 400
     maxHeight: 450
 
-    minWidth: 200
+    minWidth: 400
     maxWidth: 450
+
+    scaleX: 0.0
+    scaleY: 0.0
+
+    onAlbumArtLoading: {
+        loadingAnimation.stop()
+        unloadingAnimation.play()
+    }
+
+    onAlbumArtLoaded: {
+        unloadingAnimation.stop()
+        loadingAnimation.play()
+    }
+
+    animations: [
+        ScaleTransition {
+            id: loadingAnimation
+            toX: 1.0
+            toY: 1.0
+            duration: 400
+            easingCurve: EasingCurve.BackIn
+        },
+        ScaleTransition {
+            id: unloadingAnimation
+            toX: 0.0
+            toY: 0.0
+            duration: 400
+            easingCurve: EasingCurve.BackOut
+        }
+    ]
 }

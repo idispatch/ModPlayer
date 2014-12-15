@@ -1,6 +1,9 @@
 #ifndef ALBUMARTVIEW_H_
 #define ALBUMARTVIEW_H_
 
+#include <QObject>
+#include <QMetaType>
+#include <QThread>
 #include <bb/cascades/ImageView>
 #include "InstanceCounter.hpp"
 
@@ -11,17 +14,34 @@ class AlbumArtView : public bb::cascades::ImageView,
     Q_PROPERTY (QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
 public:
     AlbumArtView(bb::cascades::Container * parent = 0);
+    ~AlbumArtView();
     QString const& fileName() const;
-public Q_SLOTS:
-    void setFileName(const QString &fileName);
 signals:
     void fileNameChanged();
+    void loadAlbumArt(QString const& fileName);
+    void albumArtLoading();
+    void albumArtLoaded();
+public slots:
+    void setFileName(QString const& fileName);
+    void onAlbumArtLoaded(QByteArray const& data);
 private:
-    void loadAlbumArt();
-private:
+    QThread m_workerThread;
     QString m_fileName;
 };
 
 Q_DECLARE_METATYPE(AlbumArtView*);
+
+class AlbumArtLoader : public QObject
+{
+    Q_OBJECT
+public:
+    AlbumArtLoader(QObject * parent = 0)
+        : QObject(parent)
+    {}
+public slots:
+    void loadAlbumArt(QString const& fileName);
+signals:
+     void resultReady(QByteArray const& result);
+};
 
 #endif

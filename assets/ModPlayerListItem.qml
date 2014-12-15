@@ -55,6 +55,7 @@ GroupContainer {
                         id: descriptionField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
+                        multiline: true
                         textStyle {
                             base: SystemDefaults.TextStyles.BodyText
                             fontWeight: FontWeight.W100
