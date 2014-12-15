@@ -41,7 +41,17 @@ public:
 public slots:
     void loadAlbumArt(QString const& fileName);
 signals:
-     void resultReady(QByteArray const& result);
+    void resultReady(QByteArray const& result);
+private:
+    typedef QPair<QString, off64_t> FileEntry;
+
+    QByteArray loadAlbumArtFile(QString const& directory,
+                                QString const& fileName);
+
+    QByteArray loadAlbumArtFile(QString const& directory);
+
+    static bool compareFileSizes(FileEntry const& first,
+                                 FileEntry const& second);
 };
 
 #endif

@@ -1,8 +1,11 @@
 #include "AlbumArtView.hpp"
 #include <bb/cascades/Image>
+#include "FileUtils.hpp"
 #include "InstanceCounter.hpp"
 
 #include "libid3tag/id3_id3tag.h"
+#include <dirent.h>
+#include <errno.h>
 
 template<>
 int InstanceCounter<AlbumArtView>::s_count;
@@ -74,7 +77,89 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
         ::id3_file_close(mp3file);
     }
 
+    if(data.isEmpty()) {
+        QString directory = FileUtils::directoryOnly(fileName);
+
+        data = loadAlbumArtFile(directory, "folder.jpg");
+        if(data.isEmpty()) {
+            data = loadAlbumArtFile(directory, "Folder.jpg");
+        }
+        if(data.isEmpty()) {
+            data = loadAlbumArtFile(directory, "folder.JPG");
+        }
+        if(data.isEmpty()) {
+            data = loadAlbumArtFile(directory, "Folder.JPG");
+        }
+        if(data.isEmpty()) {
+            data = loadAlbumArtFile(directory);
+        }
+    }
+
     emit resultReady(data);
+}
+
+QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
+                                            QString const& fileName) {
+    QString albumArtFile = FileUtils::joinPath(directory, fileName);
+    QByteArray data;
+    if(FileUtils::exists(albumArtFile)) {
+        QFile file(fileName);
+        if (file.open(QIODevice::ReadOnly)) {
+            data = file.readAll();
+            file.close();
+        }
+    }
+    return data;
+}
+
+bool AlbumArtLoader::compareFileSizes(FileEntry const& first,
+                                      FileEntry const& second) {
+    return first.second > second.second;
+}
+
+QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory) {
+    QByteArray data;
+    QList<FileEntry> foundFiles;
+    DIR *dirp;
+    if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
+        struct dirent64 *dp;
+        do {
+            if ((dp = ::readdir64(dirp)) != NULL) {
+                if(dp->d_name[0] == '.' &&
+                   (dp->d_name[1] == '\0' ||
+                    (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))) {
+                    continue;
+                }
+
+                QString fileName = QString::fromUtf8(dp->d_name);
+                QString absoluteFileName = FileUtils::joinPath(directory,
+                                                               fileName);
+                struct stat64 st;
+                if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
+                    if(st.st_mode & S_IFREG) {
+                        if(fileName.startsWith("AlbumArt") &&
+                           (fileName.endsWith(".jpg") ||
+                            fileName.endsWith(".JPG"))) {
+                            foundFiles << FileEntry(absoluteFileName, st.st_size);
+                        }
+                    }
+                }
+            }
+        } while (dp != NULL);
+        ::closedir(dirp);
+    }
+
+    switch(foundFiles.size())
+    {
+    case 0:
+        break;
+    case 1:
+        return loadAlbumArtFile(directory, foundFiles[0].first);
+    default:
+        qSort(foundFiles.begin(), foundFiles.end(), compareFileSizes);
+        return loadAlbumArtFile(directory, foundFiles[0].first);
+    }
+    return data;
 }
 
 AlbumArtView::AlbumArtView(bb::cascades::Container *parent)
