@@ -61,8 +61,8 @@ void Catalog::copyCatalogToDataFolder() {
         typedef CatalogMigrationData::Catalog MigrationData;
         MigrationData data;
         {
-            SqlDataAccess dataAccess(catalogPath(), "catalog");
             {
+                SqlDataAccess dataAccess(catalogPath(), "catalog");
                 QSqlDatabase db = dataAccess.connection();
                 QSqlQuery sqlQuery = db.exec("PRAGMA user_version");
                 if(sqlQuery.next()) {
@@ -75,6 +75,7 @@ void Catalog::copyCatalogToDataFolder() {
                 QSqlDatabase::removeDatabase("catalog");
                 return;
             } else {
+                SqlDataAccess dataAccess(catalogPath(), "catalog");
                 qDebug() << "Starting database migration from version" << data.version << "to version" << Catalog::Version;
 
                 MessageBox message(tr("Updating Catalog"),
