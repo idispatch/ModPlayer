@@ -44,12 +44,17 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
             break;
         }
 
-        union ::id3_field* field;
+        union ::id3_field* fieldImageEncoding;
+        union ::id3_field* fieldImageData;
         unsigned char const * tagBytes;
         ::id3_length_t length;
 
-        field = ::id3_frame_field(frame, 1);
-        tagBytes = ::id3_field_getlatin1(field);
+        fieldImageEncoding = ::id3_frame_field(frame, 1);
+        if(fieldImageEncoding == NULL) {
+            qDebug() << "Could not parse APIC tag image encoding in file" << fileName;
+            break;
+        }
+        tagBytes = ::id3_field_getlatin1(fieldImageEncoding);
         if(!tagBytes) {
             qDebug() << "Could not get frame field 1 in file" << fileName;
             break;
@@ -60,14 +65,18 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
             break;
         }
 
-        field = ::id3_frame_field(frame, 4);
-        tagBytes = ::id3_field_getbinarydata(field, &length);
+        fieldImageData = ::id3_frame_field(frame, 4);
+        if(fieldImageData == NULL) {
+            qDebug() << "Could not parse APIC tag image data in file" << fileName;
+            break;
+        }
+        tagBytes = ::id3_field_getbinarydata(fieldImageData, &length);
         if (!tagBytes) {
             qDebug() << "Could not get album art data in file" << fileName;
             break;
         }
 
-        if(length > 0) {
+        if(length > 0 && length < MAX_IMAGE_SIZE) {
             data.append(reinterpret_cast<const char*>(tagBytes), length);
         }
 
@@ -80,19 +89,14 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
     if(data.isEmpty()) {
         QString directory = FileUtils::directoryOnly(fileName);
 
-        data = loadAlbumArtFile(directory, "folder.jpg");
-        if(data.isEmpty()) {
-            data = loadAlbumArtFile(directory, "Folder.jpg");
-        }
-        if(data.isEmpty()) {
-            data = loadAlbumArtFile(directory, "folder.JPG");
-        }
-        if(data.isEmpty()) {
-            data = loadAlbumArtFile(directory, "Folder.JPG");
-        }
-        if(data.isEmpty()) {
-            data = loadAlbumArtFile(directory);
-        }
+        data = data.isEmpty() ? loadAlbumArtFile(directory) : data;
+        data = data.isEmpty() ? loadAlbumArtFile(directory, "folder.jpg") : data;
+        data = data.isEmpty() ? loadAlbumArtFile(directory, "folder.png") : data;
+        data = data.isEmpty() ? loadAlbumArtFile(directory, "cover.jpg") : data;
+        data = data.isEmpty() ? loadAlbumArtFile(directory, "cover.png") : data;
+        data = data.isEmpty() ? loadAlbumArtFile(directory, "front.jpg") : data;
+        data = data.isEmpty() ? loadAlbumArtFile(directory, "front.png") : data;
+        data = data.isEmpty() ? loadSingleImage(directory) : data;
     }
 
     emit resultReady(data);
@@ -102,12 +106,37 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
                                             QString const& fileName) {
     QString albumArtFile = FileUtils::joinPath(directory, fileName);
     QByteArray data;
-    if(FileUtils::exists(albumArtFile)) {
-        QFile file(albumArtFile);
-        if (file.open(QIODevice::ReadOnly)) {
-            data = file.readAll();
-            file.close();
-        }
+    DIR *dirp;
+    if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
+        struct dirent64 *direntItem;
+        do {
+            if ((direntItem = ::readdir64(dirp)) != NULL) {
+                if(direntItem->d_name[0] == '.' &&
+                   (direntItem->d_name[1] == '\0' ||
+                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
+                    continue;
+                }
+
+                QString currentFileName = QString::fromUtf8(direntItem->d_name);
+                if(currentFileName.compare(fileName, Qt::CaseInsensitive) == 0)
+                {
+                    QString absoluteFileName = FileUtils::joinPath(directory,
+                                                                   currentFileName);
+                    struct stat64 st;
+                    if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
+                        if((st.st_mode & S_IFREG) && st.st_size < MAX_IMAGE_SIZE) {
+                            QFile file(absoluteFileName);
+                            if (file.open(QIODevice::ReadOnly)) {
+                                data = file.readAll();
+                                file.close();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } while (direntItem != NULL);
+        ::closedir(dirp);
     }
     return data;
 }
@@ -122,30 +151,29 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory) {
     QList<FileEntry> foundFiles;
     DIR *dirp;
     if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
-        struct dirent64 *dp;
+        struct dirent64 *direntItem;
         do {
-            if ((dp = ::readdir64(dirp)) != NULL) {
-                if(dp->d_name[0] == '.' &&
-                   (dp->d_name[1] == '\0' ||
-                    (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))) {
+            if ((direntItem = ::readdir64(dirp)) != NULL) {
+                if(direntItem->d_name[0] == '.' &&
+                   (direntItem->d_name[1] == '\0' ||
+                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
                     continue;
                 }
 
-                QString fileName = QString::fromUtf8(dp->d_name);
+                QString fileName = QString::fromUtf8(direntItem->d_name);
                 QString absoluteFileName = FileUtils::joinPath(directory,
                                                                fileName);
                 struct stat64 st;
                 if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
-                    if(st.st_mode & S_IFREG) {
-                        if(fileName.startsWith("AlbumArt") &&
-                           (fileName.endsWith(".jpg") ||
-                            fileName.endsWith(".JPG"))) {
+                    if((st.st_mode & S_IFREG) && st.st_size < MAX_IMAGE_SIZE){
+                        if(fileName.startsWith("AlbumArt", Qt::CaseInsensitive) &&
+                           fileName.endsWith(".jpg", Qt::CaseInsensitive)) {
                             foundFiles << FileEntry(absoluteFileName, st.st_size);
                         }
                     }
                 }
             }
-        } while (dp != NULL);
+        } while (direntItem != NULL);
         ::closedir(dirp);
     }
 
@@ -162,24 +190,70 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory) {
     return data;
 }
 
+QByteArray AlbumArtLoader::loadSingleImage(QString const& directory) {
+    QByteArray data;
+    QList<FileEntry> foundFiles;
+    DIR *dirp;
+
+    if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
+        struct dirent64 *direntItem;
+        do {
+            if ((direntItem = ::readdir64(dirp)) != NULL) {
+                if(direntItem->d_name[0] == '.' &&
+                   (direntItem->d_name[1] == '\0' ||
+                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
+                    continue;
+                }
+
+                QString fileName = QString::fromUtf8(direntItem->d_name);
+                QString absoluteFileName = FileUtils::joinPath(directory,
+                                                               fileName);
+                struct stat64 st;
+                if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
+                    if(st.st_mode & S_IFREG) {
+                        if(fileName.endsWith(".jpg", Qt::CaseInsensitive) ||
+                           fileName.endsWith(".png", Qt::CaseInsensitive)) {
+                            if(!foundFiles.empty()) {
+                                return data;
+                            }
+                            foundFiles << FileEntry(absoluteFileName, st.st_size);
+                        }
+                    }
+                }
+            }
+        } while (direntItem != NULL);
+        ::closedir(dirp);
+    }
+
+    switch(foundFiles.size())
+    {
+    case 1:
+        return loadAlbumArtFile(directory, foundFiles[0].first);
+    default:
+        break;
+    }
+
+    return data;
+}
+
 AlbumArtView::AlbumArtView(bb::cascades::Container *parent)
     : bb::cascades::ImageView(parent) {
-    AlbumArtLoader *loader = new AlbumArtLoader();
-    loader->moveToThread(&m_workerThread);
+    AlbumArtLoader *imageLoader = new AlbumArtLoader();
+    imageLoader->moveToThread(&m_workerThread);
 
     bool rc;
     rc = QObject::connect(&m_workerThread, SIGNAL(finished()),
-                          loader,         SLOT(deleteLater()));
+                          imageLoader,     SLOT(deleteLater()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    rc = QObject::connect(this,      SIGNAL(loadAlbumArt(QString)),
-                          loader,    SLOT(loadAlbumArt(QString)));
+    rc = QObject::connect(this,            SIGNAL(loadAlbumArt(QString)),
+                          imageLoader,     SLOT(loadAlbumArt(QString)));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    rc = QObject::connect(loader, SIGNAL(resultReady(QByteArray)),
-                          this, SLOT(onAlbumArtLoaded(QByteArray)));
+    rc = QObject::connect(imageLoader,     SIGNAL(resultReady(QByteArray)),
+                          this,            SLOT(onAlbumArtLoaded(QByteArray)));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 

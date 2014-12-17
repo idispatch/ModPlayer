@@ -35,6 +35,9 @@ class AlbumArtLoader : public QObject
 {
     Q_OBJECT
 public:
+    enum {
+        MAX_IMAGE_SIZE = 2*1024*1024
+    };
     AlbumArtLoader(QObject * parent = 0)
         : QObject(parent)
     {}
@@ -49,6 +52,7 @@ private:
                                 QString const& fileName);
 
     QByteArray loadAlbumArtFile(QString const& directory);
+    QByteArray loadSingleImage(QString const& directory);
 
     static bool compareFileSizes(FileEntry const& first,
                                  FileEntry const& second);
