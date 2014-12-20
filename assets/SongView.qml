@@ -6,42 +6,50 @@ Page {
     objectName: "songView"
     property variant song
     property variant navigationPane
-    ViewContainer {
-        ScrollView {
+    Container {
+        layout: DockLayout {
+        }
+        RotoZoomer {
+        }
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            VerticalContainer {
-                leftPadding: 20
-                rightPadding: 20
-                topPadding: 20
-                bottomPadding: 20
-
-                visible: song != null
+            ScrollView {
                 horizontalAlignment: HorizontalAlignment.Fill
-
-                SongMainInfo {
-                    song: songView.song
+                verticalAlignment: VerticalAlignment.Fill
+                VerticalContainer {
+                    leftPadding: 20
+                    rightPadding: 20
+                    topPadding: 20
+                    bottomPadding: 20
+    
+                    visible: song != null
+                    horizontalAlignment: HorizontalAlignment.Fill
+    
+                    SongMainInfo {
+                        song: songView.song
+                    }
+                    SongArtistInfo {
+                        song: songView.song
+                    }
+                    SongPersonalInfo {
+                        song: songView.song
+                    }
+                    
+                    SongPublicInfo {
+                        song: songView.song
+                        visible: songView.song && songView.song.isTrackerSong && songView.song.id > 0
+                    }
+                    SongParametersInfo {
+                        song: songView.song
+                        visible: songView.song && songView.song.isTrackerSong
+                    }
+                    SongAlbumArt {
+                        id: albumArt
+                        song: songView.song
+                    }
+                    Animation {}
                 }
-                SongArtistInfo {
-                    song: songView.song
-                }
-                SongPersonalInfo {
-                    song: songView.song
-                }
-                
-                SongPublicInfo {
-                    song: songView.song
-                    visible: songView.song && songView.song.isTrackerSong && songView.song.id > 0
-                }
-                SongParametersInfo {
-                    song: songView.song
-                    visible: songView.song && songView.song.isTrackerSong
-                }
-                SongAlbumArt {
-                    id: albumArt
-                    song: songView.song
-                }
-                Animation {}
             }
         }
     }
@@ -60,7 +68,7 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() { 
-            showPlayerView()
+                showPlayerView()
         })
     }
     attachedObjects: [

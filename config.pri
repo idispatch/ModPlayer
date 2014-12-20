@@ -72,6 +72,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/ProgressToast.qml) \
         $$quote($$BASEDIR/assets/RadioMiniBadge.qml) \
         $$quote($$BASEDIR/assets/RemoveFavouriteActionItem.qml) \
+        $$quote($$BASEDIR/assets/RotoZoomer.qml) \
         $$quote($$BASEDIR/assets/SameArtistActionItem.qml) \
         $$quote($$BASEDIR/assets/SaveSongActionItem.qml) \
         $$quote($$BASEDIR/assets/SearchArea.qml) \

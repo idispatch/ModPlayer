@@ -18,7 +18,7 @@ TGroupContainer {
                 topMargin: 0
                 bottomMargin: 0
                 visible: song && !song.isHttpSong
-                text: song ? qsTr("File: <b>%1</b>").arg(Global.fileNameOnly(song.fileName)) : ""
+                text: song ? qsTr("File: <b>%1</b>").arg(Global.escapeHtml(Global.fileNameOnly(song.fileName))) : ""
                 textFormat: TextFormat.Html
                 multiline: true
             }
