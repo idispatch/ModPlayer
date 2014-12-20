@@ -63,205 +63,214 @@ Page {
             }
         }
     }
-    ViewContainer {
-        ProgressComponent {
-            id: progress
+    Container {
+        layout: DockLayout {
         }
-        HorizontalContainer{
-            id: listEmpty
-            horizontalAlignment: HorizontalAlignment.Center
-            verticalAlignment: VerticalAlignment.Fill
-            Label {
-                text: qsTr("No songs in this list")
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                textStyle {
-                    fontWeight: FontWeight.Bold
-                    fontSize: FontSize.Large
-                    color: Color.White
-                }
-            }
+        RotoZoomer {
         }
-        ListView {
-            id: songs
-            property string mode
-            property string modelName
-            visible: false
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            topPadding: 20
-            bottomPadding: topPadding
-            leftPadding: 10
-            rightPadding: leftPadding
-            function updateList() {
-                if(mode == 'playlist') {
-                    loadSongsByPlaylist(listId, modelName)
-                } else if(mode == 'album') {
-                    loadSongsByAlbum(listId, modelName)
-                }
+        
+            ProgressComponent {
+                id: progress
             }
-            function playSong(song) {
-                showPlayerView()
-                app.player.playlist.clear()
-                app.player.playlist.add(song.id)
-                app.player.playPlaylist()
-            }
-            function addFavourite(song) {
-                app.catalog.addFavourite(song)
-            }
-            function removeFavourite(song) {
-                app.catalog.removeFavourite(song)
-            }
-            function deleteSongFromPlaylist(song) {
-                app.catalog.deleteSongFromPlaylist(listId, song.id)
-            }
-            function getRootObject() {
-                return app
-            }
-            listItemComponents: [
-                ListItemComponent {
-                    ModPlayerListItem {
-                        id: songEntry
-                        favourite: ListItem.data.myFavourite > 0
-                        title: ListItem.data.title
-                        description: Global.fileNameOnly(ListItem.data.fileName)
-                        text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 
-                        upperStatus: {
-                            var mode = ListItem.view.mode
-                            if (ListItem.data) {
-                                if (mode == "recent") {
-                                    if(ListItem.data.lastPlayed > 0) {
-                                        return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                                    }
-                                }
-                                if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
-                                    if(ListItem.data.playCount > 0) {
-                                        return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                                    }
-                                }
-                                if (mode == "topFavourited") {
-                                    if (ListItem.data.favourited > 0) {
-                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
-                                    }
-                                }
-                                if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
-                                    if (ListItem.data.score > 0) {
-                                        return qsTr("score %1 of 10").arg(ListItem.data.score)
-                                    }
-                                }
-                                if (mode == "topDownloads" || mode == "search") {
-                                    if (ListItem.data.downloads > 0) {
-                                        return qsTr("%1 downloads").arg(ListItem.data.downloads)
-                                    }
-                                }
-                            }
-                            return ""
-                        }
-                        middleStatus: {
-                            var mode = ListItem.view.mode
-                            if (ListItem.data) {
-                                if (mode == "topDownloads" || mode == "topFavourited" || mode == "search") {
-                                    if (ListItem.data.score > 0) {
-                                        return qsTr("score %1 of 10").arg(ListItem.data.score)
-                                    }
-                                }
-                                if (mode == "topScored") {
-                                    if (ListItem.data.downloads > 0) {
-                                        return qsTr("%1 downloads").arg(ListItem.data.downloads)
-                                    }
-                                }
-                                if (mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
-                                    if(ListItem.data.favourited > 0) {
-                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
-                                    }
-                                }
-                            }
-                            return ""
-                        }
-                        lowerStatus: {
-                            var mode = ListItem.view.mode
-                            if (ListItem.data) {
-                                if (mode == "recent") {
-                                    if(ListItem.data.playCount > 0) {
-                                        return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
-                                    }
-                                }
-                                if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
-                                    if(ListItem.data.lastPlayed > 0) {
-                                        return Global.formatTimeStamp(ListItem.data.lastPlayed)
-                                    }
-                                }
-                                if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
-                                    if (ListItem.data.downloads > 0) {
-                                        return qsTr("%1 downloads").arg(ListItem.data.downloads)
-                                    }
-                                }
-                                if (mode == "topScored" || mode == "topDownloads" || mode == "search") {
-                                    if (ListItem.data.favourited > 0) {
-                                        return qsTr("favourited %1 times").arg(ListItem.data.favourited)
-                                    }
-                                }
-                            }
-                            return ""
-                        }
-                        imageSource: ListItem.data ? ListItem.data.iconPath : ""
-                        contextActions: [
-                            ActionSet {
-                                title: songEntry.ListItem.data.title
-                                subtitle: Global.fileNameOnly(songEntry.ListItem.data.fileName)
-                                actions: [
-                                    ActionItem {
-                                        title: qsTr("Play")
-                                        imageSource: "asset:///images/actions/icon_play.png"
-                                        onTriggered: {
-                                            songEntry.ListItem.view.playSong(songEntry.ListItem.data)
-                                        }
-                                    },
-                                    AppendPlaylistActionItem {
-                                        currentSong: songEntry.ListItem.data
-                                        mode: songEntry.ListItem.view.mode
-                                        rootObject: songEntry.ListItem.view.getRootObject() 
-                                    },
-                                    ActionItem {
-                                        title: qsTr("Add to Favourites")
-                                        imageSource: "asset:///images/actions/icon_like.png"
-                                        onTriggered: {
-                                            songEntry.ListItem.view.addFavourite(songEntry.ListItem.data)
-                                        }
-                                    },
-                                    ActionItem {
-                                        title: qsTr("Remove from Favourites")
-                                        imageSource: "asset:///images/actions/icon_unlike.png"
-                                        onTriggered: {
-                                            songEntry.ListItem.view.removeFavourite(songEntry.ListItem.data)
-                                        }
-                                    },
-                                    DeleteActionItem {
-                                        enabled: songEntry.ListItem.view.mode == 'playlist'
-                                        onTriggered: {
-                                            songEntry.ListItem.view.deleteSongFromPlaylist(songEntry.ListItem.data)
-                                            songEntry.ListItem.view.updateList()
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
+            HorizontalContainer{
+                id: listEmpty
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Fill
+                Label {
+                    text: qsTr("No songs in this list")
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Center
+                    textStyle {
+                        fontWeight: FontWeight.Bold
+                        fontSize: FontSize.Large
+                        color: Color.White
                     }
                 }
-            ]
-            onTriggered: {
-                var chosenItem = dataModel.data(indexPath)
-                var view = songView.createObject()
-                view.navigationPane = navigationPane
-                view.load(chosenItem.id)
-                navigationPane.push(view)
             }
-            attachedObjects: [
-                ComponentDefinition {
-                    id: songView
-                    source: "SongView.qml"
+            ListView {
+                id: songs
+                property string mode
+                property string modelName
+                visible: false
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                topPadding: 20
+                bottomPadding: topPadding
+                leftPadding: 10
+                rightPadding: leftPadding
+                function updateList() {
+                    if(mode == 'playlist') {
+                        loadSongsByPlaylist(listId, modelName)
+                    } else if(mode == 'album') {
+                        loadSongsByAlbum(listId, modelName)
+                    }
                 }
-            ]
+                function playSong(song) {
+                    showPlayerView()
+                    app.player.playlist.clear()
+                    app.player.playlist.add(song.id)
+                    app.player.playPlaylist()
+                }
+                function addFavourite(song) {
+                    app.catalog.addFavourite(song)
+                }
+                function removeFavourite(song) {
+                    app.catalog.removeFavourite(song)
+                }
+                function deleteSongFromPlaylist(song) {
+                    app.catalog.deleteSongFromPlaylist(listId, song.id)
+                }
+                function getRootObject() {
+                    return app
+                }
+                listItemComponents: [
+                    ListItemComponent {
+                        ModPlayerListItem {
+                            id: songEntry
+                            favourite: ListItem.data.myFavourite > 0
+                            title: ListItem.data.title
+                            description: Global.fileNameOnly(ListItem.data.fileName)
+                            text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 
+                            upperStatus: {
+                                var mode = ListItem.view.mode
+                                if (ListItem.data) {
+                                    if (mode == "recent") {
+                                        if(ListItem.data.lastPlayed > 0) {
+                                            return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                        }
+                                    }
+                                    if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
+                                        if(ListItem.data.playCount > 0) {
+                                            return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                        }
+                                    }
+                                    if (mode == "topFavourited") {
+                                        if (ListItem.data.favourited > 0) {
+                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                        }
+                                    }
+                                    if (mode == "topScored" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
+                                        if (ListItem.data.score > 0) {
+                                            return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                        }
+                                    }
+                                    if (mode == "topDownloads" || mode == "search") {
+                                        if (ListItem.data.downloads > 0) {
+                                            return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                        }
+                                    }
+                                }
+                                return ""
+                            }
+                            middleStatus: {
+                                var mode = ListItem.view.mode
+                                if (ListItem.data) {
+                                    if (mode == "topDownloads" || mode == "topFavourited" || mode == "search") {
+                                        if (ListItem.data.score > 0) {
+                                            return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                        }
+                                    }
+                                    if (mode == "topScored") {
+                                        if (ListItem.data.downloads > 0) {
+                                            return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                        }
+                                    }
+                                    if (mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
+                                        if(ListItem.data.favourited > 0) {
+                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                        }
+                                    }
+                                }
+                                return ""
+                            }
+                            lowerStatus: {
+                                var mode = ListItem.view.mode
+                                if (ListItem.data) {
+                                    if (mode == "recent") {
+                                        if(ListItem.data.playCount > 0) {
+                                            return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
+                                        }
+                                    }
+                                    if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
+                                        if(ListItem.data.lastPlayed > 0) {
+                                            return Global.formatTimeStamp(ListItem.data.lastPlayed)
+                                        }
+                                    }
+                                    if (mode == "topFavourited" || mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
+                                        if (ListItem.data.downloads > 0) {
+                                            return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                        }
+                                    }
+                                    if (mode == "topScored" || mode == "topDownloads" || mode == "search") {
+                                        if (ListItem.data.favourited > 0) {
+                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                        }
+                                    }
+                                }
+                                return ""
+                            }
+                            imageSource: ListItem.data ? ListItem.data.iconPath : ""
+                            contextActions: [
+                                ActionSet {
+                                    title: songEntry.ListItem.data.title
+                                    subtitle: Global.fileNameOnly(songEntry.ListItem.data.fileName)
+                                    actions: [
+                                        ActionItem {
+                                            title: qsTr("Play")
+                                            imageSource: "asset:///images/actions/icon_play.png"
+                                            onTriggered: {
+                                                songEntry.ListItem.view.playSong(songEntry.ListItem.data)
+                                            }
+                                        },
+                                        AppendPlaylistActionItem {
+                                            currentSong: songEntry.ListItem.data
+                                            mode: songEntry.ListItem.view.mode
+                                            rootObject: songEntry.ListItem.view.getRootObject() 
+                                        },
+                                        ActionItem {
+                                            title: qsTr("Add to Favourites")
+                                            imageSource: "asset:///images/actions/icon_like.png"
+                                            onTriggered: {
+                                                songEntry.ListItem.view.addFavourite(songEntry.ListItem.data)
+                                            }
+                                        },
+                                        ActionItem {
+                                            title: qsTr("Remove from Favourites")
+                                            imageSource: "asset:///images/actions/icon_unlike.png"
+                                            onTriggered: {
+                                                songEntry.ListItem.view.removeFavourite(songEntry.ListItem.data)
+                                            }
+                                        },
+                                        DeleteActionItem {
+                                            enabled: songEntry.ListItem.view.mode == 'playlist'
+                                            onTriggered: {
+                                                songEntry.ListItem.view.deleteSongFromPlaylist(songEntry.ListItem.data)
+                                                songEntry.ListItem.view.updateList()
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+                onTriggered: {
+                    var chosenItem = dataModel.data(indexPath)
+                    var view = songView.createObject()
+                    view.navigationPane = navigationPane
+                    view.load(chosenItem.id)
+                    navigationPane.push(view)
+                }
+                attachedObjects: [
+                    ComponentDefinition {
+                        id: songView
+                        source: "SongView.qml"
+                    }
+                ]
+            }
         }
     }
     function unload() {
@@ -275,7 +284,7 @@ Page {
     }
     function load() {
         unload();
-        maxResults = searchArea.searchTerm.length > 0 ? 100 : 5000
+        maxResults = searchArea.searchTerm.length > 0 ? 100 : 1000
         requestId = {
             search: function(searchTerm, queryId, limit) { return app.player.catalog.searchSongsAsync(searchTerm, limit) },
             recent: function(searchTerm, queryId, limit) { return app.player.catalog.findRecentlyPlayedSongsAsync(searchTerm, limit) },

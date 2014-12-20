@@ -36,55 +36,63 @@ Page {
             }
         }
     }
-    ViewContainer {
-        ProgressComponent {
-            id: progress
+    Container {
+        layout: DockLayout {
         }
-        ListView {
-            id: genresList
-            visible: !progress.running
+        RotoZoomer {
+        }
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            topPadding: 20
-            bottomPadding: topPadding
-            leftPadding: 10
-            rightPadding: leftPadding
-            listItemComponents: [
-                ListItemComponent {
-                    type: "header"
-                    Label {
-                        text: ListItem.data
-                        textStyle {
-                            fontWeight: FontWeight.Bold
-                            fontSize: FontSize.Large
-                            color: Color.White
+            ProgressComponent {
+                id: progress
+            }
+            ListView {
+                id: genresList
+                visible: !progress.running
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                topPadding: 20
+                bottomPadding: topPadding
+                leftPadding: 10
+                rightPadding: leftPadding
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "header"
+                        Label {
+                            text: ListItem.data
+                            textStyle {
+                                fontWeight: FontWeight.Bold
+                                fontSize: FontSize.Large
+                                color: Color.White
+                            }
+                        }
+                    },
+                    ListItemComponent {
+                        type: "item"
+                        ModPlayerListItem {
+                            title: ListItem.data.name
+                            favourite: false
+                            description: " "
+                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                            lowerStatus: Global.formatDuration(ListItem.data.duration)
                         }
                     }
-                },
-                ListItemComponent {
-                    type: "item"
-                    ModPlayerListItem {
-                        title: ListItem.data.name
-                        favourite: false
-                        description: " "
-                        middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
-                        lowerStatus: Global.formatDuration(ListItem.data.duration)
+                ]
+                onTriggered: {
+                    var chosenItem = dataModel.data(indexPath)
+                    var view = songList.createObject()
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                    view.loadSongsByGenre(chosenItem.id, chosenItem.name)
+                }
+                attachedObjects: [
+                    ComponentDefinition {
+                        id: songList
+                        source: "SongList.qml"
                     }
-                }
-            ]
-            onTriggered: {
-                var chosenItem = dataModel.data(indexPath)
-                var view = songList.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-                view.loadSongsByGenre(chosenItem.id, chosenItem.name)
+                ]
             }
-            attachedObjects: [
-                ComponentDefinition {
-                    id: songList
-                    source: "SongList.qml"
-                }
-            ]
         }
     }
     function unload() {

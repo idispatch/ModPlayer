@@ -32,6 +32,14 @@ Container {
 
         background: back.imagePaint
 
+        translationX: Math.sin(angleX * 0.01745329251) * 117
+        translationY: Math.cos(angleY * 0.01745329251) * 97
+
+        rotationZ: (Math.sin(rotatePhase * 0.01745329251) * (rotateMax - rotateMin)/2 + rotateMin) 
+
+        scaleX: (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin
+        scaleY: (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin
+
         attachedObjects: [
             Timer {
                 id: lightTimer
@@ -41,26 +49,12 @@ Container {
                 onTriggered: {
                     block.angleX += block.angleStepX
                     block.angleY += block.angleStepY
-
                     block.scalePhase += block.scaleStep
                     block.rotatePhase += block.rotateStep
-
-                    block.translationX = Math.sin(block.angleX * 0.01745329251) * 117
-                    block.translationY = Math.cos(block.angleY * 0.01745329251) * 97
-
-                    var a
-                    a = (block.rotateMax - block.rotateMin)
-                    block.rotationZ = (Math.sin(block.rotatePhase * 0.01745329251) * a/2 + block.rotateMin) 
-
-                    a = (block.scaleMax - block.scaleMin)
-                    var m = (Math.sin(block.scalePhase * 0.01745329251) + 1) * a/2 + block.scaleMin 
-
-                    block.scaleX = m
-                    block.scaleY = m
                 }
             },
             ImagePaintDefinition {
-                id:back
+                id: back
                 repeatPattern: RepeatPattern.XY
                 imageSource: "asset:///images/backgrounds/view_back.amd"
             }

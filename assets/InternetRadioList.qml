@@ -10,50 +10,59 @@ Page {
     titleBar: PlayerTitleBar {
         title: qsTr("Select Internet Radio Channel")
     }
-    ViewContainer {
-        ListView {
-            id: internetRadioList
-            property string channelList
+    Container {
+        layout: DockLayout {
+        }
+        RotoZoomer {
+        }
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            topPadding: 20
-            bottomPadding: topPadding
-            leftPadding: 10
-            rightPadding: leftPadding
-            listItemComponents: [
-                ListItemComponent {
-                    type: "header"
-                    Label {
-                        text: ListItem.data
-                        textStyle {
-                            fontWeight: FontWeight.Bold
-                            fontSize: FontSize.Large
-                            color: Color.White
+        
+            ListView {
+                id: internetRadioList
+                property string channelList
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                topPadding: 20
+                bottomPadding: topPadding
+                leftPadding: 10
+                rightPadding: leftPadding
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "header"
+                        Label {
+                            text: ListItem.data
+                            textStyle {
+                                fontWeight: FontWeight.Bold
+                                fontSize: FontSize.Large
+                                color: Color.White
+                            }
+                        }
+                    },
+                    ListItemComponent {
+                        type: "item"
+                        ModPlayerListItem {
+                            title: ListItem.data.name
+                            favourite: false
+                            description: ListItem.data.description
+                            imageSource: Global.getRadioIcon(ListItem.view.channelList)
                         }
                     }
-                },
-                ListItemComponent {
-                    type: "item"
-                    ModPlayerListItem {
-                        title: ListItem.data.name
-                        favourite: false
-                        description: ListItem.data.description
-                        imageSource: Global.getRadioIcon(ListItem.view.channelList)
-                    }
+                ]
+                onTriggered: {
+                    var chosenItem = dataModel.data(indexPath)
+                    playlistURL = chosenItem.playlist
+                    
+                    app.player.statusText = qsTr("Tuning Internet Radio")
+                    app.player.currentSong.title = "Internet Radio";
+                    app.player.currentSong.iconPath = Global.getRadioIcon(playlistURL)
+                    
+                    showPlayerView()
+                    
+                    app.analytics.selectRadio(playlistURL)
+                    app.player.radio.download(playlistURL)
                 }
-            ]
-            onTriggered: {
-                var chosenItem = dataModel.data(indexPath)
-                playlistURL = chosenItem.playlist
-                
-                app.player.statusText = qsTr("Tuning Internet Radio")
-                app.player.currentSong.title = "Internet Radio";
-                app.player.currentSong.iconPath = Global.getRadioIcon(playlistURL)
-                
-                showPlayerView()
-                
-                app.analytics.selectRadio(playlistURL)
-                app.player.radio.download(playlistURL)
             }
         }
     }

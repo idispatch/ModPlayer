@@ -39,15 +39,15 @@ AlbumArtView {
             id: loadingAnimation
             toX: 1.0
             toY: 1.0
-            duration: 400
-            easingCurve: EasingCurve.BackIn
+            duration: 350
+            easingCurve: StockCurve.BackIn
         },
         ScaleTransition {
             id: unloadingAnimation
             toX: 0.0
             toY: 0.0
-            duration: 400
-            easingCurve: EasingCurve.BackOut
+            duration: 350
+            easingCurve: StockCurve.BackOut
         }
     ]
 }

@@ -36,96 +36,104 @@ Page {
             }
         }
     }
-    ViewContainer {
-        ProgressComponent {
-            id: progress
+    Container {
+        layout: DockLayout {
         }
-        ListView {
-            id: playlistsList
+        RotoZoomer {
+        }
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            topPadding: 20
-            bottomPadding: topPadding
-            leftPadding: 10
-            rightPadding: leftPadding
-            function playPlaylist(playlist) {
-                var songs = app.catalog.getPlaylistSongs(playlist.id)
-                if(songs.length > 0) {
-                    app.player.playlist.clear()
-                    for(var i = 0; i < songs.length; ++i) {
-                        app.player.playlist.add(songs[i])
-                    }
-                }
-                if(app.player.playlist.count > 0) {
-                    app.player.playPlaylist()
-                    showPlayer()
-                }
+            ProgressComponent {
+                id: progress
             }
-            function deletePlaylist(playlist) {
-                app.catalog.deletePlaylistById(playlist.id)
-                unload()
-                load()
-            }
-            listItemComponents: [
-                ListItemComponent {
-                    type: "header"
-                    Label {
-                        text: ListItem.data
-                        textStyle {
-                            fontWeight: FontWeight.Bold
-                            fontSize: FontSize.Large
-                            color: Color.White
+            ListView {
+                id: playlistsList
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                topPadding: 20
+                bottomPadding: topPadding
+                leftPadding: 10
+                rightPadding: leftPadding
+                function playPlaylist(playlist) {
+                    var songs = app.catalog.getPlaylistSongs(playlist.id)
+                    if(songs.length > 0) {
+                        app.player.playlist.clear()
+                        for(var i = 0; i < songs.length; ++i) {
+                            app.player.playlist.add(songs[i])
                         }
                     }
-                },
-                ListItemComponent {
-                    type: "item"
-                    ModPlayerListItem {
-                        id: playlistEntry
-                        title: ListItem.data.name
-                        description: " "
-                        favourite: false
-                        middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
-                        lowerStatus: Global.formatDuration(ListItem.data.duration)
-                        imageSource: "asset:///images/formats/icon_playlist.png"
-                        contextActions: [
-                            ActionSet {
-                                title: playlistEntry.ListItem.data.name
-                                subtitle: qsTr("Playlist %1").arg(playlistEntry.ListItem.data.name)
-                                actions: [
-                                    ActionItem {
-                                        title: qsTr("Play Playlist")
-                                        enabled: playlistEntry.ListItem.data.count > 0
-                                        imageSource: "asset:///images/actions/icon_play.png"
-                                        onTriggered: {
-                                            playlistEntry.ListItem.view.playPlaylist(playlistEntry.ListItem.data)
-                                        }
-                                    },
-                                    DeleteActionItem {
-                                        title: qsTr("Delete Playlist")
-                                        onTriggered: {
-                                            playlistEntry.ListItem.view.deletePlaylist(playlistEntry.ListItem.data)
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
+                    if(app.player.playlist.count > 0) {
+                        app.player.playPlaylist()
+                        showPlayer()
                     }
                 }
-            ]
-            onTriggered: {
-                var chosenItem = dataModel.data(indexPath)
-                var view = songList.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-                view.loadSongsByPlaylist(chosenItem.id, chosenItem.name)
-            }
-            attachedObjects: [
-                ComponentDefinition {
-                    id: songList
-                    source: "SongList.qml"
+                function deletePlaylist(playlist) {
+                    app.catalog.deletePlaylistById(playlist.id)
+                    unload()
+                    load()
                 }
-            ]
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "header"
+                        Label {
+                            text: ListItem.data
+                            textStyle {
+                                fontWeight: FontWeight.Bold
+                                fontSize: FontSize.Large
+                                color: Color.White
+                            }
+                        }
+                    },
+                    ListItemComponent {
+                        type: "item"
+                        ModPlayerListItem {
+                            id: playlistEntry
+                            title: ListItem.data.name
+                            description: " "
+                            favourite: false
+                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                            lowerStatus: Global.formatDuration(ListItem.data.duration)
+                            imageSource: "asset:///images/formats/icon_playlist.png"
+                            contextActions: [
+                                ActionSet {
+                                    title: playlistEntry.ListItem.data.name
+                                    subtitle: qsTr("Playlist %1").arg(playlistEntry.ListItem.data.name)
+                                    actions: [
+                                        ActionItem {
+                                            title: qsTr("Play Playlist")
+                                            enabled: playlistEntry.ListItem.data.count > 0
+                                            imageSource: "asset:///images/actions/icon_play.png"
+                                            onTriggered: {
+                                                playlistEntry.ListItem.view.playPlaylist(playlistEntry.ListItem.data)
+                                            }
+                                        },
+                                        DeleteActionItem {
+                                            title: qsTr("Delete Playlist")
+                                            onTriggered: {
+                                                playlistEntry.ListItem.view.deletePlaylist(playlistEntry.ListItem.data)
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+                onTriggered: {
+                    var chosenItem = dataModel.data(indexPath)
+                    var view = songList.createObject()
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                    view.loadSongsByPlaylist(chosenItem.id, chosenItem.name)
+                }
+                attachedObjects: [
+                    ComponentDefinition {
+                        id: songList
+                        source: "SongList.qml"
+                    }
+                ]
+            }
         }
     }
     function unload() {
