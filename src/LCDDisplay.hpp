@@ -40,6 +40,8 @@ public:
     using InstanceCounter<LCDDisplay>::getMaxInstanceCount;
 private slots:
     void onUpdateTimeout();
+    void enableAnimation();
+    void disableAnimation();
 private:
     Q_DISABLE_COPY(LCDDisplay)
     void createLCD();

@@ -399,26 +399,26 @@
     </message>
     <message>
         <source>Tuning Internet Radio</source>
-        <translation>Настройука интернет радио</translation>
+        <translation>Настройка интернет радио</translation>
     </message>
 </context>
 <context>
     <name>LiveStreamRadio</name>
     <message>
         <source>Select Internet Radio Channel</source>
-        <translation type="unfinished">Выберите канал интернет радио</translation>
+        <translation>Выберите канал интернет радио</translation>
     </message>
     <message>
         <source>Tuning Internet Radio</source>
-        <translation type="unfinished">Настройука интернет радио</translation>
+        <translation>Настройка интернет радио</translation>
     </message>
     <message>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>search stations</source>
-        <translation type="unfinished"></translation>
+        <translation>найти станцию</translation>
     </message>
 </context>
 <context>
@@ -1397,7 +1397,7 @@
     </message>
     <message>
         <source>Live Stream Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Live Stream Radio</translation>
     </message>
 </context>
 </TS>
