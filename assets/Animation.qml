@@ -12,8 +12,23 @@ HorizontalContainer {
         imageSource: "asset:///images/animation/modplayer.gif"
         attachedObjects: [
             ImageAnimator {
+                id: imageAnimator
                 animatedImage: animationView.image
                 started: true
+                onCreationCompleted: {
+                    Application.fullscreen.connect(function(){
+                        imageAnimator.started = true
+                    })
+                    Application.invisible.connect(function(){
+                        imageAnimator.started = false
+                    })
+                    Application.asleep.connect(function(){
+                        imageAnimator.started = false
+                    })
+                    Application.thumbnail.connect(function(){
+                        imageAnimator.started = false
+                    })
+                }
             }
         ]
     }

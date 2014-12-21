@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <bb/cascades/application.h>
 #include <bb/cascades/Image>
 #include <bb/cascades/Container>
 #include <bb/cascades/Color>
@@ -24,7 +25,8 @@ VUMeter::VUMeter(Container *parent)
       m_song(NULL),
       m_image_vu_on(Image(QUrl("asset:///images/vu/vu-on.png"))),
       m_image_vu_off(Image(QUrl("asset:///images/vu/vu-off.png"))),
-      m_numBars(0)
+      m_numBars(0),
+      m_enabled(true)
 {
     memset(m_bars, 0, sizeof(m_bars));
     setRoot(NULL);
@@ -140,6 +142,31 @@ void VUMeter::setSong(QVariant value) {
                 rc = QObject::connect(m_song, SIGNAL(channelVUChanged()),
                                       this,   SLOT(onChannelVUChanged()));
                 Q_ASSERT(rc);
+
+                rc = QObject::connect(bb::cascades::Application::instance(),
+                                      SIGNAL(fullscreen()),
+                                      this,
+                                      SLOT(enableAnimation()));
+                Q_ASSERT(rc);
+
+                rc = QObject::connect(bb::cascades::Application::instance(),
+                                      SIGNAL(thumbnail()),
+                                      this,
+                                      SLOT(disableAnimation()));
+                Q_ASSERT(rc);
+
+                rc = QObject::connect(bb::cascades::Application::instance(),
+                                      SIGNAL(invisible()),
+                                      this,
+                                      SLOT(disableAnimation()));
+                Q_ASSERT(rc);
+
+                rc = QObject::connect(bb::cascades::Application::instance(),
+                                      SIGNAL(asleep()),
+                                      this,
+                                      SLOT(disableAnimation()));
+                Q_ASSERT(rc);
+
                 Q_UNUSED(rc);
             }
         }
@@ -148,6 +175,14 @@ void VUMeter::setSong(QVariant value) {
         createVU();
         emit songChanged();
     }
+}
+
+void VUMeter::enableAnimation() {
+    m_enabled = true;
+}
+
+void VUMeter::disableAnimation() {
+    m_enabled = false;
 }
 
 void VUMeter::onSongLoadedChanged() {
@@ -159,13 +194,15 @@ void VUMeter::onChannelsChanged() {
 }
 
 void VUMeter::onChannelVUChanged() {
-    for(int channel = 0; channel < m_numBars; channel++) {
-        int channelVU = m_song->getChannelVU(channel);
-        if(channelVU < 0)
-            channelVU = 0;
-        if(channelVU > 255)
-            channelVU = 255;
-        int offset = -channelVU * 100/256;
-        m_bars[channel]->setPositionY(offset);
+    if(m_enabled) {
+        for(int channel = 0; channel < m_numBars; channel++) {
+            int channelVU = m_song->getChannelVU(channel);
+            if(channelVU < 0)
+                channelVU = 0;
+            if(channelVU > 255)
+                channelVU = 255;
+            int offset = -channelVU * 100/256;
+            m_bars[channel]->setPositionY(offset);
+        }
     }
 }

@@ -29,7 +29,12 @@ Container {
 
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-
+        
+        minHeight: 2000
+        minWidth: 2000
+        
+        implicitLayoutAnimationsEnabled: false
+        
         background: back.imagePaint
 
         translationX: Math.sin(angleX * 0.01745329251) * 117
@@ -39,10 +44,10 @@ Container {
 
         scaleX: (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin
         scaleY: (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin
-
+        
         attachedObjects: [
             Timer {
-                id: lightTimer
+                id: rotozoomTimer
                 interval: 100
                 repeat: true
                 running: true 
@@ -59,8 +64,20 @@ Container {
                 imageSource: "asset:///images/backgrounds/view_back.amd"
             }
         ]
-        minHeight: 2000
-        minWidth: 2000
-        implicitLayoutAnimationsEnabled: false
+    
+        onCreationCompleted: {
+            Application.fullscreen.connect(function(){
+                rotozoomTimer.running = true
+            })
+            Application.invisible.connect(function(){
+                rotozoomTimer.running = false
+            })
+            Application.asleep.connect(function(){
+                rotozoomTimer.running = false
+            })
+            Application.thumbnail.connect(function(){
+                rotozoomTimer.running = false
+            })
+        }
     }
 }

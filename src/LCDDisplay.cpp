@@ -2,6 +2,7 @@
 #include "lcd_fonts.hpp"
 
 #include <QDebug>
+#include <bb/cascades/application.h>
 #include <bb/cascades/Image>
 #include <bb/cascades/Container>
 #include <bb/cascades/ImageView>
@@ -32,12 +33,49 @@ LCDDisplay::LCDDisplay(Container *parent)
       m_wiggle(0),
       m_wiggleDirection(1) {
     bool rc;
+    Q_UNUSED(rc);
     rc = QObject::connect(m_timer, SIGNAL(timeout()),
                           this,    SLOT(onUpdateTimeout()));
     Q_ASSERT(rc);
-    Q_UNUSED(rc);
+
+
+    rc = QObject::connect(bb::cascades::Application::instance(),
+                          SIGNAL(fullscreen()),
+                          this,
+                          SLOT(enableAnimation()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(bb::cascades::Application::instance(),
+                          SIGNAL(thumbnail()),
+                          this,
+                          SLOT(disableAnimation()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(bb::cascades::Application::instance(),
+                          SIGNAL(invisible()),
+                          this,
+                          SLOT(disableAnimation()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(bb::cascades::Application::instance(),
+                          SIGNAL(asleep()),
+                          this,
+                          SLOT(disableAnimation()));
+    Q_ASSERT(rc);
 
     createLCD();
+}
+
+void LCDDisplay::enableAnimation()
+{
+    qDebug() << "LCDDisplay: animation enabled";
+    m_timer->start();
+}
+
+void LCDDisplay::disableAnimation()
+{
+    qDebug() << "LCDDisplay: animation disabled";
+    m_timer->stop();
 }
 
 void LCDDisplay::createLCD(){

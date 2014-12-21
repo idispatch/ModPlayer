@@ -37,6 +37,8 @@ private slots:
     void onSongLoadedChanged();
     void onChannelsChanged();
     void onChannelVUChanged();
+    void enableAnimation();
+    void disableAnimation();
 private:
     void createVU();
 private:
@@ -46,6 +48,7 @@ private:
     bb::cascades::Image m_image_vu_off;
     bb::cascades::AbsoluteLayoutProperties* m_bars[128];
     int m_numBars;
+    bool m_enabled;
 };
 
 Q_DECLARE_METATYPE(VUMeter*);
