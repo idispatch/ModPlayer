@@ -23,16 +23,8 @@ Page {
         }
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
-            HorizontalContainer {
-                leftPadding: 10
-                Label {
-                    text: titleBar.title
-                    textStyle {
-                        color: Color.White 
-                        fontSize: FontSize.Large
-                    }
-                    verticalAlignment: VerticalAlignment.Center
-                }
+            TitleBarText {
+                title: titleBar.title
             }
             expandableArea {
                 content: VerticalContainer {

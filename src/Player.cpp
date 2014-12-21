@@ -1,5 +1,6 @@
 #include <QDeclarativeComponent>
 #include <bb/multimedia/NowPlayingConnection>
+#include <bb/platform/PlatformInfo>
 #include <bb/cascades/pickers/FilePicker>
 #include <bb/system/SystemToast>
 #include <bb/system/SystemDialog>
@@ -35,6 +36,7 @@ int InstanceCounter<Player>::s_maxCount;
 
 Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
+      m_lightTheme(false),
       m_feedbackTimerId(-1),
       m_importTimerId(-1),
       m_settings(settings),
@@ -51,6 +53,7 @@ Player::Player(QSettings &settings, QObject * parent)
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
     m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
                       << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.MP3" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
+    initTheme();
     initCache();
     initDownloader();
     initRadio();
@@ -71,6 +74,34 @@ Player::~Player() {
 #ifdef VERBOSE_LOGGING
     qDebug() << "Player::~Player()";
 #endif
+}
+
+void Player::initTheme() {
+    bb::platform::PlatformInfo info;
+    QStringList const tokens = info.osVersion().split( "." );
+    if(tokens.length() >=2) {
+        int majorVersion = tokens[0].toInt();
+        int minorVersion = tokens[1].toInt();
+        if(majorVersion==10) {
+            switch(minorVersion) {
+            case 0: case 1: case 2:
+                m_lightTheme = false;
+                break;
+            case 3:
+            default:
+                m_lightTheme = true;
+                break;
+            }
+        } else {
+            m_lightTheme = true;
+        }
+    } else {
+        m_lightTheme = true;
+    }
+}
+
+bool Player::lightTheme() const {
+    return m_lightTheme;
 }
 
 void Player::initCatalog() {

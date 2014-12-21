@@ -45,6 +45,7 @@ public:
     Player(QSettings &settings, QObject * parent);
     ~Player();
 
+    Q_PROPERTY(bool lightTheme READ lightTheme FINAL)
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText WRITE setStatusText NOTIFY statusTextChanged FINAL)
     Q_PROPERTY(QString userDirectory READ userDirectory WRITE setUserDirectory NOTIFY userDirectoryChanged FINAL)
@@ -57,6 +58,7 @@ public:
     Q_PROPERTY(Playlist* playlist READ playlist NOTIFY playlistChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
+    bool lightTheme() const;
     State state() const;
 
     QString statusText() const;
@@ -143,6 +145,7 @@ protected:
 private:
     Q_DISABLE_COPY(Player)
 
+    void initTheme();
     void initCatalog();
     void initCache();
     void initDownloader();
@@ -162,6 +165,7 @@ private:
     void askToSupport();
     void askToImport();
 private:
+    bool m_lightTheme;
     int m_feedbackTimerId;
     int m_importTimerId;
     QStringList m_fileNameFilters;

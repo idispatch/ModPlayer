@@ -12,7 +12,7 @@ Page {
         id: titleBar
         title: {
             var c = songs.dataModel ? songs.dataModel.size() : 0
-            if(c > maxResults) {
+            if (c > maxResults) {
                 c = "%1+".arg(maxResults)
             }
             if (songs.mode == 'recent') return qsTr("Recently Played Songs (%1)").arg(c)
@@ -22,13 +22,13 @@ Page {
             if (songs.mode == 'topFavourited') return qsTr("Top Favourited Songs (%1)").arg(c)
             if (songs.mode == 'topScored') return qsTr("Top Scored Songs (%1)").arg(c)
             if (songs.mode == 'topDownloads') return qsTr("Top Downloaded Songs (%1)").arg(c)
-            if (songs.mode == 'format')  return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
+            if (songs.mode == 'format') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'playlist') return qsTr("%1 Playlist Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'album') return qsTr("%1 Album Songs (%2)").arg(songs.modelName).arg(c)
             if (songs.mode == 'search') {
-                if(searchArea.searchTerm.length > 0) {
+                if (searchArea.searchTerm.length > 0) {
                     return qsTr("Search Songs (%1) - '%2'").arg(c).arg(searchArea.searchTerm)
                 }
                 return qsTr("Search Songs (%1)").arg(c)
@@ -37,16 +37,8 @@ Page {
         }
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
-            HorizontalContainer {
-                leftPadding: 10
-                Label {
-                    text: titleBar.title
-                    textStyle {
-                        color: Color.White 
-                        fontSize: FontSize.Large
-                    }
-                    verticalAlignment: VerticalAlignment.Center
-                }
+            TitleBarText {
+                title: titleBar.title
             }
             expandableArea {
                 content: SearchArea {
@@ -71,11 +63,11 @@ Page {
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-        
+
             ProgressComponent {
                 id: progress
             }
-            HorizontalContainer{
+            HorizontalContainer {
                 id: listEmpty
                 horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Fill
@@ -102,9 +94,9 @@ Page {
                 leftPadding: 10
                 rightPadding: leftPadding
                 function updateList() {
-                    if(mode == 'playlist') {
+                    if (mode == 'playlist') {
                         loadSongsByPlaylist(listId, modelName)
-                    } else if(mode == 'album') {
+                    } else if (mode == 'album') {
                         loadSongsByAlbum(listId, modelName)
                     }
                 }
@@ -133,17 +125,17 @@ Page {
                             favourite: ListItem.data.myFavourite > 0
                             title: ListItem.data.title
                             description: Global.fileNameOnly(ListItem.data.fileName)
-                            text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize)) 
+                            text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize))
                             upperStatus: {
                                 var mode = ListItem.view.mode
                                 if (ListItem.data) {
                                     if (mode == "recent") {
-                                        if(ListItem.data.lastPlayed > 0) {
+                                        if (ListItem.data.lastPlayed > 0) {
                                             return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                         }
                                     }
                                     if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
-                                        if(ListItem.data.playCount > 0) {
+                                        if (ListItem.data.playCount > 0) {
                                             return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                         }
                                     }
@@ -179,7 +171,7 @@ Page {
                                         }
                                     }
                                     if (mode == "format" || mode == "genre" || mode == "artist" || mode == "playlist" || mode == "album") {
-                                        if(ListItem.data.favourited > 0) {
+                                        if (ListItem.data.favourited > 0) {
                                             return qsTr("favourited %1 times").arg(ListItem.data.favourited)
                                         }
                                     }
@@ -190,12 +182,12 @@ Page {
                                 var mode = ListItem.view.mode
                                 if (ListItem.data) {
                                     if (mode == "recent") {
-                                        if(ListItem.data.playCount > 0) {
+                                        if (ListItem.data.playCount > 0) {
                                             return "played " + (ListItem.data.playCount == 1 ? "once" : (ListItem.data.playCount + " times"))
                                         }
                                     }
                                     if (mode == "myFavourite" || mode == "mostPlayed" || mode == "myLocal") {
-                                        if(ListItem.data.lastPlayed > 0) {
+                                        if (ListItem.data.lastPlayed > 0) {
                                             return Global.formatTimeStamp(ListItem.data.lastPlayed)
                                         }
                                     }
@@ -228,7 +220,7 @@ Page {
                                         AppendPlaylistActionItem {
                                             currentSong: songEntry.ListItem.data
                                             mode: songEntry.ListItem.view.mode
-                                            rootObject: songEntry.ListItem.view.getRootObject() 
+                                            rootObject: songEntry.ListItem.view.getRootObject()
                                         },
                                         ActionItem {
                                             title: qsTr("Add to Favourites")
@@ -286,19 +278,45 @@ Page {
         unload();
         maxResults = searchArea.searchTerm.length > 0 ? 100 : 1000
         requestId = {
-            search: function(searchTerm, queryId, limit) { return app.player.catalog.searchSongsAsync(searchTerm, limit) },
-            recent: function(searchTerm, queryId, limit) { return app.player.catalog.findRecentlyPlayedSongsAsync(searchTerm, limit) },
-            myFavourite: function(searchTerm, queryId, limit) { return app.player.catalog.findMyFavouriteSongsAsync(searchTerm, limit) },
-            myLocal: function(searchTerm, queryId, limit) { return app.player.catalog.findMyLocalSongsAsync(searchTerm, limit) },
-            mostPlayed: function(searchTerm, queryId, limit) { return app.player.catalog.findMostPlayedSongsAsync(searchTerm, limit) },
-            topFavourited: function(searchTerm, queryId, limit) { return app.player.catalog.findMostFavouritedSongsAsync(searchTerm, limit) },
-            topScored: function(searchTerm, queryId, limit) { return app.player.catalog.findMostScoredSongsAsync(searchTerm, limit) },
-            topDownloads: function(searchTerm, queryId, limit) { return app.player.catalog.findMostDownloadedSongsAsync(searchTerm, limit) },
-            format: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByFormatIdAsync(searchTerm, queryId, limit) },
-            genre: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByGenreIdAsync(searchTerm, queryId, limit) },
-            artist: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByArtistIdAsync(searchTerm, queryId, limit) },
-            playlist: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByPlaylistIdAsync(searchTerm, queryId, limit) },
-            album: function(searchTerm, queryId, limit) { return app.player.catalog.findSongsByAlbumIdAsync(searchTerm, queryId, limit) }
+            search: function(searchTerm, queryId, limit) {
+                return app.player.catalog.searchSongsAsync(searchTerm, limit)
+            },
+            recent: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findRecentlyPlayedSongsAsync(searchTerm, limit)
+            },
+            myFavourite: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findMyFavouriteSongsAsync(searchTerm, limit)
+            },
+            myLocal: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findMyLocalSongsAsync(searchTerm, limit)
+            },
+            mostPlayed: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findMostPlayedSongsAsync(searchTerm, limit)
+            },
+            topFavourited: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findMostFavouritedSongsAsync(searchTerm, limit)
+            },
+            topScored: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findMostScoredSongsAsync(searchTerm, limit)
+            },
+            topDownloads: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findMostDownloadedSongsAsync(searchTerm, limit)
+            },
+            format: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findSongsByFormatIdAsync(searchTerm, queryId, limit)
+            },
+            genre: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findSongsByGenreIdAsync(searchTerm, queryId, limit)
+            },
+            artist: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findSongsByArtistIdAsync(searchTerm, queryId, limit)
+            },
+            playlist: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findSongsByPlaylistIdAsync(searchTerm, queryId, limit)
+            },
+            album: function(searchTerm, queryId, limit) {
+                return app.player.catalog.findSongsByAlbumIdAsync(searchTerm, queryId, limit)
+            }
         }[songs.mode](searchArea.searchTerm, listId, maxResults)
     }
     function loadRecentlyPlayedSongs() {
@@ -380,15 +398,14 @@ Page {
         load()
     }
     function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && 
-           navigationPane.top == songListPage) {
+        if (mainTabPane.activePane == navigationPane && navigationPane.top == songListPage) {
             var view = songPlayer.createObject()
             view.navigationPane = navigationPane
             navigationPane.push(view)
         }
     }
     function onDataReceived(responseId, result) {
-        if(responseId != requestId) 
+        if (responseId != requestId)
             return
         requestId = 0
         songs.dataModel = result
@@ -398,8 +415,8 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
-            showPlayerView()
-        })
+                showPlayerView()
+            })
         app.catalog.resultReady.connect(onDataReceived)
     }
     attachedObjects: [
@@ -417,7 +434,7 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: songListPage.navigationPane
             playlistId: songs.mode == 'playlist' ? listId : null
-            albumId: songs.mode == 'album' ? listId : null  
+            albumId: songs.mode == 'album' ? listId : null
         },
         NextActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
@@ -428,18 +445,18 @@ Page {
         AppendPlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
             songList: songs.dataModel
-            mode: songs.mode 
+            mode: songs.mode
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        ImportSongsActionItem{
+        ImportSongsActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        OpenSongActionItem{
+        OpenSongActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
-        AppWorldActionItem{
+        AppWorldActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         }
     ]

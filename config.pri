@@ -107,6 +107,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SongPublicInfo.qml) \
         $$quote($$BASEDIR/assets/SongView.qml) \
         $$quote($$BASEDIR/assets/TGroupContainer.qml) \
+        $$quote($$BASEDIR/assets/TitleBarText.qml) \
         $$quote($$BASEDIR/assets/VerticalContainer.qml) \
         $$quote($$BASEDIR/assets/ViewContainer.qml) \
         $$quote($$BASEDIR/assets/catalog.sqlite) \
