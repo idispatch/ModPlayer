@@ -36,6 +36,10 @@
           <text xml:lang="ru">icon_modplayer.png</text>
        </image>
     </icon>
+    <configuration name="Simulator-Debug">
+       <platformArchitecture>x86</platformArchitecture>
+       <asset path="x86/o-g/ModPlayer" entry="true" type="Qnx/Elf">ModPlayer</asset>
+    </configuration>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/ModPlayer" entry="true" type="Qnx/Elf">ModPlayer</asset>

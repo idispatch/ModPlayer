@@ -22,7 +22,11 @@
 # ifndef LIBMAD_FIXED_H
 # define LIBMAD_FIXED_H
 
+#if __X86__
+#define FPM_INTEL 1
+#else
 #define FPM_ARM 1
+#endif
 
 # if SIZEOF_INT >= 4
 typedef   signed int mad_fixed_t;

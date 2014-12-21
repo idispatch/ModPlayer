@@ -24,8 +24,11 @@
 extern "C" {
 # endif
 
-# define FPM_INTEL
-
+#if __X86__
+#define FPM_INTEL 1
+#else
+#define FPM_ARM 1
+#endif
 
 
 # define SIZEOF_INT 4
@@ -271,7 +274,7 @@ mad_fixed_t mad_f_mul_inline(mad_fixed_t x, mad_fixed_t y)
 
 # elif defined(FPM_ARM)
 
-/* 
+/*
  * This ARM V4 version is as accurate as FPM_64BIT but much faster. The
  * least significant bit is properly rounded at no CPU cycle cost!
  */

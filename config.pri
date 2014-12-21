@@ -31,6 +31,22 @@ device {
     }
 }
 
+simulator {
+    CONFIG(debug, debug|release) {
+        !profile {
+            LIBS += -lFlurry
+
+            LIBS += $$quote(-L$$BASEDIR/libs/x86)
+
+            PRE_TARGETDEPS += $$quote($$BASEDIR/libs/x86)
+
+            CONFIG += \
+                config_pri_assets \
+                config_pri_source_group1
+        }
+    }
+}
+
 config_pri_assets {
     OTHER_FILES += \
         $$quote($$BASEDIR/assets/AddFavouriteActionItem.qml) \
