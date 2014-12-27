@@ -16,7 +16,7 @@ TabbedPane {
         function unload() {
             songSearchView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: searchNavigationPane
             SongList {
                 id: songSearchView
@@ -38,7 +38,7 @@ TabbedPane {
         function unload() {
             songMyFavouriteView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: myFavouriteNavigationPane
             SongList {
                 id: songMyFavouriteView
@@ -60,7 +60,7 @@ TabbedPane {
         function unload() {
             songMyLocalView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: myLocalNavigationPane
             SongList {
                 id: songMyLocalView
@@ -82,7 +82,7 @@ TabbedPane {
         function unload() {
             songRecentlyPlayedView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: recentlyPlayedNavigationPane 
             SongList {
                 id: songRecentlyPlayedView
@@ -104,7 +104,7 @@ TabbedPane {
         function unload() {
             songPlaylists.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: playlistsNavigationPane 
             Playlists {
                 id: songPlaylists
@@ -126,7 +126,7 @@ TabbedPane {
         function unload() {
             songAlbums.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: albumsNavigationPane 
             Albums {
                 id: songAlbums
@@ -148,7 +148,7 @@ TabbedPane {
         function unload() {
             liveStream.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: liveStreamNavigationPane 
             LiveStreamRadio {
                 id: liveStream
@@ -170,7 +170,7 @@ TabbedPane {
         function unload() {
             difm.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: difmNavigationPane 
             InternetRadioList {
                 id: difm
@@ -193,7 +193,7 @@ TabbedPane {
         function unload() {
             skyfm.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: skyfmNavigationPane 
             InternetRadioList {
                 id: skyfm
@@ -216,7 +216,7 @@ TabbedPane {
         function unload() {
             jazzRadio.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: jazzRadioNavigationPane 
             InternetRadioList {
                 id: jazzRadio
@@ -239,7 +239,7 @@ TabbedPane {
         function unload() {
             rockRadio.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: rockRadioNavigationPane 
             InternetRadioList {
                 id: rockRadio
@@ -262,7 +262,7 @@ TabbedPane {
         function unload() {
             songMostPlayedView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: mostPlayedNavigationPane
             SongList {
                 id: songMostPlayedView
@@ -284,7 +284,7 @@ TabbedPane {
         function unload() {
             songsTopDownloadedView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: topDownloadsNavigationPane
             SongList {
                 id: songsTopDownloadedView
@@ -306,7 +306,7 @@ TabbedPane {
         function unload() {
             songTopFavouritedView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: topFavouritedNavigationPane
             SongList {
                 id: songTopFavouritedView
@@ -328,7 +328,7 @@ TabbedPane {
         function unload() {
             songTopScoredView.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: topScoredNavigationPane
             SongList {
                 id: songTopScoredView
@@ -350,7 +350,7 @@ TabbedPane {
         function unload() {
             songArtistsList.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: artistsNavigationPane
             ArtistsList {
                 id: songArtistsList
@@ -372,7 +372,7 @@ TabbedPane {
         function unload() {
             songGenresList.unload()
         }
-        content: NavigationPane {
+        NavigationPane {
             id: genresNavigationPane 
             GenresList {
                 id: songGenresList
@@ -392,7 +392,7 @@ TabbedPane {
             songFormatsList.load()
         }
         function unload() {}
-        content: NavigationPane {
+        NavigationPane {
             id: formatsNavigationPane
             FormatsList {
                 id: songFormatsList

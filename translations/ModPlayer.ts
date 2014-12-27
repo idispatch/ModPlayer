@@ -651,6 +651,13 @@
     </message>
 </context>
 <context>
+    <name>SameAlbumActionItem</name>
+    <message>
+        <source>Same Album Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SameArtistActionItem</name>
     <message>
         <source>Songs by Artist</source>
@@ -951,6 +958,10 @@
     </message>
     <message>
         <source>Tracker: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Album: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

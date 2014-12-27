@@ -116,6 +116,9 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsByAlbumId(QString const& searchTerm, int albumId, int limit);
     Q_INVOKABLE int findSongsByAlbumIdAsync(QString const& searchTerm, int albumId, int limit);
 
+    Q_INVOKABLE bb::cascades::ArrayDataModel* findSongsBySongAlbumId(QString const& searchTerm, int songId, int limit);
+    Q_INVOKABLE int findSongsBySongAlbumIdAsync(QString const& searchTerm, int songId, int limit);
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* searchSongs(QString const& searchTerm, int limit);
     Q_INVOKABLE int searchSongsAsync(QString const& searchTerm, int limit);
 
@@ -150,6 +153,8 @@ public:
     // Synchronous only
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
+    Q_INVOKABLE int resolveAlbumIdBySongId(int songId);
+    Q_INVOKABLE QString resolveAlbumNameBySongId(int songId);
     Q_INVOKABLE SongExtendedInfo * resolveModuleById(int id, QVariant parent);
     Q_INVOKABLE SongExtendedInfo * resolveModuleByFileName(QString const& fileName, QVariant parent);
 
@@ -231,6 +236,7 @@ private:
             SongsByArtistList,
             SongsByPlaylist,
             SongsByAlbum,
+            SongsBySongAlbum,
 
             MostDownloadedSongs,
             MostFavouritedSongs,

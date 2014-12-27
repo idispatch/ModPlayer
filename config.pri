@@ -89,6 +89,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/RadioMiniBadge.qml) \
         $$quote($$BASEDIR/assets/RemoveFavouriteActionItem.qml) \
         $$quote($$BASEDIR/assets/RotoZoomer.qml) \
+        $$quote($$BASEDIR/assets/SameAlbumActionItem.qml) \
         $$quote($$BASEDIR/assets/SameArtistActionItem.qml) \
         $$quote($$BASEDIR/assets/SaveSongActionItem.qml) \
         $$quote($$BASEDIR/assets/SearchArea.qml) \
@@ -106,7 +107,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SongProgressView.qml) \
         $$quote($$BASEDIR/assets/SongPublicInfo.qml) \
         $$quote($$BASEDIR/assets/SongView.qml) \
-        $$quote($$BASEDIR/assets/TGroupContainer.qml) \
         $$quote($$BASEDIR/assets/TitleBarText.qml) \
         $$quote($$BASEDIR/assets/VerticalContainer.qml) \
         $$quote($$BASEDIR/assets/ViewContainer.qml) \
@@ -159,8 +159,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cork.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cork.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \

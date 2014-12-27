@@ -54,6 +54,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             BlackLabel {
                                 text: qsTr("Application")
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -111,6 +112,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             Label {
                                 text: qsTr("Cache")
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -225,6 +227,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             Label {
                                 text: qsTr("Personal")
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -314,6 +317,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             Label {
                                 text: qsTr("Background")
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -337,6 +341,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             Label {
                                 text: qsTr("Mixer Configuration")
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -449,6 +454,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             Label {
                                 text: qsTr("Master Volume")
                                 textStyle {
@@ -512,6 +518,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             CheckBox {
                                 id: reverbEnabled
                                 text: qsTr("Enable Reverb")
@@ -568,6 +575,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             CheckBox {
                                 id: megabassEnabled
                                 text: qsTr("Enable MegaBass")
@@ -624,6 +632,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
+                            opacity: 0.85
                             CheckBox {
                                 id: surroundEnabled
                                 text: qsTr("Enable Surround Sound")

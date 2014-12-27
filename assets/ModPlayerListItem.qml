@@ -9,7 +9,7 @@ GroupContainer {
     property alias middleStatus: statusMiddleField.text
     property alias lowerStatus: statusLowerField.text
     property alias imageSource: imageView.imageSource
-    
+
     property alias favourite: favouriteImage.visible
 
     leftPadding: 10

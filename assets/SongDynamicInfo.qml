@@ -10,7 +10,7 @@ HorizontalContainer {
     topMargin: 16
     bottomMargin: 16
 
-    TGroupContainer {
+    GroupContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 10
         }
@@ -79,7 +79,7 @@ HorizontalContainer {
             }
         }
     }
-    TGroupContainer {
+    GroupContainer {
         layoutProperties: StackLayoutProperties {
             spaceQuota: 10
         }

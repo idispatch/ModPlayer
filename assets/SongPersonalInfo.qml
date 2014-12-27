@@ -1,7 +1,7 @@
 import bb.cascades 1.0
 import "functions.js" as Global
 
-TGroupContainer {
+GroupContainer {
     property variant song
     onCreationCompleted: {
         personalInfoAnimation.play()

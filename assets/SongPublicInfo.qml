@@ -1,6 +1,6 @@
 import bb.cascades 1.0
 
-TGroupContainer {
+GroupContainer {
     property variant song
     visible: song != null && !song.isLocal
     onCreationCompleted: {

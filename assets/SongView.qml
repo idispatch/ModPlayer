@@ -22,10 +22,10 @@ Page {
                     rightPadding: 20
                     topPadding: 20
                     bottomPadding: 20
-    
+
                     visible: song != null
                     horizontalAlignment: HorizontalAlignment.Fill
-    
+
                     SongMainInfo {
                         song: songView.song
                     }
@@ -138,6 +138,11 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: song
             navigationPane: songView.navigationPane
+        },
+        SameAlbumActionItem {
+            currentSong: song
+            navigationPane: songView.navigationPane 
+            ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AddFavouriteActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

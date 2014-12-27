@@ -3,18 +3,16 @@ import bb.cascades 1.0
 ActionItem {
     property variant currentSong
     property variant navigationPane
-    title: qsTr("Songs by Artist")
-    imageSource: "asset:///images/actions/icon_artist.png"
-    enabled: currentSong && currentSong.artistId != 0 && !currentSong.isHttpSong 
+    title: qsTr("Same Album Songs")
+    imageSource: "asset:///images/actions/icon_albums.png"
+    enabled: currentSong && currentSong.id != 0 && !currentSong.isTrackerSong && !currentSong.isHttpSong
     onTriggered: {
-        var artistId = currentSong.artistId
-        var artistName = currentSong.artist
         var previousPage = navigationPane.top
         var view = songList.createObject()
         view.navigationPane = navigationPane
         navigationPane.push(view)
         navigationPane.remove(previousPage)
-        view.loadSongsByArtist(artistId, artistName)
+        view.loadSongsBySongAlbum(currentSong.id)
     }
     attachedObjects: [
         ComponentDefinition {

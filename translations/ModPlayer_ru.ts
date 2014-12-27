@@ -651,6 +651,13 @@
     </message>
 </context>
 <context>
+    <name>SameAlbumActionItem</name>
+    <message>
+        <source>Same Album Songs</source>
+        <translation>Песни из этого альбома</translation>
+    </message>
+</context>
+<context>
     <name>SameArtistActionItem</name>
     <message>
         <source>Songs by Artist</source>
@@ -952,6 +959,10 @@
     <message>
         <source>Tracker: %1</source>
         <translation>Трэкер: %1</translation>
+    </message>
+    <message>
+        <source>Album: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Альбом: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
 </context>
 <context>

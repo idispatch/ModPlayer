@@ -123,15 +123,15 @@ bool Catalog::getLocalSongs(std::vector<LocalSongInfo> & songs) {
 
 ArrayDataModel* Catalog::findFormats() {
     const char * query =
-            "SELECT"
-            " formats.id AS id, "
-            " formats.name AS name, "
-            " formats.description AS description, "
-            " COUNT(formats.id) AS songCount, "
-            " SUM(songs.length) AS duration "
-            "FROM formats "
-            "INNER JOIN songs ON songs.format=formats.id "
-            "GROUP BY formats.id";
+        "SELECT"
+        " formats.id AS id, "
+        " formats.name AS name, "
+        " formats.description AS description, "
+        " COUNT(formats.id) AS songCount, "
+        " SUM(songs.length) AS duration "
+        "FROM formats "
+        "INNER JOIN songs ON songs.format=formats.id "
+        "GROUP BY formats.id";
     ArrayDataModel * model = new ArrayDataModel();
     QSqlDatabase db = m_dataAccess->connection();
     QSqlQuery sqlQuery = db.exec(query);
@@ -157,13 +157,13 @@ ArrayDataModel* Catalog::findFormats() {
 
 GroupDataModel* Catalog::findGenres(QString const& searchTerm) {
     const char * query =
-            "SELECT"
-            " genres.id,"
-            " genres.name,"
-            " COUNT(songs.id) AS songCount, "
-            " SUM(songs.length) AS duration "
-            "FROM genres "
-            "LEFT JOIN songs ON songs.genre=genres.id ";
+        "SELECT"
+        " genres.id,"
+        " genres.name,"
+        " COUNT(songs.id) AS songCount, "
+        " SUM(songs.length) AS duration "
+        "FROM genres "
+        "LEFT JOIN songs ON songs.genre=genres.id ";
     QString whereClause;
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
@@ -199,16 +199,16 @@ GroupDataModel* Catalog::findGenres(QString const& searchTerm) {
 
 GroupDataModel* Catalog::findArtists(QString const& searchTerm) {
     const char * query =
-            "SELECT"
-            " artists.id,"
-            " artists.name,"
-            " artists.score,"
-            " artists.downloads,"
-            " artists.rating,"
-            " COUNT(songs.id) AS count, "
-            " SUM(songs.length) AS duration "
-            "FROM artists "
-            "LEFT JOIN songs ON songs.artist=artists.id ";
+        "SELECT"
+        " artists.id,"
+        " artists.name,"
+        " artists.score,"
+        " artists.downloads,"
+        " artists.rating,"
+        " COUNT(songs.id) AS count, "
+        " SUM(songs.length) AS duration "
+        "FROM artists "
+        "LEFT JOIN songs ON songs.artist=artists.id ";
     QString whereClause;
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
@@ -249,14 +249,15 @@ GroupDataModel* Catalog::findArtists(QString const& searchTerm) {
 }
 
 GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
-    const char * query = "SELECT"
-                         " playlists.id AS id,"
-                         " playlists.name AS name,"
-                         " COUNT(playlistEntries.songId) AS songCount,"
-                         " SUM(songs.length) AS duration "
-                         "FROM playlists "
-                         " LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
-                         " LEFT JOIN songs ON playlistEntries.songId=songs.id";
+    const char * query =
+         "SELECT"
+         " playlists.id AS id,"
+         " playlists.name AS name,"
+         " COUNT(playlistEntries.songId) AS songCount,"
+         " SUM(songs.length) AS duration "
+         "FROM playlists "
+         " LEFT JOIN playlistEntries ON playlists.id=playlistEntries.playlistId "
+         " LEFT JOIN songs ON playlistEntries.songId=songs.id";
     QString whereClause;
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
@@ -322,16 +323,17 @@ GroupDataModel* Catalog::findRockRadio()
 }
 
 GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {
-    const char * query = "SELECT"
-                         " albums.id AS id,"
-                         " artists.name AS artistName,"
-                         " albums.name AS albumName,"
-                         " COUNT(albumEntries.songId) AS songCount, "
-                         " SUM(songs.length) AS duration "
-                         "FROM albums "
-                         " INNER JOIN artists ON albums.artistId=artists.id"
-                         " INNER JOIN albumEntries ON albums.id=albumEntries.albumId"
-                         " INNER JOIN songs ON albumEntries.songId=songs.id ";
+    const char * query =
+        "SELECT"
+         " albums.id AS id,"
+         " artists.name AS artistName,"
+         " albums.name AS albumName,"
+         " COUNT(albumEntries.songId) AS songCount, "
+         " SUM(songs.length) AS duration "
+         "FROM albums "
+         " INNER JOIN artists ON albums.artistId=artists.id"
+         " INNER JOIN albumEntries ON albums.id=albumEntries.albumId"
+         " INNER JOIN songs ON albumEntries.songId=songs.id ";
     QString whereClause;
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
@@ -451,6 +453,49 @@ ArrayDataModel* Catalog::findSongsByAlbumId(QString const& searchTerm, int album
     QString selectClause(SELECT_FROM_SONGS);
     selectClause += " INNER JOIN albumEntries ON songs.id=albumEntries.songId ";
     QString whereClause = QString("WHERE albumEntries.albumId=%1").arg(albumId);
+    if(searchTerm.length() > 0) {
+        Analytics::getInstance()->search(searchTerm);
+        whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"
+                               "      (songs.title LIKE '%%%1%%' ESCAPE '\\')) ").arg(escapeSql(searchTerm));
+    }
+    return selectSongBasicInfo(selectClause,
+                               whereClause,
+                               "ORDER BY "
+                               "albumEntries.trackNumber ASC, "
+                               "songs.fileName ASC, "
+                               "songs.playCount DESC, "
+                               "songs.lastPlayed DESC ",
+                               limit);
+}
+
+QString Catalog::resolveAlbumNameBySongId(int songId) {
+    QString albumName = "Unknown";
+    QString query = QString("SELECT albums.name FROM albums "
+            "INNER JOIN albumEntries ON albumEntries.albumId=albums.id "
+            "WHERE albumEntries.songId=%1").arg(songId);
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        albumName = sqlQuery.value(0).toString();
+    }
+    return albumName;
+}
+
+int Catalog::resolveAlbumIdBySongId(int songId) {
+    QString query = QString("SELECT albumId FROM albumEntries WHERE songId=%1").arg(songId);
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        return sqlQuery.value(0).toInt();
+    }
+    return 0;
+}
+
+ArrayDataModel* Catalog::findSongsBySongAlbumId(QString const& searchTerm, int songId, int limit) {
+    int albumId = resolveAlbumIdBySongId(songId);
+    QString selectClause(SELECT_FROM_SONGS);
+    selectClause += QString(" INNER JOIN albumEntries on albumEntries.songId=songs.id ");
+    QString whereClause = QString(" WHERE albumEntries.albumId=%1").arg(albumId);
     if(searchTerm.length() > 0) {
         Analytics::getInstance()->search(searchTerm);
         whereClause += QString(" AND ((songs.fileName LIKE '%%%1%%' ESCAPE '\\') OR"

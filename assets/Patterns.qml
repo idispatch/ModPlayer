@@ -18,7 +18,7 @@ Page {
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            TGroupContainer {
+            GroupContainer {
                 PatternView {
                     song: app.player.currentSong
                     visible: app.player.currentSong.songLoaded

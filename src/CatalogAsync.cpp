@@ -73,6 +73,10 @@ int Catalog::findSongsByAlbumIdAsync(QString const& searchTerm, int albumId, int
     return asyncSearchCommand(Command::SongsByAlbum, searchTerm, albumId, limit);
 }
 
+int Catalog::findSongsBySongAlbumIdAsync(QString const& searchTerm, int songId, int limit) {
+    return asyncSearchCommand(Command::SongsBySongAlbum, searchTerm, songId, limit);
+}
+
 int Catalog::findMostDownloadedSongsAsync(QString const& searchTerm, int limit) {
     return asyncSearchCommand(Command::MostDownloadedSongs, searchTerm, 0, limit);
 }
@@ -226,6 +230,14 @@ void Catalog::run() {
                 result = assign(command, findSongsByAlbumId(searchCommand->query(),
                                                             searchCommand->queryId(),
                                                             searchCommand->limit()));
+            }
+            break;
+        case Command::SongsBySongAlbum:
+            {
+                SearchCommand * searchCommand = dynamic_cast<SearchCommand*>(command.get());
+                result = assign(command, findSongsBySongAlbumId(searchCommand->query(),
+                                                                searchCommand->queryId(),
+                                                                searchCommand->limit()));
             }
             break;
         case Command::MostDownloadedSongs:

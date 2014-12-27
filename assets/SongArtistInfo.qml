@@ -2,7 +2,7 @@ import bb.cascades 1.0
 import player 1.0
 import "functions.js" as Global
 
-TGroupContainer {
+GroupContainer {
     id: songArtistInfo
     property variant song
     onCreationCompleted: {
@@ -35,6 +35,15 @@ TGroupContainer {
                 bottomMargin: 0
                 visible: song != null && song.artist && song.artist.length > 0
                 text: song != null ? qsTr("Artist: <b>%1</b>").arg(Global.escapeHtml(song.artist)) : ""
+                textFormat: TextFormat.Html
+                multiline: true
+            }
+            BlackLabel {
+                property string albumName : song != null ? app.catalog.resolveAlbumNameBySongId(song.id) : ""
+                topMargin: 0
+                bottomMargin: 0
+                visible: song != null && albumName.length > 0
+                text: song != null ? qsTr("Album: <b>%1</b>").arg(Global.escapeHtml(albumName)) : ""
                 textFormat: TextFormat.Html
                 multiline: true
             }

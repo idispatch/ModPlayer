@@ -6,7 +6,7 @@ Container {
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
     layout: AbsoluteLayout {}
-
+    implicitLayoutAnimationsEnabled: false
     background: backgroundPaintOuter.imagePaint
     Container {
         id: block
@@ -37,6 +37,7 @@ Container {
         preferredHeight: layoutHandler.layoutFrame.height * 2
 
         background: backgroundPaint.imagePaint
+        implicitLayoutAnimationsEnabled: false
 
         translationX: animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
         translationY: animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
@@ -74,15 +75,12 @@ Container {
             Application.fullscreen.connect(function(){
                 rotozoomTimer.running = app.player.playback.configuration.animationEnabled
             })
-            Application.invisible.connect(function(){
+            var disableAnimationTimer = function(){
                 rotozoomTimer.running = false
-            })
-            Application.asleep.connect(function(){
-                rotozoomTimer.running = false
-            })
-            Application.thumbnail.connect(function(){
-                rotozoomTimer.running = false
-            })
+            }
+            Application.invisible.connect(disableAnimationTimer)
+            //Application.asleep.connect(disableAnimationTimer)
+            Application.thumbnail.connect(disableAnimationTimer)
         }
     }
     attachedObjects:[

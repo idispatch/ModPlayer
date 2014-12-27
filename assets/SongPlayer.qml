@@ -35,7 +35,7 @@ Page {
                     horizontalAlignment: HorizontalAlignment.Fill
                     topPadding: 20
                     bottomPadding: 20
-                    TGroupContainer {
+                    GroupContainer {
                         topMargin: 16
                         bottomMargin: 16
                         topPadding: 16
@@ -120,7 +120,7 @@ Page {
                     verticalAlignment: VerticalAlignment.Fill
                     leftPadding: 20
                     rightPadding: 20
-                    TGroupContainer {
+                    GroupContainer {
                         topMargin: 16
                         bottomMargin: 16
                         topPadding: 16
@@ -179,7 +179,7 @@ Page {
                             song: app.player.currentSong
                             visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption != samplesViewOption
                         }
-                        TGroupContainer {
+                        GroupContainer {
                             id: patternView
                             visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption == patternViewOption
                             PatternView {
@@ -236,6 +236,11 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SameArtistActionItem {
+            currentSong: app.player.currentSong
+            navigationPane: songPlayer.navigationPane 
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        SameAlbumActionItem {
             currentSong: app.player.currentSong
             navigationPane: songPlayer.navigationPane 
             ActionBar.placement: ActionBarPlacement.InOverflow
