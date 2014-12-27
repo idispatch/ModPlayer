@@ -48,7 +48,27 @@ Page {
                         id: albumArt
                         song: songView.song
                     }
-                    Animation {}
+                    Animation {
+                        animations: [
+                            ParallelAnimation {
+                                id: logoAnimation
+                                ScaleTransition {
+                                    fromX: 0
+                                    fromY: 0
+                                    toX: 1.0
+                                    toY: 1.0
+                                    duration: 500
+                                    easingCurve: StockCurve.CubicIn
+                                }
+                                FadeTransition {
+                                    fromOpacity: 0.0
+                                    toOpacity: 1.0
+                                    duration: 700
+                                    easingCurve: StockCurve.CubicIn
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -57,6 +77,7 @@ Page {
         song = app.player.catalog.resolveModuleById(songId, songView)
         if(song) {
             app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
+            logoAnimation.play()
         }
     }
     function showPlayerView() {
@@ -68,7 +89,7 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() { 
-                showPlayerView()
+            showPlayerView()
         })
     }
     attachedObjects: [

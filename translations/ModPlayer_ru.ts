@@ -926,6 +926,14 @@
         <source>Would you like to import local songs and playlists?</source>
         <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
+    <message>
+        <source>Background</source>
+        <translation>Фон</translation>
+    </message>
+    <message>
+        <source>Enable Background Animation</source>
+        <translation>Анимация</translation>
+    </message>
 </context>
 <context>
     <name>SongArtistInfo</name>

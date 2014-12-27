@@ -10,6 +10,8 @@ class PlaybackConfig : public QObject,
                        public InstanceCounter<PlaybackConfig> {
     Q_OBJECT
 
+    Q_PROPERTY(bool animationEnabled READ animationEnabled WRITE setAnimationEnabled NOTIFY animationEnabledChanged FINAL)
+
     Q_PROPERTY(bool stereo READ stereo WRITE setStereo NOTIFY stereoChanged FINAL)
     Q_PROPERTY(int frequency READ frequency WRITE setFrequency NOTIFY frequencyChanged FINAL)
     Q_PROPERTY(int sampleSize READ sampleSize WRITE setSampleSize NOTIFY sampleSizeChanged FINAL)
@@ -39,6 +41,9 @@ public:
 
     bool isAudioReconfigurationRequired() const;
     void configureModPlug();
+
+    bool animationEnabled() const;
+    void setAnimationEnabled(bool);
 
     bool stereo() const;
     void setStereo(bool);
@@ -97,6 +102,8 @@ public:
     using InstanceCounter<PlaybackConfig>::getInstanceCount;
     using InstanceCounter<PlaybackConfig>::getMaxInstanceCount;
 Q_SIGNALS:
+    void animationEnabledChanged();
+
     void stereoChanged();
     void frequencyChanged();
     void sampleSizeChanged();
@@ -122,6 +129,7 @@ Q_SIGNALS:
     void noiseReductionEnabledChanged();
 private:
     Q_DISABLE_COPY(PlaybackConfig)
+    bool m_animationEnabled;
     bool m_bStereo;
     int m_frequency;
     int m_sampleSize;

@@ -18,7 +18,6 @@ Page {
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-        
             ListView {
                 id: internetRadioList
                 property string channelList

@@ -8,6 +8,7 @@ int InstanceCounter<PlaybackConfig>::s_maxCount;
 
 PlaybackConfig::PlaybackConfig(QObject *parent)
     : QObject(parent),
+      m_animationEnabled(true),
       m_bStereo(true),
       m_frequency(44100),
       m_sampleSize(16),
@@ -87,6 +88,17 @@ void PlaybackConfig::configureModPlug() {
     settings.mLoopCount = 0;
 
     ::ModPlug_SetSettings(&settings);
+}
+
+bool PlaybackConfig::animationEnabled() const {
+    return m_animationEnabled;
+}
+
+void PlaybackConfig::setAnimationEnabled(bool value) {
+    if(m_animationEnabled != value) {
+        m_animationEnabled = value;
+        emit animationEnabledChanged();
+    }
 }
 
 bool PlaybackConfig::stereo() const {
@@ -454,7 +466,8 @@ void PlaybackConfig::setNoiseReductionEnabled(bool value) {
 
 QDebug operator << (QDebug dbg, PlaybackConfig const & config) {
     dbg.nospace() << "(PlaybackConfig: "
-            << "stereo=" << config.stereo()
+            << "animationEnabled=" << config.animationEnabled()
+            << ", stereo=" << config.stereo()
             << ", sampleSize=" << config.sampleSize()
             << ", frequency=" << config.frequency()
             << ", resampling=" << config.resamplingMode()

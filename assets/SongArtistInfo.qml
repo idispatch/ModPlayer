@@ -5,6 +5,18 @@ import "functions.js" as Global
 TGroupContainer {
     id: songArtistInfo
     property variant song
+    onCreationCompleted: {
+        artistInfoAnimation.play()
+    }
+    animations: [
+        ScaleTransition {
+            id: artistInfoAnimation
+            fromY: 0.0
+            toY: 1.0
+            duration: 400
+            easingCurve: StockCurve.CubicInOut
+        }
+    ]
     HorizontalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         SongArtistIcon {

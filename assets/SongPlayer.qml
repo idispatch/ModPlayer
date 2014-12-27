@@ -19,6 +19,18 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Fill
                 leftPadding: 20
                 rightPadding: 20
+                onCreationCompleted: {
+                    headerAnimation.play()
+                }
+                animations: [
+                    TranslateTransition {
+                        id: headerAnimation
+                        fromY: -200.0
+                        toY: 0.0
+                        duration: 700
+                        easingCurve: StockCurve.BackOut
+                    }
+                ]
                 VerticalContainer {
                     horizontalAlignment: HorizontalAlignment.Fill
                     topPadding: 20

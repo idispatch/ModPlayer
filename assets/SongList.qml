@@ -63,7 +63,6 @@ Page {
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-
             ProgressComponent {
                 id: progress
             }
@@ -262,6 +261,23 @@ Page {
                         source: "SongView.qml"
                     }
                 ]
+                animations: [
+                    ParallelAnimation {
+                        id: listAnimation
+                        TranslateTransition {
+                            fromY: 1200.0
+                            toY: 0.0
+                            duration: 500
+                            easingCurve: StockCurve.CircularOut
+                        }
+                        FadeTransition {
+                            fromOpacity: 0.0
+                            toOpacity: 1.0
+                            duration: 300
+                            easingCurve: StockCurve.Linear
+                        }
+                    }
+                ]
             }
         }
     }
@@ -276,7 +292,7 @@ Page {
     }
     function load() {
         unload();
-        maxResults = searchArea.searchTerm.length > 0 ? 100 : 1000
+        maxResults = searchArea.searchTerm.length > 0 ? 100 : 500
         requestId = {
             search: function(searchTerm, queryId, limit) {
                 return app.player.catalog.searchSongsAsync(searchTerm, limit)
@@ -411,6 +427,9 @@ Page {
         songs.dataModel = result
         progress.stop()
         songs.visible = (songs.dataModel.size() > 0)
+        if(songs.visible) {
+            listAnimation.play()
+        }
         listEmpty.visible = (songs.dataModel.size() == 0)
     }
     onCreationCompleted: {
@@ -419,6 +438,7 @@ Page {
             })
         app.catalog.resultReady.connect(onDataReceived)
     }
+    
     attachedObjects: [
         ComponentDefinition {
             id: songPlayer

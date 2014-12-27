@@ -128,6 +128,10 @@ void Playback::initMediaPlayer() {
 }
 
 void Playback::loadSettings() {
+    m_settings.beginGroup("ui");
+    m_config.setAnimationEnabled(m_settings.value("animationEnabled", true).toBool());
+    m_settings.endGroup();
+
     m_settings.beginGroup("mixer");
 
     m_config.setStereo(m_settings.value("stereo", true).toBool());
@@ -160,6 +164,10 @@ void Playback::loadSettings() {
 }
 
 void Playback::saveSettings() {
+    m_settings.beginGroup("ui");
+    m_settings.setValue("animationEnabled", m_config.animationEnabled());
+    m_settings.endGroup();
+
     m_settings.beginGroup("mixer");
 
     m_settings.setValue("stereo", m_config.stereo());

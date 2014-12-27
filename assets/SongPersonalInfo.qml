@@ -3,6 +3,18 @@ import "functions.js" as Global
 
 TGroupContainer {
     property variant song
+    onCreationCompleted: {
+        personalInfoAnimation.play()
+    }
+    animations: [
+        ScaleTransition {
+            id: personalInfoAnimation
+            fromY: 0.0
+            toY: 1.0
+            duration: 400
+            easingCurve: StockCurve.CubicInOut
+        }
+    ]
     HorizontalContainer {
         visible: song != null
         horizontalAlignment: HorizontalAlignment.Fill

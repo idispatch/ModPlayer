@@ -45,7 +45,7 @@ public:
     Player(QSettings &settings, QObject * parent);
     ~Player();
 
-    Q_PROPERTY(bool lightTheme READ lightTheme FINAL)
+    Q_PROPERTY(bool lightTheme READ lightTheme NOTIFY lightThemeChanged FINAL)
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText WRITE setStatusText NOTIFY statusTextChanged FINAL)
     Q_PROPERTY(QString userDirectory READ userDirectory WRITE setUserDirectory NOTIFY userDirectoryChanged FINAL)
@@ -95,6 +95,7 @@ public:
     using InstanceCounter<Player>::getMaxInstanceCount;
 Q_SIGNALS:
     void requestPlayerView();
+    void lightThemeChanged();
     void stateChanged();
     void statusTextChanged();
     void userDirectoryChanged();

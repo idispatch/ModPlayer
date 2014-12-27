@@ -77,7 +77,6 @@ bool ApplicationUI::isForeground() const {
     return m_appState == bb::ProcessState::Foreground;
 }
 
-
 void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
     if(m_appState != processState) {
         bool wasForeground = isForeground();

@@ -250,112 +250,120 @@ Page {
             }
         }
     }
-    ViewContainer {
-        ProgressComponent {
-            id: progress
+    Container {
+        layout: DockLayout {
         }
-        ListView {
-            id: radioList
-            visible: !progress.running
+        RotoZoomer {
+        }
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            topPadding: 20
-            bottomPadding: topPadding
-            leftPadding: 10
-            rightPadding: leftPadding
-            listItemComponents: [
-                ListItemComponent {
-                    type: "header"
-                    Label {
-                        text: ListItem.data
-                        textStyle {
-                            fontWeight: FontWeight.Bold
-                            fontSize: FontSize.Large
-                            color: Color.White
+            ProgressComponent {
+                id: progress
+            }
+            ListView {
+                id: radioList
+                visible: !progress.running
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                topPadding: 20
+                bottomPadding: topPadding
+                leftPadding: 10
+                rightPadding: leftPadding
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "header"
+                        Label {
+                            text: ListItem.data
+                            textStyle {
+                                fontWeight: FontWeight.Bold
+                                fontSize: FontSize.Large
+                                color: Color.White
+                            }
+                        }
+                    },
+                    ListItemComponent {
+                        type: "item"
+                        ModPlayerListItem {
+                            title: ListItem.data.name
+                            favourite: false
+                            description: ListItem.data.location + ", " + ListItem.data.country
+                            text: ListItem.data.url
+                            upperStatus: "Mp3"
+                            middleStatus: ListItem.data.bitrate > 0 ? "%1 kBps".arg(ListItem.data.bitrate) : ""
+                            lowerStatus: ListItem.data.style
+                            imageSource: ListItem.data.flag
                         }
                     }
-                },
-                ListItemComponent {
-                    type: "item"
-                    ModPlayerListItem {
-                        title: ListItem.data.name
-                        favourite: false
-                        description: ListItem.data.location + ", " + ListItem.data.country
-                        text: ListItem.data.url
-                        upperStatus: "Mp3"
-                        middleStatus: ListItem.data.bitrate > 0 ? "%1 kBps".arg(ListItem.data.bitrate) : ""
-                        lowerStatus: ListItem.data.style
-                        imageSource: ListItem.data.flag
-                    }
+                ]
+                onTriggered: {
+                    selectedRadio = dataModel.data(indexPath)
+                    playlistURL = selectedRadio.radioPlaylist
+                    app.player.statusText = qsTr("Tuning Internet Radio")
+                    app.player.currentSong.title = "Internet Radio";
+                    showPlayerView()
+                    app.analytics.selectRadio(playlistURL)
+                    app.player.radio.download(playlistURL)
                 }
-            ]
-            onTriggered: {
-                selectedRadio = dataModel.data(indexPath)
-                playlistURL = selectedRadio.radioPlaylist
-                app.player.statusText = qsTr("Tuning Internet Radio")
-                app.player.currentSong.title = "Internet Radio";
-                showPlayerView()
-                app.analytics.selectRadio(playlistURL)
-                app.player.radio.download(playlistURL)
             }
         }
     }
-    function unload() {
-        progress.start()
-        if(radioList.dataModel) {
-            radioList.dataModel.clear()
-        }
-        radioList.resetDataModel()
-    }
-    function load() {
-        unload()
-        var countrySelection = ""
-        if(country.selectedOption) {
-            countrySelection = country.selectedOption.text
-            if(countrySelection == "All European Radio Stations") {
-                countrySelection = ""
-            }
-        }
-        requestId = app.player.catalog.findLiveStreamRadioAsync(searchArea.searchTerm, 
-                                                                countrySelection, 
-                                                                limit)
-    }
-    function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && 
-           navigationPane.top == liveStreamRadioPage) {
-            var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
-        }
-    }
-    onCreationCompleted: {
-        app.player.requestPlayerView.connect(function() {
-             if(mainTabPane.activePane == navigationPane && 
-                navigationPane.top == liveStreamRadioPage) {
-                 var view = songPlayer.createObject()
-                 view.navigationPane = navigationPane
-                 navigationPane.push(view)
+     function unload() {
+         progress.start()
+         if(radioList.dataModel) {
+             radioList.dataModel.clear()
+         }
+         radioList.resetDataModel()
+     }
+     function load() {
+         unload()
+         var countrySelection = ""
+         if(country.selectedOption) {
+             countrySelection = country.selectedOption.text
+             if(countrySelection == "All European Radio Stations") {
+                 countrySelection = ""
              }
-        })
-        app.catalog.resultReady.connect(function(responseId, result) {
-             if(responseId != requestId) 
-                 return
-             requestId = 0
-             progress.stop()
-             radioList.visible = true
-             radioList.dataModel = result
-        })
-        app.player.radio.downloadFinished.connect(function(playlist,result) {
-            if(playlist == playlistURL && result.length > 0) {
-                app.analytics.playRadio(playlist)
-                var flag = ""
-                if(selectedRadio) {
-                    flag = selectedRadio.flag
-                }
-                app.player.playRadio(result[0], flag)
-            }
-        })
-    }
+         }
+         requestId = app.player.catalog.findLiveStreamRadioAsync(searchArea.searchTerm, 
+                                                                 countrySelection, 
+                                                                 limit)
+     }
+     function showPlayerView() {
+         if(mainTabPane.activePane == navigationPane && 
+            navigationPane.top == liveStreamRadioPage) {
+             var view = songPlayer.createObject()
+             view.navigationPane = navigationPane
+             navigationPane.push(view)
+         }
+     }
+     onCreationCompleted: {
+         app.player.requestPlayerView.connect(function() {
+              if(mainTabPane.activePane == navigationPane && 
+                 navigationPane.top == liveStreamRadioPage) {
+                  var view = songPlayer.createObject()
+                  view.navigationPane = navigationPane
+                  navigationPane.push(view)
+              }
+         })
+         app.catalog.resultReady.connect(function(responseId, result) {
+              if(responseId != requestId) 
+                  return
+              requestId = 0
+              progress.stop()
+              radioList.visible = true
+              radioList.dataModel = result
+         })
+         app.player.radio.downloadFinished.connect(function(playlist,result) {
+             if(playlist == playlistURL && result.length > 0) {
+                 app.analytics.playRadio(playlist)
+                 var flag = ""
+                 if(selectedRadio) {
+                     flag = selectedRadio.flag
+                 }
+                 app.player.playRadio(result[0], flag)
+             }
+         })
+     }
     attachedObjects: [
         ComponentDefinition {
             id: songPlayer

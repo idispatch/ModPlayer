@@ -3,6 +3,18 @@ import bb.cascades 1.0
 TGroupContainer {
     property variant song
     visible: song != null && !song.isLocal
+    onCreationCompleted: {
+        publicInfoAnimation.play()
+    }
+    animations: [
+        ScaleTransition {
+            id: publicInfoAnimation
+            fromY: 0.0
+            toY: 1.0
+            duration: 400
+            easingCurve: StockCurve.CubicInOut
+        }
+    ]
     VerticalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
         visible: song != null && !song.isLocal

@@ -159,6 +159,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cork.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cork.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \

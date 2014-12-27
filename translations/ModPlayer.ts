@@ -926,6 +926,14 @@
         <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Background Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SongArtistInfo</name>
@@ -1036,10 +1044,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No songs in this list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Songs on My Device (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1065,6 +1069,10 @@
     </message>
     <message>
         <source>search songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No songs in this list</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
