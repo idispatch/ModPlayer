@@ -65,10 +65,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adding to playlist &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current Playlist (%1 songs)</source>
         <translation type="unfinished"></translation>
     </message>

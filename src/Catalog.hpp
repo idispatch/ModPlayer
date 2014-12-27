@@ -173,6 +173,7 @@ public:
     Q_INVOKABLE void deletePlaylistByName(QString const& name);
     Q_INVOKABLE void deleteAllPlaylists();
     Q_INVOKABLE void appendToPlaylist(int playlistId, int songId);
+    Q_INVOKABLE void appendSongsToPlaylist(int playlistId, QVariantList songs);
     Q_INVOKABLE void deleteSongFromPlaylist(int playlistId, int songId);
     Q_INVOKABLE QVariant getPlaylistSongs(int playlistId);
 

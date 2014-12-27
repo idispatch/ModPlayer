@@ -34,7 +34,7 @@ ActionItem {
             emoticonsEnabled: false
             defaultButton: SystemUiButton.confirmButton
             dismissAutomatically: true
-            function appendToPlaylist(playlistId, playlistName) {
+            function addToPlaylist(playlistId, playlistName) {
                 var root = null
                 if(rootObject != null) {
                     root = rootObject 
@@ -51,20 +51,11 @@ ActionItem {
                         if(songCount > 1000) {
                             songCount = 1000
                         }
-                        progress.statusMessage = qsTr("Adding to playlist '%1'...").arg(playlistName)
-                        progress.show()
-                        
+                        var songs = []
                         for(var i = 0; i < songCount; i++) {
-                            var song = songList.value(i)
-
-                            progress.progress = (i + 1) * 100 / songCount
-                            progress.body = song.title
-                            progress.show()
-                            
-                            root.catalog.appendToPlaylist(playlistId, song.id)
+                            songs.push(songList.value(i).id)
                         }
-                        progress.cancel()
-                        
+                        root.catalog.appendSongsToPlaylist(playlistId, songs)
                         notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName)
                         notificationToast.show()
                     }
@@ -122,12 +113,12 @@ ActionItem {
                         if(playlistName.length < 1)
                             return;
                         var playlistId = root.catalog.createPlaylist(playlistName)
-                        appendToPlaylist(playlistId, playlistName)
+                        addToPlaylist(playlistId, playlistName)
                     } else if(item >= 3) {
                         // Add to existing playlist
                         var playlistId = playlists[item].id
                         var playlistName = playlists[item].name
-                        appendToPlaylist(playlistId, playlistName)
+                        addToPlaylist(playlistId, playlistName)
                     }
                 }
                 playlists = undefined

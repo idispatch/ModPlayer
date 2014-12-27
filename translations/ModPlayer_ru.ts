@@ -62,7 +62,7 @@
     </message>
     <message>
         <source>Adding to playlist &apos;%1&apos;...</source>
-        <translation>Добавляется в плейлист &apos;%1&apos;...</translation>
+        <translation type="obsolete">Добавляется в плейлист &apos;%1&apos;...</translation>
     </message>
     <message>
         <source>Current Playlist (%1 songs)</source>

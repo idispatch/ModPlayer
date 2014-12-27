@@ -1184,6 +1184,35 @@ void Catalog::appendToPlaylist(int playlistId, int songId) {
     m_dataAccess->execute(query, params);
 }
 
+void Catalog::appendSongsToPlaylist(int playlistId, QVariantList songs) {
+    int primaryKey = 1;
+    QString query = QString("SELECT COALESCE(MAX(songOrder),0)+1 "
+            "FROM playlistEntries "
+            "WHERE playlistId=%1").arg(playlistId);
+    QSqlDatabase db = m_dataAccess->connection();
+    QSqlQuery sqlQuery = db.exec(query);
+    if(sqlQuery.next()) {
+        primaryKey = sqlQuery.value(0).toInt();
+    }
+    const int count = songs.length();
+    if(count > 0) {
+        if(db.transaction()) {
+            for(int i = 0; i < count; ++i) {
+                bool bOk;
+                const int songId = songs[i].toInt(&bOk);
+                if(bOk) {
+                    qDebug() << "song id:" << songId;
+                    query = QString("INSERT INTO playlistEntries "
+                                    "(playlistId, songId, songOrder) "
+                                    "VALUES (%1,%2,%3)").arg(playlistId).arg(songId).arg(primaryKey++);
+                    db.exec(query);
+                }
+            }
+            db.commit();
+        }
+    }
+}
+
 void Catalog::deleteSongFromPlaylist(int playlistId, int songId) {
     QString query = "DELETE FROM playlistEntries WHERE playlistId=? AND songId=?";
     QVariantList params;
