@@ -15,7 +15,7 @@ ActionItem {
             if(app.player.playlist.remaining > 0) {
                 return qsTr("Play") + Retranslate.onLanguageChanged
             } else {
-                return ""
+                return qsTr("Stop") + Retranslate.onLanguageChanged
             }
         }
     }

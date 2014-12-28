@@ -244,6 +244,14 @@
     </message>
 </context>
 <context>
+    <name>EnqueueActionItem</name>
+    <message>
+        <location filename="../assets/EnqueueActionItem.qml" line="7"/>
+        <source>Enqueue</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <location filename="../assets/FormatsList.qml" line="10"/>
@@ -587,6 +595,7 @@
     <message>
         <location filename="../assets/PlayActionItem.qml" line="8"/>
         <location filename="../assets/PlayActionItem.qml" line="10"/>
+        <location filename="../assets/PlayActionItem.qml" line="18"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>

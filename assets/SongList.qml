@@ -468,12 +468,9 @@ Page {
         listEmpty.visible = (songs.dataModel.size() == 0)
     }
     onCreationCompleted: {
-        app.player.requestPlayerView.connect(function() {
-                showPlayerView()
-            })
+        app.player.requestPlayerView.connect(showPlayerView)
         app.catalog.resultReady.connect(onDataReceived)
     }
-    
     attachedObjects: [
         ComponentDefinition {
             id: songPlayer
@@ -485,11 +482,12 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: songListPage.navigationPane
         },
-        PauseActionItem {
+        EnqueueActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
-            navigationPane: songListPage.navigationPane
-            playlistId: songs.mode == 'playlist' ? listId : null
-            albumId: songs.mode == 'album' ? listId : null
+            songList: songs.dataModel
+        },
+        PlayActionItem {
+            ActionBar.placement: ActionBarPlacement.OnBar
         },
         NextActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

@@ -204,6 +204,17 @@
     </message>
 </context>
 <context>
+    <name>EnqueueActionItem</name>
+    <message>
+        <source>Append to Playlist</source>
+        <translation type="obsolete">Добавить в плейлист</translation>
+    </message>
+    <message>
+        <source>Enqueue</source>
+        <translation>В плейлист</translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>

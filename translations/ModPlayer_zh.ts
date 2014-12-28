@@ -200,6 +200,17 @@
     </message>
 </context>
 <context>
+    <name>EnqueueActionItem</name>
+    <message>
+        <source>Append to Playlist</source>
+        <translation type="obsolete">添加到播放列表</translation>
+    </message>
+    <message>
+        <source>Enqueue</source>
+        <translation>排队</translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -237,11 +248,11 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is a tracker music player.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; 是一个跟踪器的音乐播放器。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
@@ -273,7 +284,7 @@
     </message>
     <message>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
-        <translation type="unfinished"></translation>
+        <translation>我做了ModPlayer的乐趣，希望您会喜欢的应用程序太:)</translation>
     </message>
     <message>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>

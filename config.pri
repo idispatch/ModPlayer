@@ -59,6 +59,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/Cover.qml) \
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
+        $$quote($$BASEDIR/assets/EnqueueActionItem.qml) \
         $$quote($$BASEDIR/assets/FormatsList.qml) \
         $$quote($$BASEDIR/assets/GenresList.qml) \
         $$quote($$BASEDIR/assets/GroupContainer.qml) \
