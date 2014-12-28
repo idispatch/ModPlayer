@@ -35,7 +35,6 @@ Page {
                     SongPersonalInfo {
                         song: songView.song
                     }
-                    
                     SongPublicInfo {
                         song: songView.song
                         visible: songView.song && songView.song.isTrackerSong && songView.song.id > 0
@@ -49,6 +48,9 @@ Page {
                         song: songView.song
                     }
                     Animation {
+                        onTouch: {
+                            mouse.showMouse()
+                        }
                         animations: [
                             ParallelAnimation {
                                 id: logoAnimation
@@ -71,6 +73,9 @@ Page {
                     }
                 }
             }
+        }
+        Mouse {
+            id: mouse
         }
     }
     function load(songId) {

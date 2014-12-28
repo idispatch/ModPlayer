@@ -34,10 +34,8 @@ Sheet {
             } 
         }
         Container {
-            layout: DockLayout {
-            }
-            RotoZoomer {
-            }
+            layout: DockLayout {}
+            RotoZoomer {}
             Container {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
@@ -64,7 +62,11 @@ Sheet {
                                     color: Color.Black
                                 }
                             }
-                            Animation {}
+                            Animation {
+                                onTouch: {
+                                    mouse.showMouse()
+                                }
+                            }
                             BlackLabel {
                                 text: qsTr("Version: <b>%1</b>").arg(app.version)
                                 textFormat: TextFormat.Html
@@ -686,6 +688,9 @@ Sheet {
                         }
                     }
                 }
+            }
+            Mouse {
+                id: mouse
             }
         }
     }

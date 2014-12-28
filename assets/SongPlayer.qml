@@ -27,7 +27,7 @@ Page {
                         id: headerAnimation
                         fromY: -200.0
                         toY: 0.0
-                        duration: 700
+                        duration: 800
                         easingCurve: StockCurve.BackOut
                     }
                 ]
@@ -198,6 +198,7 @@ Page {
                 }
             }
         }
+        Mouse {}
         onCreationCompleted: {
             var theApp = app
             var showProgress = function() {

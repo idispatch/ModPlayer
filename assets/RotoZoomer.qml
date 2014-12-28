@@ -31,30 +31,27 @@ Container {
         property double scaleMax: 2.5
         property double scaleMin: 1.0
 
-        property bool animationEnabled: app.player.playback.configuration.animationEnabled
-
         preferredWidth: layoutHandler.layoutFrame.width * 2
         preferredHeight: layoutHandler.layoutFrame.height * 2
 
         background: backgroundPaint.imagePaint
         implicitLayoutAnimationsEnabled: false
 
-        translationX: animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
-        translationY: animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
+        translationX: app.player.playback.configuration.animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
+        translationY: app.player.playback.configuration.animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
 
-        rotationZ: animationEnabled ? (Math.sin(rotatePhase * 0.01745329251) * (rotateMax - rotateMin)/2 + rotateMin) : 0 
+        rotationZ: app.player.playback.configuration.animationEnabled ? (Math.sin(rotatePhase * 0.01745329251) * (rotateMax - rotateMin)/2 + rotateMin) : 0 
 
-        scaleX: animationEnabled ? (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin : 1.0
-        scaleY: animationEnabled ? (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin : 1.0
+        scaleX: app.player.playback.configuration.animationEnabled ? (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin : 1.0
+        scaleY: app.player.playback.configuration.animationEnabled ? (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin : 1.0
 
         attachedObjects: [
             Timer {
                 id: rotozoomTimer
                 interval: 50
                 repeat: true
-                running: true
                 onTriggered: {
-                    if(block.animationEnabled) {
+                    if(app.player.playback.configuration.animationEnabled) {
                         block.angleX += block.angleStepX
                         block.angleY += block.angleStepY
                         block.scalePhase += block.scaleStep
@@ -71,16 +68,27 @@ Container {
                 imageSource: "asset:///images/backgrounds/view_back.amd"
             }
         ]
-        onCreationCompleted: {
-            Application.fullscreen.connect(function(){
-                rotozoomTimer.running = app.player.playback.configuration.animationEnabled
-            })
-            var disableAnimationTimer = function(){
-                rotozoomTimer.running = false
+        function enableAnimationTimer() {
+            if(app.player.playback.configuration.animationEnabled) {
+                rotozoomTimer.start()
             }
+        }
+        function disableAnimationTimer() {
+            rotozoomTimer.stop()
+        }
+        function initTimer() {
+            if(app.player.playback.configuration.animationEnabled) {
+                enableAnimationTimer()
+            } else {
+                disableAnimationTimer()
+            }
+        }
+        onCreationCompleted: {
+            Application.fullscreen.connect(enableAnimationTimer)
             Application.invisible.connect(disableAnimationTimer)
-            //Application.asleep.connect(disableAnimationTimer)
             Application.thumbnail.connect(disableAnimationTimer)
+            app.player.playback.configuration.animationEnabledChanged.connect(initTimer)
+            initTimer()
         }
     }
     attachedObjects:[

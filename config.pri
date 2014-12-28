@@ -71,6 +71,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/InternetRadioList.qml) \
         $$quote($$BASEDIR/assets/LiveStreamRadio.qml) \
         $$quote($$BASEDIR/assets/ModPlayerListItem.qml) \
+        $$quote($$BASEDIR/assets/Mouse.qml) \
         $$quote($$BASEDIR/assets/NextActionItem.qml) \
         $$quote($$BASEDIR/assets/OpenSongActionItem.qml) \
         $$quote($$BASEDIR/assets/Patterns.qml) \
@@ -161,6 +162,9 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/mouse.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/pattern1.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/pattern1.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.amd) \
@@ -658,4 +662,5 @@ lupdate_inclusion {
 }
 
 TRANSLATIONS = $$quote($${TARGET}_ru.ts) \
+    $$quote($${TARGET}_zh_TW.ts) \
     $$quote($${TARGET}.ts)
