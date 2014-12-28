@@ -58,6 +58,9 @@ Page {
                             }
                             bottomMargin: 10
                             horizontalAlignment: HorizontalAlignment.Center
+                            onTouch: {
+                                mouse.showMouse()
+                            }
                         }
                         VUMeter {
                             id: songVUMeter
@@ -198,7 +201,9 @@ Page {
                 }
             }
         }
-        Mouse {}
+        Mouse {
+            id: mouse
+        }
         onCreationCompleted: {
             var theApp = app
             var showProgress = function() {

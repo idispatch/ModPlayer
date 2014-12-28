@@ -163,8 +163,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/mouse.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/pattern1.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/pattern1.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.amd) \
