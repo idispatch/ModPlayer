@@ -19,5 +19,13 @@ device {
         DEFINES += NDEBUG
     }
 }
+simulator {
+    CONFIG(debug, debug|release) {
+        DEFINES += _DEBUG 
+    }
+    CONFIG(release, debug|release) {
+        DEFINES += NDEBUG
+    }
+}
 
 include(config.pri)

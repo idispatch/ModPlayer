@@ -192,10 +192,10 @@
 		<configuration configurationName="Device-Debug">
 			<resource resourceType="PROJECT" workspacePath="/ModPlayer"/>
 		</configuration>
-		<configuration configurationName="Device-Release">
+		<configuration configurationName="Simulator-Debug">
 			<resource resourceType="PROJECT" workspacePath="/ModPlayer"/>
 		</configuration>
-		<configuration configurationName="Simulator-Debug">
+		<configuration configurationName="Device-Release">
 			<resource resourceType="PROJECT" workspacePath="/ModPlayer"/>
 		</configuration>
 	</storageModule>
