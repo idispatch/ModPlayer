@@ -9,10 +9,13 @@ ActionItem {
     enabled: songList!=null && songList.size() > 0
     onTriggered: {
         if (songList != null) {
+            app.player.stop()
+            app.player.playlist.clear()
             var songCount = songList.size()
             for(var i = 0; i < songCount; i++) {
                 app.player.playlist.add(songList.value(i).id)
             }
+            app.player.playNext()
         }
     }
 }
