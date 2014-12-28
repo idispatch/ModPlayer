@@ -22,13 +22,13 @@ VerticalContainer {
         SegmentedControl {
             id: selector
             Option {
-                text: qsTr("Samples")
+                text: qsTr("Samples") + Retranslate.onLanguageChanged
                 value: "samples"
                 enabled: app.player.currentSong.songLoaded && app.player.currentSong.samples > 0
                 selected: app.player.currentSong.samples > 0
             }
             Option {
-                text: qsTr("Instruments")
+                text: qsTr("Instruments") + Retranslate.onLanguageChanged
                 value: "instruments"
                 enabled: app.player.currentSong.songLoaded && app.player.currentSong.instruments > 0
             }

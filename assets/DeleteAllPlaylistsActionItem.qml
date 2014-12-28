@@ -4,7 +4,7 @@ import player 1.0
 
 ActionItem {
     signal playlistsDeleted()
-    title: qsTr("Delete All Playlists")
+    title: qsTr("Delete All Playlists") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_delete.png"
     onTriggered: {
         confirmDeleteAllPlaylists.exec()
@@ -12,8 +12,8 @@ ActionItem {
     attachedObjects: [
         SystemDialog {
             id: confirmDeleteAllPlaylists
-            title: qsTr("Confirm")
-            body: qsTr("All playlists will be deleted. Please confirm.")
+            title: qsTr("Confirm") + Retranslate.onLanguageChanged
+            body: qsTr("All playlists will be deleted. Please confirm.") + Retranslate.onLanguageChanged
             onFinished: {
                 if (result != SystemUiResult.ConfirmButtonSelection)
                     return;
@@ -24,7 +24,7 @@ ActionItem {
         },
         SystemToast {
             id: playlistsDeletedToast
-            body: qsTr("All playlists have been deleted")
+            body: qsTr("All playlists have been deleted") + Retranslate.onLanguageChanged
         }
     ]
 }

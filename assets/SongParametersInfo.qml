@@ -22,7 +22,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Orders")
+                    text: qsTr("Orders") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -37,7 +37,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Patterns")
+                    text: qsTr("Patterns") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -52,7 +52,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Channels")
+                    text: qsTr("Channels") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -75,7 +75,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Instruments")
+                    text: qsTr("Instruments") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -90,7 +90,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Samples")
+                    text: qsTr("Samples") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }

@@ -4,7 +4,7 @@ import player 1.0
 ActionItem {
     property variant currentSong
     
-    title: qsTr("Remove from Favourites")
+    title: qsTr("Remove from Favourites") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_unlike.png"
     enabled: currentSong != null && currentSong.songLoaded && currentSong.id != 0 && !currentSong.isHttpSong
     shortcuts: Shortcut {

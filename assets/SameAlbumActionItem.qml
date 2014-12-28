@@ -3,7 +3,7 @@ import bb.cascades 1.0
 ActionItem {
     property variant currentSong
     property variant navigationPane
-    title: qsTr("Same Album Songs")
+    title: qsTr("Same Album Songs") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_albums.png"
     enabled: currentSong && currentSong.id != 0 && !currentSong.isTrackerSong && !currentSong.isHttpSong
     onTriggered: {

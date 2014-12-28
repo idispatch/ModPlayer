@@ -5,10 +5,10 @@ TabbedPane {
     objectName: "mainTabPane"
     Tab {
         id: searchTab
-        title: qsTr("Search")
+        title: qsTr("Search") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_search.png"
-        description: qsTr("Search Songs")
+        description: qsTr("Search Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songSearchView.loadSearchSongs()
@@ -27,10 +27,10 @@ TabbedPane {
     }
     Tab {
         id: myFavouriteTab
-        title: qsTr("My Favourite")
+        title: qsTr("My Favourite") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_myfavourite.png"
-        description: qsTr("My Favourite Songs")
+        description: qsTr("My Favourite Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songMyFavouriteView.loadMyFavouriteSongs()
@@ -49,10 +49,10 @@ TabbedPane {
     }
     Tab {
         id: localSongsTab
-        title: qsTr("Local Songs")
+        title: qsTr("Local Songs") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_my_songs.png"
-        description: qsTr("Songs on My Device")
+        description: qsTr("Songs on My Device") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songMyLocalView.loadMyLocalSongs()
@@ -71,10 +71,10 @@ TabbedPane {
     }
     Tab {
         id: recentlyPlayedTab
-        title: qsTr("Recent")
+        title: qsTr("Recent") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_recent.png"
-        description: qsTr("Recently Played Songs")
+        description: qsTr("Recently Played Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songRecentlyPlayedView.loadRecentlyPlayedSongs()
@@ -93,9 +93,9 @@ TabbedPane {
     }
     Tab {
         id: playlistsTab
-        title: qsTr("Playlists")
+        title: qsTr("Playlists") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("My Playlists")
+        description: qsTr("My Playlists") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_playlist.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -115,9 +115,9 @@ TabbedPane {
     }
     Tab {
         id: albumsTab
-        title: qsTr("Albums")
+        title: qsTr("Albums") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Albums")
+        description: qsTr("Albums") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_albums.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -139,7 +139,7 @@ TabbedPane {
         id: liveStreamTab
         title: "Internet Radio"
         objectName: title
-        description: qsTr("Live Stream Radio")
+        description: qsTr("Live Stream Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_radio.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -159,9 +159,9 @@ TabbedPane {
     }
     Tab {
         id: difmTab
-        title: qsTr("Digitally Imported")
+        title: qsTr("Digitally Imported") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Digitally Imported Radio")
+        description: qsTr("Digitally Imported Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_difm.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -182,9 +182,9 @@ TabbedPane {
     }
     Tab {
         id: skyfmTab
-        title: qsTr("SKY.FM")
+        title: qsTr("SKY.FM") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("SKY.FM Radio")
+        description: qsTr("SKY.FM Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_skyfm.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -205,9 +205,9 @@ TabbedPane {
     }
     Tab {
         id: jazzRadioTab
-        title: qsTr("Jazz Radio")
+        title: qsTr("Jazz Radio") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Jazz Radio")
+        description: qsTr("Jazz Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_jazzradio.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -228,9 +228,9 @@ TabbedPane {
     }
     Tab {
         id: rockRadioTab
-        title: qsTr("Rock Radio")
+        title: qsTr("Rock Radio") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Rock Radio")
+        description: qsTr("Rock Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_rockradio.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -251,10 +251,10 @@ TabbedPane {
     }
     Tab {
         id: mostPlayedTab
-        title: qsTr("Most Played")
+        title: qsTr("Most Played") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_mostplayed.png"
-        description: qsTr("Most Played Songs")
+        description: qsTr("Most Played Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songMostPlayedView.loadMostPlayedSongs()
@@ -273,10 +273,10 @@ TabbedPane {
     }
     Tab {
         id: topDownloadsTab
-        title: qsTr("Downloads")
+        title: qsTr("Downloads") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_downloads.png"
-        description: qsTr("Top Downloaded Songs")
+        description: qsTr("Top Downloaded Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songsTopDownloadedView.loadMostDownloadedSongs()
@@ -295,10 +295,10 @@ TabbedPane {
     }
     Tab {
         id: topFavouritedTab
-        title: qsTr("Favourited")
+        title: qsTr("Favourited") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_favourite.png"
-        description: qsTr("Top Favourited Songs")
+        description: qsTr("Top Favourited Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songTopFavouritedView.loadMostFavouritedSongs()
@@ -317,10 +317,10 @@ TabbedPane {
     }
     Tab {
         id: topScoredTab
-        title: qsTr("Scored")
+        title: qsTr("Scored") + Retranslate.onLanguageChanged
         objectName: title
         imageSource: "asset:///images/actions/icon_score.png"
-        description: qsTr("Top Scored Songs")
+        description: qsTr("Top Scored Songs") + Retranslate.onLanguageChanged
         onTriggered: {
             app.analytics.showPage(title)
             songTopScoredView.loadMostScoredSongs()
@@ -339,9 +339,9 @@ TabbedPane {
     }
     Tab {
         id: artistsTab
-        title: qsTr("Artists")
+        title: qsTr("Artists") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Songs By Artist")
+        description: qsTr("Songs By Artist") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_artists.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -361,9 +361,9 @@ TabbedPane {
     }
     Tab {
         id: genresTab
-        title: qsTr("Genres")
+        title: qsTr("Genres") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Songs By Genre")
+        description: qsTr("Songs By Genre") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_genres.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -383,9 +383,9 @@ TabbedPane {
     }
     Tab {
         id: formatsTab
-        title: qsTr("Formats")
+        title: qsTr("Formats") + Retranslate.onLanguageChanged
         objectName: title
-        description: qsTr("Songs By Module Format")
+        description: qsTr("Songs By Module Format") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_format.png"
         onTriggered: {
             app.analytics.showPage(title)
@@ -415,7 +415,7 @@ TabbedPane {
     Menu.definition: MenuDefinition {
         helpAction: HelpActionItem {
             id: helpActionItem
-            title: qsTr("Help")
+            title: qsTr("Help") + Retranslate.onLanguageChanged
             enabled: true
             onTriggered: helpView.createObject(mainTabPane).open()
             attachedObjects: [
@@ -427,21 +427,21 @@ TabbedPane {
         }
         actions: [
             ActionItem {
-                title: qsTr("Twit!")
+                title: qsTr("Twit!") + Retranslate.onLanguageChanged
                 imageSource: "asset:///images/actions/icon_twitter.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: true
                 onTriggered: app.twit()
             },
             ActionItem {
-                title: qsTr("BBM")
+                title: qsTr("BBM") + Retranslate.onLanguageChanged
                 imageSource: "asset:///images/actions/icon_bbm.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: true
                 onTriggered: app.bbm()
             },
             ActionItem {
-                title: qsTr("Email Author")
+                title: qsTr("Email Author") + Retranslate.onLanguageChanged
                 imageSource: "asset:///images/actions/icon_email.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: true
@@ -450,7 +450,7 @@ TabbedPane {
         ]
         settingsAction: SettingsActionItem {
             id: settingsActionItem
-            title: qsTr("Settings")
+            title: qsTr("Settings") + Retranslate.onLanguageChanged
             enabled: true
             onTriggered : settingsView.createObject(mainTabPane).open()
             attachedObjects: [

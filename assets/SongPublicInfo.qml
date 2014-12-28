@@ -31,7 +31,7 @@ GroupContainer {
                 text: {
                     if(song) {
                         if(song.downloads > 0) {
-                            return qsTr("Dowloaded <b>%1</b> times by others").arg(song.downloads)
+                            return qsTr("Dowloaded <b>%1</b> times by others").arg(song.downloads) + Retranslate.onLanguageChanged
                         }
                     }
                     return ""

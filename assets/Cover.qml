@@ -50,22 +50,22 @@ ViewContainer {
                         if(app.player.currentSong.songLoaded) {
                             var state = app.player.state;
                             if(state == Player.Playing) {
-                                return qsTr("Playing")
+                                return qsTr("Playing") + Retranslate.onLanguageChanged
                             } else if (state == Player.Stopped) {
-                                return qsTr("Stopped")
+                                return qsTr("Stopped") + Retranslate.onLanguageChanged
                             } else if (state == Player.Paused) {
-                                return qsTr("Paused")
+                                return qsTr("Paused") + Retranslate.onLanguageChanged
                             } else if (state == Player.Resolving) {
-                                return qsTr("Resolving")
+                                return qsTr("Resolving") + Retranslate.onLanguageChanged
                             } else if (state == Player.Downloading) {
-                                return qsTr("Downloading")
+                                return qsTr("Downloading") + Retranslate.onLanguageChanged
                             } else if (state == Player.Preparing) {
-                                return qsTr("Preparing")
+                                return qsTr("Preparing") + Retranslate.onLanguageChanged
                             } else {
                                 return "---"
                             }
                         } else {
-                            return qsTr("Idle")
+                            return qsTr("Idle") + Retranslate.onLanguageChanged
                         }
                     }
                     textStyle {

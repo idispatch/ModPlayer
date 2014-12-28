@@ -21,7 +21,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Order")
+                    text: qsTr("Order") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -36,7 +36,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Pattern")
+                    text: qsTr("Pattern") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -51,7 +51,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Row")
+                    text: qsTr("Row") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -66,7 +66,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Channels")
+                    text: qsTr("Channels") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -89,7 +89,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Speed")
+                    text: qsTr("Speed") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -104,7 +104,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Tempo")
+                    text: qsTr("Tempo") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }
@@ -119,7 +119,7 @@ HorizontalContainer {
                 layout: DockLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 BlackLabel {
-                    text: qsTr("Volume")
+                    text: qsTr("Volume") + Retranslate.onLanguageChanged
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Left
                 }

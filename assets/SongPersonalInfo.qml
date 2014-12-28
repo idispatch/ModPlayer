@@ -29,11 +29,11 @@ GroupContainer {
                 if(song) {
                     if(song.playCount > 0) {
                         if(song.playCount == 1) {
-                            return qsTr("You played this song once")
+                            return qsTr("You played this song once") + Retranslate.onLanguageChanged
                         }
-                        return qsTr("You played this song <b>%1</b> times").arg(song.playCount)
+                        return qsTr("You played this song <b>%1</b> times").arg(song.playCount) + Retranslate.onLanguageChanged
                     }
-                    return qsTr("You did not play this song yet")
+                    return qsTr("You did not play this song yet") + Retranslate.onLanguageChanged
                 }
                 return ""
             }
@@ -55,7 +55,7 @@ GroupContainer {
         }
         BlackLabel {
             text: song && song.lastPlayed > 0 ? 
-                qsTr("Last played %1").arg(Global.formatTimeStamp(song.lastPlayed)) : 
+            qsTr("Last played %1").arg(Global.formatTimeStamp(song.lastPlayed)) + Retranslate.onLanguageChanged : 
                 ""
         }
         onCreationCompleted: {
@@ -74,7 +74,7 @@ GroupContainer {
             rightMargin: 5
         }
         BlackLabel {
-            text: song && song.myFavourite > 0 ? qsTr("You liked this song") : ""
+            text: song && song.myFavourite > 0 ? qsTr("You liked this song") + Retranslate.onLanguageChanged : ""
         }
         onCreationCompleted: {
             app.player.currentSong.myFavouriteChanged.connect(function(){
@@ -97,7 +97,7 @@ GroupContainer {
                     return "<i>%1</i>".arg(Global.escapeHtml(fileName))
                 } else {
                     if(app.cache.exists(song.fileName)) {
-                        return qsTr("<i>You have this song in the cache already</i>")
+                        return qsTr("<i>You have this song in the cache already</i>") + Retranslate.onLanguageChanged
                     }
                 }
             }

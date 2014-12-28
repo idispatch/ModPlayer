@@ -8,7 +8,7 @@ Page {
     property int requestId
     titleBar: PlayerTitleBar {
         id: titleBar
-        title: qsTr("Select Artist")
+        title: qsTr("Select Artist") + Retranslate.onLanguageChanged
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
             TitleBarText {
@@ -17,7 +17,7 @@ Page {
             expandableArea {
                 content: SearchArea {
                     id: searchArea
-                    hintText: qsTr("search artists")
+                    hintText: qsTr("search artists") + Retranslate.onLanguageChanged
                     onSearch: {
                         load()
                     }
@@ -65,11 +65,11 @@ Page {
                         ModPlayerListItem {
                             title: ListItem.data.name
                             favourite: false
-                            upperStatus: ListItem.data.count > 0 ? qsTr("%1 songs").arg(ListItem.data.count) : ""
-                            middleStatus: ListItem.data.score > 0 ? qsTr("score %1 of 10").arg(ListItem.data.score) : ""
+                            upperStatus: ListItem.data.count > 0 ? qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged : ""
+                            middleStatus: ListItem.data.score > 0 ? qsTr("score %1 of 10").arg(ListItem.data.score) + Retranslate.onLanguageChanged : ""
                             lowerStatus: {
                                 if(ListItem.data.rating > 0) {
-                                    return qsTr("rating %1").arg(ListItem.data.rating)
+                                    return qsTr("rating %1").arg(ListItem.data.rating) + Retranslate.onLanguageChanged
                                 } else {
                                     return Global.formatDuration(ListItem.data.duration)
                                 }

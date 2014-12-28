@@ -7,15 +7,15 @@ ActionItem {
     property variant albumId: null
     title: {
         if(playlistId != null) {
-            return qsTr("Play Playlist")
+            return qsTr("Play Playlist") + Retranslate.onLanguageChanged
         } else if(albumId != null) {
-            return qsTr("Play Album")
+            return qsTr("Play Album") + Retranslate.onLanguageChanged
         } else {
             if(app.player.currentSong.songLoaded) {
                 if(app.player.state == Player.Playing) {
-                    return qsTr("Pause")
+                    return qsTr("Pause") + Retranslate.onLanguageChanged
                 } else {
-                    return qsTr("Resume")
+                    return qsTr("Resume") + Retranslate.onLanguageChanged
                 }
             } else {
                 return ""

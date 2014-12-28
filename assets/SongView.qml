@@ -105,7 +105,7 @@ Page {
     ]
     actions: [ 
         ActionItem {
-            title: qsTr("Play")
+            title: qsTr("Play") + Retranslate.onLanguageChanged
             imageSource: "asset:///images/actions/icon_play.png"
             enabled: song != null
             ActionBar.placement: ActionBarPlacement.OnBar

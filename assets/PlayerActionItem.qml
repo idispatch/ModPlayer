@@ -3,7 +3,7 @@ import bb.cascades 1.0
 ActionItem {
     property variant navigationPane
     
-    title: qsTr("Now Playing")
+    title: qsTr("Now Playing") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_nowplaying.png"
     shortcuts: Shortcut {
         key: "n"

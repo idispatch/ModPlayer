@@ -135,17 +135,17 @@ Page {
                             id: viewOption
                             Option {
                                 id: basicViewOption
-                                text: qsTr("Basic")
+                                text: qsTr("Basic") + Retranslate.onLanguageChanged
                                 selected: true
                             }
                             Option {
                                 id: patternViewOption
-                                text: qsTr("Pattern")
+                                text: qsTr("Pattern") + Retranslate.onLanguageChanged
                                 enabled: app.player.currentSong.isTrackerSong
                             }
                             Option {
                                 id: samplesViewOption
-                                text: qsTr("Samples")
+                                text: qsTr("Samples") + Retranslate.onLanguageChanged
                                 enabled: app.player.currentSong.isTrackerSong
                             }
                         }
@@ -208,7 +208,7 @@ Page {
             var theApp = app
             var showProgress = function() {
                 if(theApp.player.state >= 100) { // Resolving, Dowloading, Preparing 
-                    progress.body = qsTr("Downloading song")
+                    progress.body = qsTr("Downloading song") + Retranslate.onLanguageChanged
                     progress.show()
                 } else {
                     progress.cancel()

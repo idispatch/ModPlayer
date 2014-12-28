@@ -7,7 +7,7 @@ ActionItem {
     property variant currentSong
     property variant rootObject
     property string mode: ""
-    title: qsTr("Append to Playlist")
+    title: qsTr("Append to Playlist") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_append_playlist.png"
     enabled: {
         if(mode != 'playlist') {
@@ -27,7 +27,7 @@ ActionItem {
     attachedObjects: [
         SystemListDialog {
             id: playlistSelection
-            title: qsTr("Select Playlist")
+            title: qsTr("Select Playlist") + Retranslate.onLanguageChanged
             selectionMode: ListSelectionMode.Single
             modality: SystemUiModality.Application
             includeRememberMe: false
@@ -43,7 +43,7 @@ ActionItem {
                 }
                 if(currentSong != null) {
                     root.catalog.appendToPlaylist(playlistId, currentSong.id)
-                    notificationToast.body = qsTr("Song '%1' was added to playlist '%2'").arg(currentSong.title).arg(playlistName)
+                    notificationToast.body = qsTr("Song '%1' was added to playlist '%2'").arg(currentSong.title).arg(playlistName) + Retranslate.onLanguageChanged
                     notificationToast.show()
                 } else if(songList != null) {
                     var songCount = songList.size()
@@ -56,7 +56,7 @@ ActionItem {
                             songs.push(songList.value(i).id)
                         }
                         root.catalog.appendSongsToPlaylist(playlistId, songs)
-                        notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName)
+                        notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName) + Retranslate.onLanguageChanged
                         notificationToast.show()
                     }
                 }
@@ -71,8 +71,8 @@ ActionItem {
                     root = app
                 }
                 clearList()
-                appendItem(qsTr("Current Playlist (%1 songs)").arg(root.player.playlist.count), true, true)
-                appendItem(qsTr("New Playlist..."), true, false)
+                appendItem(qsTr("Current Playlist (%1 songs)").arg(root.player.playlist.count) + Retranslate.onLanguageChanged, true, true)
+                appendItem(qsTr("New Playlist...") + Retranslate.onLanguageChanged, true, false)
                 var model = root.catalog.findPlaylists("")
                 var playlists = {}
                 var counter = 3
@@ -83,10 +83,10 @@ ActionItem {
                     var value = model.data(i)
                     playlists[counter++] = value
                     if(!headerAdded) {
-                        appendHeader(qsTr("Existing Playlists"))
+                        appendHeader(qsTr("Existing Playlists") + Retranslate.onLanguageChanged)
                         headerAdded = true
                     }
-                    var playlistTitle = qsTr("%1 (%2 songs)").arg(value.name).arg(value.count) 
+                    var playlistTitle = qsTr("%1 (%2 songs)").arg(value.name).arg(value.count) + Retranslate.onLanguageChanged 
                     appendItem(playlistTitle, true, false)
                 }
                 model.destroy()

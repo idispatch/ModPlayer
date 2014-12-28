@@ -3,7 +3,7 @@ import bb.system 1.0
 import player 1.0
 
 ActionItem {
-    title: qsTr("Import Songs")
+    title: qsTr("Import Songs") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_import.png"
     onTriggered: {
         confirmImport.show()
@@ -11,8 +11,8 @@ ActionItem {
     attachedObjects: [
         SystemDialog {
             id: confirmImport
-            title: qsTr("Confirm")
-            body: qsTr("Would you like to import local songs and playlists?")
+            title: qsTr("Confirm") + Retranslate.onLanguageChanged
+            body: qsTr("Would you like to import local songs and playlists?") + Retranslate.onLanguageChanged
             onFinished: {
                 if (result == SystemUiResult.ConfirmButtonSelection) {
                     app.player.importSongs()

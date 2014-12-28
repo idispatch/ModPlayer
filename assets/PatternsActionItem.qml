@@ -2,7 +2,7 @@ import bb.cascades 1.0
 
 ActionItem {
     property variant navigationPane
-    title: qsTr("Patterns")
+    title: qsTr("Patterns") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_patterns.png"
     enabled: app.player.currentSong.songLoaded
     onTriggered : {

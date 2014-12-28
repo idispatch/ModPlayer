@@ -660,5 +660,5 @@ lupdate_inclusion {
 }
 
 TRANSLATIONS = $$quote($${TARGET}_ru.ts) \
-    $$quote($${TARGET}_zh_TW.ts) \
+    $$quote($${TARGET}_zh.ts) \
     $$quote($${TARGET}.ts)

@@ -8,9 +8,9 @@ Page {
             var currentSong = app.player.currentSong
             if(currentSong.songLoaded) {
                 var fileName = Global.fileNameOnly(currentSong.fileName)
-                return qsTr("Pattern %1 (%2)").arg(currentSong.currentPattern).arg(fileName)
+                return qsTr("Pattern %1 (%2)").arg(currentSong.currentPattern).arg(fileName) + Retranslate.onLanguageChanged
             } else {
-                return qsTr("Patterns")
+                return qsTr("Patterns") + Retranslate.onLanguageChanged
             }
         }
     }

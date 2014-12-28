@@ -8,7 +8,7 @@ Page {
     property int requestId
     titleBar: PlayerTitleBar {
         id: titleBar
-        title: qsTr("Select Playlist")
+        title: qsTr("Select Playlist") + Retranslate.onLanguageChanged
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
             TitleBarText {
@@ -17,7 +17,7 @@ Page {
             expandableArea {
                 content: SearchArea {
                     id: searchArea
-                    hintText: qsTr("search playlists")
+                    hintText: qsTr("search playlists") + Retranslate.onLanguageChanged
                     onSearch: {
                         load()
                     }
@@ -84,16 +84,16 @@ Page {
                             title: ListItem.data.name
                             description: " "
                             favourite: false
-                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                             lowerStatus: Global.formatDuration(ListItem.data.duration)
                             imageSource: "asset:///images/formats/icon_playlist.png"
                             contextActions: [
                                 ActionSet {
                                     title: playlistEntry.ListItem.data.name
-                                    subtitle: qsTr("Playlist %1").arg(playlistEntry.ListItem.data.name)
+                                    subtitle: qsTr("Playlist %1").arg(playlistEntry.ListItem.data.name) + Retranslate.onLanguageChanged
                                     actions: [
                                         ActionItem {
-                                            title: qsTr("Play Playlist")
+                                            title: qsTr("Play Playlist") + Retranslate.onLanguageChanged
                                             enabled: playlistEntry.ListItem.data.count > 0
                                             imageSource: "asset:///images/actions/icon_play.png"
                                             onTriggered: {
@@ -101,7 +101,7 @@ Page {
                                             }
                                         },
                                         DeleteActionItem {
-                                            title: qsTr("Delete Playlist")
+                                            title: qsTr("Delete Playlist") + Retranslate.onLanguageChanged
                                             onTriggered: {
                                                 playlistEntry.ListItem.view.deletePlaylist(playlistEntry.ListItem.data)
                                             }

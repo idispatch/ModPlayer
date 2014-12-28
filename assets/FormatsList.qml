@@ -7,7 +7,7 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
-        title: qsTr("Select Songs by Format")
+        title: qsTr("Select Songs by Format") + Retranslate.onLanguageChanged
     }
     ViewContainer {
         ProgressComponent {
@@ -26,7 +26,7 @@ Page {
                     title: ListItem.data.name
                     favourite: false
                     description: ListItem.data.description
-                    middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                    middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                     lowerStatus: Global.formatDuration(ListItem.data.duration)
                     imageSource: ListItem.data.iconPath
                 }

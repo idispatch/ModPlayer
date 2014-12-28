@@ -15,26 +15,26 @@ Page {
             if (c > maxResults) {
                 c = "%1+".arg(maxResults)
             }
-            if (songs.mode == 'recent') return qsTr("Recently Played Songs (%1)").arg(c)
-            if (songs.mode == 'myFavourite') return qsTr("My Favourite Songs (%1)").arg(c)
-            if (songs.mode == 'myLocal') return qsTr("Songs on My Device (%1)").arg(c)
-            if (songs.mode == 'mostPlayed') return qsTr("Most Played Songs (%1)").arg(c)
-            if (songs.mode == 'topFavourited') return qsTr("Top Favourited Songs (%1)").arg(c)
-            if (songs.mode == 'topScored') return qsTr("Top Scored Songs (%1)").arg(c)
-            if (songs.mode == 'topDownloads') return qsTr("Top Downloaded Songs (%1)").arg(c)
-            if (songs.mode == 'format') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
-            if (songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c)
-            if (songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c)
-            if (songs.mode == 'playlist') return qsTr("%1 Playlist Songs (%2)").arg(songs.modelName).arg(c)
-            if (songs.mode == 'songAlbum') return qsTr("%1 Album Songs (%2)").arg(songs.modelName).arg(c)
-            if (songs.mode == 'album') return qsTr("%1 Album Songs (%2)").arg(songs.modelName).arg(c)
+            if (songs.mode == 'recent') return qsTr("Recently Played Songs (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'myFavourite') return qsTr("My Favourite Songs (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'myLocal') return qsTr("Songs on My Device (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'mostPlayed') return qsTr("Most Played Songs (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'topFavourited') return qsTr("Top Favourited Songs (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'topScored') return qsTr("Top Scored Songs (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'topDownloads') return qsTr("Top Downloaded Songs (%1)").arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'format') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'genre') return qsTr("%1 Songs (%2)").arg(songs.modelName).arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'artist') return qsTr("Songs by %1 (%2)").arg(songs.modelName).arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'playlist') return qsTr("%1 Playlist Songs (%2)").arg(songs.modelName).arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'songAlbum') return qsTr("%1 Album Songs (%2)").arg(songs.modelName).arg(c) + Retranslate.onLanguageChanged
+            if (songs.mode == 'album') return qsTr("%1 Album Songs (%2)").arg(songs.modelName).arg(c) + Retranslate.onLanguageChanged
             if (songs.mode == 'search') {
                 if (searchArea.searchTerm.length > 0) {
-                    return qsTr("Search Songs (%1) - '%2'").arg(c).arg(searchArea.searchTerm)
+                    return qsTr("Search Songs (%1) - '%2'").arg(c).arg(searchArea.searchTerm) + Retranslate.onLanguageChanged
                 }
-                return qsTr("Search Songs (%1)").arg(c)
+                return qsTr("Search Songs (%1)").arg(c) + Retranslate.onLanguageChanged
             }
-            return qsTr("All Songs (%1)").arg(c)
+            return qsTr("All Songs (%1)").arg(c) + Retranslate.onLanguageChanged
         }
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
@@ -44,7 +44,7 @@ Page {
             expandableArea {
                 content: SearchArea {
                     id: searchArea
-                    hintText: qsTr("search songs")
+                    hintText: qsTr("search songs") + Retranslate.onLanguageChanged
                     onSearch: {
                         unload()
                         load()
@@ -72,7 +72,7 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Fill
                 Label {
-                    text: qsTr("No songs in this list")
+                    text: qsTr("No songs in this list") + Retranslate.onLanguageChanged
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
                     textStyle {
@@ -143,7 +143,7 @@ Page {
                                     }
                                     if (mode == "topFavourited") {
                                         if (ListItem.data.favourited > 0) {
-                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited) + Retranslate.onLanguageChanged
                                         }
                                     }
                                     if (mode == "topScored" || 
@@ -154,12 +154,12 @@ Page {
                                         mode == "album" ||
                                         mode == "songAlbum") {
                                         if (ListItem.data.score > 0) {
-                                            return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                            return qsTr("score %1 of 10").arg(ListItem.data.score) + Retranslate.onLanguageChanged
                                         }
                                     }
                                     if (mode == "topDownloads" || mode == "search") {
                                         if (ListItem.data.downloads > 0) {
-                                            return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                            return qsTr("%1 downloads").arg(ListItem.data.downloads) + Retranslate.onLanguageChanged
                                         }
                                     }
                                 }
@@ -172,12 +172,12 @@ Page {
                                         mode == "topFavourited" || 
                                         mode == "search") {
                                         if (ListItem.data.score > 0) {
-                                            return qsTr("score %1 of 10").arg(ListItem.data.score)
+                                            return qsTr("score %1 of 10").arg(ListItem.data.score) + Retranslate.onLanguageChanged
                                         }
                                     }
                                     if (mode == "topScored") {
                                         if (ListItem.data.downloads > 0) {
-                                            return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                            return qsTr("%1 downloads").arg(ListItem.data.downloads) + Retranslate.onLanguageChanged
                                         }
                                     }
                                     if (mode == "format" || 
@@ -187,7 +187,7 @@ Page {
                                         mode == "album" ||
                                         mode == "songAlbum") {
                                         if (ListItem.data.favourited > 0) {
-                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited) + Retranslate.onLanguageChanged
                                         }
                                     }
                                 }
@@ -216,14 +216,14 @@ Page {
                                         mode == "album" ||
                                         mode == "songAlbum") {
                                         if (ListItem.data.downloads > 0) {
-                                            return qsTr("%1 downloads").arg(ListItem.data.downloads)
+                                            return qsTr("%1 downloads").arg(ListItem.data.downloads) + Retranslate.onLanguageChanged
                                         }
                                     }
                                     if (mode == "topScored" || 
                                         mode == "topDownloads" || 
                                         mode == "search") {
                                         if (ListItem.data.favourited > 0) {
-                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited)
+                                            return qsTr("favourited %1 times").arg(ListItem.data.favourited) + Retranslate.onLanguageChanged
                                         }
                                     }
                                 }
@@ -236,7 +236,7 @@ Page {
                                     subtitle: Global.fileNameOnly(songEntry.ListItem.data.fileName)
                                     actions: [
                                         ActionItem {
-                                            title: qsTr("Play")
+                                            title: qsTr("Play") + Retranslate.onLanguageChanged
                                             imageSource: "asset:///images/actions/icon_play.png"
                                             onTriggered: {
                                                 songEntry.ListItem.view.playSong(songEntry.ListItem.data)
@@ -248,14 +248,14 @@ Page {
                                             rootObject: songEntry.ListItem.view.getRootObject()
                                         },
                                         ActionItem {
-                                            title: qsTr("Add to Favourites")
+                                            title: qsTr("Add to Favourites") + Retranslate.onLanguageChanged
                                             imageSource: "asset:///images/actions/icon_like.png"
                                             onTriggered: {
                                                 songEntry.ListItem.view.addFavourite(songEntry.ListItem.data)
                                             }
                                         },
                                         ActionItem {
-                                            title: qsTr("Remove from Favourites")
+                                            title: qsTr("Remove from Favourites") + Retranslate.onLanguageChanged
                                             imageSource: "asset:///images/actions/icon_unlike.png"
                                             onTriggered: {
                                                 songEntry.ListItem.view.removeFavourite(songEntry.ListItem.data)

@@ -8,7 +8,7 @@ Page {
     property int requestId
     titleBar: PlayerTitleBar {
         id: titleBar
-        title: qsTr("Select Album")
+        title: qsTr("Select Album") + Retranslate.onLanguageChanged
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
             TitleBarText {
@@ -17,7 +17,7 @@ Page {
             expandableArea {
                 content: SearchArea {
                     id: searchArea
-                    hintText: qsTr("search albums")
+                    hintText: qsTr("search albums") + Retranslate.onLanguageChanged
                     onSearch: {
                         load()
                     }
@@ -79,17 +79,17 @@ Page {
                             id: albumEntry
                             title: ListItem.data.name
                             description: ListItem.data.artistName
-                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                             lowerStatus: Global.formatDuration(ListItem.data.duration)
                             imageSource: "asset:///images/formats/icon_album.png"
                             favourite: false
                             contextActions: [
                                 ActionSet {
                                     title: albumEntry.ListItem.data.name
-                                    subtitle: qsTr("Album %1").arg(albumEntry.ListItem.data.name)
+                                    subtitle: qsTr("Album %1").arg(albumEntry.ListItem.data.name) + Retranslate.onLanguageChanged
                                     actions: [
                                         ActionItem {
-                                            title: qsTr("Play Album")
+                                            title: qsTr("Play Album") + Retranslate.onLanguageChanged
                                             enabled: albumEntry.ListItem.data.count > 0
                                             imageSource: "asset:///images/actions/icon_play.png"
                                             onTriggered: {

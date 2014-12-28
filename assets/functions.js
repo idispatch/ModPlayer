@@ -41,18 +41,18 @@ function replaceExtension(path, extension) {
 function getSizeKb(size) {
     var result;
     if(size < 1024) {
-        result = qsTr("%1 bytes").arg(size);
+        result = qsTr("%1 bytes").arg(size) + Retranslate.onLanguageChanged;
     } else { 
         size /= 1024;
         if(size < 1024) {
-            result = qsTr("%1 kB").arg(size.toFixed(2));
+            result = qsTr("%1 kB").arg(size.toFixed(2)) + Retranslate.onLanguageChanged;
         } else {
             size /= 1024;
             if(size < 1024) {
-                result = qsTr("%1 MB").arg(size.toFixed(2));
+                result = qsTr("%1 MB").arg(size.toFixed(2)) + Retranslate.onLanguageChanged;
             } else {
                 size /= 1024;
-                result = qsTr("%1 GB").arg(size.toFixed(2));
+                result = qsTr("%1 GB").arg(size.toFixed(2)) + Retranslate.onLanguageChanged;
             }
         }
     }
@@ -64,21 +64,21 @@ function formatTimeStamp(unix_timestamp) {
     var diff = (((new Date()).getTime() - date.getTime()) / 1000);
     var day_diff = Math.floor(diff / 86400);
     if(isNaN(day_diff))
-        return qsTr("N/A");
+        return qsTr("N/A") + Retranslate.onLanguageChanged;
     if(day_diff < 0)
-        return qsTr("just now");
+        return qsTr("just now") + Retranslate.onLanguageChanged;
     return day_diff == 0 && (
-           diff < 60 && qsTr("just now") ||
-           diff < 120 && qsTr("1 minute ago") ||
-           diff < 3600 && qsTr("%1 minutes ago").arg(Math.floor( diff / 60 )) ||
-           diff < 7200 && qsTr("1 hour ago") ||
-           diff < 86400 && qsTr("%1 hours ago").arg(Math.floor( diff / 3600 ))) ||
+           diff < 60 && qsTr("just now") + Retranslate.onLanguageChanged ||
+           diff < 120 && qsTr("1 minute ago") + Retranslate.onLanguageChanged ||
+           diff < 3600 && qsTr("%1 minutes ago").arg(Math.floor( diff / 60 )) + Retranslate.onLanguageChanged ||
+           diff < 7200 && qsTr("1 hour ago") + Retranslate.onLanguageChanged ||
+           diff < 86400 && qsTr("%1 hours ago").arg(Math.floor( diff / 3600 )) + Retranslate.onLanguageChanged) ||
            
-           (day_diff == 1 && qsTr("yesterday") ||
-            day_diff < 7 && qsTr("%1 days ago").arg(day_diff) ||
-            day_diff < 31 && qsTr("%1 weeks ago").arg(Math.ceil(day_diff / 7)) ||
-            day_diff < 365 && qsTr("%1 months ago").arg(Math.ceil(day_diff / 12))) ||
-           qsTr("long ago");
+           (day_diff == 1 && qsTr("yesterday") + Retranslate.onLanguageChanged ||
+            day_diff < 7 && qsTr("%1 days ago").arg(day_diff) + Retranslate.onLanguageChanged ||
+            day_diff < 31 && qsTr("%1 weeks ago").arg(Math.ceil(day_diff / 7)) + Retranslate.onLanguageChanged ||
+            day_diff < 365 && qsTr("%1 months ago").arg(Math.ceil(day_diff / 12)) + Retranslate.onLanguageChanged) ||
+           qsTr("long ago") + Retranslate.onLanguageChanged;
 }
 
 function formatDuration(duration) {

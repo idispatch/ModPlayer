@@ -19,7 +19,7 @@ Page {
             } else {
                 numItems = " (%1)".arg(numItems)
             }
-            qsTr("Select Internet Radio Channel") + numItems
+            return (qsTr("Select Internet Radio Channel") + Retranslate.onLanguageChanged) + numItems
         }
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
@@ -34,7 +34,7 @@ Page {
                         rightPadding: 20.0
                         DropDown {
                             id: country
-                            title: qsTr("Country")
+                            title: qsTr("Country") + Retranslate.onLanguageChanged
                             Option {
                                 text: "All European Radio Stations"
                                 selected: true
@@ -238,7 +238,7 @@ Page {
                     }
                     SearchArea {
                         id: searchArea
-                        hintText: qsTr("search stations")
+                        hintText: qsTr("search stations") + Retranslate.onLanguageChanged
                         onSearch: {
                             load()
                         }
@@ -299,7 +299,7 @@ Page {
                 onTriggered: {
                     selectedRadio = dataModel.data(indexPath)
                     playlistURL = selectedRadio.radioPlaylist
-                    app.player.statusText = qsTr("Tuning Internet Radio")
+                    app.player.statusText = qsTr("Tuning Internet Radio") + Retranslate.onLanguageChanged
                     app.player.currentSong.title = "Internet Radio";
                     showPlayerView()
                     app.analytics.selectRadio(playlistURL)

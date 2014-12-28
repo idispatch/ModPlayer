@@ -8,12 +8,12 @@ Page {
             if(currentSong.songLoaded) {
                 var fileName = Global.fileNameOnly(currentSong.fileName)
                 if(instrumentsChildView.mode == 'samples') {
-                    return qsTr("Samples of %1 (%2)").arg(fileName).arg(currentSong.samples)
+                    return qsTr("Samples of %1 (%2)").arg(fileName).arg(currentSong.samples) + Retranslate.onLanguageChanged
                 } else {
-                    return qsTr("Instruments of %1 (%2)").arg(fileName).arg(currentSong.instruments)
+                    return qsTr("Instruments of %1 (%2)").arg(fileName).arg(currentSong.instruments) + Retranslate.onLanguageChanged
                 }
             } else {
-                return qsTr("Instruments and Samples")
+                return qsTr("Instruments and Samples") + Retranslate.onLanguageChanged
             }
         }
     }

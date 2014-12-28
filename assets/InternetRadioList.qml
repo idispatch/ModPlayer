@@ -8,7 +8,7 @@ Page {
     property alias channelList : internetRadioList.channelList
     property string playlistURL
     titleBar: PlayerTitleBar {
-        title: qsTr("Select Internet Radio Channel")
+        title: qsTr("Select Internet Radio Channel") + Retranslate.onLanguageChanged
     }
     Container {
         layout: DockLayout {
@@ -52,13 +52,13 @@ Page {
                 onTriggered: {
                     var chosenItem = dataModel.data(indexPath)
                     playlistURL = chosenItem.playlist
-                    
-                    app.player.statusText = qsTr("Tuning Internet Radio")
+
+                    app.player.statusText = qsTr("Tuning Internet Radio") + Retranslate.onLanguageChanged
                     app.player.currentSong.title = "Internet Radio";
                     app.player.currentSong.iconPath = Global.getRadioIcon(playlistURL)
-                    
+
                     showPlayerView()
-                    
+
                     app.analytics.selectRadio(playlistURL)
                     app.player.radio.download(playlistURL)
                 }

@@ -5,15 +5,15 @@ ActionItem {
     title: {
         if(app.player.currentSong.songLoaded) {
             if(app.player.state == Player.Playing) {
-                return qsTr("Stop")
+                return qsTr("Stop") + Retranslate.onLanguageChanged
             } else if(app.player.state == Player.Paused) {
-                return qsTr("Stop")
+                return qsTr("Stop") + Retranslate.onLanguageChanged
             } else {
-                return qsTr("Play")
+                return qsTr("Play") + Retranslate.onLanguageChanged
             }
         } else {
             if(app.player.playlist.remaining > 0) {
-                return qsTr("Play")
+                return qsTr("Play") + Retranslate.onLanguageChanged
             } else {
                 return ""
             }

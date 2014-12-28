@@ -30,7 +30,7 @@ GroupContainer {
                 topMargin: 0
                 bottomMargin: 0
                 visible: song && !song.isHttpSong
-                text: song ? qsTr("File: <b>%1</b>").arg(Global.escapeHtml(Global.fileNameOnly(song.fileName))) : ""
+                text: song ? qsTr("File: <b>%1</b>").arg(Global.escapeHtml(Global.fileNameOnly(song.fileName))) + Retranslate.onLanguageChanged : ""
                 textFormat: TextFormat.Html
                 multiline: true
             }
@@ -38,20 +38,20 @@ GroupContainer {
                 topMargin: 0
                 bottomMargin: 0
                 visible: song && !song.isHttpSong
-                text: song ? qsTr("Size: <b>%1</b>").arg(Global.getSizeKb(song.fileSize)) : ""
+                text: song ? qsTr("Size: <b>%1</b>").arg(Global.getSizeKb(song.fileSize)) + Retranslate.onLanguageChanged : ""
                 textFormat: TextFormat.Html
             }
             BlackLabel {
                 topMargin: 0
                 bottomMargin: 0
                 visible: song && !song.isHttpSong
-                text: song ? qsTr("Length: <b>%1</b>").arg(song.songLengthText) : ""
+                text: song ? qsTr("Length: <b>%1</b>").arg(song.songLengthText) + Retranslate.onLanguageChanged : ""
                 textFormat: TextFormat.Html
             }
             BlackLabel {
                 topMargin: 0
                 bottomMargin: 0
-                text: song ? qsTr("Title: <b>%1</b>").arg(Global.escapeHtml(song.title)) : ""
+                text: song ? qsTr("Title: <b>%1</b>").arg(Global.escapeHtml(song.title)) + Retranslate.onLanguageChanged : ""
                 textFormat: TextFormat.Html
                 multiline: true
             }

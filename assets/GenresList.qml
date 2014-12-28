@@ -8,7 +8,7 @@ Page {
     property int requestId
     titleBar: PlayerTitleBar {
         id: titleBar
-        title: qsTr("Select Songs by Genre")
+        title: qsTr("Select Songs by Genre") + Retranslate.onLanguageChanged
         kind: TitleBarKind.FreeForm
         kindProperties: FreeFormTitleBarKindProperties {
             TitleBarText {
@@ -17,7 +17,7 @@ Page {
             expandableArea {
                 content: SearchArea {
                     id: searchArea
-                    hintText: qsTr("search genres")
+                    hintText: qsTr("search genres") + Retranslate.onLanguageChanged
                     onSearch: {
                         load()
                     }
@@ -66,7 +66,7 @@ Page {
                             title: ListItem.data.name
                             favourite: false
                             description: " "
-                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count)
+                            middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                             lowerStatus: Global.formatDuration(ListItem.data.duration)
                         }
                     }

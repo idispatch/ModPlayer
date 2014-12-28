@@ -9,7 +9,7 @@ ActionItem {
     id: saveSongActionItem
     property string currentSong
     property bool certain: true
-    title: qsTr("Save Song to Device")
+    title: qsTr("Save Song to Device") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_save_song.png"
     enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
@@ -50,7 +50,7 @@ ActionItem {
             type : FileType.Other
             mode: FilePickerMode.Saver
             allowOverwrite: true
-            title : qsTr("Save Song")
+            title : qsTr("Save Song") + Retranslate.onLanguageChanged
             directories : ["/accounts/1000/shared/downloads"]
             onFileSelected : {
                 if(selectedFiles.length != 1)
@@ -62,7 +62,7 @@ ActionItem {
                     app.cache.save(cacheFileName, newFileName)
                 }
                 app.player.userDirectory = Global.directoryOnly(newFileName)
-                fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) 
+                fileSaved.body = qsTr("The song %1 has been saved").arg(Global.fileNameOnly(newFileName)) + Retranslate.onLanguageChanged 
                 fileSaved.show()
             }
         },
@@ -71,7 +71,7 @@ ActionItem {
         },
         SystemListDialog {
             id: selectSaveFormat
-            title: qsTr("Select Save Format")
+            title: qsTr("Select Save Format") + Retranslate.onLanguageChanged
             selectionMode: ListSelectionMode.Single
             modality: SystemUiModality.Application
             includeRememberMe: false
@@ -81,8 +81,8 @@ ActionItem {
             function run() {
                 var selectedOption = ''
                 clearList()
-                appendItem(qsTr("Original format"), true, true)
-                appendItem(qsTr("MP3 format"), true, false)
+                appendItem(qsTr("Original format") + Retranslate.onLanguageChanged, true, true)
+                appendItem(qsTr("MP3 format") + Retranslate.onLanguageChanged, true, false)
                 exec()
                 if(result == SystemUiResult.ConfirmButtonSelection ){
                     if(selectedIndices.length == 1) {

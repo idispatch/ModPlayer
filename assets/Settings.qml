@@ -16,15 +16,15 @@ Sheet {
     }
     Page {
         titleBar: PlayerTitleBar {
-            title: qsTr("Configuration")
+            title: qsTr("Configuration") + Retranslate.onLanguageChanged
             dismissAction: ActionItem {
-                title: qsTr("Close")
+                title: qsTr("Close") + Retranslate.onLanguageChanged
                 onTriggered: {
                     settingsRoot.close();
                 }
             }
             acceptAction: ActionItem {
-                title: qsTr("Apply")
+                title: qsTr("Apply") + Retranslate.onLanguageChanged
                 onTriggered: {
                     app.player.playback.configure()
                     app.cache.maxSize = Math.round(maxCacheSize.value)
@@ -54,7 +54,7 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             BlackLabel {
-                                text: qsTr("Application")
+                                text: qsTr("Application") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
@@ -68,18 +68,18 @@ Sheet {
                                 }
                             }
                             BlackLabel {
-                                text: qsTr("Version: <b>%1</b>").arg(app.version)
+                                text: qsTr("Version: <b>%1</b>").arg(app.version) + Retranslate.onLanguageChanged
                                 textFormat: TextFormat.Html
                             }
                             BlackLabel {
                                 property int requestId
                                 textFormat: TextFormat.Html
                                 onCreationCompleted: {
-                                    text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...")
+                                    text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
                                     app.catalog.resultReady.connect(function(responseId, result) {
                                         if(responseId == requestId) {
                                             requestId = 0
-                                            text = qsTr("Catalog songs: <b>%1</b>").arg(result)
+                                            text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
                                         }
                                     })
                                     requestId = app.catalog.songCountAsync()
@@ -93,18 +93,18 @@ Sheet {
                                     updateCount()
                                 }
                                 function updateCount() {
-                                    text = qsTr("Personal songs: <b>%1</b>").arg("calculating...")
+                                    text = qsTr("Personal songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
                                     app.catalog.resultReady.connect(function(responseId, result) {
                                             if(responseId == requestId) {
                                                 requestId = 0
-                                                text = qsTr("Personal songs: <b>%1</b>").arg(result)
+                                                text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
                                             }
                                     })
                                     personalSongCount.requestId = app.catalog.personalSongCountAsync()
                                 }
                             }
                             BlackLabel {
-                                text: qsTr("<a href='http://www.kosenkov.ca/policy.html'>Privacy Policy</a>")
+                                text: qsTr("<a href='http://www.kosenkov.ca/policy.html'>Privacy Policy</a>") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textFormat: TextFormat.Html
                             }
@@ -116,7 +116,7 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             Label {
-                                text: qsTr("Cache")
+                                text: qsTr("Cache") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
@@ -125,15 +125,15 @@ Sheet {
                                 }
                             }
                             BlackLabel {
-                                text: qsTr("Cached Songs: <b>%1</b>").arg(app.player.cache.currentFiles)
+                                text: qsTr("Cached Songs: <b>%1</b>").arg(app.player.cache.currentFiles) + Retranslate.onLanguageChanged
                                 textFormat: TextFormat.Html
                             }
                             BlackLabel {
-                                text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize))
+                                text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize)) + Retranslate.onLanguageChanged
                                 textFormat: TextFormat.Html
                             }
                             BlackLabel {
-                                text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value))
+                                text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value)) + Retranslate.onLanguageChanged
                             }
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
@@ -146,7 +146,7 @@ Sheet {
                                 }
                             }
                             BlackLabel {
-                                text: qsTr("Maximum Cache Size: %1").arg(Global.getSizeKb(Math.round(maxCacheSize.value)))
+                                text: qsTr("Maximum Cache Size: %1").arg(Global.getSizeKb(Math.round(maxCacheSize.value))) + Retranslate.onLanguageChanged
                             }
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
@@ -159,7 +159,7 @@ Sheet {
                                 }
                             }
                             Button {
-                                text: qsTr("Export Cache")
+                                text: qsTr("Export Cache") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 topMargin: 40
                                 bottomMargin: 40
@@ -170,8 +170,8 @@ Sheet {
                                 attachedObjects: [
                                     SystemDialog {
                                         id: confirmExportingSongCache
-                                        title: qsTr("Confirm")
-                                        body: qsTr("The song cache will now be exported to the 'ModPlayer' directory in your device downloads directory")
+                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
+                                        body: qsTr("The song cache will now be exported to the 'ModPlayer' directory in your device downloads directory") + Retranslate.onLanguageChanged
                                         onFinished: {
                                             if (result != SystemUiResult.ConfirmButtonSelection)
                                                 return;
@@ -191,12 +191,12 @@ Sheet {
                                     },
                                     SystemToast {
                                         id: cacheExportToast
-                                        body: qsTr("The song cache has been exported successfully to the 'ModPlayer' directory in your device downloads directory")
+                                        body: qsTr("The song cache has been exported successfully to the 'ModPlayer' directory in your device downloads directory") + Retranslate.onLanguageChanged
                                     }
                                 ]
                             }
                             Button {
-                                text: qsTr("Purge Cache")
+                                text: qsTr("Purge Cache") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 topMargin: 40
                                 bottomMargin: 40
@@ -207,8 +207,8 @@ Sheet {
                                 attachedObjects: [
                                     SystemDialog {
                                         id: confirmPurgingSongCache
-                                        title: qsTr("Confirm")
-                                        body: qsTr("Confirm purging the song cache")
+                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
+                                        body: qsTr("Confirm purging the song cache") + Retranslate.onLanguageChanged
                                         onFinished: {
                                             if (result == SystemUiResult.ConfirmButtonSelection) {
                                                 app.analytics.purgeCache()
@@ -219,7 +219,7 @@ Sheet {
                                     },
                                     SystemToast {
                                         id: cachePurgedToast
-                                        body: qsTr("The song cache has been purged")
+                                        body: qsTr("The song cache has been purged") + Retranslate.onLanguageChanged
                                     }
                                 ]
                             }
@@ -231,7 +231,7 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             Label {
-                                text: qsTr("Personal")
+                                text: qsTr("Personal") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
@@ -240,7 +240,7 @@ Sheet {
                                 }
                             }
                             Button {
-                                text: qsTr("Reset Play Counts")
+                                text: qsTr("Reset Play Counts") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 topMargin: 40
                                 bottomMargin: 40
@@ -250,8 +250,8 @@ Sheet {
                                 attachedObjects: [
                                     SystemDialog {
                                         id: confirmResetPlayCounts
-                                        title: qsTr("Confirm")
-                                        body: qsTr("Confirm resetting song play counts")
+                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
+                                        body: qsTr("Confirm resetting song play counts") + Retranslate.onLanguageChanged
                                         onFinished: {
                                             if (result == SystemUiResult.ConfirmButtonSelection) {
                                                 app.catalog.resetPlayCounts()
@@ -261,12 +261,12 @@ Sheet {
                                     },
                                     SystemToast {
                                         id: songPlayCountsToast
-                                        body: qsTr("Song play counts have been reset")
+                                        body: qsTr("Song play counts have been reset") + Retranslate.onLanguageChanged
                                     }
                                 ]
                             }
                             Button {
-                                text: qsTr("Reset My Favourites")
+                                text: qsTr("Reset My Favourites") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 topMargin: 40
                                 bottomMargin: 40
@@ -276,8 +276,8 @@ Sheet {
                                 attachedObjects: [
                                     SystemDialog {
                                         id: confirmMyFavouritesReset
-                                        title: qsTr("Confirm")
-                                        body: qsTr("Confirm resetting my favoruites list")
+                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
+                                        body: qsTr("Confirm resetting my favoruites list") + Retranslate.onLanguageChanged
                                         onFinished: {
                                             if (result == SystemUiResult.ConfirmButtonSelection) {
                                                 app.catalog.resetMyFavourites();
@@ -287,12 +287,12 @@ Sheet {
                                     },
                                     SystemToast {
                                         id: myFavouritesResetToast
-                                        body: qsTr("My favourites list is reset")
+                                        body: qsTr("My favourites list is reset") + Retranslate.onLanguageChanged
                                     }
                                 ]
                             }
                             Button {
-                                text: qsTr("Import My Songs")
+                                text: qsTr("Import My Songs") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 topMargin: 40
                                 bottomMargin: 40
@@ -302,8 +302,8 @@ Sheet {
                                 attachedObjects: [
                                     SystemDialog {
                                         id: confirmImport
-                                        title: qsTr("Confirm")
-                                        body: qsTr("Would you like to import local songs and playlists?")
+                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
+                                        body: qsTr("Would you like to import local songs and playlists?") + Retranslate.onLanguageChanged
                                         onFinished: {
                                             if (result == SystemUiResult.ConfirmButtonSelection) {
                                                 app.player.importSongs()
@@ -321,7 +321,7 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             Label {
-                                text: qsTr("Background")
+                                text: qsTr("Background") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
@@ -331,7 +331,7 @@ Sheet {
                             }
                             CheckBox {
                                 id: animationEnabled
-                                text: qsTr("Enable Background Animation")
+                                text: qsTr("Enable Background Animation") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.animationEnabled
                                 onCheckedChanged: {
                                     settingsRoot.configuration.animationEnabled = animationEnabled.checked
@@ -345,7 +345,7 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             Label {
-                                text: qsTr("Mixer Configuration")
+                                text: qsTr("Mixer Configuration") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
@@ -355,14 +355,14 @@ Sheet {
                             }
                             DropDown {
                                 id: output
-                                title: qsTr("Output")
+                                title: qsTr("Output") + Retranslate.onLanguageChanged
                                 Option {
-                                    text: qsTr("Stereo")
+                                    text: qsTr("Stereo") + Retranslate.onLanguageChanged
                                     value: 1
                                     selected: settingsRoot.configuration.stereo == true 
                                 }
                                 Option {
-                                    text: qsTr("Mono")
+                                    text: qsTr("Mono") + Retranslate.onLanguageChanged
                                     value: 0
                                     selected: settingsRoot.configuration.stereo == false 
                                 }
@@ -373,7 +373,7 @@ Sheet {
                             }
                             DropDown {
                                 id: bitsPerSample
-                                title: qsTr("Bits per Sample")
+                                title: qsTr("Bits per Sample") + Retranslate.onLanguageChanged
                                 Option {
                                     text: "8"
                                     value: 8
@@ -396,22 +396,22 @@ Sheet {
                             }
                             DropDown {
                                 id: frequency
-                                title: qsTr("Frequency")
+                                title: qsTr("Frequency") + Retranslate.onLanguageChanged
                                 Option {
                                     text: "44100 Hz"
-                                    description: qsTr("44100 Hz sampling rate")
+                                    description: qsTr("44100 Hz sampling rate") + Retranslate.onLanguageChanged
                                     value: 44100
                                     selected: settingsRoot.configuration.frequency == value
                                 }
                                 Option {
                                     text: "22050 Hz"
-                                    description: qsTr("22050 Hz sampling rate")
+                                    description: qsTr("22050 Hz sampling rate") + Retranslate.onLanguageChanged
                                     value: 22050
                                     selected: settingsRoot.configuration.frequency == value
                                 }
                                 Option {
                                     text: "11025 Hz"
-                                    description: qsTr("11025 Hz sampling rate")
+                                    description: qsTr("11025 Hz sampling rate") + Retranslate.onLanguageChanged
                                     value: 11025
                                     selected: settingsRoot.configuration.frequency == value
                                 }
@@ -421,28 +421,28 @@ Sheet {
                             }
                             DropDown {
                                 id: resampling
-                                title: qsTr("Resampling")
+                                title: qsTr("Resampling") + Retranslate.onLanguageChanged
                                 Option {
-                                    text: qsTr("Nearest")
-                                    description: qsTr("No interpolation (very fast)")
+                                    text: qsTr("Nearest") + Retranslate.onLanguageChanged
+                                    description: qsTr("No interpolation (very fast)") + Retranslate.onLanguageChanged
                                     value: 0
                                     selected: settingsRoot.configuration.resamplingMode == value
                                 }
                                 Option {
-                                    text: qsTr("Linear")
-                                    description: qsTr("Linear interpolation (fast, good quality)")
+                                    text: qsTr("Linear") + Retranslate.onLanguageChanged
+                                    description: qsTr("Linear interpolation (fast, good quality)") + Retranslate.onLanguageChanged
                                     value: 1
                                     selected: settingsRoot.configuration.resamplingMode == value
                                 }
                                 Option {
-                                    text: qsTr("Spline")
-                                    description: qsTr("Cubic spline interpolation (high quality)")
+                                    text: qsTr("Spline") + Retranslate.onLanguageChanged
+                                    description: qsTr("Cubic spline interpolation (high quality)") + Retranslate.onLanguageChanged
                                     value: 2
                                     selected: settingsRoot.configuration.resamplingMode == value
                                 }
                                 Option {
-                                    text: qsTr("FIR")
-                                    description: qsTr("8-tap fir filter (extremely high quality)")
+                                    text: qsTr("FIR") + Retranslate.onLanguageChanged
+                                    description: qsTr("8-tap fir filter (extremely high quality)") + Retranslate.onLanguageChanged
                                     value: 3
                                     selected: settingsRoot.configuration.resamplingMode == value
                                 }
@@ -458,7 +458,7 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             Label {
-                                text: qsTr("Master Volume")
+                                text: qsTr("Master Volume") + Retranslate.onLanguageChanged
                                 textStyle {
                                     fontSize: FontSize.Large
                                     color: Color.Black
@@ -479,7 +479,7 @@ Sheet {
                                 }
                             }
                             Label {
-                                text: qsTr("Stereo Separation")
+                                text: qsTr("Stereo Separation") + Retranslate.onLanguageChanged
                                 textStyle {
                                     fontSize: FontSize.Large
                                     color: Color.Black
@@ -500,7 +500,7 @@ Sheet {
                             }
                             CheckBox {
                                 id: oversampling
-                                text: qsTr("Enable Oversampling")
+                                text: qsTr("Enable Oversampling") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.oversamplingEnabled
                                 onCheckedChanged: {
                                     settingsRoot.configuration.oversamplingEnabled = oversampling.checked
@@ -508,7 +508,7 @@ Sheet {
                             }
                             CheckBox {
                                 id: noiseReduction
-                                text: qsTr("Enable Noise Reduction")
+                                text: qsTr("Enable Noise Reduction") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.noiseReductionEnabled
                                 onCheckedChanged: {
                                     settingsRoot.configuration.noiseReductionEnabled = noiseReduction.checked
@@ -523,7 +523,7 @@ Sheet {
                             opacity: 0.85
                             CheckBox {
                                 id: reverbEnabled
-                                text: qsTr("Enable Reverb")
+                                text: qsTr("Enable Reverb") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.reverbEnabled
                                 onCheckedChanged: {
                                     settingsRoot.configuration.reverbEnabled = reverbEnabled.checked
@@ -533,7 +533,7 @@ Sheet {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
                                 Label {
-                                    text: qsTr("Reverb Depth")
+                                    text: qsTr("Reverb Depth") + Retranslate.onLanguageChanged
                                     visible: reverbEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
@@ -552,7 +552,7 @@ Sheet {
                                     }
                                 }
                                 Label {
-                                    text: qsTr("Reverb Delay")
+                                    text: qsTr("Reverb Delay") + Retranslate.onLanguageChanged
                                     visible: reverbEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
@@ -580,7 +580,7 @@ Sheet {
                             opacity: 0.85
                             CheckBox {
                                 id: megabassEnabled
-                                text: qsTr("Enable MegaBass")
+                                text: qsTr("Enable MegaBass") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.bassEnabled
                                 onCheckedChanged: {
                                     settingsRoot.configuration.bassEnabled = megabassEnabled.checked
@@ -590,7 +590,7 @@ Sheet {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
                                 Label {
-                                    text: qsTr("Bass Amount")
+                                    text: qsTr("Bass Amount") + Retranslate.onLanguageChanged
                                     visible: megabassEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
@@ -609,7 +609,7 @@ Sheet {
                                     }
                                 }
                                 Label {
-                                    text: qsTr("Bass Cutoff")
+                                    text: qsTr("Bass Cutoff") + Retranslate.onLanguageChanged
                                     visible: megabassEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
@@ -637,7 +637,7 @@ Sheet {
                             opacity: 0.85
                             CheckBox {
                                 id: surroundEnabled
-                                text: qsTr("Enable Surround Sound")
+                                text: qsTr("Enable Surround Sound") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.surroundEnabled
                                 onCheckedChanged: {
                                     settingsRoot.configuration.surroundEnabled = surroundEnabled.checked
@@ -647,7 +647,7 @@ Sheet {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
                                 Label {
-                                    text: qsTr("Surrond Depth")
+                                    text: qsTr("Surrond Depth") + Retranslate.onLanguageChanged
                                     visible: surroundEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
@@ -666,7 +666,7 @@ Sheet {
                                     }
                                 }
                                 Label {
-                                    text: qsTr("Surrond Delay")
+                                    text: qsTr("Surrond Delay") + Retranslate.onLanguageChanged
                                     visible: surroundEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
