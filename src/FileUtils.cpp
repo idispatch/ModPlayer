@@ -81,10 +81,5 @@ bool FileUtils::adjustPermissions(QString const& fileName) {
 bool FileUtils::exists(QString const& fileName) {
     struct stat64 st;
     int rc = ::stat64(fileName.toUtf8().constData(), &st);
-#ifdef VERBOSE_LOGGING
-    if(rc != 0) {
-        qDebug() << "File" << fileName << "does not exist";
-    }
-#endif
     return rc == 0;
 }

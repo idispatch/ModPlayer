@@ -209,10 +209,8 @@ void FileSelector::scanDirectory(const char * path,
             struct dirent64 *dp;
             do {
                 if ((dp = ::readdir64(dirp)) != NULL) {
-                    // Skip current directory and parent directory
-                    if(dp->d_name[0] == '.' &&
-                       (dp->d_name[1] == '\0' ||
-                        (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))) {
+                    // Skip current directory, parent directory and dot files
+                    if(dp->d_name[0] == '.') {
                         continue;
                     }
 
@@ -223,20 +221,11 @@ void FileSelector::scanDirectory(const char * path,
                         if(st.st_mode & S_IFDIR) {
                             stack.push(absoluteFileName);
                         } else {
-#ifdef VERBOSE_LOGGING
-                            qDebug() << "Found:" << absoluteFileName;
-#endif
                             if(st.st_mode & S_IFREG) {
                                 if(playlistMatches(absoluteFileName)) {
-#ifdef VERBOSE_LOGGING
-                                    qDebug() << "Found playlist:" << absoluteFileName;
-#endif
                                     foundPlaylists << absoluteFileName;
                                 }
                                 if(fileMatches(absoluteFileName)) {
-#ifdef VERBOSE_LOGGING
-                                    qDebug() << "Found song:" << absoluteFileName;
-#endif
                                     foundFiles << absoluteFileName;
                                     emit foundFile(absoluteFileName);
                                 }
@@ -246,10 +235,6 @@ void FileSelector::scanDirectory(const char * path,
                 }
             } while (dp != NULL);
             ::closedir(dirp);
-        } else {
-#ifdef VERBOSE_LOGGING
-            qDebug() << "Failed to open directory" << directoryPath;
-#endif
         }
    }
 }
