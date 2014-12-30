@@ -19,12 +19,26 @@
 !done! UI, bitmaps
 !done! Player: LED display in player
 !done! Player: playback controls 
-!done!  Player: Equalizer in player
-!done!  Search songs
-!done!  Songs by Author
-* Share song
-* NavigationPane property
+!done! Player: Equalizer in player
+!done! Search songs
+!done! Songs by Author
+!done! NavigationPane property
 
+* Passport splash screen
+* Radio stations for China, Nigeria etc.
+* Add user radio stations
+* Show sound channel graph
+* Basic player view screen with just song name and controls
+* Share song
+* Playback Timer
+* Purchase
+* File manager
+* Flac, other formats support
+* Translations
+* QT sid playback
+* Custom backgrounds
+* Delete songs from lists
+* Easter eggs
 
 http://developer.samsung.com/android/technical-docs/Porting-and-using-LAME-MP3-on-Android-with-JNI
 http://stackoverflow.com/questions/2495420/is-there-any-lame-c-wraper-simplifier-working-on-linux-mac-and-win-from-pure

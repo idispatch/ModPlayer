@@ -30,6 +30,8 @@ private:
     Q_PROPERTY(int current READ current NOTIFY currentChanged FINAL)
     Q_PROPERTY(bool nextAvailable READ nextAvailable NOTIFY nextAvailableChanged FINAL)
     Q_PROPERTY(bool previousAvailable READ previousAvailable NOTIFY previousAvailableChanged FINAL)
+    Q_PROPERTY(bool isRandom READ isRandom NOTIFY isRandomChanged FINAL)
+    Q_PROPERTY(bool isCyclic READ isCyclic NOTIFY isCyclicChanged FINAL)
 public:
     Playlist(QObject * parent = 0);
     Playlist(Mode mode, QObject * parent = 0);
@@ -62,6 +64,8 @@ private:
         const int m_remaining;
         const bool m_nextAvailable;
         const bool m_previousAvailable;
+        const bool m_isRandom;
+        const bool m_isCyclic;
         State(State const&);
         State& operator = (State const&);
     public:
@@ -71,7 +75,9 @@ private:
             m_count(p->count()),
             m_remaining(p->remaining()),
             m_nextAvailable(p->nextAvailable()),
-            m_previousAvailable(p->previousAvailable())
+            m_previousAvailable(p->previousAvailable()),
+            m_isRandom(p->isRandom()),
+            m_isCyclic(p->isCyclic())
         {}
         Mode mode() const { return m_mode; }
         int current() const { return m_current; }
@@ -79,6 +85,8 @@ private:
         int remaining() const { return m_remaining; }
         bool nextAvailable() const { return m_nextAvailable; }
         bool previousAvailable() const { return m_previousAvailable; }
+        bool isRandom() const { return m_isRandom; }
+        bool isCyclic() const { return m_isCyclic; }
     };
     void notify(State const& state);
 Q_SIGNALS:
@@ -88,6 +96,8 @@ Q_SIGNALS:
     void remainingChanged();
     void nextAvailableChanged();
     void previousAvailableChanged();
+    void isRandomChanged();
+    void isCyclicChanged();
 private:
     Mode m_mode;
     std::vector<int> m_songs;

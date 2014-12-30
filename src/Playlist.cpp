@@ -247,6 +247,12 @@ void Playlist::notify(State const& state) {
     if(state.previousAvailable() != previousAvailable()) {
         emit previousAvailableChanged();
     }
+    if(state.isRandom() != isRandom()) {
+        emit isRandomChanged();
+    }
+    if(state.isCyclic() != isCyclic()) {
+        emit isCyclicChanged();
+    }
     if(state.mode() != mode()) {
         emit modeChanged();
     }
@@ -257,6 +263,8 @@ QDebug operator << (QDebug dbg, Playlist const &p) {
                   << ", Count: " << p.count()
                   << ", Remaining: " << p.remaining()
                   << ", PreviousAvailble: " << (p.previousAvailable() ? "true":"false")
-                  << ", NextAvailable: " << (p.nextAvailable() ? "true":"false");
+                  << ", NextAvailable: " << (p.nextAvailable() ? "true":"false")
+                  << ", IsRandom: " << (p.isRandom() ? "true":"false")
+                  << ", IsCyclic: " << (p.isCyclic() ? "true":"false");
     return dbg.space();
 }

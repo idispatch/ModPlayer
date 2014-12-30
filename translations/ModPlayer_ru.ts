@@ -306,6 +306,10 @@
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; хранит информацию о тысячах песен, и я уверен, что Вам понравятся многие из них. Вы можете начать искать песни в &lt;i&gt;&quot;Часто скачиваемые&quot;&lt;/i&gt;, &lt;i&gt;&quot;Избранные&quot;&lt;/i&gt; и &lt;i&gt;&quot;Оцененные&quot;&lt;/i&gt; закладках.</translation>
     </message>
+    <message>
+        <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
+        <translation>Спасибо за помощь: Mr.Time (перевод на китайский).</translation>
+    </message>
 </context>
 <context>
     <name>ImportSongsActionItem</name>

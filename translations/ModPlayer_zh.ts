@@ -66,7 +66,7 @@
     </message>
     <message>
         <source>Current Playlist (%1 songs)</source>
-        <translation>当前播放列表t (%1 首歌曲)</translation>
+        <translation>当前播放列表 (%1 首歌曲)</translation>
     </message>
     <message>
         <source>%1 (%2 songs)</source>
@@ -207,7 +207,7 @@
     </message>
     <message>
         <source>Enqueue</source>
-        <translation>排队</translation>
+        <translation>添加到列表</translation>
     </message>
 </context>
 <context>
@@ -248,7 +248,7 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is a tracker music player.</source>
-        <translation>&lt;b&gt;ModPlayer&lt;/b&gt; 是一个跟踪器的音乐播放器。</translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 是一个轨道音乐播放器。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
@@ -256,51 +256,55 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt;有一个来自&lt;i&gt;The Mod Archive&lt;/i&gt; 网站拥有最流行，最多下载和评分最高的歌曲库,但是不会存储所有歌曲到您的设备上。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; keeps a cache of most recent songs you listened to, and automatically downloads the songs to your device from &lt;i&gt;The Mod Archive&lt;/i&gt; site once you start playing them.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt;保存您最近听过的歌曲的缓存, 并自动下载来自 &lt;i&gt;The Mod Archive&lt;/i&gt; 网站，您点击播放的歌曲到您的设备上。 </translation>
     </message>
     <message>
         <source>You can configure the song cache size and song count it keeps in &lt;b&gt;ModPlayer&lt;/b&gt; settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>您可以在 &lt;b&gt;模块播放器&lt;/b&gt; 设置中国配置歌曲缓存大小和歌曲计数。</translation>
     </message>
     <message>
         <source>You can add the songs from the &lt;b&gt;ModPlayer&lt;/b&gt; library to the list of your favourite songs and listen to them later.</source>
-        <translation type="unfinished"></translation>
+        <translation>您可以从&lt;b&gt;模块播放器r&lt;/b&gt; 歌曲库中添加歌曲到您的收藏歌曲列表并稍后聆听。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; knows the songs you listened to and you can locate them in the &lt;i&gt;&quot;Recent&quot;&lt;/i&gt;, &lt;i&gt;&quot;Most Played&quot;&lt;/i&gt; and &lt;i&gt;&quot;My Favourite&quot;&lt;/i&gt; tabs.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 知道您听过的歌曲，您可以找到它们，在&lt;i&gt;&quot;最近t&quot;&lt;/i&gt;, &lt;i&gt;&quot;播放最多&quot;&lt;/i&gt; and &lt;i&gt;&quot;我的收藏夹&quot;&lt;/i&gt; 选项卡。</translation>
     </message>
     <message>
         <source>These are the songs that were downloaded, rated and favourited by other users of &lt;i&gt;The Mod Archive&lt;/i&gt; site and it is quite possible you will also enjoy them.</source>
-        <translation type="unfinished"></translation>
+        <translation>这些歌曲由 &lt;i&gt;The Mod Archive&lt;/i&gt; 网站的其他用户下载，评级和收藏，您很有可能会喜欢它们。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is using the &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; library, one of the best libraries that provides high quality tracker song modules mixing and playback.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 使用 &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; 歌曲库——提供高质量音轨模块混频和播放最好的歌曲库之一。 </translation>
     </message>
     <message>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
-        <translation>我做了ModPlayer的乐趣，希望您会喜欢的应用程序太:)</translation>
+        <translation>我开发 &lt;b&gt;模块播放器r&lt;/b&gt; 是出于兴趣，希望你们会喜欢！</translation>
     </message>
     <message>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 允许当您处于 &lt;i&gt;离线&lt;/i&gt; 时，聆听您喜欢的歌曲。当歌曲&lt;i&gt;已存在缓存中&lt;/i&gt;时, 您不需要再次下载。</translation>
     </message>
     <message>
         <source>The song cache on your device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>您设备上的歌曲缓存被限制您最近聆听的歌曲数目，一旦缓存数目变得太大，将自动删除较早的歌曲。</translation>
     </message>
     <message>
         <source>You can configure various options of &lt;b&gt;ModPlayer&lt;/b&gt;, such as &lt;i&gt;mixing frequency&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; playback, &lt;i&gt;mixer quality&lt;/i&gt; and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>您可以配置一些 &lt;b&gt;模块播放器&lt;/b&gt; 的一些选,，如： &lt;i&gt;混合频率&lt;/i&gt;, &lt;i&gt;立体声/单声道&lt;/i&gt; 播放, &lt;i&gt;混频器质量&lt;/i&gt; 以及更多。</translation>
     </message>
     <message>
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 中拥有成千上万的歌曲,我希望你们很好地享受一些歌曲。推荐查看 &lt;i&gt;&quot;下载&quot;&lt;/i&gt;, &lt;i&gt;&quot;收藏&quot;&lt;/i&gt; 和 &lt;i&gt;&quot;高分&quot;&lt;/i&gt; 选项卡。</translation>
+    </message>
+    <message>
+        <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
+        <translation>感谢贡献者：Mr.Time(中文翻译)</translation>
     </message>
 </context>
 <context>
@@ -668,7 +672,7 @@
     <name>SameArtistActionItem</name>
     <message>
         <source>Songs by Artist</source>
-        <translation>按艺术家</translation>
+        <translation>艺术家</translation>
     </message>
 </context>
 <context>
@@ -718,7 +722,7 @@
     </message>
     <message>
         <source>Personal</source>
-        <translation>私人</translation>
+        <translation>个人</translation>
     </message>
     <message>
         <source>Reset Play Counts</source>
@@ -926,7 +930,7 @@
     </message>
     <message>
         <source>Personal songs: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>私人歌曲：&lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>个人歌曲：&lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Import My Songs</source>
@@ -965,7 +969,7 @@
     </message>
     <message>
         <source>Tracker: %1</source>
-        <translation>追踪者：%1</translation>
+        <translation>来源：%1</translation>
     </message>
     <message>
         <source>Album: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -1156,7 +1160,7 @@
     </message>
     <message>
         <source>You liked this song</source>
-        <translation>您赞过这首歌曲</translation>
+        <translation>您收藏过这首歌曲</translation>
     </message>
     <message>
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
@@ -1236,7 +1240,7 @@
     </message>
     <message>
         <source>just now</source>
-        <translation>刚才</translation>
+        <translation>刚刚</translation>
     </message>
     <message>
         <source>1 minute ago</source>
@@ -1315,7 +1319,7 @@
     </message>
     <message>
         <source>Songs By Module Format</source>
-        <translation>按模块格式</translation>
+        <translation>按模块格式分类歌曲</translation>
     </message>
     <message>
         <source>Genres</source>
@@ -1323,7 +1327,7 @@
     </message>
     <message>
         <source>Songs By Genre</source>
-        <translation>按流派</translation>
+        <translation>按流派分类歌曲</translation>
     </message>
     <message>
         <source>Artists</source>
@@ -1331,7 +1335,7 @@
     </message>
     <message>
         <source>Songs By Artist</source>
-        <translation>按艺术家</translation>
+        <translation>按艺术家分类歌曲</translation>
     </message>
     <message>
         <source>Downloads</source>
@@ -1343,7 +1347,7 @@
     </message>
     <message>
         <source>Favourited</source>
-        <translation>已收藏</translation>
+        <translation>收藏</translation>
     </message>
     <message>
         <source>Top Favourited Songs</source>

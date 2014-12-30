@@ -563,7 +563,8 @@ void Player::playByModuleFileName(QString const& fileName, QString const& icon) 
         beginPlay(false, fileName, icon);
     } else {
         // relative path or within cache directory - play from cache
-        if(fileName.startsWith(m_cache->cachePath()) || FileUtils::isRelative(fileName)) {
+        if(fileName.startsWith(m_cache->cachePath()) ||
+           FileUtils::isRelative(fileName)) {
             if(m_cache->exists(fileName)) {
                 QString name = FileUtils::fileNameOnly(fileName);
                 beginPlay(true, name, SongFormat::getIconPath(name));
@@ -650,6 +651,7 @@ void Player::onLocalSongSelected(const QStringList& fileList) {
     }
     else if(fileList.size() > 1)
     {
+        // TODO: enqueue these songs
         qDebug() << "Selected multiple songs:" << fileList.size();
     }
     sender()->deleteLater();
@@ -740,9 +742,6 @@ void Player::onBufferingStatusChanged(int type) {
 }
 
 void Player::onSongIconPathChanged() {
-#ifdef VERBOSE_LOGGING
-    qDebug() << "ICONPATH SongIconPathChanged" << currentSong()->iconPath();
-#endif
     updateNowPlaying();
 }
 

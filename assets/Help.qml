@@ -134,6 +134,13 @@ Sheet {
                     bottomMargin: topMargin
                     text: qsTr("I made <b>ModPlayer</b> for fun and hope you will enjoy it too :)" ) + Retranslate.onLanguageChanged
                 }
+                Label {
+                    multiline: true
+                    textFormat: TextFormat.Html
+                    topMargin: 20
+                    bottomMargin: topMargin
+                    text: qsTr("Thank you, contributors: Mr.Time (Chinese translation)." ) + Retranslate.onLanguageChanged
+                }
             }
         }
     }
