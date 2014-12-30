@@ -6,7 +6,7 @@
        <text xml:lang="ru">ModPlayer</text>
        <text xml:lang="zh">ModPlayer</text>
     </name>
-    <versionNumber>4.3.4</versionNumber>
+    <versionNumber>4.3.5</versionNumber>
     <packageLocale>ru,zh</packageLocale>
     <buildId>0</buildId>
     <description>
@@ -22,6 +22,7 @@
        <image>splash-720x720.png</image>
        <image>splash-1280x768.png</image>
        <image>splash-768x1280.png</image>
+       <image>splash-1440x1440.png</image>
        <image>
           <text xml:lang="ru">splash-1280x768.png</text>
        </image>
@@ -32,6 +33,9 @@
           <text xml:lang="ru">splash-768x1280.png</text>
        </image>
        <image>
+          <text xml:lang="ru">splash-1440x1440.png</text>
+       </image>
+       <image>
           <text xml:lang="zh">splash-1280x768.png</text>
        </image>
        <image>
@@ -39,6 +43,9 @@
        </image>
        <image>
           <text xml:lang="zh">splash-768x1280.png</text>
+       </image>
+       <image>
+          <text xml:lang="zh">splash-1440x1440.png</text>
        </image>
     </splashScreens>
     <icon>
@@ -91,6 +98,7 @@
     <asset path="splash-720x720.png">splash-720x720.png</asset>
     <asset path="splash-1280x768.png">splash-1280x768.png</asset>
     <asset path="splash-768x1280.png">splash-768x1280.png</asset>
+    <asset path="splash-1440x1440.png">splash-1440x1440.png</asset>
     <permission system="true">run_native</permission>
     <permission>access_internet</permission>
     <permission>access_location_services</permission>
