@@ -252,7 +252,7 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
-        <translation></translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 播放来自 &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; 网站 - &lt;i&gt;The Mod Archive&lt;/i&gt;的多格式音轨歌曲。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
@@ -264,15 +264,15 @@
     </message>
     <message>
         <source>You can configure the song cache size and song count it keeps in &lt;b&gt;ModPlayer&lt;/b&gt; settings.</source>
-        <translation>您可以在 &lt;b&gt;模块播放器&lt;/b&gt; 设置中国配置歌曲缓存大小和歌曲计数。</translation>
+        <translation>您可以在 &lt;b&gt;模块播放器&lt;/b&gt; 设置中配置歌曲缓存大小和歌曲计数。</translation>
     </message>
     <message>
         <source>You can add the songs from the &lt;b&gt;ModPlayer&lt;/b&gt; library to the list of your favourite songs and listen to them later.</source>
-        <translation>您可以从&lt;b&gt;模块播放器r&lt;/b&gt; 歌曲库中添加歌曲到您的收藏歌曲列表并稍后聆听。</translation>
+        <translation>您可以从&lt;b&gt;模块播放器&lt;/b&gt; 歌曲库中添加歌曲到您的收藏歌曲列表并稍后聆听。</translation>
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; knows the songs you listened to and you can locate them in the &lt;i&gt;&quot;Recent&quot;&lt;/i&gt;, &lt;i&gt;&quot;Most Played&quot;&lt;/i&gt; and &lt;i&gt;&quot;My Favourite&quot;&lt;/i&gt; tabs.</source>
-        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 知道您听过的歌曲，您可以找到它们，在&lt;i&gt;&quot;最近t&quot;&lt;/i&gt;, &lt;i&gt;&quot;播放最多&quot;&lt;/i&gt; and &lt;i&gt;&quot;我的收藏夹&quot;&lt;/i&gt; 选项卡。</translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 知道您听过的歌曲，您可以找到它们，在&lt;i&gt;&quot;最近&quot;&lt;/i&gt;, &lt;i&gt;&quot;播放最多&quot;&lt;/i&gt; 和 &lt;i&gt;&quot;我的收藏夹&quot;&lt;/i&gt; 选项卡。</translation>
     </message>
     <message>
         <source>These are the songs that were downloaded, rated and favourited by other users of &lt;i&gt;The Mod Archive&lt;/i&gt; site and it is quite possible you will also enjoy them.</source>
@@ -280,11 +280,11 @@
     </message>
     <message>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is using the &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; library, one of the best libraries that provides high quality tracker song modules mixing and playback.</source>
-        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 使用 &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; 歌曲库——提供高质量音轨模块混频和播放最好的歌曲库之一。 </translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 使用 &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; 歌曲库——提供高质量音轨模块混频和播放的最好的歌曲库之一。 </translation>
     </message>
     <message>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
-        <translation>我开发 &lt;b&gt;模块播放器r&lt;/b&gt; 是出于兴趣，希望你们会喜欢！</translation>
+        <translation>我开发 &lt;b&gt;模块播放器&lt;/b&gt; 是出于兴趣，希望你们会喜欢！</translation>
     </message>
     <message>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>
@@ -296,11 +296,11 @@
     </message>
     <message>
         <source>You can configure various options of &lt;b&gt;ModPlayer&lt;/b&gt;, such as &lt;i&gt;mixing frequency&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; playback, &lt;i&gt;mixer quality&lt;/i&gt; and more.</source>
-        <translation>您可以配置一些 &lt;b&gt;模块播放器&lt;/b&gt; 的一些选,，如： &lt;i&gt;混合频率&lt;/i&gt;, &lt;i&gt;立体声/单声道&lt;/i&gt; 播放, &lt;i&gt;混频器质量&lt;/i&gt; 以及更多。</translation>
+        <translation>您可以配置 &lt;b&gt;模块播放器&lt;/b&gt; 的一些选项,如： &lt;i&gt;混合频率&lt;/i&gt;, &lt;i&gt;立体声/单声道&lt;/i&gt; 播放, &lt;i&gt;混频器质量&lt;/i&gt; 以及更多。</translation>
     </message>
     <message>
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
-        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 中拥有成千上万的歌曲,我希望你们很好地享受一些歌曲。推荐查看 &lt;i&gt;&quot;下载&quot;&lt;/i&gt;, &lt;i&gt;&quot;收藏&quot;&lt;/i&gt; 和 &lt;i&gt;&quot;高分&quot;&lt;/i&gt; 选项卡。</translation>
+        <translation>&lt;b&gt;模块播放器&lt;/b&gt; 拥有成千上万的歌曲,我希望你们能够享受很多歌曲。推荐查看 &lt;i&gt;&quot;下载&quot;&lt;/i&gt;, &lt;i&gt;&quot;收藏&quot;&lt;/i&gt; 和 &lt;i&gt;&quot;高分&quot;&lt;/i&gt; 选项卡。</translation>
     </message>
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
@@ -918,7 +918,7 @@
     </message>
     <message>
         <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation>歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器r&quot;目录</translation>
+        <translation>歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
     </message>
     <message>
         <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
