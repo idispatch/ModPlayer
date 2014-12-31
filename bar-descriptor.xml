@@ -40,6 +40,13 @@
        <image>
           <text xml:lang="zh">splash-768x1280.png</text>
        </image>
+       <image>splash-1440x1440.png</image>
+       <image>
+          <text xml:lang="zh">splash-1440x1440.png</text>
+       </image>
+       <image>
+          <text xml:lang="ru">splash-1440x1440.png</text>
+       </image>
     </splashScreens>
     <icon>
        <image>icon_modplayer.png</image>
@@ -91,6 +98,7 @@
     <asset path="splash-720x720.png">splash-720x720.png</asset>
     <asset path="splash-1280x768.png">splash-1280x768.png</asset>
     <asset path="splash-768x1280.png">splash-768x1280.png</asset>
+    <asset path="splash-1440x1440.png">splash-1440x1440.png</asset>
     <permission system="true">run_native</permission>
     <permission>access_internet</permission>
     <permission>access_location_services</permission>
