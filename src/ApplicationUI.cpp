@@ -39,6 +39,7 @@
 #include "WebImageView.hpp"
 #include "AlbumArtView.hpp"
 #include "InternetRadio.hpp"
+#include "Wallpaper.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -51,6 +52,10 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     : QObject(app),
       m_appState(bb::ProcessState::Foreground),
       m_pTranslator(new QTranslator(this)),
+      m_wallpaper(m_settings.value("wallpaper/name", "ModPlayer Classic").toString(),
+                  m_settings.value("wallpaper/path", "asset:///images/backgrounds/view_back.amd").toString(),
+                  m_settings.value("wallpaper/repeatable", false).toBool(),
+                  m_settings.value("wallpaper/animatable", true).toBool()),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)),
@@ -134,7 +139,17 @@ void ApplicationUI::onInvoked(const InvokeRequest& request) {
     }
 }
 
+void ApplicationUI::saveWallpaperSettings() {
+    m_settings.beginGroup("wallpaper");
+    m_settings.setValue("name", m_wallpaper.name());
+    m_settings.setValue("path", m_wallpaper.path());
+    m_settings.setValue("repeatable", m_wallpaper.repeatable());
+    m_settings.setValue("animatable", m_wallpaper.animatable());
+    m_settings.endGroup();
+}
+
 void ApplicationUI::onAboutToQuit() {
+    saveWallpaperSettings();
     LCDDigits::finalize();
     if(m_player != 0) {
         m_player->setParent(0);
@@ -164,7 +179,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<bb::multimedia::MediaState>(MULTIMEDIA_NAMESPACE, 1, 0, "MediaState", "");
     qmlRegisterUncreatableType<bb::multimedia::BufferStatus>(MULTIMEDIA_NAMESPACE, 1, 0, "BufferStatus", "");
 
-    qRegisterMetaType<Analytics*>();
+    /*qRegisterMetaType<Analytics*>();
     qRegisterMetaType<Artist*>();
     qRegisterMetaType<Cache*>();
     qRegisterMetaType<Catalog*>();
@@ -182,7 +197,7 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<SongGenre*>();
     qRegisterMetaType<PatternView*>();
     qRegisterMetaType<VUMeter*>();
-    qRegisterMetaType<Radio*>();
+    qRegisterMetaType<Radio*>();*/
 
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
     qmlRegisterType<AlbumArtView>(QmlNamespace, versionMajor, versionMinor, "AlbumArtView");
@@ -212,6 +227,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<NamedPlaylist>(QmlNamespace, versionMajor, versionMinor, "NamedPlaylist", "");
     qmlRegisterUncreatableType<Album>(QmlNamespace, versionMajor, versionMinor, "Album", "");
     qmlRegisterUncreatableType<Radio>(QmlNamespace, versionMajor, versionMinor, "Radio", "");
+    qmlRegisterUncreatableType<Wallpaper>(QmlNamespace, versionMajor, versionMinor, "Wallpaper", "");
 }
 
 void ApplicationUI::initApp() {
@@ -293,6 +309,10 @@ Catalog * ApplicationUI::catalog() const {
 
 Cache * ApplicationUI::cache() const {
     return m_player->cache();
+}
+
+Wallpaper * ApplicationUI::wallpaper() {
+    return &m_wallpaper;
 }
 
 Analytics * ApplicationUI::analytics() const {

@@ -337,6 +337,120 @@ Sheet {
                                     settingsRoot.configuration.animationEnabled = animationEnabled.checked
                                 }
                             }
+                            DropDown {
+                                id: wallpaper
+                                title: qsTr("Background") + Retranslate.onLanguageChanged
+                                property variant allWallpapers: [
+                                    {
+                                        name: "ModPlayer Classic",
+                                        path:"asset:///images/backgrounds/view_back.amd", 
+                                        repeatable: true, 
+                                        animatable: true
+                                    },
+                                    {
+                                        name: "Purple",
+                                        path:"asset:///images/backgrounds/purple.jpg",
+                                        repeatable: false,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Digital",
+                                        path:"asset:///images/backgrounds/digital.jpg",
+                                        repeatable: false,
+                                        animatable: true
+                                    },
+                                    {
+                                        name: "Flower",
+                                        path:"asset:///images/backgrounds/flower.jpg",
+                                        repeatable: false,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Cork",
+                                        path:"asset:///images/backgrounds/cork.amd",
+                                        repeatable: true,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Asphalt",
+                                        path:"asset:///images/backgrounds/asphalt.amd",
+                                        repeatable: true,
+                                        animatable: true
+                                    },
+                                    {
+                                        name: "Amiga",
+                                        path:"asset:///images/backgrounds/amiga.jpg",
+                                        repeatable: false,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "White",
+                                        path:"asset:///images/backgrounds/white.amd",
+                                        repeatable: true,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Black",
+                                        path:"asset:///images/backgrounds/black.amd",
+                                        repeatable: true,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Green",
+                                        path:"asset:///images/backgrounds/green.amd",
+                                        repeatable: false,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Blue",
+                                        path:"asset:///images/backgrounds/blue.jpg",
+                                        repeatable: false,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "ModPlayer",
+                                        path:"asset:///images/backgrounds/modplayer.amd",
+                                        repeatable: true,
+                                        animatable: true
+                                    },
+                                    {
+                                        name: "Abstract",
+                                        path:"asset:///images/backgrounds/abstract.jpg",
+                                        repeatable: false,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Cloth",
+                                        path:"asset:///images/backgrounds/cloth.amd",
+                                        repeatable: true,
+                                        animatable: true
+                                    }
+                                ]
+                                attachedObjects: [
+                                    ComponentDefinition {
+                                        id: optionDefinition
+                                        Option {}
+                                    }
+                                ]
+                                onCreationCompleted: {
+                                    var selectedName = app.wallpaper.name
+                                    for(var i = 0; i < allWallpapers.length; ++i) {
+                                        var newOption = optionDefinition.createObject()
+                                        newOption.text = allWallpapers[i].name
+                                        newOption.value = i
+                                        if(selectedName == allWallpapers[i].name) {
+                                            newOption.selected = true
+                                        }
+                                        add(newOption)
+                                    }
+                                }
+                                onSelectedValueChanged: {
+                                    app.wallpaper.name = selectedOption.text
+                                    app.wallpaper.path = allWallpapers[selectedValue].path
+                                    app.wallpaper.repeatable = allWallpapers[selectedValue].repeatable
+                                    app.wallpaper.animatable = allWallpapers[selectedValue].animatable
+                                }
+                            }
                         }
                         GroupContainer {
                             topPadding: 20

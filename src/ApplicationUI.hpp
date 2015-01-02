@@ -6,6 +6,7 @@
 #include <QUrl>
 #include <QSettings>
 #include <bb/ProcessState>
+#include "Wallpaper.hpp"
 
 namespace bb
 {
@@ -26,6 +27,7 @@ class Analytics;
 class Player;
 class Catalog;
 class Cache;
+class Wallpaper;
 
 class ApplicationUI : public QObject {
     Q_OBJECT
@@ -36,6 +38,7 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
+    Q_PROPERTY(Wallpaper* wallpaper READ wallpaper NOTIFY wallpaperChanged FINAL)
     Q_PROPERTY(Analytics* analytics READ analytics NOTIFY analyticsChanged FINAL)
 public:
     ApplicationUI(bb::cascades::Application *app);
@@ -51,6 +54,7 @@ public:
     Catalog * catalog() const;
     Cache * cache() const;
     Analytics * analytics() const;
+    Wallpaper * wallpaper();
 
     Q_INVOKABLE void emailAuthor();
     Q_INVOKABLE void twit();
@@ -65,6 +69,7 @@ Q_SIGNALS:
     void playerChanged();
     void catalogChanged();
     void cacheChanged();
+    void wallpaperChanged();
     void analyticsChanged();
 private slots:
     void onInvoked(const bb::system::InvokeRequest& invoke);
@@ -80,11 +85,13 @@ private:
     void initActiveCover();
     void initPlayer();
     void initTranslator();
+    void saveWallpaperSettings();
 private:
     static ApplicationUI * s_instance;
     bb::ProcessState::Type m_appState;
     QSettings m_settings;
     QTranslator* m_pTranslator;
+    Wallpaper m_wallpaper;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     bb::cascades::Application * m_app;
     Player * m_player;

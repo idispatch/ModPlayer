@@ -37,6 +37,8 @@ Container {
         background: backgroundPaint.imagePaint
         implicitLayoutAnimationsEnabled: false
 
+        visible: app.wallpaper.animatable
+
         translationX: app.player.playback.configuration.animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
         translationY: app.player.playback.configuration.animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
 
@@ -51,7 +53,8 @@ Container {
                 interval: 50
                 repeat: true
                 onTriggered: {
-                    if(app.player.playback.configuration.animationEnabled) {
+                    if(app.player.playback.configuration.animationEnabled &&
+                       app.wallpaper.animatable) {
                         block.angleX += block.angleStepX
                         block.angleY += block.angleStepY
                         block.scalePhase += block.scaleStep
@@ -64,12 +67,13 @@ Container {
             },
             ImagePaintDefinition {
                 id: backgroundPaint
-                repeatPattern: RepeatPattern.XY
-                imageSource: "asset:///images/backgrounds/view_back.amd"
+                repeatPattern: app.wallpaper.animatable ? RepeatPattern.XY : RepeatPattern.Fill
+                imageSource: app.wallpaper.path
             }
         ]
         function enableAnimationTimer() {
-            if(app.player.playback.configuration.animationEnabled) {
+            if(app.player.playback.configuration.animationEnabled &&
+               app.wallpaper.animatable) {
                 rotozoomTimer.start()
             }
         }
@@ -77,7 +81,8 @@ Container {
             rotozoomTimer.stop()
         }
         function initTimer() {
-            if(app.player.playback.configuration.animationEnabled) {
+            if(app.player.playback.configuration.animationEnabled &&
+               app.wallpaper.animatable) {
                 enableAnimationTimer()
             } else {
                 disableAnimationTimer()
@@ -97,8 +102,8 @@ Container {
         },
         ImagePaintDefinition {
             id: backgroundPaintOuter
-            repeatPattern: RepeatPattern.XY
-            imageSource: "asset:///images/backgrounds/view_back.amd"
+            repeatPattern: app.wallpaper.repeatable ? RepeatPattern.XY : RepeatPattern.Fill
+            imageSource: app.wallpaper.path
         }
     ]
 }

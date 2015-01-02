@@ -159,16 +159,35 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_twitter.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_unlike.png) \
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
+        $$quote($$BASEDIR/assets/images/backgrounds/abstract.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/amiga.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/asphalt.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/asphalt.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/black.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/black.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/blue.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cloth.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cloth.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cork.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cork.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/digital.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/flower.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/green.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/green.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/modplayer.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/modplayer.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/mouse.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/pattern1.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/purple.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/white.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/white.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_downloads.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_favourite.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_lastplayed.png) \
@@ -320,6 +339,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/TouchHandler.cpp) \
         $$quote($$BASEDIR/src/Unpacker.cpp) \
         $$quote($$BASEDIR/src/VUMeter.cpp) \
+        $$quote($$BASEDIR/src/Wallpaper.cpp) \
         $$quote($$BASEDIR/src/WebImageView.cpp) \
         $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
         $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
@@ -461,6 +481,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/TouchHandler.hpp) \
         $$quote($$BASEDIR/src/Unpacker.hpp) \
         $$quote($$BASEDIR/src/VUMeter.hpp) \
+        $$quote($$BASEDIR/src/Wallpaper.hpp) \
         $$quote($$BASEDIR/src/WebImageView.hpp) \
         $$quote($$BASEDIR/src/lcd_fonts.hpp) \
         $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
