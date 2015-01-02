@@ -163,7 +163,7 @@ Sheet {
                                 horizontalAlignment: HorizontalAlignment.Center
                                 topMargin: 40
                                 bottomMargin: 40
-                                enabled: app.cache.currentFiles > 0
+                                enabled: app.cache.currentFiles > 0 && app.isExtendedVersion
                                 onClicked: {
                                     confirmExportingSongCache.show()
                                 }
@@ -340,6 +340,7 @@ Sheet {
                             DropDown {
                                 id: wallpaper
                                 title: qsTr("Background") + Retranslate.onLanguageChanged
+                                enabled: app.isExtendedVersion
                                 property variant allWallpapers: [
                                     {
                                         name: "ModPlayer Classic",

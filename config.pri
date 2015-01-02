@@ -135,6 +135,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_jazzradio.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_like.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_load_song.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_lock.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_mostplayed.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_my_songs.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_myfavourite.png) \

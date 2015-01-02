@@ -10,7 +10,7 @@ ActionItem {
     property string currentSong
     property bool certain: true
     title: qsTr("Save Song to Device") + Retranslate.onLanguageChanged
-    imageSource: "asset:///images/actions/icon_save_song.png"
+    imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_save_song.png" : "asset:///images/actions/icon_lock.png"
     enabled: certain && app.cache.exists(currentSong) && app.isExtendedVersion
     onTriggered: {
         var result = selectSaveFormat.run()
