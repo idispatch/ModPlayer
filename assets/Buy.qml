@@ -172,7 +172,7 @@ Sheet {
                                      rightPadding: 10
                                      horizontalAlignment: HorizontalAlignment.Fill
                                      BlackLabel {
-                                         text: qsTr("With <b>ModPlayer Plus</b> you will get:<br/>&#x2022; Custom wallpapers and backgrounds<br/>&#x2022; Import songs from device and SD card<br/>&#x2022; Open songs from device or SD card<br/>&#x2022; Saving songs to device or SD card<br/>&#x2022; Play directories from your device and SD card") + Retranslate.onLanguageChanged
+                                         text: qsTr("With <b>ModPlayer Plus</b> you will get:<br/>&#x2022; Custom wallpapers and backgrounds<br/>&#x2022; Import songs from device and SD card<br/>&#x2022; Export songs from ModPlayer cache to SD card or device memory<br/>&#x2022; Open songs from device or SD card<br/>&#x2022; Saving songs to device or SD card<br/>&#x2022; Converting tracker songs to MP3 and saving to device or SD card") + Retranslate.onLanguageChanged
                                          horizontalAlignment: HorizontalAlignment.Fill
                                          textFormat: TextFormat.Html
                                          textStyle.fontSize: FontSize.Small

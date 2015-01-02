@@ -3,7 +3,7 @@ import QtQuick 1.0
 
 ImageView {
     property bool mouseActive: false
-    imageSource: "asset:///images/backgrounds/mouse.png"
+    imageSource: "asset:///images/objects/mouse.png"
     horizontalAlignment: HorizontalAlignment.Right
     verticalAlignment: VerticalAlignment.Bottom
     translationY: 450

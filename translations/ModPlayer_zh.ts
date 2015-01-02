@@ -77,15 +77,15 @@
     <name>ApplicationUI</name>
     <message>
         <source>Hello, ModPlayer Author!</source>
-        <translation type="unfinished">你好，模块播放器作者！</translation>
+        <translation>你好，模块播放器作者！</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
-        <translation type="unfinished">享受模块播放器 #应用在我的#黑莓10设备上，在#BlackBerry World中查看！</translation>
+        <translation>享受模块播放器 #应用在我的#黑莓10设备上，在#BlackBerry World中查看！</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
-        <translation type="unfinished">享受模块播放器应用在我的黑莓10设备上，在BlackBerry World中查看！</translation>
+        <translation>享受模块播放器应用在我的黑莓10设备上，在BlackBerry World中查看！</translation>
     </message>
 </context>
 <context>
@@ -115,15 +115,15 @@
     <name>Buy</name>
     <message>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished">版本： &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>版本： &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>ModPlayer Plus</source>
-        <translation type="unfinished"></translation>
+        <translation>ModPlayer Plus</translation>
     </message>
     <message>
         <source>Buy</source>
@@ -146,7 +146,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Play directories from your device and SD card</source>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -285,6 +285,25 @@
     </message>
 </context>
 <context>
+    <name>ExportCacheButton</name>
+    <message>
+        <source>Export Cache</source>
+        <translation type="unfinished">导出缓存</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished">确认</translation>
+    </message>
+    <message>
+        <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation type="unfinished">歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
+    </message>
+    <message>
+        <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation type="unfinished">歌曲缓存已成功导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -379,6 +398,21 @@
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
         <translation>感谢贡献者：Mr.Time(中文翻译)</translation>
+    </message>
+</context>
+<context>
+    <name>ImportButton</name>
+    <message>
+        <source>Import My Songs</source>
+        <translation type="unfinished">导入我的歌曲</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished">确认</translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs and playlists?</source>
+        <translation type="unfinished">您想要导入本地歌曲和播放列表吗？</translation>
     </message>
 </context>
 <context>
@@ -988,15 +1022,15 @@
     </message>
     <message>
         <source>Export Cache</source>
-        <translation>导出缓存</translation>
+        <translation type="obsolete">导出缓存</translation>
     </message>
     <message>
         <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation>歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
+        <translation type="obsolete">歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
     </message>
     <message>
         <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation>歌曲缓存已成功导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
+        <translation type="obsolete">歌曲缓存已成功导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
     </message>
     <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -1008,7 +1042,7 @@
     </message>
     <message>
         <source>Import My Songs</source>
-        <translation>导入我的歌曲</translation>
+        <translation type="obsolete">导入我的歌曲</translation>
     </message>
     <message>
         <source>Master Volume</source>
@@ -1016,7 +1050,7 @@
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation>您想要导入本地歌曲和播放列表吗？</translation>
+        <translation type="obsolete">您想要导入本地歌曲和播放列表吗？</translation>
     </message>
     <message>
         <source>Background</source>
@@ -1288,6 +1322,17 @@
     <message>
         <source>Play</source>
         <translation>播放</translation>
+    </message>
+</context>
+<context>
+    <name>WallpaperSelector</name>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">背景</translation>
+    </message>
+    <message>
+        <source>Browse for wallpaper</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

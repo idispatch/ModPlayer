@@ -68,39 +68,48 @@ Sheet {
                                 }
                             }
                             BlackLabel {
+                                horizontalAlignment: HorizontalAlignment.Center
                                 text: qsTr("Version: <b>%1</b>").arg(app.version) + Retranslate.onLanguageChanged
                                 textFormat: TextFormat.Html
                             }
-                            BlackLabel {
-                                property int requestId
-                                textFormat: TextFormat.Html
-                                onCreationCompleted: {
-                                    text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
-                                    app.catalog.resultReady.connect(function(responseId, result) {
-                                        if(responseId == requestId) {
-                                            requestId = 0
-                                            text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                            HorizontalContainer {
+                                ImageView {
+                                    imageSource: "asset:///images/objects/cache.png"
+                                    verticalAlignment: VerticalAlignment.Center
+                                }
+                                VerticalContainer {
+                                    BlackLabel {
+                                        property int requestId
+                                        textFormat: TextFormat.Html
+                                        onCreationCompleted: {
+                                            text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
+                                            app.catalog.resultReady.connect(function(responseId, result) {
+                                                    if(responseId == requestId) {
+                                                        requestId = 0
+                                                        text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                    }
+                                            })
+                                        requestId = app.catalog.songCountAsync()
                                         }
-                                    })
-                                    requestId = app.catalog.songCountAsync()
-                                }
-                            }
-                            BlackLabel {
-                                id: personalSongCount
-                                property int requestId
-                                textFormat: TextFormat.Html
-                                onCreationCompleted: {
-                                    updateCount()
-                                }
-                                function updateCount() {
-                                    text = qsTr("Personal songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
-                                    app.catalog.resultReady.connect(function(responseId, result) {
-                                            if(responseId == requestId) {
-                                                requestId = 0
-                                                text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
-                                            }
-                                    })
-                                    personalSongCount.requestId = app.catalog.personalSongCountAsync()
+                                    }
+                                    BlackLabel {
+                                        id: personalSongCount
+                                        property int requestId
+                                        textFormat: TextFormat.Html
+                                        onCreationCompleted: {
+                                            updateCount()
+                                        }
+                                        function updateCount() {
+                                            text = qsTr("Personal songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
+                                            app.catalog.resultReady.connect(function(responseId, result) {
+                                                    if(responseId == requestId) {
+                                                        requestId = 0
+                                                        text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                    }
+                                            })
+                                        personalSongCount.requestId = app.catalog.personalSongCountAsync()
+                                        }
+                                    }
                                 }
                             }
                             BlackLabel {
@@ -124,16 +133,24 @@ Sheet {
                                     color: Color.Black
                                 }
                             }
-                            BlackLabel {
-                                text: qsTr("Cached Songs: <b>%1</b>").arg(app.player.cache.currentFiles) + Retranslate.onLanguageChanged
-                                textFormat: TextFormat.Html
-                            }
-                            BlackLabel {
-                                text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize)) + Retranslate.onLanguageChanged
-                                textFormat: TextFormat.Html
-                            }
-                            BlackLabel {
-                                text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value)) + Retranslate.onLanguageChanged
+                            HorizontalContainer {
+                                ImageView {
+                                    imageSource: "asset:///images/objects/memory.png"
+                                    verticalAlignment: VerticalAlignment.Center
+                                }
+                                VerticalContainer {
+                                    BlackLabel {
+                                        text: qsTr("Cached Songs: <b>%1</b>").arg(app.player.cache.currentFiles) + Retranslate.onLanguageChanged
+                                        textFormat: TextFormat.Html
+                                    }
+                                    BlackLabel {
+                                        text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize)) + Retranslate.onLanguageChanged
+                                        textFormat: TextFormat.Html
+                                    }
+                                    BlackLabel {
+                                        text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value)) + Retranslate.onLanguageChanged
+                                    }
+                                }
                             }
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
@@ -157,43 +174,6 @@ Sheet {
                                     toValue: 400 * 1024 * 1024
                                     value: app.cache.maxSize
                                 }
-                            }
-                            Button {
-                                text: qsTr("Export Cache") + Retranslate.onLanguageChanged
-                                horizontalAlignment: HorizontalAlignment.Center
-                                topMargin: 40
-                                bottomMargin: 40
-                                enabled: app.cache.currentFiles > 0 && app.isExtendedVersion
-                                onClicked: {
-                                    confirmExportingSongCache.show()
-                                }
-                                attachedObjects: [
-                                    SystemDialog {
-                                        id: confirmExportingSongCache
-                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
-                                        body: qsTr("The song cache will now be exported to the 'ModPlayer' directory in your device downloads directory") + Retranslate.onLanguageChanged
-                                        onFinished: {
-                                            if (result != SystemUiResult.ConfirmButtonSelection)
-                                                return;
-                                            app.cache.progressUpdate.connect(function(percent, fileName) {
-                                                progress.progress = percent
-                                                progress.body = fileName
-                                                progress.show()
-                                            })
-                                            progress.show()
-                                            app.cache.exportCache("ModPlayer")
-                                            progress.cancel()
-                                            cacheExportToast.show()
-                                        }
-                                    },
-                                    ProgressToast {
-                                        id: progress
-                                    },
-                                    SystemToast {
-                                        id: cacheExportToast
-                                        body: qsTr("The song cache has been exported successfully to the 'ModPlayer' directory in your device downloads directory") + Retranslate.onLanguageChanged
-                                    }
-                                ]
                             }
                             Button {
                                 text: qsTr("Purge Cache") + Retranslate.onLanguageChanged
@@ -222,6 +202,8 @@ Sheet {
                                         body: qsTr("The song cache has been purged") + Retranslate.onLanguageChanged
                                     }
                                 ]
+                            }
+                            ExportCacheButton {
                             }
                         }
                         GroupContainer {
@@ -291,27 +273,7 @@ Sheet {
                                     }
                                 ]
                             }
-                            Button {
-                                text: qsTr("Import My Songs") + Retranslate.onLanguageChanged
-                                horizontalAlignment: HorizontalAlignment.Center
-                                topMargin: 40
-                                bottomMargin: 40
-                                onClicked: {
-                                    confirmImport.show()
-                                }
-                                attachedObjects: [
-                                    SystemDialog {
-                                        id: confirmImport
-                                        title: qsTr("Confirm") + Retranslate.onLanguageChanged
-                                        body: qsTr("Would you like to import local songs and playlists?") + Retranslate.onLanguageChanged
-                                        onFinished: {
-                                            if (result == SystemUiResult.ConfirmButtonSelection) {
-                                                app.player.importSongs()
-                                                personalSongCount.updateCount()
-                                            }
-                                        }
-                                    }
-                                ]
+                            ImportButton {
                             }
                         }
                         GroupContainer {
@@ -337,128 +299,7 @@ Sheet {
                                     settingsRoot.configuration.animationEnabled = animationEnabled.checked
                                 }
                             }
-                            DropDown {
-                                id: wallpaper
-                                title: qsTr("Background") + Retranslate.onLanguageChanged
-                                enabled: app.isExtendedVersion
-                                property variant allWallpapers: [
-                                    {
-                                        name: "ModPlayer Classic",
-                                        path:"asset:///images/backgrounds/view_back.amd", 
-                                        repeatable: true, 
-                                        animatable: true
-                                    },
-                                    {
-                                        name: "Purple",
-                                        path:"asset:///images/backgrounds/purple.jpg",
-                                        repeatable: false,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Digital",
-                                        path:"asset:///images/backgrounds/digital.jpg",
-                                        repeatable: false,
-                                        animatable: true
-                                    },
-                                    {
-                                        name: "Flower",
-                                        path:"asset:///images/backgrounds/flower.jpg",
-                                        repeatable: false,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Cork",
-                                        path:"asset:///images/backgrounds/cork.amd",
-                                        repeatable: true,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Asphalt",
-                                        path:"asset:///images/backgrounds/asphalt.amd",
-                                        repeatable: true,
-                                        animatable: true
-                                    },
-                                    {
-                                        name: "Amiga",
-                                        path:"asset:///images/backgrounds/amiga.jpg",
-                                        repeatable: false,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "White",
-                                        path:"asset:///images/backgrounds/white.amd",
-                                        repeatable: true,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Black",
-                                        path:"asset:///images/backgrounds/black.amd",
-                                        repeatable: true,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Green",
-                                        path:"asset:///images/backgrounds/green.amd",
-                                        repeatable: false,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Blue",
-                                        path:"asset:///images/backgrounds/blue.jpg",
-                                        repeatable: false,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "ModPlayer",
-                                        path:"asset:///images/backgrounds/modplayer.amd",
-                                        repeatable: true,
-                                        animatable: true
-                                    },
-                                    {
-                                        name: "Abstract",
-                                        path:"asset:///images/backgrounds/abstract.jpg",
-                                        repeatable: false,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Cloth",
-                                        path:"asset:///images/backgrounds/cloth.amd",
-                                        repeatable: true,
-                                        animatable: false
-                                    },
-                                    {
-                                        name: "Rock",
-                                        path:"asset:///images/backgrounds/rock.amd",
-                                        repeatable: true,
-                                        animatable: true
-                                    }
-                                ]
-                                attachedObjects: [
-                                    ComponentDefinition {
-                                        id: optionDefinition
-                                        Option {}
-                                    }
-                                ]
-                                onCreationCompleted: {
-                                    var selectedName = app.wallpaper.name
-                                    for(var i = 0; i < allWallpapers.length; ++i) {
-                                        var newOption = optionDefinition.createObject()
-                                        newOption.text = allWallpapers[i].name
-                                        newOption.value = i
-                                        if(selectedName == allWallpapers[i].name) {
-                                            newOption.selected = true
-                                        }
-                                        add(newOption)
-                                    }
-                                }
-                                onSelectedValueChanged: {
-                                    app.wallpaper.name = selectedOption.text
-                                    app.wallpaper.path = allWallpapers[selectedValue].path
-                                    app.wallpaper.repeatable = allWallpapers[selectedValue].repeatable
-                                    app.wallpaper.animatable = allWallpapers[selectedValue].animatable
-                                    app.saveSettings()
-                                }
-                            }
+                            WallpaperSelector {}
                         }
                         GroupContainer {
                             topPadding: 20

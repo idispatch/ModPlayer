@@ -81,15 +81,15 @@
     <name>ApplicationUI</name>
     <message>
         <source>Hello, ModPlayer Author!</source>
-        <translation type="unfinished">Здравствуйте, автор ModPlayer!</translation>
+        <translation>Здравствуйте, автор ModPlayer!</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
-        <translation type="unfinished"></translation>
+        <translation>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
-        <translation type="unfinished"></translation>
+        <translation>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</translation>
     </message>
 </context>
 <context>
@@ -119,39 +119,39 @@
     <name>Buy</name>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished">Версия: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Версия: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>ModPlayer Plus</source>
-        <translation type="unfinished"></translation>
+        <translation>ModPlayer Plus</translation>
     </message>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"></translation>
+        <translation>Купить</translation>
     </message>
     <message>
         <source>You have enabled ModPlayer Plus features.</source>
-        <translation type="unfinished"></translation>
+        <translation>ModPlayer Plus куплен.</translation>
     </message>
     <message>
         <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
-        <translation type="unfinished"></translation>
+        <translation>Если вы приобретете ModPlayer Plus сейчас вы получите расширенные функции в приложении а также будущие обновления. </translation>
     </message>
     <message>
         <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
-        <translation type="unfinished"></translation>
+        <translation>ModPlayer Plus добавляет расширенные функции к бесплатной версии ModPlayer.</translation>
     </message>
     <message>
         <source>You need to buy ModPlayer Plus extended features only once.</source>
-        <translation type="unfinished"></translation>
+        <translation>ModPlayer Plus достаточно купить один раз, будущие обновления включены.</translation>
     </message>
     <message>
-        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Play directories from your device and SD card</source>
-        <translation type="unfinished"></translation>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
+        <translation>В &lt;b&gt;ModPlayer Plus&lt;/b&gt; включено: &lt;br/&gt;&amp;#x2022; Настраиваемые обои и фон&lt;br/&gt;&amp;#x2022; Импорт песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Экспорт песен из кэша ModPlayer на SD карту или в память телефона&lt;br/&gt;&amp;#x2022; Загрузка песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Сохранение песен на телефон или SD карту&lt;br/&gt;&amp;#x2022; Конвертирование трекерных песен в формат MP3</translation>
     </message>
 </context>
 <context>
@@ -186,7 +186,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="unfinished"></translation>
+        <translation>Купить ModPlayer Plus</translation>
     </message>
 </context>
 <context>
@@ -289,6 +289,25 @@
     </message>
 </context>
 <context>
+    <name>ExportCacheButton</name>
+    <message>
+        <source>Export Cache</source>
+        <translation type="unfinished">Сохранить кэш</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished">Подтверждение</translation>
+    </message>
+    <message>
+        <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation type="unfinished">Все песни в кэше будут сохранены в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+    </message>
+    <message>
+        <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
+        <translation type="unfinished">Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -383,6 +402,21 @@
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
         <translation>Спасибо за помощь: Mr.Time (перевод на китайский).</translation>
+    </message>
+</context>
+<context>
+    <name>ImportButton</name>
+    <message>
+        <source>Import My Songs</source>
+        <translation type="unfinished">Импортировать мои песни</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished">Подтверждение</translation>
+    </message>
+    <message>
+        <source>Would you like to import local songs and playlists?</source>
+        <translation type="unfinished">Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>
@@ -992,15 +1026,15 @@
     </message>
     <message>
         <source>Export Cache</source>
-        <translation>Сохранить кэш</translation>
+        <translation type="obsolete">Сохранить кэш</translation>
     </message>
     <message>
         <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation>Все песни в кэше будут сохранены в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+        <translation type="obsolete">Все песни в кэше будут сохранены в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
     </message>
     <message>
         <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation>Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+        <translation type="obsolete">Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
     </message>
     <message>
         <source>Catalog songs: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -1012,7 +1046,7 @@
     </message>
     <message>
         <source>Import My Songs</source>
-        <translation>Импортировать мои песни</translation>
+        <translation type="obsolete">Импортировать мои песни</translation>
     </message>
     <message>
         <source>Master Volume</source>
@@ -1020,7 +1054,7 @@
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
+        <translation type="obsolete">Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
     <message>
         <source>Background</source>
@@ -1292,6 +1326,17 @@
     <message>
         <source>Play</source>
         <translation>Играть</translation>
+    </message>
+</context>
+<context>
+    <name>WallpaperSelector</name>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Фон</translation>
+    </message>
+    <message>
+        <source>Browse for wallpaper</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

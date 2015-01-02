@@ -62,17 +62,20 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
         $$quote($$BASEDIR/assets/EnqueueActionItem.qml) \
+        $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
         $$quote($$BASEDIR/assets/FormatsList.qml) \
         $$quote($$BASEDIR/assets/GenresList.qml) \
         $$quote($$BASEDIR/assets/GroupContainer.qml) \
         $$quote($$BASEDIR/assets/Help.qml) \
         $$quote($$BASEDIR/assets/HorizontalContainer.qml) \
+        $$quote($$BASEDIR/assets/ImportButton.qml) \
         $$quote($$BASEDIR/assets/ImportSongsActionItem.qml) \
         $$quote($$BASEDIR/assets/Instruments.qml) \
         $$quote($$BASEDIR/assets/InstrumentsActionItem.qml) \
         $$quote($$BASEDIR/assets/InstrumentsView.qml) \
         $$quote($$BASEDIR/assets/InternetRadioList.qml) \
         $$quote($$BASEDIR/assets/LiveStreamRadio.qml) \
+        $$quote($$BASEDIR/assets/LockIcon.qml) \
         $$quote($$BASEDIR/assets/ModPlayerListItem.qml) \
         $$quote($$BASEDIR/assets/Mouse.qml) \
         $$quote($$BASEDIR/assets/NextActionItem.qml) \
@@ -114,6 +117,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/TitleBarText.qml) \
         $$quote($$BASEDIR/assets/VerticalContainer.qml) \
         $$quote($$BASEDIR/assets/ViewContainer.qml) \
+        $$quote($$BASEDIR/assets/WallpaperSelector.qml) \
         $$quote($$BASEDIR/assets/catalog.sqlite) \
         $$quote($$BASEDIR/assets/difm.json) \
         $$quote($$BASEDIR/assets/functions.js) \
@@ -164,38 +168,14 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_twitter.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_unlike.png) \
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
-        $$quote($$BASEDIR/assets/images/backgrounds/abstract.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/amiga.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/asphalt.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/asphalt.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/black.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/black.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/blue.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cloth.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cloth.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cork.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cork.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/digital.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/flower.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/green.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/green.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/modplayer.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/modplayer.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/mouse.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/purple.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/rock.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/rock.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/white.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/white.jpg) \
-        $$quote($$BASEDIR/assets/images/backgrounds/white.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_downloads.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_favourite.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_lastplayed.png) \
@@ -300,8 +280,54 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/lcd/lcd-9.png) \
         $$quote($$BASEDIR/assets/images/led/led_off.png) \
         $$quote($$BASEDIR/assets/images/led/led_on.png) \
+        $$quote($$BASEDIR/assets/images/objects/cache.png) \
+        $$quote($$BASEDIR/assets/images/objects/lock.png) \
+        $$quote($$BASEDIR/assets/images/objects/memory.png) \
+        $$quote($$BASEDIR/assets/images/objects/mouse.png) \
+        $$quote($$BASEDIR/assets/images/objects/wallpaper.png) \
         $$quote($$BASEDIR/assets/images/vu/vu-off.png) \
         $$quote($$BASEDIR/assets/images/vu/vu-on.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/abstract.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/aluminium.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/aluminium.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/asphalt.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/asphalt.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/black.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/black.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/blue.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/blueprint.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/blueprint.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/carbon.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/clouds.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/cork.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/cork.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/crystals.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/dark-tile.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/dark-tile.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/dawn.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/digital.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/dolphins.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/drops.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/flower.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/grass.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/green.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/green.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/jeans.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/jeans.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/linen.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/linen.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/modplayer.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/modplayer.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/nebula.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/plasma.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/purple.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/rock.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/rock.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/stars.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/techno.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/water.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/waves.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/wood.jpg) \
         $$quote($$BASEDIR/assets/jazzradio.json) \
         $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/rockradio.json) \
@@ -679,9 +705,15 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/led/*.qml) \
         $$quote($$BASEDIR/../assets/images/led/*.js) \
         $$quote($$BASEDIR/../assets/images/led/*.qs) \
+        $$quote($$BASEDIR/../assets/images/objects/*.qml) \
+        $$quote($$BASEDIR/../assets/images/objects/*.js) \
+        $$quote($$BASEDIR/../assets/images/objects/*.qs) \
         $$quote($$BASEDIR/../assets/images/vu/*.qml) \
         $$quote($$BASEDIR/../assets/images/vu/*.js) \
-        $$quote($$BASEDIR/../assets/images/vu/*.qs)
+        $$quote($$BASEDIR/../assets/images/vu/*.qs) \
+        $$quote($$BASEDIR/../assets/images/wallpapers/*.qml) \
+        $$quote($$BASEDIR/../assets/images/wallpapers/*.js) \
+        $$quote($$BASEDIR/../assets/images/wallpapers/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \
