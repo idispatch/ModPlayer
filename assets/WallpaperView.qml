@@ -3,11 +3,11 @@ import QtQuick 1.0
 import player 1.0
 
 Container {
+    layout: AbsoluteLayout {}
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
-    layout: AbsoluteLayout {}
     implicitLayoutAnimationsEnabled: false
-    background: backgroundPaintOuter.imagePaint
+    background: app.wallpaper.solidColor ? Color.create(app.wallpaper.color) : backgroundPaintOuter.imagePaint
     Container {
         id: block
         layoutProperties: AbsoluteLayoutProperties {

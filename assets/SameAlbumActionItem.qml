@@ -9,10 +9,12 @@ ActionItem {
     onTriggered: {
         var previousPage = navigationPane.top
         var view = songList.createObject()
-        view.navigationPane = navigationPane
-        navigationPane.push(view)
-        navigationPane.remove(previousPage)
-        view.loadSongsBySongAlbum(currentSong.id)
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+            navigationPane.remove(previousPage)
+            view.loadSongsBySongAlbum(currentSong.id)
+        }
     }
     attachedObjects: [
         ComponentDefinition {

@@ -11,11 +11,9 @@ public:
 
     Q_INVOKABLE bool isPurchased(QString const& sku);
 public Q_SLOTS:
-    void deletePurchaseRecords();
     void storePurchase(QString const &sku);
     void retrieveLocalPurchases();
 Q_SIGNALS:
-    void purchaseRecordsDeleted();
     void purchaseRetrieved(QString const &sku);
 private:
     QSettings &m_store;

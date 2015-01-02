@@ -44,8 +44,10 @@ ActionItem {
             }
             app.player.playPlaylist()
             var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
+            if(view){
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
         }
     }
     onTriggered: {

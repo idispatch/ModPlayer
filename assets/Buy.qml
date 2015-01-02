@@ -72,7 +72,7 @@ Sheet {
         }
         Container {
             layout: DockLayout {}
-            RotoZoomer {}
+            WallpaperView {}
             ScrollView {
                 opacity: 0.8
                 horizontalAlignment: HorizontalAlignment.Fill

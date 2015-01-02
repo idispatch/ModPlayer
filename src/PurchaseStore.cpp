@@ -35,9 +35,3 @@ void PurchaseStore::retrieveLocalPurchases() {
         }
     }
 }
-
-void PurchaseStore::deletePurchaseRecords() {
-    m_store.setValue(PURCHASE_KEY_NAME, QStringList());
-    m_store.sync();
-    emit purchaseRecordsDeleted();
-}

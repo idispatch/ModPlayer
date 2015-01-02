@@ -95,7 +95,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/ProgressToast.qml) \
         $$quote($$BASEDIR/assets/RadioMiniBadge.qml) \
         $$quote($$BASEDIR/assets/RemoveFavouriteActionItem.qml) \
-        $$quote($$BASEDIR/assets/RotoZoomer.qml) \
         $$quote($$BASEDIR/assets/SameAlbumActionItem.qml) \
         $$quote($$BASEDIR/assets/SameArtistActionItem.qml) \
         $$quote($$BASEDIR/assets/SaveSongActionItem.qml) \
@@ -118,6 +117,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/VerticalContainer.qml) \
         $$quote($$BASEDIR/assets/ViewContainer.qml) \
         $$quote($$BASEDIR/assets/WallpaperSelector.qml) \
+        $$quote($$BASEDIR/assets/WallpaperView.qml) \
         $$quote($$BASEDIR/assets/catalog.sqlite) \
         $$quote($$BASEDIR/assets/difm.json) \
         $$quote($$BASEDIR/assets/functions.js) \

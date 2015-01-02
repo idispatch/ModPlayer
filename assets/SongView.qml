@@ -9,7 +9,7 @@ Page {
     Container {
         layout: DockLayout {
         }
-        RotoZoomer {
+        WallpaperView {
         }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
@@ -88,8 +88,10 @@ Page {
     function showPlayerView() {
         if(mainTabPane.activePane == navigationPane && navigationPane.top == songView) {
             var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
+            if(view) {
+                view.navigationPane = navigationPane
+                navigationPane.push(view)
+            }
         }
     }
     onCreationCompleted: {

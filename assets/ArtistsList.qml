@@ -31,7 +31,7 @@ Page {
     Container {
         layout: DockLayout {
         }
-        RotoZoomer {
+        WallpaperView {
         }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
@@ -80,9 +80,11 @@ Page {
                 onTriggered: {
                     var chosenItem = dataModel.data(indexPath)
                     var view = songList.createObject()
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
-                    view.loadSongsByArtist(chosenItem.id, chosenItem.name)
+                    if(view) {
+                        view.navigationPane = navigationPane
+                        navigationPane.push(view)
+                        view.loadSongsByArtist(chosenItem.id, chosenItem.name)
+                    }
                 }
                 attachedObjects: [
                     ComponentDefinition {
@@ -109,8 +111,10 @@ Page {
             if(mainTabPane.activePane == navigationPane && 
                navigationPane.top == artistsPage) {
                 var view = songPlayer.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
+                if(view) {
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                }
             }
         })
         app.catalog.resultReady.connect(function(responseId, result) {

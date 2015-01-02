@@ -11,10 +11,12 @@ ActionItem {
         var artistName = currentSong.artist
         var previousPage = navigationPane.top
         var view = songList.createObject()
-        view.navigationPane = navigationPane
-        navigationPane.push(view)
-        navigationPane.remove(previousPage)
-        view.loadSongsByArtist(artistId, artistName)
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+            navigationPane.remove(previousPage)
+            view.loadSongsByArtist(artistId, artistName)
+        }
     }
     attachedObjects: [
         ComponentDefinition {

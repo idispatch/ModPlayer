@@ -91,17 +91,17 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="338"/>
+        <location filename="../src/ApplicationUI.cpp" line="330"/>
         <source>Hello, ModPlayer Author!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="357"/>
+        <location filename="../src/ApplicationUI.cpp" line="349"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="369"/>
+        <location filename="../src/ApplicationUI.cpp" line="361"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1570,7 +1570,7 @@
 <context>
     <name>SongView</name>
     <message>
-        <location filename="../assets/SongView.qml" line="108"/>
+        <location filename="../assets/SongView.qml" line="110"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>

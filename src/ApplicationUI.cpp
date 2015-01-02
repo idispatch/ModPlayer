@@ -120,10 +120,6 @@ void ApplicationUI::initSignals() {
                           this,            SLOT(onInvoked(const bb::system::InvokeRequest&)));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(&m_purchaseStore, SIGNAL(purchaseRecordsDeleted()),
-                          this,            SLOT(onPurchaseStateChanged()));
-    Q_ASSERT(rc);
-
     rc = QObject::connect(&m_purchaseStore, SIGNAL(purchaseRetrieved(QString const&)),
                           this,            SLOT(onPurchaseStateChanged()));
 
@@ -159,12 +155,8 @@ void ApplicationUI::onInvoked(const InvokeRequest& request) {
 }
 
 void ApplicationUI::saveWallpaperSettings() {
-    m_settings.beginGroup("wallpaper");
-    m_settings.setValue("name", m_wallpaper.name());
-    m_settings.setValue("path", m_wallpaper.path());
-    m_settings.setValue("repeatable", m_wallpaper.repeatable());
-    m_settings.setValue("animatable", m_wallpaper.animatable());
-    m_settings.endGroup();
+    m_wallpaper.save(m_settings);
+    m_settings.sync();
 }
 
 void ApplicationUI::saveSettings() {

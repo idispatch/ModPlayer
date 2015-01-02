@@ -9,28 +9,34 @@ Wallpaper::Wallpaper(QObject * parent)
     : QObject(parent),
       m_name("ModPlayer Classic"),
       m_path("asset:///images/backgrounds/view_back.amd"),
+      m_solidColor(false),
       m_repeatable(true),
       m_animatable(true) {
 }
 
-Wallpaper::Wallpaper(QString const& name,
-                     QString const& path,
-                     bool repeatable,
-                     bool animatable,
-                     QObject * parent)
-    : QObject(parent),
-      m_name(name),
-      m_path(path),
-      m_repeatable(repeatable),
-      m_animatable(animatable) {
-}
-
 Wallpaper::Wallpaper(QSettings const& settings, QObject * parent)
     : QObject(parent),
+      m_color(settings.value("wallpaper/color", "#ff483d8b").toString()),
       m_name(settings.value("wallpaper/name", "ModPlayer Classic").toString()),
       m_path(settings.value("wallpaper/path", "asset:///images/backgrounds/view_back.amd").toString()),
+      m_solidColor(settings.value("wallpaper/solidColor", false).toBool()),
       m_repeatable(settings.value("wallpaper/repeatable", false).toBool()),
       m_animatable(settings.value("wallpaper/animatable", true).toBool()) {
+}
+
+void Wallpaper::save(QSettings & settings) {
+    settings.beginGroup("wallpaper");
+    settings.setValue("color", color());
+    settings.setValue("name", name());
+    settings.setValue("path", path());
+    settings.setValue("solidColor", solidColor());
+    settings.setValue("repeatable", repeatable());
+    settings.setValue("animatable", animatable());
+    settings.endGroup();
+}
+
+QString const& Wallpaper::color() const {
+    return m_color;
 }
 
 QString const& Wallpaper::name() const {
@@ -47,6 +53,17 @@ bool Wallpaper::repeatable() const {
 
 bool Wallpaper::animatable() const {
     return m_animatable;
+}
+
+bool Wallpaper::solidColor() const {
+    return m_solidColor;
+}
+
+void Wallpaper::setColor(QString const& color) {
+    if(color != m_color) {
+        m_color = color;
+        emit colorChanged();
+    }
 }
 
 void Wallpaper::setName(QString const& name) {
@@ -74,5 +91,12 @@ void Wallpaper::setAnimatable(bool animatable) {
     if(animatable != m_animatable) {
         m_animatable = animatable;
         emit animatableChanged();
+    }
+}
+
+void Wallpaper::setSolidColor(bool solidColor) {
+    if(solidColor != m_solidColor) {
+        m_solidColor = solidColor;
+        emit solidColorChanged();
     }
 }

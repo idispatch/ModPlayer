@@ -10,7 +10,7 @@ Page {
     Container {
         layout: DockLayout {
         }
-        RotoZoomer {
+        WallpaperView {
         }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
