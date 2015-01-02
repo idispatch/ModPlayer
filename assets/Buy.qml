@@ -74,8 +74,9 @@ Sheet {
             layout: DockLayout {}
             RotoZoomer {}
             ScrollView {
-                 horizontalAlignment: HorizontalAlignment.Fill
-                 verticalAlignment: VerticalAlignment.Fill
+                opacity: 0.8
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
                  VerticalContainer {
                      horizontalAlignment: HorizontalAlignment.Fill
                      verticalAlignment: VerticalAlignment.Fill
@@ -134,7 +135,7 @@ Sheet {
                              visible: !app.isExtendedVersion
                              topPadding: 20
                              BlackLabel {
-                                 text: qsTr("ModPlayer Plus edition adds extended features to the free version of ModPlayer app.") + Retranslate.onLanguageChanged
+                                 text: qsTr("ModPlayer Plus edition adds extended features to the free version of ModPlayer.") + Retranslate.onLanguageChanged
                                  horizontalAlignment: HorizontalAlignment.Fill
                                  textFormat: TextFormat.Html
                                  textStyle.fontSize: FontSize.Small
@@ -150,7 +151,7 @@ Sheet {
                                  multiline: true
                              }
                              BlackLabel {
-                                 text: qsTr("You need to buy/unlock ModPlayer Plus extended features only once.") + Retranslate.onLanguageChanged
+                                 text: qsTr("You need to buy ModPlayer Plus extended features only once.") + Retranslate.onLanguageChanged
                                  horizontalAlignment: HorizontalAlignment.Fill
                                  textFormat: TextFormat.Html
                                  textStyle.fontSize: FontSize.Small
@@ -171,13 +172,23 @@ Sheet {
                                      rightPadding: 10
                                      horizontalAlignment: HorizontalAlignment.Fill
                                      BlackLabel {
-                                         text: qsTr("With <b>ModPlayer Plus</b> you will get:<br/>&mdash; Custom wallpapers and backgrounds<br/>&mdash; Open songs from device or SD card<br/>&mdash; Saving songs to device or SD card<br/>&mdash; Play directories from your device and SD card") + Retranslate.onLanguageChanged
+                                         text: qsTr("With <b>ModPlayer Plus</b> you will get:<br/>&#x2022; Custom wallpapers and backgrounds<br/>&#x2022; Import songs from device and SD card<br/>&#x2022; Open songs from device or SD card<br/>&#x2022; Saving songs to device or SD card<br/>&#x2022; Play directories from your device and SD card") + Retranslate.onLanguageChanged
                                          horizontalAlignment: HorizontalAlignment.Fill
                                          textFormat: TextFormat.Html
                                          textStyle.fontSize: FontSize.Small
                                          multiline: true
                                      }
                                  }
+                                 onCreationCompleted: infoAnimation.play()
+                                 animations: [
+                                     TranslateTransition {
+                                         id: infoAnimation
+                                         duration: 600
+                                         fromX: 1000
+                                         toX: 0
+                                         easingCurve: StockCurve.CubicIn
+                                     }
+                                 ]
                              }
                              ImageButton {
                                  visible: !app.isExtendedVersion
@@ -186,6 +197,16 @@ Sheet {
                                  verticalAlignment: VerticalAlignment.Center
                                  topMargin: 60
                                  onClicked: buyModPlayerPlus()
+                                 onCreationCompleted: buyButtonAnimation.play()
+                                 animations: [
+                                     TranslateTransition {
+                                         id: buyButtonAnimation
+                                         duration: 600
+                                         fromY: 100
+                                         toY: 0
+                                         easingCurve: StockCurve.CubicIn
+                                     }
+                                 ]
                             }
                         }
                     }

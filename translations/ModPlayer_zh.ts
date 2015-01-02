@@ -138,15 +138,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You need to buy/unlock ModPlayer Plus extended features only once.</source>
+        <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer app.</source>
+        <source>You need to buy ModPlayer Plus extended features only once.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;mdash; Custom wallpapers and backgrounds&lt;br/&gt;&amp;mdash; Open songs from device or SD card&lt;br/&gt;&amp;mdash; Saving songs to device or SD card&lt;br/&gt;&amp;mdash; Play directories from your device and SD card</source>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Play directories from your device and SD card</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
