@@ -1062,7 +1062,7 @@
     </message>
     <message>
         <source>Enable Background Animation</source>
-        <translation>Анимация</translation>
+        <translation type="obsolete">Анимация</translation>
     </message>
 </context>
 <context>
@@ -1337,6 +1337,22 @@
     <message>
         <source>Browse for wallpaper</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wallpaper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Background Animation</source>
+        <translation type="unfinished">Анимация</translation>
     </message>
 </context>
 <context>

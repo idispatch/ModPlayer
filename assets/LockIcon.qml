@@ -1,5 +1,4 @@
 import bb.cascades 1.0
-import player 1.0
 
 ImageView {
     imageSource: "asset:///images/objects/lock.png"
@@ -9,6 +8,4 @@ ImageView {
     maxWidth: 64
     preferredWidth: 64
     preferredHeight: 64
-    verticalAlignment: VerticalAlignment.Center
-    visible: !app.isExtendedVersion
 }

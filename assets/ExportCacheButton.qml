@@ -5,10 +5,8 @@ import "functions.js" as Global
 
 Container {
     horizontalAlignment: HorizontalAlignment.Center
-    HorizontalContainer {
-        LockIcon {
-        }
-        Button {
+    PlusFeature {
+        extendedVersion: Button {
             text: qsTr("Export Cache") + Retranslate.onLanguageChanged
             horizontalAlignment: HorizontalAlignment.Center
             topMargin: 40

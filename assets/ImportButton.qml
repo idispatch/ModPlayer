@@ -5,14 +5,13 @@ import "functions.js" as Global
 
 Container {
     horizontalAlignment: HorizontalAlignment.Center
-    HorizontalContainer {
-        LockIcon {
-        }
-        Button {
+    PlusFeature {
+        extendedVersion: Button {
             text: qsTr("Import My Songs") + Retranslate.onLanguageChanged
             horizontalAlignment: HorizontalAlignment.Center
             topMargin: 40
             bottomMargin: 40
+            enabled: app.isExtendedVersion
             onClicked: {
                 confirmImport.show()
             }

@@ -107,7 +107,7 @@ Sheet {
                                                         text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
                                                     }
                                             })
-                                        personalSongCount.requestId = app.catalog.personalSongCountAsync()
+                                            personalSongCount.requestId = app.catalog.personalSongCountAsync()
                                         }
                                     }
                                 }
@@ -289,14 +289,6 @@ Sheet {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
                                     color: Color.Black
-                                }
-                            }
-                            CheckBox {
-                                id: animationEnabled
-                                text: qsTr("Enable Background Animation") + Retranslate.onLanguageChanged
-                                checked: settingsRoot.configuration.animationEnabled
-                                onCheckedChanged: {
-                                    settingsRoot.configuration.animationEnabled = animationEnabled.checked
                                 }
                             }
                             WallpaperSelector {}

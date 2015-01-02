@@ -90,6 +90,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/PlayerTitleBar.qml) \
         $$quote($$BASEDIR/assets/PlaylistNameEntryPrompt.qml) \
         $$quote($$BASEDIR/assets/Playlists.qml) \
+        $$quote($$BASEDIR/assets/PlusFeature.qml) \
         $$quote($$BASEDIR/assets/PreviousActionItem.qml) \
         $$quote($$BASEDIR/assets/ProgressComponent.qml) \
         $$quote($$BASEDIR/assets/ProgressToast.qml) \
