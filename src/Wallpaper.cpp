@@ -7,8 +7,10 @@ int InstanceCounter<Wallpaper>::s_maxCount;
 
 Wallpaper::Wallpaper(QObject * parent)
     : QObject(parent),
-      m_repeatable(false),
-      m_animatable(false) {
+      m_name("ModPlayer Classic"),
+      m_path("asset:///images/backgrounds/view_back.amd"),
+      m_repeatable(true),
+      m_animatable(true) {
 }
 
 Wallpaper::Wallpaper(QString const& name,
@@ -21,6 +23,14 @@ Wallpaper::Wallpaper(QString const& name,
       m_path(path),
       m_repeatable(repeatable),
       m_animatable(animatable) {
+}
+
+Wallpaper::Wallpaper(QSettings const& settings, QObject * parent)
+    : QObject(parent),
+      m_name(settings.value("wallpaper/name", "ModPlayer Classic").toString()),
+      m_path(settings.value("wallpaper/path", "asset:///images/backgrounds/view_back.amd").toString()),
+      m_repeatable(settings.value("wallpaper/repeatable", false).toBool()),
+      m_animatable(settings.value("wallpaper/animatable", true).toBool()) {
 }
 
 QString const& Wallpaper::name() const {

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMetaType>
+#include <QSettings>
 #include "InstanceCounter.hpp"
 
 class Wallpaper : public QObject,
@@ -16,6 +17,8 @@ private:
     Q_PROPERTY(bool animatable READ animatable WRITE setAnimatable NOTIFY animatableChanged FINAL)
 public:
     Wallpaper(QObject * parent = 0);
+    Wallpaper(QSettings const &settings, QObject * parent = 0);
+
     Wallpaper(QString const& name,
               QString const& path,
               bool repeatable,

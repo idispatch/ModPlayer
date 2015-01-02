@@ -12,6 +12,7 @@
 #include <bb/cascades/pickers/FileType>
 #include <bb/data/DataSource>
 #include <bb/system/InvokeManager>
+#include <bb/platform/PaymentManager>
 #include <bb/ApplicationInfo>
 
 #include "ApplicationUI.hpp"
@@ -40,27 +41,26 @@
 #include "AlbumArtView.hpp"
 #include "InternetRadio.hpp"
 #include "Wallpaper.hpp"
+#include "PurchaseStore.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
 using namespace bb::system;
 
 const char * ApplicationUI::QmlNamespace = "player";
-ApplicationUI* ApplicationUI::s_instance;
+ApplicationUI* ApplicationUI::static_instance;
 
 ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     : QObject(app),
       m_appState(bb::ProcessState::Foreground),
       m_pTranslator(new QTranslator(this)),
-      m_wallpaper(m_settings.value("wallpaper/name", "ModPlayer Classic").toString(),
-                  m_settings.value("wallpaper/path", "asset:///images/backgrounds/view_back.amd").toString(),
-                  m_settings.value("wallpaper/repeatable", false).toBool(),
-                  m_settings.value("wallpaper/animatable", true).toBool()),
+      m_purchaseStore(m_settings),
+      m_wallpaper(m_settings),
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)),
       m_invokeManager(new InvokeManager(this)) {
-    s_instance = this;
+    static_instance = this;
     m_app = app;
     m_analytics->active(1);
     initTranslator();
@@ -69,17 +69,22 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     initApp();
     initActiveCover();
     initPlayer();
+    m_purchaseStore.retrieveLocalPurchases();
 }
 
 ApplicationUI::~ApplicationUI() {
     if(m_analytics != NULL) {
         m_analytics->active(0);
     }
-    s_instance = NULL;
+    static_instance = NULL;
 }
 
 bool ApplicationUI::isForeground() const {
     return m_appState == bb::ProcessState::Foreground;
+}
+
+bool ApplicationUI::isExtendedVersion() {
+    return m_purchaseStore.isPurchased("ModPlayerPlus");
 }
 
 void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
@@ -94,7 +99,11 @@ void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
 }
 
 ApplicationUI& ApplicationUI::instance() {
-    return *s_instance;
+    return *static_instance;
+}
+
+void ApplicationUI::onPurchaseStateChanged() {
+    emit isExtendedVersionChanged();
 }
 
 void ApplicationUI::initSignals() {
@@ -104,12 +113,22 @@ void ApplicationUI::initSignals() {
     Q_ASSERT(rc);
 
     rc = QObject::connect(m_app, SIGNAL(processStateChanged(bb::ProcessState::Type)),
-                              this,  SLOT(onProcessStateChanged(bb::ProcessState::Type)));
-        Q_ASSERT(rc);
+                          this,  SLOT(onProcessStateChanged(bb::ProcessState::Type)));
+    Q_ASSERT(rc);
 
     rc = QObject::connect(m_invokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)),
                           this,            SLOT(onInvoked(const bb::system::InvokeRequest&)));
     Q_ASSERT(rc);
+
+    rc = QObject::connect(&m_purchaseStore, SIGNAL(purchaseRecordsDeleted()),
+                          this,            SLOT(onPurchaseStateChanged()));
+    Q_ASSERT(rc);
+
+    rc = QObject::connect(&m_purchaseStore, SIGNAL(purchaseRetrieved(QString const&)),
+                          this,            SLOT(onPurchaseStateChanged()));
+
+    Q_ASSERT(rc);
+
     Q_UNUSED(rc);
 }
 
@@ -148,6 +167,10 @@ void ApplicationUI::saveWallpaperSettings() {
     m_settings.endGroup();
 }
 
+void ApplicationUI::saveSettings() {
+    m_settings.sync();
+}
+
 void ApplicationUI::onAboutToQuit() {
     saveWallpaperSettings();
     LCDDigits::finalize();
@@ -156,7 +179,7 @@ void ApplicationUI::onAboutToQuit() {
         delete m_player;
         m_player = 0;
     }
-    m_settings.sync();
+    saveSettings();
 }
 
 void ApplicationUI::initTypes() {
@@ -166,6 +189,8 @@ void ApplicationUI::initTypes() {
 
     DataSource::registerQmlTypes();
     qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
+
+    qmlRegisterType<bb::platform::PaymentManager>("bb.platform", 1, 0, "PaymentManager");
 
     const char * PICKER_NAMESPACE = "bb.cascades.pickers";
     qmlRegisterType<bb::cascades::pickers::FilePicker>(PICKER_NAMESPACE, 1, 0, "FilePicker");
@@ -178,26 +203,6 @@ void ApplicationUI::initTypes() {
     const char * MULTIMEDIA_NAMESPACE = "bb.multimedia";
     qmlRegisterUncreatableType<bb::multimedia::MediaState>(MULTIMEDIA_NAMESPACE, 1, 0, "MediaState", "");
     qmlRegisterUncreatableType<bb::multimedia::BufferStatus>(MULTIMEDIA_NAMESPACE, 1, 0, "BufferStatus", "");
-
-    /*qRegisterMetaType<Analytics*>();
-    qRegisterMetaType<Artist*>();
-    qRegisterMetaType<Cache*>();
-    qRegisterMetaType<Catalog*>();
-    qRegisterMetaType<Downloader*>();
-    qRegisterMetaType<NamedItem*>();
-    qRegisterMetaType<ItemGroupBase*>();
-    qRegisterMetaType<LCDDigits*>();
-    qRegisterMetaType<Playback*>();
-    qRegisterMetaType<PlaybackConfig*>();
-    qRegisterMetaType<Player*>();
-    qRegisterMetaType<SongBasicInfo*>();
-    qRegisterMetaType<SongExtendedInfo*>();
-    qRegisterMetaType<SongModule*>();
-    qRegisterMetaType<SongFormat*>();
-    qRegisterMetaType<SongGenre*>();
-    qRegisterMetaType<PatternView*>();
-    qRegisterMetaType<VUMeter*>();
-    qRegisterMetaType<Radio*>();*/
 
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
     qmlRegisterType<AlbumArtView>(QmlNamespace, versionMajor, versionMinor, "AlbumArtView");
@@ -228,6 +233,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Album>(QmlNamespace, versionMajor, versionMinor, "Album", "");
     qmlRegisterUncreatableType<Radio>(QmlNamespace, versionMajor, versionMinor, "Radio", "");
     qmlRegisterUncreatableType<Wallpaper>(QmlNamespace, versionMajor, versionMinor, "Wallpaper", "");
+    qmlRegisterUncreatableType<PurchaseStore>(QmlNamespace, versionMajor, versionMinor, "PurchaseStore", "");
 }
 
 void ApplicationUI::initApp() {
@@ -313,6 +319,10 @@ Cache * ApplicationUI::cache() const {
 
 Wallpaper * ApplicationUI::wallpaper() {
     return &m_wallpaper;
+}
+
+PurchaseStore * ApplicationUI::store() {
+    return &m_purchaseStore;
 }
 
 Analytics * ApplicationUI::analytics() const {

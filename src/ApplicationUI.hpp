@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <bb/ProcessState>
 #include "Wallpaper.hpp"
+#include "PurchaseStore.hpp"
 
 namespace bb
 {
@@ -39,14 +40,15 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Wallpaper* wallpaper READ wallpaper NOTIFY wallpaperChanged FINAL)
+    Q_PROPERTY(PurchaseStore* store READ store NOTIFY storeChanged FINAL)
     Q_PROPERTY(Analytics* analytics READ analytics NOTIFY analyticsChanged FINAL)
 public:
     ApplicationUI(bb::cascades::Application *app);
     ~ApplicationUI();
 
     static ApplicationUI& instance();
-    bool isExtendedVersion() const;
 
+    bool isExtendedVersion();
     bool isForeground() const;
 
     QString version() const;
@@ -55,7 +57,9 @@ public:
     Cache * cache() const;
     Analytics * analytics() const;
     Wallpaper * wallpaper();
+    PurchaseStore * store();
 
+    Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void emailAuthor();
     Q_INVOKABLE void twit();
     Q_INVOKABLE void bbm();
@@ -70,6 +74,7 @@ Q_SIGNALS:
     void catalogChanged();
     void cacheChanged();
     void wallpaperChanged();
+    void storeChanged();
     void analyticsChanged();
 private slots:
     void onInvoked(const bb::system::InvokeRequest& invoke);
@@ -78,6 +83,7 @@ private slots:
     void onCacheChanged();
     void onAboutToQuit();
     void onProcessStateChanged(bb::ProcessState::Type);
+    void onPurchaseStateChanged();
 private:
     void initSignals();
     void initTypes();
@@ -87,16 +93,17 @@ private:
     void initTranslator();
     void saveWallpaperSettings();
 private:
-    static ApplicationUI * s_instance;
-    bb::ProcessState::Type m_appState;
-    QSettings m_settings;
-    QTranslator* m_pTranslator;
-    Wallpaper m_wallpaper;
-    bb::cascades::LocaleHandler* m_pLocaleHandler;
-    bb::cascades::Application * m_app;
-    Player * m_player;
-    Analytics * m_analytics;
-    bb::system::InvokeManager * m_invokeManager;
+    static ApplicationUI        *static_instance;
+    bb::ProcessState::Type       m_appState;
+    QSettings                    m_settings;
+    QTranslator                 *m_pTranslator;
+    PurchaseStore                m_purchaseStore;
+    Wallpaper                    m_wallpaper;
+    bb::cascades::LocaleHandler *m_pLocaleHandler;
+    bb::cascades::Application   *m_app;
+    Player                      *m_player;
+    Analytics                   *m_analytics;
+    bb::system::InvokeManager   *m_invokeManager;
 };
 
 #endif

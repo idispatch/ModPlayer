@@ -20,8 +20,11 @@ Sheet {
             }
         }
         actions: [
+            BuyActionItem {
+                ActionBar.placement: ActionBarPlacement.OnBar
+            },
             AppWorldActionItem{
-                ActionBar.placement: ActionBarPlacement.InOverflow
+                ActionBar.placement: ActionBarPlacement.OnBar
             }
         ]
         ScrollView {

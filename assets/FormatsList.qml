@@ -9,41 +9,49 @@ Page {
     titleBar: PlayerTitleBar {
         title: qsTr("Select Songs by Format") + Retranslate.onLanguageChanged
     }
-    ViewContainer {
-        ProgressComponent {
-            id: progress
+    Container {
+        layout: DockLayout {
         }
-        ListView {
-            id: formatsList
+        RotoZoomer {
+        }
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            topPadding: 20
-            bottomPadding: topPadding
-            leftPadding: 10
-            rightPadding: leftPadding
-            listItemComponents: ListItemComponent {
-                ModPlayerListItem {
-                    title: ListItem.data.name
-                    favourite: false
-                    description: ListItem.data.description
-                    middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
-                    lowerStatus: Global.formatDuration(ListItem.data.duration)
-                    imageSource: ListItem.data.iconPath
-                }
+            ProgressComponent {
+                id: progress
             }
-            onTriggered: {
-                var chosenItem = dataModel.data(indexPath)
-                var view = songList.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-                view.loadSongsByFormat(chosenItem.id, chosenItem.name)
-            }
-            attachedObjects: [
-                ComponentDefinition {
-                    id: songList
-                    source: "SongList.qml"
+            ListView {
+                id: formatsList
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                topPadding: 20
+                bottomPadding: topPadding
+                leftPadding: 10
+                rightPadding: leftPadding
+                listItemComponents: ListItemComponent {
+                    ModPlayerListItem {
+                        title: ListItem.data.name
+                        favourite: false
+                        description: ListItem.data.description
+                        middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
+                        lowerStatus: Global.formatDuration(ListItem.data.duration)
+                        imageSource: ListItem.data.iconPath
+                    }
                 }
-            ]
+                onTriggered: {
+                    var chosenItem = dataModel.data(indexPath)
+                    var view = songList.createObject()
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                    view.loadSongsByFormat(chosenItem.id, chosenItem.name)
+                }
+                attachedObjects: [
+                    ComponentDefinition {
+                        id: songList
+                        source: "SongList.qml"
+                    }
+                ]
+            }
         }
     }
     function load() {
@@ -93,6 +101,9 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        BuyActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AppWorldActionItem{

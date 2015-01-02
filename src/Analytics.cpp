@@ -289,6 +289,13 @@ void Analytics::settings(int on) const {
     }
 }
 
+void Analytics::buy(int on) const {
+    if(on) {
+        Flurry::Analytics::LogEvent("Buy", true);
+    } else {
+        Flurry::Analytics::EndTimedEvent("Buy");
+    }
+}
 void Analytics::active(int on) const {
     HardwareInfo hwInfo;
     Flurry::Map parameters;

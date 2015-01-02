@@ -56,6 +56,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/AppendPlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/ArtistsList.qml) \
         $$quote($$BASEDIR/assets/BlackLabel.qml) \
+        $$quote($$BASEDIR/assets/Buy.qml) \
+        $$quote($$BASEDIR/assets/BuyActionItem.qml) \
         $$quote($$BASEDIR/assets/Cover.qml) \
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
@@ -120,6 +122,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_artist.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_artists.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_bbm.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_buy.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_buy_now.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_delete.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_difm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_downloads.png) \
@@ -167,7 +171,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/black.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/blue.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/cloth.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/cloth.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/cloth.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/cork.amd) \
@@ -182,11 +186,14 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/modplayer.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/mouse.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/purple.jpg) \
+        $$quote($$BASEDIR/assets/images/backgrounds/rock.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/rock.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/white.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/white.jpg) \
         $$quote($$BASEDIR/assets/images/backgrounds/white.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_downloads.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_favourite.png) \
@@ -306,7 +313,6 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/AlbumArtView.cpp) \
         $$quote($$BASEDIR/src/Analytics.cpp) \
         $$quote($$BASEDIR/src/ApplicationUI.cpp) \
-        $$quote($$BASEDIR/src/ApplicationVersion.cpp) \
         $$quote($$BASEDIR/src/Artist.cpp) \
         $$quote($$BASEDIR/src/Cache.cpp) \
         $$quote($$BASEDIR/src/Canvas.cpp) \
@@ -329,6 +335,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
         $$quote($$BASEDIR/src/Player.cpp) \
         $$quote($$BASEDIR/src/Playlist.cpp) \
+        $$quote($$BASEDIR/src/PurchaseStore.cpp) \
         $$quote($$BASEDIR/src/Radio.cpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.cpp) \
@@ -470,6 +477,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
         $$quote($$BASEDIR/src/Player.hpp) \
         $$quote($$BASEDIR/src/Playlist.hpp) \
+        $$quote($$BASEDIR/src/PurchaseStore.hpp) \
         $$quote($$BASEDIR/src/Radio.hpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.hpp) \

@@ -77,15 +77,15 @@
     <name>ApplicationUI</name>
     <message>
         <source>Hello, ModPlayer Author!</source>
-        <translation>你好，模块播放器作者！</translation>
+        <translation type="unfinished">你好，模块播放器作者！</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
-        <translation>享受模块播放器 #应用在我的#黑莓10设备上，在#BlackBerry World中查看！</translation>
+        <translation type="unfinished">享受模块播放器 #应用在我的#黑莓10设备上，在#BlackBerry World中查看！</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
-        <translation>享受模块播放器应用在我的黑莓10设备上，在BlackBerry World中查看！</translation>
+        <translation type="unfinished">享受模块播放器应用在我的黑莓10设备上，在BlackBerry World中查看！</translation>
     </message>
 </context>
 <context>
@@ -109,6 +109,80 @@
     <message>
         <source>Select Artist</source>
         <translation>选择艺术家</translation>
+    </message>
+</context>
+<context>
+    <name>Buy</name>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">关闭</translation>
+    </message>
+    <message>
+        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">版本： &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have enabled ModPlayer Plus features.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to buy/unlock ModPlayer Plus extended features only once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer app.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;mdash; Custom wallpapers and backgrounds&lt;br/&gt;&amp;mdash; Open songs from device or SD card&lt;br/&gt;&amp;mdash; Saving songs to device or SD card&lt;br/&gt;&amp;mdash; Play directories from your device and SD card</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BuyActionItem</name>
+    <message>
+        <source>Select Playlist</source>
+        <translation type="obsolete">选择播放列表</translation>
+    </message>
+    <message>
+        <source>Song &apos;%1&apos; was added to playlist &apos;%2&apos;</source>
+        <translation type="obsolete">歌曲 &apos;%1&apos; 已添加到播放列表 &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <source>%1 songs added to playlist &apos;%2&apos;</source>
+        <translation type="obsolete">%1 首歌曲已添加到播放列表 &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <source>Current Playlist (%1 songs)</source>
+        <translation type="obsolete">当前播放列表 (%1 首歌曲)</translation>
+    </message>
+    <message>
+        <source>New Playlist...</source>
+        <translation type="obsolete">新建播放列表...</translation>
+    </message>
+    <message>
+        <source>Existing Playlists</source>
+        <translation type="obsolete">现有播放列表</translation>
+    </message>
+    <message>
+        <source>%1 (%2 songs)</source>
+        <translation type="obsolete">%1 (%2 首歌曲)</translation>
+    </message>
+    <message>
+        <source>Buy ModPlayer Plus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

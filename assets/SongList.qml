@@ -509,6 +509,9 @@ Page {
         OpenSongActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        BuyActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         AppWorldActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         }

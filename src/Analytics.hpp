@@ -24,6 +24,7 @@ public:
 
     Q_INVOKABLE void nowPlaying() const;
     Q_INVOKABLE void purgeCache() const;
+
     Q_INVOKABLE void email() const;
     Q_INVOKABLE void twit() const;
     Q_INVOKABLE void bbm() const;
@@ -31,6 +32,7 @@ public:
     Q_INVOKABLE void help(int on) const;
     Q_INVOKABLE void settings(int on) const;
     Q_INVOKABLE void active(int on) const;
+    Q_INVOKABLE void buy(int on) const;
     Q_INVOKABLE void invoke(QString const& source,
                             QString const& target,
                             QString const& action,

@@ -81,15 +81,15 @@
     <name>ApplicationUI</name>
     <message>
         <source>Hello, ModPlayer Author!</source>
-        <translation>Здравствуйте, автор ModPlayer!</translation>
+        <translation type="unfinished">Здравствуйте, автор ModPlayer!</translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -113,6 +113,80 @@
     <message>
         <source>Select Artist</source>
         <translation>Выбрать композитора</translation>
+    </message>
+</context>
+<context>
+    <name>Buy</name>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Закрыть</translation>
+    </message>
+    <message>
+        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">Версия: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have enabled ModPlayer Plus features.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to buy/unlock ModPlayer Plus extended features only once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer app.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;mdash; Custom wallpapers and backgrounds&lt;br/&gt;&amp;mdash; Open songs from device or SD card&lt;br/&gt;&amp;mdash; Saving songs to device or SD card&lt;br/&gt;&amp;mdash; Play directories from your device and SD card</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BuyActionItem</name>
+    <message>
+        <source>Select Playlist</source>
+        <translation type="obsolete">Выберите плейлист</translation>
+    </message>
+    <message>
+        <source>Song &apos;%1&apos; was added to playlist &apos;%2&apos;</source>
+        <translation type="obsolete">Песня &apos;%1&apos; была добавлена в плейлист &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <source>%1 songs added to playlist &apos;%2&apos;</source>
+        <translation type="obsolete">%1 песен добавлено в плейлист &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <source>Current Playlist (%1 songs)</source>
+        <translation type="obsolete">Текущий плейлист (%1 песен)</translation>
+    </message>
+    <message>
+        <source>New Playlist...</source>
+        <translation type="obsolete">Новый плейлист...</translation>
+    </message>
+    <message>
+        <source>Existing Playlists</source>
+        <translation type="obsolete">Мои плейлисты</translation>
+    </message>
+    <message>
+        <source>%1 (%2 songs)</source>
+        <translation type="obsolete">%1 (%2 песен)</translation>
+    </message>
+    <message>
+        <source>Buy ModPlayer Plus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

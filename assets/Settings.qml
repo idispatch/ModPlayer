@@ -423,6 +423,12 @@ Sheet {
                                         name: "Cloth",
                                         path:"asset:///images/backgrounds/cloth.amd",
                                         repeatable: true,
+                                        animatable: false
+                                    },
+                                    {
+                                        name: "Rock",
+                                        path:"asset:///images/backgrounds/rock.amd",
+                                        repeatable: true,
                                         animatable: true
                                     }
                                 ]
@@ -449,6 +455,7 @@ Sheet {
                                     app.wallpaper.path = allWallpapers[selectedValue].path
                                     app.wallpaper.repeatable = allWallpapers[selectedValue].repeatable
                                     app.wallpaper.animatable = allWallpapers[selectedValue].animatable
+                                    app.saveSettings()
                                 }
                             }
                         }
