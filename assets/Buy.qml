@@ -22,7 +22,7 @@ Sheet {
     }
     onCreationCompleted: {
         app.store.retrieveLocalPurchases()
-        paymentManager.setConnectionMode(1) // 0=sandbox mode | 1=production mode
+        paymentManager.setConnectionMode(0) // 0=sandbox mode | 1=production mode
         paymentManager.requestExistingPurchases(false)
     }
     attachedObjects: [
