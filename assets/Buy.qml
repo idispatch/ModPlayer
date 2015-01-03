@@ -10,6 +10,7 @@ Sheet {
     function buyModPlayerPlus(){
         if(app.isExtendedVersion)
             return
+        app.analytics.purchase("Start");
         paymentManager.requestPurchase("", "ModPlayerPlus", "", "", "")
     }
     onOpened: {
@@ -21,7 +22,7 @@ Sheet {
     }
     onCreationCompleted: {
         app.store.retrieveLocalPurchases()
-        paymentManager.setConnectionMode(0) // 0=sandbox mode | 1=production mode
+        paymentManager.setConnectionMode(1) // 0=sandbox mode | 1=production mode
         paymentManager.requestExistingPurchases(false)
     }
     attachedObjects: [
@@ -46,8 +47,10 @@ Sheet {
             onPurchaseFinished: {
                 if(reply.errorCode == 0) {
                     app.store.storePurchase(reply.digitalGoodSku)
+                    app.analytics.purchase("Completed: " + reply.errorText);
                     buyResult.body = qsTr("You have enabled ModPlayer Plus features.") + Retranslate.onLanguageChanged
                 } else {
+                    app.analytics.purchase("Failed: " + reply.errorText);
                     buyResult.body = reply.errorText
                 }
                 buyResult.exec()

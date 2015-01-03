@@ -296,6 +296,20 @@ void Analytics::buy(int on) const {
         Flurry::Analytics::EndTimedEvent("Buy");
     }
 }
+
+void Analytics::purchase(QString const& info) const {
+    HardwareInfo hwInfo;
+    Flurry::Map parameters;
+    parameters["pin"] = hwInfo.pin();
+    parameters["imei"] = hwInfo.imei();
+    parameters["deviceName"] = hwInfo.deviceName();
+    parameters["hardwareId"] = hwInfo.hardwareId();
+    parameters["meid"] = hwInfo.meid();
+    parameters["serial"] = hwInfo.serialNumber();
+    parameters["info"] = info;
+    Flurry::Analytics::LogEvent("Purchase", parameters, false);
+}
+
 void Analytics::active(int on) const {
     HardwareInfo hwInfo;
     Flurry::Map parameters;

@@ -749,6 +749,13 @@
     </message>
 </context>
 <context>
+    <name>PleaseBuy</name>
+    <message>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PreviousActionItem</name>
     <message>
         <source>Previous</source>

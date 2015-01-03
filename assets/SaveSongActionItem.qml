@@ -11,8 +11,12 @@ ActionItem {
     property bool certain: true
     title: qsTr("Save Song to Device") + Retranslate.onLanguageChanged
     imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_save_song.png" : "asset:///images/actions/icon_lock.png"
-    enabled: certain && app.cache.exists(currentSong) && app.isExtendedVersion
+    enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
+        if(!app.isExtendedVersion) {
+            pleaseBuy.exec()
+            return
+        }
         var result = selectSaveFormat.run()
         if(result.length < 1)
             return
@@ -43,6 +47,9 @@ ActionItem {
         })
     }
     attachedObjects: [
+        PleaseBuy {
+            id: pleaseBuy
+        },
         FilePicker {
             id: filePicker
             property string cacheFileName

@@ -5,11 +5,17 @@ import player 1.0
 ActionItem {
     title: qsTr("Import Songs") + Retranslate.onLanguageChanged
     imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_import.png" : "asset:///images/actions/icon_lock.png"
-    enabled: app.isExtendedVersion
     onTriggered: {
+        if(!app.isExtendedVersion) {
+            pleaseBuy.exec()
+            return
+        }
         confirmImport.show()
     }
     attachedObjects: [
+        PleaseBuy {
+            id: pleaseBuy
+        },
         SystemDialog {
             id: confirmImport
             title: qsTr("Confirm") + Retranslate.onLanguageChanged

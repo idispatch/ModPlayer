@@ -33,6 +33,7 @@ public:
     Q_INVOKABLE void settings(int on) const;
     Q_INVOKABLE void active(int on) const;
     Q_INVOKABLE void buy(int on) const;
+    Q_INVOKABLE void purchase(QString const& info) const;
     Q_INVOKABLE void invoke(QString const& source,
                             QString const& target,
                             QString const& action,

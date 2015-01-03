@@ -137,49 +137,49 @@
 <context>
     <name>Buy</name>
     <message>
-        <location filename="../assets/Buy.qml" line="60"/>
-        <location filename="../assets/Buy.qml" line="90"/>
+        <location filename="../assets/Buy.qml" line="63"/>
+        <location filename="../assets/Buy.qml" line="93"/>
         <source>ModPlayer Plus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="62"/>
+        <location filename="../assets/Buy.qml" line="65"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="68"/>
+        <location filename="../assets/Buy.qml" line="71"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="100"/>
+        <location filename="../assets/Buy.qml" line="103"/>
         <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="154"/>
+        <location filename="../assets/Buy.qml" line="157"/>
         <source>You need to buy ModPlayer Plus extended features only once.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="175"/>
+        <location filename="../assets/Buy.qml" line="178"/>
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="49"/>
-        <location filename="../assets/Buy.qml" line="123"/>
+        <location filename="../assets/Buy.qml" line="51"/>
+        <location filename="../assets/Buy.qml" line="126"/>
         <source>You have enabled ModPlayer Plus features.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="138"/>
+        <location filename="../assets/Buy.qml" line="141"/>
         <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="146"/>
+        <location filename="../assets/Buy.qml" line="149"/>
         <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -477,12 +477,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/ImportSongsActionItem.qml" line="15"/>
+        <location filename="../assets/ImportSongsActionItem.qml" line="21"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/ImportSongsActionItem.qml" line="16"/>
+        <location filename="../assets/ImportSongsActionItem.qml" line="22"/>
         <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -882,6 +882,14 @@
     </message>
 </context>
 <context>
+    <name>PleaseBuy</name>
+    <message>
+        <location filename="../assets/PleaseBuy.qml" line="8"/>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PreviousActionItem</name>
     <message>
         <location filename="../assets/PreviousActionItem.qml" line="5"/>
@@ -929,27 +937,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="53"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="60"/>
         <source>Save Song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="65"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="72"/>
         <source>The song %1 has been saved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="74"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="81"/>
         <source>Select Save Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="84"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="91"/>
         <source>Original format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="85"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="92"/>
         <source>MP3 format</source>
         <translation type="unfinished"></translation>
     </message>
