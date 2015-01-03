@@ -1599,33 +1599,33 @@
 <context>
     <name>WallpaperSelector</name>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="46"/>
+        <location filename="../assets/WallpaperSelector.qml" line="45"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="15"/>
+        <location filename="../assets/WallpaperSelector.qml" line="25"/>
         <source>Wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="19"/>
+        <location filename="../assets/WallpaperSelector.qml" line="29"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="36"/>
+        <location filename="../assets/WallpaperSelector.qml" line="9"/>
         <source>Enable Background Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="280"/>
-        <location filename="../assets/WallpaperSelector.qml" line="291"/>
+        <location filename="../assets/WallpaperSelector.qml" line="279"/>
+        <location filename="../assets/WallpaperSelector.qml" line="290"/>
         <source>Browse for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="331"/>
+        <location filename="../assets/WallpaperSelector.qml" line="330"/>
         <source>Browse for color</source>
         <translation type="unfinished"></translation>
     </message>
