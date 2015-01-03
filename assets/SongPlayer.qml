@@ -206,16 +206,15 @@ Page {
         }
         onCreationCompleted: {
             var theApp = app
-            var showProgress = function() {
-                if(theApp.player.state >= 100) { // Resolving, Dowloading, Preparing 
-                    progress.body = qsTr("Downloading song") + Retranslate.onLanguageChanged
-                    progress.show()
-                } else {
-                    progress.cancel()
-                }
-            }
             app.player.stateChanged.connect(function() {
-                showProgress()
+                if(progress) {
+                    if(theApp.player.state >= 100) { // Resolving, Dowloading, Preparing
+                        progress.body = qsTr("Downloading song") + Retranslate.onLanguageChanged
+                        progress.show()
+                    } else {
+                        progress.cancel()
+                    }
+                }
             })
         }
         attachedObjects: [

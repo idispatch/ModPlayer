@@ -405,6 +405,13 @@
     </message>
 </context>
 <context>
+    <name>Hint</name>
+    <message>
+        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportButton</name>
     <message>
         <source>Import My Songs</source>
@@ -412,11 +419,11 @@
     </message>
     <message>
         <source>Confirm</source>
-        <translation>Подтверждение</translation>
+        <translation type="obsolete">Подтверждение</translation>
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
+        <translation type="obsolete">Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>
@@ -427,11 +434,11 @@
     </message>
     <message>
         <source>Confirm</source>
-        <translation>Подтверждение</translation>
+        <translation type="obsolete">Подтверждение</translation>
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
+        <translation type="obsolete">Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>

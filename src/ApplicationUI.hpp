@@ -33,6 +33,7 @@ class Wallpaper;
 class ApplicationUI : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(ApplicationUI)
+    Q_PROPERTY(bool isFirstLaunch READ isFirstLaunch WRITE setFirstLaunch NOTIFY isFirstLaunchChanged FINAL)
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
@@ -48,6 +49,7 @@ public:
 
     static ApplicationUI& instance();
 
+    bool isFirstLaunch() const;
     bool isExtendedVersion();
     bool isForeground() const;
 
@@ -59,6 +61,8 @@ public:
     Wallpaper * wallpaper();
     PurchaseStore * store();
 
+    void setFirstLaunch(bool value);
+
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void emailAuthor();
     Q_INVOKABLE void twit();
@@ -67,6 +71,7 @@ public:
 
     static const char * QmlNamespace;
 Q_SIGNALS:
+    void isFirstLaunchChanged();
     void isExtendedVersionChanged();
     void isForegroundChanged();
     void versionChanged();

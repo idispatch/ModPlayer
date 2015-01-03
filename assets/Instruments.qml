@@ -17,13 +17,19 @@ Page {
             }
         }
     }
-    ViewContainer {
-        InstrumentsView {
-            id: instrumentsChildView
-            leftPadding: 20
-            rightPadding: 20
-            topPadding: 20
-            bottomPadding: 20
+    Container {
+        layout: DockLayout {}
+        WallpaperView {}
+        Container {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            InstrumentsView {
+                id: instrumentsChildView
+                leftPadding: 20
+                rightPadding: 20
+                topPadding: 20
+                bottomPadding: 20
+            }
         }
     }
     onCreationCompleted: {

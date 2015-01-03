@@ -82,14 +82,12 @@ void Importer::removeMissingSongs() {
 }
 
 bool Importer::lastImportPerformed(QDateTime &date) {
-    QFile file(FileUtils::joinPath(QDir::homePath(), "last_import.txt"));
-    if(!file.open(QIODevice::ReadOnly)) {
-        return false;
-    }
-    QTextStream input(&file);
-    if(!file.atEnd()) {
-        date = QDateTime::fromString(input.readLine(), Qt::TextDate);
-        return true;
+    QFile file(FileUtils::joinPath(QDir::homePath(), ".last_import"));
+    if(file.open(QIODevice::ReadOnly)) {
+        QTextStream input(&file);
+        if(!file.atEnd()) {
+            return QDateTime::fromString(input.readLine(), Qt::ISODate).isValid();
+        }
     }
     return false;
 }
@@ -141,11 +139,10 @@ void Importer::onSearchCompleted() {
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
     Analytics::getInstance()->importedPlaylistCount(m_numImportedPlaylists);
 
-    QString infoFile(FileUtils::joinPath(QDir::homePath(), "last_import.txt"));
+    QString infoFile(FileUtils::joinPath(QDir::homePath(), ".last_import"));
     QFile file(infoFile);
     if(file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-        QTextStream out(&file);
-        out << QDateTime::currentDateTime().toString(Qt::TextDate);
+        QTextStream(&file) << QDateTime::currentDateTime().toString(Qt::ISODate);
     }
 
     m_messageBox.enableButton(true);

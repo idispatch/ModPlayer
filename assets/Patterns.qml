@@ -14,15 +14,21 @@ Page {
             }
         }
     }
-    ViewContainer {
-        ScrollView {
+    Container {
+        layout: DockLayout {}
+        WallpaperView {}
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            GroupContainer {
-                PatternView {
-                    song: app.player.currentSong
-                    visible: app.player.currentSong.songLoaded
-                    horizontalAlignment: HorizontalAlignment.Center
+            ScrollView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                GroupContainer {
+                    PatternView {
+                        song: app.player.currentSong
+                        visible: app.player.currentSong.songLoaded
+                        horizontalAlignment: HorizontalAlignment.Center
+                    }
                 }
             }
         }

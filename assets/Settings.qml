@@ -97,6 +97,7 @@ Sheet {
                                         property int requestId
                                         textFormat: TextFormat.Html
                                         onCreationCompleted: {
+                                            app.player.importCompleted.connect(updateCount)
                                             updateCount()
                                         }
                                         function updateCount() {

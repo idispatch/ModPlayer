@@ -8,23 +8,13 @@ ActionItem {
     onTriggered: {
         if(!app.isExtendedVersion) {
             pleaseBuy.exec()
-            return
+        } else {
+            app.player.importSongs()
         }
-        confirmImport.show()
     }
     attachedObjects: [
         PleaseBuy {
             id: pleaseBuy
-        },
-        SystemDialog {
-            id: confirmImport
-            title: qsTr("Confirm") + Retranslate.onLanguageChanged
-            body: qsTr("Would you like to import local songs and playlists?") + Retranslate.onLanguageChanged
-            onFinished: {
-                if (result == SystemUiResult.ConfirmButtonSelection) {
-                    app.player.importSongs()
-                }
-            }
         }
     ] 
 }

@@ -41,7 +41,7 @@ Sheet {
                         console.log(reply.purchases[i].receipt["digitalGoodSku"]);
                     }
                 } else {
-                    console.log("Error: " + reply.errorText);
+                    console.log("*** onExistingPurchasesFinished Error: " + reply.errorText);
                 }
             }
             onPurchaseFinished: {

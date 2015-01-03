@@ -12,7 +12,7 @@ ActionItem {
                 return qsTr("Play") + Retranslate.onLanguageChanged
             }
         } else {
-            if(app.player.playlist.remaining > 0) {
+            if(app.player.playlist.count > 0) {
                 return qsTr("Play") + Retranslate.onLanguageChanged
             } else {
                 return qsTr("Stop") + Retranslate.onLanguageChanged
@@ -30,7 +30,7 @@ ActionItem {
                 return "asset:///images/actions/icon_play.png"
             }
         } else {
-            if(app.player.playlist.remaining > 0) {
+            if(app.player.playlist.count > 0) {
                 return "asset:///images/actions/icon_play.png"
             } else {
                 return "asset:///images/actions/icon_stop.png"

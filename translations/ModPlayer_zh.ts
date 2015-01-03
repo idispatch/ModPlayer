@@ -401,6 +401,13 @@
     </message>
 </context>
 <context>
+    <name>Hint</name>
+    <message>
+        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportButton</name>
     <message>
         <source>Import My Songs</source>
@@ -408,11 +415,11 @@
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">确认</translation>
+        <translation type="obsolete">确认</translation>
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation type="unfinished">您想要导入本地歌曲和播放列表吗？</translation>
+        <translation type="obsolete">您想要导入本地歌曲和播放列表吗？</translation>
     </message>
 </context>
 <context>
@@ -423,11 +430,11 @@
     </message>
     <message>
         <source>Confirm</source>
-        <translation>确认</translation>
+        <translation type="obsolete">确认</translation>
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation>您想要导入本地歌曲和播放列表吗？</translation>
+        <translation type="obsolete">您想要导入本地歌曲和播放列表吗？</translation>
     </message>
 </context>
 <context>

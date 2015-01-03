@@ -38,7 +38,6 @@ Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_lightTheme(false),
       m_feedbackTimerId(-1),
-      m_importTimerId(-1),
       m_settings(settings),
       m_state(Stopped),
       m_statusText(tr("Stopped")),
@@ -106,7 +105,6 @@ bool Player::lightTheme() const {
 
 void Player::initCatalog() {
     m_catalog->start(QThread::LowPriority);
-    m_importTimerId = startTimer(8000);
 }
 
 void Player::initCache() {
@@ -754,16 +752,24 @@ void Player::askToSupport() {
     toast.exec();
 }
 
-void Player::askToImport() {
-    QDateTime date;
-    if(!Importer::lastImportPerformed(date)) {
-        SystemDialog dlg;
-        dlg.setTitle(tr("Confirm"));
-        dlg.setBody(tr("Would you like to import local songs and playlists?"));
-        if(dlg.exec() != SystemUiResult::ConfirmButtonSelection) {
-            return;
+void Player::importSongs() {
+    SystemDialog dlg;
+    dlg.setTitle(tr("Confirm"));
+    dlg.setBody(tr("Would you like to import local songs and playlists?"));
+    if(dlg.exec() == SystemUiResult::ConfirmButtonSelection) {
+        Analytics::getInstance()->importSongs(true);
+        m_playBackSuspend.reset(new SuspendPlayback(playback()));
+        if(m_importer != NULL) {
+            delete m_importer;
+            m_importer = NULL;
         }
-        importSongs();
+        m_importer = new Importer(m_fileNameFilters, catalog(), NULL);
+        bool rc;
+        Q_UNUSED(rc);
+        rc = QObject::connect(m_importer, SIGNAL(searchCompleted()),
+                              this,       SLOT(onImportSongsCompleted()));
+        Q_ASSERT(rc);
+        m_importer->start();
     }
 }
 
@@ -773,9 +779,6 @@ void Player::timerEvent(QTimerEvent *event) {
     if(timerId == m_feedbackTimerId) {
         askToSupport();
         m_feedbackTimerId = -1;
-    } else if(timerId == m_importTimerId) {
-        askToImport();
-        m_importTimerId = -1;
     }
 }
 
@@ -825,26 +828,11 @@ void Player::exportMp3(QString const& inputFileName,
                      outputFileName);
 }
 
-void Player::importSongs() {
-    Analytics::getInstance()->importSongs(true);
-    m_playBackSuspend.reset(new SuspendPlayback(playback()));
-    if(m_importer != NULL) {
-        delete m_importer;
-        m_importer = NULL;
-    }
-    m_importer = new Importer(m_fileNameFilters, catalog(), NULL);
-    bool rc;
-    Q_UNUSED(rc);
-    rc = QObject::connect(m_importer, SIGNAL(searchCompleted()),
-                          this,       SLOT(onImportSongsCompleted()));
-    Q_ASSERT(rc);
-    m_importer->start();
-}
-
 void Player::onImportSongsCompleted() {
     m_importer->deleteLater();
     m_importer = NULL;
     Analytics::getInstance()->importSongs(false);
     m_playBackSuspend.reset();
+    emit importCompleted();
 }
 

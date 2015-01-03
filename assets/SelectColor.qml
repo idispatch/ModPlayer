@@ -44,7 +44,6 @@ Sheet {
                             source: "colors.json"
                             onDataLoaded: {
                                 colorDataModel.append(data)
-                                console.log("Colors: " + colorDataModel.size())
                             }
                         }
                     ]

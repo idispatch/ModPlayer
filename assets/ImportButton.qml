@@ -13,21 +13,8 @@ Container {
             bottomMargin: 40
             enabled: app.isExtendedVersion
             onClicked: {
-                confirmImport.show()
+                app.player.importSongs()
             }
-            attachedObjects: [
-                SystemDialog {
-                    id: confirmImport
-                    title: qsTr("Confirm") + Retranslate.onLanguageChanged
-                    body: qsTr("Would you like to import local songs and playlists?") + Retranslate.onLanguageChanged
-                    onFinished: {
-                        if (result == SystemUiResult.ConfirmButtonSelection) {
-                            app.player.importSongs()
-                            personalSongCount.updateCount()
-                        }
-                    }
-                }
-            ]
         }
     }
 }

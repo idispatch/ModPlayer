@@ -42,6 +42,7 @@
 #include "InternetRadio.hpp"
 #include "Wallpaper.hpp"
 #include "PurchaseStore.hpp"
+#include "FileUtils.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -77,6 +78,23 @@ ApplicationUI::~ApplicationUI() {
         m_analytics->active(0);
     }
     static_instance = NULL;
+}
+
+bool ApplicationUI::isFirstLaunch() const {
+    return !QFile(FileUtils::joinPath(QDir::homePath(), ".first_launch")).exists();
+}
+
+void ApplicationUI::setFirstLaunch(bool value) {
+    QFile file(FileUtils::joinPath(QDir::homePath(), ".first_launch"));
+    if(value) {
+        file.remove();
+    } else {
+        if(file.open(QFile::WriteOnly | QFile::Truncate)) {
+            QTextStream(&file) << QDateTime::currentDateTime().toString(Qt::ISODate);
+            file.close();
+        }
+    }
+    emit isFirstLaunchChanged();
 }
 
 bool ApplicationUI::isForeground() const {

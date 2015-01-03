@@ -104,6 +104,7 @@ Q_SIGNALS:
     void playbackChanged();
     void playlistChanged();
     void currentSongChanged();
+    void importCompleted();
 private slots:
     /* For FilePicker */
     void onLocalSongSelected(const QStringList&);
@@ -164,11 +165,9 @@ private:
     void updateNowPlaying();
 
     void askToSupport();
-    void askToImport();
 private:
     bool m_lightTheme;
     int m_feedbackTimerId;
-    int m_importTimerId;
     QStringList m_fileNameFilters;
     QSettings &m_settings;
     State m_state;

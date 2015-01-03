@@ -59,6 +59,54 @@ VerticalContainer {
                             animatable: false
                         },
                         {
+                            name: "Infinity",
+                            path:"asset:///images/wallpapers/infinity.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Sparkle",
+                            path:"asset:///images/wallpapers/sparkle.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Chroma",
+                            path:"asset:///images/wallpapers/chroma.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Yellow",
+                            path:"asset:///images/wallpapers/yellow.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Sound",
+                            path:"asset:///images/wallpapers/sound.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Grid",
+                            path:"asset:///images/wallpapers/grid.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Rainbow",
+                            path:"asset:///images/wallpapers/rainbow.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Aurora",
+                            path:"asset:///images/wallpapers/aurora.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
                             name: "Digital",
                             path:"asset:///images/wallpapers/digital.jpg",
                             repeatable: false,
@@ -291,7 +339,6 @@ VerticalContainer {
                             onFileSelected: {
                                 if(selectedFiles.length == 1) {
                                     var fileName = selectedFiles[0]
-                                    console.log("Selected wallpaper: " + fileName)
                                     app.wallpaper.name = "Custom"
                                     app.wallpaper.path = "file://" + fileName
                                     app.wallpaper.repeatable = false
