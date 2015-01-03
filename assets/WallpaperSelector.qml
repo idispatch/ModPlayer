@@ -170,7 +170,7 @@ VerticalContainer {
                         {
                             name: "Wood",
                             path:"asset:///images/wallpapers/wood.jpg",
-                            repeatable: true,
+                            repeatable: false,
                             animatable: false
                         },
                         {
@@ -212,8 +212,8 @@ VerticalContainer {
                         {
                             name: "Techno",
                             path:"asset:///images/wallpapers/techno.jpg",
-                            repeatable: true,
-                            animatable: true
+                            repeatable: false,
+                            animatable: false
                         },
                         {
                             name: "Stars",
