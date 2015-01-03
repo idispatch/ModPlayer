@@ -85,7 +85,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/Patterns.qml) \
         $$quote($$BASEDIR/assets/PatternsActionItem.qml) \
         $$quote($$BASEDIR/assets/PauseActionItem.qml) \
-        $$quote($$BASEDIR/assets/PlayActionItem.qml) \
         $$quote($$BASEDIR/assets/PlayModeActionItem.qml) \
         $$quote($$BASEDIR/assets/PlaybackSettings.qml) \
         $$quote($$BASEDIR/assets/PlayerActionItem.qml) \
@@ -369,6 +368,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/NamedItem.cpp) \
         $$quote($$BASEDIR/src/NamedPlaylist.cpp) \
         $$quote($$BASEDIR/src/PatternView.cpp) \
+        $$quote($$BASEDIR/src/PlayActionItem.cpp) \
         $$quote($$BASEDIR/src/Playback.cpp) \
         $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
         $$quote($$BASEDIR/src/Player.cpp) \
@@ -511,6 +511,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/NamedItem.hpp) \
         $$quote($$BASEDIR/src/NamedPlaylist.hpp) \
         $$quote($$BASEDIR/src/PatternView.hpp) \
+        $$quote($$BASEDIR/src/PlayActionItem.hpp) \
         $$quote($$BASEDIR/src/Playback.hpp) \
         $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
         $$quote($$BASEDIR/src/Player.hpp) \

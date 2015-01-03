@@ -42,6 +42,7 @@
 #include "InternetRadio.hpp"
 #include "Wallpaper.hpp"
 #include "PurchaseStore.hpp"
+#include "PlayActionItem.hpp"
 #include "FileUtils.hpp"
 
 using namespace bb::data;
@@ -214,6 +215,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<bb::multimedia::MediaState>(MULTIMEDIA_NAMESPACE, 1, 0, "MediaState", "");
     qmlRegisterUncreatableType<bb::multimedia::BufferStatus>(MULTIMEDIA_NAMESPACE, 1, 0, "BufferStatus", "");
 
+    qmlRegisterType<PlayActionItem>(QmlNamespace, versionMajor, versionMinor, "PlayActionItem");
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
     qmlRegisterType<AlbumArtView>(QmlNamespace, versionMajor, versionMinor, "AlbumArtView");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");

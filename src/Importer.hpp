@@ -41,6 +41,7 @@ private:
     Q_SLOT void onSearchCompleted();
     Q_SLOT void onSearchingDirectory(QString const& location);
 private:
+    void updateLastImportedInfo();
     void removeMissingSongs();
     bool importTrackerSong(QString const& fileName);
     bool importMp3File(QString const& fileName);

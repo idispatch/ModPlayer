@@ -67,15 +67,7 @@ void Importer::removeMissingSongs() {
             }
             m_nextId = std::min(songs[i].id() - 1, m_nextId);
         }
-    } else {
-#ifdef VERBOSE_LOGGING
-        qDebug() << "Failed to get local songs";
-#endif
     }
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Missing songs:" << missingSongs;
-    qDebug() << "Next Song ID:" << m_nextId;
-#endif
 
     m_messageBox.setBody(tr("Updating songs library..."));
     m_catalog->houseKeep();
@@ -86,7 +78,8 @@ bool Importer::lastImportPerformed(QDateTime &date) {
     if(file.open(QIODevice::ReadOnly)) {
         QTextStream input(&file);
         if(!file.atEnd()) {
-            return QDateTime::fromString(input.readLine(), Qt::ISODate).isValid();
+            date = QDateTime::fromString(input.readLine(), Qt::ISODate);
+            return date.isValid();
         }
     }
     return false;
@@ -136,18 +129,23 @@ void Importer::onSearchCompleted() {
         }
     }
     m_knownFileNames.clear();
+
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
     Analytics::getInstance()->importedPlaylistCount(m_numImportedPlaylists);
 
+    updateLastImportedInfo();
+
+    m_messageBox.enableButton(true);
+    m_messageBox.run();
+    emit searchCompleted();
+}
+
+void Importer::updateLastImportedInfo() {
     QString infoFile(FileUtils::joinPath(QDir::homePath(), ".last_import"));
     QFile file(infoFile);
     if(file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
         QTextStream(&file) << QDateTime::currentDateTime().toString(Qt::ISODate);
     }
-
-    m_messageBox.enableButton(true);
-    m_messageBox.run();
-    emit searchCompleted();
 }
 
 void Importer::onSearchingDirectory(QString const& location) {
@@ -226,17 +224,11 @@ QString Importer::getMp3Attribute(void const * tag, const char * attributeName) 
 }
 
 bool Importer::importMp3File(QString const& fileName) {
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Importing" << fileName;
-#endif
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
     m_messageBox.setBody(tr("Importing %1").arg(fileNameOnly));
 
     ::id3_file * mp3file = ::id3_file_open(fileName.toUtf8().constData(), ID3_FILE_MODE_READONLY);
     if(mp3file == NULL) {
-#ifdef VERBOSE_LOGGING
-        qDebug() << "Could not open Mp3 file" << fileName;
-#endif
         return false;
     }
 
@@ -267,9 +259,6 @@ bool Importer::importMp3File(QString const& fileName) {
             duration = ::mad_timer_abs(duration);
             unsigned long milliseconds = duration.seconds * 1000 + duration.fraction * 1000/MAD_TIMER_RESOLUTION;
             info.setSongLength(milliseconds);
-#ifdef VERBOSE_LOGGING
-            qDebug() << "Song Length" << info.songLength();
-#endif
         }
 
         QString title = getMp3Attribute(tag, ID3_FRAME_TITLE);
@@ -300,9 +289,6 @@ bool Importer::importMp3File(QString const& fileName) {
                 trackId = -1;
             }
         }
-#ifdef VERBOSE_LOGGING
-        qDebug() << "File" << fileName << ", Track=" << track << ", TrackID=" << trackId;
-#endif
 
         QString year = getMp3Attribute(tag, ID3_FRAME_YEAR);
 
