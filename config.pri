@@ -296,8 +296,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/aluminium.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/asphalt.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/asphalt.png) \
-        $$quote($$BASEDIR/assets/images/wallpapers/black.amd) \
-        $$quote($$BASEDIR/assets/images/wallpapers/black.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/blue.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/blueprint.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/blueprint.jpg) \
@@ -322,7 +320,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/linen.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.png) \
-        $$quote($$BASEDIR/assets/images/wallpapers/nebula.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/plasma.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/purple.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/rock.amd) \

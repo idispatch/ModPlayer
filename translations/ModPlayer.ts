@@ -1611,13 +1611,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="278"/>
-        <location filename="../assets/WallpaperSelector.qml" line="289"/>
+        <location filename="../assets/WallpaperSelector.qml" line="280"/>
+        <location filename="../assets/WallpaperSelector.qml" line="291"/>
         <source>Browse for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="329"/>
+        <location filename="../assets/WallpaperSelector.qml" line="331"/>
         <source>Browse for color</source>
         <translation type="unfinished"></translation>
     </message>

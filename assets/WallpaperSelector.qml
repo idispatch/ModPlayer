@@ -174,12 +174,6 @@ VerticalContainer {
                             animatable: false
                         },
                         {
-                            name: "Black",
-                            path:"asset:///images/wallpapers/black.amd",
-                            repeatable: true,
-                            animatable: false
-                        },
-                        {
                             name: "Green",
                             path:"asset:///images/wallpapers/green.amd",
                             repeatable: false,
@@ -254,6 +248,9 @@ VerticalContainer {
                         for(var i = 0; i < items.length; ++i) {
                             var newOption = optionDefinition.createObject()
                             newOption.text = items[i].name
+                            if(newOption.text == "Custom") {
+                                items[i].path = app.wallpaper.path
+                            }
                             newOption.value = items[i].index
                             if(selectedName == items[i].name) {
                                 newOption.selected = true
@@ -264,10 +261,15 @@ VerticalContainer {
                     onSelectedValueChanged: {
                         if(!app.wallpaper.solidColor) {
                             app.wallpaper.name = selectedOption.text
-                            app.wallpaper.path = allWallpapers[selectedValue].path
+                            if(app.wallpaper.name == "Custom") {
+                                app.wallpaper.repeatable = false
+                                app.wallpaper.animatable = false
+                            } else {
+                                app.wallpaper.path = allWallpapers[selectedValue].path
+                                app.wallpaper.repeatable = allWallpapers[selectedValue].repeatable
+                                app.wallpaper.animatable = allWallpapers[selectedValue].animatable
+                            }
                             app.wallpaper.solidColor = false
-                            app.wallpaper.repeatable = allWallpapers[selectedValue].repeatable
-                            app.wallpaper.animatable = allWallpapers[selectedValue].animatable
                             app.saveSettings()
                         }
                     }
