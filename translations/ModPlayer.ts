@@ -1040,7 +1040,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="151"/>
+        <location filename="../assets/Settings.qml" line="153"/>
         <source>Maximum Songs: %1</source>
         <translation type="unfinished"></translation>
     </message>

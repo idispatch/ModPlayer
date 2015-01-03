@@ -147,10 +147,10 @@ Sheet {
                                         text: qsTr("Used Cache Size: <b>%1</b>").arg(Global.getSizeKb(app.player.cache.currentSize)) + Retranslate.onLanguageChanged
                                         textFormat: TextFormat.Html
                                     }
-                                    BlackLabel {
-                                        text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value)) + Retranslate.onLanguageChanged
-                                    }
                                 }
+                            }
+                            BlackLabel {
+                                text: qsTr("Maximum Songs: %1").arg(Math.round(maxCacheSongs.value)) + Retranslate.onLanguageChanged
                             }
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
