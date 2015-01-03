@@ -37,7 +37,7 @@ Container {
         background: backgroundPaint.imagePaint
         implicitLayoutAnimationsEnabled: false
 
-        visible: app.wallpaper.animatable
+        visible: app.wallpaper.animatable && !app.wallpaper.solidColor
 
         translationX: app.player.playback.configuration.animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
         translationY: app.player.playback.configuration.animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
@@ -54,7 +54,8 @@ Container {
                 repeat: true
                 onTriggered: {
                     if(app.player.playback.configuration.animationEnabled &&
-                       app.wallpaper.animatable) {
+                       app.wallpaper.animatable &&
+                       !app.wallpaper.solidColor) {
                         block.angleX += block.angleStepX
                         block.angleY += block.angleStepY
                         block.scalePhase += block.scaleStep
@@ -73,7 +74,8 @@ Container {
         ]
         function enableAnimationTimer() {
             if(app.player.playback.configuration.animationEnabled &&
-               app.wallpaper.animatable) {
+               app.wallpaper.animatable &&
+               !app.wallpaper.solidColor) {
                 rotozoomTimer.start()
             }
         }
@@ -82,7 +84,8 @@ Container {
         }
         function initTimer() {
             if(app.player.playback.configuration.animationEnabled &&
-               app.wallpaper.animatable) {
+               app.wallpaper.animatable &&
+               !app.wallpaper.solidColor) {
                 enableAnimationTimer()
             } else {
                 disableAnimationTimer()
