@@ -292,19 +292,19 @@
     <name>ExportCacheButton</name>
     <message>
         <source>Export Cache</source>
-        <translation type="unfinished">Сохранить кэш</translation>
+        <translation>Сохранить кэш</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">Подтверждение</translation>
+        <translation>Подтверждение</translation>
     </message>
     <message>
         <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation type="unfinished">Все песни в кэше будут сохранены в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+        <translation>Все песни в кэше будут сохранены в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
     </message>
     <message>
         <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation type="unfinished">Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
+        <translation>Кэш песен был сохранен в директории &apos;ModPlayer&apos; внутри директории &apos;downloads&apos;</translation>
     </message>
 </context>
 <context>
@@ -408,15 +408,15 @@
     <name>ImportButton</name>
     <message>
         <source>Import My Songs</source>
-        <translation type="unfinished">Импортировать мои песни</translation>
+        <translation>Импортировать мои песни</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">Подтверждение</translation>
+        <translation>Подтверждение</translation>
     </message>
     <message>
         <source>Would you like to import local songs and playlists?</source>
-        <translation type="unfinished">Вы хотите импортировать песни и плейлисты с телефона?</translation>
+        <translation>Вы хотите импортировать песни и плейлисты с телефона?</translation>
     </message>
 </context>
 <context>
@@ -818,15 +818,15 @@
     <name>SelectColor</name>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать цвет</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово</translation>
     </message>
 </context>
 <context>
@@ -1347,27 +1347,27 @@
     <name>WallpaperSelector</name>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Фон</translation>
+        <translation>Фон</translation>
     </message>
     <message>
         <source>Browse for wallpaper</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать фон</translation>
     </message>
     <message>
         <source>Wallpaper</source>
-        <translation type="unfinished"></translation>
+        <translation>Фон</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет</translation>
     </message>
     <message>
         <source>Browse for color</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать цвет</translation>
     </message>
     <message>
         <source>Enable Background Animation</source>
-        <translation type="unfinished">Анимация</translation>
+        <translation>Анимация</translation>
     </message>
 </context>
 <context>
