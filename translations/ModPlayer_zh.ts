@@ -811,6 +811,21 @@
     </message>
 </context>
 <context>
+    <name>SelectColor</name>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">关闭</translation>
+    </message>
+    <message>
+        <source>Select Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <source>Configuration</source>

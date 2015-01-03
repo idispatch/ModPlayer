@@ -329,8 +329,13 @@ VerticalContainer {
                     text: qsTr("Browse for color") + Retranslate.onLanguageChanged
                     enabled: app.isExtendedVersion
                     visible: backgroundOption.isColor
-                    onClicked: {
-                    }
+                    onClicked: selectColorSheet.createObject().open()
+                    attachedObjects: [
+                        ComponentDefinition {
+                            id: selectColorSheet
+                            source: "SelectColor.qml"
+                        }
+                    ]
                 }
             }
         }

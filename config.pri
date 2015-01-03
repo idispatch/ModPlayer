@@ -58,6 +58,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/BlackLabel.qml) \
         $$quote($$BASEDIR/assets/Buy.qml) \
         $$quote($$BASEDIR/assets/BuyActionItem.qml) \
+        $$quote($$BASEDIR/assets/ColorListItem.qml) \
         $$quote($$BASEDIR/assets/Cover.qml) \
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
@@ -100,6 +101,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SameArtistActionItem.qml) \
         $$quote($$BASEDIR/assets/SaveSongActionItem.qml) \
         $$quote($$BASEDIR/assets/SearchArea.qml) \
+        $$quote($$BASEDIR/assets/SelectColor.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \
         $$quote($$BASEDIR/assets/SongAlbumArt.qml) \
         $$quote($$BASEDIR/assets/SongArtistIcon.qml) \
@@ -120,6 +122,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/WallpaperSelector.qml) \
         $$quote($$BASEDIR/assets/WallpaperView.qml) \
         $$quote($$BASEDIR/assets/catalog.sqlite) \
+        $$quote($$BASEDIR/assets/colors.json) \
         $$quote($$BASEDIR/assets/difm.json) \
         $$quote($$BASEDIR/assets/functions.js) \
         $$quote($$BASEDIR/assets/images/actions/icon_albums.png) \

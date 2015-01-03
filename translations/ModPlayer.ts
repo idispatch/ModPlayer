@@ -955,6 +955,24 @@
     </message>
 </context>
 <context>
+    <name>SelectColor</name>
+    <message>
+        <location filename="../assets/SelectColor.qml" line="10"/>
+        <source>Select Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SelectColor.qml" line="12"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SelectColor.qml" line="16"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <location filename="../assets/Settings.qml" line="19"/>
