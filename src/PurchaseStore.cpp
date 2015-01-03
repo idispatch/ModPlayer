@@ -23,6 +23,7 @@ void PurchaseStore::storePurchase(QString const& sku) {
     if (!purchases.contains(sku)) {
         purchases.append(sku);
         m_store.setValue(PURCHASE_KEY_NAME, purchases);
+        m_store.sync();
     }
     emit purchaseRetrieved(sku);
 }

@@ -15,7 +15,8 @@ ActionItem {
             for(var i = 0; i < songCount; i++) {
                 app.player.playlist.add(songList.value(i).id)
             }
-            app.player.playNext()
+            app.player.playlist.reset()
+            app.player.playPlaylist()
         }
     }
 }
