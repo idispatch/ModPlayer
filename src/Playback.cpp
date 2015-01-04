@@ -526,7 +526,9 @@ void Playback::run() {
                m_state == Playing) {
                 if(!m_song.isTrackerSong()) {
                     m_mutex.unlock();
-                    m_mediaPlayer->seekTime(0);
+                    if(m_mediaPlayer->isSeekable()) {
+                        m_mediaPlayer->seekTime(0);
+                    }
                     m_mutex.lock();
                 }
                 m_song.rewind();
@@ -543,7 +545,9 @@ void Playback::run() {
                 } else {
                     if(!m_song.isHttpSong()) {
                         m_mutex.unlock();
-                        m_mediaPlayer->seekTime(m_pendingPosition);
+                        if(m_mediaPlayer->isSeekable()) {
+                            m_mediaPlayer->seekTime(m_pendingPosition);
+                        }
                         m_mutex.lock();
                     }
                 }
@@ -620,7 +624,9 @@ void Playback::run() {
                     m_mutex.lock();
                     if(!m_song.isHttpSong()) {
                         m_mutex.unlock();
-                        m_mediaPlayer->seekTime(0);
+                        if(m_mediaPlayer->isSeekable()) {
+                            m_mediaPlayer->seekTime(0);
+                        }
                         m_mutex.lock();
                     }
                 }

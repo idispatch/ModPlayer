@@ -1326,7 +1326,7 @@
     <name>SongPlayer</name>
     <message>
         <source>Downloading song</source>
-        <translation>Скачиваю песню</translation>
+        <translation type="obsolete">Скачиваю песню</translation>
     </message>
     <message>
         <source>Basic</source>

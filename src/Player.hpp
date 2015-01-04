@@ -7,7 +7,8 @@
 #include <QUrl>
 #include <QSettings>
 #include <QStringList>
-#include <bb/multimedia/BufferStatus.hpp>
+#include <bb/multimedia/BufferStatus>
+#include <bb/system/SystemProgressToast>
 #include "InstanceCounter.hpp"
 
 class Cache;
@@ -75,6 +76,7 @@ public:
     Playlist * playlist() const;
     SongModule * currentSong() const;
 
+    Q_INVOKABLE void popupToast(QString const& text, bool modal);
     Q_INVOKABLE void playPlaylist();
     Q_INVOKABLE void playLocalSong(QString const& fileName);
     Q_INVOKABLE void browseForLocalSong();
@@ -182,6 +184,7 @@ private:
     Playback * m_playback;
     Playlist * m_playlist;
     Importer * m_importer;
+    bb::system::SystemProgressToast m_progressToast;
     std::auto_ptr<SuspendPlayback> m_playBackSuspend;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
 };

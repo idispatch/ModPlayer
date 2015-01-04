@@ -116,9 +116,6 @@ ActionItem {
         SystemToast {
             id: notificationToast
         },
-        ProgressToast {
-            id: progress
-        },
         PlaylistNameEntryPrompt {
             id: playlistNameEntryPrompt
         }

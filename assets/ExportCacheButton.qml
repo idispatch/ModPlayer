@@ -24,14 +24,14 @@ Container {
                         if (result != SystemUiResult.ConfirmButtonSelection)
                             return;
                         app.cache.progressUpdate.connect(function(percent, fileName) {
-                                progress.progress = percent
-                                progress.body = fileName
-                                progress.show()
+                            progress.progress = percent
+                            progress.body = fileName
+                            progress.show()
                         })
-                    progress.show()
-                    app.cache.exportCache("ModPlayer")
-                    progress.cancel()
-                    cacheExportToast.show()
+                        progress.show()
+                        app.cache.exportCache("ModPlayer")
+                        progress.cancel()
+                        cacheExportToast.show()
                     }
                 },
                 ProgressToast {

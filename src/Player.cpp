@@ -261,9 +261,30 @@ void Player::changeStatus(State state, QString const& statusText) {
                 break;
             }
         }
+
+        if(m_state == Downloading || m_state == Resolving || m_state == Preparing) {
+            popupToast(tr("Downloading song"), false);
+        } else {
+            m_progressToast.cancel();
+        }
+
         emit stateChanged();
     }
     setStatusText(statusText);
+}
+
+void Player::popupToast(QString const& text, bool modal) {
+    m_progressToast.setState(bb::system::SystemUiProgressState::Active);
+    m_progressToast.setBody(text);
+    m_progressToast.setModality(SystemUiModality::Application);
+    m_progressToast.setPosition(SystemUiPosition::MiddleCenter);
+    m_progressToast.button()->setLabel("Ok");
+    m_progressToast.button()->setEnabled(false);
+    if(modal) {
+        m_progressToast.exec();
+    } else {
+        m_progressToast.show();
+    }
 }
 
 void Player::onDownloadStarted(int id) {
@@ -669,12 +690,9 @@ void Player::onPaused() {
 }
 
 void Player::onPlaying() {
-    if(SongFormat::isHttpSong(currentSong()->fileName()))
-    {
+    if(SongFormat::isHttpSong(currentSong()->fileName())) {
         changeStatus(Playing, tr("Playing Internet Radio Channel"));
-    }
-    else
-    {
+    } else {
         QString songName = FileUtils::fileNameOnly(currentSong()->fileName());
         changeStatus(Playing, tr("Playing %1").arg(songName));
     }

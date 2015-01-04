@@ -208,23 +208,6 @@ Page {
             id: mouse
         }
     }
-    function updateDownloadingToast() {
-        if(app.player.state >= 100) { 
-            // Resolving, Dowloading, Preparing
-            progressDisplay.body = qsTr("Downloading song") + Retranslate.onLanguageChanged
-            progressDisplay.show()
-        } else {
-            progressDisplay.cancel()
-        }
-    }
-    onCreationCompleted: {
-        app.player.stateChanged.connect(updateDownloadingToast)
-    }
-    attachedObjects: [
-        ProgressToast {
-            id: progressDisplay
-        }
-    ]
     actions: [
         PreviousActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar

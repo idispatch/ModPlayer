@@ -1322,7 +1322,7 @@
     <name>SongPlayer</name>
     <message>
         <source>Downloading song</source>
-        <translation>正在下载歌曲</translation>
+        <translation type="obsolete">正在下载歌曲</translation>
     </message>
     <message>
         <source>Basic</source>
