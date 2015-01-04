@@ -13,6 +13,8 @@
 
 namespace {
     QString const PURCHASE_KEY_NAME = "purchases/sku";
+    QString const PURCHASEID_KEY_NAME = "purchases/purchaseId";
+    QString const PURCHASEDATE_KEY_NAME = "purchases/purchaseDate";
     QString const FEATURE_NAME = "ModPlayerPlus";
     QString const PURCHASE_FILE_NAME = ".purchase";
 }
@@ -133,6 +135,10 @@ void PurchaseStore::updatePurchaseMetadata(QString const& purchaseId,
         file.flush();
         file.close();
     }
+
+    m_store.setValue(PURCHASEDATE_KEY_NAME, datetime.toString(Qt::ISODate));
+    m_store.setValue(PURCHASEID_KEY_NAME, purchaseId);
+    m_store.sync();
 }
 
 bool PurchaseStore::purchased() {

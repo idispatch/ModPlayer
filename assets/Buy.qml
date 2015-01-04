@@ -26,12 +26,13 @@ Sheet {
         app.analytics.buy(1)
     }
     onClosed: {
+        buySheet.destroy()
         app.analytics.buy(0)
-        destroy()
+        console.log("Purchase sheet closed")
     }
     onCreationCompleted: {
-        app.store.purchaseFailed.connect(purchaseFailed)
-        app.store.purchaseSucceeded.connect(purchaseSucceeded)
+        app.store.purchaseFailed.connect(buySheet.purchaseFailed)
+        app.store.purchaseSucceeded.connect(buySheet.purchaseSucceeded)
         app.store.loadLocalPurchases()
         app.store.loadPurchasesFromStore()
         app.store.reloadPurchasesFromStore()
@@ -50,7 +51,7 @@ Sheet {
             dismissAction: ActionItem {
                 title: qsTr("Close") + Retranslate.onLanguageChanged
                 onTriggered: {
-                    close();
+                    buySheet.close()
                 }
             }
             acceptAction: ActionItem {

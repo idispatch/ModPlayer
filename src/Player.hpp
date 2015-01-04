@@ -76,7 +76,7 @@ public:
     Playlist * playlist() const;
     SongModule * currentSong() const;
 
-    Q_INVOKABLE void popupToast(QString const& text, bool modal);
+    Q_INVOKABLE bb::system::SystemUiResult::Type popupToast(QString const& text, bool modal, bool buttonEnabled);
     Q_INVOKABLE void playPlaylist();
     Q_INVOKABLE void playLocalSong(QString const& fileName);
     Q_INVOKABLE void browseForLocalSong();

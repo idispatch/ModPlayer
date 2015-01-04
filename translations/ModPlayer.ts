@@ -137,49 +137,49 @@
 <context>
     <name>Buy</name>
     <message>
-        <location filename="../assets/Buy.qml" line="49"/>
-        <location filename="../assets/Buy.qml" line="81"/>
+        <location filename="../assets/Buy.qml" line="50"/>
+        <location filename="../assets/Buy.qml" line="82"/>
         <source>ModPlayer Plus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="51"/>
+        <location filename="../assets/Buy.qml" line="52"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="57"/>
+        <location filename="../assets/Buy.qml" line="58"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="91"/>
+        <location filename="../assets/Buy.qml" line="92"/>
         <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="145"/>
+        <location filename="../assets/Buy.qml" line="146"/>
         <source>You need to buy ModPlayer Plus extended features only once.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="166"/>
+        <location filename="../assets/Buy.qml" line="167"/>
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../assets/Buy.qml" line="16"/>
-        <location filename="../assets/Buy.qml" line="114"/>
+        <location filename="../assets/Buy.qml" line="115"/>
         <source>You have enabled ModPlayer Plus features.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="129"/>
+        <location filename="../assets/Buy.qml" line="130"/>
         <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="137"/>
+        <location filename="../assets/Buy.qml" line="138"/>
         <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -727,78 +727,78 @@
     <name>Player</name>
     <message>
         <location filename="../src/Player.cpp" line="43"/>
-        <location filename="../src/Player.cpp" line="703"/>
+        <location filename="../src/Player.cpp" line="705"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="267"/>
-        <location filename="../src/Player.cpp" line="293"/>
-        <location filename="../src/Player.cpp" line="612"/>
+        <location filename="../src/Player.cpp" line="266"/>
+        <location filename="../src/Player.cpp" line="295"/>
+        <location filename="../src/Player.cpp" line="614"/>
         <source>Downloading song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="301"/>
+        <location filename="../src/Player.cpp" line="303"/>
         <source>Unpacking song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="313"/>
+        <location filename="../src/Player.cpp" line="315"/>
         <source>Failed to prepare song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="318"/>
+        <location filename="../src/Player.cpp" line="320"/>
         <source>Caching song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="329"/>
+        <location filename="../src/Player.cpp" line="331"/>
         <source>Failed to download song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="505"/>
-        <location filename="../src/Player.cpp" line="695"/>
-        <location filename="../src/Player.cpp" line="750"/>
+        <location filename="../src/Player.cpp" line="507"/>
+        <location filename="../src/Player.cpp" line="697"/>
+        <location filename="../src/Player.cpp" line="752"/>
         <source>Playing Internet Radio Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="509"/>
-        <location filename="../src/Player.cpp" line="698"/>
-        <location filename="../src/Player.cpp" line="754"/>
+        <location filename="../src/Player.cpp" line="511"/>
+        <location filename="../src/Player.cpp" line="700"/>
+        <location filename="../src/Player.cpp" line="756"/>
         <source>Playing %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="593"/>
+        <location filename="../src/Player.cpp" line="595"/>
         <source>Resolving %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="642"/>
+        <location filename="../src/Player.cpp" line="644"/>
         <source>Select Song Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="690"/>
+        <location filename="../src/Player.cpp" line="692"/>
         <source>Paused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="767"/>
+        <location filename="../src/Player.cpp" line="769"/>
         <source>Please support ModPlayer - write a review in BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="776"/>
+        <location filename="../src/Player.cpp" line="778"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="777"/>
+        <location filename="../src/Player.cpp" line="779"/>
         <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>

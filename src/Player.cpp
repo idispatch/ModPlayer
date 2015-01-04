@@ -263,7 +263,7 @@ void Player::changeStatus(State state, QString const& statusText) {
         }
 
         if(m_state == Downloading || m_state == Resolving || m_state == Preparing) {
-            popupToast(tr("Downloading song"), false);
+            popupToast(tr("Downloading song"), false, true);
         } else {
             m_progressToast.cancel();
         }
@@ -273,18 +273,21 @@ void Player::changeStatus(State state, QString const& statusText) {
     setStatusText(statusText);
 }
 
-void Player::popupToast(QString const& text, bool modal) {
+bb::system::SystemUiResult::Type Player::popupToast(QString const& text, bool modal, bool buttonEnabled) {
     m_progressToast.setState(bb::system::SystemUiProgressState::Active);
     m_progressToast.setBody(text);
     m_progressToast.setModality(SystemUiModality::Application);
     m_progressToast.setPosition(SystemUiPosition::MiddleCenter);
     m_progressToast.button()->setLabel("Ok");
-    m_progressToast.button()->setEnabled(false);
+    m_progressToast.button()->setEnabled(buttonEnabled);
+    bb::system::SystemUiResult::Type result;
     if(modal) {
-        m_progressToast.exec();
+        result = m_progressToast.exec();
     } else {
         m_progressToast.show();
+        result = bb::system::SystemUiResult::None;
     }
+    return result;
 }
 
 void Player::onDownloadStarted(int id) {
