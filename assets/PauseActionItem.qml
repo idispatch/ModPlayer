@@ -11,14 +11,10 @@ ActionItem {
         } else if(albumId != null) {
             return qsTr("Play Album") + Retranslate.onLanguageChanged
         } else {
-            if(app.player.currentSong.songLoaded || app.player.currentSong.isHttpSong) {
-                if(app.player.state == Player.Playing) {
-                    return qsTr("Pause") + Retranslate.onLanguageChanged
-                } else {
-                    return qsTr("Resume") + Retranslate.onLanguageChanged
-                }
+            if(app.player.state == Player.Paused || app.player.state == Player.Stopped) {
+                return qsTr("Resume") + Retranslate.onLanguageChanged
             } else {
-                return ""
+                return qsTr("Pause") + Retranslate.onLanguageChanged
             }
         }
     }

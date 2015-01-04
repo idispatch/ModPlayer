@@ -672,12 +672,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PauseActionItem.qml" line="16"/>
+        <location filename="../assets/PauseActionItem.qml" line="17"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PauseActionItem.qml" line="18"/>
+        <location filename="../assets/PauseActionItem.qml" line="15"/>
         <source>Resume</source>
         <translation type="unfinished"></translation>
     </message>
@@ -823,7 +823,7 @@
 <context>
     <name>PlaylistControl</name>
     <message>
-        <location filename="../assets/PlaylistControl.qml" line="89"/>
+        <location filename="../assets/PlaylistControl.qml" line="82"/>
         <source>%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>

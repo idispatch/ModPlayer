@@ -4,7 +4,6 @@ import player 1.0
 
 Container {
     id: playlistCounter
-    property bool displayAllowed: enabled && app.player.playlist.count > 0
     layout: DockLayout {}
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
@@ -14,7 +13,7 @@ Container {
     rightPadding: 20
     bottomPadding: 20
     function updateDisplay() {
-        if(playlistCounter.displayAllowed) {
+        if(app.player.playlist.count > 0) {
             hideAnimation.stop()
             showAnimation.play()
             displayTimer.restart()
@@ -24,9 +23,6 @@ Container {
             hideAnimation.play()
         }
     }
-    onDisplayAllowedChanged: {
-        updateDisplay()
-    }
     onCreationCompleted: {
         app.player.playlist.countChanged.connect(updateDisplay)
         app.player.playlist.currentChanged.connect(updateDisplay)
@@ -34,7 +30,7 @@ Container {
     attachedObjects: [
         Timer {
             id: displayTimer
-            interval: 3000
+            interval: 4000
             repeat: false
             onTriggered: { 
                 showAnimation.stop()
@@ -45,9 +41,6 @@ Container {
     Container {
         horizontalAlignment: HorizontalAlignment.Right
         verticalAlignment: VerticalAlignment.Bottom
-        onTouch: {
-            playlistCounter.enabled = false
-        }
         scaleX: 0.0
         scaleY: 0.0
         animations: [
