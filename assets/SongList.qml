@@ -242,7 +242,7 @@ Page {
                                         },
                                         AppendPlaylistActionItem {
                                             currentSong: songEntry.ListItem.data
-                                            mode: songEntry.ListItem.view.mode
+                                            songList: null
                                             rootObject: songEntry.ListItem.view.getRootObject()
                                         },
                                         ActionItem {
@@ -486,7 +486,7 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             navigationPane: songListPage.navigationPane
         },
-        EnqueueActionItem {
+        PlayAllActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
             songList: songs.dataModel
         },
@@ -499,10 +499,14 @@ Page {
         PreviousActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        PauseActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            navigationPane: songListPage.navigationPane
+        },
         AppendPlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
             songList: songs.dataModel
-            mode: songs.mode
+            currentSong: null
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

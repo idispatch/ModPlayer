@@ -285,7 +285,7 @@
     </message>
     <message>
         <source>Enqueue</source>
-        <translation>В плейлист</translation>
+        <translation type="obsolete">В плейлист</translation>
     </message>
 </context>
 <context>
@@ -606,11 +606,11 @@
     </message>
     <message>
         <source>Play Playlist</source>
-        <translation>Играть плейлист</translation>
+        <translation type="obsolete">Играть плейлист</translation>
     </message>
     <message>
         <source>Play Album</source>
-        <translation>Играть альбом</translation>
+        <translation type="obsolete">Играть альбом</translation>
     </message>
 </context>
 <context>
@@ -622,6 +622,13 @@
     <message>
         <source>Play</source>
         <translation>Играть</translation>
+    </message>
+</context>
+<context>
+    <name>PlayAllActionItem</name>
+    <message>
+        <source>Play All</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

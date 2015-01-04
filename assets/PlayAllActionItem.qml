@@ -4,8 +4,8 @@ import player 1.0
 
 ActionItem {
     property variant songList
-    title: qsTr("Enqueue") + Retranslate.onLanguageChanged
-    imageSource: "asset:///images/actions/icon_append_playlist.png"
+    title: qsTr("Play All") + Retranslate.onLanguageChanged
+    imageSource: "asset:///images/actions/icon_set_playlist.png"
     enabled: songList!=null && songList.size() > 0
     onTriggered: {
         if (songList != null) {

@@ -50,8 +50,6 @@ Page {
                     var songs = app.catalog.getPlaylistSongs(playlist.id)
                     if(songs.length > 0) {
                         app.player.playlist.assign(songs)
-                    }
-                    if(app.player.playlist.count > 0) {
                         app.player.playPlaylist()
                         showPlayer()
                     }

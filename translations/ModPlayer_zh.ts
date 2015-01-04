@@ -281,7 +281,7 @@
     </message>
     <message>
         <source>Enqueue</source>
-        <translation>添加到列表</translation>
+        <translation type="obsolete">添加到列表</translation>
     </message>
 </context>
 <context>
@@ -602,11 +602,11 @@
     </message>
     <message>
         <source>Play Playlist</source>
-        <translation>播放播放列表</translation>
+        <translation type="obsolete">播放播放列表</translation>
     </message>
     <message>
         <source>Play Album</source>
-        <translation>播放专辑</translation>
+        <translation type="obsolete">播放专辑</translation>
     </message>
 </context>
 <context>
@@ -618,6 +618,13 @@
     <message>
         <source>Play</source>
         <translation>播放</translation>
+    </message>
+</context>
+<context>
+    <name>PlayAllActionItem</name>
+    <message>
+        <source>Play All</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

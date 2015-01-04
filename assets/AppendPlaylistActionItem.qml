@@ -3,24 +3,14 @@ import bb.system 1.0
 import player 1.0
 
 ActionItem {
-    property variant songList
-    property variant currentSong
+    property variant songList: null
+    property variant currentSong: null
     property variant rootObject
-    property string mode: ""
     title: qsTr("Append to Playlist") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_append_playlist.png"
-    enabled: {
-        if(mode != 'playlist') {
-            if(currentSong != null) {
-                return currentSong.id != 0
-            } else if (songList!=null) {
-                return songList.size() > 0
-            }
-        }
-        return false
-    }
+    enabled: (songList && songList.size() > 0) || (currentSong && currentSong.id!=0)
     onTriggered: {
-        if (currentSong != null || songList != null) {
+        if(songList || currentSong) {
             playlistSelection.run()
         }
     }
@@ -62,8 +52,9 @@ ActionItem {
                 }
             }
             function run() {
-                if(currentSong == null && songList == null)
+                if(currentSong == null && songList == null) {
                     return
+                }
                 var root = null
                 if(rootObject != null) {
                     root = rootObject 
@@ -93,32 +84,30 @@ ActionItem {
                 exec()
                 if(result == SystemUiResult.ConfirmButtonSelection && 
                    selectedIndices.length == 1) {
-                    var item = selectedIndices[0]
-                    if(item == 0) {
+                    var selectedOptionIndex = selectedIndices[0]
+                    if(selectedOptionIndex == 0) {
                         // Add to current playlist
-                        if(currentSong != null) {
-                            root.player.playlist.add(currentSong.id)
-                        } else if(songList != null) {
+                        if(songList != null) {
                             var songCount = songList.size()
-                            if(songCount > 0) {
-                                for(var i = 0; i < songCount; i++) {
-                                    var songId = songList.value(i).id
-                                    root.player.playlist.add(songId)
-                                }
+                            var songs = []
+                            for(var i = 0; i < songCount; i++) {
+                                songs.push(songList.value(i).id)
                             }
+                            root.player.playlist.add(songs)
+                        } else if(currentSong != null) {
+                            root.player.playlist.add(currentSong.id)
                         }
-                    } else if(item == 1) {
+                    } else if(selectedOptionIndex == 1) {
                         // Add to new playlist
                         var playlistName = playlistNameEntryPrompt.run()
-                        if(playlistName.length < 1)
-                            return;
+                        if(playlistName.length < 1) {
+                            return
+                        }
                         var playlistId = root.catalog.createPlaylist(playlistName)
                         addToPlaylist(playlistId, playlistName)
-                    } else if(item >= 3) {
+                    } else if(selectedOptionIndex >= 3) {
                         // Add to existing playlist
-                        var playlistId = playlists[item].id
-                        var playlistName = playlists[item].name
-                        addToPlaylist(playlistId, playlistName)
+                        addToPlaylist(playlists[item].id, playlists[item].name)
                     }
                 }
                 playlists = undefined

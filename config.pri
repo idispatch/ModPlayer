@@ -62,7 +62,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/Cover.qml) \
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
-        $$quote($$BASEDIR/assets/EnqueueActionItem.qml) \
         $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
         $$quote($$BASEDIR/assets/FirstLaunchHint.qml) \
         $$quote($$BASEDIR/assets/FormatsList.qml) \
@@ -85,6 +84,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/Patterns.qml) \
         $$quote($$BASEDIR/assets/PatternsActionItem.qml) \
         $$quote($$BASEDIR/assets/PauseActionItem.qml) \
+        $$quote($$BASEDIR/assets/PlayAllActionItem.qml) \
         $$quote($$BASEDIR/assets/PlayModeActionItem.qml) \
         $$quote($$BASEDIR/assets/PlaybackSettings.qml) \
         $$quote($$BASEDIR/assets/PlayerActionItem.qml) \
@@ -168,6 +168,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_score.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_search.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_search_dark.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_set_playlist.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_skyfm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_stop.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_twitter.png) \
