@@ -84,6 +84,7 @@ Page {
                 ]
             }
         }
+        PlaylistControl {}
     }
     function unload() {
         progress.start()

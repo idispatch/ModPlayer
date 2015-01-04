@@ -23,7 +23,7 @@ PlayActionItem::PlayActionItem(QObject * parent) {
                           this, SLOT(update()));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(playlist(), SIGNAL(remainingChanged()),
+    rc = QObject::connect(playlist(), SIGNAL(remainingCountChanged()),
                           this, SLOT(update()));
     Q_ASSERT(rc);
 
@@ -53,23 +53,22 @@ void PlayActionItem::update() {
     QUrl imageUrl = imageSource();
     bool enabled = isEnabled();
 
+    bool showPlay = false;
+
     switch(player()->state()) {
     case Player::Playing:
     case Player::Paused:
-        imageUrl = QString("asset:///images/actions/icon_stop.png");
-        text = tr("Stop");
+        showPlay = false;
         enabled = true;
         break;
     case Player::Stopped:
         if(currentSong()->songLoaded() ||
            currentSong()->isHttpSong() ||
-           playlist()->remaining() > 0) {
-            imageUrl = QString("asset:///images/actions/icon_play.png");
-            text = tr("Play");
+           playlist()->remainingCount() > 0) {
+            showPlay = true;
             enabled = true;
         } else {
-            imageUrl = QString("asset:///images/actions/icon_stop.png");
-            text = tr("Stop");
+            showPlay = false;
             enabled = false;
         }
         break;
@@ -77,9 +76,17 @@ void PlayActionItem::update() {
     case Player::Downloading:
     case Player::Preparing:
     default:
-        text = "";
+        showPlay = false;
         enabled = false;
         break;
+    }
+
+    if(showPlay) {
+        imageUrl = QString("asset:///images/actions/icon_play.png");
+        text = tr("Play");
+    } else {
+        imageUrl = QString("asset:///images/actions/icon_stop.png");
+        text = tr("Stop");
     }
 
     if(imageUrl != imageSource()) {
@@ -105,7 +112,7 @@ void PlayActionItem::onActionTriggered() {
             QVariant song = QVariant::fromValue(static_cast<QObject*>(currentSong()));
             player()->play(song);
         } else {
-            if(playlist()->remaining() > 0) {
+            if(playlist()->remainingCount() > 0) {
                 player()->playPlaylist();
             }
         }

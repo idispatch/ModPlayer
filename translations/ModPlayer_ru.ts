@@ -308,6 +308,13 @@
     </message>
 </context>
 <context>
+    <name>FirstLaunchHint</name>
+    <message>
+        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -402,13 +409,6 @@
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
         <translation>Спасибо за помощь: Mr.Time (перевод на китайский).</translation>
-    </message>
-</context>
-<context>
-    <name>Hint</name>
-    <message>
-        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -580,11 +580,11 @@
     <name>Patterns</name>
     <message>
         <source>Patterns</source>
-        <translation>Пэттерны</translation>
+        <translation type="obsolete">Пэттерны</translation>
     </message>
     <message>
         <source>Pattern %1 (%2)</source>
-        <translation>Пэттерн %1 (%2)</translation>
+        <translation type="obsolete">Пэттерн %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -719,6 +719,13 @@
     <message>
         <source>Now Playing</source>
         <translation>Проигрыватель</translation>
+    </message>
+</context>
+<context>
+    <name>PlaylistControl</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

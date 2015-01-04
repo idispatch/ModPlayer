@@ -10,10 +10,8 @@ Page {
         title: qsTr("Select Songs by Format") + Retranslate.onLanguageChanged
     }
     Container {
-        layout: DockLayout {
-        }
-        WallpaperView {
-        }
+        layout: DockLayout {}
+        WallpaperView {}
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -53,6 +51,7 @@ Page {
                 ]
             }
         }
+        PlaylistControl {}
     }
     function load() {
         if(formatsList.dataModel == null || formatsList.dataModel.size() == 0) {

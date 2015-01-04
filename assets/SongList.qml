@@ -307,7 +307,8 @@ Page {
                 ]
             }
         }
-        Hint{}
+        PlaylistControl {}
+        FirstLaunchHint{}
     }
     function unload() {
         progress.start()

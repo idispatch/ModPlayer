@@ -26,8 +26,9 @@ public:
 private:
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
     Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
-    Q_PROPERTY(int remaining READ remaining NOTIFY remainingChanged FINAL)
+    Q_PROPERTY(int remainingCount READ remainingCount NOTIFY remainingCountChanged FINAL)
     Q_PROPERTY(int current READ current NOTIFY currentChanged FINAL)
+    Q_PROPERTY(int position READ position NOTIFY positionChanged FINAL)
     Q_PROPERTY(bool nextAvailable READ nextAvailable NOTIFY nextAvailableChanged FINAL)
     Q_PROPERTY(bool previousAvailable READ previousAvailable NOTIFY previousAvailableChanged FINAL)
     Q_PROPERTY(bool isRandom READ isRandom NOTIFY isRandomChanged FINAL)
@@ -43,12 +44,13 @@ public:
     Q_INVOKABLE int next();
     Q_INVOKABLE int previous();
 
-    bool isRandom() const;
-    bool isCyclic() const;
+    Q_INVOKABLE bool isRandom() const;
+    Q_INVOKABLE bool isCyclic() const;
 
     int current() const;
+    int position() const;
     int count() const;
-    int remaining() const;
+    int remainingCount() const;
     bool previousAvailable() const;
     bool nextAvailable() const;
     Mode mode() const;
@@ -60,8 +62,9 @@ private:
     class State {
         const Mode m_mode;
         const int m_current;
+        const int m_position;
         const int m_count;
-        const int m_remaining;
+        const int m_remainingCount;
         const bool m_nextAvailable;
         const bool m_previousAvailable;
         const bool m_isRandom;
@@ -72,8 +75,9 @@ private:
         State(Playlist * p)
             : m_mode(p->mode()),
             m_current(p->current()),
+            m_position(p->position()),
             m_count(p->count()),
-            m_remaining(p->remaining()),
+            m_remainingCount(p->remainingCount()),
             m_nextAvailable(p->nextAvailable()),
             m_previousAvailable(p->previousAvailable()),
             m_isRandom(p->isRandom()),
@@ -81,8 +85,9 @@ private:
         {}
         Mode mode() const { return m_mode; }
         int current() const { return m_current; }
+        int position() const { return m_position; }
         int count() const { return m_count; }
-        int remaining() const { return m_remaining; }
+        int remainingCount() const { return m_remainingCount; }
         bool nextAvailable() const { return m_nextAvailable; }
         bool previousAvailable() const { return m_previousAvailable; }
         bool isRandom() const { return m_isRandom; }
@@ -92,8 +97,9 @@ private:
 Q_SIGNALS:
     void modeChanged();
     void currentChanged();
+    void positionChanged();
     void countChanged();
-    void remainingChanged();
+    void remainingCountChanged();
     void nextAvailableChanged();
     void previousAvailableChanged();
     void isRandomChanged();

@@ -31,6 +31,7 @@ Page {
                 bottomPadding: 20
             }
         }
+        PlaylistControl {}
     }
     onCreationCompleted: {
         instrumentsChildView.load()

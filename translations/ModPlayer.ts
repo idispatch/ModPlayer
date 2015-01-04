@@ -22,17 +22,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="82"/>
+        <location filename="../assets/Albums.qml" line="80"/>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="89"/>
+        <location filename="../assets/Albums.qml" line="87"/>
         <source>Album %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="92"/>
+        <location filename="../assets/Albums.qml" line="90"/>
         <source>Play Album</source>
         <translation type="unfinished"></translation>
     </message>
@@ -119,17 +119,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="68"/>
+        <location filename="../assets/ArtistsList.qml" line="66"/>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="69"/>
+        <location filename="../assets/ArtistsList.qml" line="67"/>
         <source>score %1 of 10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="72"/>
+        <location filename="../assets/ArtistsList.qml" line="70"/>
         <source>rating %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,6 +333,14 @@
     </message>
 </context>
 <context>
+    <name>FirstLaunchHint</name>
+    <message>
+        <location filename="../assets/FirstLaunchHint.qml" line="51"/>
+        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <location filename="../assets/FormatsList.qml" line="10"/>
@@ -340,7 +348,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/FormatsList.qml" line="36"/>
+        <location filename="../assets/FormatsList.qml" line="34"/>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -448,14 +456,6 @@
     <message>
         <location filename="../assets/Help.qml" line="145"/>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Hint</name>
-    <message>
-        <location filename="../assets/Hint.qml" line="51"/>
-        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -581,7 +581,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="56"/>
+        <location filename="../assets/InternetRadioList.qml" line="54"/>
         <source>Tuning Internet Radio</source>
         <translation type="unfinished"></translation>
     </message>
@@ -639,19 +639,6 @@
     </message>
 </context>
 <context>
-    <name>Patterns</name>
-    <message>
-        <location filename="../assets/Patterns.qml" line="11"/>
-        <source>Pattern %1 (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/Patterns.qml" line="13"/>
-        <source>Patterns</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>PatternsActionItem</name>
     <message>
         <location filename="../assets/PatternsActionItem.qml" line="5"/>
@@ -685,13 +672,12 @@
 <context>
     <name>PlayActionItem</name>
     <message>
-        <location filename="../src/PlayActionItem.cpp" line="60"/>
-        <location filename="../src/PlayActionItem.cpp" line="72"/>
+        <location filename="../src/PlayActionItem.cpp" line="89"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PlayActionItem.cpp" line="68"/>
+        <location filename="../src/PlayActionItem.cpp" line="86"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
@@ -822,6 +808,14 @@
     </message>
 </context>
 <context>
+    <name>PlaylistControl</name>
+    <message>
+        <location filename="../assets/PlaylistControl.qml" line="68"/>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PlaylistNameEntryPrompt</name>
     <message>
         <location filename="../assets/PlaylistNameEntryPrompt.qml" line="5"/>
@@ -847,22 +841,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="87"/>
+        <location filename="../assets/Playlists.qml" line="85"/>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="93"/>
+        <location filename="../assets/Playlists.qml" line="91"/>
         <source>Playlist %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="96"/>
+        <location filename="../assets/Playlists.qml" line="94"/>
         <source>Play Playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="104"/>
+        <location filename="../assets/Playlists.qml" line="102"/>
         <source>Delete Playlist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1541,7 +1535,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongPlayer.qml" line="212"/>
+        <location filename="../assets/SongPlayer.qml" line="213"/>
         <source>Downloading song</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1577,7 +1571,7 @@
 <context>
     <name>SongView</name>
     <message>
-        <location filename="../assets/SongView.qml" line="110"/>
+        <location filename="../assets/SongView.qml" line="111"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>

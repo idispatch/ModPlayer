@@ -64,11 +64,11 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
         $$quote($$BASEDIR/assets/EnqueueActionItem.qml) \
         $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
+        $$quote($$BASEDIR/assets/FirstLaunchHint.qml) \
         $$quote($$BASEDIR/assets/FormatsList.qml) \
         $$quote($$BASEDIR/assets/GenresList.qml) \
         $$quote($$BASEDIR/assets/GroupContainer.qml) \
         $$quote($$BASEDIR/assets/Help.qml) \
-        $$quote($$BASEDIR/assets/Hint.qml) \
         $$quote($$BASEDIR/assets/HorizontalContainer.qml) \
         $$quote($$BASEDIR/assets/ImportButton.qml) \
         $$quote($$BASEDIR/assets/ImportSongsActionItem.qml) \
@@ -89,6 +89,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/PlaybackSettings.qml) \
         $$quote($$BASEDIR/assets/PlayerActionItem.qml) \
         $$quote($$BASEDIR/assets/PlayerTitleBar.qml) \
+        $$quote($$BASEDIR/assets/PlaylistControl.qml) \
         $$quote($$BASEDIR/assets/PlaylistNameEntryPrompt.qml) \
         $$quote($$BASEDIR/assets/Playlists.qml) \
         $$quote($$BASEDIR/assets/PleaseBuy.qml) \
@@ -176,6 +177,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/playlist_counter.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/playlist_counter.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/view_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/vu_back.amd) \

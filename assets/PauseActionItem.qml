@@ -11,7 +11,7 @@ ActionItem {
         } else if(albumId != null) {
             return qsTr("Play Album") + Retranslate.onLanguageChanged
         } else {
-            if(app.player.currentSong.songLoaded) {
+            if(app.player.currentSong.songLoaded || app.player.currentSong.isHttpSong) {
                 if(app.player.state == Player.Playing) {
                     return qsTr("Pause") + Retranslate.onLanguageChanged
                 } else {
@@ -25,7 +25,7 @@ ActionItem {
     enabled: {
         return playlistId != null ||
                albumId != null ||
-                (app.player.currentSong.songLoaded &&
+               ((app.player.currentSong.songLoaded || app.player.currentSong.isHttpSong) &&
                 (app.player.state == Player.Paused || 
                  app.player.state == Player.Playing))
     }

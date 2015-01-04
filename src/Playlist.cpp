@@ -38,12 +38,18 @@ bool Playlist::isCyclic() const {
 }
 
 int Playlist::current() const {
-    if(m_songs.empty())
+    if(m_songs.empty()) {
         return 0;
-    if(m_position >= m_songs.size()) {
-        return m_songs[0];
+    } else {
+        return m_songs[position()];
     }
-    return m_songs[m_position];
+}
+
+int Playlist::position() const {
+    if(m_position >= m_songs.size()) {
+        return 0;
+    }
+    return m_position;
 }
 
 void Playlist::clear() {
@@ -58,6 +64,7 @@ void Playlist::reset() {
     m_position = 0;
     if(isRandom()) {
         std::random_shuffle(m_songs.begin(), m_songs.end());
+        m_position = m_songs.empty() ? 0 : (std::rand() % m_songs.size());
     }
     notify(state);
 }
@@ -75,9 +82,10 @@ int Playlist::count() const {
     return m_songs.size();
 }
 
-int Playlist::remaining() const {
-    if(m_songs.empty())
+int Playlist::remainingCount() const {
+    if(m_songs.empty()) {
         return 0;
+    }
     switch(m_mode) {
     case PlaylistOnce:
     case PlaylistRandomOnce:
@@ -235,11 +243,14 @@ void Playlist::notify(State const& state) {
     if(state.current() != current()) {
         emit currentChanged();
     }
+    if(state.position() != position()) {
+        emit positionChanged();
+    }
     if(state.count() != count()) {
         emit countChanged();
     }
-    if(state.remaining() != remaining()) {
-        emit remainingChanged();
+    if(state.remainingCount() != remainingCount()) {
+        emit remainingCountChanged();
     }
     if(state.nextAvailable() != nextAvailable()) {
         emit nextAvailableChanged();
@@ -261,7 +272,7 @@ void Playlist::notify(State const& state) {
 QDebug operator << (QDebug dbg, Playlist const &p) {
     dbg.nospace() << "CurrentID: " << p.current()
                   << ", Count: " << p.count()
-                  << ", Remaining: " << p.remaining()
+                  << ", RemainingCount: " << p.remainingCount()
                   << ", PreviousAvailble: " << (p.previousAvailable() ? "true":"false")
                   << ", NextAvailable: " << (p.nextAvailable() ? "true":"false")
                   << ", IsRandom: " << (p.isRandom() ? "true":"false")

@@ -74,6 +74,7 @@ Page {
                 }
             }
         }
+        PlaylistControl {}
         Mouse {
             id: mouse
         }

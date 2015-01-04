@@ -32,6 +32,7 @@ Page {
                 }
             }
         }
+        PlaylistControl {}
     }
     actions: [ 
         PlayActionItem {
@@ -48,6 +49,9 @@ Page {
             currentSong: app.player.currentSong.songLoaded
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        BuyActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        }
         AppWorldActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         }

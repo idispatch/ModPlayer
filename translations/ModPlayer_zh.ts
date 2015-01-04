@@ -304,6 +304,13 @@
     </message>
 </context>
 <context>
+    <name>FirstLaunchHint</name>
+    <message>
+        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatsList</name>
     <message>
         <source>Select Songs by Format</source>
@@ -398,13 +405,6 @@
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
         <translation>感谢贡献者：Mr.Time(中文翻译)</translation>
-    </message>
-</context>
-<context>
-    <name>Hint</name>
-    <message>
-        <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -576,11 +576,11 @@
     <name>Patterns</name>
     <message>
         <source>Patterns</source>
-        <translation>乐谱</translation>
+        <translation type="obsolete">乐谱</translation>
     </message>
     <message>
         <source>Pattern %1 (%2)</source>
-        <translation>乐谱 %1 (%2)</translation>
+        <translation type="obsolete">乐谱 %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -715,6 +715,13 @@
     <message>
         <source>Now Playing</source>
         <translation>正在播放</translation>
+    </message>
+</context>
+<context>
+    <name>PlaylistControl</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
