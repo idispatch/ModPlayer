@@ -624,7 +624,7 @@
     <name>PlayAllActionItem</name>
     <message>
         <source>Play All</source>
-        <translation type="unfinished"></translation>
+        <translation>播放所有</translation>
     </message>
 </context>
 <context>

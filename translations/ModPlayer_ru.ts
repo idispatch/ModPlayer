@@ -628,7 +628,7 @@
     <name>PlayAllActionItem</name>
     <message>
         <source>Play All</source>
-        <translation type="unfinished"></translation>
+        <translation>Играть все</translation>
     </message>
 </context>
 <context>
