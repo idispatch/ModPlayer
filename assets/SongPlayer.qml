@@ -58,9 +58,13 @@ Page {
                             }
                             bottomMargin: 10
                             horizontalAlignment: HorizontalAlignment.Center
-                            onTouch: {
-                                mouse.showMouse()
-                            }
+                            gestureHandlers: [
+                                TapHandler {
+                                    onTapped: {
+                                        mouse.showMouse()
+                                    }
+                                }
+                            ]
                         }
                         VUMeter {
                             id: songVUMeter
@@ -272,6 +276,7 @@ Page {
         AppendPlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
             currentSong: app.player.currentSong
+            songList: null
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow

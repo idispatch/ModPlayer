@@ -49,9 +49,13 @@ Page {
                         song: songView.song
                     }
                     Animation {
-                        onTouch: {
-                            mouse.showMouse()
-                        }
+                        gestureHandlers: [
+                            TapHandler {
+                                onTapped: {
+                                    mouse.showMouse()
+                                }
+                            }
+                        ]
                         animations: [
                             ParallelAnimation {
                                 id: logoAnimation
@@ -127,6 +131,7 @@ Page {
         AppendPlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
             currentSong: song
+            songList: null
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

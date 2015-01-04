@@ -63,9 +63,13 @@ Sheet {
                                 }
                             }
                             Animation {
-                                onTouch: {
-                                    mouse.showMouse()
-                                }
+                                gestureHandlers: [
+                                    TapHandler {
+                                        onTapped: {
+                                            mouse.showMouse()
+                                        }
+                                    }
+                                ]
                             }
                             BlackLabel {
                                 horizontalAlignment: HorizontalAlignment.Center
