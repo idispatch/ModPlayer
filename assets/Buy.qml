@@ -6,11 +6,11 @@ import "functions.js" as Global
 Sheet {
     id: buySheet
     property int groupSettingIndent: 40
-    function buyModPlayerPlus(){
-        if(app.isExtendedVersion)
-            return
-        app.analytics.purchase("Start");
-        app.store.buy()
+    function buyModPlayerPlus() {
+        if(!app.isExtendedVersion) {
+            app.analytics.purchase("Start");
+            app.store.buy()
+        }
     }
     function purchaseSucceeded(info) {
         buyResult.body = qsTr("You have enabled ModPlayer Plus features.") + Retranslate.onLanguageChanged
@@ -56,7 +56,9 @@ Sheet {
             acceptAction: ActionItem {
                 title: qsTr("Buy") + Retranslate.onLanguageChanged
                 enabled: !app.isExtendedVersion
-                onTriggered: buyModPlayerPlus()
+                onTriggered: {
+                    buyModPlayerPlus()
+                }
             } 
         }
         Container {
@@ -66,7 +68,7 @@ Sheet {
                 opacity: 0.8
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                 VerticalContainer {
+                VerticalContainer {
                      horizontalAlignment: HorizontalAlignment.Fill
                      verticalAlignment: VerticalAlignment.Fill
                      leftPadding: 20
@@ -175,17 +177,9 @@ Sheet {
                                  horizontalAlignment: HorizontalAlignment.Center
                                  verticalAlignment: VerticalAlignment.Center
                                  topMargin: 60
-                                 onClicked: buyModPlayerPlus()
-                                 onCreationCompleted: buyButtonAnimation.play()
-                                 animations: [
-                                     TranslateTransition {
-                                         id: buyButtonAnimation
-                                         duration: 600
-                                         fromY: 100
-                                         toY: 0
-                                         easingCurve: StockCurve.CubicIn
-                                     }
-                                 ]
+                                 onClicked: {
+                                     buyModPlayerPlus()
+                                 }
                             }
                         }
                     }

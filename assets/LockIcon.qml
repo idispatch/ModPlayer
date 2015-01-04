@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import player 1.0
 
 ImageView {
     imageSource: "asset:///images/objects/lock.png"

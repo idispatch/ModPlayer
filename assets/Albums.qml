@@ -162,7 +162,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
-            navigationPane: albumsPage.navigationPane
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

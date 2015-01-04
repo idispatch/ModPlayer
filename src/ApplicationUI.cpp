@@ -43,6 +43,7 @@
 #include "Wallpaper.hpp"
 #include "PurchaseStore.hpp"
 #include "PlayActionItem.hpp"
+#include "PauseActionItem.hpp"
 #include "FileUtils.hpp"
 
 using namespace bb::data;
@@ -103,7 +104,7 @@ bool ApplicationUI::isForeground() const {
 }
 
 bool ApplicationUI::isExtendedVersion() {
-    return m_purchaseStore.isPurchased();
+    return m_purchaseStore.purchased();
 }
 
 void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
@@ -144,7 +145,7 @@ void ApplicationUI::initSignals() {
                           this,            SLOT(onInvoked(const bb::system::InvokeRequest&)));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(&m_purchaseStore, SIGNAL(isPurchasedChanged()),
+    rc = QObject::connect(&m_purchaseStore, SIGNAL(purchasedChanged()),
                           this,            SLOT(onPurchaseStateChanged()));
 
     Q_ASSERT(rc);
@@ -221,6 +222,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<bb::multimedia::BufferStatus>(MULTIMEDIA_NAMESPACE, 1, 0, "BufferStatus", "");
 
     qmlRegisterType<PlayActionItem>(QmlNamespace, versionMajor, versionMinor, "PlayActionItem");
+    qmlRegisterType<PauseActionItem>(QmlNamespace, versionMajor, versionMinor, "PauseActionItem");
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");
     qmlRegisterType<AlbumArtView>(QmlNamespace, versionMajor, versionMinor, "AlbumArtView");
     qmlRegisterType<LCDDisplay>(QmlNamespace, versionMajor, versionMinor, "LCDDisplay");

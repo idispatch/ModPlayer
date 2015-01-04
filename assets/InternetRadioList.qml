@@ -120,7 +120,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: internetRadioPage.navigationPane
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow

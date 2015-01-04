@@ -501,7 +501,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: songListPage.navigationPane
         },
         AppendPlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

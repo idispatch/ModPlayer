@@ -138,7 +138,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: artistsPage.navigationPane
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

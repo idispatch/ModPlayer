@@ -8,10 +8,8 @@ Page {
     objectName: "songPlayer"
     property variant navigationPane
     Container {
-        layout: DockLayout {
-        }
-        WallpaperView {
-        }
+        layout: DockLayout {}
+        WallpaperView {}
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -209,25 +207,24 @@ Page {
         Mouse {
             id: mouse
         }
-        onCreationCompleted: {
-            var theApp = app
-            app.player.stateChanged.connect(function() {
-                if(progress) {
-                    if(theApp.player.state >= 100) { // Resolving, Dowloading, Preparing
-                        progress.body = qsTr("Downloading song") + Retranslate.onLanguageChanged
-                        progress.show()
-                    } else {
-                        progress.cancel()
-                    }
-                }
-            })
-        }
-        attachedObjects: [
-            ProgressToast {
-                id: progress
-            }
-        ]
     }
+    function updateDownloadingToast() {
+        if(app.player.state >= 100) { 
+            // Resolving, Dowloading, Preparing
+            progressDisplay.body = qsTr("Downloading song") + Retranslate.onLanguageChanged
+            progressDisplay.show()
+        } else {
+            progressDisplay.cancel()
+        }
+    }
+    onCreationCompleted: {
+        app.player.stateChanged.connect(updateDownloadingToast)
+    }
+    attachedObjects: [
+        ProgressToast {
+            id: progressDisplay
+        }
+    ]
     actions: [
         PreviousActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
@@ -240,7 +237,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: songPlayer.navigationPane
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

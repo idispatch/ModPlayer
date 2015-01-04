@@ -183,7 +183,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: playlistsPage.navigationPane
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

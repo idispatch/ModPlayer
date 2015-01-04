@@ -92,7 +92,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: formatsPage.navigationPane
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

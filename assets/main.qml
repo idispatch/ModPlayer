@@ -23,7 +23,9 @@ TabbedPane {
                 id: songSearchView
                 navigationPane: searchNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -45,7 +47,9 @@ TabbedPane {
                 id: songMyFavouriteView
                 navigationPane: myFavouriteNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -67,7 +71,9 @@ TabbedPane {
                 id: songMyLocalView
                 navigationPane: myLocalNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -89,7 +95,9 @@ TabbedPane {
                 id: songRecentlyPlayedView
                 navigationPane: recentlyPlayedNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -111,7 +119,9 @@ TabbedPane {
                 id: songPlaylists
                 navigationPane: playlistsNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -133,7 +143,9 @@ TabbedPane {
                 id: songAlbums
                 navigationPane: albumsNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -155,7 +167,9 @@ TabbedPane {
                 id: liveStream
                 navigationPane: liveStreamNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -178,7 +192,9 @@ TabbedPane {
                 channelList: "app/native/assets/difm.json"
                 navigationPane: difmNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -201,7 +217,9 @@ TabbedPane {
                 channelList: "app/native/assets/skyfm.json"
                 navigationPane: skyfmNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -224,7 +242,9 @@ TabbedPane {
                 channelList: "app/native/assets/jazzradio.json"
                 navigationPane: jazzRadioNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -247,7 +267,9 @@ TabbedPane {
                 channelList: "app/native/assets/rockradio.json"
                 navigationPane: rockRadioNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -269,7 +291,9 @@ TabbedPane {
                 id: songMostPlayedView
                 navigationPane: mostPlayedNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -291,7 +315,9 @@ TabbedPane {
                 id: songsTopDownloadedView
                 navigationPane: topDownloadsNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -313,7 +339,9 @@ TabbedPane {
                 id: songTopFavouritedView
                 navigationPane: topFavouritedNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -335,7 +363,9 @@ TabbedPane {
                 id: songTopScoredView
                 navigationPane: topScoredNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -357,7 +387,9 @@ TabbedPane {
                 id: songArtistsList
                 navigationPane: artistsNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -379,7 +411,9 @@ TabbedPane {
                 id: songGenresList
                 navigationPane: genresNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     Tab {
@@ -399,7 +433,9 @@ TabbedPane {
                 id: songFormatsList
                 navigationPane: formatsNavigationPane
             }
-            onPopTransitionEnded: page.destroy()
+            onPopTransitionEnded: {
+                page.destroy()
+            }
         }
     }
     activeTab: searchTab
@@ -418,7 +454,9 @@ TabbedPane {
             id: helpActionItem
             title: qsTr("Help") + Retranslate.onLanguageChanged
             enabled: true
-            onTriggered: helpView.createObject(mainTabPane).open()
+            onTriggered: {
+                helpView.createObject(mainTabPane).open()
+            }
             attachedObjects: [
                 ComponentDefinition {
                     id: helpView
@@ -432,28 +470,36 @@ TabbedPane {
                 imageSource: "asset:///images/actions/icon_twitter.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: true
-                onTriggered: app.twit()
+                onTriggered: {
+                    app.twit()
+                }
             },
             ActionItem {
                 title: qsTr("BBM") + Retranslate.onLanguageChanged
                 imageSource: "asset:///images/actions/icon_bbm.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: true
-                onTriggered: app.bbm()
+                onTriggered: {
+                    app.bbm()
+                }
             },
             ActionItem {
                 title: qsTr("Email Author") + Retranslate.onLanguageChanged
                 imageSource: "asset:///images/actions/icon_email.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: true
-                onTriggered: app.emailAuthor()
+                onTriggered: {
+                    app.emailAuthor()
+                }
             }
         ]
         settingsAction: SettingsActionItem {
             id: settingsActionItem
             title: qsTr("Settings") + Retranslate.onLanguageChanged
             enabled: true
-            onTriggered : settingsView.createObject(mainTabPane).open()
+            onTriggered : {
+                settingsView.createObject(mainTabPane).open()
+            }
             attachedObjects: [
                 ComponentDefinition {
                     id: settingsView

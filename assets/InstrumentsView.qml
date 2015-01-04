@@ -3,20 +3,18 @@ import player 1.0
 import "functions.js" as Global
 
 VerticalContainer {
+    id: instrumentsView
     property string mode: "samples"
     function load() {
-        if(mode == 'samples') {
+        if(instrumentsView.mode == 'samples') {
             instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
         } else {
             instrumentsSamplesList.dataModel = app.player.currentSong.getInstrumentNames()
         }
     }
     onCreationCompleted: {
-        var handler = function() {
-            load()
-        }
-        selector.selectedIndexChanged.connect(handler)
-        app.player.currentSong.songLoadedChanged.connect(handler)
+        selector.selectedIndexChanged.connect(load)
+        app.player.currentSong.songLoadedChanged.connect(load)
     }
     GroupContainer {
         SegmentedControl {

@@ -1,5 +1,6 @@
 import bb.cascades 1.0
 import bb.system 1.0
+import player 1.0
 
 SystemPrompt {
     title: qsTr("Enter Playlist Name") + Retranslate.onLanguageChanged

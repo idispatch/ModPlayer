@@ -13,11 +13,11 @@ class PurchaseStore : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(PurchaseStore)
 
-    Q_PROPERTY(bool isPurchased READ isPurchased NOTIFY isPurchasedChanged FINAL)
+    Q_PROPERTY(bool purchased READ purchased NOTIFY purchasedChanged FINAL)
 public:
     PurchaseStore(QSettings &settings, QObject* parent = 0);
 
-    bool isPurchased();
+    bool purchased();
 
     Q_INVOKABLE void buy();
 
@@ -26,7 +26,7 @@ public:
     Q_INVOKABLE void loadLocalPurchases();
 
 Q_SIGNALS:
-    void isPurchasedChanged();
+    void purchasedChanged();
     void purchaseSucceeded(QString const& info);
     void purchaseFailed(QString const& reason);
 private slots:

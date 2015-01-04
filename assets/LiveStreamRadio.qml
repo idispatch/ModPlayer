@@ -378,7 +378,6 @@ Page {
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            navigationPane: liveStreamRadioPage.navigationPane
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow

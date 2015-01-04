@@ -12,8 +12,9 @@
 #include "FileUtils.hpp"
 
 namespace {
-QString const PURCHASE_KEY_NAME = "purchases/sku";
-QString const FEATURE_NAME = "ModPlayerPlus";
+    QString const PURCHASE_KEY_NAME = "purchases/sku";
+    QString const FEATURE_NAME = "ModPlayerPlus";
+    QString const PURCHASE_FILE_NAME = ".purchase";
 }
 
 PurchaseStore::PurchaseStore(QSettings &settings, QObject* parent)
@@ -43,31 +44,31 @@ void PurchaseStore::buy() {
     {
         QTextStream stream;
         stream.setString(&metadata);
-        stream << "IMEI: " << hwInfo.imei() << ";";
-        stream << "PIN: " << hwInfo.pin() << ";";
-        stream << "DEVICENAME: " << hwInfo.deviceName() << ";";
-        stream << "HARDWAREID: " << hwInfo.hardwareId() << ";";
-        stream << "MODELNAME: " << hwInfo.modelName() << ";";
-        stream << "MODELNUMBER: " << hwInfo.modelNumber() << ";";
+        stream << "IMEI: " << hwInfo.imei() << "; ";
+        stream << "PIN: " << hwInfo.pin() << "; ";
+        stream << "DEVICENAME: " << hwInfo.deviceName() << "; ";
+        stream << "HARDWAREID: " << hwInfo.hardwareId() << "; ";
+        stream << "MODELNAME: " << hwInfo.modelName() << "; ";
+        stream << "MODELNUMBER: " << hwInfo.modelNumber() << "; ";
         stream << "SERIALNUMBER: " << hwInfo.serialNumber() << ";";
     }
 
-    QVariantMap varMap;
-    varMap["IMEI"] = hwInfo.imei();
-    varMap["PIN"] = hwInfo.pin();
-    varMap["DEVICENAME"] = hwInfo.deviceName();
-    varMap["HARDWAREID"] = hwInfo.hardwareId();
-    varMap["MODELNAME"] = hwInfo.modelName();
-    varMap["MODELNUMBER"] = hwInfo.modelNumber();
-    varMap["SERIALNUMBER"] = hwInfo.serialNumber();
+    QVariantMap variableMap;
+    variableMap["IMEI"] = hwInfo.imei();
+    variableMap["PIN"] = hwInfo.pin();
+    variableMap["DEVICENAME"] = hwInfo.deviceName();
+    variableMap["HARDWAREID"] = hwInfo.hardwareId();
+    variableMap["MODELNAME"] = hwInfo.modelName();
+    variableMap["MODELNUMBER"] = hwInfo.modelNumber();
+    variableMap["SERIALNUMBER"] = hwInfo.serialNumber();
 
-    m_manager.requestPurchase("", FEATURE_NAME, "", metadata, varMap);
+    m_manager.requestPurchase("", FEATURE_NAME, "", metadata, variableMap);
 }
 
 void PurchaseStore::onExistingPurchasesFinished(bb::platform::ExistingPurchasesReply *reply) {
     using namespace bb::platform;
     if(reply != NULL && reply->isFinished() && !reply->isError()) {
-        QList<PurchaseReceipt> purchaseReceipts = reply->purchases();
+        const QList<PurchaseReceipt> purchaseReceipts = reply->purchases();
         const int numPurchases = purchaseReceipts.size();
         for(int i = 0; i < numPurchases; i++) {
             PurchaseReceipt const& receipt = purchaseReceipts[i];
@@ -84,6 +85,8 @@ void PurchaseStore::onPurchaseFinished(bb::platform::PurchaseReply *reply) {
     using namespace bb::platform;
     if(reply != NULL && reply->isFinished()) {
         if(reply->isError()) {
+            qDebug() << "=========== Purchase error ===========";
+            qDebug() << reply->errorText();
             emit purchaseFailed(reply->errorText());
         } else {
             const QString sku = reply->digitalGoodSku();
@@ -96,17 +99,23 @@ void PurchaseStore::onPurchaseFinished(bb::platform::PurchaseReply *reply) {
                                            reply->purchaseMetadata(),
                                            receipt.extraParameters());
                     QString info;
-                    info += "PURCHASEID: " + receipt.purchaseId() + ";";
-                    info += "DATE: " + receipt.date().toString(Qt::ISODate) + ";";
+                    info += "PURCHASEID: " + receipt.purchaseId() + "; ";
+                    info += "DATE: " + receipt.date().toString(Qt::ISODate) + "; ";
                     info += "DATA: [" + reply->purchaseMetadata() + "]";
+                    qDebug() << "=========== Purchase succeeded ===========";
+                    qDebug() << info;
                     emit purchaseSucceeded(info);
                 } else {
+                    qDebug() << "Invalid SKU in purchase";
                     emit purchaseFailed("Purchased invalid SKU");
                 }
             } else {
+                qDebug() << "Invalid SKU state in purchase";
                 emit purchaseFailed("Invalid SKU state");
             }
         }
+    } else {
+        qDebug() << "Invalid purchase reply";
     }
 }
 
@@ -115,7 +124,7 @@ void PurchaseStore::updatePurchaseMetadata(QString const& purchaseId,
                                            QString const& metadata,
                                            QVariantMap parameters) {
     Q_UNUSED(parameters);
-    QFile file(FileUtils::joinPath(QDir::homePath(), ".purchase"));
+    QFile file(FileUtils::joinPath(QDir::homePath(), PURCHASE_FILE_NAME));
     if(file.open(QFile::WriteOnly | QFile::Truncate)) {
         QTextStream stream(&file);
         stream << "PURCHASEID: " << purchaseId << ";\n";
@@ -126,10 +135,13 @@ void PurchaseStore::updatePurchaseMetadata(QString const& purchaseId,
     }
 }
 
-bool PurchaseStore::isPurchased() {
+bool PurchaseStore::purchased() {
     bool result;
     QStringList purchases = m_store.value(PURCHASE_KEY_NAME, QStringList()).toStringList();
     result = purchases.contains(FEATURE_NAME);
+    if(!result){
+        result = QFile(FileUtils::joinPath(QDir::homePath(), PURCHASE_FILE_NAME)).exists();
+    }
     return result;
 }
 
@@ -141,7 +153,7 @@ void PurchaseStore::savePurchase(QString const& sku) {
         m_store.sync();
     }
     if(sku == FEATURE_NAME) {
-        emit isPurchasedChanged();
+        emit purchasedChanged();
     }
 }
 
@@ -158,7 +170,7 @@ void PurchaseStore::loadLocalPurchases() {
     if (!purchases.isEmpty()) {
         foreach(QString sku, purchases) {
             if(sku == FEATURE_NAME) {
-                emit isPurchasedChanged();
+                emit purchasedChanged();
             }
         }
     }
