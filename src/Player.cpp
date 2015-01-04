@@ -150,8 +150,8 @@ void Player::initPlayback() {
                           this,       SLOT(onStopped()));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(m_playback, SIGNAL(finished()),
-                          this,       SLOT(onFinished()));
+    rc = QObject::connect(m_playback, SIGNAL(songFinished()),
+                          this,       SLOT(onSongFinished()));
     Q_ASSERT(rc);
 
     rc = QObject::connect(m_playback, SIGNAL(metaDataChanged()),
@@ -684,7 +684,7 @@ void Player::onStopped() {
     changeStatus(Stopped, tr("Stopped"));
 }
 
-void Player::onFinished() {
+void Player::onSongFinished() {
     switch(m_playlist->mode()){
     case Playlist::SongCycle:
         if(m_playlist->current() != 0) {

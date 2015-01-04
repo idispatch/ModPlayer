@@ -40,7 +40,8 @@ public:
 
     Q_INVOKABLE void clear();
     Q_INVOKABLE void reset();
-    Q_INVOKABLE void add(int id);
+    Q_INVOKABLE void add(QVariant item);
+    Q_INVOKABLE void assign(QVariant item);
     Q_INVOKABLE int next();
     Q_INVOKABLE int previous();
 
@@ -93,6 +94,7 @@ private:
         bool isRandom() const { return m_isRandom; }
         bool isCyclic() const { return m_isCyclic; }
     };
+    void addImpl(QVariant value);
     void notify(State const& state);
 Q_SIGNALS:
     void modeChanged();

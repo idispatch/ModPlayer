@@ -34,10 +34,7 @@ ActionItem {
     } 
     function enqueuAndPlay(songs) {
         if(songs.length > 0) {
-            app.player.playlist.clear()
-            for(var i = 0; i < songs.length; ++i) {
-                app.player.playlist.add(songs[i])
-            }
+            app.player.playlist.assign(songs)
             app.player.playPlaylist()
             var view = songPlayer.createObject()
             if(view){

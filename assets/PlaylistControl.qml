@@ -22,10 +22,12 @@ Container {
             showAnimation.stop()
             hideAnimation.play()
         }
+        playlistInfo.text = qsTr("%1 of %2").arg(app.player.playlist.position + 1).arg(app.player.playlist.count) + Retranslate.onLanguageChanged
     }
     onCreationCompleted: {
         app.player.playlist.countChanged.connect(updateDisplay)
-        app.player.playlist.currentChanged.connect(updateDisplay)
+        app.player.playlist.positionChanged.connect(updateDisplay)
+        updateDisplay()
     }
     attachedObjects: [
         Timer {
@@ -79,7 +81,7 @@ Container {
                 }
             ]
             BlackLabel {
-                text: qsTr("%1 of %2").arg(app.player.playlist.position + 1).arg(app.player.playlist.count) + Retranslate.onLanguageChanged
+                id: playlistInfo
                 textStyle {
                     base: SystemDefaults.TextStyles.BodyText
                     textAlign: TextAlign.Center

@@ -36,7 +36,6 @@ public:
     SongModule* currentSong();
     PlaybackConfig* configuration();
 
-    void run();
     void stopThread();
 
     Q_INVOKABLE void configure();
@@ -60,11 +59,12 @@ Q_SIGNALS:
     /* Playback state changes */
     void playing();
     void stopped();
-    void finished();
+    void songFinished();
     void paused();
     void metaDataChanged();
     void bufferingLevelChanged(double level);
     void bufferingStatusChanged(int type);
+
 private slots:
     void onMediaPlayerBufferLevelChanged(double level);
     void onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type);
@@ -75,7 +75,7 @@ private slots:
     void onMediaPlayerPositionChanged(unsigned int);
 private:
     Q_DISABLE_COPY(Playback)
-
+    void run();
     bool detectAudioDevice();
     bool initPlayback();
     int  updateChunk();

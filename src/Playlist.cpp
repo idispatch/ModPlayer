@@ -69,12 +69,34 @@ void Playlist::reset() {
     notify(state);
 }
 
-void Playlist::add(int id) {
-    State state(this);
-    m_songs.push_back(id);
+void Playlist::addImpl(QVariant value) {
+    if(value.canConvert<QVariantList>()) {
+        QVariantList collection = value.value<QVariantList>();
+        const int numItems = collection.length();
+        for(int i = 0; i < numItems; i++) {
+            QVariant const& p = collection[i];
+            if(p.type() == QVariant::Int) {
+                m_songs.push_back(p.value<int>());
+            }
+        }
+    } else if(value.type() == QVariant::Int) {
+        m_songs.push_back(value.value<int>());
+    }
     if(m_position >= m_songs.size()) {
         m_position = 0;
     }
+}
+
+void Playlist::add(QVariant value) {
+    State state(this);
+    addImpl(value);
+    notify(state);
+}
+void Playlist::assign(QVariant value) {
+    State state(this);
+    m_songs.clear();
+    addImpl(value);
+    m_position = 0;
     notify(state);
 }
 

@@ -202,9 +202,7 @@ void Playback::saveSettings() {
 void Playback::configure() {
     QMutexLocker locker(&m_mutex); // called from user thread
     if(!m_config.isAudioReconfigurationRequired()) {
-#ifdef VERBOSE_LOGGING
-        qDebug() << "[PLAYBACK]" << "Playback::configure:" << "No audio reconfiguration required";
-#endif
+        qDebug() << "[PLAYBACK]" << "configure:" << "No audio reconfiguration required";
         return;
     }
     m_command = ConfigureCommand;
@@ -336,37 +334,23 @@ void Playback::configureAudio() {
     QString fileName;
 
     if(m_config.isAudioReconfigurationRequired()) {
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "Audio reconfiguration required";
         qDebug() << "[PLAYBACK]" << "Stopping audio device";
-#endif
         stopAudioDevice();
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "Stopped audio device";
         qDebug() << "[PLAYBACK]" << "Initializing audio playback";
-#endif
         initPlayback();
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "Audio playback initialized";
-#endif
         if(m_song.songLoaded()) {
             fileName = m_song.absoluteFileName();
-#ifdef VERBOSE_LOGGING
             qDebug() << "[PLAYBACK]" << "Unloading song module" << fileName;
-#endif
             m_song.unload();
-#ifdef VERBOSE_LOGGING
             qDebug() << "[PLAYBACK]" << "Song module" << fileName << "unloaded";
-#endif
         } else {
-#ifdef VERBOSE_LOGGING
             qDebug() << "[PLAYBACK]" << "Song module is not loaded";
-#endif
         }
     } else {
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "No audio reconfiguration required";
-#endif
     }
 
     ::ModPlug_Settings settings;
@@ -411,13 +395,9 @@ void Playback::configureAudio() {
     ::ModPlug_SetSettings(&settings);
 
     if(fileName.length() > 0) {
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "Reloading song module" << fileName;
-#endif
         m_song.load(m_pendingSong, fileName);
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "Song module" << fileName << "reloaded";
-#endif
     }
 
     m_song.setMasterVolume(m_config.masterVolume());
@@ -426,13 +406,9 @@ void Playback::configureAudio() {
 }
 
 void Playback::run() {
-#if 0
-    moveToThread(this);
-#endif
     m_song.moveToThread(this);
-#ifdef VERBOSE_LOGGING
+    m_mediaPlayer->moveToThread(this);
     qDebug() << "[PLAYBACK]" << "Entering playback thread";
-#endif
     changeState(Idle);
 
     if(!detectAudioDevice()) {
@@ -441,19 +417,17 @@ void Playback::run() {
         QThread::exit(1);
         return;
     }
-#ifdef VERBOSE_LOGGING
     qDebug() << "[PLAYBACK]" << "Audio device detected successfully";
-#endif
     if(!initPlayback()) {
         changeState(Exit);
         qDebug() << "[PLAYBACK]" << "Failed to initialize audio device for playback";
         QThread::exit(2);
         return;
     }
-#ifdef VERBOSE_LOGGING
+
     qDebug() << "[PLAYBACK]" << "Audio device playback initialized successfully";
     qDebug() << "[PLAYBACK]" << "Starting playback loop";
-#endif
+
     m_mutex.lock();
     while(m_state != Exit && m_state != Exiting)
     {
@@ -484,12 +458,16 @@ void Playback::run() {
             m_command = NoCommand;
             m_state = Exiting;
             m_cond.wakeAll();
+            m_mutex.unlock();
             emit stopped();
+            m_mutex.lock();
             continue; // process next command - exit thread
         case ConfigureCommand:
             m_command = NoCommand;
             m_cond.wakeAll();
+            m_mutex.unlock();
             configureAudio();
+            m_mutex.lock();
             continue; // process next command
         case LoadCommand:
             m_command = NoCommand;
@@ -499,8 +477,10 @@ void Playback::run() {
                     ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 } else {
+                    m_mutex.unlock();
                     m_mediaPlayer->stop();
                     m_mediaPlayer->reset();
+                    m_mutex.lock();
                 }
                 if(m_song.load(m_pendingSong, m_pendingFileName) == true) {
                     if(m_song.isTrackerSong()) {
@@ -511,7 +491,9 @@ void Playback::run() {
                     m_state = Idle;
                 }
                 m_pendingFileName = "";
+                m_mutex.unlock();
                 emit stopped();
+                m_mutex.lock();
             }
             m_cond.wakeAll();
             continue; // process next command
@@ -524,12 +506,16 @@ void Playback::run() {
                     ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 } else {
+                    m_mutex.unlock();
                     m_mediaPlayer->stop();
                     m_mediaPlayer->reset();
+                    m_mutex.lock();
                 }
                 m_song.unload();
                 m_state = Idle;
+                m_mutex.unlock();
                 emit stopped();
+                m_mutex.lock();
             }
             m_cond.wakeAll();
             continue; // process next command
@@ -538,9 +524,10 @@ void Playback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                qDebug() << "*** Rewind";
                 if(!m_song.isTrackerSong()) {
+                    m_mutex.unlock();
                     m_mediaPlayer->seekTime(0);
+                    m_mutex.lock();
                 }
                 m_song.rewind();
             }
@@ -551,12 +538,13 @@ void Playback::run() {
             if(m_state == Loaded ||
                m_state == Paused ||
                m_state == Playing) {
-                qDebug() << "*** Seek";
                 if(m_song.isTrackerSong()) {
                     m_song.seekToOrder(m_pendingPosition);
                 } else {
                     if(!m_song.isHttpSong()) {
+                        m_mutex.unlock();
                         m_mediaPlayer->seekTime(m_pendingPosition);
+                        m_mutex.lock();
                     }
                 }
                 m_pendingPosition = 0;
@@ -566,6 +554,8 @@ void Playback::run() {
         case PlayCommand:
             m_command = NoCommand;
             if(m_state == Loaded || m_state == Paused) {
+                bb::multimedia::MediaError::Type mediaError;
+
                 if(!m_song.isTrackerSong()) {
                     bool okToPlay = false;
                     if(m_state == Loaded) {
@@ -578,29 +568,40 @@ void Playback::run() {
                         {
                             url = QUrl::fromLocalFile(m_song.absoluteFileName());
                         }
-                        bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->setSourceUrl(url);
+
+                        m_mutex.unlock();
+                        mediaError = m_mediaPlayer->setSourceUrl(url);
+                        m_mutex.lock();
+
                         if(mediaError == bb::multimedia::MediaError::None) {
                             okToPlay = true;
                         } else {
-                            qDebug() << "[PLAYBACK]" << "Error: MediaPlayer: setSourceUrl:" << url << ", error=" << mediaError;
+                            qDebug() << "[PLAYBACK]" << "error: setSourceUrl:" << url << "error" << mediaError;
                             okToPlay = false;
                         }
                     } else {
                         okToPlay = true;
                     }
+
                     if(okToPlay) {
-                        bb::multimedia::MediaError::Type mediaError = m_mediaPlayer->play();
+                        m_mutex.unlock();
+                        mediaError = m_mediaPlayer->play();
+                        m_mutex.lock();
                         if(mediaError == bb::multimedia::MediaError::None) {
                             m_state = Playing;
+                            m_mutex.unlock();
                             emit playing();
+                            m_mutex.lock();
                         } else {
-                            qDebug() << "[PLAYBACK]" << "Error: MediaPlayer: play:" << mediaError;
+                            qDebug() << "[PLAYBACK]" << "error: MediaPlayer: play:" << mediaError;
                         }
                     }
                 } else {
                     m_state = Playing;
                     m_song.setMasterVolume(m_config.masterVolume());
+                    m_mutex.unlock();
                     emit playing();
+                    m_mutex.lock();
                 }
             }
             m_cond.wakeAll();
@@ -609,17 +610,24 @@ void Playback::run() {
             m_command = NoCommand;
             if(m_state == Playing || m_state == Paused) {
                 m_state = Loaded;
+
                 if(m_song.isTrackerSong()) {
                     ::snd_pcm_plugin_flush(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK);
                     ::snd_pcm_plugin_playback_drain(m_playback_handle);
                 } else {
+                    m_mutex.unlock();
                     m_mediaPlayer->stop();
+                    m_mutex.lock();
                     if(!m_song.isHttpSong()) {
+                        m_mutex.unlock();
                         m_mediaPlayer->seekTime(0);
+                        m_mutex.lock();
                     }
                 }
                 m_song.rewind();
+                m_mutex.unlock();
                 emit stopped();
+                m_mutex.lock();
             }
             m_cond.wakeAll();
             continue; // process next command
@@ -628,9 +636,13 @@ void Playback::run() {
             if(m_state == Playing) {
                 m_state = Paused;
                 if(!m_song.isTrackerSong()) {
+                    m_mutex.unlock();
                     m_mediaPlayer->pause();
+                    m_mutex.lock();
                 }
+                m_mutex.unlock();
                 emit paused();
+                m_mutex.lock();
             }
             m_cond.wakeAll();
             continue; // process next command
@@ -639,9 +651,13 @@ void Playback::run() {
             if(m_state == Paused) {
                 m_state = Playing;
                 if(!m_song.isTrackerSong()) {
+                    m_mutex.unlock();
                     m_mediaPlayer->play();
+                    m_mutex.lock();
                 }
+                m_mutex.unlock();
                 emit playing();
+                m_mutex.lock();
             }
             m_cond.wakeAll();
             continue; // process next command
@@ -652,14 +668,20 @@ void Playback::run() {
         if(endOfSongOrError == 0) // End of song
         {
             changeState(Loaded);
+            m_mutex.unlock();
             emit stopped();
+            m_mutex.lock();
             m_song.rewind();
-            emit finished();
+            m_mutex.unlock();
+            emit songFinished();
+            m_mutex.lock();
         }
         else if(endOfSongOrError < 0) // Error in song
         {
             changeState(Idle);
+            m_mutex.unlock();
             emit stopped();
+            m_mutex.lock();
             m_song.rewind();
         }
 
@@ -667,13 +689,9 @@ void Playback::run() {
     } // while loop
 
     m_mutex.unlock();
-#ifdef VERBOSE_LOGGING
     qDebug() << "[PLAYBACK]" << "Stopping playback...";
-#endif
     stopAudioDevice();
-#ifdef VERBOSE_LOGGING
     qDebug() << "[PLAYBACK]" << "Exiting playback thread";
-#endif
     changeState(Exit);
     QThread::exit(0);
 }
@@ -703,9 +721,7 @@ bool Playback::detectAudioDevice() {
                         cards.data(),
                         devices.data(),
                         SND_PCM_OPEN_PLAYBACK);
-#ifdef VERBOSE_LOGGING
     qDebug() << "[PLAYBACK]" << "Found" << m_numDevices << "audio devices for playback";
-#endif
     return rc > 0 && m_numDevices > 0;
 }
 
@@ -719,9 +735,7 @@ bool Playback::initPlayback() {
     ::snd_pcm_channel_info_t      channel_info;
     ::snd_pcm_channel_params_t    channel_params;
     ::snd_pcm_channel_setup_t     channel_setup;
-#ifdef VERBOSE_LOGGING
-    qDebug() << "[PLAYBACK]" << "Initializing selected audio device for playback...";
-#endif
+    qDebug() << "[PLAYBACK]" << "Initializing selected audio device...";
     if(m_numDevices == 0) {
         qDebug() << "[PLAYBACK]" << "No audio devices available!";
         return false;
@@ -744,9 +758,7 @@ bool Playback::initPlayback() {
     pcm_format.voices = m_config.stereo() ? 2 : 1;
     pcm_format.rate = m_config.frequency();
 
-#ifdef VERBOSE_LOGGING
     qDebug() << "[PLAYBACK]" << "PCM format: voices:" << pcm_format.voices << ", rate:" << pcm_format.rate << ", format:" << pcm_format.format;
-#endif
     if((err = ::snd_pcm_open_preferred(&m_playback_handle,
                                        &card,
                                        &device,
@@ -754,9 +766,7 @@ bool Playback::initPlayback() {
         qDebug() << "[PLAYBACK]" << "Failed to open preferred PCM device:" << ::snd_strerror(err);
         return false;
     } else {
-#ifdef VERBOSE_LOGGING
         qDebug() << "[PLAYBACK]" << "Opened preferred PCM device: card" << card << "device" << device;
-#endif
     }
 
     if (::snd_pcm_set_audioman_handle(m_playback_handle, m_audioman_handle) < 0 ) {
@@ -1034,8 +1044,7 @@ int Playback::updateChunk() {
         status.channel = SND_PCM_CHANNEL_PLAYBACK;
 
         if ((err = ::snd_pcm_plugin_status(m_playback_handle, &status)) < 0) {
-            qDebug().nospace() << "[PLAYBACK]" << "Failed to get PCM plugin status: error=" << err << "," << ::snd_strerror(err);
-            qDebug().space();
+            qDebug() << "[PLAYBACK]" << "Failed to get PCM plugin status: error" << err << "," << ::snd_strerror(err);
             m_song.update(true);
             return -1;
         } else {
@@ -1049,8 +1058,7 @@ int Playback::updateChunk() {
                 time_prepare_start = get_clock();
 #endif
                 if((err = ::snd_pcm_plugin_prepare(m_playback_handle, SND_PCM_CHANNEL_PLAYBACK)) < 0) {
-                    qDebug().nospace() << "[PLAYBACK]" << "Failed to prepare PCM plugin: error=" << err << "," << ::snd_strerror(err);
-                    qDebug().space();
+                    qDebug() << "[PLAYBACK]" << "Failed to prepare PCM plugin: error" << err << "," << ::snd_strerror(err);
                     m_song.update(true);
                     return -1;
                 } else {
@@ -1066,11 +1074,10 @@ int Playback::updateChunk() {
                     time_rewrite_end = get_clock();
 #endif
                     if(numWritten != bytesGenerated) {
-                        qDebug().nospace() << "[PLAYBACK]" << "Failed to write to PCM plugin: written="
+                        qDebug() << "[PLAYBACK]" << "Failed to write to PCM plugin: written"
                                            << numWritten
-                                           << ", wanted="
+                                           << "wanted"
                                            << bytesGenerated;
-                        qDebug().space();
                         m_song.update(true);
                         return -1;
                     }
@@ -1105,31 +1112,21 @@ void Playback::onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Ty
 }
 
 void Playback::onMediaPlayerError(bb::multimedia::MediaError::Type mediaError, unsigned int position) {
-    Q_UNUSED(mediaError)
-    Q_UNUSED(position)
-#ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerError: error=" << mediaError << ", position=" << position;
-    qDebug().space();
-#endif
+    qDebug() << "[PLAYBACK]" << "onMediaPlayerError: error" << mediaError << "position" << position;
 }
 
 void Playback::onMediaPlayerMediaStateChanged(bb::multimedia::MediaState::Type type) {
-    Q_UNUSED(type)
-#ifdef VERBOSE_LOGGING
-    qDebug() << "[PLAYBACK]" << "Playback::onMediaPlayerMediaStateChanged" << type;
-#endif
+    qDebug() << "[PLAYBACK]" << "onMediaPlayerMediaStateChanged" << type;
 }
 
 void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
-#ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerMetaDataChanged: metadata=" << metaData;
-    qDebug().space();
+    qDebug() << "[PLAYBACK]" << "onMediaPlayerMetaDataChanged: metadata" << metaData;
 
     QStringList keys = metaData.keys();
     foreach(QString key, keys) {
         qDebug() << key << "=" << metaData[key].toString();
     }
-#endif
+
     if(metaData.contains("title")) {
         m_song.setTitle(metaData["title"].toString());
     }
@@ -1155,24 +1152,15 @@ void Playback::onMediaPlayerMetaDataChanged(const QVariantMap &metaData) {
 }
 
 void Playback::onMediaPlayerPlaybackCompleted() {
-#ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerPlaybackCompleted";
-    qDebug().space();
-#endif
+    qDebug() << "[PLAYBACK]" << "onMediaPlayerPlaybackCompleted";
     m_mediaPlayer->stop();
     m_song.update(true);
     changeState(Loaded);
     emit stopped();
     m_song.rewind();
-    emit finished();
+    emit songFinished();
 }
 
 void Playback::onMediaPlayerPositionChanged(unsigned int position) {
-#if 0
-#ifdef VERBOSE_LOGGING
-    qDebug().nospace() << "[PLAYBACK]" << "Playback::onMediaPlayerPositionChanged: position=" << position;
-    qDebug().space();
-#endif
-#endif
     m_song.setCurrentOrder(position);
 }

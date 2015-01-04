@@ -10,11 +10,12 @@ ActionItem {
     onTriggered: {
         if (songList != null) {
             app.player.stop()
-            app.player.playlist.clear()
             var songCount = songList.size()
+            var songIds = []
             for(var i = 0; i < songCount; i++) {
-                app.player.playlist.add(songList.value(i).id)
+                songIds.push(songList.value(i).id)
             }
+            app.player.playlist.assign(songIds)
             app.player.playPlaylist()
         }
     }

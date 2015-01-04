@@ -101,8 +101,7 @@ Page {
                 }
                 function playSong(song) {
                     showPlayerView()
-                    app.player.playlist.clear()
-                    app.player.playlist.add(song.id)
+                    app.player.playlist.assign(song.id)
                     app.player.playPlaylist()
                 }
                 function addFavourite(song) {

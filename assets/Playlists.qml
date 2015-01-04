@@ -49,10 +49,7 @@ Page {
                 function playPlaylist(playlist) {
                     var songs = app.catalog.getPlaylistSongs(playlist.id)
                     if(songs.length > 0) {
-                        app.player.playlist.clear()
-                        for(var i = 0; i < songs.length; ++i) {
-                            app.player.playlist.add(songs[i])
-                        }
+                        app.player.playlist.assign(songs)
                     }
                     if(app.player.playlist.count > 0) {
                         app.player.playPlaylist()

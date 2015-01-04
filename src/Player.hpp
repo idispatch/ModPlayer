@@ -122,7 +122,7 @@ private slots:
     void onPaused();
     void onPlaying();
     void onStopped();
-    void onFinished();
+    void onSongFinished();
     void onMetaDataChanged();
     void onBufferingStatusChanged(int type);
     void onSongIconPathChanged();

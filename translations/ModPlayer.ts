@@ -22,17 +22,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="81"/>
+        <location filename="../assets/Albums.qml" line="76"/>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="88"/>
+        <location filename="../assets/Albums.qml" line="83"/>
         <source>Album %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="91"/>
+        <location filename="../assets/Albums.qml" line="86"/>
         <source>Play Album</source>
         <translation type="unfinished"></translation>
     </message>
@@ -823,7 +823,7 @@
 <context>
     <name>PlaylistControl</name>
     <message>
-        <location filename="../assets/PlaylistControl.qml" line="82"/>
+        <location filename="../assets/PlaylistControl.qml" line="25"/>
         <source>%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -854,22 +854,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="86"/>
+        <location filename="../assets/Playlists.qml" line="83"/>
         <source>%1 songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="92"/>
+        <location filename="../assets/Playlists.qml" line="89"/>
         <source>Playlist %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="95"/>
+        <location filename="../assets/Playlists.qml" line="92"/>
         <source>Play Playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="103"/>
+        <location filename="../assets/Playlists.qml" line="100"/>
         <source>Delete Playlist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1411,37 +1411,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="145"/>
-        <location filename="../assets/SongList.qml" line="189"/>
-        <location filename="../assets/SongList.qml" line="225"/>
+        <location filename="../assets/SongList.qml" line="144"/>
+        <location filename="../assets/SongList.qml" line="188"/>
+        <location filename="../assets/SongList.qml" line="224"/>
         <source>favourited %1 times</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="156"/>
-        <location filename="../assets/SongList.qml" line="174"/>
+        <location filename="../assets/SongList.qml" line="155"/>
+        <location filename="../assets/SongList.qml" line="173"/>
         <source>score %1 of 10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="161"/>
-        <location filename="../assets/SongList.qml" line="179"/>
-        <location filename="../assets/SongList.qml" line="218"/>
+        <location filename="../assets/SongList.qml" line="160"/>
+        <location filename="../assets/SongList.qml" line="178"/>
+        <location filename="../assets/SongList.qml" line="217"/>
         <source>%1 downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="238"/>
+        <location filename="../assets/SongList.qml" line="237"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="250"/>
+        <location filename="../assets/SongList.qml" line="249"/>
         <source>Add to Favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="257"/>
+        <location filename="../assets/SongList.qml" line="256"/>
         <source>Remove from Favourites</source>
         <translation type="unfinished"></translation>
     </message>
