@@ -33,8 +33,8 @@ PurchaseStore::PurchaseStore(QSettings &settings, QObject* parent)
                           this, SLOT(onExistingPurchasesFinished(bb::platform::ExistingPurchasesReply*)));
     Q_ASSERT(rc);
 
-    m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Test);
-    //m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Production);
+    //m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Test);
+    m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Production);
 }
 
 void PurchaseStore::buy() {
