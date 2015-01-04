@@ -127,27 +127,27 @@
     </message>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"></translation>
+        <translation>购买</translation>
     </message>
     <message>
         <source>You have enabled ModPlayer Plus features.</source>
-        <translation type="unfinished"></translation>
+        <translation>您已启用模块播放器高级版功能。</translation>
     </message>
     <message>
         <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
-        <translation type="unfinished"></translation>
+        <translation>如果您现在购买模块播放器高级版，您将获得模块播放器高级版所有扩展功能和免费获取未来更新。</translation>
     </message>
     <message>
         <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
-        <translation type="unfinished"></translation>
+        <translation>模块播放器高级版在免费版中添加扩展功能。</translation>
     </message>
     <message>
         <source>You need to buy ModPlayer Plus extended features only once.</source>
-        <translation type="unfinished"></translation>
+        <translation>您仅需要购买模块播放器高级版扩展功能一次。</translation>
     </message>
     <message>
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
-        <translation type="unfinished"></translation>
+        <translation>通过 &lt;b&gt;模块播放器&lt;/b&gt; 您将获得：&lt;br/&gt;&amp;#x2022; 自定义壁纸和背景&lt;br/&gt;&amp;#x2022;从设备和存储卡中导入歌曲&lt;br/&gt;&amp;#x2022;从模块播放器中导出歌曲到存储卡或设备内存&lt;br/&gt;&amp;#x2022; 从设备或存储卡中打开歌曲&lt;br/&gt;&amp;#x2022; 保存歌曲到设备或存储卡&lt;br/&gt;&amp;#x2022;转换轨道歌曲并保存到设备或存储卡</translation>
     </message>
 </context>
 <context>
@@ -182,7 +182,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="unfinished"></translation>
+        <translation>购买模块播放器高级版</translation>
     </message>
 </context>
 <context>
@@ -288,26 +288,26 @@
     <name>ExportCacheButton</name>
     <message>
         <source>Export Cache</source>
-        <translation type="unfinished">导出缓存</translation>
+        <translation>导出缓存</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">确认</translation>
+        <translation>确认</translation>
     </message>
     <message>
         <source>The song cache will now be exported to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation type="unfinished">歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
+        <translation>歌曲缓存将被导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
     </message>
     <message>
         <source>The song cache has been exported successfully to the &apos;ModPlayer&apos; directory in your device downloads directory</source>
-        <translation type="unfinished">歌曲缓存已成功导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
+        <translation>歌曲缓存已成功导出到您的设备下载目录中的&quot;模块播放器&quot;目录</translation>
     </message>
 </context>
 <context>
     <name>FirstLaunchHint</name>
     <message>
         <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;使用提示&lt;/b&gt;&lt;p&gt;从顶部下滑以配置模块播放器设置。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -411,7 +411,7 @@
     <name>ImportButton</name>
     <message>
         <source>Import My Songs</source>
-        <translation type="unfinished">导入我的歌曲</translation>
+        <translation>导入我的歌曲</translation>
     </message>
     <message>
         <source>Confirm</source>
@@ -576,11 +576,11 @@
     <name>Patterns</name>
     <message>
         <source>Patterns</source>
-        <translation type="unfinished">乐谱</translation>
+        <translation>乐谱</translation>
     </message>
     <message>
         <source>Pattern %1 (%2)</source>
-        <translation type="unfinished">乐谱 %1 (%2)</translation>
+        <translation>乐谱 %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -721,7 +721,7 @@
     <name>PlaylistControl</name>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2</translation>
     </message>
 </context>
 <context>
@@ -766,7 +766,7 @@
     <name>PleaseBuy</name>
     <message>
         <source>This feature is available in ModPlayer Plus.</source>
-        <translation type="unfinished"></translation>
+        <translation>该功能在模块播放器高级版中可用。</translation>
     </message>
 </context>
 <context>
@@ -835,15 +835,15 @@
     <name>SelectColor</name>
     <message>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation>选择颜色</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>确定</translation>
     </message>
 </context>
 <context>
@@ -1364,27 +1364,27 @@
     <name>WallpaperSelector</name>
     <message>
         <source>Background</source>
-        <translation type="unfinished">背景</translation>
+        <translation>背景</translation>
     </message>
     <message>
         <source>Browse for wallpaper</source>
-        <translation type="unfinished"></translation>
+        <translation>浏览壁纸</translation>
     </message>
     <message>
         <source>Wallpaper</source>
-        <translation type="unfinished"></translation>
+        <translation>壁纸</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>颜色</translation>
     </message>
     <message>
         <source>Browse for color</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Enable Background Animation</source>
-        <translation type="unfinished">启用背景动画</translation>
+        <translation>启用背景动画</translation>
     </message>
 </context>
 <context>
