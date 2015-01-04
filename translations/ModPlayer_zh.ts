@@ -576,11 +576,11 @@
     <name>Patterns</name>
     <message>
         <source>Patterns</source>
-        <translation type="obsolete">乐谱</translation>
+        <translation type="unfinished">乐谱</translation>
     </message>
     <message>
         <source>Pattern %1 (%2)</source>
-        <translation type="obsolete">乐谱 %1 (%2)</translation>
+        <translation type="unfinished">乐谱 %1 (%2)</translation>
     </message>
 </context>
 <context>

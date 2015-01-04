@@ -90,6 +90,7 @@ private slots:
     void onProcessStateChanged(bb::ProcessState::Type);
     void onPurchaseStateChanged();
 private:
+    void initPurchases();
     void initSignals();
     void initTypes();
     void initApp();

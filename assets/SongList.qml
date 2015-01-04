@@ -1,6 +1,6 @@
 import bb.cascades 1.0
-import "functions.js" as Global
 import player 1.0
+import "functions.js" as Global
 
 Page {
     id: songListPage

@@ -51,7 +51,7 @@ Page {
         },
         BuyActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-        }
+        },
         AppWorldActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         }

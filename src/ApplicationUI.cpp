@@ -71,7 +71,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     initApp();
     initActiveCover();
     initPlayer();
-    m_purchaseStore.retrieveLocalPurchases();
+    initPurchases();
 }
 
 ApplicationUI::~ApplicationUI() {
@@ -103,7 +103,7 @@ bool ApplicationUI::isForeground() const {
 }
 
 bool ApplicationUI::isExtendedVersion() {
-    return m_purchaseStore.isPurchased("ModPlayerPlus");
+    return m_purchaseStore.isPurchased();
 }
 
 void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
@@ -125,6 +125,11 @@ void ApplicationUI::onPurchaseStateChanged() {
     emit isExtendedVersionChanged();
 }
 
+void ApplicationUI::initPurchases() {
+    m_purchaseStore.loadLocalPurchases();
+    m_purchaseStore.loadPurchasesFromStore();
+}
+
 void ApplicationUI::initSignals() {
     bool rc;
     rc = QObject::connect(m_app, SIGNAL(aboutToQuit()),
@@ -139,7 +144,7 @@ void ApplicationUI::initSignals() {
                           this,            SLOT(onInvoked(const bb::system::InvokeRequest&)));
     Q_ASSERT(rc);
 
-    rc = QObject::connect(&m_purchaseStore, SIGNAL(purchaseRetrieved(QString const&)),
+    rc = QObject::connect(&m_purchaseStore, SIGNAL(isPurchasedChanged()),
                           this,            SLOT(onPurchaseStateChanged()));
 
     Q_ASSERT(rc);

@@ -580,11 +580,11 @@
     <name>Patterns</name>
     <message>
         <source>Patterns</source>
-        <translation type="obsolete">Пэттерны</translation>
+        <translation>Пэттерны</translation>
     </message>
     <message>
         <source>Pattern %1 (%2)</source>
-        <translation type="obsolete">Пэттерн %1 (%2)</translation>
+        <translation>Пэттерн %1 (%2)</translation>
     </message>
 </context>
 <context>

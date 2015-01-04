@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import QtQuick 1.0
 import player 1.0
 
 Container {
@@ -12,15 +13,35 @@ Container {
     leftPadding: 20
     rightPadding: 20
     bottomPadding: 20
-    onDisplayAllowedChanged: {
-        if(displayAllowed) {
+    function updateDisplay() {
+        if(playlistCounter.displayAllowed) {
             hideAnimation.stop()
             showAnimation.play()
+            displayTimer.restart()
         } else {
+            displayTimer.stop()
             showAnimation.stop()
             hideAnimation.play()
         }
     }
+    onDisplayAllowedChanged: {
+        updateDisplay()
+    }
+    onCreationCompleted: {
+        app.player.playlist.countChanged.connect(updateDisplay)
+        app.player.playlist.currentChanged.connect(updateDisplay)
+    }
+    attachedObjects: [
+        Timer {
+            id: displayTimer
+            interval: 3000
+            repeat: false
+            onTriggered: { 
+                showAnimation.stop()
+                hideAnimation.play() 
+            }
+        }
+    ]
     Container {
         horizontalAlignment: HorizontalAlignment.Right
         verticalAlignment: VerticalAlignment.Bottom

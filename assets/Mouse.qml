@@ -1,5 +1,6 @@
 import bb.cascades 1.0
 import QtQuick 1.0
+import player 1.0
 
 ImageView {
     property bool mouseActive: false

@@ -1,6 +1,5 @@
 import bb.cascades 1.0
 import bb.system 1.0
-import bb.platform 1.0
 import player 1.0
 import "functions.js" as Global
 
@@ -11,7 +10,17 @@ Sheet {
         if(app.isExtendedVersion)
             return
         app.analytics.purchase("Start");
-        paymentManager.requestPurchase("", "ModPlayerPlus", "", "", "")
+        app.store.buy()
+    }
+    function purchaseSucceeded(info) {
+        buyResult.body = qsTr("You have enabled ModPlayer Plus features.") + Retranslate.onLanguageChanged
+        buyResult.exec()
+        app.analytics.purchase("Purchase succeeded")
+    }
+    function purchaseFailed(info) {
+        buyResult.body = info
+        buyResult.exec()
+        app.analytics.purchase("Purchase failed: " + info)
     }
     onOpened: {
         app.analytics.buy(1)
@@ -21,9 +30,11 @@ Sheet {
         destroy()
     }
     onCreationCompleted: {
-        app.store.retrieveLocalPurchases()
-        paymentManager.setConnectionMode(0) // 0=sandbox mode | 1=production mode
-        paymentManager.requestExistingPurchases(false)
+        app.store.purchaseFailed.connect(purchaseFailed)
+        app.store.purchaseSucceeded.connect(purchaseSucceeded)
+        app.store.loadLocalPurchases()
+        app.store.loadPurchasesFromStore()
+        app.store.reloadPurchasesFromStore()
     }
     attachedObjects: [
         SystemToast {
@@ -31,31 +42,6 @@ Sheet {
             modality: SystemUiModality.Application
             position: SystemUiPosition.MiddleCenter
             button.label: "Ok"
-        },
-        PaymentManager {
-            id: paymentManager
-            onExistingPurchasesFinished: {
-                if(reply.errorCode == 0) {
-                    for(var i = 0; i < reply.purchases.length; ++i) {
-                        app.store.storePurchase(reply.purchases[i]["digitalGoodSku"]);
-                        console.log(reply.purchases[i].receipt["digitalGoodSku"]);
-                    }
-                } else {
-                    console.log("*** onExistingPurchasesFinished Error: " + reply.errorText);
-                }
-            }
-            onPurchaseFinished: {
-                if(reply.errorCode == 0) {
-                    app.store.storePurchase(reply.digitalGoodSku)
-                    app.analytics.purchase("Completed: " + reply.errorText);
-                    buyResult.body = qsTr("You have enabled ModPlayer Plus features.") + Retranslate.onLanguageChanged
-                } else {
-                    app.analytics.purchase("Failed: " + reply.errorText);
-                    buyResult.body = reply.errorText
-                }
-                buyResult.exec()
-                close()
-            }
         }
     ]
     Page {
@@ -182,16 +168,6 @@ Sheet {
                                          multiline: true
                                      }
                                  }
-                                 onCreationCompleted: infoAnimation.play()
-                                 animations: [
-                                     TranslateTransition {
-                                         id: infoAnimation
-                                         duration: 600
-                                         fromX: 1000
-                                         toX: 0
-                                         easingCurve: StockCurve.CubicIn
-                                     }
-                                 ]
                              }
                              ImageButton {
                                  visible: !app.isExtendedVersion
