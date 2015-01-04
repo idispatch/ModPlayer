@@ -311,7 +311,7 @@
     <name>FirstLaunchHint</name>
     <message>
         <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Добро пожаловать!&lt;/b&gt;&lt;p&gt;Свайп от верхней панели вниз чтобы настроить ModPlayer.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -725,7 +725,7 @@
     <name>PlaylistControl</name>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 из %2</translation>
     </message>
 </context>
 <context>
