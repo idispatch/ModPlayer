@@ -7,8 +7,12 @@ ActionItem {
     imageSource: "asset:///images/actions/icon_patterns.png"
     enabled: app.player.currentSong.songLoaded
     onTriggered : {
-        var view = patternsViewDefinition.createObject()
-        navigationPane.push(view)
+        if(navigationPane) {
+            var view = patternsViewDefinition.createObject()
+            if(view) {
+                navigationPane.push(view)
+            }
+        }
     }
     attachedObjects: [
         ComponentDefinition {

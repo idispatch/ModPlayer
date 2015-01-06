@@ -496,7 +496,6 @@ TabbedPane {
         settingsAction: SettingsActionItem {
             id: settingsActionItem
             title: qsTr("Settings") + Retranslate.onLanguageChanged
-            enabled: true
             onTriggered : {
                 settingsView.createObject(mainTabPane).open()
             }

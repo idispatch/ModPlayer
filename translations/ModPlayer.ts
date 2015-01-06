@@ -727,78 +727,78 @@
     <name>Player</name>
     <message>
         <location filename="../src/Player.cpp" line="43"/>
-        <location filename="../src/Player.cpp" line="705"/>
+        <location filename="../src/Player.cpp" line="752"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="266"/>
-        <location filename="../src/Player.cpp" line="295"/>
-        <location filename="../src/Player.cpp" line="614"/>
+        <location filename="../src/Player.cpp" line="313"/>
+        <location filename="../src/Player.cpp" line="342"/>
+        <location filename="../src/Player.cpp" line="661"/>
         <source>Downloading song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="303"/>
+        <location filename="../src/Player.cpp" line="350"/>
         <source>Unpacking song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="315"/>
+        <location filename="../src/Player.cpp" line="362"/>
         <source>Failed to prepare song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="320"/>
+        <location filename="../src/Player.cpp" line="367"/>
         <source>Caching song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="331"/>
+        <location filename="../src/Player.cpp" line="378"/>
         <source>Failed to download song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="507"/>
-        <location filename="../src/Player.cpp" line="697"/>
-        <location filename="../src/Player.cpp" line="752"/>
+        <location filename="../src/Player.cpp" line="554"/>
+        <location filename="../src/Player.cpp" line="744"/>
+        <location filename="../src/Player.cpp" line="799"/>
         <source>Playing Internet Radio Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="511"/>
-        <location filename="../src/Player.cpp" line="700"/>
-        <location filename="../src/Player.cpp" line="756"/>
+        <location filename="../src/Player.cpp" line="558"/>
+        <location filename="../src/Player.cpp" line="747"/>
+        <location filename="../src/Player.cpp" line="803"/>
         <source>Playing %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="595"/>
+        <location filename="../src/Player.cpp" line="642"/>
         <source>Resolving %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="644"/>
+        <location filename="../src/Player.cpp" line="691"/>
         <source>Select Song Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="692"/>
+        <location filename="../src/Player.cpp" line="739"/>
         <source>Paused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="769"/>
+        <location filename="../src/Player.cpp" line="816"/>
         <source>Please support ModPlayer - write a review in BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="778"/>
+        <location filename="../src/Player.cpp" line="825"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="779"/>
+        <location filename="../src/Player.cpp" line="826"/>
         <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -949,17 +949,17 @@
 <context>
     <name>SelectColor</name>
     <message>
-        <location filename="../assets/SelectColor.qml" line="10"/>
+        <location filename="../assets/SelectColor.qml" line="12"/>
         <source>Select Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SelectColor.qml" line="12"/>
+        <location filename="../assets/SelectColor.qml" line="14"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SelectColor.qml" line="16"/>
+        <location filename="../assets/SelectColor.qml" line="20"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1248,6 +1248,47 @@
     <message>
         <location filename="../assets/Settings.qml" line="629"/>
         <source>Surrond Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SleepTimerActionItem</name>
+    <message>
+        <location filename="../assets/SleepTimerActionItem.qml" line="5"/>
+        <source>Sleep Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SleepTimerSettings</name>
+    <message>
+        <location filename="../assets/SleepTimerSettings.qml" line="12"/>
+        <source>Sleep Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SleepTimerSettings.qml" line="14"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SleepTimerSettings.qml" line="20"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SleepTimerSettings.qml" line="46"/>
+        <source>Stop playback in %1 minute(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SleepTimerSettings.qml" line="60"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/SleepTimerSettings.qml" line="60"/>
+        <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

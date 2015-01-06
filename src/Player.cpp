@@ -60,6 +60,7 @@ Player::Player(QSettings &settings, QObject * parent)
     initNowPlaying();
     initPlaylist();
     initCatalog();
+    initSleepTimer();
 }
 
 Player::~Player() {
@@ -214,6 +215,52 @@ void Player::initPlaylist() {
                           this,       SLOT(onPlaylistPreviousAvailableChanged()));
     Q_ASSERT(rc);
     Q_UNUSED(rc);
+}
+
+int Player::sleepTimeout() const {
+    return m_sleepTimer.interval() / 60000;
+}
+
+void Player::setSleepTimeout(int value) {
+    if(m_sleepTimer.interval() / 60000 != value) {
+        m_sleepTimer.setInterval(value * 60000);
+        qDebug() << "Sleep timeout:" << sleepTimeout();
+        emit sleepTimeoutChanged();
+    }
+}
+
+void Player::initSleepTimer() {
+    m_sleepTimer.setSingleShot(true);
+    setSleepTimeout(15); // 15 minutes
+
+    bool rc;
+    rc = QObject::connect(&m_sleepTimer, SIGNAL(timeout()),
+                          this,          SLOT(onSleepTimerTimeout()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+}
+
+void Player::startSleepTimer() {
+    if(!sleepTimerActive()) {
+        m_sleepTimer.start();
+        emit sleepTimerActiveChanged();
+    }
+}
+
+void Player::cancelSleepTimer() {
+    if(sleepTimerActive()) {
+        m_sleepTimer.stop();
+        emit sleepTimerActiveChanged();
+    }
+}
+
+bool Player::sleepTimerActive() const {
+    return m_sleepTimer.isActive();
+}
+
+void Player::onSleepTimerTimeout() {
+    stop();
+    emit sleepTimerActiveChanged();
 }
 
 void Player::onPlaylistNextAvailableChanged() {

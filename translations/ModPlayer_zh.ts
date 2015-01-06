@@ -1105,6 +1105,51 @@
     </message>
 </context>
 <context>
+    <name>SleepTimerAction</name>
+    <message>
+        <source>Close</source>
+        <translation type="obsolete">关闭</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="obsolete">确定</translation>
+    </message>
+</context>
+<context>
+    <name>SleepTimerActionItem</name>
+    <message>
+        <source>Sleep Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SleepTimerSettings</name>
+    <message>
+        <source>Sleep Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">关闭</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished">确定</translation>
+    </message>
+    <message>
+        <source>Stop playback in %1 minute(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SongArtistInfo</name>
     <message>
         <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>

@@ -104,6 +104,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SearchArea.qml) \
         $$quote($$BASEDIR/assets/SelectColor.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \
+        $$quote($$BASEDIR/assets/SleepTimerActionItem.qml) \
+        $$quote($$BASEDIR/assets/SleepTimerSettings.qml) \
         $$quote($$BASEDIR/assets/SongAlbumArt.qml) \
         $$quote($$BASEDIR/assets/SongArtistIcon.qml) \
         $$quote($$BASEDIR/assets/SongArtistInfo.qml) \

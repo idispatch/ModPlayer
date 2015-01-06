@@ -4,13 +4,17 @@ import player 1.0
 
 Sheet {
     id: colorSheet
-    onClosed: destroy()
+    onClosed: {
+        colorSheet.destroy()
+    }
     Page {
         titleBar: PlayerTitleBar {
             title: qsTr("Select Color") + Retranslate.onLanguageChanged
             dismissAction: ActionItem {
                 title: qsTr("Close") + Retranslate.onLanguageChanged
-                onTriggered: close()
+                onTriggered: {
+                    colorSheet.close()
+                }
             }
             acceptAction: ActionItem {
                 title: qsTr("Ok") + Retranslate.onLanguageChanged
@@ -20,7 +24,7 @@ Sheet {
                         app.wallpaper.color = colorList.d
                         app.wallpaper.solidColor = true
                     }
-                    close()
+                    colorSheet.close()
                 }
             } 
         }

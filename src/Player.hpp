@@ -7,6 +7,7 @@
 #include <QUrl>
 #include <QSettings>
 #include <QStringList>
+#include <QTimer>
 #include <bb/multimedia/BufferStatus>
 #include <bb/system/SystemProgressToast>
 #include "InstanceCounter.hpp"
@@ -59,6 +60,14 @@ public:
     Q_PROPERTY(Playlist* playlist READ playlist NOTIFY playlistChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
 
+    Q_PROPERTY(int sleepTimeout READ sleepTimeout WRITE setSleepTimeout NOTIFY sleepTimeoutChanged FINAL)
+    Q_PROPERTY(bool sleepTimerActive READ sleepTimerActive NOTIFY sleepTimerActiveChanged FINAL)
+
+    int sleepTimeout() const;
+    void setSleepTimeout(int value);
+
+    bool sleepTimerActive() const;
+
     bool lightTheme() const;
     State state() const;
 
@@ -93,6 +102,9 @@ public:
                                QString const& outputFileName);
     Q_INVOKABLE void importSongs();
 
+    Q_INVOKABLE void startSleepTimer();
+    Q_INVOKABLE void cancelSleepTimer();
+
     using InstanceCounter<Player>::getInstanceCount;
     using InstanceCounter<Player>::getMaxInstanceCount;
 Q_SIGNALS:
@@ -107,6 +119,9 @@ Q_SIGNALS:
     void playlistChanged();
     void currentSongChanged();
     void importCompleted();
+
+    void sleepTimeoutChanged();
+    void sleepTimerActiveChanged();
 private slots:
     /* For FilePicker */
     void onLocalSongSelected(const QStringList&);
@@ -144,6 +159,9 @@ private slots:
 
     /* For Importer */
     void onImportSongsCompleted();
+
+    /* For Sleep Timer */
+    void onSleepTimerTimeout();
 protected:
     void timerEvent(QTimerEvent *event);
 private:
@@ -157,6 +175,7 @@ private:
     void initPlayback();
     void initNowPlaying();
     void initPlaylist();
+    void initSleepTimer();
 
     void changeStatus(State state, QString const& statusText);
     bool beginPlay(bool fromCatalog, QString const& fileName, QString const& icon);
@@ -187,6 +206,7 @@ private:
     bb::system::SystemProgressToast m_progressToast;
     std::auto_ptr<SuspendPlayback> m_playBackSuspend;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
+    QTimer m_sleepTimer;
 };
 
 Q_DECLARE_METATYPE(Player*);
