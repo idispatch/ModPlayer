@@ -139,15 +139,27 @@
     </message>
     <message>
         <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
-        <translation>模块播放器高级版在免费版中添加扩展功能。</translation>
+        <translation type="obsolete">模块播放器高级版在免费版中添加扩展功能。</translation>
     </message>
     <message>
         <source>You need to buy ModPlayer Plus extended features only once.</source>
-        <translation>您仅需要购买模块播放器高级版扩展功能一次。</translation>
+        <translation type="obsolete">您仅需要购买模块播放器高级版扩展功能一次。</translation>
     </message>
     <message>
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
-        <translation>通过 &lt;b&gt;模块播放器&lt;/b&gt; 您将获得：&lt;br/&gt;&amp;#x2022; 自定义壁纸和背景&lt;br/&gt;&amp;#x2022;从设备和存储卡中导入歌曲&lt;br/&gt;&amp;#x2022;从模块播放器中导出歌曲到存储卡或设备内存&lt;br/&gt;&amp;#x2022; 从设备或存储卡中打开歌曲&lt;br/&gt;&amp;#x2022; 保存歌曲到设备或存储卡&lt;br/&gt;&amp;#x2022;转换轨道歌曲并保存到设备或存储卡</translation>
+        <translation type="obsolete">通过 &lt;b&gt;模块播放器&lt;/b&gt; 您将获得：&lt;br/&gt;&amp;#x2022; 自定义壁纸和背景&lt;br/&gt;&amp;#x2022;从设备和存储卡中导入歌曲&lt;br/&gt;&amp;#x2022;从模块播放器中导出歌曲到存储卡或设备内存&lt;br/&gt;&amp;#x2022; 从设备或存储卡中打开歌曲&lt;br/&gt;&amp;#x2022; 保存歌曲到设备或存储卡&lt;br/&gt;&amp;#x2022;转换轨道歌曲并保存到设备或存储卡</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus is a one-time in-app purchase for $0.99, it includes future updates and is valid indefinitely.</source>
+        <translation>模块播放器是一次性应用内购，价格为0.99美元，它包括了未来更新和无有限期限。</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus adds extended features to the free version of ModPlayer.</source>
+        <translation>模块播放器高级版在免费版中添加了扩展功能。</translation>
+    </message>
+    <message>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card&lt;br/&gt;&amp;#x2022; Sleep timer that stops playback automatically</source>
+        <translation>通过 &lt;b&gt;模块播放器高级版&lt;/b&gt; 您将获得：&lt;br/&gt;&amp;#x2022; 自定义壁纸和背景&lt;br/&gt;&amp;#x2022; 从设备和存储卡中导入歌曲&lt;br/&gt;&amp;#x2022; 从模块播放器缓存中导出歌曲到存储卡或设备内存&lt;br/&gt;&amp;#x2022; 从设备或存储卡中打开歌曲&lt;br/&gt;&amp;#x2022; 保存歌曲到设备或存储卡&lt;br/&gt;&amp;#x2022; 转换轨道歌曲为MP3并保存到设备或存储卡&lt;br/&gt;&amp;#x2022; 睡眠定时器允许自动停止播放</translation>
     </message>
 </context>
 <context>
@@ -270,7 +282,7 @@
     </message>
     <message>
         <source>All playlists have been deleted</source>
-        <translation>所有播放列表已删除</translation>
+        <translation>所有播放列表已被删除</translation>
     </message>
 </context>
 <context>
@@ -624,7 +636,7 @@
     <name>PlayAllActionItem</name>
     <message>
         <source>Play All</source>
-        <translation>播放所有</translation>
+        <translation>播放全部</translation>
     </message>
 </context>
 <context>
@@ -1119,38 +1131,38 @@
     <name>SleepTimerActionItem</name>
     <message>
         <source>Sleep Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>睡眠定时器</translation>
     </message>
 </context>
 <context>
     <name>SleepTimerSettings</name>
     <message>
         <source>Sleep Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>睡眠定时器</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished">确定</translation>
+        <translation>确定</translation>
     </message>
     <message>
         <source>Stop playback in %1 minute(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>在 %1 分钟后停止播放 </translation>
     </message>
     <message>
         <source>Cancel Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>取消定时器</translation>
     </message>
     <message>
         <source>Start Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>开始定时器</translation>
     </message>
     <message>
         <source>Playback will stop in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>播放将在 %1 停止</translation>
     </message>
 </context>
 <context>
@@ -1168,7 +1180,7 @@
     </message>
     <message>
         <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>流派 &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>流派： &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Format: %1</source>
@@ -1176,7 +1188,7 @@
     </message>
     <message>
         <source>Tracker: %1</source>
-        <translation>来源：%1</translation>
+        <translation>轨道：%1</translation>
     </message>
     <message>
         <source>Album: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -1313,7 +1325,7 @@
     </message>
     <message>
         <source>Size: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>大小: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>大小： &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Length: &lt;b&gt;%1&lt;/b&gt;</source>
@@ -1363,7 +1375,7 @@
     </message>
     <message>
         <source>Last played %1</source>
-        <translation>上次播放 %1</translation>
+        <translation>上次播放在 %1</translation>
     </message>
     <message>
         <source>You liked this song</source>

@@ -5,11 +5,11 @@ ActionItem {
     title: qsTr("Open Song from Device") + Retranslate.onLanguageChanged
     imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_load_song.png" : "asset:///images/actions/icon_lock.png"
     onTriggered: {
-        if(!app.isExtendedVersion) {
+        if(app.isExtendedVersion) {
+            app.player.browseForLocalSong()
+        } else {
             pleaseBuy.exec()
-            return
         }
-        app.player.browseForLocalSong()
     }
     attachedObjects: [
         PleaseBuy {

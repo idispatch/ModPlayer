@@ -158,13 +158,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="146"/>
-        <source>You need to buy ModPlayer Plus extended features only once.</source>
+        <location filename="../assets/Buy.qml" line="130"/>
+        <source>ModPlayer Plus adds extended features to the free version of ModPlayer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../assets/Buy.qml" line="167"/>
-        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card&lt;br/&gt;&amp;#x2022; Sleep timer that stops playback automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -174,12 +174,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="130"/>
-        <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
+        <location filename="../assets/Buy.qml" line="138"/>
+        <source>ModPlayer Plus is a one-time in-app purchase for $0.99, it includes future updates and is valid indefinitely.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="138"/>
+        <location filename="../assets/Buy.qml" line="146"/>
         <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
         <translation type="unfinished"></translation>
     </message>

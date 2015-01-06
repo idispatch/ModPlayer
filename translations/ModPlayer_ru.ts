@@ -143,15 +143,27 @@
     </message>
     <message>
         <source>ModPlayer Plus edition adds extended features to the free version of ModPlayer.</source>
-        <translation>ModPlayer Plus добавляет расширенные функции к бесплатной версии ModPlayer.</translation>
+        <translation type="obsolete">ModPlayer Plus добавляет расширенные функции к бесплатной версии ModPlayer.</translation>
     </message>
     <message>
         <source>You need to buy ModPlayer Plus extended features only once.</source>
-        <translation>ModPlayer Plus достаточно купить один раз, будущие обновления включены.</translation>
+        <translation type="obsolete">ModPlayer Plus достаточно купить один раз, будущие обновления включены.</translation>
     </message>
     <message>
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card</source>
-        <translation>В &lt;b&gt;ModPlayer Plus&lt;/b&gt; включено: &lt;br/&gt;&amp;#x2022; Настраиваемые обои и фон&lt;br/&gt;&amp;#x2022; Импорт песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Экспорт песен из кэша ModPlayer на SD карту или в память телефона&lt;br/&gt;&amp;#x2022; Загрузка песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Сохранение песен на телефон или SD карту&lt;br/&gt;&amp;#x2022; Конвертирование трекерных песен в формат MP3</translation>
+        <translation type="obsolete">В &lt;b&gt;ModPlayer Plus&lt;/b&gt; включено: &lt;br/&gt;&amp;#x2022; Настраиваемые обои и фон&lt;br/&gt;&amp;#x2022; Импорт песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Экспорт песен из кэша ModPlayer на SD карту или в память телефона&lt;br/&gt;&amp;#x2022; Загрузка песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Сохранение песен на телефон или SD карту&lt;br/&gt;&amp;#x2022; Конвертирование трекерных песен в формат MP3</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus is a one-time in-app purchase for $0.99, it includes future updates and is valid indefinitely.</source>
+        <translation>ModPlayer Plus это однократное платное обновление за $0.99, которое включает последующие релизы.</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus adds extended features to the free version of ModPlayer.</source>
+        <translation>ModPlayer Plus добавляет расширенные функции к бесплатной версии ModPlayer.</translation>
+    </message>
+    <message>
+        <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card&lt;br/&gt;&amp;#x2022; Sleep timer that stops playback automatically</source>
+        <translation>В &lt;b&gt;ModPlayer Plus&lt;/b&gt; включено: &lt;br/&gt;&amp;#x2022; Настраиваемые обои и фон&lt;br/&gt;&amp;#x2022; Импорт песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Экспорт песен из кэша ModPlayer на SD карту или в память телефона&lt;br/&gt;&amp;#x2022; Загрузка песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Сохранение песен на телефон или SD карту&lt;br/&gt;&amp;#x2022; Конвертирование трекерных песен в формат MP3&lt;br/&gt;&amp;#x2022; Таймер остановки воспроизведения</translation>
     </message>
 </context>
 <context>
@@ -1123,38 +1135,38 @@
     <name>SleepTimerActionItem</name>
     <message>
         <source>Sleep Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>Таймер</translation>
     </message>
 </context>
 <context>
     <name>SleepTimerSettings</name>
     <message>
         <source>Sleep Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>Таймер сна</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished">Готово</translation>
+        <translation>Готово</translation>
     </message>
     <message>
         <source>Stop playback in %1 minute(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановить плеер через %1 мин.</translation>
     </message>
     <message>
         <source>Cancel Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановить таймер</translation>
     </message>
     <message>
         <source>Start Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить таймер</translation>
     </message>
     <message>
         <source>Playback will stop in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановить плеер через %1</translation>
     </message>
 </context>
 <context>
