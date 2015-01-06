@@ -1141,11 +1141,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
+        <source>Playback will stop in %1 minute(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Start</source>
+        <source>Cancel Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Timer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

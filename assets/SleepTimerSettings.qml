@@ -43,7 +43,7 @@ Sheet {
                     rightPadding: 60
                     BlackLabel {
                         horizontalAlignment: HorizontalAlignment.Center
-                        text: qsTr("Stop playback in %1 minute(s)").arg(app.player.sleepTimeout) + Retranslate.onLanguageChanged
+                        text: app.player.sleepTimerActive ? qsTr("Playback will stop in %1 minute(s)").arg(app.player.sleepTimeout) + Retranslate.onLanguageChanged : qsTr("Stop playback in %1 minute(s)").arg(app.player.sleepTimeout) + Retranslate.onLanguageChanged
                     }
                     Slider {
                         topMargin: 60
@@ -57,7 +57,7 @@ Sheet {
                         }
                     }
                     Button {
-                        text: app.player.sleepTimerActive ? qsTr("Cancel") + Retranslate.onLanguageChanged : qsTr("Start") + Retranslate.onLanguageChanged
+                        text: app.player.sleepTimerActive ? qsTr("Cancel Timer") + Retranslate.onLanguageChanged : qsTr("Start Timer") + Retranslate.onLanguageChanged
                         horizontalAlignment: HorizontalAlignment.Center
                         onClicked: {
                             if(app.player.sleepTimerActive) {
