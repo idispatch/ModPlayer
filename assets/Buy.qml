@@ -127,7 +127,15 @@ Sheet {
                              visible: !app.isExtendedVersion
                              topPadding: 20
                              BlackLabel {
-                                 text: qsTr("ModPlayer Plus edition adds extended features to the free version of ModPlayer.") + Retranslate.onLanguageChanged
+                                 text: qsTr("ModPlayer Plus adds extended features to the free version of ModPlayer.") + Retranslate.onLanguageChanged
+                                 horizontalAlignment: HorizontalAlignment.Fill
+                                 textFormat: TextFormat.Html
+                                 textStyle.fontSize: FontSize.Small
+                                 textStyle.fontWeight: FontWeight.W100
+                                 multiline: true
+                             }
+                             BlackLabel {
+                                 text: qsTr("ModPlayer Plus is a one-time in-app purchase for $0.99, it includes future updates and is valid indefinitely.") + Retranslate.onLanguageChanged
                                  horizontalAlignment: HorizontalAlignment.Fill
                                  textFormat: TextFormat.Html
                                  textStyle.fontSize: FontSize.Small
@@ -136,14 +144,6 @@ Sheet {
                              }
                              BlackLabel {
                                  text: qsTr("If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.") + Retranslate.onLanguageChanged
-                                 horizontalAlignment: HorizontalAlignment.Fill
-                                 textFormat: TextFormat.Html
-                                 textStyle.fontSize: FontSize.Small
-                                 textStyle.fontWeight: FontWeight.W100
-                                 multiline: true
-                             }
-                             BlackLabel {
-                                 text: qsTr("You need to buy ModPlayer Plus extended features only once.") + Retranslate.onLanguageChanged
                                  horizontalAlignment: HorizontalAlignment.Fill
                                  textFormat: TextFormat.Html
                                  textStyle.fontSize: FontSize.Small
@@ -164,7 +164,7 @@ Sheet {
                                      rightPadding: 10
                                      horizontalAlignment: HorizontalAlignment.Fill
                                      BlackLabel {
-                                         text: qsTr("With <b>ModPlayer Plus</b> you will get:<br/>&#x2022; Custom wallpapers and backgrounds<br/>&#x2022; Import songs from device and SD card<br/>&#x2022; Export songs from ModPlayer cache to SD card or device memory<br/>&#x2022; Open songs from device or SD card<br/>&#x2022; Saving songs to device or SD card<br/>&#x2022; Converting tracker songs to MP3 and saving to device or SD card") + Retranslate.onLanguageChanged
+                                         text: qsTr("With <b>ModPlayer Plus</b> you will get:<br/>&#x2022; Custom wallpapers and backgrounds<br/>&#x2022; Import songs from device and SD card<br/>&#x2022; Export songs from ModPlayer cache to SD card or device memory<br/>&#x2022; Open songs from device or SD card<br/>&#x2022; Saving songs to device or SD card<br/>&#x2022; Converting tracker songs to MP3 and saving to device or SD card<br/>&#x2022; Sleep timer that stops playback automatically") + Retranslate.onLanguageChanged
                                          horizontalAlignment: HorizontalAlignment.Fill
                                          textFormat: TextFormat.Html
                                          textStyle.fontSize: FontSize.Small
