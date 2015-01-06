@@ -105,6 +105,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SelectColor.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \
         $$quote($$BASEDIR/assets/SleepTimerActionItem.qml) \
+        $$quote($$BASEDIR/assets/SleepTimerDisplay.qml) \
         $$quote($$BASEDIR/assets/SleepTimerSettings.qml) \
         $$quote($$BASEDIR/assets/SongAlbumArt.qml) \
         $$quote($$BASEDIR/assets/SongArtistIcon.qml) \
@@ -381,6 +382,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Playlist.cpp) \
         $$quote($$BASEDIR/src/PurchaseStore.cpp) \
         $$quote($$BASEDIR/src/Radio.cpp) \
+        $$quote($$BASEDIR/src/SleepTimer.cpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.cpp) \
         $$quote($$BASEDIR/src/SongFormat.cpp) \
@@ -525,6 +527,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Playlist.hpp) \
         $$quote($$BASEDIR/src/PurchaseStore.hpp) \
         $$quote($$BASEDIR/src/Radio.hpp) \
+        $$quote($$BASEDIR/src/SleepTimer.hpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.hpp) \
         $$quote($$BASEDIR/src/SongFormat.hpp) \

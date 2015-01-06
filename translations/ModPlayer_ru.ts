@@ -1145,16 +1145,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Playback will stop in %1 minute(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cancel Timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Start Timer</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playback will stop in %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SlepTimerDisplay</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="obsolete">%1 из %2</translation>
     </message>
 </context>
 <context>

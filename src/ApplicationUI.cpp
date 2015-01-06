@@ -44,6 +44,7 @@
 #include "PurchaseStore.hpp"
 #include "PlayActionItem.hpp"
 #include "PauseActionItem.hpp"
+#include "SleepTimer.hpp"
 #include "FileUtils.hpp"
 
 using namespace bb::data;
@@ -253,6 +254,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Radio>(QmlNamespace, versionMajor, versionMinor, "Radio", "");
     qmlRegisterUncreatableType<Wallpaper>(QmlNamespace, versionMajor, versionMinor, "Wallpaper", "");
     qmlRegisterUncreatableType<PurchaseStore>(QmlNamespace, versionMajor, versionMinor, "PurchaseStore", "");
+    qmlRegisterUncreatableType<SleepTimer>(QmlNamespace, versionMajor, versionMinor, "SleepTimer", "");
 }
 
 void ApplicationUI::initApp() {

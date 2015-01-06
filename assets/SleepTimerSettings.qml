@@ -19,8 +19,8 @@ Sheet {
             acceptAction: ActionItem {
                 title: qsTr("Ok") + Retranslate.onLanguageChanged
                 onTriggered: {
-                    if(!app.player.sleepTimerActive) {
-                        app.player.startSleepTimer()
+                    if(!app.player.sleepTimer.timerActive) {
+                        app.player.sleepTimer.start()
                     }
                     sleepTimerSheet.close()
                 }
@@ -43,32 +43,33 @@ Sheet {
                     rightPadding: 60
                     BlackLabel {
                         horizontalAlignment: HorizontalAlignment.Center
-                        text: app.player.sleepTimerActive ? qsTr("Playback will stop in %1 minute(s)").arg(app.player.sleepTimeout) + Retranslate.onLanguageChanged : qsTr("Stop playback in %1 minute(s)").arg(app.player.sleepTimeout) + Retranslate.onLanguageChanged
+                        text: app.player.sleepTimer.timerActive ? qsTr("Playback will stop in %1").arg(app.player.sleepTimer.status) + Retranslate.onLanguageChanged : qsTr("Stop playback in %1 minute(s)").arg(app.player.sleepTimer.sleepTimeout) + Retranslate.onLanguageChanged
                     }
                     Slider {
                         topMargin: 60
                         bottomMargin: 60
                         fromValue: 1
                         toValue: 60
-                        enabled: !app.player.sleepTimerActive
-                        value: app.player.sleepTimeout
+                        enabled: !app.player.sleepTimer.timerActive
+                        value: app.player.sleepTimer.sleepTimeout
                         onImmediateValueChanged: {
-                            app.player.sleepTimeout = immediateValue
+                            app.player.sleepTimer.sleepTimeout = immediateValue
                         }
                     }
                     Button {
-                        text: app.player.sleepTimerActive ? qsTr("Cancel Timer") + Retranslate.onLanguageChanged : qsTr("Start Timer") + Retranslate.onLanguageChanged
+                        text: app.player.sleepTimer.timerActive ? qsTr("Cancel Timer") + Retranslate.onLanguageChanged : qsTr("Start Timer") + Retranslate.onLanguageChanged
                         horizontalAlignment: HorizontalAlignment.Center
                         onClicked: {
-                            if(app.player.sleepTimerActive) {
-                                app.player.cancelSleepTimer()
+                            if(app.player.sleepTimer.timerActive) {
+                                app.player.sleepTimer.cancel()
                             } else {
-                                app.player.startSleepTimer()
+                                app.player.sleepTimer.start()
                             }
                         }
                     }
                 }
             }
+            SleepTimerDisplay {}
         }
     }
 }

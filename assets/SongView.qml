@@ -79,6 +79,7 @@ Page {
                 }
             }
         }
+        SleepTimerDisplay {}
         PlaylistControl {}
         Mouse {
             id: mouse

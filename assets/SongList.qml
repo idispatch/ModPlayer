@@ -306,6 +306,7 @@ Page {
                 ]
             }
         }
+        SleepTimerDisplay {}
         PlaylistControl {}
         FirstLaunchHint{}
     }

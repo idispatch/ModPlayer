@@ -32,6 +32,7 @@ Page {
                 }
             }
         }
+        SleepTimerDisplay {}
         PlaylistControl {}
     }
     actions: [ 

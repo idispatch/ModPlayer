@@ -52,6 +52,7 @@ Page {
                 ]
             }
         }
+        SleepTimerDisplay {}
         PlaylistControl {}
     }
     function load() {

@@ -32,6 +32,7 @@ Page {
                 bottomPadding: 20
             }
         }
+        SleepTimerDisplay {}
         PlaylistControl {}
     }
     onCreationCompleted: {

@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <bb/multimedia/BufferStatus>
 #include <bb/system/SystemProgressToast>
+#include "SleepTimer.hpp"
 #include "InstanceCounter.hpp"
 
 class Cache;
@@ -59,14 +60,9 @@ public:
     Q_PROPERTY(Playback* playback READ playback NOTIFY playbackChanged FINAL)
     Q_PROPERTY(Playlist* playlist READ playlist NOTIFY playlistChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
+    Q_PROPERTY(SleepTimer* sleepTimer READ sleepTimer NOTIFY sleepTimerChanged FINAL)
 
-    Q_PROPERTY(int sleepTimeout READ sleepTimeout WRITE setSleepTimeout NOTIFY sleepTimeoutChanged FINAL)
-    Q_PROPERTY(bool sleepTimerActive READ sleepTimerActive NOTIFY sleepTimerActiveChanged FINAL)
-
-    int sleepTimeout() const;
-    void setSleepTimeout(int value);
-
-    bool sleepTimerActive() const;
+    SleepTimer* sleepTimer();
 
     bool lightTheme() const;
     State state() const;
@@ -102,8 +98,6 @@ public:
                                QString const& outputFileName);
     Q_INVOKABLE void importSongs();
 
-    Q_INVOKABLE void startSleepTimer();
-    Q_INVOKABLE void cancelSleepTimer();
 
     using InstanceCounter<Player>::getInstanceCount;
     using InstanceCounter<Player>::getMaxInstanceCount;
@@ -119,9 +113,7 @@ Q_SIGNALS:
     void playlistChanged();
     void currentSongChanged();
     void importCompleted();
-
-    void sleepTimeoutChanged();
-    void sleepTimerActiveChanged();
+    void sleepTimerChanged();
 private slots:
     /* For FilePicker */
     void onLocalSongSelected(const QStringList&);
@@ -206,7 +198,7 @@ private:
     bb::system::SystemProgressToast m_progressToast;
     std::auto_ptr<SuspendPlayback> m_playBackSuspend;
     bb::multimedia::NowPlayingConnection * m_nowPlaying;
-    QTimer m_sleepTimer;
+    SleepTimer m_sleepTimer;
 };
 
 Q_DECLARE_METATYPE(Player*);

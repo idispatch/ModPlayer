@@ -112,8 +112,8 @@ Page {
                     }
                 ]
             }
-            
         }
+        SleepTimerDisplay {}
         PlaylistControl {}
     }
     function unload() {
