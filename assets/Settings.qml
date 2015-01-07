@@ -607,7 +607,7 @@ Sheet {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
                                 Label {
-                                    text: qsTr("Surrond Depth") + Retranslate.onLanguageChanged
+                                    text: qsTr("Surround Depth") + Retranslate.onLanguageChanged
                                     visible: surroundEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
@@ -626,7 +626,7 @@ Sheet {
                                     }
                                 }
                                 Label {
-                                    text: qsTr("Surrond Delay") + Retranslate.onLanguageChanged
+                                    text: qsTr("Surround Delay") + Retranslate.onLanguageChanged
                                     visible: surroundEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic

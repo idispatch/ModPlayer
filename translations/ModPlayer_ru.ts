@@ -1009,11 +1009,11 @@
     </message>
     <message>
         <source>Surrond Depth</source>
-        <translation>Глубина</translation>
+        <translation type="obsolete">Глубина</translation>
     </message>
     <message>
         <source>Surrond Delay</source>
-        <translation>Задержка</translation>
+        <translation type="obsolete">Задержка</translation>
     </message>
     <message>
         <source>The song cache has been purged</source>
@@ -1118,6 +1118,14 @@
     <message>
         <source>Enable Background Animation</source>
         <translation type="obsolete">Анимация</translation>
+    </message>
+    <message>
+        <source>Surround Depth</source>
+        <translation>Глубина</translation>
+    </message>
+    <message>
+        <source>Surround Delay</source>
+        <translation>Задержка</translation>
     </message>
 </context>
 <context>

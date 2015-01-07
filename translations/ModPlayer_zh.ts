@@ -1005,11 +1005,11 @@
     </message>
     <message>
         <source>Surrond Depth</source>
-        <translation>环绕深度</translation>
+        <translation type="obsolete">环绕深度</translation>
     </message>
     <message>
         <source>Surrond Delay</source>
-        <translation>环绕延迟</translation>
+        <translation type="obsolete">环绕延迟</translation>
     </message>
     <message>
         <source>The song cache has been purged</source>
@@ -1114,6 +1114,14 @@
     <message>
         <source>Enable Background Animation</source>
         <translation type="obsolete">启用背景动画</translation>
+    </message>
+    <message>
+        <source>Surround Depth</source>
+        <translation>环绕深度</translation>
+    </message>
+    <message>
+        <source>Surround Delay</source>
+        <translation>环绕延迟</translation>
     </message>
 </context>
 <context>

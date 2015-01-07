@@ -1242,12 +1242,12 @@
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="610"/>
-        <source>Surrond Depth</source>
+        <source>Surround Depth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="629"/>
-        <source>Surrond Delay</source>
+        <source>Surround Delay</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
