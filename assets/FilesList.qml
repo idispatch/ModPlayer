@@ -25,6 +25,8 @@ Page {
         layout: DockLayout {}
         WallpaperView {}
         Container {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Center
             topPadding: 20
             bottomPadding: 20
             leftPadding: 20
@@ -42,7 +44,7 @@ Page {
                 ListView {
                     id: filesList
                     horizontalAlignment: HorizontalAlignment.Fill
-                    verticalAlignment: VerticalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Center
                     topPadding: 20
                     bottomPadding: topPadding
                     leftPadding: 10

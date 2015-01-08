@@ -362,12 +362,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/FilesList.qml" line="75"/>
+        <location filename="../assets/FilesList.qml" line="77"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/FilesList.qml" line="116"/>
+        <location filename="../assets/FilesList.qml" line="118"/>
         <source>No songs in this directory</source>
         <translation type="unfinished"></translation>
     </message>
