@@ -252,10 +252,8 @@ Page {
         }
     }
     Container {
-        layout: DockLayout {
-        }
-        WallpaperView {
-        }
+        layout: DockLayout {}
+        WallpaperView {}
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
@@ -308,6 +306,8 @@ Page {
                 }
             }
         }
+        SleepTimerDisplay {}
+        PlaylistControl {}
     }
      function unload() {
          progress.start()
