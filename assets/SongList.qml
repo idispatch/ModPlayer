@@ -69,7 +69,7 @@ Page {
             HorizontalContainer {
                 id: listEmpty
                 horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Center
                 Label {
                     text: qsTr("No songs in this list") + Retranslate.onLanguageChanged
                     horizontalAlignment: HorizontalAlignment.Center

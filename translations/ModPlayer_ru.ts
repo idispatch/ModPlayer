@@ -335,22 +335,22 @@
     <name>FileEntry</name>
     <message>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Папка</translation>
     </message>
 </context>
 <context>
     <name>FilesList</name>
     <message>
         <source>Select Songs</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите песни</translation>
     </message>
     <message>
         <source>This feature is available in ModPlayer Plus.</source>
-        <translation type="unfinished">Эта функция доступна в ModPlayer Plus.</translation>
+        <translation>Эта функция доступна в ModPlayer Plus.</translation>
     </message>
     <message>
         <source>No songs in this directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Здесь песен нет</translation>
     </message>
 </context>
 <context>
@@ -1723,11 +1723,11 @@
     </message>
     <message>
         <source>File System</source>
-        <translation type="unfinished"></translation>
+        <translation>Файловая система</translation>
     </message>
     <message>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы</translation>
     </message>
 </context>
 </TS>
