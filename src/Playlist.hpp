@@ -27,7 +27,7 @@ private:
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged FINAL)
     Q_PROPERTY(int count READ count NOTIFY countChanged FINAL)
     Q_PROPERTY(int remainingCount READ remainingCount NOTIFY remainingCountChanged FINAL)
-    Q_PROPERTY(int current READ current NOTIFY currentChanged FINAL)
+    Q_PROPERTY(QVariant currentSong READ currentSong NOTIFY currentSongChanged FINAL)
     Q_PROPERTY(int position READ position NOTIFY positionChanged FINAL)
     Q_PROPERTY(bool nextAvailable READ nextAvailable NOTIFY nextAvailableChanged FINAL)
     Q_PROPERTY(bool previousAvailable READ previousAvailable NOTIFY previousAvailableChanged FINAL)
@@ -42,13 +42,13 @@ public:
     Q_INVOKABLE void reset();
     Q_INVOKABLE void add(QVariant item);
     Q_INVOKABLE void assign(QVariant item);
-    Q_INVOKABLE int next();
-    Q_INVOKABLE int previous();
+    Q_INVOKABLE QVariant next();
+    Q_INVOKABLE QVariant previous();
 
     Q_INVOKABLE bool isRandom() const;
     Q_INVOKABLE bool isCyclic() const;
 
-    int current() const;
+    QVariant currentSong() const;
     int position() const;
     int count() const;
     int remainingCount() const;
@@ -62,7 +62,7 @@ public:
 private:
     class State {
         const Mode m_mode;
-        const int m_current;
+        const QVariant m_currentSong;
         const int m_position;
         const int m_count;
         const int m_remainingCount;
@@ -75,7 +75,7 @@ private:
     public:
         State(Playlist * p)
             : m_mode(p->mode()),
-            m_current(p->current()),
+            m_currentSong(p->currentSong()),
             m_position(p->position()),
             m_count(p->count()),
             m_remainingCount(p->remainingCount()),
@@ -85,7 +85,7 @@ private:
             m_isCyclic(p->isCyclic())
         {}
         Mode mode() const { return m_mode; }
-        int current() const { return m_current; }
+        QVariant currentSong() const { return m_currentSong; }
         int position() const { return m_position; }
         int count() const { return m_count; }
         int remainingCount() const { return m_remainingCount; }
@@ -98,7 +98,7 @@ private:
     void notify(State const& state);
 Q_SIGNALS:
     void modeChanged();
-    void currentChanged();
+    void currentSongChanged();
     void positionChanged();
     void countChanged();
     void remainingCountChanged();
@@ -107,9 +107,9 @@ Q_SIGNALS:
     void isRandomChanged();
     void isCyclicChanged();
 private:
-    Mode m_mode;
-    std::vector<int> m_songs;
-    size_t m_position;
+    Mode                    m_mode;
+    std::vector<QVariant>   m_songs;
+    size_t                  m_position;
 };
 
 Q_DECLARE_METATYPE(Playlist*);

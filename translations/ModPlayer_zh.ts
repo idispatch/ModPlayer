@@ -87,6 +87,10 @@
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation>享受模块播放器应用在我的黑莓10设备上，在BlackBerry World中查看！</translation>
     </message>
+    <message>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation>该功能在模块播放器高级版中可用。</translation>
+    </message>
 </context>
 <context>
     <name>ArtistsList</name>
@@ -331,22 +335,26 @@
     <name>FileEntry</name>
     <message>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>目录</translation>
     </message>
 </context>
 <context>
     <name>FilesList</name>
     <message>
-        <source>Select Songs</source>
-        <translation type="unfinished"></translation>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation type="obsolete">该功能在模块播放器高级版中可用。</translation>
     </message>
     <message>
-        <source>This feature is available in ModPlayer Plus.</source>
-        <translation type="unfinished">该功能在模块播放器高级版中可用。</translation>
+        <source>Play</source>
+        <translation>播放</translation>
+    </message>
+    <message>
+        <source>Select Songs</source>
+        <translation>搜索歌曲</translation>
     </message>
     <message>
         <source>No songs in this directory</source>
-        <translation type="unfinished"></translation>
+        <translation>列表中无歌曲</translation>
     </message>
 </context>
 <context>
@@ -819,7 +827,7 @@
     <name>PleaseBuy</name>
     <message>
         <source>This feature is available in ModPlayer Plus.</source>
-        <translation>该功能在模块播放器高级版中可用。</translation>
+        <translation type="obsolete">该功能在模块播放器高级版中可用。</translation>
     </message>
 </context>
 <context>
@@ -1719,11 +1727,11 @@
     </message>
     <message>
         <source>File System</source>
-        <translation type="unfinished"></translation>
+        <translation>文件系统</translation>
     </message>
     <message>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>文件系统</translation>
     </message>
 </context>
 </TS>

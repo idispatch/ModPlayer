@@ -91,6 +91,10 @@
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</translation>
     </message>
+    <message>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation>Эта функция доступна в ModPlayer Plus.</translation>
+    </message>
 </context>
 <context>
     <name>ArtistsList</name>
@@ -346,11 +350,15 @@
     </message>
     <message>
         <source>This feature is available in ModPlayer Plus.</source>
-        <translation>Эта функция доступна в ModPlayer Plus.</translation>
+        <translation type="obsolete">Эта функция доступна в ModPlayer Plus.</translation>
     </message>
     <message>
         <source>No songs in this directory</source>
         <translation>Здесь песен нет</translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation>Играть</translation>
     </message>
 </context>
 <context>
@@ -823,7 +831,7 @@
     <name>PleaseBuy</name>
     <message>
         <source>This feature is available in ModPlayer Plus.</source>
-        <translation>Эта функция доступна в ModPlayer Plus.</translation>
+        <translation type="obsolete">Эта функция доступна в ModPlayer Plus.</translation>
     </message>
 </context>
 <context>

@@ -71,6 +71,7 @@ public:
     Q_INVOKABLE void twit();
     Q_INVOKABLE void bbm();
     Q_INVOKABLE void appWorld();
+    Q_INVOKABLE void pleaseBuy();
 
     static const char * QmlNamespace;
 Q_SIGNALS:

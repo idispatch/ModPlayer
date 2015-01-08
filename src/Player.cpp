@@ -556,32 +556,32 @@ bool Player::beginPlay(bool fromCatalog, QString const& fileName, QString const&
 }
 
 void Player::playPlaylist() {
-    if(m_playlist->current() != 0) {
-        int songId = m_playlist->current();
-        playByModuleId(songId);
+    QVariant currentSong = m_playlist->currentSong();
+    if(currentSong.type() == QVariant::Int) {
+        bool bOk;
+        int songId = currentSong.toInt(&bOk);
+        if(bOk && songId != 0) {
+            playByModuleId(songId);
+        }
+    } else if(currentSong.type() == QVariant::String) {
+        QString fileName = currentSong.toString();
+        playByModuleFileName(fileName, SongFormat::getIconPath(fileName));
     }
 }
 
 void Player::play(QVariant value) {
-    if(value.type() == QVariant::Int)
-    {
+    if(value.type() == QVariant::Int) {
         playByModuleId(value.toInt());
-    }
-    else if(value.type() == QVariant::String)
-    {
+    } else if(value.type() == QVariant::String) {
         QString valueString = value.toString();
         bool parseableInt = false;
         int id = valueString.toInt(&parseableInt, 10);
-        if(parseableInt)
-        {
+        if(parseableInt) {
             playByModuleId(id);
-        }
-        else
-        {
+        } else {
             playByModuleFileName(valueString, SongFormat::getIconPath(valueString));
         }
-    }
-    else {
+    } else {
         SongExtendedInfo * info = songExtendedInfo(value);
         if(info != 0) {
             playByModuleFileName(info->fileName(), info->iconPath());
@@ -726,14 +726,14 @@ void Player::onStopped() {
 void Player::onSongFinished() {
     switch(m_playlist->mode()){
     case Playlist::SongCycle:
-        if(m_playlist->current() != 0) {
+        if(m_playlist->remainingCount() > 0) {
             m_playback->play();
         }
         break;
     case Playlist::PlaylistOnce:
     case Playlist::PlaylistRandomOnce:
         if(m_playlist->nextAvailable()) {
-            playByModuleId(m_playlist->next());
+            play(m_playlist->next());
         } else {
             m_playlist->reset();
         }
@@ -741,7 +741,7 @@ void Player::onSongFinished() {
     case Playlist::PlaylistCycle:
     case Playlist::PlaylistRandomCycle:
         if(m_playlist->nextAvailable()) {
-            playByModuleId(m_playlist->next());
+            play(m_playlist->next());
         }
         break;
     default:
@@ -833,7 +833,7 @@ void Player::playNext() {
     case Playlist::PlaylistOnce:
     case Playlist::PlaylistRandomOnce:
         if(m_playlist->nextAvailable()) {
-            playByModuleId(m_playlist->next());
+            play(m_playlist->next());
         } else {
             m_playlist->reset();
         }
@@ -842,7 +842,7 @@ void Player::playNext() {
     case Playlist::PlaylistCycle:
     case Playlist::PlaylistRandomCycle:
         if(m_playlist->nextAvailable()) {
-            playByModuleId(m_playlist->next());
+            play(m_playlist->next());
         }
         break;
     default:
@@ -852,8 +852,8 @@ void Player::playNext() {
 
 void Player::playPrevious() {
     if(m_playlist->previousAvailable()) {
-        int songId = m_playlist->previous();
-        playByModuleId(songId);
+        QVariant song = m_playlist->previous();
+        play(song);
     }
 }
 

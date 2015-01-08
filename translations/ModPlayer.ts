@@ -91,18 +91,23 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="370"/>
+        <location filename="../src/ApplicationUI.cpp" line="371"/>
         <source>Hello, ModPlayer Author!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="389"/>
+        <location filename="../src/ApplicationUI.cpp" line="390"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="401"/>
+        <location filename="../src/ApplicationUI.cpp" line="402"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ApplicationUI.cpp" line="421"/>
+        <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -357,12 +362,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/FilesList.qml" line="23"/>
-        <source>This feature is available in ModPlayer Plus.</source>
+        <location filename="../assets/FilesList.qml" line="75"/>
+        <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/FilesList.qml" line="94"/>
+        <location filename="../assets/FilesList.qml" line="116"/>
         <source>No songs in this directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -723,7 +728,7 @@
 <context>
     <name>PlayAllActionItem</name>
     <message>
-        <location filename="../assets/PlayAllActionItem.qml" line="7"/>
+        <location filename="../assets/PlayAllActionItem.qml" line="8"/>
         <source>Play All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -909,14 +914,6 @@
     </message>
 </context>
 <context>
-    <name>PleaseBuy</name>
-    <message>
-        <location filename="../assets/PleaseBuy.qml" line="9"/>
-        <source>This feature is available in ModPlayer Plus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>PreviousActionItem</name>
     <message>
         <location filename="../assets/PreviousActionItem.qml" line="5"/>
@@ -964,27 +961,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="60"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="57"/>
         <source>Save Song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="72"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="69"/>
         <source>The song %1 has been saved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="81"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="78"/>
         <source>Select Save Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="91"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="88"/>
         <source>Original format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SaveSongActionItem.qml" line="92"/>
+        <location filename="../assets/SaveSongActionItem.qml" line="89"/>
         <source>MP3 format</source>
         <translation type="unfinished"></translation>
     </message>

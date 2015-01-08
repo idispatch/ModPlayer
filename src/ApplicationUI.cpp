@@ -12,6 +12,7 @@
 #include <bb/cascades/pickers/FileType>
 #include <bb/data/DataSource>
 #include <bb/system/InvokeManager>
+#include <bb/system/SystemToast>
 #include <bb/platform/PaymentManager>
 #include <bb/ApplicationInfo>
 
@@ -412,4 +413,15 @@ void ApplicationUI::appWorld() {
     request.setMimeType("text/plain");
     request.setUri(QUrl("appworld://content/35007887"));
     m_invokeManager->invoke(request);
+}
+
+void ApplicationUI::pleaseBuy() {
+    if(!isExtendedVersion()) {
+        SystemToast toast;
+        toast.setBody(tr("This feature is available in ModPlayer Plus."));
+        toast.setModality(SystemUiModality::Application);
+        toast.setPosition(SystemUiPosition::MiddleCenter);
+        toast.button()->setLabel("Ok");
+        toast.exec();
+    }
 }

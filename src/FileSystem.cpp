@@ -2,6 +2,14 @@
 #include "FileEntry.hpp"
 #include "FileUtils.hpp"
 
+namespace {
+    struct FileNameLess {
+        bool operator()(const FileEntry* a, const FileEntry* b) const {
+            return a->fileName().compare(b->fileName()) < 0;
+        }
+    };
+}
+
 FileSystem::FileSystem(QStringList const& filters, QObject * parent)
     : QObject(parent) {
     m_filters.reserve(filters.size());
@@ -28,7 +36,8 @@ bb::cascades::ArrayDataModel* FileSystem::listRoot() {
         "/accounts/1000/shared/downloads",
         "/accounts/1000/removable/sdcard",
         "/accounts/1000/shared/Box",
-        "/accounts/1000/shared/Dropbox"
+        "/accounts/1000/shared/Dropbox",
+        "/accounts/1000/shared/OneDrive"
     };
 
     QList<FileEntry*> roots;
@@ -85,6 +94,9 @@ bb::cascades::ArrayDataModel* FileSystem::listFiles(QString const& path) {
         } while (direntItem != NULL);
         ::closedir(dirp);
     }
+
+    qSort(foundDirectories.begin(), foundDirectories.end(), FileNameLess());
+    qSort(foundFiles.begin(), foundFiles.end(), FileNameLess());
 
     foreach(FileEntry * directory, foundDirectories) {
         model->append(QVariant::fromValue(static_cast<QObject*>(directory)));

@@ -8,16 +8,13 @@ ActionItem {
         if(app.isExtendedVersion) {
             sleepTimerSettings.createObject().open()
         } else {
-            pleaseBuy.exec()
+            app.pleaseBuy()
         }
     }
     attachedObjects: [
         ComponentDefinition {
             id: sleepTimerSettings
             source: "SleepTimerSettings.qml"
-        },
-        PleaseBuy {
-            id: pleaseBuy
         }
     ]
 }

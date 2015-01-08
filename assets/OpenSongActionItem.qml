@@ -8,12 +8,7 @@ ActionItem {
         if(app.isExtendedVersion) {
             app.player.browseForLocalSong()
         } else {
-            pleaseBuy.exec()
+            app.pleaseBuy()
         }
     }
-    attachedObjects: [
-        PleaseBuy {
-            id: pleaseBuy
-        }
-    ]
 }

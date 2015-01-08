@@ -37,9 +37,9 @@ bool Playlist::isCyclic() const {
            m_mode == SongCycle;
 }
 
-int Playlist::current() const {
+QVariant Playlist::currentSong() const {
     if(m_songs.empty()) {
-        return 0;
+        return QVariant();
     } else {
         return m_songs[position()];
     }
@@ -75,12 +75,14 @@ void Playlist::addImpl(QVariant value) {
         const int numItems = collection.length();
         for(int i = 0; i < numItems; i++) {
             QVariant const& p = collection[i];
-            if(p.type() == QVariant::Int) {
-                m_songs.push_back(p.value<int>());
+            if(p.type() == QVariant::Int ||
+               p.type() == QVariant::String) {
+                m_songs.push_back(p);
             }
         }
-    } else if(value.type() == QVariant::Int) {
-        m_songs.push_back(value.value<int>());
+    } else if(value.type() == QVariant::Int ||
+              value.type() == QVariant::String) {
+        m_songs.push_back(value);
     }
     if(m_position >= m_songs.size()) {
         m_position = 0;
@@ -122,7 +124,7 @@ int Playlist::remainingCount() const {
     }
 }
 
-int Playlist::next() {
+QVariant Playlist::next() {
     State state(this);
     switch(m_mode) {
     case PlaylistOnce:
@@ -145,7 +147,7 @@ int Playlist::next() {
             if(m_position < m_songs.size() - 1) {
                 ++m_position;
             }
-            std::vector<int>::iterator i = m_songs.begin();
+            std::vector<QVariant>::iterator i = m_songs.begin();
             std::advance(i, m_position);
             std::random_shuffle(i, m_songs.end());
         }
@@ -155,7 +157,7 @@ int Playlist::next() {
             if(++m_position >= m_songs.size()) {
                 m_position = 0;
             }
-            std::vector<int>::iterator i = m_songs.begin();
+            std::vector<QVariant>::iterator i = m_songs.begin();
             std::advance(i, m_position);
             std::random_shuffle(i, m_songs.end());
         }
@@ -164,10 +166,10 @@ int Playlist::next() {
         break;
     }
     notify(state);
-    return current();
+    return currentSong();
 }
 
-int Playlist::previous() {
+QVariant Playlist::previous() {
     State state(this);
     switch(m_mode) {
     case PlaylistOnce:
@@ -207,7 +209,7 @@ int Playlist::previous() {
         break;
     }
     notify(state);
-    return current();
+    return currentSong();
 }
 
 bool Playlist::previousAvailable() const {
@@ -262,8 +264,8 @@ void Playlist::setMode(Playlist::Mode mode) {
 }
 
 void Playlist::notify(State const& state) {
-    if(state.current() != current()) {
-        emit currentChanged();
+    if(state.currentSong() != currentSong()) {
+        emit currentSongChanged();
     }
     if(state.position() != position()) {
         emit positionChanged();
@@ -292,8 +294,7 @@ void Playlist::notify(State const& state) {
 }
 
 QDebug operator << (QDebug dbg, Playlist const &p) {
-    dbg.nospace() << "CurrentID: " << p.current()
-                  << ", Count: " << p.count()
+    dbg.nospace() << "Count: " << p.count()
                   << ", RemainingCount: " << p.remainingCount()
                   << ", PreviousAvailble: " << (p.previousAvailable() ? "true":"false")
                   << ", NextAvailable: " << (p.nextAvailable() ? "true":"false")

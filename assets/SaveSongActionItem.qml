@@ -14,7 +14,7 @@ ActionItem {
     enabled: certain && app.cache.exists(currentSong)
     onTriggered: {
         if(!app.isExtendedVersion) {
-            pleaseBuy.exec()
+            app.pleaseBuy()
             return
         }
         var result = selectSaveFormat.run()
@@ -47,9 +47,6 @@ ActionItem {
         })
     }
     attachedObjects: [
-        PleaseBuy {
-            id: pleaseBuy
-        },
         FilePicker {
             id: filePicker
             property string cacheFileName
