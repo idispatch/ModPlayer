@@ -154,7 +154,7 @@
     </message>
     <message>
         <location filename="../assets/Buy.qml" line="65"/>
-        <location filename="../assets/Buy.qml" line="204"/>
+        <location filename="../assets/Buy.qml" line="205"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -179,7 +179,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="193"/>
+        <location filename="../assets/Buy.qml" line="194"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>

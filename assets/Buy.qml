@@ -189,6 +189,7 @@ Sheet {
                                 visible: !app.isExtendedVersion
                             }
                             HorizontalContainer {
+                                horizontalAlignment: HorizontalAlignment.Center
                                 Button {
                                     text: qsTr("Refresh") + Retranslate.onLanguageChanged
                                     horizontalAlignment: HorizontalAlignment.Center
