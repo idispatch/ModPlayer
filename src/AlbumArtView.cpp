@@ -111,9 +111,7 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
         struct dirent64 *direntItem;
         do {
             if ((direntItem = ::readdir64(dirp)) != NULL) {
-                if(direntItem->d_name[0] == '.' &&
-                   (direntItem->d_name[1] == '\0' ||
-                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
+                if(direntItem->d_name[0] == '.') {
                     continue;
                 }
 
@@ -154,9 +152,7 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory) {
         struct dirent64 *direntItem;
         do {
             if ((direntItem = ::readdir64(dirp)) != NULL) {
-                if(direntItem->d_name[0] == '.' &&
-                   (direntItem->d_name[1] == '\0' ||
-                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
+                if(direntItem->d_name[0] == '.') {
                     continue;
                 }
 
@@ -199,9 +195,7 @@ QByteArray AlbumArtLoader::loadSingleImage(QString const& directory) {
         struct dirent64 *direntItem;
         do {
             if ((direntItem = ::readdir64(dirp)) != NULL) {
-                if(direntItem->d_name[0] == '.' &&
-                   (direntItem->d_name[1] == '\0' ||
-                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
+                if(direntItem->d_name[0] == '.') {
                     continue;
                 }
 

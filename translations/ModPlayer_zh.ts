@@ -340,6 +340,10 @@
         <source>Select Songs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation type="unfinished">该功能在模块播放器高级版中可用。</translation>
+    </message>
 </context>
 <context>
     <name>FirstLaunchHint</name>

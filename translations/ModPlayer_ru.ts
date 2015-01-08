@@ -344,6 +344,10 @@
         <source>Select Songs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This feature is available in ModPlayer Plus.</source>
+        <translation type="unfinished">Эта функция доступна в ModPlayer Plus.</translation>
+    </message>
 </context>
 <context>
     <name>FirstLaunchHint</name>

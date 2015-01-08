@@ -3,8 +3,17 @@
 #include "FileUtils.hpp"
 
 FileSystem::FileSystem(QStringList const& filters, QObject * parent)
-    : QObject(parent),
-      m_filters(filters) {
+    : QObject(parent) {
+    m_filters.reserve(filters.size());
+    std::transform(filters.begin(), filters.end(),
+                   std::back_inserter(m_filters),
+                   createExtensionFilter);
+}
+
+QString FileSystem::createExtensionFilter(QString const& p) {
+    if(p.startsWith(QChar('*')))
+        return p.mid(1); // remove star from file extension
+    return p;
 }
 
 bool FileSystem::fileMatches(QString const& fileName) {
@@ -54,15 +63,12 @@ bb::cascades::ArrayDataModel* FileSystem::listFiles(QString const& path) {
         struct dirent64 *direntItem;
         do {
             if ((direntItem = ::readdir64(dirp)) != NULL) {
-                if(direntItem->d_name[0] == '.' &&
-                   (direntItem->d_name[1] == '\0' ||
-                    (direntItem->d_name[1] == '.' && direntItem->d_name[2] == '\0'))) {
+                if(direntItem->d_name[0] == '.') {
                     continue;
                 }
 
                 QString fileName = QString::fromUtf8(direntItem->d_name);
-                QString absoluteFileName = FileUtils::joinPath(path,
-                                                               fileName);
+                QString absoluteFileName = FileUtils::joinPath(path, fileName);
                 struct stat64 st;
                 if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
                     if(st.st_mode & S_IFREG) {

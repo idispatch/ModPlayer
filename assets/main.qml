@@ -153,7 +153,7 @@ TabbedPane {
         title: qsTr("File System") + Retranslate.onLanguageChanged
         objectName: title
         description: qsTr("Files") + Retranslate.onLanguageChanged
-        imageSource: "asset:///images/actions/icon_albums.png"
+        imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_files.png" : "asset:///images/actions/icon_lock.png"
         onTriggered: {
             app.analytics.showPage(title)
             songFiles.load()

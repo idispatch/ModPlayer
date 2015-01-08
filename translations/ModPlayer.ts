@@ -344,7 +344,7 @@
 <context>
     <name>FileEntry</name>
     <message>
-        <location filename="../src/FileEntry.cpp" line="35"/>
+        <location filename="../src/FileEntry.cpp" line="43"/>
         <source>Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -352,8 +352,13 @@
 <context>
     <name>FilesList</name>
     <message>
-        <location filename="../assets/FilesList.qml" line="12"/>
+        <location filename="../assets/FilesList.qml" line="13"/>
         <source>Select Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/FilesList.qml" line="23"/>
+        <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -63,6 +63,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
         $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
+        $$quote($$BASEDIR/assets/FileEntryView.qml) \
         $$quote($$BASEDIR/assets/FilesList.qml) \
         $$quote($$BASEDIR/assets/FirstLaunchHint.qml) \
         $$quote($$BASEDIR/assets/FormatsList.qml) \
@@ -140,6 +141,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_downloads.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_email.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_favourite.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_files.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_format.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_genres.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_import.png) \
@@ -249,6 +251,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/formats/icon-skyfm.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_669.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_album.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_directory.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_it.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_med.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_mod.png) \
@@ -291,6 +294,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/led/led_off.png) \
         $$quote($$BASEDIR/assets/images/led/led_on.png) \
         $$quote($$BASEDIR/assets/images/objects/cache.png) \
+        $$quote($$BASEDIR/assets/images/objects/cursor.png) \
         $$quote($$BASEDIR/assets/images/objects/lock.png) \
         $$quote($$BASEDIR/assets/images/objects/memory.png) \
         $$quote($$BASEDIR/assets/images/objects/mouse.png) \
