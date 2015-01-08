@@ -63,6 +63,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
         $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
+        $$quote($$BASEDIR/assets/FilesList.qml) \
         $$quote($$BASEDIR/assets/FirstLaunchHint.qml) \
         $$quote($$BASEDIR/assets/FormatsList.qml) \
         $$quote($$BASEDIR/assets/GenresList.qml) \
@@ -362,7 +363,9 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/CatalogAsync.cpp) \
         $$quote($$BASEDIR/src/CatalogInit.cpp) \
         $$quote($$BASEDIR/src/Downloader.cpp) \
+        $$quote($$BASEDIR/src/FileEntry.cpp) \
         $$quote($$BASEDIR/src/FileSelector.cpp) \
+        $$quote($$BASEDIR/src/FileSystem.cpp) \
         $$quote($$BASEDIR/src/FileUtils.cpp) \
         $$quote($$BASEDIR/src/Importer.cpp) \
         $$quote($$BASEDIR/src/InternetRadio.cpp) \
@@ -504,7 +507,9 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Catalog.hpp) \
         $$quote($$BASEDIR/src/CatalogMigration.hpp) \
         $$quote($$BASEDIR/src/Downloader.hpp) \
+        $$quote($$BASEDIR/src/FileEntry.hpp) \
         $$quote($$BASEDIR/src/FileSelector.hpp) \
+        $$quote($$BASEDIR/src/FileSystem.hpp) \
         $$quote($$BASEDIR/src/FileUtils.hpp) \
         $$quote($$BASEDIR/src/Flurry/Flurry.h) \
         $$quote($$BASEDIR/src/Importer.hpp) \

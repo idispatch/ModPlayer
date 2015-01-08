@@ -149,6 +149,30 @@ TabbedPane {
         }
     }
     Tab {
+        id: filesTab
+        title: qsTr("File System") + Retranslate.onLanguageChanged
+        objectName: title
+        description: qsTr("Files") + Retranslate.onLanguageChanged
+        imageSource: "asset:///images/actions/icon_albums.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            songFiles.load()
+        }
+        function unload() {
+            songFiles.unload()
+        }
+        NavigationPane {
+            id: filesNavigationPane 
+            FilesList {
+                id: songFiles
+                navigationPane: filesNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
         id: liveStreamTab
         title: "Internet Radio"
         objectName: title

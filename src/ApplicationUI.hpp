@@ -8,6 +8,7 @@
 #include <bb/ProcessState>
 #include "Wallpaper.hpp"
 #include "PurchaseStore.hpp"
+#include "FileSystem.hpp"
 
 namespace bb
 {
@@ -42,6 +43,7 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(Cache* cache READ cache NOTIFY cacheChanged FINAL)
     Q_PROPERTY(Wallpaper* wallpaper READ wallpaper NOTIFY wallpaperChanged FINAL)
     Q_PROPERTY(PurchaseStore* store READ store NOTIFY storeChanged FINAL)
+    Q_PROPERTY(FileSystem* fileSystem READ fileSystem NOTIFY fileSystemChanged FINAL)
     Q_PROPERTY(Analytics* analytics READ analytics NOTIFY analyticsChanged FINAL)
 public:
     ApplicationUI(bb::cascades::Application *app);
@@ -60,6 +62,7 @@ public:
     Analytics * analytics() const;
     Wallpaper * wallpaper();
     PurchaseStore * store();
+    FileSystem * fileSystem();
 
     void setFirstLaunch(bool value);
 
@@ -81,6 +84,7 @@ Q_SIGNALS:
     void wallpaperChanged();
     void storeChanged();
     void analyticsChanged();
+    void fileSystemChanged();
 private slots:
     void onInvoked(const bb::system::InvokeRequest& invoke);
     void onSystemLanguageChanged();
@@ -109,6 +113,7 @@ private:
     bb::cascades::Application   *m_app;
     Player                      *m_player;
     Analytics                   *m_analytics;
+    FileSystem                  *m_fileSystem;
     bb::system::InvokeManager   *m_invokeManager;
 };
 

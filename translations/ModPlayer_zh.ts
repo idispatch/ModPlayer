@@ -328,6 +328,20 @@
     </message>
 </context>
 <context>
+    <name>FileEntry</name>
+    <message>
+        <source>Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FilesList</name>
+    <message>
+        <source>Select Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirstLaunchHint</name>
     <message>
         <source>&lt;b&gt;Usage Hint&lt;/b&gt;&lt;p&gt;Swipe down from the top bezel to configure ModPlayer settings.&lt;/p&gt;</source>
@@ -1694,6 +1708,14 @@
     <message>
         <source>Live Stream Radio</source>
         <translation>在线电台</translation>
+    </message>
+    <message>
+        <source>File System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

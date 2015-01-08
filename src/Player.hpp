@@ -81,6 +81,8 @@ public:
     Playlist * playlist() const;
     SongModule * currentSong() const;
 
+    QStringList const& fileNameFilters() const;
+
     Q_INVOKABLE bb::system::SystemUiResult::Type popupToast(QString const& text, bool modal, bool buttonEnabled);
     Q_INVOKABLE void playPlaylist();
     Q_INVOKABLE void playLocalSong(QString const& fileName);

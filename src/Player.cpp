@@ -71,9 +71,10 @@ Player::~Player() {
     if(m_playback != NULL) {
         m_playback->stopThread();
     }
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Player::~Player()";
-#endif
+}
+
+QStringList const& Player::fileNameFilters() const {
+    return m_fileNameFilters;
 }
 
 void Player::initTheme() {
@@ -115,7 +116,7 @@ void Player::initCache() {
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    m_cache->setFileNameFilters(m_fileNameFilters);
+    m_cache->setFileNameFilters(fileNameFilters());
 }
 
 void Player::initDownloader() {
@@ -666,7 +667,7 @@ void Player::browseForLocalSong() {
         filePicker->setDirectories(directories);
     }
 
-    filePicker->setFilter(m_fileNameFilters);
+    filePicker->setFilter(fileNameFilters());
 
     rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
                           this,       SLOT(onLocalSongSelected(const QStringList&)));
@@ -801,7 +802,7 @@ void Player::importSongs() {
             delete m_importer;
             m_importer = NULL;
         }
-        m_importer = new Importer(m_fileNameFilters, catalog(), NULL);
+        m_importer = new Importer(fileNameFilters(), catalog(), NULL);
         bool rc;
         Q_UNUSED(rc);
         rc = QObject::connect(m_importer, SIGNAL(searchCompleted()),

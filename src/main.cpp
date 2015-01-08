@@ -37,6 +37,7 @@
 #include "AlbumArtView.hpp"
 #include "InternetRadio.hpp"
 #include "Wallpaper.hpp"
+#include "FileEntry.hpp"
 
 template<typename T>
 void dumpInstanceCount(const char * className) {
@@ -80,6 +81,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(AlbumArtView)
     DUMP_COUNT(InternetRadio)
     DUMP_COUNT(Wallpaper)
+    DUMP_COUNT(FileEntry)
 #undef DUMP_COUNT
 }
 #endif

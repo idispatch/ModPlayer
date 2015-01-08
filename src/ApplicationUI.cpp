@@ -46,6 +46,8 @@
 #include "PauseActionItem.hpp"
 #include "SleepTimer.hpp"
 #include "FileUtils.hpp"
+#include "FileSystem.hpp"
+#include "FileEntry.hpp"
 
 using namespace bb::data;
 using namespace bb::cascades;
@@ -63,6 +65,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)),
+      m_fileSystem(new FileSystem(m_player->fileNameFilters(), this)),
       m_invokeManager(new InvokeManager(this)) {
     static_instance = this;
     m_app = app;
@@ -255,6 +258,8 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<Album>(QmlNamespace, versionMajor, versionMinor, "Album", "");
     qmlRegisterUncreatableType<Radio>(QmlNamespace, versionMajor, versionMinor, "Radio", "");
     qmlRegisterUncreatableType<Wallpaper>(QmlNamespace, versionMajor, versionMinor, "Wallpaper", "");
+    qmlRegisterUncreatableType<FileSystem>(QmlNamespace, versionMajor, versionMinor, "FileSystem", "");
+    qmlRegisterUncreatableType<FileEntry>(QmlNamespace, versionMajor, versionMinor, "FileEntry", "");
     qmlRegisterUncreatableType<PurchaseStore>(QmlNamespace, versionMajor, versionMinor, "PurchaseStore", "");
     qmlRegisterUncreatableType<SleepTimer>(QmlNamespace, versionMajor, versionMinor, "SleepTimer", "");
 }
@@ -326,6 +331,10 @@ QString ApplicationUI::version() const {
     using namespace bb;
     ApplicationInfo info;
     return info.version();
+}
+
+FileSystem * ApplicationUI::fileSystem() {
+    return m_fileSystem;
 }
 
 Player * ApplicationUI::player() const {

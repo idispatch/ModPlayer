@@ -373,6 +373,10 @@ SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
     return FORMAT_UNKNOWN;
 }
 
+QString SongFormat::getFormatByFileName(QString const& fileName) {
+    return getFormatByFormatId(getFormatIdByFileName(fileName));
+}
+
 bool SongFormat::isMp3Song() const {
     return id() == FORMAT_MP3;
 }

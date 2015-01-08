@@ -49,6 +49,7 @@ public:
     static QString getIconPath(QString const& fileName);
     static Format getFormatIdByFileName(QString const& fileName);
     static QString getFormatByFormatId(Format formatId);
+    static QString getFormatByFileName(QString const& fileName);
 
     static bool isTrackerSong(QString const& fileName);
     static bool isTrackerSong(Format formatId);
