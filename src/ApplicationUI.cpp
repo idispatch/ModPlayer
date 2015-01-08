@@ -129,7 +129,9 @@ void ApplicationUI::onPurchaseStateChanged() {
 
 void ApplicationUI::initPurchases() {
     m_purchaseStore.loadLocalPurchases();
-    m_purchaseStore.loadPurchasesFromStore();
+    if(!m_purchaseStore.purchased()) {
+        m_purchaseStore.loadPurchasesFromStore();
+    }
 }
 
 void ApplicationUI::initSignals() {

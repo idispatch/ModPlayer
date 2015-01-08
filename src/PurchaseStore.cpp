@@ -21,7 +21,9 @@ namespace {
 
 PurchaseStore::PurchaseStore(QSettings &settings, QObject* parent)
     : QObject(parent),
-      m_store(settings) {
+      m_store(settings),
+      m_updatingStatus(false),
+      m_reloadingStatus(false) {
     int rc;
     Q_UNUSED(rc);
 
@@ -68,6 +70,12 @@ void PurchaseStore::buy() {
 }
 
 void PurchaseStore::onExistingPurchasesFinished(bb::platform::ExistingPurchasesReply *reply) {
+    qDebug() << "=== Update existing purchases finished ===";
+
+    m_updatingStatus = false;
+
+    bool isPurchased = false;
+
     using namespace bb::platform;
     if(reply != NULL && reply->isFinished() && !reply->isError()) {
         const QList<PurchaseReceipt> purchaseReceipts = reply->purchases();
@@ -77,10 +85,24 @@ void PurchaseStore::onExistingPurchasesFinished(bb::platform::ExistingPurchasesR
             if(receipt.isValid()) {
                 if(receipt.state() == DigitalGoodState::Owned) {
                     savePurchase(receipt.digitalGoodSku());
+                    isPurchased = true;
                 }
             }
         }
     }
+
+    if(isPurchased) {
+        qDebug() << "=== ModPlayer Plus is purchased ===";
+    } else {
+        qDebug() << "=== ModPlayer Plus is not purchased ===";
+    }
+
+    if(m_reloadingStatus) {
+        m_reloadingStatus = false;
+        emit remoteStatusRetrieved();
+    }
+
+    emit updatingStatusChanged();
 }
 
 void PurchaseStore::onPurchaseFinished(bb::platform::PurchaseReply *reply) {
@@ -141,14 +163,18 @@ void PurchaseStore::updatePurchaseMetadata(QString const& purchaseId,
     m_store.sync();
 }
 
-bool PurchaseStore::purchased() {
+bool PurchaseStore::purchased() const {
     bool result;
-    QStringList purchases = m_store.value(PURCHASE_KEY_NAME, QStringList()).toStringList();
+    const QStringList purchases = m_store.value(PURCHASE_KEY_NAME, QStringList()).toStringList();
     result = purchases.contains(FEATURE_NAME);
     if(!result){
         result = QFile(FileUtils::joinPath(QDir::homePath(), PURCHASE_FILE_NAME)).exists();
     }
     return result;
+}
+
+bool PurchaseStore::updatingStatus() const {
+    return m_updatingStatus;
 }
 
 void PurchaseStore::savePurchase(QString const& sku) {
@@ -164,11 +190,20 @@ void PurchaseStore::savePurchase(QString const& sku) {
 }
 
 void PurchaseStore::loadPurchasesFromStore() {
-    m_manager.requestExistingPurchases(false);
+    if(!m_updatingStatus) {
+        m_updatingStatus = true;
+        emit updatingStatusChanged();
+        m_manager.requestExistingPurchases(false);
+    }
 }
 
 void PurchaseStore::reloadPurchasesFromStore() {
-    m_manager.requestExistingPurchases(true);
+    if(!m_updatingStatus) {
+        m_updatingStatus  = true;
+        m_reloadingStatus = true;
+        emit updatingStatusChanged();
+        m_manager.requestExistingPurchases(true);
+    }
 }
 
 void PurchaseStore::loadLocalPurchases() {

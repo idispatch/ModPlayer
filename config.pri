@@ -134,7 +134,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_artists.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_bbm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_buy.png) \
-        $$quote($$BASEDIR/assets/images/actions/icon_buy_now.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_delete.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_difm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_downloads.png) \

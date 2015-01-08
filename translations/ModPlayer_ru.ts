@@ -165,6 +165,18 @@
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card&lt;br/&gt;&amp;#x2022; Sleep timer that stops playback automatically</source>
         <translation>В &lt;b&gt;ModPlayer Plus&lt;/b&gt; включено: &lt;br/&gt;&amp;#x2022; Настраиваемые обои и фон&lt;br/&gt;&amp;#x2022; Импорт песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Экспорт песен из кэша ModPlayer на SD карту или в память телефона&lt;br/&gt;&amp;#x2022; Загрузка песен с SD карты или телефона&lt;br/&gt;&amp;#x2022; Сохранение песен на телефон или SD карту&lt;br/&gt;&amp;#x2022; Конвертирование трекерных песен в формат MP3&lt;br/&gt;&amp;#x2022; Таймер остановки воспроизведения</translation>
     </message>
+    <message>
+        <source>If you have previously purchased the app please refresh the status</source>
+        <translation>Если вы ранее приобретали ModPlayer Plus пожалуйста обновите статус.</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Обновить</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus is not purchased.</source>
+        <translation>ModPlayer Plus не куплен.</translation>
+    </message>
 </context>
 <context>
     <name>BuyActionItem</name>

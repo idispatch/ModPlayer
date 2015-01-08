@@ -14,10 +14,12 @@ class PurchaseStore : public QObject {
     Q_DISABLE_COPY(PurchaseStore)
 
     Q_PROPERTY(bool purchased READ purchased NOTIFY purchasedChanged FINAL)
+    Q_PROPERTY(bool updatingStatus READ updatingStatus NOTIFY updatingStatusChanged FINAL)
 public:
     PurchaseStore(QSettings &settings, QObject* parent = 0);
 
-    bool purchased();
+    bool purchased() const;
+    bool updatingStatus() const;
 
     Q_INVOKABLE void buy();
 
@@ -26,7 +28,9 @@ public:
     Q_INVOKABLE void loadLocalPurchases();
 
 Q_SIGNALS:
+    void remoteStatusRetrieved();
     void purchasedChanged();
+    void updatingStatusChanged();
     void purchaseSucceeded(QString const& info);
     void purchaseFailed(QString const& reason);
 private slots:
@@ -40,6 +44,8 @@ private:
                                 QVariantMap parameters);
 private:
     QSettings &m_store;
+    bool m_updatingStatus;
+    bool m_reloadingStatus;
     bb::platform::PaymentManager m_manager;
 };
 

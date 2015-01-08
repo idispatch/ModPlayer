@@ -91,17 +91,17 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="359"/>
+        <location filename="../src/ApplicationUI.cpp" line="361"/>
         <source>Hello, ModPlayer Author!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="378"/>
+        <location filename="../src/ApplicationUI.cpp" line="380"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="390"/>
+        <location filename="../src/ApplicationUI.cpp" line="392"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -137,49 +137,66 @@
 <context>
     <name>Buy</name>
     <message>
-        <location filename="../assets/Buy.qml" line="50"/>
-        <location filename="../assets/Buy.qml" line="82"/>
+        <location filename="../assets/Buy.qml" line="57"/>
+        <location filename="../assets/Buy.qml" line="91"/>
         <source>ModPlayer Plus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="52"/>
+        <location filename="../assets/Buy.qml" line="59"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="58"/>
+        <location filename="../assets/Buy.qml" line="65"/>
+        <location filename="../assets/Buy.qml" line="204"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="92"/>
+        <location filename="../assets/Buy.qml" line="101"/>
         <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="130"/>
+        <location filename="../assets/Buy.qml" line="139"/>
         <source>ModPlayer Plus adds extended features to the free version of ModPlayer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="167"/>
+        <location filename="../assets/Buy.qml" line="174"/>
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card&lt;br/&gt;&amp;#x2022; Sleep timer that stops playback automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../assets/Buy.qml" line="183"/>
+        <source>If you have previously purchased the app please refresh the status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Buy.qml" line="193"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../assets/Buy.qml" line="16"/>
-        <location filename="../assets/Buy.qml" line="115"/>
+        <location filename="../assets/Buy.qml" line="27"/>
+        <location filename="../assets/Buy.qml" line="124"/>
         <source>You have enabled ModPlayer Plus features.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="138"/>
+        <location filename="../assets/Buy.qml" line="29"/>
+        <source>ModPlayer Plus is not purchased.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Buy.qml" line="147"/>
         <source>ModPlayer Plus is a one-time in-app purchase for $0.99, it includes future updates and is valid indefinitely.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Buy.qml" line="146"/>
+        <location filename="../assets/Buy.qml" line="155"/>
         <source>If you purchase ModPlayer Plus now you will get all ModPlayer Plus extended features and future updates for free.</source>
         <translation type="unfinished"></translation>
     </message>

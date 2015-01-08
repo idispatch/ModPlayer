@@ -161,6 +161,18 @@
         <source>With &lt;b&gt;ModPlayer Plus&lt;/b&gt; you will get:&lt;br/&gt;&amp;#x2022; Custom wallpapers and backgrounds&lt;br/&gt;&amp;#x2022; Import songs from device and SD card&lt;br/&gt;&amp;#x2022; Export songs from ModPlayer cache to SD card or device memory&lt;br/&gt;&amp;#x2022; Open songs from device or SD card&lt;br/&gt;&amp;#x2022; Saving songs to device or SD card&lt;br/&gt;&amp;#x2022; Converting tracker songs to MP3 and saving to device or SD card&lt;br/&gt;&amp;#x2022; Sleep timer that stops playback automatically</source>
         <translation>通过 &lt;b&gt;模块播放器高级版&lt;/b&gt; 您将获得：&lt;br/&gt;&amp;#x2022; 自定义壁纸和背景&lt;br/&gt;&amp;#x2022; 从设备和存储卡中导入歌曲&lt;br/&gt;&amp;#x2022; 从模块播放器缓存中导出歌曲到存储卡或设备内存&lt;br/&gt;&amp;#x2022; 从设备或存储卡中打开歌曲&lt;br/&gt;&amp;#x2022; 保存歌曲到设备或存储卡&lt;br/&gt;&amp;#x2022; 转换轨道歌曲为MP3并保存到设备或存储卡&lt;br/&gt;&amp;#x2022; 睡眠定时器允许自动停止播放</translation>
     </message>
+    <message>
+        <source>If you have previously purchased the app please refresh the status</source>
+        <translation>如果你以前购买过应用程序，请刷新状态</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
+        <source>ModPlayer Plus is not purchased.</source>
+        <translation type="unfinished">ModPlayer Plus is not purchased.</translation>
+    </message>
 </context>
 <context>
     <name>BuyActionItem</name>
