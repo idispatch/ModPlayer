@@ -348,6 +348,10 @@
         <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished">Эта функция доступна в ModPlayer Plus.</translation>
     </message>
+    <message>
+        <source>No songs in this directory</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstLaunchHint</name>

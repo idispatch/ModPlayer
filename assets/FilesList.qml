@@ -40,6 +40,7 @@ Page {
             GroupContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
+                layout: DockLayout {}
                 leftPadding: 0
                 rightPadding: 0
                 topMargin: 0
@@ -71,13 +72,10 @@ Page {
                         if(chosenItem.isDirectory) {
                             var view = songList.createObject()
                             if(view) {
-                                activityIndicator.running = true
+                                activityIndicator.view = view
+                                activityIndicator.filePath = chosenItem.filePath
                                 activityIndicator.visible = true
-                                view.loadPath(chosenItem.filePath)
-                                activityIndicator.running = false
-                                activityIndicator.visible = false
-                                view.navigationPane = navigationPane
-                                navigationPane.push(view)
+                                activityIndicator.start()
                             }
                         }
                     }
@@ -88,16 +86,42 @@ Page {
                         }
                     ]
                 }
+                Container {
+                    visible: (!filesList.dataModel || filesList.dataModel.size() == 0)
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Center
+                    Label {
+                        text: qsTr("No songs in this directory") + Retranslate.onLanguageChanged
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                        multiline: true
+                        textStyle {
+                            base: SystemDefaults.TextStyles.TitleText
+                            fontWeight: FontWeight.Bold
+                            fontSize: FontSize.Medium
+                            color: Color.Black
+                        }
+                    }
+                }
             }
         }
         ActivityIndicator {
             id: activityIndicator
-            running: true
-            visible: true
+            property variant view
+            property string filePath
+            running: false
+            visible: false
             preferredHeight: 128
             preferredWidth: 128
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Center
+            onStarted: {
+                activityIndicator.view.loadPath(activityIndicator.filePath)
+                activityIndicator.stop()
+                activityIndicator.visible = false
+                activityIndicator.view.navigationPane = filesPage.navigationPane
+                filesPage.navigationPane.push(activityIndicator.view)
+            }
         }
         SleepTimerDisplay {}
         PlaylistControl {}
@@ -120,8 +144,10 @@ Page {
              if(mainTabPane.activePane == navigationPane && 
                  navigationPane.top == filesPage) {
                  var view = songPlayer.createObject()
-                 view.navigationPane = navigationPane
-                 navigationPane.push(view)
+                 if(view) {
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                 }
              }
         })
     }

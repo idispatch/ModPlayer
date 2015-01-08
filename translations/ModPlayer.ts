@@ -361,6 +361,11 @@
         <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../assets/FilesList.qml" line="94"/>
+        <source>No songs in this directory</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstLaunchHint</name>
