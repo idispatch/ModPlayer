@@ -184,6 +184,7 @@ Page {
                  }
              }
         })
+        playAllActionItem.playbackStarted.connect(showPlayerView)
     }
     attachedObjects: [
         ComponentDefinition {

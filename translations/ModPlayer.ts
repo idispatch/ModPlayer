@@ -728,7 +728,7 @@
 <context>
     <name>PlayAllActionItem</name>
     <message>
-        <location filename="../assets/PlayAllActionItem.qml" line="8"/>
+        <location filename="../assets/PlayAllActionItem.qml" line="9"/>
         <source>Play All</source>
         <translation type="unfinished"></translation>
     </message>

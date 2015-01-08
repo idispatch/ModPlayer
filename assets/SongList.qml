@@ -475,6 +475,7 @@ Page {
     onCreationCompleted: {
         app.player.requestPlayerView.connect(showPlayerView)
         app.catalog.resultReady.connect(onDataReceived)
+        playAllActionItem.playbackStarted.connect(showPlayerView)
     }
     attachedObjects: [
         ComponentDefinition {
@@ -488,6 +489,7 @@ Page {
             navigationPane: songListPage.navigationPane
         },
         PlayAllActionItem {
+            id: playAllActionItem
             ActionBar.placement: ActionBarPlacement.OnBar
             songList: songs.dataModel
         },

@@ -5,6 +5,7 @@ import player 1.0
 ActionItem {
     property variant songList
     property bool checkExtendedVersion: false
+    signal playbackStarted
     title: qsTr("Play All") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_set_playlist.png"
     enabled: songList && songList.size() > 0
@@ -28,6 +29,9 @@ ActionItem {
                 app.player.stop()
                 app.player.playlist.assign(songItems)
                 app.player.playPlaylist()
+                if(songItems.length > 0) {
+                    playbackStarted()
+                }
             }
         }
     }
