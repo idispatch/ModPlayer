@@ -596,7 +596,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LiveStreamRadio.qml" line="303"/>
+        <location filename="../assets/LiveStreamRadio.qml" line="301"/>
         <source>Tuning Internet Radio</source>
         <translation type="unfinished"></translation>
     </message>
