@@ -95,6 +95,24 @@ VerticalContainer {
                             animatable: false
                         },
                         {
+                            name: "Gray Grid",
+                            path:"asset:///images/wallpapers/grid.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
+                            name: "Plaid Blue Modern",
+                            path:"asset:///images/wallpapers/plaidbluemodern.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Denim",
+                            path:"asset:///images/wallpapers/denim.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
                             name: "Rainbow",
                             path:"asset:///images/wallpapers/rainbow.jpg",
                             repeatable: false,

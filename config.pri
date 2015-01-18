@@ -321,6 +321,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/dark-tile.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/dark-tile.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/dawn.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/denim.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/digital.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/dolphins.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/drops.jpg) \
@@ -328,7 +329,9 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/grass.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/green.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/green.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/grid.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/grid.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/grid.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/infinity.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/jeans.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/jeans.jpg) \
@@ -336,6 +339,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/linen.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/plaidbluemodern.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/plasma.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/purple.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/rainbow.jpg) \

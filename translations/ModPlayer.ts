@@ -1703,13 +1703,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="327"/>
-        <location filename="../assets/WallpaperSelector.qml" line="338"/>
+        <location filename="../assets/WallpaperSelector.qml" line="345"/>
+        <location filename="../assets/WallpaperSelector.qml" line="356"/>
         <source>Browse for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="377"/>
+        <location filename="../assets/WallpaperSelector.qml" line="395"/>
         <source>Browse for color</source>
         <translation type="unfinished"></translation>
     </message>
