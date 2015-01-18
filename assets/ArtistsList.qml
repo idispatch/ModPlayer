@@ -149,6 +149,12 @@ Page {
         OpenSongActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
+        SleepTimerActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        SettingsMenuAction {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
         BuyActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

@@ -21,6 +21,9 @@ Sheet {
             }
         }
         actions: [
+            SettingsMenuAction {
+                ActionBar.placement: ActionBarPlacement.InOverflow
+            },
             BuyActionItem {
                 ActionBar.placement: ActionBarPlacement.OnBar
             },

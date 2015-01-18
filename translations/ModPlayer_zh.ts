@@ -1167,6 +1167,13 @@
     </message>
 </context>
 <context>
+    <name>SettingsMenuAction</name>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">设置</translation>
+    </message>
+</context>
+<context>
     <name>SleepTimerAction</name>
     <message>
         <source>Close</source>
