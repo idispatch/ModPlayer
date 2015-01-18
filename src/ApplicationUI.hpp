@@ -37,6 +37,7 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(bool isFirstLaunch READ isFirstLaunch WRITE setFirstLaunch NOTIFY isFirstLaunchChanged FINAL)
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
+    Q_PROPERTY(int maxViewSongs READ maxViewSongs WRITE setMaxViewSongs NOTIFY maxViewSongsChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
@@ -54,6 +55,7 @@ public:
     bool isFirstLaunch() const;
     bool isExtendedVersion();
     bool isForeground() const;
+    int maxViewSongs() const;
 
     QString version() const;
     Player * player() const;
@@ -65,6 +67,7 @@ public:
     FileSystem * fileSystem();
 
     void setFirstLaunch(bool value);
+    void setMaxViewSongs(int value);
 
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void emailAuthor();
@@ -78,6 +81,7 @@ Q_SIGNALS:
     void isFirstLaunchChanged();
     void isExtendedVersionChanged();
     void isForegroundChanged();
+    void maxViewSongsChanged();
     void versionChanged();
     void playerChanged();
     void catalogChanged();

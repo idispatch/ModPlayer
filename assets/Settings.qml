@@ -218,6 +218,42 @@ Sheet {
                             rightPadding: leftPadding
                             opacity: 0.85
                             Label {
+                                text: qsTr("Song List") + Retranslate.onLanguageChanged
+                                horizontalAlignment: HorizontalAlignment.Center
+                                textStyle {
+                                    base: SystemDefaults.TextStyles.TitleText
+                                    fontWeight: FontWeight.Bold
+                                    color: Color.Black
+                                }
+                            }
+                            PlusFeature {
+                                extendedVersion: VerticalContainer {
+                                    BlackLabel {
+                                        text: qsTr("Maximum Songs: %1").arg(Math.round(app.maxViewSongs)) + Retranslate.onLanguageChanged
+                                    }
+                                    VerticalContainer {
+                                        leftPadding: groupSettingIndent
+                                        rightPadding: leftPadding
+                                        Slider {
+                                            id: maxViewSongs
+                                            fromValue: 100
+                                            toValue: 5000
+                                            value: app.maxViewSongs
+                                            onValueChanged: {
+                                                app.maxViewSongs = Math.round(Math.round(value / 100) * 100)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        GroupContainer {
+                            topPadding: 20
+                            bottomPadding: 40
+                            leftPadding: 20
+                            rightPadding: leftPadding
+                            opacity: 0.85
+                            Label {
                                 text: qsTr("Personal") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {

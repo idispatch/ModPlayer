@@ -104,6 +104,18 @@ void ApplicationUI::setFirstLaunch(bool value) {
     emit isFirstLaunchChanged();
 }
 
+int ApplicationUI::maxViewSongs() const {
+    return m_settings.value("ui/maxViewSongs", 200).toInt();
+}
+
+void ApplicationUI::setMaxViewSongs(int value) {
+    if(maxViewSongs() != value)
+    {
+        m_settings.setValue("ui/maxViewSongs", value);
+        emit maxViewSongsChanged();
+    }
+}
+
 bool ApplicationUI::isForeground() const {
     return m_appState == bb::ProcessState::Foreground;
 }

@@ -1165,6 +1165,10 @@
         <source>Surround Delay</source>
         <translation>环绕延迟</translation>
     </message>
+    <message>
+        <source>Song List</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsMenuAction</name>

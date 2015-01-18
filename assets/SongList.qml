@@ -321,7 +321,7 @@ Page {
     }
     function load() {
         unload();
-        maxResults = searchArea.searchTerm.length > 0 ? 100 : 200
+        maxResults = searchArea.searchTerm.length > 0 ? 100 : app.maxViewSongs
         requestId = {
             search: function(searchTerm, queryId, limit) {
                 return app.player.catalog.searchSongsAsync(searchTerm, limit)
