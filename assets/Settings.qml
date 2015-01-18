@@ -117,6 +117,21 @@ Sheet {
                                     }
                                 }
                             }
+                            Button {
+                                text: qsTr("Buy ModPlayer Plus") + Retranslate.onLanguageChanged
+                                horizontalAlignment: HorizontalAlignment.Center
+                                topMargin: 60
+                                visible: !app.isExtendedVersion
+                                onClicked: {
+                                    buyView.createObject().open()
+                                }
+                                attachedObjects: [
+                                    ComponentDefinition {
+                                        id: buyView
+                                        source: "Buy.qml"
+                                    }
+                                ]
+                            }
                             BlackLabel {
                                 text: qsTr("<a href='http://www.kosenkov.ca/policy.html'>Privacy Policy</a>") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center

@@ -1171,14 +1171,18 @@
     </message>
     <message>
         <source>Song List</source>
-        <translation type="unfinished"></translation>
+        <translation>Список песен</translation>
+    </message>
+    <message>
+        <source>Buy ModPlayer Plus</source>
+        <translation>Купить ModPlayer Plus</translation>
     </message>
 </context>
 <context>
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Установки</translation>
+        <translation>Установки</translation>
     </message>
 </context>
 <context>
