@@ -35,6 +35,23 @@ Page {
         SleepTimerDisplay {}
         PlaylistControl {}
     }
+    function addBuyButton() {
+        if(!app.isExtendedVersion) {
+            var buyActionItem = buyAppComponentDefinition.createObject()
+            if(buyActionItem) {
+                addAction(buyActionItem, ActionBarPlacement.InOverflow)
+            }
+        }
+    }
+    onCreationCompleted: {
+        addBuyButton()
+    }
+    attachedObjects: [
+        ComponentDefinition {
+            id: buyAppComponentDefinition
+            source: "BuyActionItem.qml"
+        }
+    ]
     actions: [ 
         PlayActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
@@ -54,9 +71,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SettingsMenuAction {
-            ActionBar.placement: ActionBarPlacement.InOverflow
-        },
-        BuyActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AppWorldActionItem{

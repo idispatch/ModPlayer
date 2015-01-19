@@ -173,6 +173,14 @@ Page {
         songFilesModel.append(collection)
         playAllActionItem.songList = songFilesModel
     }
+    function addBuyButton() {
+        if(!app.isExtendedVersion) {
+            var buyActionItem = buyAppComponentDefinition.createObject()
+            if(buyActionItem) {
+                addAction(buyActionItem, ActionBarPlacement.InOverflow)
+            }
+        }
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
              if(mainTabPane.activePane == navigationPane && 
@@ -185,8 +193,13 @@ Page {
              }
         })
         playAllActionItem.playbackStarted.connect(showPlayerView)
+        addBuyButton()
     }
     attachedObjects: [
+        ComponentDefinition {
+            id: buyAppComponentDefinition
+            source: "BuyActionItem.qml"
+        },
         ComponentDefinition {
             id: songPlayer
             source: "SongPlayer.qml"
@@ -221,9 +234,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SettingsMenuAction {
-            ActionBar.placement: ActionBarPlacement.InOverflow
-        },
-        BuyActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AppWorldActionItem{

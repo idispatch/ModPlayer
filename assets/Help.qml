@@ -20,12 +20,26 @@ Sheet {
                 }
             }
         }
+        function addBuyButton() {
+            if(!app.isExtendedVersion) {
+                var buyActionItem = buyAppComponentDefinition.createObject()
+                if(buyActionItem) {
+                    addAction(buyActionItem, ActionBarPlacement.InOverflow)
+                }
+            }
+        }
+        onCreationCompleted: {
+            addBuyButton()
+        }
+        attachedObjects: [
+            ComponentDefinition {
+                id: buyAppComponentDefinition
+                source: "BuyActionItem.qml"
+            }
+        ]
         actions: [
             SettingsMenuAction {
                 ActionBar.placement: ActionBarPlacement.InOverflow
-            },
-            BuyActionItem {
-                ActionBar.placement: ActionBarPlacement.OnBar
             },
             AppWorldActionItem{
                 ActionBar.placement: ActionBarPlacement.OnBar

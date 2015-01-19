@@ -93,6 +93,14 @@ Page {
             navigationPane.push(view)
         }
     }
+    function addBuyButton() {
+        if(!app.isExtendedVersion) {
+            var buyActionItem = buyAppComponentDefinition.createObject()
+            if(buyActionItem) {
+                addAction(buyActionItem, ActionBarPlacement.InOverflow)
+            }
+        }
+    }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
             if(mainTabPane.activePane == navigationPane && 
@@ -109,8 +117,13 @@ Page {
                 app.player.playRadio(result[0], iconURL)
             }
         })
+        addBuyButton()
     }
     attachedObjects: [
+        ComponentDefinition {
+            id: buyAppComponentDefinition
+            source: "BuyActionItem.qml"
+        },
         ComponentDefinition {
             id: songPlayer
             source: "SongPlayer.qml"
@@ -134,9 +147,6 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SettingsMenuAction {
-            ActionBar.placement: ActionBarPlacement.InOverflow
-        },
-        BuyActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         AppWorldActionItem{
