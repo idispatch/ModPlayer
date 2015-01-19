@@ -25,6 +25,7 @@ public:
     Q_INVOKABLE void nowPlaying() const;
     Q_INVOKABLE void purgeCache() const;
 
+    Q_INVOKABLE void shareSong(QString const& fileName) const;
     Q_INVOKABLE void email() const;
     Q_INVOKABLE void twit() const;
     Q_INVOKABLE void bbm() const;

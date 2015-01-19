@@ -106,6 +106,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SelectColor.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \
         $$quote($$BASEDIR/assets/SettingsMenuAction.qml) \
+        $$quote($$BASEDIR/assets/ShareSongActionItem.qml) \
         $$quote($$BASEDIR/assets/SleepTimerActionItem.qml) \
         $$quote($$BASEDIR/assets/SleepTimerDisplay.qml) \
         $$quote($$BASEDIR/assets/SleepTimerSettings.qml) \
@@ -176,6 +177,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_search_dark.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_set_playlist.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_settings.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_share.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_skyfm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_stop.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_twitter.png) \

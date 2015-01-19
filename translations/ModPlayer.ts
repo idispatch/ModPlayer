@@ -106,7 +106,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="433"/>
+        <location filename="../src/ApplicationUI.cpp" line="443"/>
         <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1307,6 +1307,14 @@
     <message>
         <location filename="../assets/SettingsMenuAction.qml" line="6"/>
         <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShareSongActionItem</name>
+    <message>
+        <location filename="../assets/ShareSongActionItem.qml" line="6"/>
+        <source>Share Song</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

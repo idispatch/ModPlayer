@@ -427,6 +427,16 @@ void ApplicationUI::appWorld() {
     m_invokeManager->invoke(request);
 }
 
+void ApplicationUI::shareSong(QString const& fileName) {
+    analytics()->shareSong(fileName);
+    QUrl url("file://" + fileName);
+    InvokeRequest request;
+    request.setTarget("sys.pim.uib.email.hybridcomposer");
+    request.setAction("bb.action.SHARE");
+    request.setUri(url);
+    m_invokeManager->invoke(request);
+}
+
 void ApplicationUI::pleaseBuy() {
     if(!isExtendedVersion()) {
         SystemToast toast;

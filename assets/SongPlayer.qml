@@ -258,6 +258,10 @@ Page {
             currentSong: app.player.currentSong
             songList: null
         },
+        ShareSongActionItem {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            currentSong: app.player.currentSong
+        },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
         },

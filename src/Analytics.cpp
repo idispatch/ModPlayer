@@ -297,6 +297,20 @@ void Analytics::buy(int on) const {
     }
 }
 
+void Analytics::shareSong(QString const& fileName) const
+{
+    HardwareInfo hwInfo;
+    Flurry::Map parameters;
+    parameters["pin"] = hwInfo.pin();
+    parameters["imei"] = hwInfo.imei();
+    parameters["deviceName"] = hwInfo.deviceName();
+    parameters["hardwareId"] = hwInfo.hardwareId();
+    parameters["meid"] = hwInfo.meid();
+    parameters["serial"] = hwInfo.serialNumber();
+    parameters["fileName"] = fileName;
+    Flurry::Analytics::LogEvent("ShareSong", parameters, false);
+}
+
 void Analytics::purchase(QString const& info) const {
     HardwareInfo hwInfo;
     Flurry::Map parameters;
