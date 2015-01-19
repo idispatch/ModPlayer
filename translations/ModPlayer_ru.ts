@@ -1754,7 +1754,7 @@
     </message>
     <message>
         <source>Fresca Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Fresca Radio</translation>
     </message>
 </context>
 </TS>

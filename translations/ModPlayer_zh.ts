@@ -1750,7 +1750,7 @@
     </message>
     <message>
         <source>Fresca Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Fresca电台</translation>
     </message>
 </context>
 </TS>
