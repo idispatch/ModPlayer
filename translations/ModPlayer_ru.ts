@@ -1189,7 +1189,7 @@
     <name>ShareSongActionItem</name>
     <message>
         <source>Share Song</source>
-        <translation type="unfinished"></translation>
+        <translation>Поделиться песней</translation>
     </message>
 </context>
 <context>
