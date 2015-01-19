@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
-    <id>com.idispatch.modplayer</id>
+    <id>com.idispatch.modplayerplus</id>
     <name>
-       ModPlayer
-       <text xml:lang="ru">ModPlayer</text>
-       <text xml:lang="zh">ModPlayer</text>
+       ModPlayer Plus
+       <text xml:lang="ru">ModPlayer Plus</text>
+       <text xml:lang="zh">ModPlayer Plus</text>
     </name>
-    <versionNumber>4.5.5</versionNumber>
+    <versionNumber>5.0.0</versionNumber>
     <packageLocale>ru,zh</packageLocale>
     <buildId>0</buildId>
     <description>
-       ModPlayer is a tracker music player
-       <text xml:lang="ru">ModPlayer - &#x43f;&#x440;&#x43e;&#x438;&#x433;&#x440;&#x44b;&#x432;&#x430;&#x442;&#x435;&#x43b;&#x44c; &#x442;&#x440;&#x44d;&#x43a;&#x435;&#x440;&#x43d;&#x43e;&#x439; &#x43c;&#x443;&#x437;&#x44b;&#x43a;&#x438;</text>
+       ModPlayer Plus is a tracker music player
+       <text xml:lang="ru">ModPlayer Plus - &#x43f;&#x440;&#x43e;&#x438;&#x433;&#x440;&#x44b;&#x432;&#x430;&#x442;&#x435;&#x43b;&#x44c; &#x442;&#x440;&#x44d;&#x43a;&#x435;&#x440;&#x43d;&#x43e;&#x439; &#x43c;&#x443;&#x437;&#x44b;&#x43a;&#x438;</text>
        <text xml:lang="zh">&#x6a21;&#x5757;&#x64ad;&#x653e;&#x5668; &#x662f;&#x4e00;&#x4e2a;&#x8f68;&#x9053;&#x97f3;&#x4e50;&#x64ad;&#x653e;&#x5668;&#x3002;</text>
     </description>
     <!--<copyright>© 2013 Oleg Kosenkov</copyright>-->
@@ -76,7 +76,7 @@
         <autoOrients>true</autoOrients>
         <systemChrome>none</systemChrome>
     </initialWindow>
-    <invoke-target id="com.idispatch.modplayer">
+    <invoke-target id="com.idispatch.modplayerplus">
         <invoke-target-type>application</invoke-target-type>
         <invoke-target-name>ModPlayer</invoke-target-name>
         <icon>
