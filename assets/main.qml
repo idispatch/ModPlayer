@@ -297,6 +297,31 @@ TabbedPane {
         }
     }
     Tab {
+        id: frescaFmTab
+        title: qsTr("Fresca Radio") + Retranslate.onLanguageChanged
+        objectName: title
+        description: qsTr("Fresca Radio") + Retranslate.onLanguageChanged
+        imageSource: "asset:///images/actions/icon_fresca.png"
+        onTriggered: {
+            app.analytics.showPage(title)
+            frescaFM.load()
+        }
+        function unload() {
+            frescaFM.unload()
+        }
+        NavigationPane {
+            id: frescaNavigationPane 
+            InternetRadioList {
+                id: frescaFM
+                channelList: "app/native/assets/fresca.json"
+                navigationPane: frescaNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
         id: mostPlayedTab
         title: qsTr("Most Played") + Retranslate.onLanguageChanged
         objectName: title

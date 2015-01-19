@@ -76,6 +76,8 @@ Page {
             model = app.player.catalog.findJazzRadio()
         } else if(channelList.indexOf("rockradio") != -1) {
             model = app.player.catalog.findRockRadio()
+        } else if(channelList.indexOf("fresca") != -1) {
+            model = app.player.catalog.findFrescaRadio()
         } else {
             model = null
         }

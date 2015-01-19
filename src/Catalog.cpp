@@ -293,12 +293,12 @@ GroupDataModel* Catalog::findPlaylists(QString const& searchTerm) {
 
 GroupDataModel* Catalog::findInternetRadio(QString const & channelList) {
     GroupDataModel *model = new GroupDataModel(QStringList() << "name");
-    JsonDataAccess jda;
+    JsonDataAccess jsonDataAccess;
     QString appFolder(QDir::homePath());
     appFolder.chop(4);
-    QString originalFileName = appFolder + "app/native/assets/" + channelList;
-    QVariant list = jda.load(originalFileName);
-    model->insertList(list.value<QVariantList>());
+    QString originalFileName = FileUtils::joinPath(appFolder, "app/native/assets/");
+    originalFileName = FileUtils::joinPath(originalFileName, channelList);
+    model->insertList(jsonDataAccess.load(originalFileName).value<QVariantList>());
     return model;
 }
 
@@ -320,6 +320,11 @@ GroupDataModel* Catalog::findJazzRadio()
 GroupDataModel* Catalog::findRockRadio()
 {
     return findInternetRadio("rockradio.json");
+}
+
+GroupDataModel* Catalog::findFrescaRadio()
+{
+    return findInternetRadio("fresca.json");
 }
 
 GroupDataModel* Catalog::findAlbums(QString const& searchTerm) {

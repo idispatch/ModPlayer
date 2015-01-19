@@ -7,6 +7,8 @@ function getRadioIcon(name) {
         return "asset:///images/formats/icon-skyfm.png";
     } else if(name.indexOf("difm") != -1) {
         return "asset:///images/formats/icon-difm.png";
+    } else if(name.indexOf("fresca") != -1) {
+        return "asset:///images/formats/icon-fresca.png";
     }
     return "";
 }

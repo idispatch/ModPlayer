@@ -129,6 +129,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/catalog.sqlite) \
         $$quote($$BASEDIR/assets/colors.json) \
         $$quote($$BASEDIR/assets/difm.json) \
+        $$quote($$BASEDIR/assets/fresca.json) \
         $$quote($$BASEDIR/assets/functions.js) \
         $$quote($$BASEDIR/assets/images/actions/icon_albums.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_append_playlist.png) \
@@ -143,6 +144,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_favourite.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_files.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_format.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_fresca.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_genres.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_import.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_jazzradio.png) \
@@ -247,6 +249,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/flags/Ukraine-flag.png) \
         $$quote($$BASEDIR/assets/images/flags/United-kingdom-flag.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-difm.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon-fresca.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-jazzradio.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-rockradio.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-skyfm.png) \

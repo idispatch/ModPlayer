@@ -1752,5 +1752,9 @@
         <source>Files</source>
         <translation>Файлы</translation>
     </message>
+    <message>
+        <source>Fresca Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

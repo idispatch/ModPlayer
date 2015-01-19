@@ -1748,5 +1748,9 @@
         <source>Files</source>
         <translation>文件系统</translation>
     </message>
+    <message>
+        <source>Fresca Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
