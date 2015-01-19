@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QDir>
 #include <QTextStream>
+#include <bb/ApplicationInfo>
 #include <bb/platform/PurchaseReply>
 #include <bb/platform/PurchaseReceipt>
 #include <bb/platform/DigitalGoodState>
@@ -23,23 +24,29 @@ PurchaseStore::PurchaseStore(QSettings &settings, QObject* parent)
     : QObject(parent),
       m_store(settings),
       m_updatingStatus(false),
-      m_reloadingStatus(false) {
-    int rc;
-    Q_UNUSED(rc);
+      m_reloadingStatus(false)
+{
+    if(!isModPlayerPlusEdition()) {
+        int rc;
+        Q_UNUSED(rc);
 
-    rc = QObject::connect(&m_manager, SIGNAL(purchaseFinished(bb::platform::PurchaseReply*)),
-                          this, SLOT(onPurchaseFinished(bb::platform::PurchaseReply*)));
-    Q_ASSERT(rc);
+        rc = QObject::connect(&m_manager, SIGNAL(purchaseFinished(bb::platform::PurchaseReply*)),
+                              this, SLOT(onPurchaseFinished(bb::platform::PurchaseReply*)));
+        Q_ASSERT(rc);
 
-    rc = QObject::connect(&m_manager, SIGNAL(existingPurchasesFinished(bb::platform::ExistingPurchasesReply*)),
-                          this, SLOT(onExistingPurchasesFinished(bb::platform::ExistingPurchasesReply*)));
-    Q_ASSERT(rc);
+        rc = QObject::connect(&m_manager, SIGNAL(existingPurchasesFinished(bb::platform::ExistingPurchasesReply*)),
+                              this, SLOT(onExistingPurchasesFinished(bb::platform::ExistingPurchasesReply*)));
+        Q_ASSERT(rc);
 
-    //m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Test);
-    m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Production);
+        //m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Test);
+        m_manager.setConnectionMode(bb::platform::PaymentConnectionMode::Production);
+    }
 }
 
 void PurchaseStore::buy() {
+    if(isModPlayerPlusEdition()) {
+        return;
+    }
     using namespace bb::device;
 
     HardwareInfo hwInfo;
@@ -165,10 +172,16 @@ void PurchaseStore::updatePurchaseMetadata(QString const& purchaseId,
 
 bool PurchaseStore::purchased() const {
     bool result;
-    const QStringList purchases = m_store.value(PURCHASE_KEY_NAME, QStringList()).toStringList();
-    result = purchases.contains(FEATURE_NAME);
-    if(!result){
-        result = QFile(FileUtils::joinPath(QDir::homePath(), PURCHASE_FILE_NAME)).exists();
+    if(isModPlayerPlusEdition()) {
+        result = true;
+    } else {
+        const QStringList purchases = m_store.value(PURCHASE_KEY_NAME,
+                                                    QStringList()).toStringList();
+        result = purchases.contains(FEATURE_NAME);
+        if(!result){
+            result = QFile(FileUtils::joinPath(QDir::homePath(),
+                                               PURCHASE_FILE_NAME)).exists();
+        }
     }
     return result;
 }
@@ -178,41 +191,62 @@ bool PurchaseStore::updatingStatus() const {
 }
 
 void PurchaseStore::savePurchase(QString const& sku) {
-    QStringList purchases = m_store.value(PURCHASE_KEY_NAME, QStringList()).toStringList();
-    if (!purchases.contains(sku)) {
-        purchases.append(sku);
-        m_store.setValue(PURCHASE_KEY_NAME, purchases);
-        m_store.sync();
-    }
-    if(sku == FEATURE_NAME) {
-        emit purchasedChanged();
+    if(isModPlayerPlusEdition()) {
+        // do nothing
+    } else {
+        QStringList purchases = m_store.value(PURCHASE_KEY_NAME, QStringList()).toStringList();
+        if (!purchases.contains(sku)) {
+            purchases.append(sku);
+            m_store.setValue(PURCHASE_KEY_NAME, purchases);
+            m_store.sync();
+        }
+        if(sku == FEATURE_NAME) {
+            emit purchasedChanged();
+        }
     }
 }
 
 void PurchaseStore::loadPurchasesFromStore() {
-    if(!m_updatingStatus) {
-        m_updatingStatus = true;
-        emit updatingStatusChanged();
-        m_manager.requestExistingPurchases(false);
+    if(isModPlayerPlusEdition()) {
+        // do nothing
+    } else {
+        if(!m_updatingStatus) {
+            m_updatingStatus = true;
+            emit updatingStatusChanged();
+            m_manager.requestExistingPurchases(false);
+        }
     }
 }
 
 void PurchaseStore::reloadPurchasesFromStore() {
-    if(!m_updatingStatus) {
-        m_updatingStatus  = true;
-        m_reloadingStatus = true;
-        emit updatingStatusChanged();
-        m_manager.requestExistingPurchases(true);
+    if(isModPlayerPlusEdition()) {
+        // do nothing
+    } else {
+        if(!m_updatingStatus) {
+            m_updatingStatus  = true;
+            m_reloadingStatus = true;
+            emit updatingStatusChanged();
+            m_manager.requestExistingPurchases(true);
+        }
     }
 }
 
 void PurchaseStore::loadLocalPurchases() {
-    QStringList purchases = m_store.value(PURCHASE_KEY_NAME).toStringList();
-    if (!purchases.isEmpty()) {
-        foreach(QString sku, purchases) {
-            if(sku == FEATURE_NAME) {
-                emit purchasedChanged();
+    if(isModPlayerPlusEdition()) {
+        // do nothing
+    } else {
+        QStringList purchases = m_store.value(PURCHASE_KEY_NAME).toStringList();
+        if (!purchases.isEmpty()) {
+            foreach(QString sku, purchases) {
+                if(sku == FEATURE_NAME) {
+                    emit purchasedChanged();
+                }
             }
         }
     }
+}
+
+bool PurchaseStore::isModPlayerPlusEdition() const {
+    bb::ApplicationInfo appInfo;
+    return appInfo.title() == "ModPlayer Plus";
 }

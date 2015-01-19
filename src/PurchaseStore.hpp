@@ -18,6 +18,7 @@ class PurchaseStore : public QObject {
 public:
     PurchaseStore(QSettings &settings, QObject* parent = 0);
 
+    bool isModPlayerPlusEdition() const;
     bool purchased() const;
     bool updatingStatus() const;
 

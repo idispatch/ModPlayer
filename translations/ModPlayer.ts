@@ -91,22 +91,22 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="383"/>
+        <location filename="../src/ApplicationUI.cpp" line="389"/>
         <source>Hello, ModPlayer Author!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="402"/>
+        <location filename="../src/ApplicationUI.cpp" line="408"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="414"/>
+        <location filename="../src/ApplicationUI.cpp" line="420"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="443"/>
+        <location filename="../src/ApplicationUI.cpp" line="455"/>
         <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished"></translation>
     </message>

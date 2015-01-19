@@ -38,6 +38,7 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
     Q_PROPERTY(int maxViewSongs READ maxViewSongs WRITE setMaxViewSongs NOTIFY maxViewSongsChanged FINAL)
+    Q_PROPERTY(QString title READ title NOTIFY titleChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
     Q_PROPERTY(Catalog* catalog READ catalog NOTIFY catalogChanged FINAL)
@@ -57,6 +58,7 @@ public:
     bool isForeground() const;
     int maxViewSongs() const;
 
+    QString title() const;
     QString version() const;
     Player * player() const;
     Catalog * catalog() const;
@@ -83,6 +85,7 @@ Q_SIGNALS:
     void isExtendedVersionChanged();
     void isForegroundChanged();
     void maxViewSongsChanged();
+    void titleChanged();
     void versionChanged();
     void playerChanged();
     void catalogChanged();

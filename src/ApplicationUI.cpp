@@ -129,7 +129,7 @@ void ApplicationUI::onProcessStateChanged(bb::ProcessState::Type processState) {
         bool wasForeground = isForeground();
         m_appState = processState;
         if(wasForeground != isForeground()) {
-            qDebug() << "ModPlayer is foreground:" << isForeground();
+            qDebug() << title() << "is foreground:" << isForeground();
             emit isForeground();
         }
     }
@@ -340,6 +340,12 @@ void ApplicationUI::onCacheChanged() {
     emit cacheChanged();
 }
 
+QString ApplicationUI::title() const {
+    using namespace bb;
+    ApplicationInfo info;
+    return info.title();
+}
+
 QString ApplicationUI::version() const {
     using namespace bb;
     ApplicationInfo info;
@@ -379,7 +385,7 @@ void ApplicationUI::emailAuthor() {
 
     QUrl url = QUrl("mailto:oleg@kosenkov.ca");
     QList<QPair<QString, QString> > query;
-    query << QPair<QString, QString>("subject", "ModPlayer")
+    query << QPair<QString, QString>("subject", title())
           << QPair<QString, QString>("body", tr("Hello, ModPlayer Author!"));
     url.setQueryItems(query);
 
@@ -423,18 +429,24 @@ void ApplicationUI::appWorld() {
     request.setTarget("sys.appworld");
     request.setAction("bb.action.OPEN");
     request.setMimeType("text/plain");
-    request.setUri(QUrl("appworld://content/35007887"));
+    if(m_purchaseStore.isModPlayerPlusEdition()) {
+        request.setUri(QUrl("appworld://content/59950203"));
+    } else {
+        request.setUri(QUrl("appworld://content/35007887"));
+    }
     m_invokeManager->invoke(request);
 }
 
 void ApplicationUI::shareSong(QString const& fileName) {
-    analytics()->shareSong(fileName);
-    QUrl url("file://" + fileName);
-    InvokeRequest request;
-    request.setTarget("sys.pim.uib.email.hybridcomposer");
-    request.setAction("bb.action.SHARE");
-    request.setUri(url);
-    m_invokeManager->invoke(request);
+    if(isExtendedVersion()) {
+        analytics()->shareSong(fileName);
+        QUrl url("file://" + fileName);
+        InvokeRequest request;
+        request.setTarget("sys.pim.uib.email.hybridcomposer");
+        request.setAction("bb.action.SHARE");
+        request.setUri(url);
+        m_invokeManager->invoke(request);
+    }
 }
 
 void ApplicationUI::pleaseBuy() {

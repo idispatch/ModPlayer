@@ -33,7 +33,7 @@ Container {
                     
                     Label {
                         horizontalAlignment: HorizontalAlignment.Center
-                        text: "ModPlayer"
+                        text: app.title
                         textStyle {
                             base: SystemDefaults.TextStyles.BodyText
                             fontWeight: FontWeight.Bold

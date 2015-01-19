@@ -36,7 +36,11 @@ Analytics::Analytics(QObject *parent)
     Flurry::Analytics::SetSessionContinueSeconds(300);
     Flurry::Analytics::SetSecureTransportEnabled(true);
 
-    Flurry::Analytics::StartSession("RYHJ7FPDTQW22Z7YYTW9");
+    if(info.title() == "ModPlayer") {
+        Flurry::Analytics::StartSession("RYHJ7FPDTQW22Z7YYTW9");
+    } else {
+        Flurry::Analytics::StartSession("HFMVZJYPDC6JSBHVNK2Q");
+    }
 
     Flurry::Analytics::SetSessionReportsOnCloseEnabled(true);
     Flurry::Analytics::SetSessionReportsOnPauseEnabled(true);

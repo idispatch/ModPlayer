@@ -1,3 +1,4 @@
+#include <bb/ApplicationInfo>
 #include <bb/cascades/Application>
 #include "ApplicationUI.hpp"
 
@@ -91,7 +92,7 @@ Q_DECL_EXPORT int main(int argc, char **argv) {
     ::umask(0);
     QCoreApplication::setOrganizationName("Kosenkov");
     QCoreApplication::setOrganizationDomain("kosenkov.ca");
-    QCoreApplication::setApplicationName("ModPlayer");
+    QCoreApplication::setApplicationName(bb::ApplicationInfo().title());
     {
         bb::cascades::Application app(argc, argv);
         new ApplicationUI(&app);
