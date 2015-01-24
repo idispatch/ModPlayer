@@ -124,6 +124,8 @@ Container {
                                     fileName = "www.jazzradio.com"
                                 } else if(app.player.currentSong.fileName.indexOf("sky.fm") != -1) {
                                     fileName = "www.sky.fm"
+                                } else if(app.player.currentSong.fileName.indexOf("fresca") != -1) {
+                                    fileName = "www.frescaradio.com"
                                 } else {
                                     fileName = "www.di.fm"
                                 }
