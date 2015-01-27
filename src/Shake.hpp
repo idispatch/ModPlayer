@@ -19,7 +19,6 @@ Q_SIGNALS:
     void shakeDetected();
 private slots:
     void onReadingChanged();
-private:
     void enableSensor();
     void disableSensor();
 private:

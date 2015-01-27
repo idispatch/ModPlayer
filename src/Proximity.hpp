@@ -21,7 +21,6 @@ Q_SIGNALS:
     void closeProximity();
 private slots:
     void onReadingChanged();
-private:
     void enableSensor();
     void disableSensor();
 private:
