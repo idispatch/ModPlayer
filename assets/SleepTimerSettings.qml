@@ -67,16 +67,22 @@ Sheet {
                             app.player.sleepTimer.sleepTimeout = immediateValue
                         }
                     }
-                    Button {
-                        text: app.player.sleepTimer.timerActive ? qsTr("Cancel Timer") + Retranslate.onLanguageChanged : qsTr("Start Timer") + Retranslate.onLanguageChanged
-                        horizontalAlignment: HorizontalAlignment.Center
-                        onClicked: {
-                            if(app.player.sleepTimer.timerActive) {
-                                app.player.sleepTimer.cancel()
-                            } else {
-                                app.player.sleepTimer.start()
+                    PlusFeature {
+                        extendedVersion: Button {
+                            text: app.player.sleepTimer.timerActive ? qsTr("Cancel Timer") + Retranslate.onLanguageChanged : qsTr("Start Timer") + Retranslate.onLanguageChanged
+                            horizontalAlignment: HorizontalAlignment.Center
+                            onClicked: {
+                                if(app.isExtendedVersion) {
+                                    if(app.player.sleepTimer.timerActive) {
+                                        app.player.sleepTimer.cancel()
+                                    } else {
+                                        app.player.sleepTimer.start()
+                                    }
+                                } else {
+                                    app.pleaseBuy()
+                                }
                             }
-                        }
+                        } 
                     }
                 }
             }

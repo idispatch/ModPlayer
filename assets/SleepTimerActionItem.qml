@@ -3,13 +3,9 @@ import player 1.0
 
 ActionItem {
     title: qsTr("Sleep Timer") + Retranslate.onLanguageChanged
-    imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_recent.png" : "asset:///images/actions/icon_lock.png"
+    imageSource: "asset:///images/actions/icon_recent.png"
     onTriggered: {
-        if(app.isExtendedVersion) {
-            sleepTimerSettings.createObject().open()
-        } else {
-            app.pleaseBuy()
-        }
+        sleepTimerSettings.createObject().open()
     }
     attachedObjects: [
         ComponentDefinition {
