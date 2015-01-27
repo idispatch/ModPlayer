@@ -39,7 +39,6 @@ Sheet {
                 ScrollView {
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Fill
-                    
                     GroupContainer {
                         topPadding: 40
                         bottomPadding: 40
@@ -60,13 +59,16 @@ Sheet {
                             Clock {
                                 horizontalAlignment: HorizontalAlignment.Fill
                                 verticalAlignment: VerticalAlignment.Fill
-                                clockTime: app.player.sleepTimer.sleepRemaining * 6 
+                                clockValue: app.player.sleepTimer.sleepRemaining * 6 
                                 setupMode: !app.player.sleepTimer.timerActive
+                                onClockOfferedValueChanged: {
+                                    app.player.sleepTimer.sleepTimeout = clockNewValue / 6
+                                }
                             }
                         }
                         Slider {
                             horizontalAlignment: HorizontalAlignment.Center
-                            topMargin: 60
+                            topMargin: 40
                             bottomMargin: 60
                             fromValue: 1
                             toValue: 60

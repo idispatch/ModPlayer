@@ -7,8 +7,9 @@ Container {
     property real tickRadius: 195
     property real tickCenterX: 230
     property real tickCenterY: 242
-    property real tickStep: 5.0
-    property real clockTime: 90.0
+    property real tickStep: 6.0
+    property real clockValue
+    property real clockOfferedValue
     property bool setupMode: false
 
     minWidth: 500
@@ -20,6 +21,29 @@ Container {
 
     layout: AbsoluteLayout {
     }
+    
+    gestureHandlers: [
+        TapHandler {
+            onTapped: {
+                if(setupMode) {
+                    var dx = -preferredWidth / 2 + event.x
+                    var dy = -preferredHeight / 2 + event.y
+                    var radians = Math.atan2(dy, dx)
+                    var degrees = radians * 180 / Math.PI
+                    if(degrees < 0) {
+                        degrees = Math.abs(degrees)
+                    } else {
+                        degrees = 360 - degrees
+                    }
+                    degrees = 360 - degrees + 90
+                    if(degrees > 360) {
+                        degrees = degrees - 360
+                    }
+                    clockDisplay.clockOfferedValue = degrees
+                }
+            }
+        }
+    ]
 
     ImageView {
         imageSource: "asset:///images/clock/clock-face.png"
@@ -82,13 +106,26 @@ Container {
         ComponentDefinition {
             id: clockTick
             ImageView {
-                property real tickAngle
-                property bool tickIsLight: (tickAngle + 90 - 0.5) % 360 < clockTime
-                imageSource: tickIsLight ? "asset:///images/clock/tick-light.png" : "asset:///images/clock/tick-dark.png"
+                property int tickAngle
                 rotationZ: -180 + tickAngle
                 layoutProperties: AbsoluteLayoutProperties {
                     positionX: clockDisplay.tickCenterX + Math.cos(tickAngle * 0.01745329251994) * clockDisplay.tickRadius
                     positionY: clockDisplay.tickCenterY + Math.sin(tickAngle * 0.01745329251994) * clockDisplay.tickRadius
+                }
+                function updateDisplay() {
+                    var tickIsLight = ((tickAngle + 90 - 0.5) % 360) < clockDisplay.clockValue
+                    if(tickIsLight) {
+                        imageSource = "asset:///images/clock/tick-light.png"
+                    } else {
+                        imageSource = "asset:///images/clock/tick-dark.png"
+                    }
+                }
+                onTickAngleChanged: {
+                    updateDisplay()
+                }
+                onCreationCompleted: {
+                    updateDisplay()
+                    clockDisplay.clockValueChanged.connect(updateDisplay)
                 }
             }
         },
