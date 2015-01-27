@@ -27,13 +27,13 @@ Sheet {
             } 
         }
         Container {
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 20
+            bottomPadding: 20
             layout: DockLayout {}
             WallpaperView {}
-            Container {
-                topPadding: 20
-                bottomPadding: 20
-                leftPadding: 10
-                rightPadding: 10
+            ScrollView {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 GroupContainer {
@@ -49,6 +49,10 @@ Sheet {
                     Container {
                         horizontalAlignment: HorizontalAlignment.Center
                         layout: DockLayout {}
+                        leftPadding: 20
+                        rightPadding: 20
+                        topPadding: 20
+                        bottomPadding: 20
                         Clock {
                             horizontalAlignment: HorizontalAlignment.Fill
                             verticalAlignment: VerticalAlignment.Fill
@@ -57,6 +61,7 @@ Sheet {
                         }
                     }
                     Slider {
+                        horizontalAlignment: HorizontalAlignment.Center
                         topMargin: 60
                         bottomMargin: 60
                         fromValue: 1

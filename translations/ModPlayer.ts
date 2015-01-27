@@ -1372,12 +1372,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SleepTimerSettings.qml" line="72"/>
+        <location filename="../assets/SleepTimerSettings.qml" line="77"/>
         <source>Cancel Timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SleepTimerSettings.qml" line="72"/>
+        <location filename="../assets/SleepTimerSettings.qml" line="77"/>
         <source>Start Timer</source>
         <translation type="unfinished"></translation>
     </message>

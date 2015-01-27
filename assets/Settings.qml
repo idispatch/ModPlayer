@@ -44,14 +44,14 @@ Sheet {
                     verticalAlignment: VerticalAlignment.Fill
                     VerticalContainer {
                         leftPadding: 20
-                        rightPadding: leftPadding
+                        rightPadding: 20
                         topPadding: 20
-                        bottomPadding: topPadding
+                        bottomPadding: 20
                         GroupContainer {
                             topPadding: 20
                             bottomPadding: 40
                             leftPadding: 20
-                            rightPadding: leftPadding
+                            rightPadding: 20
                             opacity: 0.85
                             BlackLabel {
                                 text: qsTr("Application") + Retranslate.onLanguageChanged
