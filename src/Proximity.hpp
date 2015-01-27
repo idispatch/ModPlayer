@@ -2,6 +2,7 @@
 #define PROXIMITY_HPP
 
 #include <QObject>
+#include <QtCore/QDateTime>
 #include <QtSensors/QProximitySensor>
 #include <QtSensors/QProximityReading>
 
@@ -22,7 +23,8 @@ protected:
     bool filter(QtMobility::QProximityReading *reading);
 private:
     QtMobility::QProximitySensor m_sensor;
-    bool m_close;
+    bool                         m_close;
+    QDateTime                    m_lastProximity;
 };
 
 #endif

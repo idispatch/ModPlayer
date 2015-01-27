@@ -3,7 +3,7 @@
 #include <math.h>
 
 namespace {
-    const double SHAKE_SENSITIVITY = 1.7;
+    const double SHAKE_SENSITIVITY = 1.6;
     const qint64 SHAKE_TIMEOUT_MS  = 1500; // milliseconds
 }
 
@@ -31,7 +31,7 @@ bool Shake::filter(QtMobility::QAccelerometerReading *reading) {
 
     m_accelLast = m_accelCurrent;
     m_accelCurrent = sqrt(x * x  + y * y + z * z);
-    m_accel = m_accel * 0.9 + (m_accelCurrent - m_accelLast) * 0.1;
+    m_accel = m_accel * 0.8 + (m_accelCurrent - m_accelLast) * 0.2;
 
     if(m_accel > SHAKE_SENSITIVITY) {
         QDateTime now = QDateTime::currentDateTime();
