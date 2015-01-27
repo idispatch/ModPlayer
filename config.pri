@@ -761,9 +761,6 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/indicators/*.qml) \
         $$quote($$BASEDIR/../assets/images/indicators/*.js) \
         $$quote($$BASEDIR/../assets/images/indicators/*.qs) \
-        $$quote($$BASEDIR/../assets/images/lcd/*.qml) \
-        $$quote($$BASEDIR/../assets/images/lcd/*.js) \
-        $$quote($$BASEDIR/../assets/images/lcd/*.qs) \
         $$quote($$BASEDIR/../assets/images/lcd-dark/*.qml) \
         $$quote($$BASEDIR/../assets/images/lcd-dark/*.js) \
         $$quote($$BASEDIR/../assets/images/lcd-dark/*.qs) \
