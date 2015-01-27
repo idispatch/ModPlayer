@@ -797,6 +797,21 @@
     </message>
 </context>
 <context>
+    <name>PlaylistSensorControl</name>
+    <message>
+        <source>Playlist Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On Device Shake Play Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On Proximity Sensor Play Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Playlists</name>
     <message>
         <source>Select Playlist</source>

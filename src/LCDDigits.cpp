@@ -6,7 +6,7 @@
 using namespace bb::cascades;
 
 bool LCDDigits::imagesInitialized = false;
-Image LCDDigits::images[11];
+Image LCDDigits::images[22];
 
 template<>
 int InstanceCounter<LCDDigits>::s_count;
@@ -16,8 +16,10 @@ int InstanceCounter<LCDDigits>::s_maxCount;
 LCDDigits::LCDDigits(Container *parent)
     : CustomControl(parent),
       m_rootContainer(NULL),
+      m_displayScale(1.0),
       m_numDigits(3),
-      m_number(-1) {
+      m_number(-1),
+      m_colorScheme(0) {
     initImages();
     createLCD();
 }
@@ -26,21 +28,21 @@ LCDDigits::~LCDDigits() {
 }
 
 void LCDDigits::initImages() {
-    if(!imagesInitialized)
-    {
-        for(unsigned i = 0; i < 11; i++)
-        {
-            images[i] = Image(QUrl(QString("asset:///images/lcd/lcd-%1.png").arg(i)));
+    if(!imagesInitialized) {
+        for(unsigned i = 0; i < sizeof(images)/sizeof(images[0]); i++) {
+            if(i < 11) {
+                images[i] = Image(QUrl(QString("asset:///images/lcd-dark/lcd-%1.png").arg(i)));
+            } else {
+                images[i] = Image(QUrl(QString("asset:///images/lcd-light/lcd-%1.png").arg(i - 11)));
+            }
         }
         imagesInitialized = true;
     }
 }
 
 void LCDDigits::finalize() {
-    if(imagesInitialized)
-    {
-        for(unsigned i = 0; i < 11; i++)
-        {
+    if(imagesInitialized) {
+        for(unsigned i = 0; i < sizeof(images)/sizeof(images[0]); i++) {
             images[i] = Image();
         }
         imagesInitialized = false;
@@ -76,22 +78,22 @@ void LCDDigits::setNumber(int value) {
             int newImageNumber;
 
             if(value < 0) {
-                newImageNumber = 10;
+                newImageNumber = 10 + (m_colorScheme * 11);
             } else {
                 if(value >= m || (value == 0 && m == 1)) {
-                    newImageNumber = (value / m) % 10;
+                    newImageNumber = (value / m) % 10 + (m_colorScheme * 11);
                 } else {
-                    newImageNumber = 10;
+                    newImageNumber = 10 + (m_colorScheme * 11);
                 }
             }
 
             if(m_number < 0) {
-                oldImageNumber = 10;
+                oldImageNumber = 10 + (m_colorScheme * 11);
             } else {
                 if(m_number >= m || (m_number == 0 && m == 1)) {
-                    oldImageNumber = (m_number / m) % 10;
+                    oldImageNumber = (m_number / m) % 10 + (m_colorScheme * 11);
                 } else {
-                    oldImageNumber = 10;
+                    oldImageNumber = 10 + (m_colorScheme * 11);
                 }
             }
 
@@ -106,6 +108,42 @@ void LCDDigits::setNumber(int value) {
 
 void LCDDigits::resetNumber() {
     setNumber(-1);
+}
+
+int LCDDigits::colorScheme() const {
+    return m_colorScheme;
+}
+
+void LCDDigits::setColorScheme(int value) {
+    if(value != m_colorScheme) {
+        switch(value) {
+        case 0: case 1:
+            m_colorScheme = value;
+            break;
+        default:
+            m_colorScheme = 0;
+            break;
+        }
+        createLCD();
+    }
+}
+
+double LCDDigits::displayScale() const {
+    return m_displayScale;
+}
+
+void LCDDigits::setDisplayScale(double value) {
+    if(value < 0.0) {
+        value = 0.0;
+    }
+    if(m_displayScale != value) {
+        m_displayScale = value;
+
+        for(int i = 0; i < m_numDigits; ++i) {
+            m_views[i]->setPreferredWidth(32 * m_displayScale);
+            m_views[i]->setPreferredHeight(44 * m_displayScale);
+        }
+    }
 }
 
 void LCDDigits::createLCD() {
@@ -132,8 +170,7 @@ void LCDDigits::createLCD() {
                                          .right(0)
                                          .rightMargin(0)
                                          .background(Color::Transparent)
-                                         .layout(StackLayout::create()
-                                                    .orientation(LayoutOrientation::LeftToRight));
+                                         .layout(StackLayout::create().orientation(LayoutOrientation::LeftToRight));
 
     int m = 1;
     for(int i = 1; i < m_numDigits; ++i) {
@@ -143,29 +180,28 @@ void LCDDigits::createLCD() {
     for(int i = m_numDigits - 1; i >= 0; --i) {
         int imageNumber;
         if(m_number < 0) {
-            imageNumber = 10;
+            imageNumber = 10 + (m_colorScheme * 11);
         } else {
             if(m_number >= m || (m_number == 0 && m == 1)) {
-                imageNumber = (m_number / m) % 10;
+                imageNumber = (m_number / m) % 10 + (m_colorScheme * 11);
             } else {
-                imageNumber = 10;
+                imageNumber = 10 + (m_colorScheme * 11);
             }
             m /= 10;
         }
 
-        ImageView * view = ImageView::create()
-                                      .topMargin(0)
-                                      .bottomMargin(0)
-                                      .leftMargin(0)
-                                      .rightMargin(0)
-                                      .preferredWidth(32)
-                                      .preferredHeight(44)
-                                      .loadEffect(ImageViewLoadEffect::None)
-                                      .scalingMethod(ScalingMethod::Fill)
-                                      .implicitLayoutAnimations(false)
-                                      .image(images[imageNumber]);
-        m_views[i] = view;
-        m_rootContainer->add(view);
+        m_views[i] = ImageView::create()
+                                  .topMargin(0)
+                                  .bottomMargin(0)
+                                  .leftMargin(0)
+                                  .rightMargin(0)
+                                  .preferredWidth(32 * m_displayScale)
+                                  .preferredHeight(44 * m_displayScale)
+                                  .loadEffect(ImageViewLoadEffect::None)
+                                  .scalingMethod(ScalingMethod::Fill)
+                                  .implicitLayoutAnimations(false)
+                                  .image(images[imageNumber]);
+        m_rootContainer->add(m_views[i]);
     }
 
     setRoot(m_rootContainer);

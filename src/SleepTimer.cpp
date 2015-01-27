@@ -28,7 +28,27 @@ void SleepTimer::setSleepTimeout(int value) {
     if(m_sleepTimer.interval() / 60000 != value) {
         m_sleepTimer.setInterval(value * 60000);
         emit timeoutChanged();
+        emit sleepRemainingChanged();
     }
+}
+
+int SleepTimer::sleepRemaining() const {
+    int minutesRemaining;
+    if(timerActive()) {
+        minutesRemaining = totalSecondsRemaining() / 60;
+    } else {
+        minutesRemaining = sleepTimeout();
+    }
+    return minutesRemaining;
+}
+
+int SleepTimer::totalSecondsRemaining() const {
+    int deltaMilliseconds = m_sleepTimer.interval() - m_sleepTimerStarted.elapsed();
+    if(deltaMilliseconds < 0) {
+        deltaMilliseconds = 0;
+    }
+    const int totalSeconds = deltaMilliseconds / 1000;
+    return totalSeconds;
 }
 
 bool SleepTimer::timerActive() const {
@@ -36,13 +56,9 @@ bool SleepTimer::timerActive() const {
 }
 
 QString SleepTimer::status() const {
-    int delta = m_sleepTimer.interval() - m_sleepTimerStarted.elapsed();
-    if(delta < 0) {
-        delta = 0;
-    }
-    delta /= 1000;
-    const int minutes = delta / 60;
-    const int seconds = delta % 60;
+    const int totalSeconds = totalSecondsRemaining();
+    const int minutes = totalSeconds / 60;
+    const int seconds = totalSeconds % 60;
     return QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
 }
 
@@ -62,10 +78,12 @@ void SleepTimer::cancel() {
         m_sleepTimerRemainingUpdate.stop();
         emit timerActiveChanged();
         emit statusChanged();
+        emit sleepRemainingChanged();
     }
 }
 
 void SleepTimer::onTimerExpired() {
+    emit sleepRemainingChanged();
     emit timerActiveChanged();
     emit statusChanged();
     m_sleepTimerRemainingUpdate.stop();
@@ -74,4 +92,5 @@ void SleepTimer::onTimerExpired() {
 
 void SleepTimer::onUpdateStatus() {
     emit statusChanged();
+    emit sleepRemainingChanged();
 }

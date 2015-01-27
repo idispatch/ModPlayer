@@ -262,6 +262,7 @@ Sheet {
                                 }
                             }
                         }
+                        PlaylistSensorControl {}
                         GroupContainer {
                             topPadding: 20
                             bottomPadding: 40

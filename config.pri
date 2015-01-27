@@ -58,6 +58,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/BlackLabel.qml) \
         $$quote($$BASEDIR/assets/Buy.qml) \
         $$quote($$BASEDIR/assets/BuyActionItem.qml) \
+        $$quote($$BASEDIR/assets/Clock.qml) \
         $$quote($$BASEDIR/assets/ColorListItem.qml) \
         $$quote($$BASEDIR/assets/Cover.qml) \
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
@@ -92,6 +93,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/PlayerTitleBar.qml) \
         $$quote($$BASEDIR/assets/PlaylistControl.qml) \
         $$quote($$BASEDIR/assets/PlaylistNameEntryPrompt.qml) \
+        $$quote($$BASEDIR/assets/PlaylistSensorControl.qml) \
         $$quote($$BASEDIR/assets/Playlists.qml) \
         $$quote($$BASEDIR/assets/PlusFeature.qml) \
         $$quote($$BASEDIR/assets/PreviousActionItem.qml) \
@@ -199,6 +201,10 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/badges/badge_myfavourite.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_played.png) \
         $$quote($$BASEDIR/assets/images/badges/badge_score.png) \
+        $$quote($$BASEDIR/assets/images/clock/clock-face.png) \
+        $$quote($$BASEDIR/assets/images/clock/clock-gloss.png) \
+        $$quote($$BASEDIR/assets/images/clock/tick-dark.png) \
+        $$quote($$BASEDIR/assets/images/clock/tick-light.png) \
         $$quote($$BASEDIR/assets/images/cover/cover_text_back.amd) \
         $$quote($$BASEDIR/assets/images/cover/cover_text_back.png) \
         $$quote($$BASEDIR/assets/images/flags/Andorra-flag.png) \
@@ -286,17 +292,28 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/indicators/stereo.png) \
         $$quote($$BASEDIR/assets/images/indicators/surround.png) \
         $$quote($$BASEDIR/assets/images/indicators/xbass.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-0.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-1.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-10.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-2.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-3.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-4.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-5.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-6.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-7.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-8.png) \
-        $$quote($$BASEDIR/assets/images/lcd/lcd-9.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-0.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-1.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-10.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-2.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-3.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-4.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-5.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-6.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-7.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-8.png) \
+        $$quote($$BASEDIR/assets/images/lcd-dark/lcd-9.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-0.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-1.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-10.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-2.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-3.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-4.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-5.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-6.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-7.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-8.png) \
+        $$quote($$BASEDIR/assets/images/lcd-light/lcd-9.png) \
         $$quote($$BASEDIR/assets/images/led/led_off.png) \
         $$quote($$BASEDIR/assets/images/led/led_on.png) \
         $$quote($$BASEDIR/assets/images/objects/cache.png) \
@@ -396,6 +413,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/PlaybackConfig.cpp) \
         $$quote($$BASEDIR/src/Player.cpp) \
         $$quote($$BASEDIR/src/Playlist.cpp) \
+        $$quote($$BASEDIR/src/Proximity.cpp) \
         $$quote($$BASEDIR/src/PurchaseStore.cpp) \
         $$quote($$BASEDIR/src/Radio.cpp) \
         $$quote($$BASEDIR/src/SleepTimer.cpp) \
@@ -543,6 +561,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/PlaybackConfig.hpp) \
         $$quote($$BASEDIR/src/Player.hpp) \
         $$quote($$BASEDIR/src/Playlist.hpp) \
+        $$quote($$BASEDIR/src/Proximity.hpp) \
         $$quote($$BASEDIR/src/PurchaseStore.hpp) \
         $$quote($$BASEDIR/src/Radio.hpp) \
         $$quote($$BASEDIR/src/SleepTimer.hpp) \
@@ -727,6 +746,9 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/badges/*.qml) \
         $$quote($$BASEDIR/../assets/images/badges/*.js) \
         $$quote($$BASEDIR/../assets/images/badges/*.qs) \
+        $$quote($$BASEDIR/../assets/images/clock/*.qml) \
+        $$quote($$BASEDIR/../assets/images/clock/*.js) \
+        $$quote($$BASEDIR/../assets/images/clock/*.qs) \
         $$quote($$BASEDIR/../assets/images/cover/*.qml) \
         $$quote($$BASEDIR/../assets/images/cover/*.js) \
         $$quote($$BASEDIR/../assets/images/cover/*.qs) \
@@ -742,6 +764,12 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/lcd/*.qml) \
         $$quote($$BASEDIR/../assets/images/lcd/*.js) \
         $$quote($$BASEDIR/../assets/images/lcd/*.qs) \
+        $$quote($$BASEDIR/../assets/images/lcd-dark/*.qml) \
+        $$quote($$BASEDIR/../assets/images/lcd-dark/*.js) \
+        $$quote($$BASEDIR/../assets/images/lcd-dark/*.qs) \
+        $$quote($$BASEDIR/../assets/images/lcd-light/*.qml) \
+        $$quote($$BASEDIR/../assets/images/lcd-light/*.js) \
+        $$quote($$BASEDIR/../assets/images/lcd-light/*.qs) \
         $$quote($$BASEDIR/../assets/images/led/*.qml) \
         $$quote($$BASEDIR/../assets/images/led/*.js) \
         $$quote($$BASEDIR/../assets/images/led/*.qs) \

@@ -801,6 +801,21 @@
     </message>
 </context>
 <context>
+    <name>PlaylistSensorControl</name>
+    <message>
+        <source>Playlist Control</source>
+        <translation type="unfinished">Управление воспроизведением</translation>
+    </message>
+    <message>
+        <source>On Device Shake Play Next</source>
+        <translation type="unfinished">Встряхнуть телефон чтобы играть следующую песню</translation>
+    </message>
+    <message>
+        <source>On Proximity Sensor Play Next</source>
+        <translation type="unfinished">При срабатывании датчика приближения играть следующую песню</translation>
+    </message>
+</context>
+<context>
     <name>Playlists</name>
     <message>
         <source>%1 songs</source>
@@ -1176,6 +1191,18 @@
     <message>
         <source>Buy ModPlayer Plus</source>
         <translation>Купить ModPlayer Plus</translation>
+    </message>
+    <message>
+        <source>Playlist Control</source>
+        <translation type="obsolete">Управление воспроизведением</translation>
+    </message>
+    <message>
+        <source>On Device Shake Play Next</source>
+        <translation type="obsolete">Встряхнуть телефон чтобы играть следующую песню</translation>
+    </message>
+    <message>
+        <source>On Proximity Sensor Play Next</source>
+        <translation type="obsolete">При срабатывании датчика приближения играть следующую песню</translation>
     </message>
 </context>
 <context>

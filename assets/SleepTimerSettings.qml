@@ -44,6 +44,17 @@ Sheet {
                     BlackLabel {
                         horizontalAlignment: HorizontalAlignment.Center
                         text: app.player.sleepTimer.timerActive ? qsTr("Playback will stop in %1").arg(app.player.sleepTimer.status) + Retranslate.onLanguageChanged : qsTr("Stop playback in %1 minute(s)").arg(app.player.sleepTimer.sleepTimeout) + Retranslate.onLanguageChanged
+                        bottomMargin: 40
+                    }
+                    Container {
+                        horizontalAlignment: HorizontalAlignment.Center
+                        layout: DockLayout {}
+                        Clock {
+                            horizontalAlignment: HorizontalAlignment.Fill
+                            verticalAlignment: VerticalAlignment.Fill
+                            clockTime: app.player.sleepTimer.sleepRemaining * 6 
+                            setupMode: !app.player.sleepTimer.timerActive
+                        }
                     }
                     Slider {
                         topMargin: 60

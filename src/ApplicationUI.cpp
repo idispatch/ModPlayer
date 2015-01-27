@@ -67,6 +67,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)),
       m_fileSystem(new FileSystem(m_player->fileNameFilters(), this)),
+      m_proximity(new Proximity(this)),
       m_invokeManager(new InvokeManager(this)) {
     static_instance = this;
     m_app = app;
@@ -77,6 +78,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     initApp();
     initActiveCover();
     initPlayer();
+    initProximity();
     initPurchases();
 }
 
@@ -313,6 +315,16 @@ void ApplicationUI::initPlayer() {
     Q_UNUSED(rc);
 }
 
+void ApplicationUI::initProximity() {
+    bool rc;
+    rc = QObject::connect(m_proximity, SIGNAL(closeProximity()),
+                          this,        SLOT(onCloseProximity()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+
+    m_proximity->setActive(isProximitySensorEnabled());
+}
+
 void ApplicationUI::initTranslator() {
     bool rc;
     rc = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()),
@@ -338,6 +350,35 @@ void ApplicationUI::onCatalogChanged() {
 
 void ApplicationUI::onCacheChanged() {
     emit cacheChanged();
+}
+
+void ApplicationUI::onCloseProximity() {
+    if(isProximitySensorEnabled()) {
+        m_player->playNext();
+    }
+}
+
+bool ApplicationUI::isProximitySensorEnabled() const {
+    return m_settings.value("ui/proximity", false).toBool();
+}
+
+bool ApplicationUI::isShakeSensorEnabled() const {
+    return m_settings.value("ui/shake", false).toBool();
+}
+
+void ApplicationUI::setProximitySensorEnabled(bool value) {
+    if(isProximitySensorEnabled() != value) {
+        m_settings.setValue("ui/proximity", value);
+        m_proximity->setActive(value);
+        emit proximitySensorEnabledChanged();
+    }
+}
+
+void ApplicationUI::setShakeSensorEnabled(bool value) {
+    if(isShakeSensorEnabled() != value) {
+        m_settings.setValue("ui/shake", value);
+        emit shakeSensorEnabledChanged();
+    }
 }
 
 QString ApplicationUI::title() const {

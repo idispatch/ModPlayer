@@ -12,6 +12,7 @@ class SleepTimer : public QObject {
     Q_DISABLE_COPY(SleepTimer)
 
     Q_PROPERTY(int sleepTimeout READ sleepTimeout WRITE setSleepTimeout NOTIFY timeoutChanged FINAL)
+    Q_PROPERTY(int sleepRemaining READ sleepRemaining NOTIFY sleepRemainingChanged FINAL)
     Q_PROPERTY(bool timerActive READ timerActive NOTIFY timerActiveChanged FINAL)
     Q_PROPERTY(QString status READ status NOTIFY statusChanged FINAL)
 public:
@@ -19,6 +20,8 @@ public:
 
     int sleepTimeout() const;
     void setSleepTimeout(int value);
+
+    int sleepRemaining() const;
 
     bool timerActive() const;
     QString status() const;
@@ -31,9 +34,12 @@ Q_SIGNALS:
     void timeoutChanged();
     void timerActiveChanged();
     void statusChanged();
+    void sleepRemainingChanged();
 private slots:
     void onTimerExpired();
     void onUpdateStatus();
+private:
+    int totalSecondsRemaining() const;
 private:
     QTimer  m_sleepTimer;
     QTimer  m_sleepTimerRemainingUpdate;

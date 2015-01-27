@@ -9,6 +9,7 @@
 #include "Wallpaper.hpp"
 #include "PurchaseStore.hpp"
 #include "FileSystem.hpp"
+#include "Proximity.hpp"
 
 namespace bb
 {
@@ -37,6 +38,8 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(bool isFirstLaunch READ isFirstLaunch WRITE setFirstLaunch NOTIFY isFirstLaunchChanged FINAL)
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
+    Q_PROPERTY(bool proximitySensorEnabled READ isProximitySensorEnabled WRITE setProximitySensorEnabled NOTIFY proximitySensorEnabledChanged FINAL)
+    Q_PROPERTY(bool shakeSensorEnabled READ isShakeSensorEnabled WRITE setShakeSensorEnabled NOTIFY shakeSensorEnabledChanged FINAL)
     Q_PROPERTY(int maxViewSongs READ maxViewSongs WRITE setMaxViewSongs NOTIFY maxViewSongsChanged FINAL)
     Q_PROPERTY(QString title READ title NOTIFY titleChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
@@ -56,8 +59,18 @@ public:
     bool isFirstLaunch() const;
     bool isExtendedVersion();
     bool isForeground() const;
+
+    // Proximity Sensor
+    bool isProximitySensorEnabled() const;
+    void setProximitySensorEnabled(bool value);
+
+    // Shake Sensor
+    bool isShakeSensorEnabled() const;
+    void setShakeSensorEnabled(bool value);
+
     int maxViewSongs() const;
 
+    // Object Properties
     QString title() const;
     QString version() const;
     Player * player() const;
@@ -84,6 +97,8 @@ Q_SIGNALS:
     void isFirstLaunchChanged();
     void isExtendedVersionChanged();
     void isForegroundChanged();
+    void proximitySensorEnabledChanged();
+    void shakeSensorEnabledChanged();
     void maxViewSongsChanged();
     void titleChanged();
     void versionChanged();
@@ -96,6 +111,7 @@ Q_SIGNALS:
     void fileSystemChanged();
 private slots:
     void onInvoked(const bb::system::InvokeRequest& invoke);
+    void onCloseProximity();
     void onSystemLanguageChanged();
     void onCatalogChanged();
     void onCacheChanged();
@@ -109,6 +125,7 @@ private:
     void initApp();
     void initActiveCover();
     void initPlayer();
+    void initProximity();
     void initTranslator();
     void saveWallpaperSettings();
 private:
@@ -123,6 +140,7 @@ private:
     Player                      *m_player;
     Analytics                   *m_analytics;
     FileSystem                  *m_fileSystem;
+    Proximity                   *m_proximity;
     bb::system::InvokeManager   *m_invokeManager;
 };
 
