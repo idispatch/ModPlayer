@@ -22,6 +22,9 @@ private slots:
     void enableSensor();
     void disableSensor();
 private:
+    void enableSensor();
+    void disableSensor();
+private:
     QtMobility::QAccelerometer m_sensor;
     QDateTime                  m_lastShake;
     double                     m_accel;
