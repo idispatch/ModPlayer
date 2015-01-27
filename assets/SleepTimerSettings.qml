@@ -18,6 +18,7 @@ Sheet {
             }
             acceptAction: ActionItem {
                 title: qsTr("Ok") + Retranslate.onLanguageChanged
+                enabled: app.isExtendedVersion
                 onTriggered: {
                     if(!app.player.sleepTimer.timerActive) {
                         app.player.sleepTimer.start()

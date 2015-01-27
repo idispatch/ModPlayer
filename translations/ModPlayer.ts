@@ -1362,22 +1362,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SleepTimerSettings.qml" line="49"/>
+        <location filename="../assets/SleepTimerSettings.qml" line="50"/>
         <source>Stop playback in %1 minute(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SleepTimerSettings.qml" line="49"/>
+        <location filename="../assets/SleepTimerSettings.qml" line="50"/>
         <source>Playback will stop in %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SleepTimerSettings.qml" line="83"/>
+        <location filename="../assets/SleepTimerSettings.qml" line="84"/>
         <source>Cancel Timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/SleepTimerSettings.qml" line="83"/>
+        <location filename="../assets/SleepTimerSettings.qml" line="84"/>
         <source>Start Timer</source>
         <translation type="unfinished"></translation>
     </message>
