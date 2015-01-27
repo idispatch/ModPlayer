@@ -41,7 +41,7 @@ Sheet {
                     verticalAlignment: VerticalAlignment.Fill
                     GroupContainer {
                         topPadding: 20
-                        bottomPadding: 20
+                        bottomPadding: 60
                         leftPadding: 60
                         rightPadding: 60
                         BlackLabel {
@@ -69,7 +69,7 @@ Sheet {
                         Slider {
                             horizontalAlignment: HorizontalAlignment.Center
                             topMargin: 20
-                            bottomMargin: 20
+                            bottomMargin: 40
                             fromValue: 1
                             toValue: 60
                             enabled: !app.player.sleepTimer.timerActive
