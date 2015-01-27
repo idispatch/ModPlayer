@@ -10,6 +10,7 @@
 #include <bb/cascades/pickers/FilePickerSortOrder>
 #include <bb/cascades/pickers/FilePickerViewMode>
 #include <bb/cascades/pickers/FileType>
+#include <bb/device/DisplayInfo>
 #include <bb/data/DataSource>
 #include <bb/system/InvokeManager>
 #include <bb/system/SystemToast>
@@ -73,6 +74,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     static_instance = this;
     m_app = app;
     m_analytics->active(1);
+    initScreen();
     initTranslator();
     initTypes();
     initSignals();
@@ -89,6 +91,19 @@ ApplicationUI::~ApplicationUI() {
         m_analytics->active(0);
     }
     static_instance = NULL;
+}
+
+void ApplicationUI::initScreen() {
+    bb::device::DisplayInfo display;
+    m_screenPixelSize = display.pixelSize();
+}
+
+int ApplicationUI::screenWidth() const {
+    return m_screenPixelSize.width();
+}
+
+int ApplicationUI::screenHeight() const {
+    return m_screenPixelSize.height();
 }
 
 bool ApplicationUI::isFirstLaunch() const {

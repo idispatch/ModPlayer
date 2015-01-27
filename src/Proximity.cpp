@@ -55,8 +55,8 @@ void Proximity::onReadingChanged() {
     if (m_close != reading->close()) {
         m_close = reading->close();
         if (m_close) {
-            qDebug() << "Proximity detected";
             QDateTime now = QDateTime::currentDateTime();
+            qDebug() << "Proximity detected:" << now;
             if(m_lastProximity.msecsTo(now) > PROXIMITY_TIMEOUT_MS) {
                 m_lastProximity = now;
                 emit closeProximity();

@@ -40,14 +40,14 @@ Sheet {
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Fill
                     GroupContainer {
-                        topPadding: 40
-                        bottomPadding: 40
+                        topPadding: 20
+                        bottomPadding: 20
                         leftPadding: 60
                         rightPadding: 60
                         BlackLabel {
                             horizontalAlignment: HorizontalAlignment.Center
                             text: app.player.sleepTimer.timerActive ? qsTr("Playback will stop in %1").arg(app.player.sleepTimer.status) + Retranslate.onLanguageChanged : qsTr("Stop playback in %1 minute(s)").arg(app.player.sleepTimer.sleepTimeout) + Retranslate.onLanguageChanged
-                            bottomMargin: 40
+                            bottomMargin: 20
                         }
                         Container {
                             horizontalAlignment: HorizontalAlignment.Center
@@ -68,8 +68,8 @@ Sheet {
                         }
                         Slider {
                             horizontalAlignment: HorizontalAlignment.Center
-                            topMargin: 40
-                            bottomMargin: 60
+                            topMargin: 20
+                            bottomMargin: 20
                             fromValue: 1
                             toValue: 60
                             enabled: !app.player.sleepTimer.timerActive

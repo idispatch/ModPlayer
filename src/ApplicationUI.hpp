@@ -36,6 +36,8 @@ class Wallpaper;
 class ApplicationUI : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(ApplicationUI)
+    Q_PROPERTY(int screenWidth READ screenWidth FINAL)
+    Q_PROPERTY(int screenHeight READ screenHeight FINAL)
     Q_PROPERTY(bool isFirstLaunch READ isFirstLaunch WRITE setFirstLaunch NOTIFY isFirstLaunchChanged FINAL)
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
@@ -56,6 +58,9 @@ public:
     ~ApplicationUI();
 
     static ApplicationUI& instance();
+
+    int screenWidth() const;
+    int screenHeight() const;
 
     bool isFirstLaunch() const;
     bool isExtendedVersion();
@@ -121,6 +126,7 @@ private slots:
     void onProcessStateChanged(bb::ProcessState::Type);
     void onPurchaseStateChanged();
 private:
+    void initScreen();
     void initPurchases();
     void initSignals();
     void initTypes();
@@ -138,6 +144,7 @@ private:
     QTranslator                 *m_pTranslator;
     PurchaseStore                m_purchaseStore;
     Wallpaper                    m_wallpaper;
+    QSize                        m_screenPixelSize;
     bb::cascades::LocaleHandler *m_pLocaleHandler;
     bb::cascades::Application   *m_app;
     Player                      *m_player;

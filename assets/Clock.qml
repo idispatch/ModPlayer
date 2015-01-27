@@ -4,20 +4,22 @@ import player 1.0
 Container {
     id: clockDisplay
 
-    property real tickRadius: 195
-    property real tickCenterX: 230
-    property real tickCenterY: 242
+    property int preferredSize: app.screenWidth > 1300 ? 700 : (Math.max(app.screenWidth, app.screenHeight) < 800 ? 300 : 500)
+
+    property real tickRadius: preferredSize / 2 - preferredSize * 0.116
+    property real tickCenterX: preferredSize / 2 - 21
+    property real tickCenterY: preferredSize / 2 - 8
     property real tickStep: 6.0
-    property real clockValue
+    property real clockValue: 360
     property real clockOfferedValue
     property bool setupMode: false
 
-    minWidth: 500
-    minHeight: 500
-    maxWidth: 500
-    maxHeight: 500
-    preferredHeight: 500
-    preferredWidth: 500
+    minWidth: preferredSize
+    minHeight: preferredSize
+    maxWidth: preferredSize
+    maxHeight: preferredSize
+    preferredHeight: preferredSize
+    preferredWidth: preferredSize
 
     layout: AbsoluteLayout {
     }
@@ -70,25 +72,28 @@ Container {
             }
         }
     }
-
     ImageView {
         imageSource: "asset:///images/clock/clock-face.png"
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
+        scalingMethod: ScalingMethod.Fill
+        loadEffect: ImageViewLoadEffect.None
+        preferredWidth: preferredSize
+        preferredHeight: preferredSize
     }
     Container {
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
         layout: DockLayout {
         }
-        preferredHeight: 500
-        preferredWidth: 500
+        preferredHeight: clockDisplay.preferredSize
+        preferredWidth: clockDisplay.preferredSize
         LCDDigits {
             id: digitDisplay
             number: app.player.sleepTimer.sleepRemaining
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Center
-            displayScale: 3.0
+            displayScale: app.screenHeight < 1000 ? 2.0 : (app.screenWidth > 1400 ? 4.0 : 3.0)
             numDigits: 2
             colorScheme: 1
             animations: [
@@ -133,6 +138,7 @@ Container {
             id: clockTick
             ImageView {
                 property int tickAngle
+                loadEffect: ImageViewLoadEffect.None
                 rotationZ: -180 + tickAngle
                 layoutProperties: AbsoluteLayoutProperties {
                     positionX: clockDisplay.tickCenterX + Math.cos(tickAngle * 0.01745329251994) * clockDisplay.tickRadius
@@ -161,6 +167,9 @@ Container {
                 imageSource: "asset:///images/clock/clock-gloss.png"
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
+                loadEffect: ImageViewLoadEffect.None
+                preferredWidth: preferredSize
+                preferredHeight: preferredSize
             }
         }
     ]
