@@ -5,7 +5,7 @@
 #include <math.h>
 
 namespace {
-    const double SHAKE_SENSITIVITY = 1.6;
+    const double SHAKE_SENSITIVITY = 1.7;
     const double SHAKE_FILTER      = 0.8;
     const qint64 SHAKE_TIMEOUT_MS  = 1500; // milliseconds
 }
