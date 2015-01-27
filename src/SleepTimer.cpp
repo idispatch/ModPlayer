@@ -6,7 +6,7 @@ SleepTimer::SleepTimer(QObject * parent)
     m_sleepTimerRemainingUpdate.setSingleShot(false);
 
     setSleepTimeout(15); // 15 minutes
-    m_sleepTimerRemainingUpdate.setInterval(200); // 200 msec
+    m_sleepTimerRemainingUpdate.setInterval(300); // 300 msec
 
     bool rc;
     rc = QObject::connect(&m_sleepTimer, SIGNAL(timeout()),
