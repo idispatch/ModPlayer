@@ -20,8 +20,8 @@ Shake::Shake(QObject *parent)
         m_sensor.setAxesOrientationMode(QtMobility::QAccelerometer::FixedOrientation);
         m_sensor.setAccelerationMode(QtMobility::QAccelerometer::User);
     }
+    m_lastShake = QDateTime::currentDateTime().addSecs(3);
     m_sensor.addFilter(this);
-    m_lastShake = QDateTime::currentDateTime();
 }
 
 bool Shake::filter(QtMobility::QAccelerometerReading *reading) {
@@ -56,6 +56,7 @@ void Shake::setActive(bool value) {
             m_accel = 0.0;
             m_accelLast = 0.0;
             m_accelCurrent = 0.0;
+            m_lastShake = QDateTime::currentDateTime().addSecs(3);
             m_sensor.setSkipDuplicates(true);
             m_sensor.setAlwaysOn(true);
             m_sensor.start();
