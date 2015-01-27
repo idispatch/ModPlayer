@@ -39,11 +39,15 @@ private slots:
     void onTimerExpired();
     void onUpdateStatus();
 private:
+    void updateStatusMessage();
+    void updateSleepRemaining();
     int totalSecondsRemaining() const;
 private:
     QTimer  m_sleepTimer;
     QTimer  m_sleepTimerRemainingUpdate;
     QTime   m_sleepTimerStarted;
+    QString m_status;
+    int     m_sleepRemaining;
 };
 
 Q_DECLARE_METATYPE(SleepTimer*);

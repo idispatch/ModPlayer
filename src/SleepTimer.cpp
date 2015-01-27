@@ -1,12 +1,13 @@
 #include "SleepTimer.hpp"
 
 SleepTimer::SleepTimer(QObject * parent)
-    : QObject(parent) {
+    : QObject(parent),
+      m_sleepRemaining(0) {
     m_sleepTimer.setSingleShot(true);
     m_sleepTimerRemainingUpdate.setSingleShot(false);
 
     setSleepTimeout(15); // 15 minutes
-    m_sleepTimerRemainingUpdate.setInterval(300); // 300 msec
+    m_sleepTimerRemainingUpdate.setInterval(250);
 
     bool rc;
     rc = QObject::connect(&m_sleepTimer, SIGNAL(timeout()),
@@ -28,18 +29,13 @@ void SleepTimer::setSleepTimeout(int value) {
     if(m_sleepTimer.interval() / 60000 != value) {
         m_sleepTimer.setInterval(value * 60000);
         emit timeoutChanged();
-        emit sleepRemainingChanged();
+        updateStatusMessage();
+        updateSleepRemaining();
     }
 }
 
 int SleepTimer::sleepRemaining() const {
-    int minutesRemaining;
-    if(timerActive()) {
-        minutesRemaining = totalSecondsRemaining() / 60;
-    } else {
-        minutesRemaining = sleepTimeout();
-    }
-    return minutesRemaining;
+    return m_sleepRemaining;
 }
 
 int SleepTimer::totalSecondsRemaining() const {
@@ -56,10 +52,7 @@ bool SleepTimer::timerActive() const {
 }
 
 QString SleepTimer::status() const {
-    const int totalSeconds = totalSecondsRemaining();
-    const int minutes = totalSeconds / 60;
-    const int seconds = totalSeconds % 60;
-    return QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    return m_status;
 }
 
 void SleepTimer::start() {
@@ -68,7 +61,8 @@ void SleepTimer::start() {
         m_sleepTimerStarted.start();
         m_sleepTimerRemainingUpdate.start();
         emit timerActiveChanged();
-        emit statusChanged();
+        updateStatusMessage();
+        updateSleepRemaining();
     }
 }
 
@@ -77,20 +71,44 @@ void SleepTimer::cancel() {
         m_sleepTimer.stop();
         m_sleepTimerRemainingUpdate.stop();
         emit timerActiveChanged();
-        emit statusChanged();
-        emit sleepRemainingChanged();
+        updateStatusMessage();
+        updateSleepRemaining();
     }
 }
 
 void SleepTimer::onTimerExpired() {
-    emit sleepRemainingChanged();
     emit timerActiveChanged();
-    emit statusChanged();
+    updateStatusMessage();
+    updateSleepRemaining();
     m_sleepTimerRemainingUpdate.stop();
     emit expired();
 }
 
 void SleepTimer::onUpdateStatus() {
-    emit statusChanged();
-    emit sleepRemainingChanged();
+    updateStatusMessage();
+    updateSleepRemaining();
+}
+
+void SleepTimer::updateSleepRemaining() {
+    int minutesRemaining;
+    if(timerActive()) {
+        minutesRemaining = totalSecondsRemaining() / 60;
+    } else {
+        minutesRemaining = sleepTimeout();
+    }
+    if(minutesRemaining != m_sleepRemaining) {
+        m_sleepRemaining = minutesRemaining;
+        emit sleepRemainingChanged();
+    }
+}
+
+void SleepTimer::updateStatusMessage() {
+    const int totalSeconds = totalSecondsRemaining();
+    const int minutes = totalSeconds / 60;
+    const int seconds = totalSeconds % 60;
+    QString newStatus = QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    if(newStatus != m_status) {
+        m_status = newStatus;
+        emit statusChanged();
+    }
 }
