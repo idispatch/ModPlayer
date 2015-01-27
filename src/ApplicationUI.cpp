@@ -68,6 +68,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_analytics(new Analytics(this)),
       m_fileSystem(new FileSystem(m_player->fileNameFilters(), this)),
       m_proximity(new Proximity(this)),
+      m_shake(new Shake(this)),
       m_invokeManager(new InvokeManager(this)) {
     static_instance = this;
     m_app = app;
@@ -79,6 +80,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     initActiveCover();
     initPlayer();
     initProximity();
+    initShake();
     initPurchases();
 }
 
@@ -325,6 +327,16 @@ void ApplicationUI::initProximity() {
     m_proximity->setActive(isProximitySensorEnabled());
 }
 
+void ApplicationUI::initShake() {
+    bool rc;
+    rc = QObject::connect(m_shake, SIGNAL(shakeDetected()),
+                          this,    SLOT(onShakeDetected()));
+    Q_ASSERT(rc);
+    Q_UNUSED(rc);
+
+    m_shake->setActive(isShakeSensorEnabled());
+}
+
 void ApplicationUI::initTranslator() {
     bool rc;
     rc = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()),
@@ -362,10 +374,6 @@ bool ApplicationUI::isProximitySensorEnabled() const {
     return m_settings.value("ui/proximity", false).toBool();
 }
 
-bool ApplicationUI::isShakeSensorEnabled() const {
-    return m_settings.value("ui/shake", false).toBool();
-}
-
 void ApplicationUI::setProximitySensorEnabled(bool value) {
     if(isProximitySensorEnabled() != value) {
         m_settings.setValue("ui/proximity", value);
@@ -374,9 +382,20 @@ void ApplicationUI::setProximitySensorEnabled(bool value) {
     }
 }
 
+void ApplicationUI::onShakeDetected() {
+    if(isShakeSensorEnabled()) {
+        m_player->playNext();
+    }
+}
+
+bool ApplicationUI::isShakeSensorEnabled() const {
+    return m_settings.value("ui/shake", false).toBool();
+}
+
 void ApplicationUI::setShakeSensorEnabled(bool value) {
     if(isShakeSensorEnabled() != value) {
         m_settings.setValue("ui/shake", value);
+        m_shake->setActive(value);
         emit shakeSensorEnabledChanged();
     }
 }

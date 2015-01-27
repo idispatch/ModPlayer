@@ -10,6 +10,7 @@
 #include "PurchaseStore.hpp"
 #include "FileSystem.hpp"
 #include "Proximity.hpp"
+#include "Shake.hpp"
 
 namespace bb
 {
@@ -112,6 +113,7 @@ Q_SIGNALS:
 private slots:
     void onInvoked(const bb::system::InvokeRequest& invoke);
     void onCloseProximity();
+    void onShakeDetected();
     void onSystemLanguageChanged();
     void onCatalogChanged();
     void onCacheChanged();
@@ -126,6 +128,7 @@ private:
     void initActiveCover();
     void initPlayer();
     void initProximity();
+    void initShake();
     void initTranslator();
     void saveWallpaperSettings();
 private:
@@ -141,6 +144,7 @@ private:
     Analytics                   *m_analytics;
     FileSystem                  *m_fileSystem;
     Proximity                   *m_proximity;
+    Shake                       *m_shake;
     bb::system::InvokeManager   *m_invokeManager;
 };
 

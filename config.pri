@@ -416,6 +416,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Proximity.cpp) \
         $$quote($$BASEDIR/src/PurchaseStore.cpp) \
         $$quote($$BASEDIR/src/Radio.cpp) \
+        $$quote($$BASEDIR/src/Shake.cpp) \
         $$quote($$BASEDIR/src/SleepTimer.cpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.cpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.cpp) \
@@ -564,6 +565,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Proximity.hpp) \
         $$quote($$BASEDIR/src/PurchaseStore.hpp) \
         $$quote($$BASEDIR/src/Radio.hpp) \
+        $$quote($$BASEDIR/src/Shake.hpp) \
         $$quote($$BASEDIR/src/SleepTimer.hpp) \
         $$quote($$BASEDIR/src/SongBasicInfo.hpp) \
         $$quote($$BASEDIR/src/SongExtendedInfo.hpp) \
