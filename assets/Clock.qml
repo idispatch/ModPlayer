@@ -23,6 +23,30 @@ Container {
     }
     touchPropagationMode: TouchPropagationMode.Full
     overlapTouchPolicy: OverlapTouchPolicy.Deny
+    touchBehaviors: TouchBehavior {
+        eventReactions: [
+            TouchReaction {
+                phase: PropagationPhase.Bubbling
+                response: TouchResponse.StartTracking
+                eventType: TouchType.Down
+            },
+            TouchReaction {
+                phase: PropagationPhase.AtTarget
+                response: TouchResponse.StartTracking
+                eventType: TouchType.Down
+            },
+            TouchReaction {
+                phase: PropagationPhase.Bubbling
+                response: TouchResponse.StartTracking
+                eventType: TouchType.Move
+            },
+            TouchReaction {
+                phase: PropagationPhase.AtTarget
+                response: TouchResponse.StartTracking
+                eventType: TouchType.Move
+            }
+        ]
+    }
     onTouch: {
         if(!(event.isDown() || event.isMove())) {
             return
