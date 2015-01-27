@@ -2,7 +2,7 @@
 #include <QtCore/QDebug>
 
 namespace {
-    const int PROXIMITY_TIMEOUT_MS = 3000;
+    const int PROXIMITY_TIMEOUT_MS = 2000;
 }
 
 Proximity::Proximity(QObject *parent)
@@ -13,12 +13,19 @@ Proximity::Proximity(QObject *parent)
     if(!m_sensor.isConnectedToBackend()) {
         if (!m_sensor.connectToBackend()) {
             qDebug() << "Cannot connect to proximity sensor backend!";
+        } else {
+            bool res = QObject::connect(&m_sensor,
+                                        SIGNAL(readingChanged()),
+                                        this,
+                                        SLOT(onReadingChanged()));
+            Q_ASSERT(res);
+            Q_UNUSED(res);
         }
     }
-    m_sensor.addFilter(this);
 }
 
-bool Proximity::filter(QtMobility::QProximityReading *reading) {
+void Proximity::onReadingChanged() {
+    QtMobility::QProximityReading *reading = m_sensor.reading();
     if (m_close != reading->close()) {
         m_close = reading->close();
         if (m_close) {
@@ -30,8 +37,6 @@ bool Proximity::filter(QtMobility::QProximityReading *reading) {
             }
         }
     }
-    // Do no further processing of the sensor data
-    return false;
 }
 
 bool Proximity::active() const {
@@ -41,12 +46,16 @@ bool Proximity::active() const {
 void Proximity::setActive(bool value) {
     if(active() != value) {
         if (value) {
-            m_sensor.setSkipDuplicates(true);
-            m_sensor.setAlwaysOn(true);
             m_lastProximity = QDateTime::currentDateTime().addSecs(3);
-            m_sensor.start();
+            if(m_sensor.isConnectedToBackend()) {
+                m_sensor.setSkipDuplicates(true);
+                m_sensor.setAlwaysOn(true);
+                m_sensor.start();
+            }
         } else {
-            m_sensor.stop();
+            if(m_sensor.isConnectedToBackend()) {
+                m_sensor.stop();
+            }
         }
         emit activeChanged();
     }

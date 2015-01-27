@@ -4,12 +4,11 @@
 #include <QObject>
 #include <QtCore/QDateTime>
 #include <QtSensors/QAccelerometer>
-#include <QtSensors/QAccelerometerFilter>
 
-class Shake : public QObject,
-              public QtMobility::QAccelerometerFilter
+class Shake : public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY(Shake)
 public:
     Shake(QObject *parent = 0);
 
@@ -18,8 +17,8 @@ public:
 Q_SIGNALS:
     void activeChanged();
     void shakeDetected();
-protected:
-    bool filter(QtMobility::QAccelerometerReading *reading);
+private slots:
+    void onReadingChanged();
 private:
     QtMobility::QAccelerometer m_sensor;
     QDateTime                  m_lastShake;
