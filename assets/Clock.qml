@@ -21,29 +21,31 @@ Container {
 
     layout: AbsoluteLayout {
     }
-    
-    gestureHandlers: [
-        TapHandler {
-            onTapped: {
-                if(setupMode) {
-                    var dx = -preferredWidth / 2 + event.x
-                    var dy = -preferredHeight / 2 + event.y
-                    var radians = Math.atan2(dy, dx)
-                    var degrees = radians * 180 / Math.PI
-                    if(degrees < 0) {
-                        degrees = Math.abs(degrees)
-                    } else {
-                        degrees = 360 - degrees
-                    }
-                    degrees = 360 - degrees + 90
-                    if(degrees > 360) {
-                        degrees = degrees - 360
-                    }
-                    clockDisplay.clockOfferedValue = degrees
+    touchPropagationMode: TouchPropagationMode.Full
+    overlapTouchPolicy: OverlapTouchPolicy.Deny
+    onTouch: {
+        if(!(event.isDown() || event.isMove())) {
+            return
+        }
+        if(setupMode) {
+            var dx = -preferredWidth / 2 + event.localX
+            var dy = -preferredHeight / 2 + event.localY
+            if(Math.sqrt(dx * dx + dy * dy) < (preferredWidth / 2) * 0.9) {
+                var radians = Math.atan2(dy, dx)
+                var degrees = radians * 180 / Math.PI
+                if(degrees < 0) {
+                    degrees = Math.abs(degrees)
+                } else {
+                    degrees = 360 - degrees
                 }
+                degrees = 360 - degrees + 90
+                if(degrees > 360) {
+                    degrees = degrees - 360
+                }
+                clockDisplay.clockOfferedValue = degrees
             }
         }
-    ]
+    }
 
     ImageView {
         imageSource: "asset:///images/clock/clock-face.png"

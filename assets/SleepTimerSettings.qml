@@ -62,7 +62,7 @@ Sheet {
                                 clockValue: app.player.sleepTimer.sleepRemaining * 6 
                                 setupMode: !app.player.sleepTimer.timerActive
                                 onClockOfferedValueChanged: {
-                                    app.player.sleepTimer.sleepTimeout = clockNewValue / 6
+                                    app.player.sleepTimer.sleepTimeout = clockOfferedValue / 6
                                 }
                             }
                         }
