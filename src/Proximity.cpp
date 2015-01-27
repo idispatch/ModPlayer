@@ -1,4 +1,5 @@
 #include "Proximity.hpp"
+#include <bb/cascades/application.h>
 #include <QtCore/QDebug>
 
 namespace {
@@ -14,12 +15,37 @@ Proximity::Proximity(QObject *parent)
         if (!m_sensor.connectToBackend()) {
             qDebug() << "Cannot connect to proximity sensor backend!";
         } else {
-            bool res = QObject::connect(&m_sensor,
-                                        SIGNAL(readingChanged()),
-                                        this,
-                                        SLOT(onReadingChanged()));
-            Q_ASSERT(res);
-            Q_UNUSED(res);
+            bool rc = QObject::connect(&m_sensor,
+                                       SIGNAL(readingChanged()),
+                                       this,
+                                       SLOT(onReadingChanged()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                          SIGNAL(fullscreen()),
+                          this,
+                          SLOT(enableSensor()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                                  SIGNAL(thumbnail()),
+                                  this,
+                                  SLOT(disableSensor()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                                  SIGNAL(invisible()),
+                                  this,
+                                  SLOT(disableSensor()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                                  SIGNAL(asleep()),
+                                  this,
+                                  SLOT(disableSensor()));
+            Q_ASSERT(rc);
+
+            Q_UNUSED(rc);
         }
     }
 }
@@ -59,5 +85,13 @@ void Proximity::setActive(bool value) {
         }
         emit activeChanged();
     }
+}
+
+void Proximity::enableSensor() {
+    setActive(true);
+}
+
+void Proximity::disableSensor() {
+    setActive(false);
 }
 

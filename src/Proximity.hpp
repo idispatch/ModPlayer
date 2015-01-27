@@ -22,6 +22,9 @@ Q_SIGNALS:
 private slots:
     void onReadingChanged();
 private:
+    void enableSensor();
+    void disableSensor();
+private:
     QtMobility::QProximitySensor m_sensor;
     bool                         m_close;
     QDateTime                    m_lastProximity;

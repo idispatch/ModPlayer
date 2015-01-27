@@ -1,4 +1,5 @@
 #include "Shake.hpp"
+#include <bb/cascades/application.h>
 #include <QtCore/QDebug>
 #include <QtSensors/QAccelerometer>
 #include <math.h>
@@ -20,12 +21,37 @@ Shake::Shake(QObject *parent)
         if (!m_sensor.connectToBackend()) {
             qDebug() << "Cannot connect to shake sensor backend!";
         } else {
-            bool res = QObject::connect(&m_sensor,
-                                        SIGNAL(readingChanged()),
-                                        this,
-                                        SLOT(onReadingChanged()));
-            Q_ASSERT(res);
-            Q_UNUSED(res);
+            bool rc = QObject::connect(&m_sensor,
+                                       SIGNAL(readingChanged()),
+                                       this,
+                                       SLOT(onReadingChanged()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                          SIGNAL(fullscreen()),
+                          this,
+                          SLOT(enableSensor()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                                  SIGNAL(thumbnail()),
+                                  this,
+                                  SLOT(disableSensor()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                                  SIGNAL(invisible()),
+                                  this,
+                                  SLOT(disableSensor()));
+            Q_ASSERT(rc);
+
+            rc = QObject::connect(bb::cascades::Application::instance(),
+                                  SIGNAL(asleep()),
+                                  this,
+                                  SLOT(disableSensor()));
+            Q_ASSERT(rc);
+
+            Q_UNUSED(rc);
         }
     }
 }
@@ -79,3 +105,10 @@ void Shake::setActive(bool value) {
     }
 }
 
+void Shake::enableSensor() {
+    setActive(true);
+}
+
+void Shake::disableSensor() {
+    setActive(false);
+}

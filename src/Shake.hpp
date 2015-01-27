@@ -20,6 +20,9 @@ Q_SIGNALS:
 private slots:
     void onReadingChanged();
 private:
+    void enableSensor();
+    void disableSensor();
+private:
     QtMobility::QAccelerometer m_sensor;
     QDateTime                  m_lastShake;
     double                     m_accel;
