@@ -91,22 +91,22 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="464"/>
+        <location filename="../src/ApplicationUI.cpp" line="489"/>
         <source>Hello, ModPlayer Author!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="483"/>
+        <location filename="../src/ApplicationUI.cpp" line="508"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="495"/>
+        <location filename="../src/ApplicationUI.cpp" line="520"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="530"/>
+        <location filename="../src/ApplicationUI.cpp" line="555"/>
         <source>This feature is available in ModPlayer Plus.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1083,7 +1083,7 @@
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="173"/>
-        <location filename="../assets/Settings.qml" line="247"/>
+        <location filename="../assets/Settings.qml" line="272"/>
         <source>Maximum Songs: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1094,8 +1094,8 @@
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="210"/>
-        <location filename="../assets/Settings.qml" line="292"/>
-        <location filename="../assets/Settings.qml" line="318"/>
+        <location filename="../assets/Settings.qml" line="317"/>
+        <location filename="../assets/Settings.qml" line="343"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1121,201 +1121,211 @@
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="236"/>
+        <source>Device Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Settings.qml" line="246"/>
+        <source>Keep screen awake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Settings.qml" line="261"/>
         <source>Song List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="273"/>
+        <location filename="../assets/Settings.qml" line="298"/>
         <source>Personal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="282"/>
+        <location filename="../assets/Settings.qml" line="307"/>
         <source>Reset Play Counts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="293"/>
+        <location filename="../assets/Settings.qml" line="318"/>
         <source>Confirm resetting song play counts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="303"/>
+        <location filename="../assets/Settings.qml" line="328"/>
         <source>Song play counts have been reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="308"/>
+        <location filename="../assets/Settings.qml" line="333"/>
         <source>Reset My Favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="319"/>
+        <location filename="../assets/Settings.qml" line="344"/>
         <source>Confirm resetting my favoruites list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="329"/>
+        <location filename="../assets/Settings.qml" line="354"/>
         <source>My favourites list is reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="343"/>
+        <location filename="../assets/Settings.qml" line="368"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="360"/>
+        <location filename="../assets/Settings.qml" line="385"/>
         <source>Mixer Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="370"/>
+        <location filename="../assets/Settings.qml" line="395"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="372"/>
+        <location filename="../assets/Settings.qml" line="397"/>
         <source>Stereo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="377"/>
+        <location filename="../assets/Settings.qml" line="402"/>
         <source>Mono</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="388"/>
+        <location filename="../assets/Settings.qml" line="413"/>
         <source>Bits per Sample</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="411"/>
+        <location filename="../assets/Settings.qml" line="436"/>
         <source>Frequency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="414"/>
+        <location filename="../assets/Settings.qml" line="439"/>
         <source>44100 Hz sampling rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="420"/>
+        <location filename="../assets/Settings.qml" line="445"/>
         <source>22050 Hz sampling rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="426"/>
+        <location filename="../assets/Settings.qml" line="451"/>
         <source>11025 Hz sampling rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="436"/>
+        <location filename="../assets/Settings.qml" line="461"/>
         <source>Resampling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="438"/>
+        <location filename="../assets/Settings.qml" line="463"/>
         <source>Nearest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="439"/>
+        <location filename="../assets/Settings.qml" line="464"/>
         <source>No interpolation (very fast)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="444"/>
+        <location filename="../assets/Settings.qml" line="469"/>
         <source>Linear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="445"/>
+        <location filename="../assets/Settings.qml" line="470"/>
         <source>Linear interpolation (fast, good quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="450"/>
+        <location filename="../assets/Settings.qml" line="475"/>
         <source>Spline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="451"/>
+        <location filename="../assets/Settings.qml" line="476"/>
         <source>Cubic spline interpolation (high quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="456"/>
+        <location filename="../assets/Settings.qml" line="481"/>
         <source>FIR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="457"/>
+        <location filename="../assets/Settings.qml" line="482"/>
         <source>8-tap fir filter (extremely high quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="473"/>
+        <location filename="../assets/Settings.qml" line="498"/>
         <source>Master Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="494"/>
+        <location filename="../assets/Settings.qml" line="519"/>
         <source>Stereo Separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="515"/>
+        <location filename="../assets/Settings.qml" line="540"/>
         <source>Enable Oversampling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="523"/>
+        <location filename="../assets/Settings.qml" line="548"/>
         <source>Enable Noise Reduction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="538"/>
+        <location filename="../assets/Settings.qml" line="563"/>
         <source>Enable Reverb</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="548"/>
+        <location filename="../assets/Settings.qml" line="573"/>
         <source>Reverb Depth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="567"/>
+        <location filename="../assets/Settings.qml" line="592"/>
         <source>Reverb Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="595"/>
+        <location filename="../assets/Settings.qml" line="620"/>
         <source>Enable MegaBass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="605"/>
+        <location filename="../assets/Settings.qml" line="630"/>
         <source>Bass Amount</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="624"/>
+        <location filename="../assets/Settings.qml" line="649"/>
         <source>Bass Cutoff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="652"/>
+        <location filename="../assets/Settings.qml" line="677"/>
         <source>Enable Surround Sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="662"/>
+        <location filename="../assets/Settings.qml" line="687"/>
         <source>Surround Depth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="681"/>
+        <location filename="../assets/Settings.qml" line="706"/>
         <source>Surround Delay</source>
         <translation type="unfinished"></translation>
     </message>

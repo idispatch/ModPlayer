@@ -1188,6 +1188,14 @@
         <source>Buy ModPlayer Plus</source>
         <translation>购买模块播放器高级版</translation>
     </message>
+    <message>
+        <source>Device Screen</source>
+        <translation>设备屏幕</translation>
+    </message>
+    <message>
+        <source>Keep screen awake</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsMenuAction</name>
@@ -1200,7 +1208,7 @@
     <name>ShareSongActionItem</name>
     <message>
         <source>Share Song</source>
-        <translation type="unfinished"></translation>
+        <translation>分享</translation>
     </message>
 </context>
 <context>

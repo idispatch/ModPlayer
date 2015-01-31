@@ -97,39 +97,39 @@ void Analytics::onPositionUpdated(const QGeoPositionInfo &info) {
     setPositionInfo(info);
 }
 
-void Analytics::nowPlaying() const {
+void Analytics::nowPlaying() {
     Flurry::Analytics::LogEvent("NowPlaying", false);
 }
 
-void Analytics::purgeCache() const {
+void Analytics::purgeCache() {
     Flurry::Analytics::LogEvent("PurgeCache", false);
 }
 
-void Analytics::email() const {
+void Analytics::email() {
     Flurry::Analytics::LogEvent("EmailAuthor", false);
 }
 
-void Analytics::twit() const {
+void Analytics::twit() {
     Flurry::Analytics::LogEvent("Twit", false);
 }
 
-void Analytics::bbm() const {
+void Analytics::bbm() {
     Flurry::Analytics::LogEvent("BBM", false);
 }
 
-void Analytics::appWorld() const {
+void Analytics::appWorld() {
     Flurry::Analytics::LogEvent("AppWorld", false);
 }
 
-void Analytics::downloadStarted() const {
+void Analytics::downloadStarted() {
     Flurry::Analytics::LogEvent("Downloading", true);
 }
 
-void Analytics::downloadFinished() const {
+void Analytics::downloadFinished() {
     Flurry::Analytics::EndTimedEvent("Downloading");
 }
 
-void Analytics::downloadFailed(int moduleId) const {
+void Analytics::downloadFailed(int moduleId) {
     Flurry::Map parameters;
     parameters["ModID"] = moduleId;
     Flurry::Analytics::EndTimedEvent("Downloading");
@@ -138,89 +138,89 @@ void Analytics::downloadFailed(int moduleId) const {
 }
 
 void Analytics::logError(char const * error,
-						 QString const& message) const {
+						 QString const& message) {
     Flurry::Analytics::LogError(error, message);
 }
 
-void Analytics::showPage(QString const& name) const {
+void Analytics::showPage(QString const& name) {
     Flurry::Map parameters;
     parameters["Page"] = name;
     Flurry::Analytics::LogEvent("ShowPage", parameters, false);
 }
 
-void Analytics::playRadio(QString const& name) const {
+void Analytics::playRadio(QString const& name) {
     Flurry::Map parameters;
     parameters["Channel"] = name;
     Flurry::Analytics::LogEvent("PlayRadio", parameters, false);
 }
 
-void Analytics::selectRadio(QString const& name) const {
+void Analytics::selectRadio(QString const& name) {
     Flurry::Map parameters;
     parameters["Channel"] = name;
     Flurry::Analytics::LogEvent("SelectRadio", parameters, false);
 }
 
-void Analytics::view(int moduleId, QString const& fileName) const {
+void Analytics::view(int moduleId, QString const& fileName) {
     logModuleEvent("View", moduleId, fileName);
 }
 
-void Analytics::search(QString const& query) const {
+void Analytics::search(QString const& query) {
     Flurry::Map parameters;
     parameters["Query"] = query;
     Flurry::Analytics::LogEvent("Search", parameters, false);
 }
 
-void Analytics::play(int moduleId, QString const& fileName) const {
+void Analytics::play(int moduleId, QString const& fileName) {
     logModuleEvent("Play", moduleId, fileName);
 }
 
-void Analytics::addFavourite(int moduleId, QString const& fileName) const {
+void Analytics::addFavourite(int moduleId, QString const& fileName) {
     logModuleEvent("AddFavourite", moduleId, fileName);
 }
 
-void Analytics::removeFavourite(int moduleId, QString const& fileName) const {
+void Analytics::removeFavourite(int moduleId, QString const& fileName) {
     logModuleEvent("RemoveFavourite", moduleId, fileName);
 }
 
 void Analytics::logModuleEvent(const char * eventName,
                                int moduleId,
-                               QString const& fileName) const {
+                               QString const& fileName) {
     Flurry::Map parameters;
     parameters["ModID"] = moduleId;
     parameters["FileName"] = fileName;
     Flurry::Analytics::LogEvent(eventName, parameters, false);
 }
 
-void Analytics::resetPlayCounts() const {
+void Analytics::resetPlayCounts() {
     Flurry::Analytics::LogEvent("ResetPlayCounts", false);
 }
 
-void Analytics::resetMyFavourites() const {
+void Analytics::resetMyFavourites() {
     Flurry::Analytics::LogEvent("ResetMyFavourites", false);
 }
 
-void Analytics::saveCache(QString const& from, QString const& to) const {
+void Analytics::saveCache(QString const& from, QString const& to) {
     Flurry::Map parameters;
     parameters["fromFile"] = from;
     parameters["toFile"] = to;
     Flurry::Analytics::LogEvent("SaveCache", parameters, false);
 }
 
-void Analytics::exportCache(int numFiles, int numCopiedFiles) const {
+void Analytics::exportCache(int numFiles, int numCopiedFiles) {
     Flurry::Map parameters;
     parameters["cacheFiles"] = numFiles;
     parameters["copiedFiles"] = numCopiedFiles;
     Flurry::Analytics::LogEvent("ExportCache", parameters, false);
 }
 
-void Analytics::exportMp3(QString const& from, QString const& to) const {
+void Analytics::exportMp3(QString const& from, QString const& to) {
     Flurry::Map parameters;
     parameters["fromFile"] = from;
     parameters["toFile"] = to;
     Flurry::Analytics::LogEvent("ExportMp3", parameters, false);
 }
 
-void Analytics::importSongs(bool started) const {
+void Analytics::importSongs(bool started) {
     if(started) {
         Flurry::Analytics::LogEvent("Import", started);
     } else {
@@ -228,56 +228,56 @@ void Analytics::importSongs(bool started) const {
     }
 }
 
-void Analytics::importedSongCount(int count) const {
+void Analytics::importedSongCount(int count) {
     Flurry::Map parameters;
     parameters["count"] = count;
     Flurry::Analytics::LogEvent("ImportCount", parameters, false);
 }
 
-void Analytics::importedPlaylistCount(int count) const {
+void Analytics::importedPlaylistCount(int count) {
     Flurry::Map parameters;
     parameters["count"] = count;
     Flurry::Analytics::LogEvent("ImportPlaylistCount", parameters, false);
 }
 
-void Analytics::createPlaylist(QString const& name) const {
+void Analytics::createPlaylist(QString const& name) {
     Flurry::Map parameters;
     parameters["name"] = name;
     Flurry::Analytics::LogEvent("CreatePlaylist", parameters, false);
 }
 
-void Analytics::deleteAllPlaylists() const {
+void Analytics::deleteAllPlaylists() {
     Flurry::Analytics::LogEvent("DeleteAllPlaylists", false);
 }
 
-void Analytics::createAlbum(QString const& artistName, QString const& albumName) const {
+void Analytics::createAlbum(QString const& artistName, QString const& albumName) {
     Flurry::Map parameters;
     parameters["artistName"] = artistName;
     parameters["albumName"] = albumName;
     Flurry::Analytics::LogEvent("CreateAlbum", parameters, false);
 }
 
-void Analytics::play() const {
+void Analytics::play() {
     Flurry::Analytics::LogEvent("PlayCmd", false);
 }
 
-void Analytics::pause() const {
+void Analytics::pause() {
     Flurry::Analytics::LogEvent("PauseCmd", false);
 }
 
-void Analytics::stop() const {
+void Analytics::stop() {
     Flurry::Analytics::LogEvent("StopCmd", false);
 }
 
-void Analytics::resume() const {
+void Analytics::resume() {
     Flurry::Analytics::LogEvent("ResumeCmd", false);
 }
 
-void Analytics::rewind() const {
+void Analytics::rewind() {
     Flurry::Analytics::LogEvent("RewindCmd", false);
 }
 
-void Analytics::help(int on) const {
+void Analytics::help(int on) {
     if(on) {
         Flurry::Analytics::LogEvent("Help", true);
     } else {
@@ -285,7 +285,7 @@ void Analytics::help(int on) const {
     }
 }
 
-void Analytics::settings(int on) const {
+void Analytics::settings(int on) {
     if(on) {
         Flurry::Analytics::LogEvent("Settings", true);
     } else {
@@ -293,7 +293,7 @@ void Analytics::settings(int on) const {
     }
 }
 
-void Analytics::buy(int on) const {
+void Analytics::buy(int on) {
     if(on) {
         Flurry::Analytics::LogEvent("Buy", true);
     } else {
@@ -301,7 +301,7 @@ void Analytics::buy(int on) const {
     }
 }
 
-void Analytics::shareSong(QString const& fileName) const
+void Analytics::shareSong(QString const& fileName)
 {
     HardwareInfo hwInfo;
     Flurry::Map parameters;
@@ -315,7 +315,7 @@ void Analytics::shareSong(QString const& fileName) const
     Flurry::Analytics::LogEvent("ShareSong", parameters, false);
 }
 
-void Analytics::purchase(QString const& info) const {
+void Analytics::purchase(QString const& info) {
     HardwareInfo hwInfo;
     Flurry::Map parameters;
     parameters["pin"] = hwInfo.pin();
@@ -328,7 +328,7 @@ void Analytics::purchase(QString const& info) const {
     Flurry::Analytics::LogEvent("Purchase", parameters, false);
 }
 
-void Analytics::active(int on) const {
+void Analytics::active(int on) {
     HardwareInfo hwInfo;
     Flurry::Map parameters;
     parameters["pin"] = hwInfo.pin();
@@ -348,7 +348,7 @@ void Analytics::invoke(QString const& source,
                        QString const& target,
                        QString const& action,
                        QString const& mimeType,
-                       QUrl const& uri) const {
+                       QUrl const& uri) {
     HardwareInfo hwInfo;
     Flurry::Map parameters;
     parameters["pin"] = hwInfo.pin();

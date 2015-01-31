@@ -38,6 +38,7 @@ class ApplicationUI : public QObject {
     Q_DISABLE_COPY(ApplicationUI)
     Q_PROPERTY(int screenWidth READ screenWidth NOTIFY screenWidthChanged FINAL)
     Q_PROPERTY(int screenHeight READ screenHeight NOTIFY screenHeightChanged FINAL)
+    Q_PROPERTY(bool keepScreenAwake READ keepScreenAwake WRITE setKeepScreenAwake NOTIFY keepScreenAwakeChanged FINAL)
     Q_PROPERTY(bool isFirstLaunch READ isFirstLaunch WRITE setFirstLaunch NOTIFY isFirstLaunchChanged FINAL)
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
@@ -74,6 +75,10 @@ public:
     bool isShakeSensorEnabled() const;
     void setShakeSensorEnabled(bool value);
 
+    // Screen Dimming
+    bool keepScreenAwake() const;
+    void setKeepScreenAwake(bool value);
+
     int maxViewSongs() const;
 
     // Object Properties
@@ -96,12 +101,14 @@ public:
     Q_INVOKABLE void bbm();
     Q_INVOKABLE void appWorld();
     Q_INVOKABLE void shareSong(QString const& fileName);
+    Q_INVOKABLE void updateScreen();
     Q_INVOKABLE void pleaseBuy();
 
     static const char * QmlNamespace;
 Q_SIGNALS:
     void screenWidthChanged();
     void screenHeightChanged();
+    void keepScreenAwakeChanged();
     void isFirstLaunchChanged();
     void isExtendedVersionChanged();
     void isForegroundChanged();

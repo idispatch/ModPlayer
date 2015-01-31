@@ -1204,6 +1204,14 @@
         <source>On Proximity Sensor Play Next</source>
         <translation type="obsolete">При срабатывании датчика приближения играть следующую песню</translation>
     </message>
+    <message>
+        <source>Device Screen</source>
+        <translation>Экран телефона</translation>
+    </message>
+    <message>
+        <source>Keep screen awake</source>
+        <translation>Экран всегда включен</translation>
+    </message>
 </context>
 <context>
     <name>SettingsMenuAction</name>

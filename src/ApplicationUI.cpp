@@ -1,3 +1,4 @@
+#include <bb/cascades/Window>
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
@@ -93,9 +94,21 @@ ApplicationUI::~ApplicationUI() {
     static_instance = NULL;
 }
 
+void ApplicationUI::updateScreen() {
+    bb::cascades::Window * window = Application::instance()->mainWindow();
+    if(window != NULL) {
+        if(keepScreenAwake()) {
+            window->setScreenIdleMode(ScreenIdleMode::KeepAwake);
+        } else {
+            window->setScreenIdleMode(ScreenIdleMode::Normal);
+        }
+    }
+}
+
 void ApplicationUI::initScreen() {
     bb::device::DisplayInfo display;
     m_screenPixelSize = display.pixelSize();
+    updateScreen();
 }
 
 int ApplicationUI::screenWidth() const {
@@ -132,6 +145,18 @@ void ApplicationUI::setMaxViewSongs(int value) {
     {
         m_settings.setValue("ui/maxViewSongs", value);
         emit maxViewSongsChanged();
+    }
+}
+
+bool ApplicationUI::keepScreenAwake() const {
+    return m_settings.value("ui/keepScreenAwake", false).toBool();
+}
+
+void ApplicationUI::setKeepScreenAwake(bool value) {
+    if(keepScreenAwake() != value)
+    {
+        m_settings.setValue("ui/keepScreenAwake", value);
+        emit keepScreenAwakeChanged();
     }
 }
 

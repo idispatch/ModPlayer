@@ -28,7 +28,7 @@ Sheet {
                 onTriggered: {
                     app.player.playback.configure()
                     app.cache.maxSize = Math.round(maxCacheSize.value)
-                    app.cache.maxFiles = Math.round(maxCacheSongs.value) 
+                    app.cache.maxFiles = Math.round(maxCacheSongs.value)
                     settingsRoot.close();
                 }
             } 
@@ -224,6 +224,31 @@ Sheet {
                                 ]
                             }
                             ExportCacheButton {
+                            }
+                        }
+                        GroupContainer {
+                            topPadding: 20
+                            bottomPadding: 40
+                            leftPadding: 20
+                            rightPadding: leftPadding
+                            semiTransparent: true
+                            Label {
+                                text: qsTr("Device Screen") + Retranslate.onLanguageChanged
+                                horizontalAlignment: HorizontalAlignment.Center
+                                textStyle {
+                                    base: SystemDefaults.TextStyles.TitleText
+                                    fontWeight: FontWeight.Bold
+                                    color: Color.Black
+                                }
+                            }
+                            CheckBox {
+                                id: keepScreenAwake
+                                text: qsTr("Keep screen awake") + Retranslate.onLanguageChanged
+                                checked: app.keepScreenAwake
+                                onCheckedChanged: {
+                                    app.keepScreenAwake = keepScreenAwake.checked
+                                    app.updateScreen()
+                                }
                             }
                         }
                         GroupContainer {
