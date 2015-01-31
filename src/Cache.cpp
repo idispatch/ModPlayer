@@ -117,6 +117,9 @@ int Cache::currentFiles() const {
 }
 
 void Cache::setMaxSize(int size) {
+    if(size < 0) {
+        size = 0;
+    }
     if(m_maxSize != size)
     {
         int oldMaxSize = m_maxSize;
@@ -130,6 +133,9 @@ void Cache::setMaxSize(int size) {
 }
 
 void Cache::setMaxFiles(int size) {
+    if(size < 0) {
+        size = 0;
+    }
     if(m_maxFiles != size)
     {
         int oldMaxFiles = m_maxFiles;

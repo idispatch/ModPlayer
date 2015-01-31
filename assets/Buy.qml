@@ -75,7 +75,6 @@ Sheet {
             WallpaperView {
             }
             ScrollView {
-                opacity: 0.8
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 VerticalContainer {

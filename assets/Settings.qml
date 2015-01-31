@@ -52,7 +52,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: 20
-                            opacity: 0.85
+                            semiTransparent: true
                             BlackLabel {
                                 text: qsTr("Application") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -143,7 +143,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             Label {
                                 text: qsTr("Cache") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -178,7 +178,7 @@ Sheet {
                                 Slider {
                                     id: maxCacheSongs
                                     fromValue: 5
-                                    toValue: 500
+                                    toValue: app.isExtendedVersion ? 1000 : 100
                                     value: app.cache.maxFiles
                                 }
                             }
@@ -191,7 +191,7 @@ Sheet {
                                 Slider {
                                     id: maxCacheSize
                                     fromValue: 5 * 1024 * 1024
-                                    toValue: 400 * 1024 * 1024
+                                    toValue: app.isExtendedVersion ? 1000 * 1024 * 1024 : 100 * 1024 * 1024
                                     value: app.cache.maxSize
                                 }
                             }
@@ -231,7 +231,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             Label {
                                 text: qsTr("Song List") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -268,7 +268,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             Label {
                                 text: qsTr("Personal") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -338,7 +338,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             Label {
                                 text: qsTr("Background") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -355,7 +355,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             Label {
                                 text: qsTr("Mixer Configuration") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -468,7 +468,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             Label {
                                 text: qsTr("Master Volume") + Retranslate.onLanguageChanged
                                 textStyle {
@@ -532,7 +532,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             CheckBox {
                                 id: reverbEnabled
                                 text: qsTr("Enable Reverb") + Retranslate.onLanguageChanged
@@ -589,7 +589,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             CheckBox {
                                 id: megabassEnabled
                                 text: qsTr("Enable MegaBass") + Retranslate.onLanguageChanged
@@ -646,7 +646,7 @@ Sheet {
                             bottomPadding: 40
                             leftPadding: 20
                             rightPadding: leftPadding
-                            opacity: 0.85
+                            semiTransparent: true
                             CheckBox {
                                 id: surroundEnabled
                                 text: qsTr("Enable Surround Sound") + Retranslate.onLanguageChanged

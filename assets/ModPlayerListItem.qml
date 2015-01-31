@@ -16,7 +16,7 @@ GroupContainer {
     leftPadding: 10
     rightPadding: 10
 
-    opacity: 0.85
+    semiTransparent: true
 
     VerticalContainer {
         HorizontalContainer {

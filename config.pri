@@ -187,6 +187,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/playlist_counter.amd) \

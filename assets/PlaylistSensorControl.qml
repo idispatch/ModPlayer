@@ -6,7 +6,7 @@ GroupContainer {
     bottomPadding: 40
     leftPadding: 20
     rightPadding: 20
-    opacity: 0.85
+    semiTransparent: true
     Label {
         text: qsTr("Playlist Control") + Retranslate.onLanguageChanged
         horizontalAlignment: HorizontalAlignment.Center

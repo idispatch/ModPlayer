@@ -2,6 +2,8 @@ import bb.cascades 1.0
 import player 1.0
 
 Container {
+    id: groupContainer
+    property bool semiTransparent: false
     horizontalAlignment: HorizontalAlignment.Fill
     background: backgroundImagePaint.imagePaint
     topPadding: 12
@@ -14,7 +16,7 @@ Container {
         ImagePaintDefinition {
             id: backgroundImagePaint
             repeatPattern: RepeatPattern.Fill
-            imageSource: "asset:///images/backgrounds/container_back.amd"
+            imageSource: groupContainer.semiTransparent ? "asset:///images/backgrounds/container_back_85.amd" : "asset:///images/backgrounds/container_back.amd"
         }
     ]
 }
