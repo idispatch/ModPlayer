@@ -36,8 +36,8 @@ class Wallpaper;
 class ApplicationUI : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(ApplicationUI)
-    Q_PROPERTY(int screenWidth READ screenWidth FINAL)
-    Q_PROPERTY(int screenHeight READ screenHeight FINAL)
+    Q_PROPERTY(int screenWidth READ screenWidth NOTIFY screenWidthChanged FINAL)
+    Q_PROPERTY(int screenHeight READ screenHeight NOTIFY screenHeightChanged FINAL)
     Q_PROPERTY(bool isFirstLaunch READ isFirstLaunch WRITE setFirstLaunch NOTIFY isFirstLaunchChanged FINAL)
     Q_PROPERTY(bool isExtendedVersion READ isExtendedVersion NOTIFY isExtendedVersionChanged FINAL)
     Q_PROPERTY(bool isForeground READ isForeground NOTIFY isForegroundChanged FINAL)
@@ -100,6 +100,8 @@ public:
 
     static const char * QmlNamespace;
 Q_SIGNALS:
+    void screenWidthChanged();
+    void screenHeightChanged();
     void isFirstLaunchChanged();
     void isExtendedVersionChanged();
     void isForegroundChanged();
