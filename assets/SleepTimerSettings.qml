@@ -38,8 +38,10 @@ Sheet {
                 topPadding: 20
                 bottomPadding: 20
                 ScrollView {
+                    id: scrollView
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Fill
+                    touchPropagationMode: TouchPropagationMode.Full
                     GroupContainer {
                         topPadding: 20
                         bottomPadding: 60
@@ -64,6 +66,12 @@ Sheet {
                                 setupMode: !app.player.sleepTimer.timerActive
                                 onClockOfferedValueChanged: {
                                     app.player.sleepTimer.sleepTimeout = clockOfferedValue / 6
+                                }
+                                onWillStartSetUp: {
+                                    scrollView.touchPropagationMode = TouchPropagationMode.PassThrough
+                                }
+                                onDidFinishSetUp: {
+                                    scrollView.touchPropagationMode = TouchPropagationMode.Full
                                 }
                             }
                         }

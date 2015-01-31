@@ -3,7 +3,8 @@ import player 1.0
 
 Container {
     id: clockDisplay
-
+    signal willStartSetUp()
+    signal didFinishSetUp()
     property int preferredSize: app.screenWidth > 1300 ? 700 : (Math.max(app.screenWidth, app.screenHeight) < 800 ? 300 : 500)
 
     property real tickRadius: preferredSize / 2 - preferredSize * 0.116
@@ -20,27 +21,13 @@ Container {
     maxHeight: preferredSize
     preferredHeight: preferredSize
     preferredWidth: preferredSize
-
-    layout: AbsoluteLayout {
-    }
-    touchPropagationMode: TouchPropagationMode.Full
-    overlapTouchPolicy: OverlapTouchPolicy.Deny
+    layout: AbsoluteLayout {}
     touchBehaviors: TouchBehavior {
         eventReactions: [
-            TouchReaction {
-                phase: PropagationPhase.Bubbling
-                response: TouchResponse.StartTracking
-                eventType: TouchType.Down
-            },
             TouchReaction {
                 phase: PropagationPhase.AtTarget
                 response: TouchResponse.StartTracking
                 eventType: TouchType.Down
-            },
-            TouchReaction {
-                phase: PropagationPhase.Bubbling
-                response: TouchResponse.StartTracking
-                eventType: TouchType.Move
             },
             TouchReaction {
                 phase: PropagationPhase.AtTarget
@@ -49,26 +36,38 @@ Container {
             }
         ]
     }
-    onTouch: {
-        if(!(event.isDown() || event.isMove())) {
-            return
-        }
+    onTouchCapture: {
         if(setupMode) {
-            var dx = -preferredWidth / 2 + event.localX
-            var dy = -preferredHeight / 2 + event.localY
-            if(Math.sqrt(dx * dx + dy * dy) < (preferredWidth / 2) * 0.9) {
-                var radians = Math.atan2(dy, dx)
-                var degrees = radians * 180 / Math.PI
-                if(degrees < 0) {
-                    degrees = Math.abs(degrees)
-                } else {
-                    degrees = 360 - degrees
+            if(event.isDown()) {
+                willStartSetUp()
+            } else if(event.isUp()) {
+                didFinishSetUp()
+            } else  if(event.isCancel()) {
+                didFinishSetUp()
+            } else if(event.isMove()) {
+                return
+            }
+        }
+    }
+    onTouch: {
+        if(setupMode) {
+            if(event.isDown() || event.isMove()) {
+                var dx = -preferredWidth / 2 + event.localX
+                var dy = -preferredHeight / 2 + event.localY
+                if(Math.sqrt(dx * dx + dy * dy) < (preferredWidth / 2) * 0.9) {
+                   var radians = Math.atan2(dy, dx)
+                   var degrees = radians * 180 / Math.PI
+                   if(degrees < 0) {
+                       degrees = Math.abs(degrees)
+                   } else {
+                       degrees = 360 - degrees
+                   }
+                   degrees = 360 - degrees + 90
+                   if(degrees > 360) {
+                       degrees = degrees - 360
+                   }
+                   clockDisplay.clockOfferedValue = degrees
                 }
-                degrees = 360 - degrees + 90
-                if(degrees > 360) {
-                    degrees = degrees - 360
-                }
-                clockDisplay.clockOfferedValue = degrees
             }
         }
     }
@@ -84,15 +83,15 @@ Container {
     Container {
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        layout: DockLayout {
-        }
         preferredHeight: clockDisplay.preferredSize
         preferredWidth: clockDisplay.preferredSize
+        layout: DockLayout {}
         LCDDigits {
             id: digitDisplay
             number: app.player.sleepTimer.sleepRemaining
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Center
+            touchPropagationMode: TouchPropagationMode.Full
             displayScale: app.screenHeight < 1000 ? 2.0 : (app.screenWidth > 1400 ? 4.0 : 3.0)
             numDigits: 2
             colorScheme: 1
@@ -105,13 +104,13 @@ Container {
                         fromOpacity: 0.0
                         toOpacity: 1.0
                         duration: blinkAnimation.totalTime / 2
-                        easingCurve: StockCurve.SineOut
+                        easingCurve: StockCurve.QuadraticIn
                     }
                     FadeTransition {
                         fromOpacity: 1.0
                         toOpacity: 0.0
                         duration: blinkAnimation.totalTime / 2
-                        easingCurve: StockCurve.SineOut
+                        easingCurve: StockCurve.QuadraticOut
                     }
                 }
             ]
