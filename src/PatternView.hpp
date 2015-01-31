@@ -24,26 +24,41 @@ public:
     PatternView(bb::cascades::Container *parent = 0);
 
     Q_PROPERTY(QVariant song READ song WRITE setSong NOTIFY songChanged FINAL)
+    Q_PROPERTY(int visibleChannels READ visibleChannels WRITE setVisibleChannels NOTIFY visibleChannelsChanged FINAL)
     Q_PROPERTY(int firstChannel READ firstChannel WRITE setFirstChannel NOTIFY firstChannelChanged FINAL)
+
+    Q_PROPERTY(bool previousChannelEnabled READ previousChannelEnabled NOTIFY previousChannelEnabledChanged FINAL)
+    Q_PROPERTY(bool nextChannelEnabled READ nextChannelEnabled NOTIFY nextChannelEnabledChanged FINAL)
 
     QVariant song() const;
     void setSong(QVariant value);
 
+    int visibleChannels() const;
+    void setVisibleChannels(int value);
+
     int firstChannel() const;
     void setFirstChannel(int value);
+
+    bool previousChannelEnabled() const;
+    bool nextChannelEnabled() const;
+
+    Q_INVOKABLE void previousChannel();
+    Q_INVOKABLE void nextChannel();
 
     using InstanceCounter<PatternView>::getInstanceCount;
     using InstanceCounter<PatternView>::getMaxInstanceCount;
 Q_SIGNALS:
     void songChanged();
+    void visibleChannelsChanged();
     void firstChannelChanged();
+    void previousChannelEnabledChanged();
+    void nextChannelEnabledChanged();
 private slots:
     void onSongLoadedChanged();
     void onChannelsChanged();
     void onCurrentRowChanged();
     void onCurrentPatternChanged();
     void onPatternTap(int x, int y);
-    void onPatternHorizontalSwipe(int x0, int y0, int x1, int y1);
 private:
     void createPatternView();
     void updateCanvas();
@@ -56,7 +71,8 @@ private:
     Canvas * m_canvas;
     TouchHandler * m_touchHandler;
     int m_firstChannel;
-    static const int m_numVisibleChannels;
+    int m_numVisibleChannels;
+
     static const int m_charsPerChannel;
     static const int m_indent;
     static const int m_fontScale;

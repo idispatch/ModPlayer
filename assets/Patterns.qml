@@ -24,11 +24,8 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 GroupContainer {
-                    PatternView {
-                        song: app.player.currentSong
-                        visible: app.player.currentSong.songLoaded
-                        horizontalAlignment: HorizontalAlignment.Center
-                    }
+                    visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
+                    PatternDisplay {}
                 }
             }
         }

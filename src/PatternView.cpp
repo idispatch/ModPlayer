@@ -18,7 +18,6 @@ int InstanceCounter<PatternView>::s_count;
 template<>
 int InstanceCounter<PatternView>::s_maxCount;
 
-const int PatternView::m_numVisibleChannels = 4;
 const int PatternView::m_charsPerChannel = 14;
 const int PatternView::m_indent = 3;
 const int PatternView::m_fontScale = 2;
@@ -144,34 +143,29 @@ PatternView::PatternView(Container *parent)
       m_song(NULL),
       m_canvas(NULL),
       m_touchHandler(NULL),
-      m_firstChannel(0)
+      m_firstChannel(0),
+      m_numVisibleChannels(4)
 {
     setRoot(NULL);
 }
 
-void PatternView::createPatternView()
-{
-    if(m_song == NULL || !m_song->songLoaded())
-    {
+void PatternView::createPatternView() {
+    if(m_song == NULL || !m_song->songLoaded()) {
         m_cursor = NULL;
         m_patternImage = NULL;
         m_touchHandler = NULL;
-        if(m_rootContainer != NULL)
-        {
+        if(m_rootContainer != NULL) {
             m_rootContainer->removeAll();
             m_rootContainer->setParent(NULL);
             delete m_rootContainer;
             m_rootContainer = NULL;
         }
-        if(m_canvas != NULL)
-        {
+        if(m_canvas != NULL) {
             m_canvas->setParent(0);
             delete m_canvas;
             m_canvas = NULL;
         }
-    }
-    else
-    {
+    } else {
         if(m_rootContainer == NULL)
         {
             m_cursor = NULL;
@@ -218,16 +212,12 @@ void PatternView::createPatternView()
                 rc = QObject::connect(m_touchHandler, SIGNAL(tap(int, int)),
                                       this,           SLOT(onPatternTap(int, int)));
                 Q_ASSERT(rc);
-
-                rc = QObject::connect(m_touchHandler, SIGNAL(horizontalSwipe(int, int, int, int)),
-                                      this,           SLOT(onPatternHorizontalSwipe(int, int, int, int)));
-                Q_ASSERT(rc);
                 Q_UNUSED(rc);
 
                 m_rootContainer->add(m_patternImage);
             }
 
-            const int preferredWidth = (m_indent + m_charsPerChannel * std::min(m_song->channels(), m_numVisibleChannels)) * m_fontWidth * m_fontScale;
+            const int preferredWidth = (m_indent + m_charsPerChannel * std::min(m_song->channels(), visibleChannels())) * m_fontWidth * m_fontScale;
             const int preferredHeight = m_fontHeight * m_fontScale;
 
             if(m_cursor == NULL)
@@ -272,7 +262,7 @@ void PatternView::createPatternView()
 
 void PatternView::updateCanvas() {
     const int channels = m_song->channels();
-    int lastChannel = m_firstChannel + m_numVisibleChannels;
+    int lastChannel = m_firstChannel + visibleChannels();
     if(lastChannel > channels) {
         lastChannel = channels;
     }
@@ -578,18 +568,6 @@ void PatternView::updateCanvas() {
     }
 }
 
-int PatternView::firstChannel() const {
-    return m_firstChannel;
-}
-
-void PatternView::setFirstChannel(int value) {
-    if(m_firstChannel != value) {
-        m_firstChannel = value;
-        emit firstChannelChanged();
-        createPatternView();
-    }
-}
-
 QVariant PatternView::song() const {
     return QVariant::fromValue(m_song);
 }
@@ -624,22 +602,28 @@ void PatternView::setSong(QVariant value) {
 
         createPatternView();
     }
+    emit previousChannelEnabledChanged();
+    emit nextChannelEnabledChanged();
 }
 
 void PatternView::onSongLoadedChanged() {
     createPatternView();
+    emit previousChannelEnabledChanged();
+    emit nextChannelEnabledChanged();
 }
 
 void PatternView::onChannelsChanged() {
     createPatternView();
+    emit previousChannelEnabledChanged();
+    emit nextChannelEnabledChanged();
 }
 
 void PatternView::onCurrentRowChanged() {
-    if(m_cursor == NULL || m_song == NULL)
-        return;
-    const int row = m_song->currentRow();
-    AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_cursor->layoutProperties());
-    p->setPositionY((row + 2) * m_fontHeight * m_fontScale);
+    if(m_cursor != NULL && m_song != NULL) {
+        const int row = m_song->currentRow();
+        AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_cursor->layoutProperties());
+        p->setPositionY((row + 2) * m_fontHeight * m_fontScale);
+    }
 }
 
 void PatternView::onCurrentPatternChanged() {
@@ -648,36 +632,76 @@ void PatternView::onCurrentPatternChanged() {
 
 void PatternView::onPatternTap(int x, int y) {
     Q_UNUSED(y)
-    if(m_song != NULL)
-    {
-        int channel_width = m_canvas->width() / m_numVisibleChannels;
-        int channel = x / channel_width + m_firstChannel;
+    if(m_song != NULL) {
+        const int channel_width = m_canvas->width() / visibleChannels();
+        const int channel = x / channel_width + m_firstChannel;
         m_song->muteChannel(channel, !m_song->isChannelMuted(channel));
-        if(m_patternImage != NULL)
-        {
+        if(m_patternImage != NULL) {
             updateCanvas();
-            if(m_canvas != NULL)
-            {
+            if(m_canvas != NULL) {
                 m_patternImage->setImage(m_canvas->image());
             }
         }
     }
 }
 
-void PatternView::onPatternHorizontalSwipe(int x0, int y0, int x1, int y1) {
-    Q_UNUSED(x0)
-    Q_UNUSED(x1)
-    Q_UNUSED(y0)
-    Q_UNUSED(y1)
-    if(m_song != NULL)
-    {
-        const int channels = m_song->channels();
-        int channel = firstChannel();
-        if(channel + 1 <= channels - m_numVisibleChannels) {
-            channel++;
-        } else {
-            channel = 0;
-        }
-        setFirstChannel(channel);
+void PatternView::previousChannel() {
+    if(previousChannelEnabled()) {
+        setFirstChannel(firstChannel() - 1);
     }
+}
+
+void PatternView::nextChannel() {
+    if(nextChannelEnabled()) {
+        setFirstChannel(firstChannel() + 1);
+    }
+}
+
+int PatternView::visibleChannels() const {
+    return m_numVisibleChannels;
+}
+
+void PatternView::setVisibleChannels(int value) {
+    if(value < 0) {
+        value = 0;
+    }
+    if(value != m_numVisibleChannels) {
+        m_numVisibleChannels = value;
+        createPatternView();
+        emit visibleChannelsChanged();
+        emit previousChannelEnabledChanged();
+        emit nextChannelEnabledChanged();
+    }
+}
+
+int PatternView::firstChannel() const {
+    return m_firstChannel;
+}
+
+void PatternView::setFirstChannel(int value) {
+    if(value < 0) {
+        value = 0;
+    }
+    if(m_firstChannel != value) {
+        m_firstChannel = value;
+        emit firstChannelChanged();
+        createPatternView();
+        emit previousChannelEnabledChanged();
+        emit nextChannelEnabledChanged();
+    }
+}
+
+bool PatternView::previousChannelEnabled() const {
+    return m_song != NULL &&
+           m_song->songLoaded() &&
+           m_song->isTrackerSong() &&
+           m_firstChannel > 0 &&
+           m_song->channels() > 0;
+}
+
+bool PatternView::nextChannelEnabled() const {
+    return m_song != NULL &&
+           m_song->songLoaded() &&
+           m_song->isTrackerSong() &&
+           m_firstChannel < m_song->channels() - visibleChannels();
 }

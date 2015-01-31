@@ -84,6 +84,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/Mouse.qml) \
         $$quote($$BASEDIR/assets/NextActionItem.qml) \
         $$quote($$BASEDIR/assets/OpenSongActionItem.qml) \
+        $$quote($$BASEDIR/assets/PatternDisplay.qml) \
         $$quote($$BASEDIR/assets/Patterns.qml) \
         $$quote($$BASEDIR/assets/PatternsActionItem.qml) \
         $$quote($$BASEDIR/assets/PlayAllActionItem.qml) \
@@ -320,10 +321,14 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/led/led_on.png) \
         $$quote($$BASEDIR/assets/images/objects/cache.png) \
         $$quote($$BASEDIR/assets/images/objects/cursor.png) \
+        $$quote($$BASEDIR/assets/images/objects/left-arrow-disabled.png) \
+        $$quote($$BASEDIR/assets/images/objects/left-arrow.png) \
         $$quote($$BASEDIR/assets/images/objects/lock.png) \
         $$quote($$BASEDIR/assets/images/objects/memory.png) \
         $$quote($$BASEDIR/assets/images/objects/mouse.png) \
         $$quote($$BASEDIR/assets/images/objects/pulldown.png) \
+        $$quote($$BASEDIR/assets/images/objects/right-arrow-disabled.png) \
+        $$quote($$BASEDIR/assets/images/objects/right-arrow.png) \
         $$quote($$BASEDIR/assets/images/objects/wallpaper.png) \
         $$quote($$BASEDIR/assets/images/vu/vu-off.png) \
         $$quote($$BASEDIR/assets/images/vu/vu-on.png) \

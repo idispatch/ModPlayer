@@ -185,13 +185,9 @@ Page {
                             visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption != samplesViewOption
                         }
                         GroupContainer {
-                            id: patternView
+                            id: patternViewContainer
                             visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption == patternViewOption
-                            PatternView {
-                                song: app.player.currentSong
-                                visible: patternView.visible 
-                                horizontalAlignment: HorizontalAlignment.Center
-                            }
+                            PatternDisplay {}
                         }
                         InstrumentsView {
                             id: instrumentsView
