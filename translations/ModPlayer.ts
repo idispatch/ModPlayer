@@ -41,7 +41,7 @@
     <name>AppWorldActionItem</name>
     <message>
         <location filename="../assets/AppWorldActionItem.qml" line="5"/>
-        <source>Review in AppWorld</source>
+        <source>Review in BlackBerry World</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

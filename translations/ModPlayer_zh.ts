@@ -35,6 +35,10 @@
     <name>AppWorldActionItem</name>
     <message>
         <source>Review in AppWorld</source>
+        <translation type="obsolete">在应用商店中评价</translation>
+    </message>
+    <message>
+        <source>Review in BlackBerry World</source>
         <translation>在应用商店中评价</translation>
     </message>
 </context>

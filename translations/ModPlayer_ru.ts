@@ -35,7 +35,11 @@
     <name>AppWorldActionItem</name>
     <message>
         <source>Review in AppWorld</source>
-        <translation>Рецензия в AppWorld</translation>
+        <translation type="obsolete">Рецензия в AppWorld</translation>
+    </message>
+    <message>
+        <source>Review in BlackBerry World</source>
+        <translation>Рецензия в BlackBerry World</translation>
     </message>
 </context>
 <context>

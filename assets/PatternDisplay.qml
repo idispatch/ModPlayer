@@ -13,6 +13,7 @@ Container {
         verticalAlignment: VerticalAlignment.Center
     }
     ImageView {
+        visible: patternView.visibleChannels < app.player.currentSong.channels
         imageSource: patternView.previousChannelEnabled ? "asset:///images/objects/left-arrow.png" : "asset:///images/objects/left-arrow-disabled.png"
         horizontalAlignment: HorizontalAlignment.Left
         verticalAlignment: VerticalAlignment.Center
@@ -25,6 +26,7 @@ Container {
         }
     }
     ImageView {
+        visible: patternView.visibleChannels < app.player.currentSong.channels
         imageSource: patternView.nextChannelEnabled ? "asset:///images/objects/right-arrow.png" : "asset:///images/objects/right-arrow-disabled.png"
         horizontalAlignment: HorizontalAlignment.Right
         verticalAlignment: VerticalAlignment.Center
