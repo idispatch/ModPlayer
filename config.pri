@@ -652,6 +652,104 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/mp3lame/vbrquantize.h) \
         $$quote($$BASEDIR/src/mp3lame/vector/lame_intrin.h) \
         $$quote($$BASEDIR/src/mp3lame/version.h) \
+        $$quote($$BASEDIR/src/taglib/aifffile.h) \
+        $$quote($$BASEDIR/src/taglib/aiffproperties.h) \
+        $$quote($$BASEDIR/src/taglib/apefile.h) \
+        $$quote($$BASEDIR/src/taglib/apefooter.h) \
+        $$quote($$BASEDIR/src/taglib/apeitem.h) \
+        $$quote($$BASEDIR/src/taglib/apeproperties.h) \
+        $$quote($$BASEDIR/src/taglib/apetag.h) \
+        $$quote($$BASEDIR/src/taglib/asfattribute.h) \
+        $$quote($$BASEDIR/src/taglib/asffile.h) \
+        $$quote($$BASEDIR/src/taglib/asfpicture.h) \
+        $$quote($$BASEDIR/src/taglib/asfproperties.h) \
+        $$quote($$BASEDIR/src/taglib/asftag.h) \
+        $$quote($$BASEDIR/src/taglib/attachedpictureframe.h) \
+        $$quote($$BASEDIR/src/taglib/audioproperties.h) \
+        $$quote($$BASEDIR/src/taglib/commentsframe.h) \
+        $$quote($$BASEDIR/src/taglib/fileref.h) \
+        $$quote($$BASEDIR/src/taglib/flacfile.h) \
+        $$quote($$BASEDIR/src/taglib/flacmetadatablock.h) \
+        $$quote($$BASEDIR/src/taglib/flacpicture.h) \
+        $$quote($$BASEDIR/src/taglib/flacproperties.h) \
+        $$quote($$BASEDIR/src/taglib/generalencapsulatedobjectframe.h) \
+        $$quote($$BASEDIR/src/taglib/id3v1genres.h) \
+        $$quote($$BASEDIR/src/taglib/id3v1tag.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2extendedheader.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2footer.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2frame.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2framefactory.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2header.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2synchdata.h) \
+        $$quote($$BASEDIR/src/taglib/id3v2tag.h) \
+        $$quote($$BASEDIR/src/taglib/infotag.h) \
+        $$quote($$BASEDIR/src/taglib/itfile.h) \
+        $$quote($$BASEDIR/src/taglib/itproperties.h) \
+        $$quote($$BASEDIR/src/taglib/modfile.h) \
+        $$quote($$BASEDIR/src/taglib/modfilebase.h) \
+        $$quote($$BASEDIR/src/taglib/modproperties.h) \
+        $$quote($$BASEDIR/src/taglib/modtag.h) \
+        $$quote($$BASEDIR/src/taglib/mp4atom.h) \
+        $$quote($$BASEDIR/src/taglib/mp4coverart.h) \
+        $$quote($$BASEDIR/src/taglib/mp4file.h) \
+        $$quote($$BASEDIR/src/taglib/mp4item.h) \
+        $$quote($$BASEDIR/src/taglib/mp4properties.h) \
+        $$quote($$BASEDIR/src/taglib/mp4tag.h) \
+        $$quote($$BASEDIR/src/taglib/mpcfile.h) \
+        $$quote($$BASEDIR/src/taglib/mpcproperties.h) \
+        $$quote($$BASEDIR/src/taglib/mpegfile.h) \
+        $$quote($$BASEDIR/src/taglib/mpegheader.h) \
+        $$quote($$BASEDIR/src/taglib/mpegproperties.h) \
+        $$quote($$BASEDIR/src/taglib/oggfile.h) \
+        $$quote($$BASEDIR/src/taglib/oggflacfile.h) \
+        $$quote($$BASEDIR/src/taglib/oggpage.h) \
+        $$quote($$BASEDIR/src/taglib/oggpageheader.h) \
+        $$quote($$BASEDIR/src/taglib/opusfile.h) \
+        $$quote($$BASEDIR/src/taglib/opusproperties.h) \
+        $$quote($$BASEDIR/src/taglib/ownershipframe.h) \
+        $$quote($$BASEDIR/src/taglib/popularimeterframe.h) \
+        $$quote($$BASEDIR/src/taglib/privateframe.h) \
+        $$quote($$BASEDIR/src/taglib/relativevolumeframe.h) \
+        $$quote($$BASEDIR/src/taglib/rifffile.h) \
+        $$quote($$BASEDIR/src/taglib/s3mfile.h) \
+        $$quote($$BASEDIR/src/taglib/s3mproperties.h) \
+        $$quote($$BASEDIR/src/taglib/speexfile.h) \
+        $$quote($$BASEDIR/src/taglib/speexproperties.h) \
+        $$quote($$BASEDIR/src/taglib/tag.h) \
+        $$quote($$BASEDIR/src/taglib/tag_c.h) \
+        $$quote($$BASEDIR/src/taglib/taglib.h) \
+        $$quote($$BASEDIR/src/taglib/taglib_config.h) \
+        $$quote($$BASEDIR/src/taglib/taglib_export.h) \
+        $$quote($$BASEDIR/src/taglib/tbytevector.h) \
+        $$quote($$BASEDIR/src/taglib/tbytevectorlist.h) \
+        $$quote($$BASEDIR/src/taglib/tbytevectorstream.h) \
+        $$quote($$BASEDIR/src/taglib/tdebuglistener.h) \
+        $$quote($$BASEDIR/src/taglib/textidentificationframe.h) \
+        $$quote($$BASEDIR/src/taglib/tfile.h) \
+        $$quote($$BASEDIR/src/taglib/tfilestream.h) \
+        $$quote($$BASEDIR/src/taglib/tiostream.h) \
+        $$quote($$BASEDIR/src/taglib/tlist.h) \
+        $$quote($$BASEDIR/src/taglib/tmap.h) \
+        $$quote($$BASEDIR/src/taglib/tpropertymap.h) \
+        $$quote($$BASEDIR/src/taglib/trefcounter.h) \
+        $$quote($$BASEDIR/src/taglib/trueaudiofile.h) \
+        $$quote($$BASEDIR/src/taglib/trueaudioproperties.h) \
+        $$quote($$BASEDIR/src/taglib/tstring.h) \
+        $$quote($$BASEDIR/src/taglib/tstringlist.h) \
+        $$quote($$BASEDIR/src/taglib/uniquefileidentifierframe.h) \
+        $$quote($$BASEDIR/src/taglib/unknownframe.h) \
+        $$quote($$BASEDIR/src/taglib/unsynchronizedlyricsframe.h) \
+        $$quote($$BASEDIR/src/taglib/urllinkframe.h) \
+        $$quote($$BASEDIR/src/taglib/vorbisfile.h) \
+        $$quote($$BASEDIR/src/taglib/vorbisproperties.h) \
+        $$quote($$BASEDIR/src/taglib/wavfile.h) \
+        $$quote($$BASEDIR/src/taglib/wavpackfile.h) \
+        $$quote($$BASEDIR/src/taglib/wavpackproperties.h) \
+        $$quote($$BASEDIR/src/taglib/wavproperties.h) \
+        $$quote($$BASEDIR/src/taglib/xingheader.h) \
+        $$quote($$BASEDIR/src/taglib/xiphcomment.h) \
+        $$quote($$BASEDIR/src/taglib/xmfile.h) \
+        $$quote($$BASEDIR/src/taglib/xmproperties.h) \
         $$quote($$BASEDIR/src/zip/JlCompress.h) \
         $$quote($$BASEDIR/src/zip/crypt.h) \
         $$quote($$BASEDIR/src/zip/ioapi.h) \
@@ -676,6 +774,7 @@ INCLUDEPATH += $$quote($$BASEDIR/src/libid3tag) \
     $$quote($$BASEDIR/src/mp3lame/vector) \
     $$quote($$BASEDIR/src/mp3lame) \
     $$quote($$BASEDIR/src/libmad/msvc++) \
+    $$quote($$BASEDIR/src/taglib) \
     $$quote($$BASEDIR/src/libmad) \
     $$quote($$BASEDIR/src/modplug) \
     $$quote($$BASEDIR/src/libid3tag/msvc++) \
@@ -732,6 +831,11 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/mp3lame/vector/*.cc) \
         $$quote($$BASEDIR/../src/mp3lame/vector/*.cpp) \
         $$quote($$BASEDIR/../src/mp3lame/vector/*.cxx) \
+        $$quote($$BASEDIR/../src/taglib/*.c) \
+        $$quote($$BASEDIR/../src/taglib/*.c++) \
+        $$quote($$BASEDIR/../src/taglib/*.cc) \
+        $$quote($$BASEDIR/../src/taglib/*.cpp) \
+        $$quote($$BASEDIR/../src/taglib/*.cxx) \
         $$quote($$BASEDIR/../src/zip/*.c) \
         $$quote($$BASEDIR/../src/zip/*.c++) \
         $$quote($$BASEDIR/../src/zip/*.cc) \
