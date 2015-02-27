@@ -40,10 +40,10 @@ Sheet {
         actions: [
             SettingsMenuAction {
                 ActionBar.placement: ActionBarPlacement.InOverflow
-            },
+            }/*,
             AppWorldActionItem{
                 ActionBar.placement: ActionBarPlacement.OnBar
-            }
+            }*/
         ]
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
