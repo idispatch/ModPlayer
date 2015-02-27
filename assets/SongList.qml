@@ -6,7 +6,7 @@ Page {
     id: songListPage
     objectName: "songListPage"
     property variant navigationPane
-    property int maxResults: 100
+    property int maxResults
     property int requestId: 0
     property int listId: 0
     titleBar: PlayerTitleBar {
@@ -321,7 +321,7 @@ Page {
     }
     function load() {
         unload();
-        maxResults = searchArea.searchTerm.length > 0 ? 100 : app.maxViewSongs
+        maxResults = searchArea.searchTerm.length > 0 ? 500 : app.maxViewSongs
         requestId = {
             search: function(searchTerm, queryId, limit) {
                 return app.player.catalog.searchSongsAsync(searchTerm, limit)

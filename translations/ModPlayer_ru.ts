@@ -1183,7 +1183,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation>Купить ModPlayer Plus</translation>
+        <translation type="obsolete">Купить ModPlayer Plus</translation>
     </message>
     <message>
         <source>Playlist Control</source>
