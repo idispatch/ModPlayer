@@ -852,8 +852,7 @@ void Player::playNext() {
 
 void Player::playPrevious() {
     if(m_playlist->previousAvailable()) {
-        QVariant song = m_playlist->previous();
-        play(song);
+        play(m_playlist->previous());
     }
 }
 
