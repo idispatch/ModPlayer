@@ -32,13 +32,6 @@
     </message>
 </context>
 <context>
-    <name>AppWorldActionItem</name>
-    <message>
-        <source>Review in AppWorld</source>
-        <translation>在应用商店中评价</translation>
-    </message>
-</context>
-<context>
     <name>AppendPlaylistActionItem</name>
     <message>
         <source>Append to Playlist</source>
@@ -1201,7 +1194,7 @@
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation>设置</translation>
+        <translation type="obsolete">设置</translation>
     </message>
 </context>
 <context>

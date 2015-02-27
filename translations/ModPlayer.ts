@@ -38,14 +38,6 @@
     </message>
 </context>
 <context>
-    <name>AppWorldActionItem</name>
-    <message>
-        <location filename="../assets/AppWorldActionItem.qml" line="5"/>
-        <source>Review in AppWorld</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AppendPlaylistActionItem</name>
     <message>
         <location filename="../assets/AppendPlaylistActionItem.qml" line="9"/>
@@ -424,77 +416,77 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="65"/>
+        <location filename="../assets/Help.qml" line="56"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is a tracker music player.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="72"/>
+        <location filename="../assets/Help.qml" line="63"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="79"/>
+        <location filename="../assets/Help.qml" line="70"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="86"/>
+        <location filename="../assets/Help.qml" line="77"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; keeps a cache of most recent songs you listened to, and automatically downloads the songs to your device from &lt;i&gt;The Mod Archive&lt;/i&gt; site once you start playing them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="93"/>
+        <location filename="../assets/Help.qml" line="84"/>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="100"/>
+        <location filename="../assets/Help.qml" line="91"/>
         <source>The song cache on your device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="107"/>
+        <location filename="../assets/Help.qml" line="98"/>
         <source>You can configure the song cache size and song count it keeps in &lt;b&gt;ModPlayer&lt;/b&gt; settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="114"/>
+        <location filename="../assets/Help.qml" line="105"/>
         <source>You can configure various options of &lt;b&gt;ModPlayer&lt;/b&gt;, such as &lt;i&gt;mixing frequency&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; playback, &lt;i&gt;mixer quality&lt;/i&gt; and more.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="121"/>
+        <location filename="../assets/Help.qml" line="112"/>
         <source>You can add the songs from the &lt;b&gt;ModPlayer&lt;/b&gt; library to the list of your favourite songs and listen to them later.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="128"/>
+        <location filename="../assets/Help.qml" line="119"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; knows the songs you listened to and you can locate them in the &lt;i&gt;&quot;Recent&quot;&lt;/i&gt;, &lt;i&gt;&quot;Most Played&quot;&lt;/i&gt; and &lt;i&gt;&quot;My Favourite&quot;&lt;/i&gt; tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="135"/>
+        <location filename="../assets/Help.qml" line="126"/>
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="142"/>
+        <location filename="../assets/Help.qml" line="133"/>
         <source>These are the songs that were downloaded, rated and favourited by other users of &lt;i&gt;The Mod Archive&lt;/i&gt; site and it is quite possible you will also enjoy them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="149"/>
+        <location filename="../assets/Help.qml" line="140"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is using the &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; library, one of the best libraries that provides high quality tracker song modules mixing and playback.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="156"/>
+        <location filename="../assets/Help.qml" line="147"/>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="163"/>
+        <location filename="../assets/Help.qml" line="154"/>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1327,14 +1319,6 @@
     <message>
         <location filename="../assets/Settings.qml" line="706"/>
         <source>Surround Delay</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SettingsMenuAction</name>
-    <message>
-        <location filename="../assets/SettingsMenuAction.qml" line="6"/>
-        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

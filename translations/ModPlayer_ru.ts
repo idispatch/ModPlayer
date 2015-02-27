@@ -32,13 +32,6 @@
     </message>
 </context>
 <context>
-    <name>AppWorldActionItem</name>
-    <message>
-        <source>Review in AppWorld</source>
-        <translation>Рецензия в AppWorld</translation>
-    </message>
-</context>
-<context>
     <name>AppendPlaylistActionItem</name>
     <message>
         <source>Append to Playlist</source>
@@ -1217,7 +1210,7 @@
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation>Установки</translation>
+        <translation type="obsolete">Установки</translation>
     </message>
 </context>
 <context>
