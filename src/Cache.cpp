@@ -6,7 +6,7 @@
 #include "Analytics.hpp"
 #include <dirent.h>
 
-#define VERBOSE_LOGGING
+//#define VERBOSE_LOGGING
 
 template<>
 int InstanceCounter<Cache>::s_count;
