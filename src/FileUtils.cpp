@@ -14,7 +14,7 @@ bool FileUtils::isAbsolute(QString const& fileName) {
 }
 
 bool FileUtils::isRelative(QString const& fileName) {
-    return !isAbsolute(fileName);
+    return !fileName.isEmpty() && !isAbsolute(fileName);
 }
 
 QString FileUtils::fileNameOnly(QString const& fileName) {
