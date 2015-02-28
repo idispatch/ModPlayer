@@ -1,12 +1,15 @@
-#ifndef CACHE_HPP_
-#define CACHE_HPP_
+#ifndef CACHE_HPP
+#define CACHE_HPP
 
 #include <QDebug>
 #include <QObject>
 #include <QSettings>
 #include <QStringList>
-#include <QFileInfoList>
+#include <map>
+#include <set>
+
 #include "InstanceCounter.hpp"
+#include "CacheFileInfo.hpp"
 
 class Cache : public QObject,
               public InstanceCounter<Cache> {
@@ -18,7 +21,7 @@ class Cache : public QObject,
     Q_PROPERTY(int currentSize READ currentSize NOTIFY currentSizeChanged FINAL)
     Q_PROPERTY(int currentFiles READ currentFiles NOTIFY currentFilesChanged FINAL)
     Q_PROPERTY(QStringList files READ files NOTIFY filesChanged FINAL)
-    Q_PROPERTY(QStringList fileNameFilters READ fileNameFilters WRITE setFileNameFilters FINAL)
+    Q_PROPERTY(QStringList filters READ filters WRITE setFilters FINAL)
 
 public:
     Cache(QSettings &settings, QObject *parent);
@@ -27,24 +30,26 @@ public:
     QString cachePath() const;
     QStringList files() const;
 
-    QStringList fileNameFilters() const;
-    void setFileNameFilters(QStringList const& value);
+    QStringList const& filters() const;
+    void setFilters(QStringList const& filters);
 
-    int maxSize() const;
-    void setMaxSize(int size);
+    int maxSize() const; // O(1)
+    void setMaxSize(int size); // checkOverflow
 
-    int maxFiles() const;
-    void setMaxFiles(int size);
+    int maxFiles() const; // O(1)
+    void setMaxFiles(int size); // checkOverflow
 
-    int currentSize() const;
-    int currentFiles() const;
+    int currentSize() const; // O(N)
+    int currentFiles() const; // O(1)
 
     Q_INVOKABLE void purge();
     Q_INVOKABLE void cache(QString const& fileName);
-    Q_INVOKABLE bool exists(QString const& fileName);
-    Q_INVOKABLE void remove(QString const& fileName);
+    Q_INVOKABLE bool fileExists(QString const& fileName);
+    Q_INVOKABLE void removeByName(QString const& fileName);
     Q_INVOKABLE void save(QString const& cacheFileName, QString const& newFileName);
     Q_INVOKABLE void exportCache(QString const& directory);
+
+    void initCache();
 
     using InstanceCounter<Cache>::getInstanceCount;
     using InstanceCounter<Cache>::getMaxInstanceCount;
@@ -58,17 +63,24 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(Cache)
 
+    bool fileMatches(QString const& fileName) const;
     QString absoluteFileName(QString const& fileName) const;
-    void remove(QFileInfo const& fileInfo);
-    void houseKeep();
-    void initCache();
+    void checkOverflow();
+
     void notifyCacheChanged(int oldFiles, int oldSize);
+
+    static QString createExtensionFilter(QString const& filter);
 private:
-    QSettings &m_settings;
-    QStringList m_fileNameFilters;
-    QFileInfoList m_files;
-    int m_maxSize;
-    int m_maxFiles;
+
+    typedef std::map<QString, CacheFileInfo>::const_iterator ConstMapIterator;
+    typedef std::set<CacheFileInfo>::const_iterator          ConstSetIterator;
+
+    QSettings                        &m_settings;
+    QStringList                       m_filters;
+    std::set<CacheFileInfo>           m_sortedFiles;
+    std::map<QString, CacheFileInfo>  m_files;
+    int                               m_maxSize;
+    int                               m_maxFiles;
 };
 
 Q_DECLARE_METATYPE(Cache*);

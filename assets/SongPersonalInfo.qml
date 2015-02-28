@@ -86,7 +86,7 @@ GroupContainer {
         }
     }
     BlackLabel {
-        visible: song != null && (song.id < 0 || app.cache.exists(song.fileName))
+        visible: song != null && (song.id < 0 || app.cache.fileExists(song.fileName))
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
         multiline: true
@@ -97,7 +97,7 @@ GroupContainer {
                     var fileName = String(song.fileName).replace(/^\/accounts\/1000\/(?:removable|shared)/,'')
                     return "<i>%1</i>".arg(Global.escapeHtml(fileName))
                 } else {
-                    if(app.cache.exists(song.fileName)) {
+                    if(app.cache.fileExists(song.fileName)) {
                         return qsTr("<i>You have this song in the cache already</i>") + Retranslate.onLanguageChanged
                     }
                 }
@@ -105,9 +105,10 @@ GroupContainer {
             return ""
         }
         onCreationCompleted: {
+            var s = song
             app.cache.currentFilesChanged.connect(function() {
-                    visible = song && app.cache.exists(song.fileName)
-                    text = getLabelText()
+                visible = s && app.cache.fileExists(s.fileName)
+                text = getLabelText()
             })
         }
     }

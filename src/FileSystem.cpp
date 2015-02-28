@@ -24,7 +24,7 @@ QString FileSystem::createExtensionFilter(QString const& p) {
     return p;
 }
 
-bool FileSystem::fileMatches(QString const& fileName) {
+bool FileSystem::fileMatches(QString const& fileName) const {
     QString const& extension = FileUtils::extension(fileName);
     return m_filters.contains(extension, Qt::CaseInsensitive);
 }

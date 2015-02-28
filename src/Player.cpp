@@ -50,8 +50,11 @@ Player::Player(QSettings &settings, QObject * parent)
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_importer(NULL),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
-    m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m" << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
-                      << "*.MOD" << "*.MED" << "*.MT2" << "*.MTM" << "*.MP3" << "*.S3M" << "*.IT" << "*.STM" << "*.XM" << "*.OCT" << "*.OKT";
+    m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m"
+                      << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
+                      // TagLib
+                      << "*.wma" << "*.asf" << "*.ogg" << "*.flac" << "*.mp4" << "*.aac"
+                      << "*.wav";
     initTheme();
     initCache();
     initDownloader();
@@ -116,7 +119,8 @@ void Player::initCache() {
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    m_cache->setFileNameFilters(fileNameFilters());
+    m_cache->setFilters(fileNameFilters());
+    m_cache->initCache();
 }
 
 void Player::initDownloader() {
@@ -605,7 +609,7 @@ void Player::playByModuleFileName(QString const& fileName, QString const& icon) 
         // relative path or within cache directory - play from cache
         if(fileName.startsWith(m_cache->cachePath()) ||
            FileUtils::isRelative(fileName)) {
-            if(m_cache->exists(fileName)) {
+            if(m_cache->fileExists(fileName)) {
                 QString name = FileUtils::fileNameOnly(fileName);
                 beginPlay(true, name, SongFormat::getIconPath(name));
             } else {
@@ -625,7 +629,7 @@ void Player::playByModuleFileName(QString const& fileName, QString const& icon) 
 void Player::playByModuleId(int id) {
     QString fileName = m_catalog->resolveFileNameById(id);
     if(id > 0) {
-        if(m_cache->exists(fileName)) {
+        if(m_cache->fileExists(fileName)) {
             // Play cached file from Catalog
             beginPlay(true, fileName, SongFormat::getIconPath(fileName));
         } else {

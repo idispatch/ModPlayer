@@ -543,6 +543,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/ApplicationUI.hpp) \
         $$quote($$BASEDIR/src/Artist.hpp) \
         $$quote($$BASEDIR/src/Cache.hpp) \
+        $$quote($$BASEDIR/src/CacheFileInfo.hpp) \
         $$quote($$BASEDIR/src/Canvas.hpp) \
         $$quote($$BASEDIR/src/Catalog.hpp) \
         $$quote($$BASEDIR/src/CatalogMigration.hpp) \

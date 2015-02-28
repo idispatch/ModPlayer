@@ -4,8 +4,9 @@
 #include <QDebug>
 #include "FileUtils.hpp"
 #include "Analytics.hpp"
+#include <dirent.h>
 
-//#define VERBOSE_LOGGING
+#define VERBOSE_LOGGING
 
 template<>
 int InstanceCounter<Cache>::s_count;
@@ -16,8 +17,8 @@ Cache::Cache(QSettings &settings, QObject * parent)
     : QObject(parent),
       m_settings(settings),
       m_maxSize(m_settings.value("cache/maxSize", 100 * 1024 * 1024).toInt()),
-      m_maxFiles(m_settings.value("cache/maxFiles", 200).toInt()) {
-    initCache();
+      m_maxFiles(m_settings.value("cache/maxFiles", 200).toInt())
+{
 }
 
 Cache::~Cache() {
@@ -30,25 +31,63 @@ Cache::~Cache() {
 #endif
 }
 
+bool Cache::fileMatches(QString const& fileName) const {
+    QString const& extension = FileUtils::extension(fileName);
+    return m_filters.contains(extension, Qt::CaseInsensitive);
+}
+
+QString Cache::createExtensionFilter(QString const& filter) {
+    if(filter.startsWith(QChar('*'))) {
+        return filter.mid(1); // remove star from file extension
+    }
+    return filter;
+}
+
 void Cache::initCache() {
-    if(!m_fileNameFilters.empty())
+    int oldFiles = currentFiles();
+    int oldSize = currentSize();
+
+    if(!m_filters.empty())
     {
-        QString diskPath = cachePath();
-        QDir directory(diskPath);
-        m_files = directory.entryInfoList(m_fileNameFilters,
-                                          QDir::Files,
-                                          QDir::Time | QDir::Reversed);
+        QString path = cachePath();
+        DIR *dirp;
+        if ((dirp = ::opendir(path.toUtf8().constData())) != NULL) {
+            struct dirent64 *direntItem;
+            do {
+                if ((direntItem = ::readdir64(dirp)) != NULL) {
+                    if(direntItem->d_name[0] == '.') {
+                        continue;
+                    }
+                    QString fileName = QString::fromUtf8(direntItem->d_name);
+                    QString absolute = FileUtils::joinPath(path, fileName);
+                    struct stat64 st;
+                    if(0 == ::stat64(absolute.toUtf8().constData(), &st)) {
+                        if(st.st_mode & S_IFREG) {
+                            if(fileMatches(fileName)) {
+                                CacheFileInfo info(st.st_size, st.st_ctime, fileName);
+                                m_files[fileName] = info;
+                                m_sortedFiles.insert(info);
+                            }
+                        }
+                    }
+                }
+            } while (direntItem != NULL);
+            ::closedir(dirp);
+        }
     }
     else
     {
         m_files.clear();
     }
 #ifdef VERBOSE_LOGGING
-    qDebug() << "Cache::initCache: files=" << files();
-    if(!m_files.empty()) {
-        qDebug() << "Cache::initCache: first file=" << m_files.first().absoluteFilePath();
+    qDebug() << "Cache: filters=" << m_filters;
+    qDebug() << "Cache: files=" << m_files.size() << ":" << m_sortedFiles.size();
+    qDebug() << "Cache: used=" << currentSize();
+    for(ConstSetIterator i = m_sortedFiles.begin(); i != m_sortedFiles.end(); ++i) {
+        qDebug() << *i;
     }
 #endif
+    notifyCacheChanged(oldFiles, oldSize);
 }
 
 QString Cache::cachePath() const {
@@ -57,14 +96,14 @@ QString Cache::cachePath() const {
 
 QStringList Cache::files() const {
     QStringList files;
-    for(int i = 0; i < m_files.size(); i++) {
-        files << m_files[i].fileName();
+    for(ConstMapIterator i = m_files.begin(); i!= m_files.end(); ++i) {
+        files << i->second.name();
     }
     return files;
 }
 
-QStringList Cache::fileNameFilters() const {
-    return m_fileNameFilters;
+QStringList const& Cache::filters() const {
+    return m_filters;
 }
 
 void Cache::notifyCacheChanged(int oldFiles, int oldSize) {
@@ -83,17 +122,11 @@ void Cache::notifyCacheChanged(int oldFiles, int oldSize) {
     }
 }
 
-void Cache::setFileNameFilters(QStringList const& value) {
-    if(value != m_fileNameFilters)
-    {
-        int oldFiles = currentFiles();
-        int oldSize = currentSize();
-
-        m_fileNameFilters = value;
-        initCache();
-
-        notifyCacheChanged(oldFiles, oldSize);
-    }
+void Cache::setFilters(QStringList const& filters) {
+    m_filters.reserve(filters.size());
+    std::transform(filters.begin(), filters.end(),
+                   std::back_inserter(m_filters),
+                   createExtensionFilter);
 }
 
 int Cache::maxSize() const {
@@ -105,9 +138,9 @@ int Cache::maxFiles() const {
 }
 
 int Cache::currentSize() const {
-    int totalSize = 0;
-    for(int i = 0; i < m_files.size(); i++) {
-        totalSize += m_files[i].size();
+    qint64 totalSize = 0;
+    for(ConstMapIterator i = m_files.begin(); i != m_files.end(); ++i) {
+        totalSize += i->second.size();
     }
     return totalSize;
 }
@@ -120,13 +153,11 @@ void Cache::setMaxSize(int size) {
     if(size < 0) {
         size = 0;
     }
-    if(m_maxSize != size)
-    {
+    if(m_maxSize != size) {
         int oldMaxSize = m_maxSize;
         m_maxSize = size;
-        if(oldMaxSize > m_maxSize)
-        {
-            houseKeep();
+        if(oldMaxSize > m_maxSize) {
+            checkOverflow();
         }
         emit maxSizeChanged();
     }
@@ -136,98 +167,84 @@ void Cache::setMaxFiles(int size) {
     if(size < 0) {
         size = 0;
     }
-    if(m_maxFiles != size)
-    {
+    if(m_maxFiles != size) {
         int oldMaxFiles = m_maxFiles;
         m_maxFiles = size;
-        if(oldMaxFiles > m_maxFiles)
-        {
-            houseKeep();
+        if(oldMaxFiles > m_maxFiles) {
+            checkOverflow();
         }
         emit maxFilesChanged();
     }
 }
 
 void Cache::purge() {
-    while(!m_files.empty())
-    {
-        remove(m_files.first());
+    while(!m_files.empty()) {
+        removeByName(m_files.begin()->first);
     }
 }
 
-void Cache::houseKeep() {
+void Cache::checkOverflow() {
     int totalSize = currentSize();
     int totalFiles = currentFiles();
-    while(totalFiles > 0 && (totalSize > maxSize() ||
-                             totalFiles > maxFiles()))
+    while(!m_sortedFiles.empty() &&
+          (totalSize > maxSize() || totalFiles > maxFiles()))
     {
-        QFileInfo const& fileInfo = m_files.first();
-#ifdef VERBOSE_LOGGING
-        qDebug() << "Cache::houseKeep: removing " << fileInfo.fileName();
-#endif
-        remove(fileInfo);
+        CacheFileInfo info = *m_sortedFiles.begin();
+        removeByName(info.name());
         totalFiles = currentFiles();
-        totalSize = currentSize();
+        totalSize  = currentSize();
     }
 }
 
 void Cache::cache(QString const& fileName) {
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Cache::cache: caching" << fileName;
-#endif
-    QString file = absoluteFileName(fileName);
-    QFileInfo fileInfo(file);
-    if(m_files.indexOf(fileInfo) == -1)
-    {
-        if(FileUtils::exists(file)) {
+    if(FileUtils::isRelative(fileName)) {
+        if(m_files.find(fileName) != m_files.end()) {
             int oldFiles = currentFiles();
             int oldSize = currentSize();
 
-            m_files.append(fileInfo);
-            houseKeep();
-
-            notifyCacheChanged(oldFiles, oldSize);
+            struct stat64 st;
+            QString absoluteFileNameStr = absoluteFileName(fileName);
+            int rc = ::stat64(absoluteFileNameStr.toUtf8().constData(), &st);
+            if(rc == 0) {
+                CacheFileInfo info(st.st_size, st.st_ctime, fileName);
+                m_files[fileName] = info;
+                m_sortedFiles.insert(info);
+                checkOverflow();
+                notifyCacheChanged(oldFiles, oldSize);
+            }
         }
     }
 }
 
-bool Cache::exists(QString const& fileName) {
-    bool bExists = false;
-    if(fileName.size() > 0)
-    {
-        QString absoluteFilePath = absoluteFileName(fileName);
-        QFileInfo fileInfo(absoluteFilePath);
-        bExists = m_files.indexOf(fileInfo) != -1 && FileUtils::exists(absoluteFilePath);
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Cache::exists:" << fileName << "(" << absoluteFilePath << ") =" << bExists;
-#endif
+bool Cache::fileExists(QString const& fileName) {
+    if(FileUtils::isAbsolute(fileName)) {
+        return FileUtils::exists(fileName);
+    } else {
+        return FileUtils::exists(FileUtils::joinPath(cachePath(), fileName));
     }
-    return bExists;
 }
 
-void Cache::remove(QFileInfo const& fileInfo) {
-    remove(fileInfo.fileName());
-}
-
-void Cache::remove(QString const& fileName) {
-    if(exists(fileName)) {
+void Cache::removeByName(QString const& fileName) {
+    if(FileUtils::isRelative(fileName)) {
+        if(fileExists(fileName)) {
+            QFile::remove(absoluteFileName(fileName));
+            ConstMapIterator i = m_files.find(fileName);
+            if(i != m_files.end()) {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Cache::remove: removing" << fileName;
+                qDebug() << "Cache: removing" << i->second;
 #endif
-        QString absoluteFilePath = absoluteFileName(fileName);
-        QFile::remove(absoluteFilePath);
-
-        QFileInfo fileInfo(absoluteFilePath);
-        m_files.removeOne(fileInfo);
-
-        emit currentFilesChanged();
-        emit currentSizeChanged();
-        emit filesChanged();
+                m_sortedFiles.erase(i->second);
+                m_files.erase(i->first);
+            }
+            emit currentFilesChanged();
+            emit currentSizeChanged();
+            emit filesChanged();
+        }
     }
 }
 
 void Cache::save(QString const& cacheFileName, QString const& newFileName) {
-    if(exists(cacheFileName))
+    if(fileExists(cacheFileName))
     {
         QString absoluteCacheFileName = absoluteFileName(cacheFileName);
         bool copyOk;
@@ -267,47 +284,48 @@ void Cache::exportCache(QString const& directory) {
 
     if(QDir().mkpath(targetDirectory))
     {
-        for(int i = 0; i < numFiles; i++)
+        int currentCount = 0;
+        for(ConstMapIterator i = m_files.begin(); i != m_files.end(); ++i)
         {
-            QString cacheFileName = m_files[i].fileName();
-            QString newFileName(FileUtils::joinPath(targetDirectory, cacheFileName));
+            QString destinationFileName(FileUtils::joinPath(targetDirectory, i->second.name()));
 
-            if(FileUtils::exists(newFileName))
+            if(FileUtils::exists(destinationFileName))
             {
-                if(!QFile::remove(newFileName))
+                if(!QFile::remove(destinationFileName))
                 {
-                    qDebug() << "Failed to remove" << newFileName;
+                    qDebug() << "Failed to remove" << destinationFileName;
                     continue;
                 }
                 else
                 {
-                    qDebug() << "Removed" << newFileName;
+                    qDebug() << "Removed" << destinationFileName;
                 }
             }
 
-            QString fromFile(m_files[i].absoluteFilePath());
+            QString sourceFileName(absoluteFileName(i->second.name()));
 
-            emit progressUpdate((i+1)*100/numFiles, cacheFileName);
+            currentCount += 1;
+            emit progressUpdate(currentCount * 100 / numFiles, i->second.name());
 
-            if(QFile::copy(fromFile, newFileName))
+            if(QFile::copy(sourceFileName, destinationFileName))
             {
-                qDebug() << "Copied from" << cacheFileName << "to" << newFileName;
-                if(!FileUtils::adjustPermissions(newFileName)) {
-                    qDebug() << "Failed to set permissions for file " << newFileName;
+                qDebug() << "Copied from" << i->second.name() << "to" << destinationFileName;
+                if(!FileUtils::adjustPermissions(destinationFileName)) {
+                    qDebug() << "Failed to set permissions for file " << destinationFileName;
                 }
                 numCopiedFiles += 1;
             }
             else
             {
-                qDebug() << "Failed to copy from" << fromFile << "to" << newFileName;
+                qDebug() << "Failed to copy from" << sourceFileName << "to" << destinationFileName;
                 continue;
             }
         }
     }
-    else
-    {
+    else {
         Analytics::getInstance()->logError("Failed to create cache export path", targetDirectory);
     }
+
     Analytics::getInstance()->exportCache(numFiles, numCopiedFiles);
 }
 
@@ -326,7 +344,7 @@ QDebug operator << (QDebug dbg, Cache const &c) {
         << ", maxFiles=" << c.maxFiles()
         << ", maxSize=" << c.maxSize()
         << ", files=" << c.files()
-        << ", filesNameFilters=" << c.fileNameFilters()
+        << ", filters=" << c.filters()
         << ", cachePath=" << c.cachePath()
         << ")";
     return dbg.space();

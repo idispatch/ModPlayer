@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE bb::cascades::ArrayDataModel* listFiles(QString const& path);
 private:
     bb::cascades::ArrayDataModel* listRoot();
-    bool fileMatches(QString const& fileName);
+    bool fileMatches(QString const& fileName) const;
 private:
     static QString createExtensionFilter(QString const& p);
 private:
