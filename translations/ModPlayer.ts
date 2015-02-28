@@ -775,78 +775,78 @@
     <name>Player</name>
     <message>
         <location filename="../src/Player.cpp" line="43"/>
-        <location filename="../src/Player.cpp" line="723"/>
+        <location filename="../src/Player.cpp" line="727"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="284"/>
-        <location filename="../src/Player.cpp" line="313"/>
-        <location filename="../src/Player.cpp" line="632"/>
+        <location filename="../src/Player.cpp" line="288"/>
+        <location filename="../src/Player.cpp" line="317"/>
+        <location filename="../src/Player.cpp" line="636"/>
         <source>Downloading song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="321"/>
+        <location filename="../src/Player.cpp" line="325"/>
         <source>Unpacking song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="333"/>
+        <location filename="../src/Player.cpp" line="337"/>
         <source>Failed to prepare song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="338"/>
+        <location filename="../src/Player.cpp" line="342"/>
         <source>Caching song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="349"/>
+        <location filename="../src/Player.cpp" line="353"/>
         <source>Failed to download song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="525"/>
-        <location filename="../src/Player.cpp" line="715"/>
-        <location filename="../src/Player.cpp" line="770"/>
+        <location filename="../src/Player.cpp" line="529"/>
+        <location filename="../src/Player.cpp" line="719"/>
+        <location filename="../src/Player.cpp" line="774"/>
         <source>Playing Internet Radio Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="529"/>
-        <location filename="../src/Player.cpp" line="718"/>
-        <location filename="../src/Player.cpp" line="774"/>
+        <location filename="../src/Player.cpp" line="533"/>
+        <location filename="../src/Player.cpp" line="722"/>
+        <location filename="../src/Player.cpp" line="778"/>
         <source>Playing %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="613"/>
+        <location filename="../src/Player.cpp" line="617"/>
         <source>Resolving %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="662"/>
+        <location filename="../src/Player.cpp" line="666"/>
         <source>Select Song Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="710"/>
+        <location filename="../src/Player.cpp" line="714"/>
         <source>Paused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="787"/>
+        <location filename="../src/Player.cpp" line="791"/>
         <source>Please support ModPlayer - write a review in BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="796"/>
+        <location filename="../src/Player.cpp" line="800"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="797"/>
+        <location filename="../src/Player.cpp" line="801"/>
         <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>

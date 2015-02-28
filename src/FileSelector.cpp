@@ -34,8 +34,9 @@ FileSelector::~FileSelector() {
 }
 
 QString FileSelector::createExtensionFilter(QString const& p) {
-    if(p.startsWith(QChar('*')))
+    if(p.startsWith(QChar('*'))) {
         return p.mid(1); // remove star from file extension
+    }
     return p;
 }
 
@@ -48,12 +49,12 @@ bool FileSelector::isPlaylist(QString const& fileName) {
            fileName.endsWith(".m3u8", Qt::CaseInsensitive);
 }
 
-bool FileSelector::fileMatches(QString const& fileName) {
+bool FileSelector::fileMatches(QString const& fileName) const {
     QString const& extension = FileUtils::extension(fileName);
     return m_filters.contains(extension, Qt::CaseInsensitive);
 }
 
-bool FileSelector::playlistMatches(QString const& fileName) {
+bool FileSelector::playlistMatches(QString const& fileName) const {
     return isPlaylist(fileName);
 }
 

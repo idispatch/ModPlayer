@@ -19,8 +19,8 @@ private:
     void scanDirectory(const char * path,
                        QSet<QString>& foundFiles,
                        QSet<QString>& foundPlaylists);
-    bool fileMatches(QString const& fileName);
-    bool playlistMatches(QString const& fileName);
+    bool fileMatches(QString const& fileName) const;
+    bool playlistMatches(QString const& fileName) const;
     void processPlaylists(QSet<QString> const& playlists,
                           QSet<QString> const& foundFiles);
     void processPlaylist(QString const& playlist,
