@@ -1,6 +1,5 @@
 #include "FileUtils.hpp"
 #include "Catalog.hpp"
-#include "Analytics.hpp"
 #include <QDebug>
 
 #include <QtSql/QSqlDatabase>
@@ -83,8 +82,8 @@ void Catalog::copyCatalogToDataFolder() {
                 MessageBox message(tr("Updating Catalog"),
                                    tr("Your song catalog is being updated. Please wait."));
 
+                // All formats support play count, last played, my favorite
                 if(data.version >= 0) {
-                    // All formats support play count, last played, my favorite
                     const char * query = "SELECT id, playCount, lastPlayed, myFavourite "
                                          "FROM songs "
                                          "WHERE id > 0 AND (playCount > 0 OR lastPlayed > 0 OR myFavourite > 0)";
@@ -92,53 +91,79 @@ void Catalog::copyCatalogToDataFolder() {
                     qDebug() << "Migration V1 read: songs=" << data.v1.songs.size();
                 }
 
+                // Format 2 and newer support user songs (and playlists, genres, artists)
                 if(data.version >= 2) {
-                    // Format 2 and newer support user songs (and playlists, genres, artists)
                     const char * query = "SELECT"
-                                         " id,"
-                                         " fileName,"
-                                         " size,"
-                                         " title,"
-                                         " format,"
-                                         " length,"
-                                         " tracker,"
-                                         " genre,"
-                                         " artist,"
-                                         " downloads,"
-                                         " favourited,"
-                                         " score,"
-                                         " playCount,"
-                                         " lastPlayed,"
-                                         " myFavourite,"
-                                         " patterns,"
-                                         " orders,"
-                                         " instruments,"
-                                         " samples,"
-                                         " channels "
-                                         "FROM songs WHERE id < 0";
+                                         " songs.id,"
+                                         " songs.fileName,"
+                                         " songs.size,"
+                                         " songs.title,"
+                                         " songs.format,"
+                                         " songs.length,"
+                                         " songs.tracker,"
+                                         " songs.genre,"
+                                         " songs.artist,"
+                                         " songs.downloads,"
+                                         " songs.favourited,"
+                                         " songs.score,"
+                                         " songs.playCount,"
+                                         " songs.lastPlayed,"
+                                         " songs.myFavourite,"
+                                         " songs.patterns,"
+                                         " songs.orders,"
+                                         " songs.instruments,"
+                                         " songs.samples,"
+                                         " songs.channels "
+                                         "FROM songs "
+                                         " INNER JOIN trackers ON trackers.id=songs.tracker "
+                                         " INNER JOIN formats ON formats.id=songs.format "
+                                         " INNER JOIN artists ON artists.id=songs.artist "
+                                         " INNER JOIN genres ON genres.id=songs.genre "
+                                         "WHERE songs.id < 0 ";
                     readUserData(dataAccess, query, data.v2.songs);
                     qDebug() << "Migration V2 read: songs=" << data.v2.songs.size();
 
                     readUserData(dataAccess,
-                                 "SELECT id, name FROM artists WHERE id < 0",
+                                 "SELECT "
+                                 " id,"
+                                 " name "
+                                 "FROM artists "
+                                 "WHERE id < 0",
                                  data.v2.artists);
                     qDebug() << "Migration V2 read: artists=" << data.v2.artists.size();
 
                     readUserData(dataAccess,
-                                 "SELECT id, name FROM genres WHERE id < 0",
+                                 "SELECT "
+                                 " id,"
+                                 " name "
+                                 "FROM genres "
+                                 "WHERE id < 0",
                                  data.v2.genres);
                     qDebug() << "Migration V2 read: genres=" << data.v2.genres.size();
 
                     if(tableExists(dataAccess, "playlists")) {
                         readUserData(dataAccess,
-                                     "SELECT id, name FROM playlists",
+                                     "SELECT "
+                                     " id,"
+                                     " name "
+                                     "FROM playlists",
                                      data.v2.playlists);
                     }
                     qDebug() << "Migration V2 read: playlists=" << data.v2.playlists.size();
 
                     if(tableExists(dataAccess, "playlistEntries")) {
                         readUserData(dataAccess,
-                                     "SELECT playlistId, songId, songOrder FROM playlistEntries",
+                                     "SELECT "
+                                     " playlistEntries.playlistId,"
+                                     " playlistEntries.songId,"
+                                     " playlistEntries.songOrder "
+                                     "FROM playlistEntries"
+                                     " INNER JOIN playlists ON playlists.id=playlistEntries.playlistId "
+                                     " INNER JOIN songs ON songs.id=playlistEntries.songId "
+                                     " INNER JOIN trackers ON trackers.id=songs.tracker "
+                                     " INNER JOIN formats ON formats.id=songs.format "
+                                     " INNER JOIN artists ON artists.id=songs.artist "
+                                     " INNER JOIN genres ON genres.id=songs.genre ",
                                      data.v2.playlistEntries);
                     }
                     qDebug() << "Migration V2 read: playlistEntries=" << data.v2.playlistEntries.size();
@@ -148,14 +173,27 @@ void Catalog::copyCatalogToDataFolder() {
                 if(data.version >= 3) {
                     if(tableExists(dataAccess, "albums")) {
                         readUserData(dataAccess,
-                                     "SELECT id, artistId, name FROM albums",
+                                     "SELECT "
+                                     " id,"
+                                     " artistId,"
+                                     " name "
+                                     "FROM albums",
                                      data.v3.albums);
                     }
                     qDebug() << "Migration V3 read: albums=" << data.v3.albums.size();
 
                     if(tableExists(dataAccess, "albumEntries")) {
                         readUserData(dataAccess,
-                                     "SELECT albumId, songId, trackNumber FROM albumEntries",
+                                     "SELECT "
+                                     " albumEntries.albumId,"
+                                     " albumEntries.songId,"
+                                     " albumEntries.trackNumber "
+                                     "FROM albumEntries "
+                                     " INNER JOIN songs ON songs.id=albumEntries.songId "
+                                     " INNER JOIN trackers ON trackers.id=songs.tracker "
+                                     " INNER JOIN formats ON formats.id=songs.format "
+                                     " INNER JOIN artists ON artists.id=songs.artist "
+                                     " INNER JOIN genres ON genres.id=songs.genre ",
                                      data.v3.albumEntries);
                     }
                     qDebug() << "Migration V3 read: albumEntries=" << data.v3.albumEntries.size();
@@ -173,22 +211,14 @@ void Catalog::copyCatalogToDataFolder() {
         copyCatalogToDataFolder();
 
         qDebug().nospace()
-                 << "Migration data: songs="
-                 << data.v1.songs.size()
-                 << ", user songs="
-                 << data.v2.songs.size()
-                 << ", artists="
-                 << data.v2.artists.size()
-                 << ", genres="
-                 << data.v2.genres.size()
-                 << ", playlists="
-                 << data.v2.playlists.size()
-                 << ", playlist entries="
-                 << data.v2.playlistEntries.size()
-                 << ", albums="
-                 << data.v3.albums.size()
-                 << ", album entries="
-                 << data.v3.albumEntries.size();
+                 << "Migration data: songs=" << data.v1.songs.size()
+                 << ", user songs=" << data.v2.songs.size()
+                 << ", artists=" << data.v2.artists.size()
+                 << ", genres=" << data.v2.genres.size()
+                 << ", playlists=" << data.v2.playlists.size()
+                 << ", playlist entries=" << data.v2.playlistEntries.size()
+                 << ", albums=" << data.v3.albums.size()
+                 << ", album entries=" << data.v3.albumEntries.size();
         qDebug().space();
 
         if(!data.empty()) {
@@ -218,8 +248,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV1::SongTableData tmp;
-                std::swap(tmp, data.v1.songs);
             }
 
 
@@ -234,8 +262,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV2::PlaylistTableData tmp;
-                std::swap(tmp, data.v2.playlists);
             }
 
             // Migrate schema version 2 artists
@@ -243,14 +269,12 @@ void Catalog::copyCatalogToDataFolder() {
                dataAccess.connection().transaction()) {
                 qDebug() << "Migration V2 write: artists=" << data.v2.artists.size();
                 QString query = "INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,0,0,0)";
-                for(int i = 0; i < data.v2.genres.size(); ++i) {
+                for(int i = 0; i < data.v2.artists.size(); ++i) {
                     dataAccess.execute(query, QVariantList() << data.v2.artists[i].id
                                                              << data.v2.artists[i].name);
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV2::ArtistsTableData tmp;
-                std::swap(tmp, data.v2.artists);
             }
 
             // Migrate schema version 2 genres
@@ -264,8 +288,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV2::GenresTableData tmp;
-                std::swap(tmp, data.v2.genres);
             }
 
             // Migrate schema version 2 songs
@@ -322,8 +344,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV2::SongTableData tmp;
-                std::swap(tmp, data.v2.songs);
             }
 
             // Migrate schema version 2 playlist entries
@@ -338,8 +358,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV2::PlaylistEntriesTableData tmp;
-                std::swap(tmp, data.v2.playlistEntries);
             }
 
             // Migrate schema version 3 albums
@@ -354,8 +372,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV3::AlbumsTableData tmp;
-                std::swap(tmp, data.v3.albums);
             }
 
             if(!data.v3.albumEntries.empty() &&
@@ -369,8 +385,6 @@ void Catalog::copyCatalogToDataFolder() {
                     message.setProgress((++currentProgress) * 100 / totalProgress);
                 }
                 dataAccess.connection().commit();
-                CatalogMigrationData::CatalogV3::AlbumEntriesTableData tmp;
-                std::swap(tmp, data.v3.albumEntries);
             }
 
             message.setProgress(-1);

@@ -548,14 +548,22 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 
 SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.id=%1").arg(id), parentObject);
+    SongExtendedInfo * song = selectSongInfo(QString("WHERE songs.id=%1").arg(id), parentObject);
+    if(!song) {
+        qDebug() << "Could not load song, id=" << id;
+    }
+    return song;
 }
 
 SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
     QString escaped(fileName);
     escaped.replace("'", "''").replace("\\", "\\\\");
-    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(escaped), parentObject);
+    SongExtendedInfo * song = selectSongInfo(QString("WHERE songs.fileName='%1'").arg(escaped), parentObject);
+    if(!song) {
+        qDebug() << "Could not load song, fileName=" << fileName;
+    }
+    return song;
 }
 
 SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
@@ -728,6 +736,8 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
         song = readSongInfo(sqlQuery, parent);
+    } else {
+        qDebug() << "Could not load song (SQL=" << whereClause << ")";
     }
     return song;
 }
