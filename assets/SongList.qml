@@ -279,6 +279,8 @@ Page {
                         view.navigationPane = navigationPane
                         view.load(chosenItem.id)
                         navigationPane.push(view)
+                    } else {
+                        console.log("Could not create SongView")
                     }
                 }
                 attachedObjects: [
