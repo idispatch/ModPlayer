@@ -18,7 +18,7 @@ bool FileUtils::isRelative(QString const& fileName) {
 }
 
 QString FileUtils::fileNameOnly(QString const& fileName) {
-    int index = fileName.lastIndexOf('/');
+    const int index = fileName.lastIndexOf('/');
     if(index < 0) {
         return fileName;
     } else {
@@ -28,7 +28,7 @@ QString FileUtils::fileNameOnly(QString const& fileName) {
 
 QString FileUtils::fileNameOnlyWithoutExtension(QString const& fileName) {
     QString name = fileNameOnly(fileName);
-    int index = name.lastIndexOf('.');
+    const int index = name.lastIndexOf('.');
     if(index < 0) {
         return name;
     } else {
@@ -37,7 +37,7 @@ QString FileUtils::fileNameOnlyWithoutExtension(QString const& fileName) {
 }
 
 QString FileUtils::extension(QString const& fileName) {
-    int index = fileName.lastIndexOf('.');
+    const int index = fileName.lastIndexOf('.');
     if(index < 0) {
         return "";
     } else {
@@ -46,7 +46,7 @@ QString FileUtils::extension(QString const& fileName) {
 }
 
 QString FileUtils::directoryOnly(QString const& fileName) {
-    int index = fileName.lastIndexOf('/');
+    const int index = fileName.lastIndexOf('/');
     if(index < 0) {
         return fileName;
     } else {
@@ -80,6 +80,5 @@ bool FileUtils::adjustPermissions(QString const& fileName) {
 
 bool FileUtils::exists(QString const& fileName) {
     struct stat64 st;
-    int rc = ::stat64(fileName.toUtf8().constData(), &st);
-    return rc == 0;
+    return ::stat64(fileName.toUtf8().constData(), &st) == 0;
 }
