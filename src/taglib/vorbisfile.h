@@ -41,10 +41,6 @@ namespace TagLib {
  * namespace.
  */
 
-#ifdef DOXYGEN
-  namespace Ogg {
-#endif
-
   //! A namespace containing classes for Vorbis metadata
 
   namespace Vorbis {
@@ -126,19 +122,6 @@ namespace TagLib {
       FilePrivate *d;
     };
   }
-
-/*
- * To keep compatibility with the current version put Vorbis in the Ogg namespace
- * only in the docs and provide a typedef to make it work.  In the next BIC
- * version this will be removed and it will only exist in the Ogg namespace.
- */
-
-#ifdef DOXYGEN
-  }
-#else
-  namespace Ogg { namespace Vorbis { typedef TagLib::Vorbis::File File; } }
-#endif
-
 }
 
 #endif
