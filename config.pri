@@ -265,19 +265,28 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/formats/icon-rockradio.png) \
         $$quote($$BASEDIR/assets/images/formats/icon-skyfm.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_669.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_aac.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_album.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_asf.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_directory.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_flac.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_it.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_m4a.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_med.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_mka.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_mod.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_mp3.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_mp4.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_mtm.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_oct.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_ogg.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_okt.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_playlist.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_s3m.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_stm.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_unknown.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_wav.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_wma.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_xm.png) \
         $$quote($$BASEDIR/assets/images/indicators/11khz.png) \
         $$quote($$BASEDIR/assets/images/indicators/16bit.png) \
