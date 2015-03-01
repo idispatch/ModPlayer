@@ -1,6 +1,7 @@
 #include "AlbumArtView.hpp"
 #include <bb/cascades/Image>
 #include "FileUtils.hpp"
+#include "SongFormat.hpp"
 #include "InstanceCounter.hpp"
 
 #include "libid3tag/id3_id3tag.h"
@@ -15,7 +16,7 @@ int InstanceCounter<AlbumArtView>::s_maxCount;
 void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
     QByteArray data;
 
-    if(fileName.isEmpty())
+    if(fileName.isEmpty() || SongFormat::isTrackerSong(fileName))
     {
         emit resultReady(data);
         return;
