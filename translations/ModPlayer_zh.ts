@@ -804,15 +804,15 @@
     <name>PlaylistSensorControl</name>
     <message>
         <source>Playlist Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Playlist Control</translation>
     </message>
     <message>
         <source>On Device Shake Play Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">On Device Shake Play Next</translation>
     </message>
     <message>
         <source>On Proximity Sensor Play Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">On Proximity Sensor Play Next</translation>
     </message>
 </context>
 <context>
