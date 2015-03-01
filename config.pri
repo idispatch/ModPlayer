@@ -463,18 +463,6 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/libid3tag/id3_utf8.c) \
         $$quote($$BASEDIR/src/libid3tag/id3_util.c) \
         $$quote($$BASEDIR/src/libid3tag/id3_version.c) \
-        $$quote($$BASEDIR/src/libmad/mad_bit.c) \
-        $$quote($$BASEDIR/src/libmad/mad_decoder.c) \
-        $$quote($$BASEDIR/src/libmad/mad_fixed.c) \
-        $$quote($$BASEDIR/src/libmad/mad_frame.c) \
-        $$quote($$BASEDIR/src/libmad/mad_huffman.c) \
-        $$quote($$BASEDIR/src/libmad/mad_layer12.c) \
-        $$quote($$BASEDIR/src/libmad/mad_layer3.c) \
-        $$quote($$BASEDIR/src/libmad/mad_minimad.c) \
-        $$quote($$BASEDIR/src/libmad/mad_stream.c) \
-        $$quote($$BASEDIR/src/libmad/mad_synth.c) \
-        $$quote($$BASEDIR/src/libmad/mad_timer.c) \
-        $$quote($$BASEDIR/src/libmad/mad_version.c) \
         $$quote($$BASEDIR/src/main.cpp) \
         $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
         $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -617,21 +605,6 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/libid3tag/id3_util.h) \
         $$quote($$BASEDIR/src/libid3tag/id3_version.h) \
         $$quote($$BASEDIR/src/libid3tag/msvc++/config.h) \
-        $$quote($$BASEDIR/src/libmad/mad.h) \
-        $$quote($$BASEDIR/src/libmad/mad_bit.h) \
-        $$quote($$BASEDIR/src/libmad/mad_decoder.h) \
-        $$quote($$BASEDIR/src/libmad/mad_fixed.h) \
-        $$quote($$BASEDIR/src/libmad/mad_frame.h) \
-        $$quote($$BASEDIR/src/libmad/mad_global.h) \
-        $$quote($$BASEDIR/src/libmad/mad_huffman.h) \
-        $$quote($$BASEDIR/src/libmad/mad_layer12.h) \
-        $$quote($$BASEDIR/src/libmad/mad_layer3.h) \
-        $$quote($$BASEDIR/src/libmad/mad_stream.h) \
-        $$quote($$BASEDIR/src/libmad/mad_synth.h) \
-        $$quote($$BASEDIR/src/libmad/mad_timer.h) \
-        $$quote($$BASEDIR/src/libmad/mad_version.h) \
-        $$quote($$BASEDIR/src/libmad/msvc++/config.h) \
-        $$quote($$BASEDIR/src/libmad/msvc++/mad.h) \
         $$quote($$BASEDIR/src/modplug/config.h) \
         $$quote($$BASEDIR/src/modplug/it_defs.h) \
         $$quote($$BASEDIR/src/modplug/load_pat.h) \
@@ -783,9 +756,7 @@ INCLUDEPATH += $$quote($$BASEDIR/src/libid3tag) \
     $$quote($$BASEDIR/src/zip) \
     $$quote($$BASEDIR/src/mp3lame/vector) \
     $$quote($$BASEDIR/src/mp3lame) \
-    $$quote($$BASEDIR/src/libmad/msvc++) \
     $$quote($$BASEDIR/src/taglib) \
-    $$quote($$BASEDIR/src/libmad) \
     $$quote($$BASEDIR/src/modplug) \
     $$quote($$BASEDIR/src/libid3tag/msvc++) \
     $$quote($$BASEDIR/src)
@@ -816,16 +787,6 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cc) \
         $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cpp) \
         $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cxx) \
-        $$quote($$BASEDIR/../src/libmad/*.c) \
-        $$quote($$BASEDIR/../src/libmad/*.c++) \
-        $$quote($$BASEDIR/../src/libmad/*.cc) \
-        $$quote($$BASEDIR/../src/libmad/*.cpp) \
-        $$quote($$BASEDIR/../src/libmad/*.cxx) \
-        $$quote($$BASEDIR/../src/libmad/msvc++/*.c) \
-        $$quote($$BASEDIR/../src/libmad/msvc++/*.c++) \
-        $$quote($$BASEDIR/../src/libmad/msvc++/*.cc) \
-        $$quote($$BASEDIR/../src/libmad/msvc++/*.cpp) \
-        $$quote($$BASEDIR/../src/libmad/msvc++/*.cxx) \
         $$quote($$BASEDIR/../src/modplug/*.c) \
         $$quote($$BASEDIR/../src/modplug/*.c++) \
         $$quote($$BASEDIR/../src/modplug/*.cc) \
