@@ -158,6 +158,9 @@ Page {
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
+            onCompleted: {
+                load()
+            }
         },
         OpenSongActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
