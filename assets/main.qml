@@ -488,7 +488,12 @@ TabbedPane {
         }
     }
     activeTab: searchTab
-    onCreationCompleted: songSearchView.loadSearchSongs()
+    function initialLoad() {
+        songSearchView.loadSearchSongs()
+    }
+    onCreationCompleted: {
+        app.catalog.upgradeCompleted.connect(initialLoad)
+    }
     onActiveTabChanged: {
         var c = mainTabPane.count()
         for (var i = 0; i < c; ++i) {

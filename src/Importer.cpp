@@ -55,17 +55,20 @@ void Importer::removeMissingSongs() {
     std::vector<LocalSongInfo> songs;
     if(m_catalog->getLocalSongs(songs)) {
         qDebug() << "Local songs:" << songs.size();
-        for(size_t i = 0; i < songs.size(); ++i) {
-            if(!FileUtils::exists(songs[i].filePath())) {
-                qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
-                QString fileNameOnly = FileUtils::fileNameOnly(songs[i].filePath());
-                m_messageBox.setBody(tr("Removing missing %1").arg(fileNameOnly));
-                m_catalog->deleteSong(songs[i].id());
-                missingSongs++;
-            } else {
-                m_knownFileNames.insert(m_knownFileNames.begin(), songs[i].filePath());
+        if(m_catalog->transaction()) {
+            for(size_t i = 0; i < songs.size(); ++i) {
+                if(!FileUtils::exists(songs[i].filePath())) {
+                    qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
+                    QString fileNameOnly = FileUtils::fileNameOnly(songs[i].filePath());
+                    m_messageBox.setBody(tr("Removing missing %1").arg(fileNameOnly));
+                    m_catalog->deleteSong(songs[i].id());
+                    missingSongs++;
+                } else {
+                    m_knownFileNames.insert(songs[i].filePath());
+                }
+                m_nextId = std::min(songs[i].id() - 1, m_nextId);
             }
-            m_nextId = std::min(songs[i].id() - 1, m_nextId);
+            m_catalog->commit();
         }
     }
 

@@ -85,6 +85,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
     initProximity();
     initShake();
     initPurchases();
+    initCatalog();
 }
 
 ApplicationUI::~ApplicationUI() {
@@ -321,9 +322,13 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<SleepTimer>(QmlNamespace, versionMajor, versionMinor, "SleepTimer", "");
 }
 
+void ApplicationUI::initCatalog() {
+    m_player->initCatalog();
+}
+
 void ApplicationUI::initApp() {
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
-    if (!qml->hasErrors())
+    if(!qml->hasErrors())
     {
         qml->setContextProperty("app", this);
         AbstractPane *appPage = qml->createRootObject<AbstractPane>();

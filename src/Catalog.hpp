@@ -81,6 +81,10 @@ public:
 
     QString catalogPath() const;
 
+    bool transaction();
+    bool commit();
+    bool rollback();
+
     Q_INVOKABLE bb::cascades::ArrayDataModel* findFormats();
     Q_INVOKABLE int findFormatsAsync();
 
@@ -152,6 +156,7 @@ public:
                                              int limit);
 
     // Synchronous only
+
     Q_INVOKABLE int resolveModuleIdByFileName(QString const& fileName);
     Q_INVOKABLE QString resolveFileNameById(int id);
     Q_INVOKABLE int resolveAlbumIdBySongId(int songId);
@@ -194,6 +199,7 @@ Q_SIGNALS:
     void resultReady(int requestId, QVariant result);
     void songCountChanged();
     void catalogPathChanged();
+    void upgradeCompleted();
 private:
     void initCatalog();
     void copyCatalogToDataFolder();

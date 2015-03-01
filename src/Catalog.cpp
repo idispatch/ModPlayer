@@ -57,7 +57,6 @@ int Catalog::Version = 5;
 Catalog::Catalog(QObject * parent)
     : QThread(parent),
       m_dataAccess(NULL) {
-    initCatalog();
 }
 
 Catalog::~Catalog() {
@@ -997,6 +996,18 @@ void Catalog::resetMyFavourites() {
     Analytics::getInstance()->resetMyFavourites();
 }
 
+bool Catalog::transaction() {
+    return m_dataAccess->connection().transaction();
+}
+
+bool Catalog::commit() {
+    return m_dataAccess->connection().commit();
+}
+
+bool Catalog::rollback() {
+    return m_dataAccess->connection().rollback();
+}
+
 void Catalog::deleteSong(int songId) {
     m_dataAccess->execute(QString("DELETE FROM songs WHERE id=%1").arg(songId));
 }
@@ -1190,7 +1201,7 @@ void Catalog::deletePlaylistByName(QString const& name) {
     QVariantList params;
     params << name;
 
-    QString query = "DELETE FROM playlistEntries WHERE playlistId IN (SELECT id FROM plylists WHERE name=?)";
+    QString query = "DELETE FROM playlistEntries WHERE playlistId IN (SELECT id FROM playlists WHERE name=?)";
     m_dataAccess->execute(query, params);
 
     query = "DELETE FROM playlists WHERE name=?";

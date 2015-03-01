@@ -99,7 +99,7 @@ public:
     Q_INVOKABLE void exportMp3(QString const& inputFileName,
                                QString const& outputFileName);
     Q_INVOKABLE void importSongs();
-
+    void initCatalog();
 
     using InstanceCounter<Player>::getInstanceCount;
     using InstanceCounter<Player>::getMaxInstanceCount;
@@ -162,7 +162,6 @@ private:
     Q_DISABLE_COPY(Player)
 
     void initTheme();
-    void initCatalog();
     void initCache();
     void initDownloader();
     void initRadio();

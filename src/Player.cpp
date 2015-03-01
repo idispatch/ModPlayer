@@ -53,7 +53,7 @@ Player::Player(QSettings &settings, QObject * parent)
     m_filters << ".mod" << ".med" << ".mt2" << ".mtm"  << ".mp3" << ".s3m"
               << ".it"  << ".stm" << ".xm"  << ".669"  << ".oct" << ".okt"
               << ".wma" << ".asf" << ".ogg" << ".flac" << ".mp4" << ".aac"
-              << ".wav";
+              << ".wav" << ".mka" << ".m4a";
     initTheme();
     initCache();
     initDownloader();
@@ -61,7 +61,6 @@ Player::Player(QSettings &settings, QObject * parent)
     initPlayback();
     initNowPlaying();
     initPlaylist();
-    initCatalog();
     initSleepTimer();
 }
 

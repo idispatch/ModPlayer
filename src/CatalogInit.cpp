@@ -24,6 +24,7 @@ namespace {
 void Catalog::initCatalog() {
     copyCatalogToDataFolder();
     m_dataAccess = new SqlDataAccess(catalogPath(), "catalog", this);
+    emit upgradeCompleted();
 }
 
 QString Catalog::catalogPath() const {
@@ -377,16 +378,11 @@ void Catalog::copyCatalogToDataFolder() {
             qDebug() << "Migration done: optimizing...";
             message.setBody(tr("Optimizing catalog..."));
 
-            message.setProgress(50);
-
             dataAccess.execute("VACUUM");
 
             message.setProgress(100);
 
             qDebug() << "Migration completed successfully";
-#if 0
-            message.setBody(tr("Your song catalog has been successfully updated.")).enableButton(true).run();
-#endif
         } else {
             qDebug() << "No migration required";
         }
