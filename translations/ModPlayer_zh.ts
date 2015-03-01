@@ -229,7 +229,7 @@
     </message>
     <message>
         <source>Your song catalog has been successfully updated.</source>
-        <translation>您的歌曲目录已成功更新。</translation>
+        <translation type="obsolete">您的歌曲目录已成功更新。</translation>
     </message>
     <message>
         <source>Optimizing catalog...</source>

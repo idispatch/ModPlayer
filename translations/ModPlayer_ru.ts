@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>Your song catalog has been successfully updated.</source>
-        <translation>Каталог песен был успешно обновлен.</translation>
+        <translation type="obsolete">Каталог песен был успешно обновлен.</translation>
     </message>
     <message>
         <source>Optimizing catalog...</source>
