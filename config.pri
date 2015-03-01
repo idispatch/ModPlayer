@@ -446,23 +446,6 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Wallpaper.cpp) \
         $$quote($$BASEDIR/src/WebImageView.cpp) \
         $$quote($$BASEDIR/src/lcd_font_6x8.cpp) \
-        $$quote($$BASEDIR/src/libid3tag/id3_compat.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_crc.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_debug.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_field.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_file.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_frame.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_frametype.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_genre.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_latin1.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_parse.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_render.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_tag.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_ucs4.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_utf16.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_utf8.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_util.c) \
-        $$quote($$BASEDIR/src/libid3tag/id3_version.c) \
         $$quote($$BASEDIR/src/main.cpp) \
         $$quote($$BASEDIR/src/modplug/fastmix.cpp) \
         $$quote($$BASEDIR/src/modplug/load_669.cpp) \
@@ -585,26 +568,6 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/Wallpaper.hpp) \
         $$quote($$BASEDIR/src/WebImageView.hpp) \
         $$quote($$BASEDIR/src/lcd_fonts.hpp) \
-        $$quote($$BASEDIR/src/libid3tag/id3_compat.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_crc.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_debug.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_field.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_file.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_frame.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_frametype.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_genre.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_global.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_id3tag.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_latin1.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_parse.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_render.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_tag.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_ucs4.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_utf16.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_utf8.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_util.h) \
-        $$quote($$BASEDIR/src/libid3tag/id3_version.h) \
-        $$quote($$BASEDIR/src/libid3tag/msvc++/config.h) \
         $$quote($$BASEDIR/src/modplug/config.h) \
         $$quote($$BASEDIR/src/modplug/it_defs.h) \
         $$quote($$BASEDIR/src/modplug/load_pat.h) \
@@ -751,14 +714,12 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/zip/zip.h)
 }
 
-INCLUDEPATH += $$quote($$BASEDIR/src/libid3tag) \
-    $$quote($$BASEDIR/src/Flurry) \
+INCLUDEPATH += $$quote($$BASEDIR/src/Flurry) \
     $$quote($$BASEDIR/src/zip) \
     $$quote($$BASEDIR/src/mp3lame/vector) \
     $$quote($$BASEDIR/src/mp3lame) \
     $$quote($$BASEDIR/src/taglib) \
     $$quote($$BASEDIR/src/modplug) \
-    $$quote($$BASEDIR/src/libid3tag/msvc++) \
     $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header
@@ -777,16 +738,6 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/Flurry/*.cc) \
         $$quote($$BASEDIR/../src/Flurry/*.cpp) \
         $$quote($$BASEDIR/../src/Flurry/*.cxx) \
-        $$quote($$BASEDIR/../src/libid3tag/*.c) \
-        $$quote($$BASEDIR/../src/libid3tag/*.c++) \
-        $$quote($$BASEDIR/../src/libid3tag/*.cc) \
-        $$quote($$BASEDIR/../src/libid3tag/*.cpp) \
-        $$quote($$BASEDIR/../src/libid3tag/*.cxx) \
-        $$quote($$BASEDIR/../src/libid3tag/msvc++/*.c) \
-        $$quote($$BASEDIR/../src/libid3tag/msvc++/*.c++) \
-        $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cc) \
-        $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cpp) \
-        $$quote($$BASEDIR/../src/libid3tag/msvc++/*.cxx) \
         $$quote($$BASEDIR/../src/modplug/*.c) \
         $$quote($$BASEDIR/../src/modplug/*.c++) \
         $$quote($$BASEDIR/../src/modplug/*.cc) \
