@@ -71,6 +71,7 @@ void Cache::initCache() {
     else
     {
         m_files.clear();
+        m_sortedFiles.clear();
     }
 #ifdef VERBOSE_LOGGING
     qDebug() << "Cache: filters=" << m_filters;
