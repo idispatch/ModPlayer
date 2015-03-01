@@ -33,10 +33,9 @@ QString Catalog::catalogPath() const {
 void Catalog::copyCatalogToDataFolder() {
     // If the catalog does not exist in app sandbox then the app was started the first time
     // Copy the initial catalog to the app sandbox
-    QFile catalogFile(catalogPath());
     if(!FileUtils::exists(catalogPath())) {
 
-        qDebug() << "Personal catalog does not exist at" << catalogFile.fileName();
+        qDebug() << "Personal catalog does not exist at" << catalogPath();
 
         MessageBox message(tr("Initializing Catalog"),
                            tr("Your song catalog is being initialized. Please wait."));
@@ -48,10 +47,9 @@ void Catalog::copyCatalogToDataFolder() {
 
         if(FileUtils::exists(originalFileName)) {
             QFile originalFile(originalFileName);
-            qDebug() << "Original catalog is at" << originalFile.fileName();
-
-            if(!originalFile.copy(catalogFile.fileName())) {
-                qDebug() << "Failed to copy catalog to path: " << catalogFile.fileName();
+            qDebug() << "Original catalog is at" << originalFileName;
+            if(!originalFile.copy(catalogPath())) {
+                qDebug() << "Failed to copy catalog to path: " << catalogPath();
             }
         } else {
             qDebug() << "Failed to copy catalog - file does not exists";
@@ -76,21 +74,25 @@ void Catalog::copyCatalogToDataFolder() {
                 return;
             } else {
                 SqlDataAccess dataAccess(catalogPath(), "catalog");
-                qDebug() << "Starting database migration from version" << data.version << "to version" << Catalog::Version;
+                qDebug() << "Starting database migration from version"
+                         << data.version
+                         << "to version"
+                         << Catalog::Version;
 
                 MessageBox message(tr("Updating Catalog"),
                                    tr("Your song catalog is being updated. Please wait."));
 
                 if(data.version >= 0) {
-                    // All formats support play count, last played, my favourite
+                    // All formats support play count, last played, my favorite
                     const char * query = "SELECT id, playCount, lastPlayed, myFavourite "
                                          "FROM songs "
-                                         "WHERE playCount>0 OR lastPlayed>0 OR myFavourite>0";
+                                         "WHERE id > 0 AND (playCount > 0 OR lastPlayed > 0 OR myFavourite > 0)";
                     readUserData(dataAccess, query, data.v1.songs);
+                    qDebug() << "Migration V1 read: songs=" << data.v1.songs.size();
                 }
 
                 if(data.version >= 2) {
-                    // Format 2 and newer support user songs
+                    // Format 2 and newer support user songs (and playlists, genres, artists)
                     const char * query = "SELECT"
                                          " id,"
                                          " fileName,"
@@ -114,23 +116,57 @@ void Catalog::copyCatalogToDataFolder() {
                                          " channels "
                                          "FROM songs WHERE id < 0";
                     readUserData(dataAccess, query, data.v2.songs);
-                }
-                if(data.version >= 2) {
-                    // Format 2 and newer support playlists
+                    qDebug() << "Migration V2 read: songs=" << data.v2.songs.size();
+
                     readUserData(dataAccess,
-                                 "SELECT id, name FROM playlists",
-                                 data.v2.playlists);
+                                 "SELECT id, name FROM artists WHERE id < 0",
+                                 data.v2.artists);
+                    qDebug() << "Migration V2 read: artists=" << data.v2.artists.size();
+
                     readUserData(dataAccess,
-                                 "SELECT playlistId, songId, songOrder FROM playlistEntries",
-                                 data.v2.playlistEntries);
+                                 "SELECT id, name FROM genres WHERE id < 0",
+                                 data.v2.genres);
+                    qDebug() << "Migration V2 read: genres=" << data.v2.genres.size();
+
+                    if(tableExists(dataAccess, "playlists")) {
+                        readUserData(dataAccess,
+                                     "SELECT id, name FROM playlists",
+                                     data.v2.playlists);
+                    }
+                    qDebug() << "Migration V2 read: playlists=" << data.v2.playlists.size();
+
+                    if(tableExists(dataAccess, "playlistEntries")) {
+                        readUserData(dataAccess,
+                                     "SELECT playlistId, songId, songOrder FROM playlistEntries",
+                                     data.v2.playlistEntries);
+                    }
+                    qDebug() << "Migration V2 read: playlistEntries=" << data.v2.playlistEntries.size();
                 }
+
+                // Format 3 and newer support albums
+                if(data.version >= 3) {
+                    if(tableExists(dataAccess, "albums")) {
+                        readUserData(dataAccess,
+                                     "SELECT id, artistId, name FROM albums",
+                                     data.v3.albums);
+                    }
+                    qDebug() << "Migration V3 read: albums=" << data.v3.albums.size();
+
+                    if(tableExists(dataAccess, "albumEntries")) {
+                        readUserData(dataAccess,
+                                     "SELECT albumId, songId, trackNumber FROM albumEntries",
+                                     data.v3.albumEntries);
+                    }
+                    qDebug() << "Migration V3 read: albumEntries=" << data.v3.albumEntries.size();
+                }
+
+                // Format 4 and newer support radio, flags
             }
         }
 
-        QSqlDatabase::removeDatabase("catalog");
-
         qDebug() << "Removing old database";
-        catalogFile.remove();
+        QSqlDatabase::removeDatabase("catalog");
+        QFile(catalogPath()).remove();
         qDebug() << "Removed old database";
 
         copyCatalogToDataFolder();
@@ -140,10 +176,18 @@ void Catalog::copyCatalogToDataFolder() {
                  << data.v1.songs.size()
                  << ", user songs="
                  << data.v2.songs.size()
+                 << ", artists="
+                 << data.v2.artists.size()
+                 << ", genres="
+                 << data.v2.genres.size()
                  << ", playlists="
                  << data.v2.playlists.size()
                  << ", playlist entries="
-                 << data.v2.playlistEntries.size();
+                 << data.v2.playlistEntries.size()
+                 << ", albums="
+                 << data.v3.albums.size()
+                 << ", album entries="
+                 << data.v3.albumEntries.size();
         qDebug().space();
 
         if(!data.empty()) {
@@ -161,88 +205,176 @@ void Catalog::copyCatalogToDataFolder() {
             }
 
             // Migrate schema version 1 data
-            for(int i = 0; i < data.v1.songs.size(); ++i) {
+            if(!data.v1.songs.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V1 write: songs=" << data.v1.songs.size();
                 QString query = "UPDATE songs SET playCount=?, lastPlayed=?, myFavourite=? WHERE id=?";
-                QVariantList params;
-                params << data.v1.songs[i].playCount
-                       << data.v1.songs[i].lastPlayed
-                       << data.v1.songs[i].myFavourite
-                       << data.v1.songs[i].id;
-                dataAccess.execute(query, params);
-                message.setProgress((++currentProgress) * 100 / totalProgress);
+                for(int i = 0; i < data.v1.songs.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v1.songs[i].playCount
+                                                             << data.v1.songs[i].lastPlayed
+                                                             << data.v1.songs[i].myFavourite
+                                                             << data.v1.songs[i].id);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV1::SongTableData tmp;
+                std::swap(tmp, data.v1.songs);
             }
 
-            // Migrate schema version 2 data
-            for(int i = 0; i < data.v2.playlists.size(); ++i) {
+
+            // Migrate schema version 2 playlists
+            if(!data.v2.playlists.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V2 write: playlists=" << data.v2.playlists.size();
                 QString query = "INSERT INTO playlists (id, name) VALUES (?,?)";
-                QVariantList params;
-                params << data.v2.playlists[i].id
-                       << data.v2.playlists[i].name;
-                dataAccess.execute(query, params);
-                message.setProgress((++currentProgress) * 100 / totalProgress);
+                for(int i = 0; i < data.v2.playlists.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v2.playlists[i].id
+                                                             << data.v2.playlists[i].name);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV2::PlaylistTableData tmp;
+                std::swap(tmp, data.v2.playlists);
             }
 
-            for(int i = 0; i < data.v2.songs.size(); ++i) {
+            // Migrate schema version 2 artists
+            if(!data.v2.artists.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V2 write: artists=" << data.v2.artists.size();
+                QString query = "INSERT INTO artists (id, name, score, downloads, rating) VALUES (?,?,0,0,0)";
+                for(int i = 0; i < data.v2.genres.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v2.artists[i].id
+                                                             << data.v2.artists[i].name);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV2::ArtistsTableData tmp;
+                std::swap(tmp, data.v2.artists);
+            }
+
+            // Migrate schema version 2 genres
+            if(!data.v2.genres.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V2 write: genres=" << data.v2.genres.size();
+                QString query = "INSERT INTO genres (id, name) VALUES (?,?)";
+                for(int i = 0; i < data.v2.genres.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v2.genres[i].id
+                                                             << data.v2.genres[i].name);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV2::GenresTableData tmp;
+                std::swap(tmp, data.v2.genres);
+            }
+
+            // Migrate schema version 2 songs
+            if(!data.v2.songs.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V2 write: songs=" << data.v2.songs.size();
                 QString query = "INSERT INTO songs "
-                                "(id,"
-                                " fileName,"
-                                " size,"
-                                " title,"
-                                " format,"
-                                " length,"
-                                " tracker,"
-                                " genre,"
-                                " artist,"
-                                " downloads,"
-                                " favourited,"
-                                " score,"
-                                " playCount,"
-                                " lastPlayed,"
-                                " myFavourite,"
-                                " patterns,"
-                                " orders,"
-                                " instruments,"
-                                " samples,"
-                                " channels)"
-                                " VALUES "
-                                "(?,?,?,?,?,?,?,?,?,?,"
-                                " ?,?,?,?,?,?,?,?,?,?)";
-                QVariantList params;
-                params << data.v2.songs[i].id
-                       << data.v2.songs[i].fileName
-                       << data.v2.songs[i].size
-                       << data.v2.songs[i].title
-                       << data.v2.songs[i].format
-                       << data.v2.songs[i].length
-                       << data.v2.songs[i].tracker
-                       << data.v2.songs[i].genre
-                       << data.v2.songs[i].artist
-                       << data.v2.songs[i].downloads
-                       << data.v2.songs[i].favourited
-                       << data.v2.songs[i].score
-                       << data.v2.songs[i].playCount
-                       << data.v2.songs[i].lastPlayed
-                       << data.v2.songs[i].myFavourite
-                       << data.v2.songs[i].patterns
-                       << data.v2.songs[i].orders
-                       << data.v2.songs[i].instruments
-                       << data.v2.songs[i].samples
-                       << data.v2.songs[i].channels;
-                dataAccess.execute(query, params);
-                message.setProgress((++currentProgress) * 100 / totalProgress);
+                                    "(id,"
+                                    " fileName,"
+                                    " size,"
+                                    " title,"
+                                    " format,"
+                                    " length,"
+                                    " tracker,"
+                                    " genre,"
+                                    " artist,"
+                                    " downloads,"
+                                    " favourited,"
+                                    " score,"
+                                    " playCount,"
+                                    " lastPlayed,"
+                                    " myFavourite,"
+                                    " patterns,"
+                                    " orders,"
+                                    " instruments,"
+                                    " samples,"
+                                    " channels)"
+                                    " VALUES "
+                                    "(?,?,?,?,?,?,?,?,?,?,"
+                                    " ?,?,?,?,?,?,?,?,?,?)";
+                for(int i = 0; i < data.v2.songs.size(); ++i) {
+                    QVariantList params;
+                    params << data.v2.songs[i].id
+                           << data.v2.songs[i].fileName
+                           << data.v2.songs[i].size
+                           << data.v2.songs[i].title
+                           << data.v2.songs[i].format
+                           << data.v2.songs[i].length
+                           << data.v2.songs[i].tracker
+                           << data.v2.songs[i].genre
+                           << data.v2.songs[i].artist
+                           << data.v2.songs[i].downloads
+                           << data.v2.songs[i].favourited
+                           << data.v2.songs[i].score
+                           << data.v2.songs[i].playCount
+                           << data.v2.songs[i].lastPlayed
+                           << data.v2.songs[i].myFavourite
+                           << data.v2.songs[i].patterns
+                           << data.v2.songs[i].orders
+                           << data.v2.songs[i].instruments
+                           << data.v2.songs[i].samples
+                           << data.v2.songs[i].channels;
+                    dataAccess.execute(query, params);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV2::SongTableData tmp;
+                std::swap(tmp, data.v2.songs);
             }
 
-            for(int i = 0; i < data.v2.playlistEntries.size(); ++i) {
+            // Migrate schema version 2 playlist entries
+            if(!data.v2.playlistEntries.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V2 write: playlistEntries=" << data.v2.playlistEntries.size();
                 QString query = "INSERT INTO playlistEntries (playlistId, songId, songOrder) VALUES (?,?,?)";
-                QVariantList params;
-                params << data.v2.playlistEntries[i].playlistId
-                       << data.v2.playlistEntries[i].songId
-                       << data.v2.playlistEntries[i].songOrder;
-                dataAccess.execute(query, params);
-                message.setProgress((++currentProgress) * 100 / totalProgress);
+                for(int i = 0; i < data.v2.playlistEntries.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v2.playlistEntries[i].playlistId
+                                                             << data.v2.playlistEntries[i].songId
+                                                             << data.v2.playlistEntries[i].songOrder);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV2::PlaylistEntriesTableData tmp;
+                std::swap(tmp, data.v2.playlistEntries);
+            }
+
+            // Migrate schema version 3 albums
+            if(!data.v3.albums.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V3 write: albums=" << data.v3.albums.size();
+                QString query = "INSERT INTO albums (id, artistId, name) VALUES (?,?,?)";
+                for(int i = 0; i < data.v3.albums.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v3.albums[i].id
+                                                             << data.v3.albums[i].artistId
+                                                             << data.v3.albums[i].name);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV3::AlbumsTableData tmp;
+                std::swap(tmp, data.v3.albums);
+            }
+
+            if(!data.v3.albumEntries.empty() &&
+               dataAccess.connection().transaction()) {
+                qDebug() << "Migration V3 write: albumEntries=" << data.v3.albumEntries.size();
+                QString query = "INSERT INTO albumEntries (albumId, songId, trackNumber) VALUES (?,?,?)";
+                for(int i = 0; i < data.v3.albumEntries.size(); ++i) {
+                    dataAccess.execute(query, QVariantList() << data.v3.albumEntries[i].albumId
+                                                             << data.v3.albumEntries[i].songId
+                                                             << data.v3.albumEntries[i].trackNumber);
+                    message.setProgress((++currentProgress) * 100 / totalProgress);
+                }
+                dataAccess.connection().commit();
+                CatalogMigrationData::CatalogV3::AlbumEntriesTableData tmp;
+                std::swap(tmp, data.v3.albumEntries);
             }
 
             message.setProgress(-1);
+
+            qDebug() << "Migration done: optimizing...";
             message.setBody(tr("Optimizing catalog..."));
 
             message.setProgress(50);

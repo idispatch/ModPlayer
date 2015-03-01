@@ -89,6 +89,8 @@ void Importer::start() {
     m_numImportedSongs = 0;
     m_numImportedPlaylists = 0;
     m_nextId = -1;
+    m_genreCache.clear();
+    m_artistCache.clear();
 
     removeMissingSongs();
 
@@ -129,6 +131,8 @@ void Importer::onSearchCompleted() {
         }
     }
     m_knownFileNames.clear();
+    m_artistCache.clear();
+    m_genreCache.clear();
 
     Analytics::getInstance()->importedSongCount(m_numImportedSongs);
     Analytics::getInstance()->importedPlaylistCount(m_numImportedPlaylists);
@@ -245,7 +249,13 @@ bool Importer::importTaggedSong(QString const& fileName)
         QString artist = QString::fromUtf8(artistTemp.data(), artistTemp.length());
         info.setArtist(artist);
         if(artist.length() > 0) {
-            artistId = m_catalog->createArtist(artist);
+            std::map<QString, int>::const_iterator i = m_artistCache.find(artist);
+            if(i != m_artistCache.end()) {
+                artistId = i->second;
+            } else {
+                artistId = m_catalog->createArtist(artist);
+                m_artistCache.insert(std::make_pair(artist, artistId));
+            }
         } else {
             artistId = 0;
         }
@@ -254,12 +264,18 @@ bool Importer::importTaggedSong(QString const& fileName)
         int genreId;
         std::string genreTemp(tag->genre().to8Bit(true));
         QString genre = QString::fromUtf8(genreTemp.data(), genreTemp.length());
+        info.setGenre(genre);
         if(genre.length() > 0) {
-            genreId = m_catalog->createGenre(genre);
+            std::map<QString, int>::const_iterator i = m_genreCache.find(genre);
+            if(i != m_genreCache.end()) {
+                genreId = i->second;
+            } else {
+                genreId = m_catalog->createGenre(genre);
+                m_genreCache.insert(std::make_pair(genre, genreId));
+            }
         } else {
             genreId = 0;
         }
-        info.setGenre(genre);
         info.setGenreId(genreId);
 
         int trackId = tag->track();

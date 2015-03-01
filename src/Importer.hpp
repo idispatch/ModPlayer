@@ -7,6 +7,7 @@
 #include "PlaybackConfig.hpp"
 #include "MessageBox.hpp"
 #include <set>
+#include <map>
 
 class QDir;
 class Catalog;
@@ -19,6 +20,8 @@ private:
     Catalog * m_catalog;
     MessageBox m_messageBox;
     std::set<QString> m_knownFileNames;
+    std::map<QString, int> m_genreCache;
+    std::map<QString, int> m_artistCache;
     int m_numImportedSongs;
     int m_numImportedPlaylists;
     int m_nextId;

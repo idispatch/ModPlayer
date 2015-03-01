@@ -52,7 +52,7 @@ static const char * SELECT_FROM_RADIO =
         " INNER JOIN radio_styles ON radio.styleId = radio_styles.styleId ";
 
 int Catalog::Command::s_commandCounter = 0;
-int Catalog::Version = 4;
+int Catalog::Version = 5;
 
 Catalog::Catalog(QObject * parent)
     : QThread(parent),
