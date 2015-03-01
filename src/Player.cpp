@@ -50,11 +50,10 @@ Player::Player(QSettings &settings, QObject * parent)
       m_playlist(new Playlist(Playlist::PlaylistOnce, this)),
       m_importer(NULL),
       m_nowPlaying(new NowPlayingConnection("ModPlayer", this)){
-    m_fileNameFilters << "*.mod" << "*.med" << "*.mt2" << "*.mtm" << "*.mp3" << "*.s3m"
-                      << "*.it" << "*.stm" << "*.xm" << "*.669" << "*.oct" << "*.okt"
-                      // TagLib
-                      << "*.wma" << "*.asf" << "*.ogg" << "*.flac" << "*.mp4" << "*.aac"
-                      << "*.wav";
+    m_filters << ".mod" << ".med" << ".mt2" << ".mtm"  << ".mp3" << ".s3m"
+              << ".it"  << ".stm" << ".xm"  << ".669"  << ".oct" << ".okt"
+              << ".wma" << ".asf" << ".ogg" << ".flac" << ".mp4" << ".aac"
+              << ".wav";
     initTheme();
     initCache();
     initDownloader();
@@ -76,8 +75,8 @@ Player::~Player() {
     }
 }
 
-QStringList const& Player::fileNameFilters() const {
-    return m_fileNameFilters;
+QStringList const& Player::filters() const {
+    return m_filters;
 }
 
 void Player::initTheme() {
@@ -119,7 +118,7 @@ void Player::initCache() {
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    m_cache->setFilters(fileNameFilters());
+    m_cache->setFilters(filters());
     m_cache->initCache();
 }
 
@@ -670,8 +669,13 @@ void Player::browseForLocalSong() {
         directories << m_userDirectory;
         filePicker->setDirectories(directories);
     }
-
-    filePicker->setFilter(fileNameFilters());
+    {
+        QStringList filters;
+        for(QStringList::const_iterator i = m_filters.begin(); i!= m_filters.end(); ++i) {
+            filters << ((i->startsWith(QChar('*'))) ? i->mid(1) : *i);
+        }
+        filePicker->setFilter(filters);
+    }
 
     rc = QObject::connect(filePicker, SIGNAL(fileSelected(const QStringList&)),
                           this,       SLOT(onLocalSongSelected(const QStringList&)));
@@ -806,7 +810,7 @@ void Player::importSongs() {
             delete m_importer;
             m_importer = NULL;
         }
-        m_importer = new Importer(fileNameFilters(), catalog(), NULL);
+        m_importer = new Importer(filters(), catalog(), NULL);
         bool rc;
         Q_UNUSED(rc);
         rc = QObject::connect(m_importer, SIGNAL(searchCompleted()),

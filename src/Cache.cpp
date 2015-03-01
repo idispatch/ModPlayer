@@ -36,13 +36,6 @@ bool Cache::fileMatches(QString const& fileName) const {
     return m_filters.contains(extension, Qt::CaseInsensitive);
 }
 
-QString Cache::createExtensionFilter(QString const& filter) {
-    if(filter.startsWith(QChar('*'))) {
-        return filter.mid(1); // remove star from file extension
-    }
-    return filter;
-}
-
 void Cache::initCache() {
     int oldFiles = currentFiles();
     int oldSize = currentSize();
@@ -123,10 +116,7 @@ void Cache::notifyCacheChanged(int oldFiles, int oldSize) {
 }
 
 void Cache::setFilters(QStringList const& filters) {
-    m_filters.reserve(filters.size());
-    std::transform(filters.begin(), filters.end(),
-                   std::back_inserter(m_filters),
-                   createExtensionFilter);
+    m_filters = filters;
 }
 
 int Cache::maxSize() const {
@@ -201,7 +191,6 @@ void Cache::cache(QString const& fileName) {
         if(m_files.find(fileName) != m_files.end()) {
             int oldFiles = currentFiles();
             int oldSize = currentSize();
-
             struct stat64 st;
             QString absoluteFileNameStr = absoluteFileName(fileName);
             int rc = ::stat64(absoluteFileNameStr.toUtf8().constData(), &st);

@@ -81,7 +81,7 @@ public:
     Playlist * playlist() const;
     SongModule * currentSong() const;
 
-    QStringList const& fileNameFilters() const;
+    QStringList const& filters() const;
 
     Q_INVOKABLE bb::system::SystemUiResult::Type popupToast(QString const& text, bool modal, bool buttonEnabled);
     Q_INVOKABLE void playPlaylist();
@@ -183,7 +183,7 @@ private:
 private:
     bool m_lightTheme;
     int m_feedbackTimerId;
-    QStringList m_fileNameFilters;
+    QStringList m_filters;
     QSettings &m_settings;
     State m_state;
     QMap<int, QUrl> m_formatIdToIconUrlMap;

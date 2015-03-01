@@ -18,8 +18,6 @@ private:
     bb::cascades::ArrayDataModel* listRoot();
     bool fileMatches(QString const& fileName) const;
 private:
-    static QString createExtensionFilter(QString const& p);
-private:
     QStringList m_filters;
 };
 

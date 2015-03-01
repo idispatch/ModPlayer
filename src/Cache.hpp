@@ -66,10 +66,7 @@ private:
     bool fileMatches(QString const& fileName) const;
     QString absoluteFileName(QString const& fileName) const;
     void checkOverflow();
-
     void notifyCacheChanged(int oldFiles, int oldSize);
-
-    static QString createExtensionFilter(QString const& filter);
 private:
 
     typedef std::map<QString, CacheFileInfo>::const_iterator ConstMapIterator;

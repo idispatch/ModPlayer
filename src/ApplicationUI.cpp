@@ -68,7 +68,7 @@ ApplicationUI::ApplicationUI(bb::cascades::Application *app)
       m_pLocaleHandler(new LocaleHandler(this)),
       m_player(new Player(m_settings, this)),
       m_analytics(new Analytics(this)),
-      m_fileSystem(new FileSystem(m_player->fileNameFilters(), this)),
+      m_fileSystem(new FileSystem(m_player->filters(), this)),
       m_proximity(new Proximity(this)),
       m_shake(new Shake(this)),
       m_invokeManager(new InvokeManager(this)) {

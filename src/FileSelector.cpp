@@ -14,18 +14,9 @@
 #else
 #endif
 
-FileSelector::FileSelector(QStringList const &filters) {
-    m_filters.reserve(filters.size());
-    std::transform(filters.begin(), filters.end(),
-                   std::back_inserter(m_filters),
-                   createExtensionFilter);
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Filters:";
-    foreach(QString const& item, m_filters) {
-        qDebug() << item;
-    }
-#endif
-}
+FileSelector::FileSelector(QStringList const &filters)
+     : m_filters(filters)
+{}
 
 FileSelector::~FileSelector() {
 #ifdef VERBOSE_LOGGING
@@ -199,12 +190,6 @@ void FileSelector::scanDirectory(const char * path,
         locationDisplay.remove(0, 15);
         emit searchingDirectory(locationDisplay);
         QDir directory(directoryPath);
-#if 0
-        // This does not work because file system uses 64 bit inodes
-        QStringList entries = directory.entryList(m_filters,
-                                                  QDir::Files | QDir::Readable | QDir::CaseSensitive,
-                                                  QDir::NoSort);
-#endif
         DIR *dirp;
         if ((dirp = ::opendir(directoryPath.toUtf8().constData())) != NULL) {
             struct dirent64 *dp;
