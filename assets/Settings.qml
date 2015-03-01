@@ -107,10 +107,10 @@ Sheet {
                                         function updateCount() {
                                             text = qsTr("Personal songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
                                             app.catalog.resultReady.connect(function(responseId, result) {
-                                                    if(responseId == requestId) {
-                                                        requestId = 0
-                                                        text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
-                                                    }
+                                                if(responseId == personalSongCount.requestId) {
+                                                    personalSongCount.requestId = 0
+                                                    text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                }
                                             })
                                             personalSongCount.requestId = app.catalog.personalSongCountAsync()
                                         }
