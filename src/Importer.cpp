@@ -57,6 +57,9 @@ void Importer::removeMissingSongs() {
         qDebug() << "Local songs:" << songs.size();
         if(m_catalog->transaction()) {
             for(size_t i = 0; i < songs.size(); ++i) {
+                if((i % 10) == 0) {
+                    m_messageBox.setBody(tr("Removing missing songs from library..."));
+                }
                 if(!FileUtils::exists(songs[i].filePath())) {
                     qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
                     QString fileNameOnly = FileUtils::fileNameOnly(songs[i].filePath());
