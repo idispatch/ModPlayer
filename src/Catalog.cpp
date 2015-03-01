@@ -1071,6 +1071,32 @@ void Catalog::addSongToAlbum(int albumId, int songId, int trackNumber) {
     m_dataAccess->execute(query, params);
 }
 
+int Catalog::createFormat(QString const& name, QString const& description) {
+    int primaryKey = 0;
+    QString query = "SELECT id FROM formats WHERE name=?";
+    QVariantList params;
+    params << name.trimmed();
+    QVariant result = m_dataAccess->execute(query, params);
+    QVariantList list = result.value<QVariantList>();
+    if(list.size() >= 1) {
+        primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
+    } else {
+        query = "SELECT MAX(id)+1 FROM formats";
+        QSqlDatabase db = m_dataAccess->connection();
+        QSqlQuery sqlQuery = db.exec(query);
+        if(sqlQuery.next()) {
+            primaryKey = sqlQuery.value(0).toInt();
+        } else {
+            return primaryKey; // error
+        }
+        query = "INSERT INTO formats (id, name, description) VALUES (?,?,?)";
+        m_dataAccess->execute(query, QVariantList() << primaryKey
+                                                    << name.trimmed()
+                                                    << description.trimmed());
+    }
+    return primaryKey;
+}
+
 int Catalog::createGenre(QString const& name) {
     int primaryKey = 0;
     QString query = "SELECT id FROM genres WHERE name=?";
