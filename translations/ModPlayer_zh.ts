@@ -32,6 +32,13 @@
     </message>
 </context>
 <context>
+    <name>AppWorldActionItem</name>
+    <message>
+        <source>Review in BlackBerry World</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AppendPlaylistActionItem</name>
     <message>
         <source>Append to Playlist</source>
@@ -218,7 +225,7 @@
     </message>
     <message>
         <source>Your song catalog has been successfully updated.</source>
-        <translation>您的歌曲目录已成功更新。</translation>
+        <translation type="obsolete">您的歌曲目录已成功更新。</translation>
     </message>
     <message>
         <source>Optimizing catalog...</source>
@@ -793,15 +800,15 @@
     <name>PlaylistSensorControl</name>
     <message>
         <source>Playlist Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Playlist Control</translation>
     </message>
     <message>
         <source>On Device Shake Play Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">On Device Shake Play Next</translation>
     </message>
     <message>
         <source>On Proximity Sensor Play Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">On Proximity Sensor Play Next</translation>
     </message>
 </context>
 <context>

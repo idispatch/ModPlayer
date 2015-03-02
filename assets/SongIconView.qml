@@ -5,8 +5,8 @@ ImageView {
     property variant song
 
     verticalAlignment: VerticalAlignment.Center
-    scalingMethod: ScalingMethod.Fill
-    imageSource: song ? song.iconPath : ""
+    scalingMethod: song ? ScalingMethod.Fill : ScalingMethod.None
+    imageSource: song ? song.iconPath : "asset:///images/formats/icon_unknown.png"
     loadEffect: ImageViewLoadEffect.FadeZoom
     preferredHeight: 128
     preferredWidth: 128

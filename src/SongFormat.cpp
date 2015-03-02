@@ -70,6 +70,20 @@ QString SongFormat::getIconPath(SongFormat::Format formatId) {
         return QString("%1/icon_%2.png").arg(icons).arg("ogg");
     case FORMAT_FLAC:
         return QString("%1/icon_%2.png").arg(icons).arg("flac");
+    case FORMAT_WAV:
+        return QString("%1/icon_%2.png").arg(icons).arg("wav");
+    case FORMAT_ASF:
+        return QString("%1/icon_%2.png").arg(icons).arg("asf");
+    case FORMAT_WMA:
+        return QString("%1/icon_%2.png").arg(icons).arg("wma");
+    case FORMAT_AAC:
+        return QString("%1/icon_%2.png").arg(icons).arg("aac");
+    case FORMAT_MP4:
+        return QString("%1/icon_%2.png").arg(icons).arg("mp4");
+    case FORMAT_M4A:
+        return QString("%1/icon_%2.png").arg(icons).arg("m4a");
+    case FORMAT_MKA:
+        return QString("%1/icon_%2.png").arg(icons).arg("mka");
     case FORMAT_HTTP:
     default:
         return QString("%1/icon_unknown.png").arg(icons);
@@ -108,6 +122,20 @@ QString SongFormat::getFormatByFormatId(SongFormat::Format formatId) {
         return "Xiph.org Foundation OGG Song";
     case FORMAT_FLAC:
         return "Free Lossless Audio Codec Song";
+    case FORMAT_WAV:
+        return "Waveform Audio Format Song";
+    case FORMAT_ASF:
+        return "Advanced Systems Format Song";
+    case FORMAT_WMA:
+        return "Windows Media Audio Format Song";
+    case FORMAT_AAC:
+        return "Advanced Audio Coding Format Song";
+    case FORMAT_MP4:
+        return "MP4 Song";
+    case FORMAT_M4A:
+        return "M4A Song";
+    case FORMAT_MKA:
+        return "Matroska Audio Format Song";
     case FORMAT_HTTP:
         return "Internet Radio";
     default:
@@ -119,7 +147,7 @@ SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
     int len = fileName.length();
     if(len > 0) {
         switch(fileName[0].unicode()) {
-        case 'h': case 'H':
+        case 'h': case 'H': // http
             if(len > 1) {
                 switch(fileName[1].unicode()) {
                 case 't': case 'T':
@@ -150,7 +178,7 @@ SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
             break;
         }
         switch(fileName[len - 1].unicode()) {
-        case 'c': case 'C': // .flac
+        case 'c': case 'C': // .flac .aac
             if(len > 1) {
                 switch(fileName[len - 2].unicode()) {
                 case 'a': case 'A':
@@ -165,6 +193,11 @@ SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
                                     }
                                     break;
                                 }
+                            }
+                            break;
+                        case 'a': case 'A':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_AAC;
                             }
                             break;
                         }
@@ -252,6 +285,79 @@ SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
                 }
             }
             break;
+        case 'f': case 'F': // .asf
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 's': case 'S':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'a': case 'A':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_ASF;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'v': case 'V': // .wav
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'a': case 'A':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'w': case 'W':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_WAV;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case 'a': case 'A': // .wma .m4a .mka
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'm': case 'M':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'w': case 'W':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_WMA;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case '4':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_M4A;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case 'k': case 'K':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MKA;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
         case 't': case 'T': // .it .oct .okt
             if(len > 1) {
                 switch(fileName[len - 2].unicode()) {
@@ -305,6 +411,23 @@ SongFormat::Format SongFormat::getFormatIdByFileName(QString const& fileName) {
                         case 'm': case 'M':
                             if(len > 3 && fileName[len - 4] == '.') {
                                 return FORMAT_MP3;
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        case '4': // .mp4
+            if(len > 1) {
+                switch(fileName[len - 2].unicode()) {
+                case 'p': case 'P':
+                    if(len > 2) {
+                        switch(fileName[len - 3].unicode()) {
+                        case 'm': case 'M':
+                            if(len > 3 && fileName[len - 4] == '.') {
+                                return FORMAT_MP4;
                             }
                             break;
                         }

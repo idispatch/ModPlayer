@@ -62,6 +62,15 @@ Page {
             requestId = app.player.catalog.findFormatsAsync()
         }
     }
+    function reload() {
+        progress.start()
+        if(formatsList.dataModel) {
+            formatsList.dataModel.clear()
+        }
+        formatsList.visible = false
+        formatsList.resetDataModel()
+        requestId = app.player.catalog.findFormatsAsync()
+    }
     function addBuyButton() {
         if(!app.isExtendedVersion) {
             var buyActionItem = buyAppComponentDefinition.createObject()
@@ -112,6 +121,9 @@ Page {
         },
         ImportSongsActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow
+            onCompleted: {
+                reload()
+            }
         },
         OpenSongActionItem{
             ActionBar.placement: ActionBarPlacement.InOverflow

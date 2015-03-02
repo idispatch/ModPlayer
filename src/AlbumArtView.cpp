@@ -1,9 +1,15 @@
 #include "AlbumArtView.hpp"
 #include <bb/cascades/Image>
 #include "FileUtils.hpp"
+#include "SongFormat.hpp"
 #include "InstanceCounter.hpp"
 
-#include "libid3tag/id3_id3tag.h"
+#include "taglib/attachedpictureframe.h"
+#include "taglib/commentsframe.h"
+#include "taglib/id3v1genres.h"
+#include "taglib/textidentificationframe.h"
+#include "taglib/tstring.h"
+
 #include <dirent.h>
 #include <errno.h>
 
@@ -15,78 +21,71 @@ int InstanceCounter<AlbumArtView>::s_maxCount;
 void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
     QByteArray data;
 
-    if(fileName.isEmpty())
+    if(fileName.isEmpty() || SongFormat::isTrackerSong(fileName))
     {
         emit resultReady(data);
         return;
     }
 
-    ::id3_file * mp3file = ::id3_file_open(fileName.toUtf8().constData(),
-                                           ID3_FILE_MODE_READONLY);
-    do
+    // http://rainmeter.googlecode.com/svn/trunk/Plugins/PluginNowPlaying/
+
+    bool found = false;
+    TagLib::FileRef f(fileName.toUtf8().constData(),
+                      true,
+                      TagLib::AudioProperties::Accurate);
+    if(TagLib::MPEG::File* file = dynamic_cast<TagLib::MPEG::File*>(f.file()))
     {
-        if(mp3file == NULL) {
-            qDebug() << "Could not open file" << fileName;
-            break;
+        if(file->ID3v2Tag())
+        {
+            found = extractID3(file->ID3v2Tag(), data);
         }
-
-        ::id3_tag * tag = ::id3_file_tag(mp3file);
-        if(tag == NULL) {
-            qDebug() << "Could not read ID3 tags from file" << fileName;
-            break;
+        if(!found && file->APETag())
+        {
+            found = extractAPE(file->APETag(), data);
         }
-
-        struct ::id3_frame* frame;
-
-        frame = ::id3_tag_findframe(tag, "APIC", 0);
-        if(frame == NULL) {
-            qDebug() << "Could not find APIC tag in file" << fileName;
-            break;
+    }
+    else if(TagLib::MP4::File* file = dynamic_cast<TagLib::MP4::File*>(f.file()))
+    {
+        if(file->tag())
+        {
+            found = extractMP4(file, data);
         }
-
-        union ::id3_field* fieldImageEncoding;
-        union ::id3_field* fieldImageData;
-        unsigned char const * tagBytes;
-        ::id3_length_t length;
-
-        fieldImageEncoding = ::id3_frame_field(frame, 1);
-        if(fieldImageEncoding == NULL) {
-            qDebug() << "Could not parse APIC tag image encoding in file" << fileName;
-            break;
+    }
+    else if(TagLib::FLAC::File* file = dynamic_cast<TagLib::FLAC::File*>(f.file()))
+    {
+        found = extractFLAC(file, data);
+        if(!found && file->ID3v2Tag())
+        {
+            found = extractID3(file->ID3v2Tag(), data);
         }
-        tagBytes = ::id3_field_getlatin1(fieldImageEncoding);
-        if(!tagBytes) {
-            qDebug() << "Could not get frame field 1 in file" << fileName;
-            break;
+    }
+    else if(TagLib::ASF::File* file = dynamic_cast<TagLib::ASF::File*>(f.file()))
+    {
+        found = extractASF(file, data);
+    }
+    else if(TagLib::APE::File* file = dynamic_cast<TagLib::APE::File*>(f.file()))
+    {
+        if(file->APETag())
+        {
+            found = extractAPE(file->APETag(), data);
         }
-
-        if(strncmp(reinterpret_cast<const char*>(tagBytes), "image/", 6)) {
-            qDebug() << "MIME type is not supported in file" << fileName;
-            break;
+    }
+    else if(TagLib::MPC::File* file = dynamic_cast<TagLib::MPC::File*>(f.file()))
+    {
+        if(file->APETag())
+        {
+            found = extractAPE(file->APETag(), data);
         }
-
-        fieldImageData = ::id3_frame_field(frame, 4);
-        if(fieldImageData == NULL) {
-            qDebug() << "Could not parse APIC tag image data in file" << fileName;
-            break;
+    }
+    else if(TagLib::WavPack::File* file = dynamic_cast<TagLib::WavPack::File*>(f.file()))
+    {
+        if(file->APETag())
+        {
+            found = extractAPE(file->APETag(), data);
         }
-        tagBytes = ::id3_field_getbinarydata(fieldImageData, &length);
-        if (!tagBytes) {
-            qDebug() << "Could not get album art data in file" << fileName;
-            break;
-        }
-
-        if(length > 0 && length < MAX_IMAGE_SIZE) {
-            data.append(reinterpret_cast<const char*>(tagBytes), length);
-        }
-
-    } while(false);
-
-    if(mp3file != NULL) {
-        ::id3_file_close(mp3file);
     }
 
-    if(data.isEmpty()) {
+    if(!found || data.isEmpty()) {
         QString directory = FileUtils::directoryOnly(fileName);
 
         data = data.isEmpty() ? loadAlbumArtFile(directory) : data;
@@ -102,15 +101,113 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
     emit resultReady(data);
 }
 
+bool AlbumArtLoader::extractAPE(TagLib::APE::Tag* tag, QByteArray& target)
+{
+    bool rc = false;
+    const TagLib::APE::ItemListMap& listMap = tag->itemListMap();
+    if(listMap.contains("COVER ART (FRONT)"))
+    {
+        const TagLib::ByteVector nullStringTerminator(1, 0);
+
+        TagLib::ByteVector item = listMap["COVER ART (FRONT)"].value();
+        int pos = item.find(nullStringTerminator);  // Skip the filename
+
+        if(++pos > 0)
+        {
+            const TagLib::ByteVector& pic = item.mid(pos);
+            target.append(pic.data(), pic.size());
+            rc =  true;
+        }
+    }
+
+    return rc;
+}
+
+// Extracts cover art embedded in ID3v2 tags.
+bool AlbumArtLoader::extractID3(TagLib::ID3v2::Tag* tag, QByteArray& target)
+{
+    bool rc = false;
+    const TagLib::ID3v2::FrameList& frameList = tag->frameList("APIC");
+    if(!frameList.isEmpty())
+    {
+        // Grab the first image
+        TagLib::ID3v2::AttachedPictureFrame* frame =
+                static_cast<TagLib::ID3v2::AttachedPictureFrame*>(frameList.front());
+        if(frame) {
+            target.append(frame->picture().data(), frame->picture().size());
+            rc =  true;
+        }
+    }
+
+    return rc;
+}
+
+// Extracts cover art embedded in ASF/WMA files.
+bool AlbumArtLoader::extractASF(TagLib::ASF::File* file, QByteArray& target)
+{
+    bool rc = false;
+    const TagLib::ASF::AttributeListMap& attrListMap = file->tag()->attributeListMap();
+    if(attrListMap.contains("WM/Picture"))
+    {
+        const TagLib::ASF::AttributeList& attrList = attrListMap["WM/Picture"];
+        if(!attrList.isEmpty())
+        {
+            // Let's grab the first cover. TODO: Check/loop for correct type
+            TagLib::ASF::Picture wmpic = attrList[0].toPicture();
+            if(wmpic.isValid())
+            {
+                target.append(wmpic.picture().data(), wmpic.picture().size());
+                rc =  true;
+            }
+        }
+    }
+
+    return rc;
+}
+
+// Extracts cover art embedded in FLAC files.
+bool AlbumArtLoader::extractFLAC(TagLib::FLAC::File* file, QByteArray& target)
+{
+    bool rc = false;
+    const TagLib::List<TagLib::FLAC::Picture*>& picList = file->pictureList();
+    if(!picList.isEmpty())
+    {
+        // Let's grab the first image
+        TagLib::FLAC::Picture* pic = picList[0];
+        target.append(pic->data().data(), pic->data().size());
+        rc = true;
+    }
+
+    return rc;
+}
+
+// Extracts cover art embedded in MP4-like files.
+bool AlbumArtLoader::extractMP4(TagLib::MP4::File* file, QByteArray& target)
+{
+    bool rc = false;
+    TagLib::MP4::Tag* tag = file->tag();
+    if(tag->itemListMap().contains("covr"))
+    {
+        TagLib::MP4::CoverArtList coverList = tag->itemListMap()["covr"].toCoverArtList();
+        if(coverList[0].data().size() > 0)
+        {
+            target.append(coverList[0].data().data(), coverList[0].data().size());
+            rc = true;
+        }
+    }
+
+    return rc;
+}
+
 QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
                                             QString const& fileName) {
     QString albumArtFile = FileUtils::joinPath(directory, fileName);
     QByteArray data;
     DIR *dirp;
-    if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
+    if((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
         struct dirent64 *direntItem;
         do {
-            if ((direntItem = ::readdir64(dirp)) != NULL) {
+            if((direntItem = ::readdir64(dirp)) != NULL) {
                 if(direntItem->d_name[0] == '.') {
                     continue;
                 }
@@ -124,7 +221,7 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
                     if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
                         if((st.st_mode & S_IFREG) && st.st_size < MAX_IMAGE_SIZE) {
                             QFile file(absoluteFileName);
-                            if (file.open(QIODevice::ReadOnly)) {
+                            if(file.open(QIODevice::ReadOnly)) {
                                 data = file.readAll();
                                 file.close();
                                 break;
@@ -148,10 +245,10 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory) {
     QByteArray data;
     QList<FileEntry> foundFiles;
     DIR *dirp;
-    if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
+    if((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
         struct dirent64 *direntItem;
         do {
-            if ((direntItem = ::readdir64(dirp)) != NULL) {
+            if((direntItem = ::readdir64(dirp)) != NULL) {
                 if(direntItem->d_name[0] == '.') {
                     continue;
                 }
@@ -191,10 +288,10 @@ QByteArray AlbumArtLoader::loadSingleImage(QString const& directory) {
     QList<FileEntry> foundFiles;
     DIR *dirp;
 
-    if ((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
+    if((dirp = ::opendir(directory.toUtf8().constData())) != NULL) {
         struct dirent64 *direntItem;
         do {
-            if ((direntItem = ::readdir64(dirp)) != NULL) {
+            if((direntItem = ::readdir64(dirp)) != NULL) {
                 if(direntItem->d_name[0] == '.') {
                     continue;
                 }

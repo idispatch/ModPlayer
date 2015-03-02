@@ -279,6 +279,8 @@ Page {
                         view.navigationPane = navigationPane
                         view.load(chosenItem.id)
                         navigationPane.push(view)
+                    } else {
+                        console.log("Could not create SongView")
                     }
                 }
                 attachedObjects: [
@@ -528,6 +530,9 @@ Page {
         },
         ImportSongsActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+            onCompleted: {
+                load()
+            }
         },
         OpenSongActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

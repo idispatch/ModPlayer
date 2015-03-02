@@ -6,7 +6,7 @@
        <text xml:lang="ru">ModPlayer Plus</text>
        <text xml:lang="zh">ModPlayer Plus</text>
     </name>
-    <versionNumber>5.1.2</versionNumber>
+    <versionNumber>5.1.3</versionNumber>
     <packageLocale>ru,zh</packageLocale>
     <buildId>0</buildId>
     <description>
@@ -87,7 +87,7 @@
             <action>bb.action.OPEN</action>
             <mime-type>*</mime-type>
             <property var="uris" value="file://"/>
-            <property var="exts" value="mod,med,mt2,mtm,mp3,s3m,it,stm,xm,669,oct,okt,MOD,MED,MT2,MTM,MP3,S3M,IT,STM,XM,OCT,OKT"/>
+            <property var="exts" value="mod,med,mt2,mtm,mp3,s3m,it,stm,xm,669,oct,okt,wma,asf,ogg,flac,mp4,aac,wav,MKA,M4A,MOD,MED,MT2,MTM,MP3,S3M,IT,STM,XM,OCT,OKT,WMA,ASF,OGG,FLAC,MP4,AAC,WAV,MKA,M4A"/>
         </filter>
     </invoke-target>
     <asset path="assets">assets</asset>

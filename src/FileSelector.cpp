@@ -14,18 +14,9 @@
 #else
 #endif
 
-FileSelector::FileSelector(QStringList const &filters) {
-    m_filters.reserve(filters.size());
-    std::transform(filters.begin(), filters.end(),
-                   std::back_inserter(m_filters),
-                   createExtensionFilter);
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Filters:";
-    foreach(QString const& item, m_filters) {
-        qDebug() << item;
-    }
-#endif
-}
+FileSelector::FileSelector(QStringList const &filters)
+     : m_filters(filters)
+{}
 
 FileSelector::~FileSelector() {
 #ifdef VERBOSE_LOGGING
@@ -34,8 +25,9 @@ FileSelector::~FileSelector() {
 }
 
 QString FileSelector::createExtensionFilter(QString const& p) {
-    if(p.startsWith(QChar('*')))
+    if(p.startsWith(QChar('*'))) {
         return p.mid(1); // remove star from file extension
+    }
     return p;
 }
 
@@ -48,12 +40,12 @@ bool FileSelector::isPlaylist(QString const& fileName) {
            fileName.endsWith(".m3u8", Qt::CaseInsensitive);
 }
 
-bool FileSelector::fileMatches(QString const& fileName) {
+bool FileSelector::fileMatches(QString const& fileName) const {
     QString const& extension = FileUtils::extension(fileName);
     return m_filters.contains(extension, Qt::CaseInsensitive);
 }
 
-bool FileSelector::playlistMatches(QString const& fileName) {
+bool FileSelector::playlistMatches(QString const& fileName) const {
     return isPlaylist(fileName);
 }
 
@@ -198,12 +190,6 @@ void FileSelector::scanDirectory(const char * path,
         locationDisplay.remove(0, 15);
         emit searchingDirectory(locationDisplay);
         QDir directory(directoryPath);
-#if 0
-        // This does not work because file system uses 64 bit inodes
-        QStringList entries = directory.entryList(m_filters,
-                                                  QDir::Files | QDir::Readable | QDir::CaseSensitive,
-                                                  QDir::NoSort);
-#endif
         DIR *dirp;
         if ((dirp = ::opendir(directoryPath.toUtf8().constData())) != NULL) {
             struct dirent64 *dp;

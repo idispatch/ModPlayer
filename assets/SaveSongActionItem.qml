@@ -11,7 +11,7 @@ ActionItem {
     property bool certain: true
     title: qsTr("Save Song to Device") + Retranslate.onLanguageChanged
     imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_save_song.png" : "asset:///images/actions/icon_lock.png"
-    enabled: certain && app.cache.exists(currentSong)
+    enabled: certain && app.cache.fileExists(currentSong)
     onTriggered: {
         if(!app.isExtendedVersion) {
             app.pleaseBuy()

@@ -52,12 +52,11 @@ static const char * SELECT_FROM_RADIO =
         " INNER JOIN radio_styles ON radio.styleId = radio_styles.styleId ";
 
 int Catalog::Command::s_commandCounter = 0;
-int Catalog::Version = 4;
+int Catalog::Version = 5;
 
 Catalog::Catalog(QObject * parent)
     : QThread(parent),
       m_dataAccess(NULL) {
-    initCatalog();
 }
 
 Catalog::~Catalog() {
@@ -549,14 +548,22 @@ int Catalog::resolveModuleIdByFileName(QString const& fileName) {
 
 SongExtendedInfo* Catalog::resolveModuleById(int id, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
-    return selectSongInfo(QString("WHERE songs.id=%1").arg(id), parentObject);
+    SongExtendedInfo * song = selectSongInfo(QString("WHERE songs.id=%1").arg(id), parentObject);
+    if(!song) {
+        qDebug() << "Could not load song, id=" << id;
+    }
+    return song;
 }
 
 SongExtendedInfo* Catalog::resolveModuleByFileName(QString const& fileName, QVariant parent) {
     QObject * parentObject = parent.value<QObject*>();
     QString escaped(fileName);
     escaped.replace("'", "''").replace("\\", "\\\\");
-    return selectSongInfo(QString("WHERE songs.fileName='%1'").arg(escaped), parentObject);
+    SongExtendedInfo * song = selectSongInfo(QString("WHERE songs.fileName='%1'").arg(escaped), parentObject);
+    if(!song) {
+        qDebug() << "Could not load song, fileName=" << fileName;
+    }
+    return song;
 }
 
 SongExtendedInfo* Catalog::readSongInfo(QSqlQuery &sqlQuery, QObject *parent) {
@@ -729,6 +736,8 @@ SongExtendedInfo* Catalog::selectSongInfo(QString const& whereClause, QObject *p
     QSqlQuery sqlQuery = db.exec(query);
     if(sqlQuery.next()) {
         song = readSongInfo(sqlQuery, parent);
+    } else {
+        qDebug() << "Could not load song (SQL=" << whereClause << ")";
     }
     return song;
 }
@@ -997,6 +1006,18 @@ void Catalog::resetMyFavourites() {
     Analytics::getInstance()->resetMyFavourites();
 }
 
+bool Catalog::transaction() {
+    return m_dataAccess->connection().transaction();
+}
+
+bool Catalog::commit() {
+    return m_dataAccess->connection().commit();
+}
+
+bool Catalog::rollback() {
+    return m_dataAccess->connection().rollback();
+}
+
 void Catalog::deleteSong(int songId) {
     m_dataAccess->execute(QString("DELETE FROM songs WHERE id=%1").arg(songId));
 }
@@ -1069,6 +1090,32 @@ void Catalog::addSongToAlbum(int albumId, int songId, int trackNumber) {
     QVariantList params;
     params << albumId << songId << trackNumber;
     m_dataAccess->execute(query, params);
+}
+
+int Catalog::createFormat(QString const& name, QString const& description) {
+    int primaryKey = 0;
+    QString query = "SELECT id FROM formats WHERE name=?";
+    QVariantList params;
+    params << name.trimmed();
+    QVariant result = m_dataAccess->execute(query, params);
+    QVariantList list = result.value<QVariantList>();
+    if(list.size() >= 1) {
+        primaryKey = list[0].value<QVariantMap>()["id"].value<int>();
+    } else {
+        query = "SELECT MAX(id)+1 FROM formats";
+        QSqlDatabase db = m_dataAccess->connection();
+        QSqlQuery sqlQuery = db.exec(query);
+        if(sqlQuery.next()) {
+            primaryKey = sqlQuery.value(0).toInt();
+        } else {
+            return primaryKey; // error
+        }
+        query = "INSERT INTO formats (id, name, description) VALUES (?,?,?)";
+        m_dataAccess->execute(query, QVariantList() << primaryKey
+                                                    << name.trimmed()
+                                                    << description.trimmed());
+    }
+    return primaryKey;
 }
 
 int Catalog::createGenre(QString const& name) {
@@ -1164,7 +1211,7 @@ void Catalog::deletePlaylistByName(QString const& name) {
     QVariantList params;
     params << name;
 
-    QString query = "DELETE FROM playlistEntries WHERE playlistId IN (SELECT id FROM plylists WHERE name=?)";
+    QString query = "DELETE FROM playlistEntries WHERE playlistId IN (SELECT id FROM playlists WHERE name=?)";
     m_dataAccess->execute(query, params);
 
     query = "DELETE FROM playlists WHERE name=?";

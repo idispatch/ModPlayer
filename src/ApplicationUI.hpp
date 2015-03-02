@@ -140,6 +140,7 @@ private:
     void initSignals();
     void initTypes();
     void initApp();
+    void initCatalog();
     void initActiveCover();
     void initPlayer();
     void initProximity();

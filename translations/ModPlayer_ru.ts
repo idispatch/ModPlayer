@@ -32,6 +32,17 @@
     </message>
 </context>
 <context>
+    <name>AppWorldActionItem</name>
+    <message>
+        <source>Review in AppWorld</source>
+        <translation type="obsolete">Рецензия в AppWorld</translation>
+    </message>
+    <message>
+        <source>Review in BlackBerry World</source>
+        <translation>Рецензия в BlackBerry World</translation>
+    </message>
+</context>
+<context>
     <name>AppendPlaylistActionItem</name>
     <message>
         <source>Append to Playlist</source>
@@ -222,7 +233,7 @@
     </message>
     <message>
         <source>Your song catalog has been successfully updated.</source>
-        <translation>Каталог песен был успешно обновлен.</translation>
+        <translation type="obsolete">Каталог песен был успешно обновлен.</translation>
     </message>
     <message>
         <source>Optimizing catalog...</source>

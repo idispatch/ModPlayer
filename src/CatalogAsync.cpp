@@ -120,6 +120,7 @@ int Catalog::searchSongsAsync(QString const& searchTerm, int limit) {
 }
 
 void Catalog::run() {
+    initCatalog();
     bool exitRequested = false;
     while(!exitRequested)
     {

@@ -90,6 +90,8 @@ Page {
         if(song) {
             app.analytics.view(song.id, Global.fileNameOnly(song.fileName))
             logoAnimation.play()
+        } else {
+            console.log("Could not resolve song, id=" + songId)
         }
     }
     function showPlayerView() {

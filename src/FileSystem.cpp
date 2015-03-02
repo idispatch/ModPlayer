@@ -11,20 +11,11 @@ namespace {
 }
 
 FileSystem::FileSystem(QStringList const& filters, QObject * parent)
-    : QObject(parent) {
-    m_filters.reserve(filters.size());
-    std::transform(filters.begin(), filters.end(),
-                   std::back_inserter(m_filters),
-                   createExtensionFilter);
-}
+    : QObject(parent),
+      m_filters(filters)
+{}
 
-QString FileSystem::createExtensionFilter(QString const& p) {
-    if(p.startsWith(QChar('*')))
-        return p.mid(1); // remove star from file extension
-    return p;
-}
-
-bool FileSystem::fileMatches(QString const& fileName) {
+bool FileSystem::fileMatches(QString const& fileName) const {
     QString const& extension = FileUtils::extension(fileName);
     return m_filters.contains(extension, Qt::CaseInsensitive);
 }

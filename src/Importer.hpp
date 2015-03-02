@@ -1,13 +1,13 @@
-#ifndef IMPORTER_HPP_
-#define IMPORTER_HPP_
+#ifndef IMPORTER_HPP
+#define IMPORTER_HPP
 
 #include <QObject>
 #include <QString>
 #include <QStringList>
 #include "PlaybackConfig.hpp"
 #include "MessageBox.hpp"
-#include "libmad/mad.h"
 #include <set>
+#include <map>
 
 class QDir;
 class Catalog;
@@ -20,6 +20,8 @@ private:
     Catalog * m_catalog;
     MessageBox m_messageBox;
     std::set<QString> m_knownFileNames;
+    std::map<QString, int> m_genreCache;
+    std::map<QString, int> m_artistCache;
     int m_numImportedSongs;
     int m_numImportedPlaylists;
     int m_nextId;
@@ -44,11 +46,7 @@ private:
     void updateLastImportedInfo();
     void removeMissingSongs();
     bool importTrackerSong(QString const& fileName);
-    bool importMp3File(QString const& fileName);
-    QString getMp3Attribute(void const * tag, const char * attributeName);
-
-    int calculateMp3Duration(char const *path, mad_timer_t *duration, signed int *kbps, unsigned long *kbytes);
-    int scanMp3(unsigned char const *ptr, unsigned long len, mad_timer_t *duration);
+    bool importTaggedSong(QString const& fileName);
 };
 
 Q_DECLARE_METATYPE(Importer*);

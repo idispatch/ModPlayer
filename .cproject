@@ -181,6 +181,7 @@
 							<option id="com.qnx.qcc.option.cpu.72997130.1056788304" name="Target CPU:" superClass="com.qnx.qcc.option.cpu.72997130"/>
 							<option id="com.qnx.qcc.option.compiler.1962796728.1165291144" name="Compiler:" superClass="com.qnx.qcc.option.compiler.1962796728"/>
 							<option id="com.qnx.qcc.option.runtime.935724682.123527166" name="Runtime:" superClass="com.qnx.qcc.option.runtime.935724682"/>
+							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
 							<tool id="com.qnx.qcc.tool.compiler.1193686192" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler.1033563485">
 								<inputType id="com.qnx.qcc.inputType.compiler.1613938864" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -188,7 +189,7 @@
 								<inputType id="com.qnx.qcc.inputType.assembler.835420020" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.479898737" name="QCC Linker" superClass="com.qnx.qcc.tool.linker.1604534026">
-								<option id="com.qnx.qcc.option.linker.langcpp.749966218" superClass="com.qnx.qcc.option.linker.langcpp" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.749966218" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1935137193" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver.794821304"/>
 						</toolChain>

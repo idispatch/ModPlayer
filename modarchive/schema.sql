@@ -1,6 +1,8 @@
 PRAGMA foreign_keys=1;
 PRAGMA page_size=8192;
-PRAGMA user_version=3;
+PRAGMA cache_size=2000;
+PRAGMA case_sensitive_like=false; 
+PRAGMA user_version=5;
 
 CREATE TABLE artists
 (
@@ -82,7 +84,7 @@ CREATE TABLE playlistEntries
 	playlistId INTEGER,
 	songId INTEGER,
     songOrder INTEGER,
-    CONSTRAINT PK_playlistEntries PRIMARY KEY (playlistId,songId,songOrder), 
+    CONSTRAINT PK_playlistEntries PRIMARY KEY (playlistId,songId,songOrder),
     CONSTRAINT FK_playlistEntries_playlists FOREIGN KEY (playlistId) REFERENCES playlists (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_playlistEntries_songs FOREIGN KEY (songId) REFERENCES songs (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -95,6 +97,39 @@ CREATE TABLE albumEntries
     CONSTRAINT PK_albumEntries PRIMARY KEY (albumId,songId,trackNumber), 
     CONSTRAINT FK_albumEntries_albums FOREIGN KEY (albumId) REFERENCES albums (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_albumEntries_songs FOREIGN KEY (songId) REFERENCES songs (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE countries
+(
+    countryId INT,
+    name TEXT NOT NULL,
+    flag TEXT NULL,
+
+    CONSTRAINT PK_countries PRIMARY KEY (countryId)
+);
+
+CREATE TABLE radio_styles
+(
+    styleId INT,
+    name TEXT NOT NULL,
+
+    CONSTRAINT PK_radio_styles PRIMARY KEY (styleId)
+);
+
+CREATE TABLE radio
+(
+    radioId INT,
+    name TEXT NOT NULL,
+    playlist TEXT NOT NULL,
+    bitrate INT NOT NULL,
+    countryId INT NULL,
+    location TEXT NULL,
+    styleId INT NULL,
+    url TEXT NOT NULL,
+
+    CONSTRAINT PK_radio PRIMARY KEY (radioId),
+    CONSTRAINT FK_radio_countries FOREIGN KEY (countryId) REFERENCES countries (countryId),
+    CONSTRAINT FK_radio_radio_styles FOREIGN KEY (styleId) REFERENCES radio_styles (styleId)
 );
 
 CREATE        INDEX IX_albums_name ON albums (name);
@@ -116,7 +151,13 @@ CREATE        INDEX IX_songs_playCount ON songs (playCount);
 CREATE        INDEX IX_songs_lastPlayed ON songs (lastPlayed);
 CREATE        INDEX IX_songs_myFavourite ON songs (myFavourite);
 
-INSERT INTO genres (id, name) VALUES (0, '- N/A -');
+CREATE UNIQUE INDEX IX_countries        ON countries (name);
+CREATE UNIQUE INDEX IX_radio_styles     ON radio_styles (name);
+CREATE        INDEX IX_radio_name       ON radio (name);
+CREATE        INDEX IX_radio_location   ON radio (location);
+
+BEGIN TRANSACTION;
+
 INSERT INTO genres (id, name) VALUES (48, 'Alternative');
 INSERT INTO genres (id, name) VALUES (38, 'Gothic');
 INSERT INTO genres (id, name) VALUES (103, 'Grunge');
@@ -192,6 +233,11 @@ INSERT INTO genres (id, name) VALUES (26, 'R & B');
 INSERT INTO genres (id, name) VALUES (27, 'Reggae');
 INSERT INTO genres (id, name) VALUES (24, 'Ska');
 INSERT INTO genres (id, name) VALUES (25, 'Soul');
+INSERT INTO genres (id, name) VALUES (0, '- N/A -');
+
+COMMIT TRANSACTION;
+
+BEGIN TRANSACTION;
 
 INSERT INTO formats (id, name, description) VALUES (1, 'MOD', 'Amiga Module');
 INSERT INTO formats (id, name, description) VALUES (2, '669', '669 Mod Composer Module');
@@ -209,7 +255,19 @@ INSERT INTO formats (id, name, description) VALUES (13, 'MO3','Ian Luck''s MP3/O
 INSERT INTO formats (id, name, description) VALUES (100, 'MP3','MP3 Song');
 INSERT INTO formats (id, name, description) VALUES (101, 'OGG','Xiph.org Foundation OGG Song');
 INSERT INTO formats (id, name, description) VALUES (102, 'FLAC','Free Lossless Audio Codec Song');
+INSERT INTO formats (id, name, description) VALUES (103, 'WAV','Waveform Audio Format Song');
+INSERT INTO formats (id, name, description) VALUES (104, 'ASF','Advanced Systems Format Song');
+INSERT INTO formats (id, name, description) VALUES (105, 'WMA','Windows Media Audio Format Song');
+INSERT INTO formats (id, name, description) VALUES (106, 'AAC','Advanced Audio Coding Format Song');
+INSERT INTO formats (id, name, description) VALUES (107, 'MP4','MP4 Song');
+INSERT INTO formats (id, name, description) VALUES (108, 'M4A','M4A Song');
+INSERT INTO formats (id, name, description) VALUES (109, 'MKA','Matroska Audio Format Song');
+
+COMMIT TRANSACTION;
+
+BEGIN TRANSACTION;
 
 INSERT INTO trackers (id, name) VALUES (0, '- N/A -');
-
 INSERT INTO "artists" VALUES(0,'- N/A -',NULL,NULL,NULL);
+
+COMMIT TRANSACTION;
