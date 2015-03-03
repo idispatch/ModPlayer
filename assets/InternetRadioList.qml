@@ -1,4 +1,4 @@
-import bb.cascades 1.0
+import bb.cascades 1.3
 import player 1.0
 import "functions.js" as Global
 
@@ -141,6 +141,9 @@ Page {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         OpenSongActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        EqualizerActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
         },
         SleepTimerActionItem {

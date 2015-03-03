@@ -102,6 +102,14 @@ void Player::initTheme() {
     }
 }
 
+int Player::equalizerPreset() const {
+    return m_playback->equalizerPreset();
+}
+
+void Player::setEqualizerPreset(int value) {
+    m_playback->setEqualizerPreset(value);
+}
+
 bool Player::lightTheme() const {
     return m_lightTheme;
 }

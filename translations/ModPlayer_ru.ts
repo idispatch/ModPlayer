@@ -321,6 +321,13 @@
     </message>
 </context>
 <context>
+    <name>EqualizerActionItem</name>
+    <message>
+        <source>Equalizer Preset</source>
+        <translation>Эквалайзер</translation>
+    </message>
+</context>
+<context>
     <name>ExportCacheButton</name>
     <message>
         <source>Export Cache</source>

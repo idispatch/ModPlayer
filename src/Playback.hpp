@@ -16,6 +16,7 @@
 class Playback : public QThread,
                  public InstanceCounter<Playback> {
     Q_OBJECT
+    Q_PROPERTY(int equalizerPreset READ equalizerPreset WRITE setEqualizerPreset NOTIFY equalizerPresetChanged FINAL)
     Q_PROPERTY(SongModule* currentSong READ currentSong NOTIFY currentSongChanged FINAL)
     Q_PROPERTY(PlaybackConfig* configuration READ configuration NOTIFY configurationChanged FINAL)
 public:
@@ -31,6 +32,9 @@ public:
 
     Playback(QSettings &settings, QObject * parent);
     virtual ~Playback();
+
+    int equalizerPreset() const;
+    void setEqualizerPreset(int value);
 
     State state();
     SongModule* currentSong();
@@ -64,7 +68,7 @@ Q_SIGNALS:
     void metaDataChanged();
     void bufferingLevelChanged(double level);
     void bufferingStatusChanged(int type);
-
+    void equalizerPresetChanged();
 private slots:
     void onMediaPlayerBufferLevelChanged(double level);
     void onMediaPlayerBufferStatusChanged(bb::multimedia::BufferStatus::Type type);

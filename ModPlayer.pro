@@ -7,8 +7,8 @@ LIBS += -lbb -lbbdata -lbbutility -lbbsystem -lbbplatform -lbbmultimedia -lbbcas
 DEFINES += __BLACKBERRY__ __BB10__ __QNXNTO__ HAVE_CONFIG_H=1 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1
 
 #QMAKE_CXXFLAGS_RELEASE += O2 -flto -ffast-math
-QMAKE_CXXFLAGS_RELEASE += -flto -ffast-math
-QMAKE_LFLAGS += -flto
+#QMAKE_CXXFLAGS_RELEASE += -flto -ffast-math
+#QMAKE_LFLAGS += -flto
 
 # -mcpu=cortex-a15 for QCT CPU
 

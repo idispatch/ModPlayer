@@ -48,6 +48,7 @@ public:
     Player(QSettings &settings, QObject * parent);
     ~Player();
 
+    Q_PROPERTY(int equalizerPreset READ equalizerPreset WRITE setEqualizerPreset NOTIFY equalizerPresetChanged FINAL)
     Q_PROPERTY(bool lightTheme READ lightTheme NOTIFY lightThemeChanged FINAL)
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText WRITE setStatusText NOTIFY statusTextChanged FINAL)
@@ -63,6 +64,9 @@ public:
     Q_PROPERTY(SleepTimer* sleepTimer READ sleepTimer NOTIFY sleepTimerChanged FINAL)
 
     SleepTimer* sleepTimer();
+
+    int equalizerPreset() const;
+    void setEqualizerPreset(int value);
 
     bool lightTheme() const;
     State state() const;
@@ -116,6 +120,7 @@ Q_SIGNALS:
     void currentSongChanged();
     void importCompleted();
     void sleepTimerChanged();
+    void equalizerPresetChanged();
 private slots:
     /* For FilePicker */
     void onLocalSongSelected(const QStringList&);
