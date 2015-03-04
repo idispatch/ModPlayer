@@ -1223,6 +1223,18 @@
         <source>Keep screen awake</source>
         <translation>Экран всегда включен</translation>
     </message>
+    <message>
+        <source>Theme</source>
+        <translation type="obsolete">Тема Приложения</translation>
+    </message>
+    <message>
+        <source>Bright</source>
+        <translation type="obsolete">Светлая</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation type="obsolete">Темная</translation>
+    </message>
 </context>
 <context>
     <name>SettingsMenuAction</name>
@@ -1582,6 +1594,18 @@
     <message>
         <source>Enable Background Animation</source>
         <translation>Анимация</translation>
+    </message>
+    <message>
+        <source>Theme</source>
+        <translation>Тема Приложения</translation>
+    </message>
+    <message>
+        <source>Bright</source>
+        <translation>Светлая</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Темная</translation>
     </message>
 </context>
 <context>

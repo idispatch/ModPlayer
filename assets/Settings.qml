@@ -373,22 +373,6 @@ Sheet {
                                     color: Color.Black
                                 }
                             }
-                            DropDown {
-                                title: qsTr("Theme") + Retranslate.onLanguageChanged
-                                Option {
-                                    text: qsTr("Bright") + Retranslate.onLanguageChanged
-                                    value: VisualStyle.Bright
-                                    selected: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright 
-                                }
-                                Option {
-                                    text: qsTr("Dark") + Retranslate.onLanguageChanged
-                                    value: VisualStyle.Dark
-                                    selected: Application.themeSupport.theme.colorTheme.style == VisualStyle.Dark
-                                }
-                                onSelectedValueChanged: {
-                                    Application.themeSupport.setVisualStyle(selectedValue)
-                                }
-                            }
                             WallpaperSelector {}
                         }
                         GroupContainer {
