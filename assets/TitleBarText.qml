@@ -7,7 +7,7 @@ HorizontalContainer {
     Label {
         text: title
         textStyle {
-            color: app.player.lightTheme ? Color.Black : Color.White
+            color: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? Color.Black : Color.White
             fontSize: FontSize.Large
         }
         verticalAlignment: VerticalAlignment.Center
