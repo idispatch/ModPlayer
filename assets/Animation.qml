@@ -17,17 +17,18 @@ HorizontalContainer {
                 animatedImage: animationView.image
                 started: true
                 onCreationCompleted: {
+                    var animator = imageAnimator
                     Application.fullscreen.connect(function(){
-                        imageAnimator.started = true
+                        animator.started = true
                     })
                     Application.invisible.connect(function(){
-                        imageAnimator.started = false
+                        animator.started = false
                     })
                     Application.asleep.connect(function(){
-                        imageAnimator.started = false
+                        animator.started = false
                     })
                     Application.thumbnail.connect(function(){
-                        imageAnimator.started = false
+                        animator.started = false
                     })
                 }
             }
