@@ -1205,19 +1205,7 @@
     </message>
     <message>
         <source>Keep screen awake</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Theme</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bright</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keep screen awake</translation>
     </message>
 </context>
 <context>
@@ -1578,6 +1566,18 @@
     <message>
         <source>Enable Background Animation</source>
         <translation>启用背景动画</translation>
+    </message>
+    <message>
+        <source>Theme</source>
+        <translation type="unfinished">Theme</translation>
+    </message>
+    <message>
+        <source>Bright</source>
+        <translation type="unfinished">Bright</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation type="unfinished">Dark</translation>
     </message>
 </context>
 <context>
