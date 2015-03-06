@@ -1,6 +1,11 @@
 #include <QDeclarativeComponent>
 #include <bb/multimedia/NowPlayingConnection>
 #include <bb/platform/PlatformInfo>
+#include <bb/cascades/Application>
+#include <bb/cascades/ThemeSupport>
+#include <bb/cascades/Theme>
+#include <bb/cascades/ColorTheme>
+#include <bb/cascades/VisualStyle>
 #include <bb/cascades/pickers/FilePicker>
 #include <bb/system/SystemToast>
 #include <bb/system/SystemDialog>
@@ -36,7 +41,6 @@ int InstanceCounter<Player>::s_maxCount;
 
 Player::Player(QSettings &settings, QObject * parent)
     : QObject(parent),
-      m_lightTheme(false),
       m_feedbackTimerId(-1),
       m_settings(settings),
       m_state(Stopped),
@@ -54,7 +58,6 @@ Player::Player(QSettings &settings, QObject * parent)
               << ".it"  << ".stm" << ".xm"  << ".669"  << ".oct" << ".okt"
               << ".wma" << ".asf" << ".ogg" << ".flac" << ".mp4" << ".aac"
               << ".wav" << ".mka" << ".m4a";
-    initTheme();
     initCache();
     initDownloader();
     initRadio();
@@ -78,32 +81,12 @@ QStringList const& Player::filters() const {
     return m_filters;
 }
 
-void Player::initTheme() {
-    bb::platform::PlatformInfo info;
-    QStringList const tokens = info.osVersion().split( "." );
-    if(tokens.length() >=2) {
-        int majorVersion = tokens[0].toInt();
-        int minorVersion = tokens[1].toInt();
-        if(majorVersion==10) {
-            switch(minorVersion) {
-            case 0: case 1: case 2:
-                m_lightTheme = false;
-                break;
-            case 3:
-            default:
-                m_lightTheme = true;
-                break;
-            }
-        } else {
-            m_lightTheme = true;
-        }
-    } else {
-        m_lightTheme = true;
-    }
+int Player::equalizerPreset() const {
+    return m_playback->equalizerPreset();
 }
 
-bool Player::lightTheme() const {
-    return m_lightTheme;
+void Player::setEqualizerPreset(int value) {
+    m_playback->setEqualizerPreset(value);
 }
 
 void Player::initCatalog() {

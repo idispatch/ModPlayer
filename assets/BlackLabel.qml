@@ -1,3 +1,3 @@
-import bb.cascades 1.0
+import bb.cascades 1.3
 
 Label { textStyle.color: Color.Black }

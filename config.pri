@@ -63,6 +63,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/Cover.qml) \
         $$quote($$BASEDIR/assets/CreatePlaylistActionItem.qml) \
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
+        $$quote($$BASEDIR/assets/EqualizerActionItem.qml) \
         $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
         $$quote($$BASEDIR/assets/FileEntryView.qml) \
         $$quote($$BASEDIR/assets/FilesList.qml) \
@@ -144,6 +145,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_difm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_downloads.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_email.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_equalizer.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_favourite.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_files.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_format.png) \

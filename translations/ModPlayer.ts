@@ -319,6 +319,15 @@
     </message>
 </context>
 <context>
+    <name>EqualizerActionItem</name>
+    <message>
+        <location filename="../assets/EqualizerActionItem.qml" line="6"/>
+        <location filename="../assets/EqualizerActionItem.qml" line="13"/>
+        <source>Equalizer Preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ExportCacheButton</name>
     <message>
         <location filename="../assets/ExportCacheButton.qml" line="10"/>
@@ -770,79 +779,79 @@
 <context>
     <name>Player</name>
     <message>
-        <location filename="../src/Player.cpp" line="43"/>
-        <location filename="../src/Player.cpp" line="730"/>
+        <location filename="../src/Player.cpp" line="47"/>
+        <location filename="../src/Player.cpp" line="713"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="286"/>
-        <location filename="../src/Player.cpp" line="315"/>
-        <location filename="../src/Player.cpp" line="634"/>
+        <location filename="../src/Player.cpp" line="269"/>
+        <location filename="../src/Player.cpp" line="298"/>
+        <location filename="../src/Player.cpp" line="617"/>
         <source>Downloading song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="323"/>
+        <location filename="../src/Player.cpp" line="306"/>
         <source>Unpacking song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="335"/>
+        <location filename="../src/Player.cpp" line="318"/>
         <source>Failed to prepare song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="340"/>
+        <location filename="../src/Player.cpp" line="323"/>
         <source>Caching song %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="351"/>
+        <location filename="../src/Player.cpp" line="334"/>
         <source>Failed to download song</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="527"/>
-        <location filename="../src/Player.cpp" line="722"/>
-        <location filename="../src/Player.cpp" line="777"/>
+        <location filename="../src/Player.cpp" line="510"/>
+        <location filename="../src/Player.cpp" line="705"/>
+        <location filename="../src/Player.cpp" line="760"/>
         <source>Playing Internet Radio Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="531"/>
-        <location filename="../src/Player.cpp" line="725"/>
-        <location filename="../src/Player.cpp" line="781"/>
+        <location filename="../src/Player.cpp" line="514"/>
+        <location filename="../src/Player.cpp" line="708"/>
+        <location filename="../src/Player.cpp" line="764"/>
         <source>Playing %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="615"/>
+        <location filename="../src/Player.cpp" line="598"/>
         <source>Resolving %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="664"/>
+        <location filename="../src/Player.cpp" line="647"/>
         <source>Select Song Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="717"/>
+        <location filename="../src/Player.cpp" line="700"/>
         <source>Paused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="794"/>
+        <location filename="../src/Player.cpp" line="777"/>
         <source>Please support ModPlayer - write a review in BlackBerry World!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="803"/>
+        <location filename="../src/Player.cpp" line="786"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Player.cpp" line="804"/>
+        <location filename="../src/Player.cpp" line="787"/>
         <source>Would you like to import local songs and playlists?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1702,17 +1711,17 @@
 <context>
     <name>WallpaperSelector</name>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="45"/>
+        <location filename="../assets/WallpaperSelector.qml" line="61"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="25"/>
+        <location filename="../assets/WallpaperSelector.qml" line="41"/>
         <source>Wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="29"/>
+        <location filename="../assets/WallpaperSelector.qml" line="45"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1722,13 +1731,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="345"/>
-        <location filename="../assets/WallpaperSelector.qml" line="356"/>
+        <location filename="../assets/WallpaperSelector.qml" line="20"/>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="22"/>
+        <source>Bright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="27"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="361"/>
+        <location filename="../assets/WallpaperSelector.qml" line="372"/>
         <source>Browse for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="395"/>
+        <location filename="../assets/WallpaperSelector.qml" line="411"/>
         <source>Browse for color</source>
         <translation type="unfinished"></translation>
     </message>

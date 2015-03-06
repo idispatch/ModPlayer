@@ -313,6 +313,13 @@
     </message>
 </context>
 <context>
+    <name>EqualizerActionItem</name>
+    <message>
+        <source>Equalizer Preset</source>
+        <translation type="unfinished">Equalizer Preset</translation>
+    </message>
+</context>
+<context>
     <name>ExportCacheButton</name>
     <message>
         <source>Export Cache</source>
@@ -1194,6 +1201,18 @@
     </message>
     <message>
         <source>Keep screen awake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

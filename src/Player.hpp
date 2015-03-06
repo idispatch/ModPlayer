@@ -28,6 +28,9 @@ namespace bb {
     namespace multimedia {
         class NowPlayingConnection;
     }
+    namespace cascades {
+        class Theme;
+    }
 }
 
 class Player : public QObject,
@@ -48,7 +51,7 @@ public:
     Player(QSettings &settings, QObject * parent);
     ~Player();
 
-    Q_PROPERTY(bool lightTheme READ lightTheme NOTIFY lightThemeChanged FINAL)
+    Q_PROPERTY(int equalizerPreset READ equalizerPreset WRITE setEqualizerPreset NOTIFY equalizerPresetChanged FINAL)
     Q_PROPERTY(State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(QString statusText READ statusText WRITE setStatusText NOTIFY statusTextChanged FINAL)
     Q_PROPERTY(QString userDirectory READ userDirectory WRITE setUserDirectory NOTIFY userDirectoryChanged FINAL)
@@ -64,7 +67,9 @@ public:
 
     SleepTimer* sleepTimer();
 
-    bool lightTheme() const;
+    int equalizerPreset() const;
+    void setEqualizerPreset(int value);
+
     State state() const;
 
     QString statusText() const;
@@ -105,7 +110,6 @@ public:
     using InstanceCounter<Player>::getMaxInstanceCount;
 Q_SIGNALS:
     void requestPlayerView();
-    void lightThemeChanged();
     void stateChanged();
     void statusTextChanged();
     void userDirectoryChanged();
@@ -116,6 +120,7 @@ Q_SIGNALS:
     void currentSongChanged();
     void importCompleted();
     void sleepTimerChanged();
+    void equalizerPresetChanged();
 private slots:
     /* For FilePicker */
     void onLocalSongSelected(const QStringList&);
@@ -156,12 +161,12 @@ private slots:
 
     /* For Sleep Timer */
     void onSleepTimerTimeout();
+
 protected:
     void timerEvent(QTimerEvent *event);
 private:
     Q_DISABLE_COPY(Player)
 
-    void initTheme();
     void initCache();
     void initDownloader();
     void initRadio();
@@ -180,7 +185,6 @@ private:
 
     void askToSupport();
 private:
-    bool m_lightTheme;
     int m_feedbackTimerId;
     QStringList m_filters;
     QSettings &m_settings;

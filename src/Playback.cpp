@@ -160,6 +160,10 @@ void Playback::loadSettings() {
 
     m_settings.endGroup();
 
+    m_settings.beginGroup("equalizer");
+    setEqualizerPreset(m_settings.value("preset", 0).toInt());
+    m_settings.endGroup();
+
     m_config.configureModPlug();
 }
 
@@ -194,6 +198,10 @@ void Playback::saveSettings() {
     m_settings.setValue("oversamplingEnabled", m_config.oversamplingEnabled());
     m_settings.setValue("noiseReductionEnabled", m_config.noiseReductionEnabled());
 
+    m_settings.endGroup();
+
+    m_settings.beginGroup("equalizer");
+    m_settings.setValue("preset", equalizerPreset());
     m_settings.endGroup();
 
     m_settings.sync();
@@ -272,6 +280,21 @@ SongModule* Playback::currentSong() {
 
 PlaybackConfig* Playback::configuration() {
     return &m_config;
+}
+
+int Playback::equalizerPreset() const {
+    return m_mediaPlayer ? m_mediaPlayer->equalizerPreset() : 0;
+}
+
+void Playback::setEqualizerPreset(int value) {
+    if(value >= 0 && value <= bb::multimedia::EqualizerPreset::SpokenWord) {
+        if(m_mediaPlayer != 0) {
+            bb::multimedia::EqualizerPreset::Type preset =
+                       static_cast<bb::multimedia::EqualizerPreset::Type>(value);
+            m_mediaPlayer->setEqualizerPreset(preset);
+            emit equalizerPresetChanged();
+        }
+    }
 }
 
 bool Playback::submitCommadAndWait(Command command) {
