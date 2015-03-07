@@ -13,9 +13,8 @@ public:
     FileSelector(QStringList const &filters);
     ~FileSelector();
     void start();
-    static bool isMp3(QString const& fileName);
-    static bool isPlaylist(QString const& fileName);
 private:
+    static bool isPlaylist(QString const& fileName);
     void scanDirectory(const char * path,
                        QSet<QString>& foundFiles,
                        QSet<QString>& foundPlaylists);
@@ -25,14 +24,14 @@ private:
                           QSet<QString> const& foundFiles);
     void processPlaylist(QString const& playlist,
                          QSet<QString> const& foundFiles);
-public:
-    Q_SIGNAL void searchingDirectory(QString const& fileName);
-    Q_SIGNAL void foundFile(QString const& fileName);
-    Q_SIGNAL void foundPlaylist(QString const& fileName,
-                                QVector<QString> const& songs);
-    Q_SIGNAL void done();
-private:
-    Q_SLOT void selectFiles();
+Q_SIGNALS:
+    void searchingDirectory(QString const& fileName);
+    void foundFile(QString const& fileName);
+    void foundPlaylist(QString const& fileName,
+                       QVector<QString> const& songs);
+    void done();
+private slots:
+    void selectFiles();
 };
 
 #endif

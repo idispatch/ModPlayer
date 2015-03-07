@@ -24,10 +24,6 @@ FileSelector::~FileSelector() {
 #endif
 }
 
-bool FileSelector::isMp3(QString const& fileName) {
-    return fileName.endsWith(".mp3", Qt::CaseInsensitive);
-}
-
 bool FileSelector::isPlaylist(QString const& fileName) {
     return fileName.endsWith(".m3u", Qt::CaseInsensitive) ||
            fileName.endsWith(".m3u8", Qt::CaseInsensitive);
@@ -74,13 +70,14 @@ void FileSelector::processPlaylist(QString const& playlist,
     while(!textStream.atEnd())
     {
        QString line = textStream.readLine();
-       if (line.isEmpty() || line[0] == '#' || line.size() > 4096)
+       if (line.isEmpty() || line[0] == '#' || line.size() > 4096) {
            continue;
+       }
 
        QString const fullSongPath = FileUtils::joinPath(directory, line);
-       if(!isMp3(fullSongPath)) {
+       if(!fileMatches(fullSongPath)) {
 #ifdef VERBOSE_LOGGING
-           qDebug() << "Skipping non-mp3 song" << fullSongPath;
+           qDebug() << "Skipping non-supported song format" << fullSongPath;
 #endif
            continue;
        }
@@ -128,7 +125,7 @@ void FileSelector::start() {
     bool rc;
     Q_UNUSED(rc);
 
-    QThread * thread = new QThread();
+    QThread * thread = new QThread(0);
     moveToThread(thread);
 
     rc = QObject::connect(thread, SIGNAL(started()),
@@ -217,4 +214,3 @@ void FileSelector::scanDirectory(const char * path,
         }
    }
 }
-
