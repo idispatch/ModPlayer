@@ -1,11 +1,6 @@
 #include <QDeclarativeComponent>
 #include <bb/multimedia/NowPlayingConnection>
 #include <bb/platform/PlatformInfo>
-#include <bb/cascades/Application>
-#include <bb/cascades/ThemeSupport>
-#include <bb/cascades/Theme>
-#include <bb/cascades/ColorTheme>
-#include <bb/cascades/VisualStyle>
 #include <bb/cascades/pickers/FilePicker>
 #include <bb/system/SystemToast>
 #include <bb/system/SystemDialog>

@@ -5,6 +5,10 @@
 #include <bb/cascades/LocaleHandler>
 #include <bb/cascades/Container>
 #include <bb/cascades/SceneCover>
+#include <bb/cascades/ThemeSupport>
+#include <bb/cascades/Theme>
+#include <bb/cascades/ColorTheme>
+#include <bb/cascades/VisualStyle>
 #include <bb/cascades/pickers/FilePicker>
 #include <bb/cascades/pickers/FilePickerMode>
 #include <bb/cascades/pickers/FilePickerSortFlag>
@@ -249,6 +253,7 @@ void ApplicationUI::saveWallpaperSettings() {
 }
 
 void ApplicationUI::saveSettings() {
+    m_settings.setValue("ui/theme", (int)bb::cascades::Application::instance()->themeSupport()->theme()->colorTheme()->style());
     m_settings.sync();
 }
 
@@ -327,6 +332,18 @@ void ApplicationUI::initCatalog() {
 }
 
 void ApplicationUI::initApp() {
+    bb::cascades::VisualStyle::Type style;
+    switch(m_settings.value("ui/theme", 1).toInt()) {
+    case bb::cascades::VisualStyle::Dark:
+        style = bb::cascades::VisualStyle::Dark;
+        break;
+    default:
+        style = bb::cascades::VisualStyle::Bright;
+        break;
+    }
+
+    bb::cascades::Application::instance()->themeSupport()->setVisualStyle(style);
+
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
     if(!qml->hasErrors())
     {
