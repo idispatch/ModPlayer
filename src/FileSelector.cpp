@@ -24,13 +24,6 @@ FileSelector::~FileSelector() {
 #endif
 }
 
-QString FileSelector::createExtensionFilter(QString const& p) {
-    if(p.startsWith(QChar('*'))) {
-        return p.mid(1); // remove star from file extension
-    }
-    return p;
-}
-
 bool FileSelector::isMp3(QString const& fileName) {
     return fileName.endsWith(".mp3", Qt::CaseInsensitive);
 }

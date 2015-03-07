@@ -25,7 +25,6 @@ private:
                           QSet<QString> const& foundFiles);
     void processPlaylist(QString const& playlist,
                          QSet<QString> const& foundFiles);
-    static QString createExtensionFilter(QString const& p);
 public:
     Q_SIGNAL void searchingDirectory(QString const& fileName);
     Q_SIGNAL void foundFile(QString const& fileName);
