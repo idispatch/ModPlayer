@@ -232,27 +232,27 @@ void Importer::onFoundPlaylist(QString const& playlistName,
     m_messageBox.setBody(tr("Processing playlist %1...").arg(playlistName));
     m_messageBox.setProgress(progress);
 
-    m_catalog->deletePlaylistByName(playlistName);
+    if(m_catalog->transaction()) {
+        m_catalog->deletePlaylistByName(playlistName);
 
-    const int playlistId = m_catalog->createPlaylist(playlistName);
-    if(playlistId == 0) {
-#ifdef VERBOSE_LOGGING
-        qDebug() << "Could not insert playlist" << playlistName;
-#endif
-        return;
-    }
-
-    m_numImportedPlaylists++;
-
-    foreach(QString const songFileName, songs) {
-        const int songId = m_catalog->resolveModuleIdByFileName(songFileName);
-        if(songId == 0) {
-#ifdef VERBOSE_LOGGING
-            qDebug() << "Could not resolve song" << songFileName;
-#endif
-        } else {
-            m_catalog->appendToPlaylist(playlistId, songId);
+        const int playlistId = m_catalog->createPlaylist(playlistName);
+        if(playlistId == 0) {
+            qDebug() << "Could not insert playlist" << playlistName;
+            return;
         }
+
+        m_numImportedPlaylists++;
+
+        foreach(QString const songFileName, songs) {
+            const int songId = m_catalog->resolveModuleIdByFileName(songFileName);
+            if(songId == 0) {
+                qDebug() << "Could not resolve song" << songFileName;
+            } else {
+                m_catalog->appendToPlaylist(playlistId, songId);
+            }
+        }
+
+        m_catalog->commit();
     }
 }
 
