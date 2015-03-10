@@ -554,6 +554,93 @@
     </message>
 </context>
 <context>
+    <name>InitialViewSelector</name>
+    <message>
+        <source>Start View</source>
+        <translation>Стартовый вид</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Поиск</translation>
+    </message>
+    <message>
+        <source>My Favourite</source>
+        <translation>Мои избранные</translation>
+    </message>
+    <message>
+        <source>Local Songs</source>
+        <translation>Мои песни в телефоне</translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <translation>Недавние</translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation>Плейлисты</translation>
+    </message>
+    <message>
+        <source>Albums</source>
+        <translation>Альбомы</translation>
+    </message>
+    <message>
+        <source>File System</source>
+        <translation>Файловая система</translation>
+    </message>
+    <message>
+        <source>Internet Radio</source>
+        <translation>Internet Radio</translation>
+    </message>
+    <message>
+        <source>Digitally Imported</source>
+        <translation>Digitally Imported</translation>
+    </message>
+    <message>
+        <source>SKY.FM</source>
+        <translation>SKY.FM</translation>
+    </message>
+    <message>
+        <source>Jazz Radio</source>
+        <translation>Jazz Radio</translation>
+    </message>
+    <message>
+        <source>Rock Radio</source>
+        <translation>Rock Radio</translation>
+    </message>
+    <message>
+        <source>Fresca Radio</source>
+        <translation>Fresca Radio</translation>
+    </message>
+    <message>
+        <source>Most Played</source>
+        <translation>Часто слушаемые</translation>
+    </message>
+    <message>
+        <source>Downloads</source>
+        <translation>Часто скачиваемые</translation>
+    </message>
+    <message>
+        <source>Favourited</source>
+        <translation>Избранные</translation>
+    </message>
+    <message>
+        <source>Scored</source>
+        <translation>Оцененные</translation>
+    </message>
+    <message>
+        <source>Artists</source>
+        <translation>Композиторы</translation>
+    </message>
+    <message>
+        <source>Genres</source>
+        <translation>Жанры</translation>
+    </message>
+    <message>
+        <source>Formats</source>
+        <translation>Форматы</translation>
+    </message>
+</context>
+<context>
     <name>Instruments</name>
     <message>
         <source>Samples of %1 (%2)</source>
@@ -1606,6 +1693,82 @@
     <message>
         <source>Dark</source>
         <translation>Темная</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="obsolete">Поиск</translation>
+    </message>
+    <message>
+        <source>My Favourite</source>
+        <translation type="obsolete">Мои избранные</translation>
+    </message>
+    <message>
+        <source>Local Songs</source>
+        <translation type="obsolete">Мои песни в телефоне</translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <translation type="obsolete">Недавние</translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation type="obsolete">Плейлисты</translation>
+    </message>
+    <message>
+        <source>Albums</source>
+        <translation type="obsolete">Альбомы</translation>
+    </message>
+    <message>
+        <source>File System</source>
+        <translation type="obsolete">Файловая система</translation>
+    </message>
+    <message>
+        <source>Digitally Imported</source>
+        <translation type="obsolete">Digitally Imported</translation>
+    </message>
+    <message>
+        <source>SKY.FM</source>
+        <translation type="obsolete">SKY.FM</translation>
+    </message>
+    <message>
+        <source>Jazz Radio</source>
+        <translation type="obsolete">Jazz Radio</translation>
+    </message>
+    <message>
+        <source>Rock Radio</source>
+        <translation type="obsolete">Rock Radio</translation>
+    </message>
+    <message>
+        <source>Fresca Radio</source>
+        <translation type="obsolete">Fresca Radio</translation>
+    </message>
+    <message>
+        <source>Most Played</source>
+        <translation type="obsolete">Часто слушаемые</translation>
+    </message>
+    <message>
+        <source>Downloads</source>
+        <translation type="obsolete">Часто скачиваемые</translation>
+    </message>
+    <message>
+        <source>Favourited</source>
+        <translation type="obsolete">Избранные</translation>
+    </message>
+    <message>
+        <source>Scored</source>
+        <translation type="obsolete">Оцененные</translation>
+    </message>
+    <message>
+        <source>Artists</source>
+        <translation type="obsolete">Композиторы</translation>
+    </message>
+    <message>
+        <source>Genres</source>
+        <translation type="obsolete">Жанры</translation>
+    </message>
+    <message>
+        <source>Formats</source>
+        <translation type="obsolete">Форматы</translation>
     </message>
 </context>
 <context>

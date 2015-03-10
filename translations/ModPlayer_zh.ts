@@ -546,6 +546,93 @@
     </message>
 </context>
 <context>
+    <name>InitialViewSelector</name>
+    <message>
+        <source>Start View</source>
+        <translation type="unfinished">Start View</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <source>My Favourite</source>
+        <translation>我的收藏</translation>
+    </message>
+    <message>
+        <source>Local Songs</source>
+        <translation>本地歌曲</translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <translation>最近</translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation>播放列表</translation>
+    </message>
+    <message>
+        <source>Albums</source>
+        <translation>专辑</translation>
+    </message>
+    <message>
+        <source>File System</source>
+        <translation>文件系统</translation>
+    </message>
+    <message>
+        <source>Internet Radio</source>
+        <translation>Internet Radio</translation>
+    </message>
+    <message>
+        <source>Digitally Imported</source>
+        <translation>Digitally Imported</translation>
+    </message>
+    <message>
+        <source>SKY.FM</source>
+        <translation>SKY.FM</translation>
+    </message>
+    <message>
+        <source>Jazz Radio</source>
+        <translation>爵士电台</translation>
+    </message>
+    <message>
+        <source>Rock Radio</source>
+        <translation>摇滚电台</translation>
+    </message>
+    <message>
+        <source>Fresca Radio</source>
+        <translation>Fresca电台</translation>
+    </message>
+    <message>
+        <source>Most Played</source>
+        <translation>播放最多</translation>
+    </message>
+    <message>
+        <source>Downloads</source>
+        <translation>下载</translation>
+    </message>
+    <message>
+        <source>Favourited</source>
+        <translation>收藏</translation>
+    </message>
+    <message>
+        <source>Scored</source>
+        <translation>高分</translation>
+    </message>
+    <message>
+        <source>Artists</source>
+        <translation>艺术家</translation>
+    </message>
+    <message>
+        <source>Genres</source>
+        <translation>流派</translation>
+    </message>
+    <message>
+        <source>Formats</source>
+        <translation>格式</translation>
+    </message>
+</context>
+<context>
     <name>Instruments</name>
     <message>
         <source>Samples of %1 (%2)</source>
@@ -1574,6 +1661,82 @@
     <message>
         <source>Dark</source>
         <translation type="unfinished">Dark</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="obsolete">搜索</translation>
+    </message>
+    <message>
+        <source>My Favourite</source>
+        <translation type="obsolete">我的收藏</translation>
+    </message>
+    <message>
+        <source>Local Songs</source>
+        <translation type="obsolete">本地歌曲</translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <translation type="obsolete">最近</translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation type="obsolete">播放列表</translation>
+    </message>
+    <message>
+        <source>Albums</source>
+        <translation type="obsolete">专辑</translation>
+    </message>
+    <message>
+        <source>File System</source>
+        <translation type="obsolete">文件系统</translation>
+    </message>
+    <message>
+        <source>Digitally Imported</source>
+        <translation type="obsolete">Digitally Imported</translation>
+    </message>
+    <message>
+        <source>SKY.FM</source>
+        <translation type="obsolete">SKY.FM</translation>
+    </message>
+    <message>
+        <source>Jazz Radio</source>
+        <translation type="obsolete">爵士电台</translation>
+    </message>
+    <message>
+        <source>Rock Radio</source>
+        <translation type="obsolete">摇滚电台</translation>
+    </message>
+    <message>
+        <source>Fresca Radio</source>
+        <translation type="obsolete">Fresca电台</translation>
+    </message>
+    <message>
+        <source>Most Played</source>
+        <translation type="obsolete">播放最多</translation>
+    </message>
+    <message>
+        <source>Downloads</source>
+        <translation type="obsolete">下载</translation>
+    </message>
+    <message>
+        <source>Favourited</source>
+        <translation type="obsolete">收藏</translation>
+    </message>
+    <message>
+        <source>Scored</source>
+        <translation type="obsolete">高分</translation>
+    </message>
+    <message>
+        <source>Artists</source>
+        <translation type="obsolete">艺术家</translation>
+    </message>
+    <message>
+        <source>Genres</source>
+        <translation type="obsolete">流派</translation>
+    </message>
+    <message>
+        <source>Formats</source>
+        <translation type="obsolete">格式</translation>
     </message>
 </context>
 <context>
