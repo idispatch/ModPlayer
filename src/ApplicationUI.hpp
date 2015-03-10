@@ -45,6 +45,7 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(bool proximitySensorEnabled READ isProximitySensorEnabled WRITE setProximitySensorEnabled NOTIFY proximitySensorEnabledChanged FINAL)
     Q_PROPERTY(bool shakeSensorEnabled READ isShakeSensorEnabled WRITE setShakeSensorEnabled NOTIFY shakeSensorEnabledChanged FINAL)
     Q_PROPERTY(int maxViewSongs READ maxViewSongs WRITE setMaxViewSongs NOTIFY maxViewSongsChanged FINAL)
+    Q_PROPERTY(QString initialView READ initialView WRITE setInitialView NOTIFY initialViewChanged FINAL)
     Q_PROPERTY(QString title READ title NOTIFY titleChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
     Q_PROPERTY(Player* player READ player NOTIFY playerChanged FINAL)
@@ -82,6 +83,9 @@ public:
     int maxViewSongs() const;
 
     // Object Properties
+    QString initialView() const;
+    void setInitialView(QString const& view);
+
     QString title() const;
     QString version() const;
     Player * player() const;
@@ -115,6 +119,7 @@ Q_SIGNALS:
     void proximitySensorEnabledChanged();
     void shakeSensorEnabledChanged();
     void maxViewSongsChanged();
+    void initialViewChanged();
     void titleChanged();
     void versionChanged();
     void playerChanged();

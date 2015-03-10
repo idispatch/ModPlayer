@@ -75,6 +75,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/HorizontalContainer.qml) \
         $$quote($$BASEDIR/assets/ImportButton.qml) \
         $$quote($$BASEDIR/assets/ImportSongsActionItem.qml) \
+        $$quote($$BASEDIR/assets/InitialViewSelector.qml) \
         $$quote($$BASEDIR/assets/Instruments.qml) \
         $$quote($$BASEDIR/assets/InstrumentsActionItem.qml) \
         $$quote($$BASEDIR/assets/InstrumentsView.qml) \

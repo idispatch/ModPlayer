@@ -211,8 +211,7 @@ Sheet {
                                     }
                                 ]
                             }
-                            ExportCacheButton {
-                            }
+                            ExportCacheButton {}
                         }
                         GroupContainer {
                             topPadding: 20
@@ -254,6 +253,7 @@ Sheet {
                                     color: Color.Black
                                 }
                             }
+                            InitialViewSelector {}
                             PlusFeature {
                                 extendedVersion: VerticalContainer {
                                     BlackLabel {

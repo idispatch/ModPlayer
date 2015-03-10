@@ -462,6 +462,17 @@ void ApplicationUI::setShakeSensorEnabled(bool value) {
     }
 }
 
+QString ApplicationUI::initialView() const {
+    return m_settings.value("ui/initialView", "searchTab").toString();
+}
+
+void ApplicationUI::setInitialView(QString const& view) {
+    if(initialView() != view) {
+        m_settings.setValue("ui/initialView", view);
+        emit initialViewChanged();
+    }
+}
+
 QString ApplicationUI::title() const {
     using namespace bb;
     ApplicationInfo info;

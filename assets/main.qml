@@ -4,13 +4,17 @@ import player 1.0
 TabbedPane {
     id: mainTabPane
     objectName: "mainTabPane"
+    activeTab: searchTab
     Tab {
         id: searchTab
         title: qsTr("Search") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "searchTab"
         imageSource: "asset:///images/actions/icon_search.png"
         description: qsTr("Search Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songSearchView.loadSearchSongs()
         }
@@ -31,10 +35,13 @@ TabbedPane {
     Tab {
         id: myFavouriteTab
         title: qsTr("My Favourite") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "myFavouriteTab"
         imageSource: "asset:///images/actions/icon_myfavourite.png"
         description: qsTr("My Favourite Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songMyFavouriteView.loadMyFavouriteSongs()
         }
@@ -55,10 +62,13 @@ TabbedPane {
     Tab {
         id: localSongsTab
         title: qsTr("Local Songs") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "localSongsTab"
         imageSource: "asset:///images/actions/icon_my_songs.png"
         description: qsTr("Songs on My Device") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songMyLocalView.loadMyLocalSongs()
         }
@@ -79,10 +89,13 @@ TabbedPane {
     Tab {
         id: recentlyPlayedTab
         title: qsTr("Recent") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "recentlyPlayedTab"
         imageSource: "asset:///images/actions/icon_recent.png"
         description: qsTr("Recently Played Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songRecentlyPlayedView.loadRecentlyPlayedSongs()
         }
@@ -103,10 +116,13 @@ TabbedPane {
     Tab {
         id: playlistsTab
         title: qsTr("Playlists") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "playlistsTab"
         description: qsTr("My Playlists") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_playlist.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songPlaylists.load()
         }
@@ -127,10 +143,13 @@ TabbedPane {
     Tab {
         id: albumsTab
         title: qsTr("Albums") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "albumsTab"
         description: qsTr("Albums") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_albums.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songAlbums.load()
         }
@@ -151,10 +170,13 @@ TabbedPane {
     Tab {
         id: filesTab
         title: qsTr("File System") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "filesTab"
         description: qsTr("Files") + Retranslate.onLanguageChanged
         imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_files.png" : "asset:///images/actions/icon_lock.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songFiles.load()
         }
@@ -175,10 +197,13 @@ TabbedPane {
     Tab {
         id: liveStreamTab
         title: "Internet Radio"
-        objectName: title
+        objectName: "liveStreamTab"
         description: qsTr("Live Stream Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_radio.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             liveStream.load()
         }
@@ -199,10 +224,13 @@ TabbedPane {
     Tab {
         id: difmTab
         title: qsTr("Digitally Imported") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "difmTab"
         description: qsTr("Digitally Imported Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_difm.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             difm.load()
         }
@@ -224,10 +252,13 @@ TabbedPane {
     Tab {
         id: skyfmTab
         title: qsTr("SKY.FM") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "skyfmTab"
         description: qsTr("SKY.FM Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_skyfm.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             skyfm.load()
         }
@@ -249,10 +280,13 @@ TabbedPane {
     Tab {
         id: jazzRadioTab
         title: qsTr("Jazz Radio") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "jazzRadioTab"
         description: qsTr("Jazz Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_jazzradio.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             jazzRadio.load()
         }
@@ -274,10 +308,13 @@ TabbedPane {
     Tab {
         id: rockRadioTab
         title: qsTr("Rock Radio") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "rockRadioTab"
         description: qsTr("Rock Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_rockradio.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             rockRadio.load()
         }
@@ -299,10 +336,13 @@ TabbedPane {
     Tab {
         id: frescaFmTab
         title: qsTr("Fresca Radio") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "frescaFmTab"
         description: qsTr("Fresca Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_fresca.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             frescaFM.load()
         }
@@ -324,10 +364,13 @@ TabbedPane {
     Tab {
         id: mostPlayedTab
         title: qsTr("Most Played") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "mostPlayedTab"
         imageSource: "asset:///images/actions/icon_mostplayed.png"
         description: qsTr("Most Played Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songMostPlayedView.loadMostPlayedSongs()
         }
@@ -348,10 +391,13 @@ TabbedPane {
     Tab {
         id: topDownloadsTab
         title: qsTr("Downloads") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "topDownloadsTab"
         imageSource: "asset:///images/actions/icon_downloads.png"
         description: qsTr("Top Downloaded Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songsTopDownloadedView.loadMostDownloadedSongs()
         }
@@ -372,10 +418,13 @@ TabbedPane {
     Tab {
         id: topFavouritedTab
         title: qsTr("Favourited") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "topFavouritedTab"
         imageSource: "asset:///images/actions/icon_favourite.png"
         description: qsTr("Top Favourited Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songTopFavouritedView.loadMostFavouritedSongs()
         }
@@ -396,10 +445,13 @@ TabbedPane {
     Tab {
         id: topScoredTab
         title: qsTr("Scored") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "topScoredTab"
         imageSource: "asset:///images/actions/icon_score.png"
         description: qsTr("Top Scored Songs") + Retranslate.onLanguageChanged
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songTopScoredView.loadMostScoredSongs()
         }
@@ -420,10 +472,13 @@ TabbedPane {
     Tab {
         id: artistsTab
         title: qsTr("Artists") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "artistsTab"
         description: qsTr("Songs By Artist") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_artists.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songArtistsList.load()
         }
@@ -444,10 +499,13 @@ TabbedPane {
     Tab {
         id: genresTab
         title: qsTr("Genres") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "genresTab"
         description: qsTr("Songs By Genre") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_genres.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songGenresList.load()
         }
@@ -468,14 +526,18 @@ TabbedPane {
     Tab {
         id: formatsTab
         title: qsTr("Formats") + Retranslate.onLanguageChanged
-        objectName: title
+        objectName: "formatsTab"
         description: qsTr("Songs By Module Format") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_format.png"
         onTriggered: {
+            load()
+        }
+        function load() {
             app.analytics.showPage(title)
             songFormatsList.load()
         }
-        function unload() {}
+        function unload() {
+        }
         NavigationPane {
             id: formatsNavigationPane
             FormatsList {
@@ -487,18 +549,65 @@ TabbedPane {
             }
         }
     }
-    activeTab: searchTab
     function initialLoad() {
-        songSearchView.loadSearchSongs()
+        console.log("Initial view: " + app.initialView)
+        if(app.initialView == "myFavouriteTab") {
+            mainTabPane.activeTab = myFavouriteTab
+        } else if(app.initialView == "localSongsTab") {
+            mainTabPane.activeTab = localSongsTab
+        } else if(app.initialView == "recentlyPlayedTab") {
+            mainTabPane.activeTab = recentlyPlayedTab
+        } else if(app.initialView == "playlistsTab") {
+            mainTabPane.activeTab = playlistsTab
+        } else if(app.initialView == "albumsTab") {
+            mainTabPane.activeTab = albumsTab
+        } else if(app.initialView == "filesTab") {
+            mainTabPane.activeTab = filesTab
+        } else if(app.initialView == "liveStreamTab") {
+            mainTabPane.activeTab = liveStreamTab
+        } else if(app.initialView == "difmTab") {
+            mainTabPane.activeTab = difmTab
+        } else if(app.initialView == "skyfmTab") {
+            mainTabPane.activeTab = skyfmTab
+        } else if(app.initialView == "jazzRadioTab") {
+            mainTabPane.activeTab = jazzRadioTab
+        } else if(app.initialView == "rockRadioTab") {
+            mainTabPane.activeTab = rockRadioTab
+        } else if(app.initialView == "frescaFmTab") {
+            mainTabPane.activeTab = frescaFmTab
+        } else if(app.initialView == "mostPlayedTab") {
+            mainTabPane.activeTab = mostPlayedTab
+        } else if(app.initialView == "topDownloadsTab") {
+            mainTabPane.activeTab = topDownloadsTab
+        } else if(app.initialView == "topFavouritedTab") {
+            mainTabPane.activeTab = topFavouritedTab
+        } else if(app.initialView == "topScoredTab") {
+            mainTabPane.activeTab = topScoredTab
+        } else if(app.initialView == "artistsTab") {
+            mainTabPane.activeTab = artistsTab
+        } else if(app.initialView == "genresTab") {
+            mainTabPane.activeTab = genresTab
+        } else if(app.initialView == "formatsTab") {
+            mainTabPane.activeTab = formatsTab
+        } else {
+            mainTabPane.activeTab = searchTab
+        }
+        console.log("Initial view object: " + mainTabPane.activeTab)
+        try {
+            mainTabPane.activeTab.load()
+        } catch(err) {
+            mainTabPane.activeTab = searchTab
+            mainTabPane.activeTab.load()
+        }
     }
     onCreationCompleted: {
         app.catalog.upgradeCompleted.connect(initialLoad)
     }
     onActiveTabChanged: {
-        var c = mainTabPane.count()
-        for (var i = 0; i < c; ++i) {
+        var tabCount = mainTabPane.count()
+        for (var i = 0; i < tabCount; ++i) {
             var tab = mainTabPane.at(i)
-            if(tab!=activeTab) {
+            if(tab != activeTab) {
                 tab.unload()
             }
         }
