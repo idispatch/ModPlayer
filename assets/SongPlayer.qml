@@ -291,6 +291,12 @@ Page {
         },
         SleepTimerActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        SettingsMenuAction {
+            ActionBar.placement: ActionBarPlacement.InOverflow
+        },
+        AppWorldActionItem{
+            ActionBar.placement: ActionBarPlacement.InOverflow
         }
     ]
 }

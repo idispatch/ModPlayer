@@ -1280,7 +1280,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="obsolete">购买模块播放器高级版</translation>
+        <translation type="unfinished">购买模块播放器高级版</translation>
     </message>
     <message>
         <source>Device Screen</source>
@@ -1295,7 +1295,7 @@
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation type="obsolete">设置</translation>
+        <translation type="unfinished">设置</translation>
     </message>
 </context>
 <context>

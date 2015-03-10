@@ -37,10 +37,19 @@ Sheet {
                 source: "BuyActionItem.qml"
             }
         ]
+        actions: [
+            SettingsMenuAction {
+                ActionBar.placement: ActionBarPlacement.InOverflow
+            },
+            AppWorldActionItem{
+                ActionBar.placement: ActionBarPlacement.OnBar
+            }
+        ]
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             VerticalContainer {
+
                 leftPadding: 30
                 rightPadding: 30
                 topPadding: 20

@@ -110,6 +110,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SearchArea.qml) \
         $$quote($$BASEDIR/assets/SelectColor.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \
+        $$quote($$BASEDIR/assets/SettingsMenuAction.qml) \
         $$quote($$BASEDIR/assets/ShareSongActionItem.qml) \
         $$quote($$BASEDIR/assets/SleepTimerActionItem.qml) \
         $$quote($$BASEDIR/assets/SleepTimerDisplay.qml) \

@@ -428,77 +428,77 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="56"/>
+        <location filename="../assets/Help.qml" line="65"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is a tracker music player.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="63"/>
+        <location filename="../assets/Help.qml" line="72"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="70"/>
+        <location filename="../assets/Help.qml" line="79"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="77"/>
+        <location filename="../assets/Help.qml" line="86"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; keeps a cache of most recent songs you listened to, and automatically downloads the songs to your device from &lt;i&gt;The Mod Archive&lt;/i&gt; site once you start playing them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="84"/>
+        <location filename="../assets/Help.qml" line="93"/>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="91"/>
+        <location filename="../assets/Help.qml" line="100"/>
         <source>The song cache on your device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="98"/>
+        <location filename="../assets/Help.qml" line="107"/>
         <source>You can configure the song cache size and song count it keeps in &lt;b&gt;ModPlayer&lt;/b&gt; settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="105"/>
+        <location filename="../assets/Help.qml" line="114"/>
         <source>You can configure various options of &lt;b&gt;ModPlayer&lt;/b&gt;, such as &lt;i&gt;mixing frequency&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; playback, &lt;i&gt;mixer quality&lt;/i&gt; and more.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="112"/>
+        <location filename="../assets/Help.qml" line="121"/>
         <source>You can add the songs from the &lt;b&gt;ModPlayer&lt;/b&gt; library to the list of your favourite songs and listen to them later.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="119"/>
+        <location filename="../assets/Help.qml" line="128"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; knows the songs you listened to and you can locate them in the &lt;i&gt;&quot;Recent&quot;&lt;/i&gt;, &lt;i&gt;&quot;Most Played&quot;&lt;/i&gt; and &lt;i&gt;&quot;My Favourite&quot;&lt;/i&gt; tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="126"/>
+        <location filename="../assets/Help.qml" line="135"/>
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="133"/>
+        <location filename="../assets/Help.qml" line="142"/>
         <source>These are the songs that were downloaded, rated and favourited by other users of &lt;i&gt;The Mod Archive&lt;/i&gt; site and it is quite possible you will also enjoy them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="140"/>
+        <location filename="../assets/Help.qml" line="149"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is using the &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; library, one of the best libraries that provides high quality tracker song modules mixing and playback.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="147"/>
+        <location filename="../assets/Help.qml" line="156"/>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="154"/>
+        <location filename="../assets/Help.qml" line="163"/>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1175,266 +1175,279 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="124"/>
+        <location filename="../assets/Settings.qml" line="139"/>
         <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="136"/>
+        <location filename="../assets/Settings.qml" line="151"/>
         <source>Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="151"/>
+        <location filename="../assets/Settings.qml" line="166"/>
         <source>Cached Songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="155"/>
+        <location filename="../assets/Settings.qml" line="170"/>
         <source>Used Cache Size: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="161"/>
-        <location filename="../assets/Settings.qml" line="260"/>
+        <location filename="../assets/Settings.qml" line="176"/>
+        <location filename="../assets/Settings.qml" line="276"/>
         <source>Maximum Songs: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="174"/>
+        <location filename="../assets/Settings.qml" line="189"/>
         <source>Maximum Cache Size: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="198"/>
-        <location filename="../assets/Settings.qml" line="305"/>
-        <location filename="../assets/Settings.qml" line="331"/>
+        <location filename="../assets/Settings.qml" line="213"/>
+        <location filename="../assets/Settings.qml" line="321"/>
+        <location filename="../assets/Settings.qml" line="347"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="187"/>
+        <location filename="../assets/Settings.qml" line="202"/>
         <source>Purge Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="199"/>
+        <location filename="../assets/Settings.qml" line="124"/>
+        <source>Buy ModPlayer Plus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Settings.qml" line="214"/>
         <source>Confirm purging the song cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="210"/>
+        <location filename="../assets/Settings.qml" line="225"/>
         <source>The song cache has been purged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="223"/>
+        <location filename="../assets/Settings.qml" line="239"/>
         <source>Device Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="233"/>
+        <location filename="../assets/Settings.qml" line="249"/>
         <source>Keep screen awake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="248"/>
+        <location filename="../assets/Settings.qml" line="264"/>
         <source>Song List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="286"/>
+        <location filename="../assets/Settings.qml" line="302"/>
         <source>Personal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="295"/>
+        <location filename="../assets/Settings.qml" line="311"/>
         <source>Reset Play Counts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="306"/>
+        <location filename="../assets/Settings.qml" line="322"/>
         <source>Confirm resetting song play counts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="316"/>
+        <location filename="../assets/Settings.qml" line="332"/>
         <source>Song play counts have been reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="321"/>
+        <location filename="../assets/Settings.qml" line="337"/>
         <source>Reset My Favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="332"/>
+        <location filename="../assets/Settings.qml" line="348"/>
         <source>Confirm resetting my favoruites list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="342"/>
+        <location filename="../assets/Settings.qml" line="358"/>
         <source>My favourites list is reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="356"/>
+        <location filename="../assets/Settings.qml" line="372"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="373"/>
+        <location filename="../assets/Settings.qml" line="389"/>
         <source>Mixer Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="383"/>
+        <location filename="../assets/Settings.qml" line="399"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="385"/>
+        <location filename="../assets/Settings.qml" line="401"/>
         <source>Stereo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="390"/>
+        <location filename="../assets/Settings.qml" line="406"/>
         <source>Mono</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="401"/>
+        <location filename="../assets/Settings.qml" line="417"/>
         <source>Bits per Sample</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="424"/>
+        <location filename="../assets/Settings.qml" line="440"/>
         <source>Frequency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="427"/>
+        <location filename="../assets/Settings.qml" line="443"/>
         <source>44100 Hz sampling rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="433"/>
+        <location filename="../assets/Settings.qml" line="449"/>
         <source>22050 Hz sampling rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="439"/>
+        <location filename="../assets/Settings.qml" line="455"/>
         <source>11025 Hz sampling rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="449"/>
+        <location filename="../assets/Settings.qml" line="465"/>
         <source>Resampling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="451"/>
+        <location filename="../assets/Settings.qml" line="467"/>
         <source>Nearest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="452"/>
+        <location filename="../assets/Settings.qml" line="468"/>
         <source>No interpolation (very fast)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="457"/>
+        <location filename="../assets/Settings.qml" line="473"/>
         <source>Linear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="458"/>
+        <location filename="../assets/Settings.qml" line="474"/>
         <source>Linear interpolation (fast, good quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="463"/>
+        <location filename="../assets/Settings.qml" line="479"/>
         <source>Spline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="464"/>
+        <location filename="../assets/Settings.qml" line="480"/>
         <source>Cubic spline interpolation (high quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="469"/>
+        <location filename="../assets/Settings.qml" line="485"/>
         <source>FIR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="470"/>
+        <location filename="../assets/Settings.qml" line="486"/>
         <source>8-tap fir filter (extremely high quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="486"/>
+        <location filename="../assets/Settings.qml" line="502"/>
         <source>Master Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="507"/>
+        <location filename="../assets/Settings.qml" line="523"/>
         <source>Stereo Separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="528"/>
+        <location filename="../assets/Settings.qml" line="544"/>
         <source>Enable Oversampling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="536"/>
+        <location filename="../assets/Settings.qml" line="552"/>
         <source>Enable Noise Reduction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="551"/>
+        <location filename="../assets/Settings.qml" line="567"/>
         <source>Enable Reverb</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="561"/>
+        <location filename="../assets/Settings.qml" line="577"/>
         <source>Reverb Depth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="580"/>
+        <location filename="../assets/Settings.qml" line="596"/>
         <source>Reverb Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="608"/>
+        <location filename="../assets/Settings.qml" line="624"/>
         <source>Enable MegaBass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="618"/>
+        <location filename="../assets/Settings.qml" line="634"/>
         <source>Bass Amount</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="637"/>
+        <location filename="../assets/Settings.qml" line="653"/>
         <source>Bass Cutoff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="665"/>
+        <location filename="../assets/Settings.qml" line="681"/>
         <source>Enable Surround Sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="675"/>
+        <location filename="../assets/Settings.qml" line="691"/>
         <source>Surround Depth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="694"/>
+        <location filename="../assets/Settings.qml" line="710"/>
         <source>Surround Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsMenuAction</name>
+    <message>
+        <location filename="../assets/SettingsMenuAction.qml" line="6"/>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
