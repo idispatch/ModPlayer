@@ -1288,7 +1288,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="obsolete">Купить ModPlayer Plus</translation>
+        <translation type="unfinished">Купить ModPlayer Plus</translation>
     </message>
     <message>
         <source>Playlist Control</source>
@@ -1327,7 +1327,7 @@
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation type="obsolete">Установки</translation>
+        <translation type="unfinished">Установки</translation>
     </message>
 </context>
 <context>

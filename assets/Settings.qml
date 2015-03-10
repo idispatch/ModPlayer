@@ -211,7 +211,8 @@ Sheet {
                                     }
                                 ]
                             }
-                            ExportCacheButton {}
+                            ExportCacheButton {
+                            }
                         }
                         GroupContainer {
                             topPadding: 20

@@ -20,23 +20,6 @@ Sheet {
                 }
             }
         }
-        function addBuyButton() {
-            if(!app.isExtendedVersion) {
-                var buyActionItem = buyAppComponentDefinition.createObject()
-                if(buyActionItem) {
-                    addAction(buyActionItem, ActionBarPlacement.InOverflow)
-                }
-            }
-        }
-        onCreationCompleted: {
-            addBuyButton()
-        }
-        attachedObjects: [
-            ComponentDefinition {
-                id: buyAppComponentDefinition
-                source: "BuyActionItem.qml"
-            }
-        ]
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
