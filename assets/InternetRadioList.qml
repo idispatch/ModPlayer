@@ -104,10 +104,12 @@ Page {
     onCreationCompleted: {
         app.player.requestPlayerView.connect(function() {
             if(mainTabPane.activePane == navigationPane && 
-               navigationPane.top == internetRadioPage) {
+                navigationPane.top == internetRadioPage) {
                 var view = songPlayer.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
+                if(view) {
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                }
             }
         })
         app.player.radio.downloadFinished.connect(function(playlist,result) {

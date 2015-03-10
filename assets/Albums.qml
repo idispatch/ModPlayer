@@ -143,18 +143,19 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = albumsPage
         app.player.requestPlayerView.connect(function() {
-             if(mainTabPane.activePane == navigationPane && 
-                navigationPane.top == albumsPage) {
-                 showPlayer()
-             }
+            if(mainTabPane.activePane == navigationPane && 
+               navigationPane.top == thisObject) {
+                showPlayer()
+            }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
-            if(responseId != requestId) 
-                return
-            requestId = 0
-            albumsList.dataModel = result
-            progress.stop()
+            if(responseId == thisObject.requestId) { 
+                thisObject.requestId = 0
+                albumsList.dataModel = result
+                progress.stop()
+            }
         })
         addBuyButton()
     }

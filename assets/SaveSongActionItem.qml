@@ -40,10 +40,11 @@ ActionItem {
         filePicker.open()
     }
     onCreationCompleted: {
+        var thisObject = saveSongActionItem
         app.cache.currentFilesChanged.connect(function() {
             // a trick to refresh enabled: property
-            certain = false
-            certain = true
+            thisObject.certain = false
+            thisObject.certain = true
         })
     }
     attachedObjects: [

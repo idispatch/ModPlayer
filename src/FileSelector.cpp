@@ -15,7 +15,9 @@
 #endif
 
 FileSelector::FileSelector(QStringList const &filters)
-     : m_filters(filters)
+     : m_thread(0),
+       m_filters(filters),
+       m_numFoundFiles(0)
 {}
 
 FileSelector::~FileSelector() {
@@ -109,38 +111,55 @@ void FileSelector::processPlaylist(QString const& playlist,
 
 void FileSelector::processPlaylists(QSet<QString> const& playlists,
                                     QSet<QString> const& foundFiles) {
-#ifdef VERBOSE_LOGGING
-    qDebug() << "Found files:" << foundFiles.size();
-    foreach(QString const& songPath, foundFiles) {
-        qDebug() << songPath;
-    }
-    qDebug() << "Processing" << playlists.size() << "playlists";
-#endif
     foreach(QString const& playlist, playlists) {
         processPlaylist(playlist, foundFiles);
     }
 }
 
+int FileSelector::foundFiles() const {
+    return m_numFoundFiles;
+}
+
+int FileSelector::foundPlaylists() const {
+    return m_numFoundPlaylists;
+}
+
 void FileSelector::start() {
-    bool rc;
-    Q_UNUSED(rc);
+    if(m_thread == 0) {
+        bool rc;
+        Q_UNUSED(rc);
 
-    QThread * thread = new QThread(0);
-    moveToThread(thread);
+        m_numFoundFiles = 0;
+        m_numFoundPlaylists = 0;
 
-    rc = QObject::connect(thread, SIGNAL(started()),
-                          this,   SLOT(selectFiles()));
-    Q_ASSERT(rc);
+        m_thread = new QThread(0);
+        moveToThread(m_thread);
 
-    rc = QObject::connect(thread, SIGNAL(finished()),
-                          this,   SLOT(deleteLater()));
-    Q_ASSERT(rc);
+        rc = QObject::connect(m_thread, SIGNAL(started()),
+                              this,     SLOT(selectFiles()));
+        Q_ASSERT(rc);
 
-    rc = QObject::connect(thread, SIGNAL(finished()),
-                          thread, SLOT(deleteLater()));
-    Q_ASSERT(rc);
+        rc = QObject::connect(this, SIGNAL(stopRequested()),
+                              this, SLOT(onStopRequested()),
+                              Qt::QueuedConnection);
+        Q_ASSERT(rc);
 
-    thread->start(QThread::HighPriority);
+        m_thread->start(QThread::HighPriority);
+    }
+}
+
+void FileSelector::stop() {
+    emit stopRequested();
+    m_thread->wait();
+    delete m_thread;
+    m_thread = 0;
+}
+
+void FileSelector::onStopRequested() {
+    if(m_thread) {
+        deleteLater();
+        m_thread->quit();
+    }
 }
 
 void FileSelector::selectFiles() {
@@ -158,6 +177,8 @@ void FileSelector::selectFiles() {
         "/accounts/1000/removable/sdcard"
     };
 #endif
+    m_numFoundFiles = 0;
+    m_numFoundPlaylists = 0;
     QSet<QString> foundFiles;
     QSet<QString> foundPlaylists;
     for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
@@ -200,9 +221,11 @@ void FileSelector::scanDirectory(const char * path,
                             if(st.st_mode & S_IFREG) {
                                 if(playlistMatches(absoluteFileName)) {
                                     foundPlaylists << absoluteFileName;
+                                    m_numFoundPlaylists.ref();
                                 }
                                 if(fileMatches(absoluteFileName)) {
                                     foundFiles << absoluteFileName;
+                                    m_numFoundFiles.ref();
                                     emit foundFile(absoluteFileName);
                                 }
                             }

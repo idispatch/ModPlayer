@@ -83,17 +83,19 @@ Sheet {
                                 }
                                 VerticalContainer {
                                     BlackLabel {
+                                        id: catalogSongCount
                                         property int requestId
                                         textFormat: TextFormat.Html
                                         onCreationCompleted: {
                                             text = qsTr("Catalog songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
+                                            var thisObject = catalogSongCount
                                             app.catalog.resultReady.connect(function(responseId, result) {
-                                                    if(responseId == requestId) {
-                                                        requestId = 0
-                                                        text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
-                                                    }
+                                                if(responseId == thisObject.requestId) {
+                                                    thisObject.requestId = 0
+                                                    text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                }
                                             })
-                                        requestId = app.catalog.songCountAsync()
+                                            catalogSongCount.requestId = app.catalog.songCountAsync()
                                         }
                                     }
                                     BlackLabel {
@@ -101,17 +103,18 @@ Sheet {
                                         property int requestId
                                         textFormat: TextFormat.Html
                                         onCreationCompleted: {
+                                            var thisObject = personalSongCount
                                             app.player.importCompleted.connect(updateCount)
+                                            app.catalog.resultReady.connect(function(responseId, result) {
+                                                if(responseId == thisObject.requestId) {
+                                                    thisObject.requestId = 0
+                                                    text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                }
+                                            })
                                             updateCount()
                                         }
                                         function updateCount() {
                                             text = qsTr("Personal songs: <b>%1</b>").arg("calculating...") + Retranslate.onLanguageChanged
-                                            app.catalog.resultReady.connect(function(responseId, result) {
-                                                if(responseId == personalSongCount.requestId) {
-                                                    personalSongCount.requestId = 0
-                                                    text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
-                                                }
-                                            })
                                             personalSongCount.requestId = app.catalog.personalSongCountAsync()
                                         }
                                     }

@@ -108,21 +108,24 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = genresPage
         app.player.requestPlayerView.connect(function() {
             if(mainTabPane.activePane == navigationPane && 
                navigationPane.top == genresPage) {
                 var view = songPlayer.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
+                if(view) {
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                }
             }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
-            if(responseId != requestId) 
-                return
-            requestId = 0
-            progress.stop()
-            genresList.visible = true
-            genresList.dataModel = result
+            if(responseId == thisObject.requestId) {
+                thisObject.requestId = 0
+                progress.stop()
+                genresList.visible = true
+                genresList.dataModel = result
+            } 
         })
         addBuyButton()
     }

@@ -80,21 +80,24 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = formatsPage
         app.player.requestPlayerView.connect(function() {
             if(mainTabPane.activePane == navigationPane && 
                navigationPane.top == formatsPage) {
                 var view = songPlayer.createObject()
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
+                if(view) {
+                    view.navigationPane = navigationPane
+                    navigationPane.push(view)
+                }
             }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
-            if(responseId != requestId) 
-                return
-            requestId = 0
-            progress.stop()
-            formatsList.visible = true
-            formatsList.dataModel = result
+            if(responseId == thisObject.requestId) {
+                thisObject.requestId = 0
+                progress.stop()
+                formatsList.visible = true
+                formatsList.dataModel = result
+            } 
         })
         addBuyButton()
     }

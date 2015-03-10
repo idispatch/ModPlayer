@@ -31,6 +31,22 @@ public:
         return *this;
     }
 
+    MessageBox& setShowProgress(bool active) {
+        if(active) {
+            m_progress.setState(bb::system::SystemUiProgressState::Active);
+        } else {
+            m_progress.setState(bb::system::SystemUiProgressState::Inactive);
+        }
+        m_progress.show();
+        return *this;
+    }
+
+    MessageBox& setActivityIndicatorVisible(bool visible) {
+        m_progress.setActivityIndicatorVisible(visible);
+        m_progress.show();
+        return *this;
+    }
+
     MessageBox& setBody(QString const & body) {
         m_progress.setBody(body);
         m_progress.show();

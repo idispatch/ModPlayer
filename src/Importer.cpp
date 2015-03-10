@@ -1,6 +1,5 @@
 #include "Importer.hpp"
 #include "FileUtils.hpp"
-#include "FileSelector.hpp"
 #include "Analytics.hpp"
 #include "SongExtendedInfo.hpp"
 #include "SongFormat.hpp"
@@ -24,9 +23,12 @@ Importer::Importer(QStringList const& filters,
                    Catalog * catalog,
                    QObject * parent)
     : QObject(parent),
+      m_selector(0),
       m_filters(filters),
       m_catalog(catalog),
       m_messageBox(tr("Importing Songs and Playlists"), ""),
+      m_numProcessedSongs(0),
+      m_numProcessedPlaylists(0),
       m_numImportedSongs(0),
       m_numImportedPlaylists(0),
       m_nextId(-1) {
@@ -56,6 +58,8 @@ void Importer::removeMissingSongs() {
     if(m_catalog->getLocalSongs(songs)) {
         qDebug() << "Local songs:" << songs.size();
         if(m_catalog->transaction()) {
+            m_messageBox.setShowProgress(true);
+            m_messageBox.setActivityIndicatorVisible(true);
             for(size_t i = 0; i < songs.size(); ++i) {
                 if((i % 10) == 0) {
                     m_messageBox.setBody(tr("Removing missing songs from library..."));
@@ -70,12 +74,19 @@ void Importer::removeMissingSongs() {
                     m_knownFileNames.insert(songs[i].filePath());
                 }
                 m_nextId = std::min(songs[i].id() - 1, m_nextId);
+
+                m_messageBox.setProgress(int(double(i + 1) * 100.0 / songs.size()));
             }
+
+            m_messageBox.setProgress(-1);
             m_catalog->commit();
         }
     }
 
     m_messageBox.setBody(tr("Updating songs library..."));
+    m_messageBox.setShowProgress(true);
+    m_messageBox.setProgress(-1);
+    m_messageBox.setActivityIndicatorVisible(true);
     m_catalog->houseKeep();
 }
 
@@ -92,36 +103,44 @@ bool Importer::lastImportPerformed(QDateTime &date) {
 }
 
 void Importer::start() {
+    m_numProcessedSongs = 0;
+    m_numProcessedPlaylists = 0;
+
     m_numImportedSongs = 0;
     m_numImportedPlaylists = 0;
+
     m_nextId = -1;
     m_genreCache.clear();
     m_artistCache.clear();
 
     removeMissingSongs();
 
-    FileSelector * selector = new FileSelector(m_filters);
+    m_selector = new FileSelector(m_filters);
 
     bool rc;
     Q_UNUSED(rc);
-    rc = QObject::connect(selector, SIGNAL(foundFile(QString const&)),
-                          this,     SLOT(onFoundFile(QString const&)),
+    // On new file
+    rc = QObject::connect(m_selector, SIGNAL(foundFile(QString const&)),
+                          this,       SLOT(onFoundFile(QString const&)),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
-    rc = QObject::connect(selector, SIGNAL(foundPlaylist(QString const&, QVector<QString> const&)),
-                          this,     SLOT(onFoundPlaylist(QString const&, QVector<QString> const&)),
+    // On new playlist
+    rc = QObject::connect(m_selector, SIGNAL(foundPlaylist(QString const&, QVector<QString> const&)),
+                          this,       SLOT(onFoundPlaylist(QString const&, QVector<QString> const&)),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
-    rc = QObject::connect(selector, SIGNAL(searchingDirectory(QString const&)),
-                          this,     SLOT(onSearchingDirectory(QString const&)),
+    // On new directory
+    rc = QObject::connect(m_selector, SIGNAL(searchingDirectory(QString const&)),
+                          this,       SLOT(onSearchingDirectory(QString const&)),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
-    rc = QObject::connect(selector, SIGNAL(done()),
-                          this,     SLOT(onSearchCompleted()),
+    // On new done
+    rc = QObject::connect(m_selector, SIGNAL(done()),
+                          this,       SLOT(onSearchCompleted()),
                           Qt::QueuedConnection);
     Q_ASSERT(rc);
 
-    selector->start();
+    m_selector->start();
 }
 
 void Importer::onSearchCompleted() {
@@ -144,10 +163,13 @@ void Importer::onSearchCompleted() {
     Analytics::getInstance()->importedPlaylistCount(m_numImportedPlaylists);
 
     updateLastImportedInfo();
-
+    m_messageBox.setProgress(-1);
+    m_messageBox.setActivityIndicatorVisible(false);
     m_messageBox.enableButton(true);
     m_messageBox.run();
     emit searchCompleted();
+
+    m_selector->stop();
 }
 
 void Importer::updateLastImportedInfo() {
@@ -163,26 +185,52 @@ void Importer::onSearchingDirectory(QString const& location) {
 }
 
 void Importer::onFoundFile(QString const& fileName) {
-    if(m_knownFileNames.find(fileName) != m_knownFileNames.end()) {
-        return; // already exists
-    }
-    if(SongFormat::isTrackerSong(fileName)) {
-        importTrackerSong(fileName);
+    m_numProcessedSongs++;
+    const int foundFiles = m_selector->foundFiles();
+    int progress;
+
+    if(foundFiles > m_numProcessedSongs) {
+        const double ratio = (double(m_numProcessedSongs) / foundFiles) * 100.0;
+        progress = int(ratio);
     } else {
-        importTaggedSong(fileName);
+        progress = -1;
     }
+
+    if(m_knownFileNames.find(fileName) == m_knownFileNames.end()) {
+        if(SongFormat::isTrackerSong(fileName)) {
+            importTrackerSong(fileName);
+        } else {
+            importTaggedSong(fileName);
+        }
+    }
+
+    m_messageBox.setProgress(progress);
 }
 
 void Importer::onFoundPlaylist(QString const& playlistName,
                                QVector<QString> const& songs) {
+    m_numProcessedPlaylists++;
+    const int foundPlaylists = m_selector->foundPlaylists();
+    int progress;
+
+    if(foundPlaylists > m_numProcessedPlaylists) {
+        const double ratio = (double(m_numProcessedPlaylists) / foundPlaylists) * 100.0;
+        progress = int(ratio);
+    } else {
+        progress = -1;
+    }
+
+
 #ifdef VERBOSE_LOGGING
     qDebug() << "Found playlist" << playlistName << "with" << songs << "songs";
 #endif
+
     if(songs.empty()) {
         return;
     }
 
     m_messageBox.setBody(tr("Processing playlist %1...").arg(playlistName));
+    m_messageBox.setProgress(progress);
 
     m_catalog->deletePlaylistByName(playlistName);
 

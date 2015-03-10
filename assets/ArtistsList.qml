@@ -116,9 +116,10 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = artistsPage
         app.player.requestPlayerView.connect(function() {
             if(mainTabPane.activePane == navigationPane && 
-               navigationPane.top == artistsPage) {
+               navigationPane.top == thisObject) {
                 var view = songPlayer.createObject()
                 if(view) {
                     view.navigationPane = navigationPane
@@ -127,11 +128,11 @@ Page {
             }
         })
         app.catalog.resultReady.connect(function(responseId, result) {
-            if(responseId != requestId) 
-                return
-            requestId = 0
-            artistsList.dataModel = result
-            progress.stop()
+            if(responseId == thisObject.requestId) { 
+                thisObject.requestId = 0
+                artistsList.dataModel = result
+                progress.stop()
+            }
         })
         addBuyButton()
     }

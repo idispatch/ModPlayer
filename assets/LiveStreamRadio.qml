@@ -346,24 +346,27 @@ Page {
          }
      }
      onCreationCompleted: {
+         var thisObject = liveStreamRadioPage
          app.player.requestPlayerView.connect(function() {
               if(mainTabPane.activePane == navigationPane && 
                  navigationPane.top == liveStreamRadioPage) {
                   var view = songPlayer.createObject()
-                  view.navigationPane = navigationPane
-                  navigationPane.push(view)
+                  if(view) {
+                      view.navigationPane = navigationPane
+                      navigationPane.push(view)
+                  }
               }
          })
          app.catalog.resultReady.connect(function(responseId, result) {
-              if(responseId != requestId) 
-                  return
-              requestId = 0
-              progress.stop()
-              radioList.visible = true
-              radioList.dataModel = result
+              if(responseId == thisObject.requestId) {
+                  thisObject.requestId = 0
+                  progress.stop()
+                  radioList.visible = true
+                  radioList.dataModel = result
+              } 
          })
-         app.player.radio.downloadFinished.connect(function(playlist,result) {
-             if(playlist == playlistURL && result.length > 0) {
+         app.player.radio.downloadFinished.connect(function(playlist, result) {
+             if(playlist == thisObject.playlistURL && result.length > 0) {
                  app.analytics.playRadio(playlist)
                  var flag = ""
                  if(selectedRadio) {
