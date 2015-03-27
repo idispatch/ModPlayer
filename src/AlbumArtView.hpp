@@ -52,7 +52,7 @@ class AlbumArtLoader : public QObject
     Q_OBJECT
 public:
     enum {
-        MAX_IMAGE_SIZE = 2*1024*1024
+        MAX_IMAGE_SIZE = 4*1024*1024 // 4 MB
     };
     AlbumArtLoader(QObject * parent = 0)
         : QObject(parent)

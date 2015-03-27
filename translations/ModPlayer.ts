@@ -1501,6 +1501,14 @@
     </message>
 </context>
 <context>
+    <name>SongAlbumArt</name>
+    <message>
+        <location filename="../assets/SongAlbumArt.qml" line="91"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SongArtistInfo</name>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="37"/>

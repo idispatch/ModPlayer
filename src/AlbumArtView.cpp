@@ -98,27 +98,27 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
                 "folder.jpeg",
                 "folder.jpg",
                 "folder.png",
-                
+
                 "cover.jpeg",
                 "cover.jpg",
                 "cover.png",
-                
+
                 "cd.jpeg",
                 "cd.jpg",
                 "cd.png",
-                
+
                 "front.jpeg",
                 "front.jpg",
                 "front.png",
-                
+
                 "back.jpeg",
                 "back.jpg",
                 "back.png",
-                
+
                 "inside.jpeg",
                 "inside.jpg",
                 "inside.png",
-                
+
                 "inlay.jpeg",
                 "inlay.jpg",
                 "inlay.png",
@@ -292,7 +292,7 @@ QByteArray AlbumArtLoader::loadAlbumArtFile(QString const& directory,
                                                                    currentFileName);
                     struct stat64 st;
                     if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
-                        if((st.st_mode & S_IFREG) && st.st_size < MAX_IMAGE_SIZE) {
+                        if(S_ISREG(st.st_mode) && st.st_size <= MAX_IMAGE_SIZE) {
                             QFile file(absoluteFileName);
                             if(file.open(QIODevice::ReadOnly)) {
                                 data = file.readAll();
@@ -422,7 +422,7 @@ AlbumArtView::AlbumArtView(bb::cascades::Container *parent)
     Q_ASSERT(rc);
     Q_UNUSED(rc);
 
-    m_workerThread.start();
+    m_workerThread.start(QThread::LowPriority);
 }
 
 AlbumArtView::~AlbumArtView() {

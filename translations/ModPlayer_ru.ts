@@ -1394,6 +1394,13 @@
     </message>
 </context>
 <context>
+    <name>SongAlbumArt</name>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Закрыть</translation>
+    </message>
+</context>
+<context>
     <name>SongArtistInfo</name>
     <message>
         <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
