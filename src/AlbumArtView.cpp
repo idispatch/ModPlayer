@@ -88,14 +88,87 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
     if(!found || data.isEmpty()) {
         QString directory = FileUtils::directoryOnly(fileName);
 
-        data = data.isEmpty() ? loadAlbumArtFile(directory) : data;
-        data = data.isEmpty() ? loadAlbumArtFile(directory, "folder.jpg") : data;
-        data = data.isEmpty() ? loadAlbumArtFile(directory, "folder.png") : data;
-        data = data.isEmpty() ? loadAlbumArtFile(directory, "cover.jpg") : data;
-        data = data.isEmpty() ? loadAlbumArtFile(directory, "cover.png") : data;
-        data = data.isEmpty() ? loadAlbumArtFile(directory, "front.jpg") : data;
-        data = data.isEmpty() ? loadAlbumArtFile(directory, "front.png") : data;
-        data = data.isEmpty() ? loadSingleImage(directory) : data;
+        do
+        {
+            data = loadAlbumArtFile(directory);
+            if(!data.isEmpty())
+                break;
+
+            const char * candidates[] = {
+                "folder.jpeg",
+                "folder.jpg",
+                "folder.png",
+                
+                "cover.jpeg",
+                "cover.jpg",
+                "cover.png",
+                
+                "cd.jpeg",
+                "cd.jpg",
+                "cd.png",
+                
+                "front.jpeg",
+                "front.jpg",
+                "front.png",
+                
+                "back.jpeg",
+                "back.jpg",
+                "back.png",
+                
+                "inside.jpeg",
+                "inside.jpg",
+                "inside.png",
+                
+                "inlay.jpeg",
+                "inlay.jpg",
+                "inlay.png",
+            };
+            const size_t numCandidates = sizeof(candidates)/sizeof(candidates[0]);
+
+            for(size_t i = 0; i < numCandidates && data.isEmpty(); ++i) {
+                data = loadAlbumArtFile(directory, candidates[i]);
+            }
+
+            if(!data.isEmpty()) {
+                break;
+            } else {
+                const char * subDirs[] = {
+                    "Covers",
+                    "covers",
+                    "Cover",
+                    "cover",
+                    "CD",
+                    "cd",
+                    "Artworks",
+                    "artworks",
+                    "AlbumArt",
+                    "Extras",
+                    "Scans",
+                    "scans",
+                    "Misc",
+                    "misc",
+                    "Art",
+                    "art"
+                };
+                const size_t numSubDirs = sizeof(subDirs)/sizeof(subDirs[0]);
+                for(size_t j = 0; j < numSubDirs && data.isEmpty(); ++j) {
+                    const QString coversDirectory = FileUtils::joinPath(directory, subDirs[j]);
+                    if(FileUtils::directoryExists(coversDirectory)) {
+                        for(size_t i = 0; i < numCandidates && data.isEmpty(); ++i) {
+                            data = loadAlbumArtFile(coversDirectory, candidates[i]);
+                        }
+                    }
+                }
+            }
+
+            if(!data.isEmpty())
+                break;
+
+            data = loadSingleImage(directory);
+            if(!data.isEmpty())
+                break;
+
+        } while(false);
     }
 
     emit resultReady(data);
@@ -303,6 +376,7 @@ QByteArray AlbumArtLoader::loadSingleImage(QString const& directory) {
                 if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
                     if(st.st_mode & S_IFREG) {
                         if(fileName.endsWith(".jpg", Qt::CaseInsensitive) ||
+                           fileName.endsWith(".jpeg", Qt::CaseInsensitive) ||
                            fileName.endsWith(".png", Qt::CaseInsensitive)) {
                             if(!foundFiles.empty()) {
                                 return data;

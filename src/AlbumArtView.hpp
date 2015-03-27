@@ -67,11 +67,11 @@ private:
     QByteArray loadAlbumArtFile(QString const& directory,
                                 QString const& fileName);
 
-    bool extractAPE(TagLib::APE::Tag* tag, QByteArray& target);
-    bool extractID3(TagLib::ID3v2::Tag* tag, QByteArray& target);
-    bool extractASF(TagLib::ASF::File* file, QByteArray& target);
-    bool extractFLAC(TagLib::FLAC::File* file, QByteArray& target);
-    bool extractMP4(TagLib::MP4::File* file, QByteArray& target);
+    static bool extractAPE(TagLib::APE::Tag* tag, QByteArray& target);
+    static bool extractID3(TagLib::ID3v2::Tag* tag, QByteArray& target);
+    static bool extractASF(TagLib::ASF::File* file, QByteArray& target);
+    static bool extractFLAC(TagLib::FLAC::File* file, QByteArray& target);
+    static bool extractMP4(TagLib::MP4::File* file, QByteArray& target);
 
     QByteArray loadAlbumArtFile(QString const& directory);
     QByteArray loadSingleImage(QString const& directory);

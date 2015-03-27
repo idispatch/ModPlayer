@@ -208,9 +208,9 @@ void Cache::cache(QString const& fileName) {
 
 bool Cache::fileExists(QString const& fileName) {
     if(FileUtils::isAbsolute(fileName)) {
-        return FileUtils::exists(fileName);
+        return FileUtils::fileExists(fileName);
     } else {
-        return FileUtils::exists(FileUtils::joinPath(cachePath(), fileName));
+        return FileUtils::fileExists(FileUtils::joinPath(cachePath(), fileName));
     }
 }
 
@@ -238,7 +238,7 @@ void Cache::save(QString const& cacheFileName, QString const& newFileName) {
     {
         QString absoluteCacheFileName = absoluteFileName(cacheFileName);
         bool copyOk;
-        if(FileUtils::exists(newFileName))
+        if(FileUtils::fileExists(newFileName))
         {
             if(QFile::remove(newFileName)) {
                 copyOk = true;
@@ -279,7 +279,7 @@ void Cache::exportCache(QString const& directory) {
         {
             QString destinationFileName(FileUtils::joinPath(targetDirectory, i->second.name()));
 
-            if(FileUtils::exists(destinationFileName))
+            if(FileUtils::fileExists(destinationFileName))
             {
                 if(!QFile::remove(destinationFileName))
                 {
