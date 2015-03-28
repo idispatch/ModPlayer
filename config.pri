@@ -403,6 +403,7 @@ config_pri_assets {
 config_pri_source_group1 {
     SOURCES += \
         $$quote($$BASEDIR/src/Album.cpp) \
+        $$quote($$BASEDIR/src/AlbumArtLoader.cpp) \
         $$quote($$BASEDIR/src/AlbumArtView.cpp) \
         $$quote($$BASEDIR/src/Analytics.cpp) \
         $$quote($$BASEDIR/src/ApplicationUI.cpp) \
@@ -521,6 +522,7 @@ config_pri_source_group1 {
 
     HEADERS += \
         $$quote($$BASEDIR/src/Album.hpp) \
+        $$quote($$BASEDIR/src/AlbumArtLoader.hpp) \
         $$quote($$BASEDIR/src/AlbumArtView.hpp) \
         $$quote($$BASEDIR/src/Analytics.hpp) \
         $$quote($$BASEDIR/src/ApplicationUI.hpp) \
