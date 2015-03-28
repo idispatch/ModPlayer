@@ -33,7 +33,7 @@ QString Catalog::catalogPath() const {
 void Catalog::copyCatalogToDataFolder() {
     // If the catalog does not exist in app sandbox then the app was started the first time
     // Copy the initial catalog to the app sandbox
-    if(!FileUtils::exists(catalogPath())) {
+    if(!FileUtils::fileExists(catalogPath())) {
 
         qDebug() << "Personal catalog does not exist at" << catalogPath();
 
@@ -45,7 +45,7 @@ void Catalog::copyCatalogToDataFolder() {
         QString originalFileName = FileUtils::joinPath(appFolder, "app/native/assets");
         originalFileName = FileUtils::joinPath(originalFileName, CATALOG_NAME);
 
-        if(FileUtils::exists(originalFileName)) {
+        if(FileUtils::fileExists(originalFileName)) {
             QFile originalFile(originalFileName);
             qDebug() << "Original catalog is at" << originalFileName;
             if(!originalFile.copy(catalogPath())) {

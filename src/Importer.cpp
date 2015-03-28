@@ -64,7 +64,7 @@ void Importer::removeMissingSongs() {
                 if((i % 10) == 0) {
                     m_messageBox.setBody(tr("Removing missing songs from library..."));
                 }
-                if(!FileUtils::exists(songs[i].filePath())) {
+                if(!FileUtils::fileExists(songs[i].filePath())) {
                     qDebug() << "Missing song: id:" << songs[i].id() << ", path:" << songs[i].filePath();
                     QString fileNameOnly = FileUtils::fileNameOnly(songs[i].filePath());
                     m_messageBox.setBody(tr("Removing missing %1").arg(fileNameOnly));
@@ -362,7 +362,7 @@ bool Importer::importTrackerSong(QString const& fileName)
     m_messageBox.setBody(tr("Importing %1").arg(fileNameOnly));
 
     QFile inputFile(fileName);
-    if(!FileUtils::exists(fileName)) {
+    if(!FileUtils::fileExists(fileName)) {
         qDebug() << "File does not exist" << fileName;
         return false;
     }

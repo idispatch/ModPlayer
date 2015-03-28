@@ -36,16 +36,17 @@
 #include "Radio.hpp"
 #include "WebImageView.hpp"
 #include "AlbumArtView.hpp"
+#include "AlbumArtLoader.hpp"
 #include "InternetRadio.hpp"
 #include "Wallpaper.hpp"
 #include "FileEntry.hpp"
 
 template<typename T>
+inline
 void dumpInstanceCount(const char * className) {
-    std::cerr << "* " << className << " objects: "
-              << T::getInstanceCount()
-              << ", max count: "
-              << T::getMaxInstanceCount()
+    std::cerr << "* " << className
+              << " objects: "    << T::getInstanceCount()
+              << ", max count: " << T::getMaxInstanceCount()
               << std::endl;
 }
 
@@ -80,6 +81,7 @@ static void dumpInstanceCounts() {
     DUMP_COUNT(Radio)
     DUMP_COUNT(WebImageView)
     DUMP_COUNT(AlbumArtView)
+    DUMP_COUNT(AlbumArtLoader)
     DUMP_COUNT(InternetRadio)
     DUMP_COUNT(Wallpaper)
     DUMP_COUNT(FileEntry)

@@ -83,7 +83,7 @@ void FileSelector::processPlaylist(QString const& playlist,
 #endif
            continue;
        }
-       if(FileUtils::exists(fullSongPath)) {
+       if(FileUtils::fileExists(fullSongPath)) {
            if(foundFiles.contains(fullSongPath)) {
                playlistFiles << fullSongPath;
            } else {

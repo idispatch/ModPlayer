@@ -301,9 +301,6 @@ void PatternView::updateCanvas() {
 
         if(m_canvas == NULL)
         {
-#if 0
-            qDebug() << "Canvas: width=" << width << "height=" << height;
-#endif
             m_canvas = new Canvas(width, height, this);
         }
 
@@ -444,15 +441,6 @@ void PatternView::updateCanvas() {
                     else
                     {
                         foreground_color = idle_foreground_color;
-#if 0
-                        if(cell.Instrument != 0)
-                        {
-                            buffer[0] = 'v';
-                            buffer[1] = (cell.Volume / 10) + '0';
-                            buffer[2] = (cell.Volume % 10) + '0';
-                            foreground_color = volume_foreground_color;
-                        }
-#endif
                     }
                 }
 
@@ -620,7 +608,10 @@ void PatternView::onChannelsChanged() {
 
 void PatternView::onCurrentRowChanged() {
     if(m_cursor != NULL && m_song != NULL) {
-        const int row = m_song->currentRow();
+        int row = m_song->currentRow();
+        if(row < 0) {
+            row = 0;
+        }
         AbsoluteLayoutProperties * p = qobject_cast<AbsoluteLayoutProperties*>(m_cursor->layoutProperties());
         p->setPositionY((row + 2) * m_fontHeight * m_fontScale);
     }

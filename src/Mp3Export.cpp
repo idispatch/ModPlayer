@@ -34,7 +34,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
     qDebug() << "Comment:" << comment;
 #endif
     QFile inputFile(inputFileName);
-    if(!FileUtils::exists(inputFileName)) {
+    if(!FileUtils::fileExists(inputFileName)) {
         qDebug() << "Input file" << inputFileName << "does not exist";
         return result;
     }
@@ -44,7 +44,7 @@ bool Mp3Export::convert(PlaybackConfig &config,
     }
 
     QFile outputFile(outputFileName);
-    if(FileUtils::exists(outputFileName)) {
+    if(FileUtils::fileExists(outputFileName)) {
         qDebug() << "Deleting output file" << outputFileName;
         if(!outputFile.remove()) {
             qDebug() << "Failed to delete output file" << outputFileName;

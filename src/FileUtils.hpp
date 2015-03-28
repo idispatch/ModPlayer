@@ -15,7 +15,8 @@ public:
     static QString extension(QString const& fileName);
 
     static bool adjustPermissions(QString const& fileName);
-    static bool exists(QString const& fileName);
+    static bool fileExists(QString const& fileName);
+    static bool directoryExists(QString const& directoryName);
 };
 
 #endif /* FILEUTILS_HPP_ */

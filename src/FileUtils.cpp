@@ -78,7 +78,12 @@ bool FileUtils::adjustPermissions(QString const& fileName) {
                                  QFile::ReadOther | QFile::WriteOther);
 }
 
-bool FileUtils::exists(QString const& fileName) {
+bool FileUtils::fileExists(QString const& fileName) {
     struct stat64 st;
-    return ::stat64(fileName.toUtf8().constData(), &st) == 0;
+    return ::stat64(fileName.toUtf8().constData(), &st) == 0 && S_ISREG(st.st_mode);
+}
+
+bool FileUtils::directoryExists(QString const& directoryName) {
+    struct stat64 st;
+    return ::stat64(directoryName.toUtf8().constData(), &st) == 0 && S_ISDIR(st.st_mode);
 }
