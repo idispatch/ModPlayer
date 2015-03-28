@@ -35,7 +35,7 @@
     <name>AppWorldActionItem</name>
     <message>
         <source>Review in BlackBerry World</source>
-        <translation type="unfinished">Review in BlackBerry World</translation>
+        <translation>在BlackBerry World中评价</translation>
     </message>
 </context>
 <context>
@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>ModPlayer Plus is not purchased.</source>
-        <translation type="unfinished">ModPlayer Plus is not purchased.</translation>
+        <translation>模块播放器高级版未购买。</translation>
     </message>
 </context>
 <context>
@@ -316,7 +316,7 @@
     <name>EqualizerActionItem</name>
     <message>
         <source>Equalizer Preset</source>
-        <translation type="unfinished">Equalizer Preset</translation>
+        <translation>预设均衡器</translation>
     </message>
 </context>
 <context>
@@ -549,7 +549,7 @@
     <name>InitialViewSelector</name>
     <message>
         <source>Start View</source>
-        <translation type="unfinished">Start View</translation>
+        <translation>开始查看</translation>
     </message>
     <message>
         <source>Search</source>
@@ -894,15 +894,15 @@
     <name>PlaylistSensorControl</name>
     <message>
         <source>Playlist Control</source>
-        <translation type="unfinished">Playlist Control</translation>
+        <translation>播放列表控制</translation>
     </message>
     <message>
         <source>On Device Shake Play Next</source>
-        <translation type="unfinished">On Device Shake Play Next</translation>
+        <translation>摇晃设备以播放下一首</translation>
     </message>
     <message>
         <source>On Proximity Sensor Play Next</source>
-        <translation type="unfinished">On Proximity Sensor Play Next</translation>
+        <translation>靠近距离感应器以播放下一首</translation>
     </message>
 </context>
 <context>
@@ -1280,7 +1280,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="unfinished">购买模块播放器高级版</translation>
+        <translation>购买模块播放器高级版</translation>
     </message>
     <message>
         <source>Device Screen</source>
@@ -1288,7 +1288,7 @@
     </message>
     <message>
         <source>Keep screen awake</source>
-        <translation type="unfinished">Keep screen awake</translation>
+        <translation>保持唤醒模式</translation>
     </message>
 </context>
 <context>
@@ -1659,15 +1659,15 @@
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished">Theme</translation>
+        <translation>主题</translation>
     </message>
     <message>
         <source>Bright</source>
-        <translation type="unfinished">Bright</translation>
+        <translation>亮色</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished">Dark</translation>
+        <translation>暗色</translation>
     </message>
     <message>
         <source>Search</source>
