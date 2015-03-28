@@ -1295,7 +1295,7 @@
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">设置</translation>
+        <translation>设置</translation>
     </message>
 </context>
 <context>
@@ -1365,7 +1365,7 @@
     <name>SongAlbumArt</name>
     <message>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>

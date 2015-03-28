@@ -1327,7 +1327,7 @@
     <name>SettingsMenuAction</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Установки</translation>
+        <translation>Установки</translation>
     </message>
 </context>
 <context>
@@ -1397,7 +1397,7 @@
     <name>SongAlbumArt</name>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
