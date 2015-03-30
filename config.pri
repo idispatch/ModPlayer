@@ -80,6 +80,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/InstrumentsActionItem.qml) \
         $$quote($$BASEDIR/assets/InstrumentsView.qml) \
         $$quote($$BASEDIR/assets/InternetRadioList.qml) \
+        $$quote($$BASEDIR/assets/ListViewItemIndicator.qml) \
+        $$quote($$BASEDIR/assets/ListViewItemSelector.qml) \
         $$quote($$BASEDIR/assets/LiveStreamRadio.qml) \
         $$quote($$BASEDIR/assets/LockIcon.qml) \
         $$quote($$BASEDIR/assets/ModPlayerListItem.qml) \
@@ -193,6 +195,9 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/indicator.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/indicator.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/indicator2.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/infoback.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/playlist_counter.amd) \

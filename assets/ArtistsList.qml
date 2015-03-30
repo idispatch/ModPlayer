@@ -93,6 +93,18 @@ Page {
                 ]
             }
         }
+        ListViewItemIndicator {
+            id: indicatorView
+        }
+        ListViewItemSelector {
+            id: indexLettersView
+            onItemSelected: {
+                indicatorView.text = item
+                var indexPath = dataModel.lowerBound([item])
+                indexPath.pop()
+                artistsList.scrollToItem(indexPath)
+            }
+        }
         SleepTimerDisplay {}
         PlaylistControl {}
     }
@@ -131,6 +143,7 @@ Page {
             if(responseId == thisObject.requestId) { 
                 thisObject.requestId = 0
                 artistsList.dataModel = result
+                indexLettersView.dataModel = result
                 progress.stop()
             }
         })
