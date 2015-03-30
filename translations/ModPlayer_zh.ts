@@ -1760,6 +1760,42 @@
         <source>Formats</source>
         <translation type="obsolete">格式</translation>
     </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stretch wallpaper to fit whole screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aspect Fit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit wallpaper and preserve aspect ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aspect Fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resize wallpaper preserve the aspect ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not scale wallpaper</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>functions</name>

@@ -1122,17 +1122,17 @@
     <message>
         <location filename="../assets/ScrollTypeSelector.qml" line="5"/>
         <source>Scroll</source>
-        <translation type="unfinished"></translation>
+        <translation>Scroll</translation>
     </message>
     <message>
         <location filename="../assets/ScrollTypeSelector.qml" line="7"/>
         <source>Smooth</source>
-        <translation type="unfinished"></translation>
+        <translation>Smooth</translation>
     </message>
     <message>
         <location filename="../assets/ScrollTypeSelector.qml" line="12"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Fast</translation>
     </message>
 </context>
 <context>
@@ -1893,13 +1893,58 @@
         <translation>Dark</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="361"/>
-        <location filename="../assets/WallpaperSelector.qml" line="372"/>
+        <location filename="../assets/WallpaperSelector.qml" line="359"/>
+        <source>Scaling</source>
+        <translation>Scaling</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="363"/>
+        <source>Fill</source>
+        <translation>Fill</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="365"/>
+        <source>Stretch wallpaper to fit whole screen</source>
+        <translation>Stretch wallpaper to fit whole screen</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="369"/>
+        <source>Aspect Fit</source>
+        <translation>Aspect Fit</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="371"/>
+        <source>Fit wallpaper and preserve aspect ratio</source>
+        <translation>Fit wallpaper and preserve aspect ratio</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="375"/>
+        <source>Aspect Fill</source>
+        <translation>Aspect Fill</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="377"/>
+        <source>Resize wallpaper preserve the aspect ratio</source>
+        <translation>Resize wallpaper preserve the aspect ratio</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="381"/>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="383"/>
+        <source>Do not scale wallpaper</source>
+        <translation>Do not scale wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../assets/WallpaperSelector.qml" line="394"/>
+        <location filename="../assets/WallpaperSelector.qml" line="405"/>
         <source>Browse for wallpaper</source>
         <translation>Browse for wallpaper</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="411"/>
+        <location filename="../assets/WallpaperSelector.qml" line="444"/>
         <source>Browse for color</source>
         <translation>Browse for color</translation>
     </message>

@@ -1792,6 +1792,42 @@
         <source>Formats</source>
         <translation type="obsolete">Форматы</translation>
     </message>
+    <message>
+        <source>Scaling</source>
+        <translation>Размер</translation>
+    </message>
+    <message>
+        <source>Fill</source>
+        <translation>Заполнить</translation>
+    </message>
+    <message>
+        <source>Aspect Fit</source>
+        <translation>Поместить пропорц.</translation>
+    </message>
+    <message>
+        <source>Aspect Fill</source>
+        <translation>Заполнить пропорц.</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Как есть</translation>
+    </message>
+    <message>
+        <source>Stretch wallpaper to fit whole screen</source>
+        <translation>Растянуть на весь экран</translation>
+    </message>
+    <message>
+        <source>Fit wallpaper and preserve aspect ratio</source>
+        <translation>Поместить с сохр. пропорций</translation>
+    </message>
+    <message>
+        <source>Do not scale wallpaper</source>
+        <translation>Не изменять размер</translation>
+    </message>
+    <message>
+        <source>Resize wallpaper preserve the aspect ratio</source>
+        <translation>Растянуть с сохр. пропорций</translation>
+    </message>
 </context>
 <context>
     <name>functions</name>
