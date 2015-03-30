@@ -4,7 +4,6 @@ import "functions.js" as Global
 
 Page {
     id: songListPage
-    objectName: "songListPage"
     property variant navigationPane
     property int maxResults
     property int requestId: 0
@@ -462,18 +461,7 @@ Page {
             }
         }
     }
-    function onDataReceived(responseId, result) {
-        if (responseId != requestId)
-            return
-        requestId = 0
-        songs.dataModel = result
-        progress.stop()
-        songs.visible = (songs.dataModel.size() > 0)
-        if(songs.visible) {
-            listAnimation.play()
-        }
-        listEmpty.visible = (songs.dataModel.size() == 0)
-    }
+    
     function addBuyButton() {
         if(!app.isExtendedVersion) {
             var buyActionItem = buyAppComponentDefinition.createObject()
@@ -484,7 +472,19 @@ Page {
     }
     onCreationCompleted: {
         app.player.requestPlayerView.connect(showPlayerView)
-        app.catalog.resultReady.connect(onDataReceived)
+        var thisObject = songListPage
+        app.catalog.resultReady.connect(function(responseId, result) {
+            if (responseId != requestId)
+                return
+            requestId = 0
+            songs.dataModel = result
+            progress.stop()
+            songs.visible = (songs.dataModel.size() > 0)
+            if(songs.visible) {
+                listAnimation.play()
+            }
+            listEmpty.visible = (songs.dataModel.size() == 0)
+        })
         playAllActionItem.playbackStarted.connect(showPlayerView)
         addBuyButton()
     }
