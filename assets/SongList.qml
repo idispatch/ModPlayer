@@ -473,17 +473,21 @@ Page {
     onCreationCompleted: {
         app.player.requestPlayerView.connect(showPlayerView)
         var thisObject = songListPage
+        var thisSongs = songs
+        var thisProgress = progress
+        var thisListEmpty = listEmpty
+        var thisListAnimation = listAnimation
         app.catalog.resultReady.connect(function(responseId, result) {
-            if (responseId != requestId)
+            if (responseId != thisObject.requestId)
                 return
-            requestId = 0
-            songs.dataModel = result
-            progress.stop()
-            songs.visible = (songs.dataModel.size() > 0)
-            if(songs.visible) {
-                listAnimation.play()
+            thisObject.requestId = 0
+            thisSongs.dataModel = result
+            thisProgress.stop()
+            thisSongs.visible = (thisSongs.dataModel.size() > 0)
+            if(thisSongs.visible) {
+                thisListAnimation.play()
             }
-            listEmpty.visible = (songs.dataModel.size() == 0)
+            thisListEmpty.visible = (thisSongs.dataModel.size() == 0)
         })
         playAllActionItem.playbackStarted.connect(showPlayerView)
         addBuyButton()
