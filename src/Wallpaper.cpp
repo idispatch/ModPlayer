@@ -11,8 +11,9 @@ Wallpaper::Wallpaper(QObject * parent)
       m_path("asset:///images/backgrounds/view_back.amd"),
       m_solidColor(false),
       m_repeatable(true),
-      m_animatable(true) {
-}
+      m_animatable(true),
+      m_stretchMode(2) // Fill
+{}
 
 Wallpaper::Wallpaper(QSettings const& settings, QObject * parent)
     : QObject(parent),
@@ -21,7 +22,8 @@ Wallpaper::Wallpaper(QSettings const& settings, QObject * parent)
       m_path(settings.value("wallpaper/path", "asset:///images/backgrounds/view_back.amd").toString()),
       m_solidColor(settings.value("wallpaper/solidColor", false).toBool()),
       m_repeatable(settings.value("wallpaper/repeatable", false).toBool()),
-      m_animatable(settings.value("wallpaper/animatable", true).toBool()) {
+      m_animatable(settings.value("wallpaper/animatable", true).toBool()),
+      m_stretchMode(settings.value("wallpaper/stretchMode", 2).toInt()) {
 }
 
 void Wallpaper::save(QSettings & settings) {
@@ -32,6 +34,7 @@ void Wallpaper::save(QSettings & settings) {
     settings.setValue("solidColor", solidColor());
     settings.setValue("repeatable", repeatable());
     settings.setValue("animatable", animatable());
+    settings.setValue("stretchMode", stretchMode());
     settings.endGroup();
 }
 
@@ -53,6 +56,10 @@ bool Wallpaper::repeatable() const {
 
 bool Wallpaper::animatable() const {
     return m_animatable;
+}
+
+int Wallpaper::stretchMode() const {
+    return m_stretchMode;
 }
 
 bool Wallpaper::solidColor() const {
@@ -98,5 +105,12 @@ void Wallpaper::setSolidColor(bool solidColor) {
     if(solidColor != m_solidColor) {
         m_solidColor = solidColor;
         emit solidColorChanged();
+    }
+}
+
+void Wallpaper::setStretchMode(int value) {
+    if(value != m_stretchMode) {
+        m_stretchMode = value;
+        emit stretchModeChanged();
     }
 }

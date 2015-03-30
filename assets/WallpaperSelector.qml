@@ -355,6 +355,39 @@ VerticalContainer {
                         }
                     }
                 }
+                DropDown {
+                    title: qsTr("Scaling") + Retranslate.onLanguageChanged
+                    enabled: app.isExtendedVersion
+                    visible: backgroundOption.isWallpaper && !app.wallpaper.repeatable && !app.wallpaper.animatable 
+                    Option {
+                        text: qsTr("Fill") + Retranslate.onLanguageChanged
+                        value: 2
+                        description: qsTr("Stretch wallpaper to fit whole screen") + Retranslate.onLanguageChanged
+                        selected: app.wallpaper.stretchMode == 2 
+                    }
+                    Option {
+                        text: qsTr("Aspect Fit") + Retranslate.onLanguageChanged
+                        value: 0
+                        description: qsTr("Fit wallpaper and preserve aspect ratio") + Retranslate.onLanguageChanged
+                        selected: app.wallpaper.stretchMode == 0 
+                    }
+                    Option {
+                        text: qsTr("Aspect Fill") + Retranslate.onLanguageChanged
+                        value: 1
+                        description: qsTr("Resize wallpaper preserve the aspect ratio") + Retranslate.onLanguageChanged
+                        selected: app.wallpaper.stretchMode == 1 
+                    }
+                    Option {
+                        text: qsTr("None") + Retranslate.onLanguageChanged
+                        value: 3
+                        description: qsTr("Do not scale wallpaper") + Retranslate.onLanguageChanged
+                        selected: app.wallpaper.stretchMode == 3 
+                    }
+                    onSelectedValueChanged: {
+                        app.wallpaper.stretchMode = selectedValue
+                        app.saveSettings()
+                    }
+                }
                 Button {
                     horizontalAlignment: HorizontalAlignment.Center
                     topMargin: 60

@@ -15,6 +15,7 @@ private:
     Q_PROPERTY(bool solidColor READ solidColor WRITE setSolidColor NOTIFY solidColorChanged FINAL)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged FINAL)
+    Q_PROPERTY(int stretchMode READ stretchMode WRITE setStretchMode NOTIFY stretchModeChanged FINAL)
     Q_PROPERTY(bool repeatable READ repeatable WRITE setRepeatable NOTIFY repeatableChanged FINAL)
     Q_PROPERTY(bool animatable READ animatable WRITE setAnimatable NOTIFY animatableChanged FINAL)
 public:
@@ -27,6 +28,7 @@ public:
     bool solidColor() const;
     bool repeatable() const;
     bool animatable() const;
+    int  stretchMode() const;
 
     void setColor(QString const& color);
     void setName(QString const& name);
@@ -34,6 +36,7 @@ public:
     void setSolidColor(bool solidColor);
     void setRepeatable(bool repeatable);
     void setAnimatable(bool animatable);
+    void setStretchMode(int mode);
 
     void save(QSettings & settings);
 
@@ -46,6 +49,7 @@ Q_SIGNALS:
     void pathChanged();
     void repeatableChanged();
     void animatableChanged();
+    void stretchModeChanged();
 private:
     QString m_color;
     QString m_name;
@@ -53,6 +57,7 @@ private:
     bool    m_solidColor;
     bool    m_repeatable;
     bool    m_animatable;
+    int     m_stretchMode;
 };
 
 Q_DECLARE_METATYPE(Wallpaper*);
