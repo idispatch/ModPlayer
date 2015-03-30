@@ -5,8 +5,10 @@ Container {
     property variant dataModel
     property int minimalItemCount: 5
     signal itemSelected(string item)
+
     horizontalAlignment: HorizontalAlignment.Right
     verticalAlignment: VerticalAlignment.Center
+
     onCreationCompleted: {
         dataModelChanged.connect(createLetters)
         createLetters()
@@ -14,18 +16,28 @@ Container {
     function letterFocused(letter) {
         itemSelected(letter)
     }
+    function createLetter(letter) {
+        var letterObject = letterView.createObject()
+        if (letterObject != null) {
+            letterObject.text = letter
+            letterObject.focused.connect(letterFocused)
+            indexLettersContainer.add(letterObject)
+        }
+    }
     function createLetters() {
         indexLettersContainer.removeAll()
-        if(dataModel != null && dataModel.size() > minimalItemCount) {
-            var count = dataModel.childCount([])
-            for(var i = 0; i < count; ++i) {
-                var letter = dataModel.data([i])
-                if(count <= 26 || (letter >= 'A' && letter <= 'Z')) {
-                    var letterObject = letterView.createObject()
-                    if(letterObject != null) {
-                        letterObject.text = letter 
-                        letterObject.focused.connect(letterFocused)
-                        indexLettersContainer.add(letterObject)
+        if(dataModel != null) {
+            var size = dataModel.size()
+            if (size > minimalItemCount) {
+                var count = dataModel.childCount([])
+                var firstItem = dataModel.data([ 0 ])
+                if (typeof firstItem == 'string') {
+                    // GroupDataModel
+                    for (var i = 0; i < count; ++ i) {
+                        var letter = dataModel.data([ i ])
+                        if (count <= 26 || (letter >= 'A' && letter <= 'Z')) {
+                            createLetter(letter)
+                        }
                     }
                 }
             }
@@ -39,6 +51,8 @@ Container {
                 signal focused(string letter)
                 property string text
                 property bool selected: false
+                minWidth: 50
+                maxWidth: 80
                 preferredWidth: selected ? 80 : 50
                 horizontalAlignment: HorizontalAlignment.Center
                 background: letterViewBackgroundPaint.imagePaint
@@ -57,9 +71,11 @@ Container {
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
                     text: letterViewRoot.text
-                    textStyle.fontSize: letterViewRoot.selected ? FontSize.Medium : FontSize.XXSmall
-                    textStyle.fontWeight: letterViewRoot.selected ? FontWeight.W900 : FontWeight.W500
-                    textStyle.color: Color.White
+                    textStyle {
+                        fontSize: letterViewRoot.selected ? FontSize.Medium : FontSize.XXSmall
+                        fontWeight: letterViewRoot.selected ? FontWeight.W900 : FontWeight.W500
+                        color: Color.White
+                    }
                 }
                 onTouchEnter: {
                     letterViewRoot.selected = true

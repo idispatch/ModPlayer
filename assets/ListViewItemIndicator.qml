@@ -3,12 +3,12 @@ import QtQuick 1.0
 
 Container {
     id: indicatorView
-    
-    property real displayOpacity: 0.5
+
+    property real displayOpacity: 1.0
     property int showTimeout: 800
     property int fadeDelay: 500
     property string text: ""
-    
+
     minHeight: 150
     minWidth: 150
     preferredHeight: 150
@@ -27,7 +27,6 @@ Container {
         opacity = 0.0
         textChanged.connect(showIndicator)
     }
-
     function showIndicator() {
         indicatorTimer.stop()
         indicatorView.opacity = displayOpacity
