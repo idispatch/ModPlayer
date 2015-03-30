@@ -1002,6 +1002,21 @@
     </message>
 </context>
 <context>
+    <name>ScrollTypeSelector</name>
+    <message>
+        <source>Scroll</source>
+        <translation>滚动</translation>
+    </message>
+    <message>
+        <source>Smooth</source>
+        <translation>平稳</translation>
+    </message>
+    <message>
+        <source>Fast</source>
+        <translation>快</translation>
+    </message>
+</context>
+<context>
     <name>SelectColor</name>
     <message>
         <source>Close</source>

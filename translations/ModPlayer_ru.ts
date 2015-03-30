@@ -1010,6 +1010,21 @@
     </message>
 </context>
 <context>
+    <name>ScrollTypeSelector</name>
+    <message>
+        <source>Scroll</source>
+        <translation>Прокрутка</translation>
+    </message>
+    <message>
+        <source>Smooth</source>
+        <translation>Плавно</translation>
+    </message>
+    <message>
+        <source>Fast</source>
+        <translation>Быстро</translation>
+    </message>
+</context>
+<context>
     <name>SelectColor</name>
     <message>
         <source>Close</source>
