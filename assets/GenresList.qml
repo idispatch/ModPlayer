@@ -132,13 +132,16 @@ Page {
                 }
             }
         })
+        var thisProgress = progress
+        var thisGenresList = genresList
+        var thisIndexLettersView = indexLettersView
         app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId == thisObject.requestId) {
                 thisObject.requestId = 0
-                progress.stop()
-                genresList.visible = true
-                genresList.dataModel = result
-                indexLettersView.dataModel = result
+                thisProgress.stop()
+                thisGenresList.visible = true
+                thisGenresList.dataModel = result
+                thisIndexLettersView.dataModel = result
             } 
         })
         addBuyButton()

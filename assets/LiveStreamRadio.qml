@@ -370,21 +370,24 @@ Page {
                   }
               }
          })
+         var thisProgress = progress
+         var thisRadioList = radioList
+         var thisIndexLettersView = indexLettersView
          app.catalog.resultReady.connect(function(responseId, result) {
               if(responseId == thisObject.requestId) {
                   thisObject.requestId = 0
-                  progress.stop()
-                  radioList.visible = true
-                  radioList.dataModel = result
-                  indexLettersView.dataModel = result
+                  thisProgress.stop()
+                  thisRadioList.visible = true
+                  thisRadioList.dataModel = result
+                  thisIndexLettersView.dataModel = result
               } 
          })
          app.player.radio.downloadFinished.connect(function(playlist, result) {
              if(playlist == thisObject.playlistURL && result.length > 0) {
                  app.analytics.playRadio(playlist)
                  var flag = ""
-                 if(selectedRadio) {
-                     flag = selectedRadio.flag
+                 if(thisObject.selectedRadio) {
+                     flag = thisObject.selectedRadio.flag
                  }
                  app.player.playRadio(result[0], flag)
              }

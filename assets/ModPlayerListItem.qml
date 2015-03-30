@@ -25,7 +25,7 @@ GroupContainer {
                 visible: image!=null
                 horizontalAlignment: HorizontalAlignment.Left
                 verticalAlignment: VerticalAlignment.Center
-                scalingMethod: ScalingMethod.Fill
+                scalingMethod: ScalingMethod.None
                 loadEffect: ImageViewLoadEffect.FadeZoom
                 preferredWidth: 128
                 preferredHeight: 128

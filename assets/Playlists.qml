@@ -168,14 +168,18 @@ Page {
                 showPlayer()
             }
         })
+        var thisObject = playlistsPage
+        var thisProgress = progress
+        var thisPlaylistsList = playlistsList
+        var thisIndexLettersView = indexLettersView
         app.catalog.resultReady.connect(function(responseId, result) {
-            if(responseId != requestId) 
+            if(responseId != thisObject.requestId) 
                 return
-            requestId = 0
-            progress.stop()
-            playlistsList.visible = true
-            playlistsList.dataModel = result
-            indexLettersView.dataModel = result
+            thisObject.requestId = 0
+            thisProgress.stop()
+            thisPlaylistsList.visible = true
+            thisPlaylistsList.dataModel = result
+            thisIndexLettersView.dataModel = result
         })
         addBuyButton()
     }

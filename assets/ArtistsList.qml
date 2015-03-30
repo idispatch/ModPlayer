@@ -140,12 +140,15 @@ Page {
                 }
             }
         })
+        var thisArtistsList = artistsList
+        var thisIndexLettersView = indexLettersView
+        var thisProgress = progress
         app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId == thisObject.requestId) { 
                 thisObject.requestId = 0
-                artistsList.dataModel = result
-                indexLettersView.dataModel = result
-                progress.stop()
+                thisArtistsList.dataModel = result
+                thisIndexLettersView.dataModel = result
+                thisProgress.stop()
             }
         })
         addBuyButton()

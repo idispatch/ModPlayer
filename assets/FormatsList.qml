@@ -91,12 +91,14 @@ Page {
                 }
             }
         })
+        var thisProgress = progress
+        var thisFormatsList = formatsList
         app.catalog.resultReady.connect(function(responseId, result) {
             if(responseId == thisObject.requestId) {
                 thisObject.requestId = 0
-                progress.stop()
-                formatsList.visible = true
-                formatsList.dataModel = result
+                thisProgress.stop()
+                thisFormatsList.visible = true
+                thisFormatsList.dataModel = result
             } 
         })
         addBuyButton()

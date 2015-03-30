@@ -92,7 +92,7 @@ Sheet {
                                             app.catalog.resultReady.connect(function(responseId, result) {
                                                 if(responseId == thisObject.requestId) {
                                                     thisObject.requestId = 0
-                                                    text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                    thisObject.text = qsTr("Catalog songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
                                                 }
                                             })
                                             catalogSongCount.requestId = app.catalog.songCountAsync()
@@ -108,7 +108,7 @@ Sheet {
                                             app.catalog.resultReady.connect(function(responseId, result) {
                                                 if(responseId == thisObject.requestId) {
                                                     thisObject.requestId = 0
-                                                    text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
+                                                    thisObject.text = qsTr("Personal songs: <b>%1</b>").arg(result) + Retranslate.onLanguageChanged
                                                 }
                                             })
                                             updateCount()
