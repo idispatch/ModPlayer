@@ -153,6 +153,18 @@ void ApplicationUI::setMaxViewSongs(int value) {
     }
 }
 
+int ApplicationUI::scrollAnimationType() const {
+    return m_settings.value("ui/scrollAnimationType", 2).toInt(); // Smooth
+}
+
+void ApplicationUI::setScrollAnimationType(int value) {
+    if(scrollAnimationType() != value)
+    {
+        m_settings.setValue("ui/scrollAnimationType", value);
+        emit scrollAnimationTypeChanged();
+    }
+}
+
 bool ApplicationUI::keepScreenAwake() const {
     return m_settings.value("ui/keepScreenAwake", false).toBool();
 }

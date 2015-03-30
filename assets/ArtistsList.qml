@@ -102,7 +102,7 @@ Page {
                 indicatorView.text = item
                 var indexPath = dataModel.lowerBound([item])
                 indexPath.pop()
-                artistsList.scrollToItem(indexPath)
+                artistsList.scrollToItem(indexPath, app.scrollAnimationType)
             }
         }
         SleepTimerDisplay {}
@@ -113,6 +113,7 @@ Page {
         if(artistsList.dataModel) {
             artistsList.dataModel.clear()
         }
+        indexLettersView.dataModel = null
         artistsList.resetDataModel()
     }
     function load() {

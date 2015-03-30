@@ -121,6 +121,18 @@ Page {
                 ]
             }
         }
+        ListViewItemIndicator {
+            id: indicatorView
+        }
+        ListViewItemSelector {
+            id: indexLettersView
+            onItemSelected: {
+                indicatorView.text = item
+                var indexPath = dataModel.lowerBound([item])
+                indexPath.pop()
+                playlistsList.scrollToItem(indexPath, app.scrollAnimationType)
+            }
+        }
         SleepTimerDisplay {}
         PlaylistControl {}
     }
@@ -129,6 +141,7 @@ Page {
         if(playlistsList.dataModel) {
             playlistsList.dataModel.clear()
         }
+        indexLettersView.dataModel = null
         playlistsList.resetDataModel()
     }
     function load() {
@@ -162,6 +175,7 @@ Page {
             progress.stop()
             playlistsList.visible = true
             playlistsList.dataModel = result
+            indexLettersView.dataModel = result
         })
         addBuyButton()
     }

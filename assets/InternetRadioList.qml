@@ -63,6 +63,18 @@ Page {
                 }
             }
         }
+        ListViewItemIndicator {
+            id: indicatorView
+        }
+        ListViewItemSelector {
+            id: indexLettersView
+            onItemSelected: {
+                indicatorView.text = item
+                var indexPath = dataModel.lowerBound([item])
+                indexPath.pop()
+                internetRadioList.scrollToItem(indexPath, app.scrollAnimationType)
+            }
+        }
         SleepTimerDisplay {}
         PlaylistControl {}
     }
@@ -82,6 +94,7 @@ Page {
             model = null
         }
         internetRadioList.dataModel = model
+        indexLettersView.dataModel = model
     }
     function unload() {
     }

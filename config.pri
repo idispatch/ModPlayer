@@ -109,6 +109,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/SameAlbumActionItem.qml) \
         $$quote($$BASEDIR/assets/SameArtistActionItem.qml) \
         $$quote($$BASEDIR/assets/SaveSongActionItem.qml) \
+        $$quote($$BASEDIR/assets/ScrollTypeSelector.qml) \
         $$quote($$BASEDIR/assets/SearchArea.qml) \
         $$quote($$BASEDIR/assets/SelectColor.qml) \
         $$quote($$BASEDIR/assets/Settings.qml) \

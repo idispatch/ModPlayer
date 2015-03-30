@@ -3,6 +3,7 @@ import bb.cascades 1.0
 Container {
     id: indexLettersView
     property variant dataModel
+    property int minimalItemCount: 5
     signal itemSelected(string item)
     horizontalAlignment: HorizontalAlignment.Right
     verticalAlignment: VerticalAlignment.Center
@@ -14,15 +15,19 @@ Container {
         itemSelected(letter)
     }
     function createLetters() {
-        indexLetters.removeAll()
-        if(dataModel != null) {
-            var c = dataModel.childCount([])
-            for(var i = 0; i < c; ++i) {
+        indexLettersContainer.removeAll()
+        if(dataModel != null && dataModel.size() > minimalItemCount) {
+            var count = dataModel.childCount([])
+            for(var i = 0; i < count; ++i) {
                 var letter = dataModel.data([i])
-                var letterObject = letterView.createObject()
-                letterObject.text = letter 
-                letterObject.focused.connect(letterFocused)
-                indexLetters.add(letterObject)
+                if(count <= 26 || (letter >= 'A' && letter <= 'Z')) {
+                    var letterObject = letterView.createObject()
+                    if(letterObject != null) {
+                        letterObject.text = letter 
+                        letterObject.focused.connect(letterFocused)
+                        indexLettersContainer.add(letterObject)
+                    }
+                }
             }
         } 
     }
@@ -39,8 +44,8 @@ Container {
                 background: letterViewBackgroundPaint.imagePaint
                 leftPadding: 13
                 bottomPadding: 4
-                bottomMargin: 4
-                topMargin: 4
+                bottomMargin: 1
+                topMargin: 1
                 attachedObjects: [
                     ImagePaintDefinition {
                         id: letterViewBackgroundPaint
@@ -75,7 +80,7 @@ Container {
         }
     ]
     Container {
-        id: indexLetters
+        id: indexLettersContainer
         horizontalAlignment: HorizontalAlignment.Right
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom

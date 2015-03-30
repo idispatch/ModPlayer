@@ -113,6 +113,18 @@ Page {
                 ]
             }
         }
+        ListViewItemIndicator {
+            id: indicatorView
+        }
+        ListViewItemSelector {
+            id: indexLettersView
+            onItemSelected: {
+                indicatorView.text = item
+                var indexPath = dataModel.lowerBound([item])
+                indexPath.pop()
+                albumsList.scrollToItem(indexPath, app.scrollAnimationType)
+            }
+        }
         SleepTimerDisplay {}
         PlaylistControl {}
     }
@@ -121,6 +133,7 @@ Page {
         if(albumsList.dataModel) {
             albumsList.dataModel.clear()
         }
+        indexLettersView.dataModel = null
         albumsList.resetDataModel()
     }
     function load() {
@@ -154,6 +167,7 @@ Page {
             if(responseId == thisObject.requestId) { 
                 thisObject.requestId = 0
                 albumsList.dataModel = result
+                indexLettersView.dataModel = result
                 progress.stop()
             }
         })

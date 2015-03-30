@@ -45,6 +45,7 @@ class ApplicationUI : public QObject {
     Q_PROPERTY(bool proximitySensorEnabled READ isProximitySensorEnabled WRITE setProximitySensorEnabled NOTIFY proximitySensorEnabledChanged FINAL)
     Q_PROPERTY(bool shakeSensorEnabled READ isShakeSensorEnabled WRITE setShakeSensorEnabled NOTIFY shakeSensorEnabledChanged FINAL)
     Q_PROPERTY(int maxViewSongs READ maxViewSongs WRITE setMaxViewSongs NOTIFY maxViewSongsChanged FINAL)
+    Q_PROPERTY(int scrollAnimationType READ scrollAnimationType WRITE setScrollAnimationType NOTIFY scrollAnimationTypeChanged FINAL)
     Q_PROPERTY(QString initialView READ initialView WRITE setInitialView NOTIFY initialViewChanged FINAL)
     Q_PROPERTY(QString title READ title NOTIFY titleChanged FINAL)
     Q_PROPERTY(QString version READ version NOTIFY versionChanged FINAL)
@@ -81,6 +82,7 @@ public:
     void setKeepScreenAwake(bool value);
 
     int maxViewSongs() const;
+    int scrollAnimationType() const;
 
     // Object Properties
     QString initialView() const;
@@ -98,6 +100,7 @@ public:
 
     void setFirstLaunch(bool value);
     void setMaxViewSongs(int value);
+    void setScrollAnimationType(int value);
 
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void emailAuthor();
@@ -119,6 +122,7 @@ Q_SIGNALS:
     void proximitySensorEnabledChanged();
     void shakeSensorEnabledChanged();
     void maxViewSongsChanged();
+    void scrollAnimationTypeChanged();
     void initialViewChanged();
     void titleChanged();
     void versionChanged();

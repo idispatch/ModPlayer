@@ -308,6 +308,18 @@ Page {
                 ]
             }
         }
+        ListViewItemIndicator {
+            id: indicatorView
+        }
+        ListViewItemSelector {
+            id: indexLettersView
+            onItemSelected: {
+                indicatorView.text = item
+                var indexPath = dataModel.lowerBound([item])
+                indexPath.pop()
+                songs.scrollToItem(indexPath, app.scrollAnimationType)
+            }
+        }
         SleepTimerDisplay {}
         PlaylistControl {}
         FirstLaunchHint{}
@@ -319,6 +331,7 @@ Page {
         if (songs.dataModel) {
             songs.dataModel.clear()
         }
+        indexLettersView.dataModel = null
         songs.resetDataModel()
     }
     function load() {
@@ -467,6 +480,7 @@ Page {
             return
         requestId = 0
         songs.dataModel = result
+        indexLettersView.dataModel = result
         progress.stop()
         songs.visible = (songs.dataModel.size() > 0)
         if(songs.visible) {

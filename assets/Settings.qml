@@ -270,6 +270,7 @@ Sheet {
                                 }
                             }
                             InitialViewSelector {}
+                            ScrollTypeSelector {}
                             PlusFeature {
                                 extendedVersion: VerticalContainer {
                                     BlackLabel {

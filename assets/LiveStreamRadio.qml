@@ -306,6 +306,18 @@ Page {
                 }
             }
         }
+        ListViewItemIndicator {
+            id: indicatorView
+        }
+        ListViewItemSelector {
+            id: indexLettersView
+            onItemSelected: {
+                indicatorView.text = item
+                var indexPath = dataModel.lowerBound([item])
+                indexPath.pop()
+                radioList.scrollToItem(indexPath, app.scrollAnimationType)
+            }
+        }
         SleepTimerDisplay {}
         PlaylistControl {}
     }
@@ -314,6 +326,7 @@ Page {
          if(radioList.dataModel) {
              radioList.dataModel.clear()
          }
+         indexLettersView.dataModel = null
          radioList.resetDataModel()
      }
      function load() {
@@ -363,6 +376,7 @@ Page {
                   progress.stop()
                   radioList.visible = true
                   radioList.dataModel = result
+                  indexLettersView.dataModel = result
               } 
          })
          app.player.radio.downloadFinished.connect(function(playlist, result) {
