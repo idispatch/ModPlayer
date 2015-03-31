@@ -3,12 +3,10 @@ import player 1.0
 
 TabbedPane {
     id: mainTabPane
-    objectName: "mainTabPane"
     activeTab: searchTab
     Tab {
         id: searchTab
         title: qsTr("Search") + Retranslate.onLanguageChanged
-        objectName: "searchTab"
         imageSource: "asset:///images/actions/icon_search.png"
         description: qsTr("Search Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -35,7 +33,6 @@ TabbedPane {
     Tab {
         id: myFavouriteTab
         title: qsTr("My Favourite") + Retranslate.onLanguageChanged
-        objectName: "myFavouriteTab"
         imageSource: "asset:///images/actions/icon_myfavourite.png"
         description: qsTr("My Favourite Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -62,7 +59,6 @@ TabbedPane {
     Tab {
         id: localSongsTab
         title: qsTr("Local Songs") + Retranslate.onLanguageChanged
-        objectName: "localSongsTab"
         imageSource: "asset:///images/actions/icon_my_songs.png"
         description: qsTr("Songs on My Device") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -89,7 +85,6 @@ TabbedPane {
     Tab {
         id: recentlyPlayedTab
         title: qsTr("Recent") + Retranslate.onLanguageChanged
-        objectName: "recentlyPlayedTab"
         imageSource: "asset:///images/actions/icon_recent.png"
         description: qsTr("Recently Played Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -116,7 +111,6 @@ TabbedPane {
     Tab {
         id: playlistsTab
         title: qsTr("Playlists") + Retranslate.onLanguageChanged
-        objectName: "playlistsTab"
         description: qsTr("My Playlists") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_playlist.png"
         onTriggered: {
@@ -143,7 +137,6 @@ TabbedPane {
     Tab {
         id: albumsTab
         title: qsTr("Albums") + Retranslate.onLanguageChanged
-        objectName: "albumsTab"
         description: qsTr("Albums") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_albums.png"
         onTriggered: {
@@ -170,7 +163,6 @@ TabbedPane {
     Tab {
         id: filesTab
         title: qsTr("File System") + Retranslate.onLanguageChanged
-        objectName: "filesTab"
         description: qsTr("Files") + Retranslate.onLanguageChanged
         imageSource: app.isExtendedVersion ? "asset:///images/actions/icon_files.png" : "asset:///images/actions/icon_lock.png"
         onTriggered: {
@@ -197,7 +189,6 @@ TabbedPane {
     Tab {
         id: liveStreamTab
         title: "Internet Radio"
-        objectName: "liveStreamTab"
         description: qsTr("Live Stream Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_radio.png"
         onTriggered: {
@@ -224,7 +215,6 @@ TabbedPane {
     Tab {
         id: difmTab
         title: qsTr("Digitally Imported") + Retranslate.onLanguageChanged
-        objectName: "difmTab"
         description: qsTr("Digitally Imported Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_difm.png"
         onTriggered: {
@@ -252,7 +242,6 @@ TabbedPane {
     Tab {
         id: skyfmTab
         title: qsTr("SKY.FM") + Retranslate.onLanguageChanged
-        objectName: "skyfmTab"
         description: qsTr("SKY.FM Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_skyfm.png"
         onTriggered: {
@@ -280,7 +269,6 @@ TabbedPane {
     Tab {
         id: jazzRadioTab
         title: qsTr("Jazz Radio") + Retranslate.onLanguageChanged
-        objectName: "jazzRadioTab"
         description: qsTr("Jazz Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_jazzradio.png"
         onTriggered: {
@@ -308,7 +296,6 @@ TabbedPane {
     Tab {
         id: rockRadioTab
         title: qsTr("Rock Radio") + Retranslate.onLanguageChanged
-        objectName: "rockRadioTab"
         description: qsTr("Rock Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_rockradio.png"
         onTriggered: {
@@ -336,7 +323,6 @@ TabbedPane {
     Tab {
         id: frescaFmTab
         title: qsTr("Fresca Radio") + Retranslate.onLanguageChanged
-        objectName: "frescaFmTab"
         description: qsTr("Fresca Radio") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_fresca.png"
         onTriggered: {
@@ -364,7 +350,6 @@ TabbedPane {
     Tab {
         id: mostPlayedTab
         title: qsTr("Most Played") + Retranslate.onLanguageChanged
-        objectName: "mostPlayedTab"
         imageSource: "asset:///images/actions/icon_mostplayed.png"
         description: qsTr("Most Played Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -391,7 +376,6 @@ TabbedPane {
     Tab {
         id: topDownloadsTab
         title: qsTr("Downloads") + Retranslate.onLanguageChanged
-        objectName: "topDownloadsTab"
         imageSource: "asset:///images/actions/icon_downloads.png"
         description: qsTr("Top Downloaded Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -418,7 +402,6 @@ TabbedPane {
     Tab {
         id: topFavouritedTab
         title: qsTr("Favourited") + Retranslate.onLanguageChanged
-        objectName: "topFavouritedTab"
         imageSource: "asset:///images/actions/icon_favourite.png"
         description: qsTr("Top Favourited Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -445,7 +428,6 @@ TabbedPane {
     Tab {
         id: topScoredTab
         title: qsTr("Scored") + Retranslate.onLanguageChanged
-        objectName: "topScoredTab"
         imageSource: "asset:///images/actions/icon_score.png"
         description: qsTr("Top Scored Songs") + Retranslate.onLanguageChanged
         onTriggered: {
@@ -472,7 +454,6 @@ TabbedPane {
     Tab {
         id: artistsTab
         title: qsTr("Artists") + Retranslate.onLanguageChanged
-        objectName: "artistsTab"
         description: qsTr("Songs By Artist") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_artists.png"
         onTriggered: {
@@ -499,7 +480,6 @@ TabbedPane {
     Tab {
         id: genresTab
         title: qsTr("Genres") + Retranslate.onLanguageChanged
-        objectName: "genresTab"
         description: qsTr("Songs By Genre") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_genres.png"
         onTriggered: {
@@ -526,7 +506,6 @@ TabbedPane {
     Tab {
         id: formatsTab
         title: qsTr("Formats") + Retranslate.onLanguageChanged
-        objectName: "formatsTab"
         description: qsTr("Songs By Module Format") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_format.png"
         onTriggered: {

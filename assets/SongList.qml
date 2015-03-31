@@ -46,8 +46,8 @@ Page {
                     id: searchArea
                     hintText: qsTr("search songs") + Retranslate.onLanguageChanged
                     onSearch: {
-                        unload()
-                        load()
+                        songListPage.unload()
+                        songListPage.load()
                     }
                 }
                 expanded: true

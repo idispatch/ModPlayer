@@ -4,7 +4,6 @@ import "functions.js" as Global
 
 Page {
     id: albumsPage
-    objectName: "albumsPage"
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
@@ -20,7 +19,7 @@ Page {
                     id: searchArea
                     hintText: qsTr("search albums") + Retranslate.onLanguageChanged
                     onSearch: {
-                        load()
+                        albumsPage.load()
                     }
                 }
                 expanded: true
@@ -158,9 +157,9 @@ Page {
     onCreationCompleted: {
         var thisObject = albumsPage
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == navigationPane && 
-               navigationPane.top == thisObject) {
-                showPlayer()
+            if(mainTabPane.activePane == thisObject.navigationPane && 
+               thisObject.navigationPane.top == thisObject) {
+                thisObject.showPlayer()
             }
         })
         var thisAlbumsList = albumsList

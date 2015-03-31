@@ -4,7 +4,6 @@ import "functions.js" as Global
 
 Page {
     id: songView
-    objectName: "songView"
     property variant song
     property variant navigationPane
     Container {
@@ -112,8 +111,9 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = songView
         app.player.requestPlayerView.connect(function() { 
-            showPlayerView()
+            thisObject.showPlayerView()
         })
         addBuyButton()
     }

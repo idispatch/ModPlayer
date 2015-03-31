@@ -5,7 +5,6 @@ import "functions.js" as Global
 
 Page {
     id: filesPage
-    objectName: "filesPage"
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
@@ -182,15 +181,17 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = filesPage
+        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-             if(mainTabPane.activePane == navigationPane && 
-                 navigationPane.top == filesPage) {
-                 var view = songPlayer.createObject()
-                 if(view) {
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
-                 }
-             }
+            if(mainTabPane.activePane == thisObject.navigationPane && 
+               thisObject.navigationPane.top == thisObject) {
+                var view = thisSongPlayer.createObject()
+                if(view) {
+                    view.navigationPane = thisNavigationPane
+                    thisNavigationPane.push(view)
+                }
+            }
         })
         playAllActionItem.playbackStarted.connect(showPlayerView)
         addBuyButton()

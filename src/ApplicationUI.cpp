@@ -286,8 +286,6 @@ void ApplicationUI::initTypes() {
     qRegisterMetaType<QVector<QString> >("QVector<QString>");
 
     DataSource::registerQmlTypes();
-    qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
-
     qmlRegisterType<bb::platform::PaymentManager>("bb.platform", 1, 0, "PaymentManager");
 
     const char * PICKER_NAMESPACE = "bb.cascades.pickers";

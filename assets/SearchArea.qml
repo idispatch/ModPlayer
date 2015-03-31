@@ -1,28 +1,32 @@
 import bb.cascades 1.3
+import QtQuick 1.0
 import player 1.0
 
 HorizontalContainer {
     id: searchArea
+
     signal search(string term)
-    property alias searchTerm: searchCriteria.text
-    property alias hintText: searchCriteria.hintText
+
+    property string searchTerm
+    property string hintText
+
     leftPadding: 20.0
     rightPadding: 20.0
     topPadding: 20.0
     bottomPadding: 20.0
     attachedObjects: [
-        QTimer {
+        Timer {
             id: searchTimer
             interval: 1000
-            singleShot: true
+            repeat: false
             property string previousSearchTerm
-            onTimeout : {
-                if(previousSearchTerm == searchTerm) {
+            onTriggered : {
+                if(previousSearchTerm == searchArea.searchTerm) {
                     stop()
                     searchButton.enabled = false
-                    searchArea.search(searchTerm)
+                    searchArea.search(searchArea.searchTerm)
                 } else {
-                    previousSearchTerm = searchTerm
+                    previousSearchTerm = searchArea.searchTerm
                     start()
                 }
             }
@@ -32,6 +36,8 @@ HorizontalContainer {
     rightMargin: 20.0
     TextField {
         id: searchCriteria
+        text: searchArea.searchTerm
+        hintText: searchArea.hintText
         content {
             flags: TextContentFlag.ActiveTextOff | TextContentFlag.EmoticonsOff 
         }
@@ -52,14 +58,14 @@ HorizontalContainer {
                    TextInputFlag.WordSubstitutionOff
             onSubmitted: {
                 searchButton.enabled = false
-                searchArea.search(searchTerm)
+                searchArea.search(searchArea.searchTerm)
             }
         }
         clearButtonVisible: true
         autoFit: TextAutoFit.None
         onTextChanging: {
             searchButton.enabled = text.length > 0
-            if(!searchTimer.active) {
+            if(!searchTimer.running) {
                 searchTimer.start()
             }
         }
@@ -77,7 +83,7 @@ HorizontalContainer {
         }
         onClicked: {
             enabled = false
-            searchArea.search(searchTerm)
+            searchArea.search(searchArea.searchTerm)
         }
     }
 }

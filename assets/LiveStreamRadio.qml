@@ -4,7 +4,7 @@ import "functions.js" as Global
 
 Page {
     id: liveStreamRadioPage
-    objectName: "liveStreamRadioPage"
+
     property variant navigationPane
     property variant selectedRadio
     property string playlistURL
@@ -241,7 +241,7 @@ Page {
                         id: searchArea
                         hintText: qsTr("search stations") + Retranslate.onLanguageChanged
                         onSearch: {
-                            load()
+                            liveStreamRadioPage.load()
                         }
                     }
                 }
@@ -360,13 +360,14 @@ Page {
      }
      onCreationCompleted: {
          var thisObject = liveStreamRadioPage
+         var thisSongPlayer = songPlayer
          app.player.requestPlayerView.connect(function() {
-              if(mainTabPane.activePane == navigationPane && 
-                 navigationPane.top == liveStreamRadioPage) {
-                  var view = songPlayer.createObject()
+            if(mainTabPane.activePane == thisObject.navigationPane && 
+               thisObject.navigationPane.top == thisObject) {
+                  var view = thisSongPlayer.createObject()
                   if(view) {
-                      view.navigationPane = navigationPane
-                      navigationPane.push(view)
+                      view.navigationPane = thisNavigationPane
+                      thisNavigationPane.push(view)
                   }
               }
          })

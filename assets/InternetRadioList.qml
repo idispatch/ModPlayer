@@ -4,7 +4,6 @@ import "functions.js" as Global
 
 Page {
     id: internetRadioPage
-    objectName: "internetRadioPage"
     property variant navigationPane
     property alias channelList : internetRadioList.channelList
     property string playlistURL
@@ -115,18 +114,20 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisObject = internetRadioPage
+        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == navigationPane && 
-                navigationPane.top == internetRadioPage) {
-                var view = songPlayer.createObject()
+            if(mainTabPane.activePane == thisObject.navigationPane && 
+               thisObject.navigationPane.top == thisObject) {
+                var view = thisSongPlayer.createObject()
                 if(view) {
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
+                    view.navigationPane = thisNavigationPane
+                    thisNavigationPane.push(view)
                 }
             }
         })
         app.player.radio.downloadFinished.connect(function(playlist,result) {
-            if(playlistURL == playlist && result.length > 0) {
+            if(thisObject.playlistURL == playlist && result.length > 0) {
                 app.analytics.playRadio(playlist)
                 var iconURL = Global.getRadioIcon(channelList)
                 app.player.playRadio(result[0], iconURL)

@@ -1295,7 +1295,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation>购买模块播放器高级版</translation>
+        <translation type="unfinished">购买模块播放器高级版</translation>
     </message>
     <message>
         <source>Device Screen</source>

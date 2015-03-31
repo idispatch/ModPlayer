@@ -12,27 +12,27 @@
 <context>
     <name>Albums</name>
     <message>
-        <location filename="../assets/Albums.qml" line="12"/>
+        <location filename="../assets/Albums.qml" line="11"/>
         <source>Select Album</source>
         <translation>Select Album</translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="21"/>
+        <location filename="../assets/Albums.qml" line="20"/>
         <source>search albums</source>
         <translation>search albums</translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="76"/>
+        <location filename="../assets/Albums.qml" line="75"/>
         <source>%1 songs</source>
         <translation>%1 songs</translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="83"/>
+        <location filename="../assets/Albums.qml" line="82"/>
         <source>Album %1</source>
         <translation>Album %1</translation>
     </message>
     <message>
-        <location filename="../assets/Albums.qml" line="86"/>
+        <location filename="../assets/Albums.qml" line="85"/>
         <source>Play Album</source>
         <translation>Play Album</translation>
     </message>
@@ -91,22 +91,22 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="534"/>
+        <location filename="../src/ApplicationUI.cpp" line="532"/>
         <source>Hello, ModPlayer Author!</source>
         <translation>Hello, ModPlayer Author!</translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="553"/>
+        <location filename="../src/ApplicationUI.cpp" line="551"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translation>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="565"/>
+        <location filename="../src/ApplicationUI.cpp" line="563"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translation>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="600"/>
+        <location filename="../src/ApplicationUI.cpp" line="598"/>
         <source>This feature is available in ModPlayer Plus.</source>
         <translation>This feature is available in ModPlayer Plus.</translation>
     </message>
@@ -114,27 +114,27 @@
 <context>
     <name>ArtistsList</name>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="12"/>
+        <location filename="../assets/ArtistsList.qml" line="11"/>
         <source>Select Artist</source>
         <translation>Select Artist</translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="21"/>
+        <location filename="../assets/ArtistsList.qml" line="20"/>
         <source>search artists</source>
         <translation>search artists</translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="67"/>
+        <location filename="../assets/ArtistsList.qml" line="66"/>
         <source>%1 songs</source>
         <translation>%1 songs</translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="68"/>
+        <location filename="../assets/ArtistsList.qml" line="67"/>
         <source>score %1 of 10</source>
         <translation>score %1 of 10</translation>
     </message>
     <message>
-        <location filename="../assets/ArtistsList.qml" line="71"/>
+        <location filename="../assets/ArtistsList.qml" line="70"/>
         <source>rating %1</source>
         <translation>rating %1</translation>
     </message>
@@ -361,17 +361,17 @@
 <context>
     <name>FilesList</name>
     <message>
-        <location filename="../assets/FilesList.qml" line="13"/>
+        <location filename="../assets/FilesList.qml" line="12"/>
         <source>Select Songs</source>
         <translation>Select Songs</translation>
     </message>
     <message>
-        <location filename="../assets/FilesList.qml" line="77"/>
+        <location filename="../assets/FilesList.qml" line="76"/>
         <source>Play</source>
         <translation>Play</translation>
     </message>
     <message>
-        <location filename="../assets/FilesList.qml" line="118"/>
+        <location filename="../assets/FilesList.qml" line="117"/>
         <source>No songs in this directory</source>
         <translation>No songs in this directory</translation>
     </message>
@@ -387,12 +387,12 @@
 <context>
     <name>FormatsList</name>
     <message>
-        <location filename="../assets/FormatsList.qml" line="11"/>
+        <location filename="../assets/FormatsList.qml" line="10"/>
         <source>Select Songs by Format</source>
         <translation>Select Songs by Format</translation>
     </message>
     <message>
-        <location filename="../assets/FormatsList.qml" line="35"/>
+        <location filename="../assets/FormatsList.qml" line="34"/>
         <source>%1 songs</source>
         <translation>%1 songs</translation>
     </message>
@@ -400,17 +400,17 @@
 <context>
     <name>GenresList</name>
     <message>
-        <location filename="../assets/GenresList.qml" line="12"/>
+        <location filename="../assets/GenresList.qml" line="11"/>
         <source>Select Songs by Genre</source>
         <translation>Select Songs by Genre</translation>
     </message>
     <message>
-        <location filename="../assets/GenresList.qml" line="21"/>
+        <location filename="../assets/GenresList.qml" line="20"/>
         <source>search genres</source>
         <translation>search genres</translation>
     </message>
     <message>
-        <location filename="../assets/GenresList.qml" line="68"/>
+        <location filename="../assets/GenresList.qml" line="67"/>
         <source>%1 songs</source>
         <translation>%1 songs</translation>
     </message>
@@ -729,12 +729,12 @@
 <context>
     <name>InternetRadioList</name>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="12"/>
+        <location filename="../assets/InternetRadioList.qml" line="11"/>
         <source>Select Internet Radio Channel</source>
         <translation>Select Internet Radio Channel</translation>
     </message>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="55"/>
+        <location filename="../assets/InternetRadioList.qml" line="54"/>
         <source>Tuning Internet Radio</source>
         <translation>Tuning Internet Radio</translation>
     </message>
@@ -1014,32 +1014,32 @@
 <context>
     <name>Playlists</name>
     <message>
-        <location filename="../assets/Playlists.qml" line="12"/>
+        <location filename="../assets/Playlists.qml" line="11"/>
         <source>Select Playlist</source>
         <translation>Select Playlist</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="21"/>
+        <location filename="../assets/Playlists.qml" line="20"/>
         <source>search playlists</source>
         <translation>search playlists</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="81"/>
+        <location filename="../assets/Playlists.qml" line="80"/>
         <source>%1 songs</source>
         <translation>%1 songs</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="87"/>
+        <location filename="../assets/Playlists.qml" line="86"/>
         <source>Playlist %1</source>
         <translation>Playlist %1</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="90"/>
+        <location filename="../assets/Playlists.qml" line="89"/>
         <source>Play Playlist</source>
         <translation>Play Playlist</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="98"/>
+        <location filename="../assets/Playlists.qml" line="97"/>
         <source>Delete Playlist</source>
         <translation>Delete Playlist</translation>
     </message>
@@ -1238,7 +1238,7 @@
     <message>
         <location filename="../assets/Settings.qml" line="124"/>
         <source>Buy ModPlayer Plus</source>
-        <translation>Buy ModPlayer Plus</translation>
+        <translation type="unfinished">Buy ModPlayer Plus</translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="214"/>
@@ -1804,17 +1804,17 @@
 <context>
     <name>SongPlayer</name>
     <message>
-        <location filename="../assets/SongPlayer.qml" line="140"/>
+        <location filename="../assets/SongPlayer.qml" line="139"/>
         <source>Basic</source>
         <translation>Basic</translation>
     </message>
     <message>
-        <location filename="../assets/SongPlayer.qml" line="145"/>
+        <location filename="../assets/SongPlayer.qml" line="144"/>
         <source>Pattern</source>
         <translation>Pattern</translation>
     </message>
     <message>
-        <location filename="../assets/SongPlayer.qml" line="150"/>
+        <location filename="../assets/SongPlayer.qml" line="149"/>
         <source>Samples</source>
         <translation>Samples</translation>
     </message>
@@ -2031,206 +2031,206 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="10"/>
+        <location filename="../assets/main.qml" line="9"/>
         <source>Search</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="13"/>
+        <location filename="../assets/main.qml" line="11"/>
         <source>Search Songs</source>
         <translation>Search Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="37"/>
+        <location filename="../assets/main.qml" line="35"/>
         <source>My Favourite</source>
         <translation>My Favourite</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="40"/>
+        <location filename="../assets/main.qml" line="37"/>
         <source>My Favourite Songs</source>
         <translation>My Favourite Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="64"/>
+        <location filename="../assets/main.qml" line="61"/>
         <source>Local Songs</source>
         <translation>Local Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="67"/>
+        <location filename="../assets/main.qml" line="63"/>
         <source>Songs on My Device</source>
         <translation>Songs on My Device</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="91"/>
+        <location filename="../assets/main.qml" line="87"/>
         <source>Recent</source>
         <translation>Recent</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="94"/>
+        <location filename="../assets/main.qml" line="89"/>
         <source>Recently Played Songs</source>
         <translation>Recently Played Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="118"/>
+        <location filename="../assets/main.qml" line="113"/>
         <source>Playlists</source>
         <translation>Playlists</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="120"/>
+        <location filename="../assets/main.qml" line="114"/>
         <source>My Playlists</source>
         <translation>My Playlists</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="145"/>
-        <location filename="../assets/main.qml" line="147"/>
+        <location filename="../assets/main.qml" line="139"/>
+        <location filename="../assets/main.qml" line="140"/>
         <source>Albums</source>
         <translation>Albums</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="172"/>
+        <location filename="../assets/main.qml" line="165"/>
         <source>File System</source>
         <translation>File System</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="174"/>
+        <location filename="../assets/main.qml" line="166"/>
         <source>Files</source>
         <translation>Files</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="201"/>
+        <location filename="../assets/main.qml" line="192"/>
         <source>Live Stream Radio</source>
         <translation>Live Stream Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="226"/>
+        <location filename="../assets/main.qml" line="217"/>
         <source>Digitally Imported</source>
         <translation>Digitally Imported</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="228"/>
+        <location filename="../assets/main.qml" line="218"/>
         <source>Digitally Imported Radio</source>
         <translation>Digitally Imported Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="254"/>
+        <location filename="../assets/main.qml" line="244"/>
         <source>SKY.FM</source>
         <translation>SKY.FM</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="256"/>
+        <location filename="../assets/main.qml" line="245"/>
         <source>SKY.FM Radio</source>
         <translation>SKY.FM Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="282"/>
-        <location filename="../assets/main.qml" line="284"/>
+        <location filename="../assets/main.qml" line="271"/>
+        <location filename="../assets/main.qml" line="272"/>
         <source>Jazz Radio</source>
         <translation>Jazz Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="310"/>
-        <location filename="../assets/main.qml" line="312"/>
+        <location filename="../assets/main.qml" line="298"/>
+        <location filename="../assets/main.qml" line="299"/>
         <source>Rock Radio</source>
         <translation>Rock Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="338"/>
-        <location filename="../assets/main.qml" line="340"/>
+        <location filename="../assets/main.qml" line="325"/>
+        <location filename="../assets/main.qml" line="326"/>
         <source>Fresca Radio</source>
         <translation>Fresca Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="366"/>
+        <location filename="../assets/main.qml" line="352"/>
         <source>Most Played</source>
         <translation>Most Played</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="369"/>
+        <location filename="../assets/main.qml" line="354"/>
         <source>Most Played Songs</source>
         <translation>Most Played Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="393"/>
+        <location filename="../assets/main.qml" line="378"/>
         <source>Downloads</source>
         <translation>Downloads</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="396"/>
+        <location filename="../assets/main.qml" line="380"/>
         <source>Top Downloaded Songs</source>
         <translation>Top Downloaded Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="420"/>
+        <location filename="../assets/main.qml" line="404"/>
         <source>Favourited</source>
         <translation>Favourited</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="423"/>
+        <location filename="../assets/main.qml" line="406"/>
         <source>Top Favourited Songs</source>
         <translation>Top Favourited Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="447"/>
+        <location filename="../assets/main.qml" line="430"/>
         <source>Scored</source>
         <translation>Scored</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="450"/>
+        <location filename="../assets/main.qml" line="432"/>
         <source>Top Scored Songs</source>
         <translation>Top Scored Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="474"/>
+        <location filename="../assets/main.qml" line="456"/>
         <source>Artists</source>
         <translation>Artists</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="476"/>
+        <location filename="../assets/main.qml" line="457"/>
         <source>Songs By Artist</source>
         <translation>Songs By Artist</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="501"/>
+        <location filename="../assets/main.qml" line="482"/>
         <source>Genres</source>
         <translation>Genres</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="503"/>
+        <location filename="../assets/main.qml" line="483"/>
         <source>Songs By Genre</source>
         <translation>Songs By Genre</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="528"/>
+        <location filename="../assets/main.qml" line="508"/>
         <source>Formats</source>
         <translation>Formats</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="530"/>
+        <location filename="../assets/main.qml" line="509"/>
         <source>Songs By Module Format</source>
         <translation>Songs By Module Format</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="618"/>
+        <location filename="../assets/main.qml" line="597"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="632"/>
+        <location filename="../assets/main.qml" line="611"/>
         <source>Twit!</source>
         <translation>Twit!</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="641"/>
+        <location filename="../assets/main.qml" line="620"/>
         <source>BBM</source>
         <translation>BBM</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="650"/>
+        <location filename="../assets/main.qml" line="629"/>
         <source>Email Author</source>
         <translation>Email Author</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="661"/>
+        <location filename="../assets/main.qml" line="640"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>

@@ -4,7 +4,6 @@ import "functions.js" as Global
 
 Page {
     id: artistsPage
-    objectName: "artistsPage"
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
@@ -20,7 +19,7 @@ Page {
                     id: searchArea
                     hintText: qsTr("search artists") + Retranslate.onLanguageChanged
                     onSearch: {
-                        load()
+                        artistsPage.load()
                     }
                 }
                 expanded: true
@@ -130,13 +129,14 @@ Page {
     }
     onCreationCompleted: {
         var thisObject = artistsPage
+        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == navigationPane && 
-               navigationPane.top == thisObject) {
-                var view = songPlayer.createObject()
+            if(mainTabPane.activePane == thisObject.navigationPane && 
+               thisObject.navigationPane.top == thisObject) {
+                var view = thisSongPlayer.createObject()
                 if(view) {
-                    view.navigationPane = navigationPane
-                    navigationPane.push(view)
+                    view.navigationPane = thisNavigationPane
+                    thisNavigationPane.push(view)
                 }
             }
         })
