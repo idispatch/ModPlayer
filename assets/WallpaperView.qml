@@ -3,21 +3,23 @@ import QtQuick 1.0
 import player 1.0
 
 Container {
+    property bool coverScreen: false
     layout: DockLayout {}
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
     implicitLayoutAnimationsEnabled: false
-    background: Color.create(app.wallpaper.color)
+    background: coverScreen ? backgroundPaintOuter.imagePaint : Color.create(app.wallpaper.color)
     ImageView {
         implicitLayoutAnimationsEnabled: false
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        visible: !app.wallpaper.solidColor
+        visible: !app.wallpaper.solidColor && !coverScreen
         imageSource: app.wallpaper.path
         loadEffect: ImageViewLoadEffect.None
         scalingMethod: app.wallpaper.stretchMode
     }
     Container {
+        visible: !coverScreen
         layout: AbsoluteLayout {}
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
@@ -51,7 +53,7 @@ Container {
             background: backgroundPaint.imagePaint
             implicitLayoutAnimationsEnabled: false
             
-            visible: app.wallpaper.animatable && !app.wallpaper.solidColor
+            visible: app.wallpaper.animatable && !app.wallpaper.solidColor && !coverScreen
             
             translationX: app.player.playback.configuration.animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
             translationY: app.player.playback.configuration.animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
@@ -68,8 +70,8 @@ Container {
                     repeat: true
                     onTriggered: {
                         if(app.player.playback.configuration.animationEnabled &&
-                        app.wallpaper.animatable &&
-                        !app.wallpaper.solidColor) {
+                           app.wallpaper.animatable &&
+                          !app.wallpaper.solidColor) {
                             block.angleX += block.angleStepX
                             block.angleY += block.angleStepY
                             block.scalePhase += block.scaleStep
@@ -89,7 +91,8 @@ Container {
             function enableAnimationTimer() {
                 if(app.player.playback.configuration.animationEnabled &&
                    app.wallpaper.animatable &&
-                  !app.wallpaper.solidColor) {
+                  !app.wallpaper.solidColor && 
+                  !coverScreen) {
                     rotozoomTimer.start()
                 }
             }
@@ -99,7 +102,8 @@ Container {
             function initTimer() {
                 if(app.player.playback.configuration.animationEnabled &&
                    app.wallpaper.animatable &&
-                  !app.wallpaper.solidColor) {
+                   !app.wallpaper.solidColor && 
+                   !coverScreen) {
                     enableAnimationTimer()
                 } else {
                     disableAnimationTimer()

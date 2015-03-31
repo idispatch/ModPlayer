@@ -4,7 +4,9 @@ import "functions.js" as Global
 
 Container {
     layout: DockLayout {}
-    WallpaperView {}
+    WallpaperView {
+        coverScreen: true
+    }
     Container {
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill

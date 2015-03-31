@@ -247,37 +247,37 @@
 <context>
     <name>Cover</name>
     <message>
-        <location filename="../assets/Cover.qml" line="58"/>
+        <location filename="../assets/Cover.qml" line="60"/>
         <source>Playing</source>
         <translation>Playing</translation>
     </message>
     <message>
-        <location filename="../assets/Cover.qml" line="60"/>
+        <location filename="../assets/Cover.qml" line="62"/>
         <source>Stopped</source>
         <translation>Stopped</translation>
     </message>
     <message>
-        <location filename="../assets/Cover.qml" line="62"/>
+        <location filename="../assets/Cover.qml" line="64"/>
         <source>Paused</source>
         <translation>Paused</translation>
     </message>
     <message>
-        <location filename="../assets/Cover.qml" line="64"/>
+        <location filename="../assets/Cover.qml" line="66"/>
         <source>Resolving</source>
         <translation>Resolving</translation>
     </message>
     <message>
-        <location filename="../assets/Cover.qml" line="66"/>
+        <location filename="../assets/Cover.qml" line="68"/>
         <source>Downloading</source>
         <translation>Downloading</translation>
     </message>
     <message>
-        <location filename="../assets/Cover.qml" line="68"/>
+        <location filename="../assets/Cover.qml" line="70"/>
         <source>Preparing</source>
         <translation>Preparing</translation>
     </message>
     <message>
-        <location filename="../assets/Cover.qml" line="73"/>
+        <location filename="../assets/Cover.qml" line="75"/>
         <source>Idle</source>
         <translation>Idle</translation>
     </message>
