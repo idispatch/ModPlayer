@@ -50,7 +50,6 @@ Page {
                     if(songs.length > 0) {
                         app.player.playlist.assign(songs)
                         app.player.playPlaylist()
-                        showPlayer()
                     }
                 }
                 function deletePlaylist(playlist) {
@@ -149,8 +148,10 @@ Page {
     }
     function showPlayer() {
         var view = songPlayer.createObject()
-        view.navigationPane = navigationPane
-        navigationPane.push(view)
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
     }
     function addBuyButton() {
         if(!app.isExtendedVersion) {
@@ -163,8 +164,7 @@ Page {
     onCreationCompleted: {
         var thisObject = playlistsPage
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
                 thisObject.showPlayer()
             }
         })

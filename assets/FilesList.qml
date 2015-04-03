@@ -11,15 +11,6 @@ Page {
         id: titleBar
         title: qsTr("Select Songs") + Retranslate.onLanguageChanged
     }
-    function showPlayerView() {
-        if (mainTabPane.activePane == navigationPane && navigationPane.top == filesPage) {
-            var view = songPlayer.createObject()
-            if(view) {
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-            }
-        }
-    }
     Container {
         layout: DockLayout {}
         WallpaperView {}
@@ -50,7 +41,6 @@ Page {
                     rightPadding: leftPadding
                     function playSong(songPath) {
                         if(app.isExtendedVersion) {
-                            showPlayerView()
                             app.player.playlist.assign(songPath)
                             app.player.playPlaylist()
                         } else {
@@ -172,6 +162,13 @@ Page {
         songFilesModel.append(collection)
         playAllActionItem.songList = songFilesModel
     }
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
     function addBuyButton() {
         if(!app.isExtendedVersion) {
             var buyActionItem = buyAppComponentDefinition.createObject()
@@ -182,18 +179,11 @@ Page {
     }
     onCreationCompleted: {
         var thisObject = filesPage
-        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
-                var view = thisSongPlayer.createObject()
-                if(view) {
-                    view.navigationPane = thisNavigationPane
-                    thisNavigationPane.push(view)
-                }
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+                thisObject.showPlayer()
             }
         })
-        playAllActionItem.playbackStarted.connect(showPlayerView)
         addBuyButton()
     }
     attachedObjects: [

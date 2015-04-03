@@ -542,10 +542,12 @@ void Player::playPlaylist() {
         int songId = currentSong.toInt(&bOk);
         if(bOk && songId != 0) {
             playByModuleId(songId);
+            emit requestPlayerView();
         }
     } else if(currentSong.type() == QVariant::String) {
         QString fileName = currentSong.toString();
         playByModuleFileName(fileName, SongFormat::getIconPath(fileName));
+        emit requestPlayerView();
     }
 }
 

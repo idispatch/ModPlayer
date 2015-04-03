@@ -51,7 +51,6 @@ Page {
                     app.player.playlist.assign(songs)
                     if(app.player.playlist.count > 0) {
                         app.player.playPlaylist()
-                        showPlayer()
                     }
                 }
                 listItemComponents: [
@@ -157,8 +156,7 @@ Page {
     onCreationCompleted: {
         var thisObject = albumsPage
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
                 thisObject.showPlayer()
             }
         })

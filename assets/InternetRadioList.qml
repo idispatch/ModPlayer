@@ -55,7 +55,7 @@ Page {
                     app.player.currentSong.title = "Internet Radio";
                     app.player.currentSong.iconPath = Global.getRadioIcon(playlistURL)
 
-                    showPlayerView()
+                    showPlayer()
 
                     app.analytics.selectRadio(playlistURL)
                     app.player.radio.download(playlistURL)
@@ -97,12 +97,11 @@ Page {
     }
     function unload() {
     }
-    function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && 
-           navigationPane.top == internetRadioPage) {
-            var view = songPlayer.createObject()
-            view.navigationPane = navigationPane
-            navigationPane.push(view)
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        if(view) {
+          view.navigationPane = navigationPane
+          navigationPane.push(view)
         }
     }
     function addBuyButton() {
@@ -115,15 +114,9 @@ Page {
     }
     onCreationCompleted: {
         var thisObject = internetRadioPage
-        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
-                var view = thisSongPlayer.createObject()
-                if(view) {
-                    view.navigationPane = thisNavigationPane
-                    thisNavigationPane.push(view)
-                }
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+                thisObject.showPlayer()
             }
         })
         app.player.radio.downloadFinished.connect(function(playlist,result) {

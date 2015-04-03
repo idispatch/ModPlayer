@@ -93,13 +93,11 @@ Page {
             console.log("Could not resolve song, id=" + songId)
         }
     }
-    function showPlayerView() {
-        if(mainTabPane.activePane == navigationPane && navigationPane.top == songView) {
-            var view = songPlayer.createObject()
-            if(view) {
-                view.navigationPane = navigationPane
-                navigationPane.push(view)
-            }
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        if(view) {
+          view.navigationPane = navigationPane
+          navigationPane.push(view)
         }
     }
     function addBuyButton() {
@@ -112,8 +110,10 @@ Page {
     }
     onCreationCompleted: {
         var thisObject = songView
-        app.player.requestPlayerView.connect(function() { 
-            thisObject.showPlayerView()
+        app.player.requestPlayerView.connect(function() {
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) { 
+                thisObject.showPlayer()
+            }
         })
         addBuyButton()
     }
@@ -138,7 +138,6 @@ Page {
             } 
             onTriggered: {
                 if(song) {
-                    showPlayerView()
                     app.player.playlist.assign(song.id)
                     app.player.playPlaylist()
                 }

@@ -77,11 +77,13 @@ Page {
                 ]
                 onTriggered: {
                     var chosenItem = dataModel.data(indexPath)
-                    var view = songList.createObject()
-                    if(view) {
-                        view.navigationPane = navigationPane
-                        navigationPane.push(view)
-                        view.loadSongsByArtist(chosenItem.id, chosenItem.name)
+                    if(chosenItem) {
+                        var view = songList.createObject()
+                        if(view) {
+                            view.navigationPane = navigationPane
+                            navigationPane.push(view)
+                            view.loadSongsByArtist(chosenItem.id, chosenItem.name)
+                        }
                     }
                 }
                 attachedObjects: [
@@ -119,6 +121,13 @@ Page {
         unload()
         requestId = app.catalog.findArtistsAsync(searchArea.searchTerm)
     }
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
     function addBuyButton() {
         if(!app.isExtendedVersion) {
             var buyActionItem = buyAppComponentDefinition.createObject()
@@ -129,15 +138,9 @@ Page {
     }
     onCreationCompleted: {
         var thisObject = artistsPage
-        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
-                var view = thisSongPlayer.createObject()
-                if(view) {
-                    view.navigationPane = thisNavigationPane
-                    thisNavigationPane.push(view)
-                }
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+                thisObject.showPlayer()
             }
         })
         var thisArtistsList = artistsList

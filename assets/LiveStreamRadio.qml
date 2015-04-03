@@ -300,7 +300,7 @@ Page {
                     playlistURL = selectedRadio.radioPlaylist
                     app.player.statusText = qsTr("Tuning Internet Radio") + Retranslate.onLanguageChanged
                     app.player.currentSong.title = "Internet Radio";
-                    showPlayerView()
+                    showPlayer()
                     app.analytics.selectRadio(playlistURL)
                     app.player.radio.download(playlistURL)
                 }
@@ -342,10 +342,9 @@ Page {
                                                                  countrySelection, 
                                                                  limit)
      }
-     function showPlayerView() {
-         if(mainTabPane.activePane == navigationPane && 
-            navigationPane.top == liveStreamRadioPage) {
-             var view = songPlayer.createObject()
+     function showPlayer() {
+         var view = songPlayer.createObject()
+         if(view) {
              view.navigationPane = navigationPane
              navigationPane.push(view)
          }
@@ -360,16 +359,10 @@ Page {
      }
      onCreationCompleted: {
          var thisObject = liveStreamRadioPage
-         var thisSongPlayer = songPlayer
          app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
-                  var view = thisSongPlayer.createObject()
-                  if(view) {
-                      view.navigationPane = thisNavigationPane
-                      thisNavigationPane.push(view)
-                  }
-              }
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+                thisObject.showPlayer()
+            }
          })
          var thisProgress = progress
          var thisRadioList = radioList

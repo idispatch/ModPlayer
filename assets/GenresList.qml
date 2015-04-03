@@ -111,6 +111,13 @@ Page {
         unload()
         requestId = app.player.catalog.findGenresAsync(searchArea.searchTerm)
     }
+    function showPlayer() {
+        var view = songPlayer.createObject()
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
+    }
     function addBuyButton() {
         if(!app.isExtendedVersion) {
             var buyActionItem = buyAppComponentDefinition.createObject()
@@ -121,15 +128,9 @@ Page {
     }
     onCreationCompleted: {
         var thisObject = genresPage
-        var thisSongPlayer = songPlayer
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && 
-               thisObject.navigationPane.top == thisObject) {
-                var view = thisSongPlayer.createObject()
-                if(view) {
-                    view.navigationPane = thisNavigationPane
-                    thisNavigationPane.push(view)
-                }
+            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+                thisObject.showPlayer()
             }
         })
         var thisProgress = progress
