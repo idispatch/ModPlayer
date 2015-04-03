@@ -25,8 +25,13 @@ Container {
         playlistInfo.text = qsTr("%1 of %2").arg(app.player.playlist.position + 1).arg(app.player.playlist.count) + Retranslate.onLanguageChanged
     }
     onCreationCompleted: {
-        app.player.playlist.countChanged.connect(updateDisplay)
-        app.player.playlist.positionChanged.connect(updateDisplay)
+        var thisObject = playlistCounter
+        app.player.playlist.countChanged.connect(function() {
+            thisObject.updateDisplay()
+        })
+        app.player.playlist.positionChanged.connect(function() {
+            thisObject.updateDisplay()
+        })
         updateDisplay()
     }
     attachedObjects: [

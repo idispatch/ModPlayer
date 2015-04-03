@@ -467,13 +467,14 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisMainTabPane = mainTabPane
         var thisObject = songListPage
         var thisSongs = songs
         var thisProgress = progress
         var thisListEmpty = listEmpty
         var thisListAnimation = listAnimation
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+            if(thisMainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
                 thisObject.showPlayer()
             }
         })

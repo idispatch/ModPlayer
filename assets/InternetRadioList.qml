@@ -113,9 +113,10 @@ Page {
         }
     }
     onCreationCompleted: {
+        var thisMainTabPane = mainTabPane
         var thisObject = internetRadioPage
         app.player.requestPlayerView.connect(function() {
-            if(mainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+            if(thisMainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
                 thisObject.showPlayer()
             }
         })

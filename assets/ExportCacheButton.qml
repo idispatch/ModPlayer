@@ -23,10 +23,11 @@ Container {
                     onFinished: {
                         if (result != SystemUiResult.ConfirmButtonSelection)
                             return;
+                        var thisProgress = progress
                         app.cache.progressUpdate.connect(function(percent, fileName) {
-                            progress.progress = percent
-                            progress.body = fileName
-                            progress.show()
+                            thisProgress.progress = percent
+                            thisProgress.body = fileName
+                            thisProgress.show()
                         })
                         progress.show()
                         app.cache.exportCache("ModPlayer")

@@ -136,6 +136,7 @@ Container {
         ComponentDefinition {
             id: clockTick
             ImageView {
+                id: clockTickView
                 property int tickAngle
                 loadEffect: ImageViewLoadEffect.None
                 rotationZ: -180 + tickAngle
@@ -155,8 +156,11 @@ Container {
                     updateDisplay()
                 }
                 onCreationCompleted: {
+                    var thisObject = clockTickView
+                    clockDisplay.clockValueChanged.connect(function () {
+                        thisObject.updateDisplay()
+                    })
                     updateDisplay()
-                    clockDisplay.clockValueChanged.connect(updateDisplay)
                 }
             }
         },

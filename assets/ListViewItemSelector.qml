@@ -10,7 +10,10 @@ Container {
     verticalAlignment: VerticalAlignment.Center
 
     onCreationCompleted: {
-        dataModelChanged.connect(createLetters)
+        var thisObject = indexLettersView
+        dataModelChanged.connect(function() {
+            thisObject.createLetters()
+        })
         createLetters()
     }
     function letterFocused(letter) {
@@ -20,7 +23,10 @@ Container {
         var letterObject = letterView.createObject()
         if (letterObject != null) {
             letterObject.text = letter
-            letterObject.focused.connect(letterFocused)
+            var thisObject = indexLettersView
+            letterObject.focused.connect(function() {
+                thisObject.letterFocused(letter)
+            })
             indexLettersContainer.add(letterObject)
         }
     }

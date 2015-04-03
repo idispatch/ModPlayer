@@ -6,15 +6,21 @@ VerticalContainer {
     id: instrumentsView
     property string mode: "samples"
     function load() {
-        if(instrumentsView.mode == 'samples') {
+        if(mode == 'samples') {
             instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
         } else {
             instrumentsSamplesList.dataModel = app.player.currentSong.getInstrumentNames()
         }
     }
     onCreationCompleted: {
-        selector.selectedIndexChanged.connect(load)
-        app.player.currentSong.songLoadedChanged.connect(load)
+        var thisInstrumentsView = instrumentsView
+        selector.selectedIndexChanged.connect(function() {
+            thisInstrumentsView.load()
+        })
+        app.player.currentSong.songLoadedChanged.connect(function() {
+            thisInstrumentsView.load()
+        })
+        thisInstrumentsView.load()
     }
     GroupContainer {
         SegmentedControl {

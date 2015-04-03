@@ -40,9 +40,10 @@ GroupContainer {
             }
         }
         onCreationCompleted: {
+            var thisSong = song
             app.player.currentSong.playCountChanged.connect(function(){
-                if(song.id == app.player.currentSong.id) {
-                    song.playCount = app.player.currentSong.playCount
+                if(thisSong.id == app.player.currentSong.id) {
+                    thisSong.playCount = app.player.currentSong.playCount
                 }
             })
         }
@@ -60,9 +61,10 @@ GroupContainer {
                 ""
         }
         onCreationCompleted: {
+            var thisSong = song
             app.player.currentSong.lastPlayedChanged.connect(function(){
-                if(song.id == app.player.currentSong.id) {
-                    song.lastPlayed = app.player.currentSong.lastPlayed
+                if(thisSong && thisSong.id == app.player.currentSong.id) {
+                    thisSong.lastPlayed = app.player.currentSong.lastPlayed
                 }
             })
         }
@@ -78,14 +80,16 @@ GroupContainer {
             text: song && song.myFavourite > 0 ? qsTr("You liked this song") + Retranslate.onLanguageChanged : ""
         }
         onCreationCompleted: {
+            var thisSong = song
             app.player.currentSong.myFavouriteChanged.connect(function(){
-                if(song.id == app.player.currentSong.id) {
-                    song.myFavourite = app.player.currentSong.myFavourite
+                if(thisSong && thisSong.id == app.player.currentSong.id) {
+                    thisSong.myFavourite = app.player.currentSong.myFavourite
                 }
             })
         }
     }
     BlackLabel {
+        id: songCacheStatus
         visible: song != null && (song.id < 0 || app.cache.fileExists(song.fileName))
         textFormat: TextFormat.Html
         horizontalAlignment: HorizontalAlignment.Center
@@ -105,10 +109,11 @@ GroupContainer {
             return ""
         }
         onCreationCompleted: {
-            var s = song
+            var thisSong = song
+            var thisObject = songCacheStatus
             app.cache.currentFilesChanged.connect(function() {
-                visible = s && app.cache.fileExists(s.fileName)
-                text = getLabelText()
+                thisObject.visible = thisSong && app.cache.fileExists(thisSong.fileName)
+                thisObject.text = thisObject.getLabelText()
             })
         }
     }

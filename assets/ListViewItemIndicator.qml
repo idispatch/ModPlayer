@@ -25,7 +25,10 @@ Container {
     onCreationCompleted: {
         visible = false
         opacity = 0.0
-        textChanged.connect(showIndicator)
+        var thisObject = indicatorView
+        textChanged.connect(function() {
+            thisObject.showIndicator()
+        })
     }
     function showIndicator() {
         indicatorTimer.stop()

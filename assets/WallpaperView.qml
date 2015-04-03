@@ -110,11 +110,22 @@ Container {
                 }
             }
             onCreationCompleted: {
-                Application.fullscreen.connect(enableAnimationTimer)
-                Application.invisible.connect(disableAnimationTimer)
-                Application.thumbnail.connect(disableAnimationTimer)
-                app.player.playback.configuration.animationEnabledChanged.connect(initTimer)
-                app.wallpaper.animatableChanged.connect(initTimer)
+                var thisObject = block
+                Application.fullscreen.connect(function() {
+                    thisObject.enableAnimationTimer()
+                })
+                Application.invisible.connect(function() {
+                    thisObject.disableAnimationTimer()
+                })
+                Application.thumbnail.connect(function() {
+                    thisObject.disableAnimationTimer()
+                })
+                app.player.playback.configuration.animationEnabledChanged.connect(function() {
+                    thisObject.initTimer()
+                })
+                app.wallpaper.animatableChanged.connect(function() {
+                    thisObject.initTimer()
+                })
                 initTimer()
             }
         }

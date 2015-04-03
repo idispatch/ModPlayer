@@ -39,9 +39,16 @@ Sheet {
         console.log("Purchase sheet closed")
     }
     onCreationCompleted: {
-        app.store.purchaseFailed.connect(buySheet.purchaseFailed)
-        app.store.purchaseSucceeded.connect(buySheet.purchaseSucceeded)
-        app.store.remoteStatusRetrieved.connect(buySheet.remoteStatusRetrieved)
+        var thisObject = buySheet
+        app.store.purchaseFailed.connect(function(reason) {
+            thisObject.purchaseFailed(reason)
+        })
+        app.store.purchaseSucceeded.connect(function(reason) {
+            thisObject.purchaseSucceeded(reason)
+        })
+        app.store.remoteStatusRetrieved.connect(function() {
+            thisObject.remoteStatusRetrieved()
+        })
         app.store.loadLocalPurchases()
     }
     attachedObjects: [
