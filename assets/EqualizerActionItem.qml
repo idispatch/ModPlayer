@@ -40,9 +40,10 @@ ActionItem {
                     appendItem("Rock", true, mode == 16)
                     appendItem("Spoken Word", true, mode == 17)
                     exec()
-                    if(result == SystemUiResult.ConfirmButtonSelection ){
-                        app.player.equalizerPreset = selectedIndices[0]
+                    if(result == SystemUiResult.ConfirmButtonSelection ) {
+                        mode = selectedIndices[0]
                     }
+                    app.player.equalizerPreset = mode
                 } else {
                     app.pleaseBuy()
                 }
