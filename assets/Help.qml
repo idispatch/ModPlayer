@@ -42,7 +42,7 @@ Sheet {
                 ActionBar.placement: ActionBarPlacement.InOverflow
             },
             AppWorldActionItem{
-                ActionBar.placement: ActionBarPlacement.OnBar
+                ActionBar.placement: ActionBarPlacement.Signature
             }
         ]
         ScrollView {

@@ -208,7 +208,7 @@ Page {
         PlayAllActionItem {
             id: playAllActionItem
             checkExtendedVersion: !app.isExtendedVersion
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
         },
         PauseActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

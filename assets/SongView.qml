@@ -133,7 +133,7 @@ Page {
             title: qsTr("Play") + Retranslate.onLanguageChanged
             imageSource: "asset:///images/actions/icon_play.png"
             enabled: song != null
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
             shortcuts: Shortcut {
                 key: "p"
             } 

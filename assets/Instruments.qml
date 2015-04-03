@@ -58,7 +58,7 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
         },
         PauseActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
         },
         AddFavouriteActionItem {
             currentSong: app.player.currentSong.songLoaded

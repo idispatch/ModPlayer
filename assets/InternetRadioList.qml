@@ -141,7 +141,7 @@ Page {
     ]
     actions: [
         PlayerActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
             navigationPane: internetRadioPage.navigationPane
         },
         PauseActionItem {

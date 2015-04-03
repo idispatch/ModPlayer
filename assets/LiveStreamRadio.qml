@@ -401,7 +401,7 @@ Page {
     ]
     actions: [
         PlayerActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
             navigationPane: liveStreamRadioPage.navigationPane
         },
         PauseActionItem {

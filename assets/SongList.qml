@@ -509,7 +509,7 @@ Page {
         },
         PlayAllActionItem {
             id: playAllActionItem
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
             songList: songs.dataModel
         },
         PlayActionItem {

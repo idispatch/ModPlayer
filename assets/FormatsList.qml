@@ -117,7 +117,7 @@ Page {
     ]
     actions: [
         PlayerActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
             navigationPane: formatsPage.navigationPane
         },
         PauseActionItem {

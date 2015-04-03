@@ -190,7 +190,7 @@ Page {
             navigationPane: albumsPage.navigationPane
         },
         PauseActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
         },
         PlayModeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow

@@ -195,7 +195,7 @@ Page {
     ]
     actions: [
         CreatePlaylistActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
             onPlaylistCreated: {
                 unload()
                 load()

@@ -226,7 +226,7 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
         },
         PlayActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Signature
         },
         NextActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
