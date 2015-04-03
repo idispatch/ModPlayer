@@ -1,12 +1,12 @@
 import bb.cascades 1.0
-import QtQuick 1.0
 
 Container {
     id: indicatorView
 
     property real displayOpacity: 1.0
-    property int showTimeout: 800
-    property int fadeDelay: 500
+    property int showTimeout:     800
+    property int fadeDelay:       400
+    property int fadeDuration:    400
     property string text: ""
 
     minHeight: 150
@@ -24,23 +24,22 @@ Container {
 
     onCreationCompleted: {
         visible = false
-        opacity = 0.0
+        opacity = 1.0
+        scaleX = 1.0
+        scaleY = 1.0
         var thisObject = indicatorView
         textChanged.connect(function() {
             thisObject.showIndicator()
         })
     }
     function showIndicator() {
-        indicatorTimer.stop()
+        hideAnimation.stop()
         indicatorView.opacity = displayOpacity
+        indicatorView.scaleX = 1.0
+        indicatorView.scaleY = 1.0
         indicatorView.visible = true
-        indicatorTimer.start()
-    }
-    function hideIndicator() {
-        indicatorTimer.stop()
         hideAnimation.play()
     }
-    
     Container {
         horizontalAlignment: HorizontalAlignment.Center
         verticalAlignment: VerticalAlignment.Center
@@ -53,13 +52,25 @@ Container {
         }
     }
     animations: [
-        FadeTransition {
+        ParallelAnimation {
             id: hideAnimation
-            fromOpacity: indicatorView.displayOpacity
-            toOpacity: 0.0
             delay: indicatorView.fadeDelay
             onEnded: {
                 indicatorView.visible = false
+            }
+            FadeTransition {
+                fromOpacity: indicatorView.displayOpacity
+                toOpacity: 0.0
+                duration: indicatorView.fadeDuration
+                easingCurve: StockCurve.Linear
+            }
+            ScaleTransition {
+                duration: indicatorView.fadeDuration
+                fromX: 1.0
+                toX: 3.0
+                fromY: 1.0
+                toY: 3.0
+                easingCurve: StockCurve.CircularOut
             }
         }
     ]
@@ -67,14 +78,6 @@ Container {
         ImagePaintDefinition {
             id: backgroundImage
             imageSource: "asset:///images/backgrounds/indicator.amd"
-        },
-        Timer {
-            id: indicatorTimer
-            interval: indicatorView.showTimeout
-            repeat: false
-            onTriggered: {
-                indicatorView.hideIndicator()
-            }
         }
     ]
 }
