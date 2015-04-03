@@ -53,9 +53,6 @@ AlbumArtView {
                 verticalAlignment: VerticalAlignment.Fill
                 background: Color.create("#C0000000")
                 bottomPadding: 80
-                onTouch: {
-                    albumArtDialog.close()
-                }
                 ImageView {
                     id: largeAlbumArt
                     horizontalAlignment: HorizontalAlignment.Center
