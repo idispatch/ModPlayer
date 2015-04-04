@@ -160,7 +160,7 @@ Sheet {
                     textFormat: TextFormat.Html
                     topMargin: 20
                     bottomMargin: topMargin
-                    text: qsTr("Thank you, contributors: Mr.Time (Chinese translation)." ) + Retranslate.onLanguageChanged
+                    text: qsTr("Thank you, contributors: Mr.Time (Chinese translation), Ramiro Yaben (Spanish translation)" ) + Retranslate.onLanguageChanged
                 }
             }
         }

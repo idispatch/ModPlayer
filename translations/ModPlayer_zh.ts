@@ -465,6 +465,10 @@
     </message>
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
+        <translation type="obsolete">感谢贡献者：Mr.Time(中文翻译)</translation>
+    </message>
+    <message>
+        <source>Thank you, contributors: Mr.Time (Chinese translation), Ramiro Yaben (Spanish translation)</source>
         <translation>感谢贡献者：Mr.Time(中文翻译)</translation>
     </message>
 </context>
@@ -1295,7 +1299,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="unfinished">购买模块播放器高级版</translation>
+        <translation>购买模块播放器高级版</translation>
     </message>
     <message>
         <source>Device Screen</source>
@@ -1762,39 +1766,39 @@
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scaling</translation>
     </message>
     <message>
         <source>Fill</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fill</translation>
     </message>
     <message>
         <source>Stretch wallpaper to fit whole screen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stretch wallpaper to fit whole screen</translation>
     </message>
     <message>
         <source>Aspect Fit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aspect Fit</translation>
     </message>
     <message>
         <source>Fit wallpaper and preserve aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fit wallpaper and preserve aspect ratio</translation>
     </message>
     <message>
         <source>Aspect Fill</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aspect Fill</translation>
     </message>
     <message>
         <source>Resize wallpaper preserve the aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Resize wallpaper preserve the aspect ratio</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">None</translation>
     </message>
     <message>
         <source>Do not scale wallpaper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Do not scale wallpaper</translation>
     </message>
 </context>
 <context>
