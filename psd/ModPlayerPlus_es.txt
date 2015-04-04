@@ -1,0 +1,30 @@
+ModPlayer Plus es un reproductor de pistas musicales nativo de BlackBerry® 10 que reproduce módulos de canciones desde una de las colecciones más grande del mundo de módulos de música – El sitio Mod Archive y desde tu dispositivo o tarjeta SD. 
+En adición ModPlayer Plus soporta los formatos MP3, FLAC, OGG, WMA, MP4, AAC, ASF, M4A, MKA, MOD, 669, IT, MED, MTM, S3M, STM, XM, OCT, OKT, WAV y Streaming de Radio por Internet, más un catálogo de estaciones de Streaming de Radio en Vivo por Internet, Digitally Imported, Sky.FM, JazzRadio.com, RockRadio.com, Fresca Radio!
+
+✔ Más de 140000 pistas musicales para disfrutar en la librería musical de ModPlayer Plus; 
+✔ Síntesis musical en múltiples canales en tiempo real con un montón de opciones de configuración de calidad de mezcla (hasta 64 canales de pista mezclados en tiempo real en tu dispositivo!); 
+✔ Más de 5000 estaciones de radio por Internet europeas en el catálogo de ModPlayer Plus; 
+✔ Más de 75 canales musicales de la estación de radio por Internet Digitally Imported; 
+✔ Más de 65 canales musicales de la estación de radio por Internet Sky.fm;
+✔ Más de 30 canales musicales de la estación de radio JazzRadio; 
+✔ 40 canales musicales de la estación de radio RockRadio; 
+✔ Te damos la selección más nueva de los canales de música Latina, Hispánica y Caribeña en el mundo! 40 canales musicales de la estación de radio Fresca Radio; 
+✔ ModPlayer Plus organiza la música en tu dispositivo, una vez indexada tu música es fácilmente buscable en ModPlayer Plus; 
+✔ Crea tus propias listas de reproducción o importa tu propia música MP3 en ModPlayer Plus. ModPlayer Plus organizará la música y las listas de reproducción; 
+✔ Integración total con el sistema de BlackBerry 10, incluyendo conexión con Ahora Reproduciendo e integración con el Administrador de Archivos; 
+✔ Abre pistas musicales en tu dispositivo o tarjeta SD desde el Administrador de Archivos o desde ModPlayer Plus; 
+✔ Tabla de las canciones más populares del sitio The Mod Archive para escuchar; 
+✔ Selecciona y reproduce canciones que sean las más puntuadas, más descargadas, más reverenciadas por otros usuarios del sitio de The Mod Archive; 
+✔ Selecciona canciones por Género, Artista, Formato de pista; 
+✔ Comparte canciones que te gustan con tus amigos; 
+✔ ModPlayer Plus descarga las canciones más recurridas y las guarda en tu dispositivo para escucharlas sin conexión; 
+✔ Puedes crear listas de reproducción con nombre y organizar la música de la forma que te guste, múltiples modos de reproducción de listas son soportados; 
+✔ Puedes importar tu música y listas de reproducción personales al catálogo de ModPlayer Plus desde un dispositivo de memoria o una tarjeta SD, ModPlayer Plus escaneará e indexará todas las pistas y listas de reproducción que encuentre en tu dispositivo; 
+✔ Puedes exportar tus canciones en el caché o canciones individuales en su formato original o en formato MP3 a tu dispositivo de memoria o tarjeta SD; 
+✔ Funcionalidad de muestra de imágenes de tapas de álbumes integrada para varios formatos.  
+
+★ ModPlayer Plus tiene muchos ajustes de calidad de reproducción para configurar, incluyendo calidad de mezcla, reducción de ruido, eco, megabajos y sonido envolvente; 
+★ Fondos y fondos de pantalla personalizados de ModPlayer Plus;
+★ ModPlayer Plus puede ejecutarse y correr en segundo plano;
+★ ModPlayer Plus se integra con la ventana popup Ahora Reproduciendo de BlackBerry Now Playing así que puedes reproducir, pausar y detener la canción de manera más fácil directo desde el popup de control de volumen;
+★ ModPlayer Plus muestra las tapas de álbumes si están disponibles.
