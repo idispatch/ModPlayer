@@ -1,0 +1,64 @@
+XML File Structure
+==================
+
+context = this is the scope where the text occurrs in the app UI
+    name = this is the name of the context (do not translate)
+    message
+	   location = precise location of the localized text in the source code (do not translate)
+	   translatorcomment = this is a note about translation meaning (do not translate)
+-->    source = original wording (English)
+-->    translation = this is Translated text  (place the translation of text in 'source' here)
+
+What has to be done
+===================
+
+You need to translate the text from "source" to "translation" in the attached XML.
+
+Notes
+==================
+
+1. Note, that value placeholders (%1, %2, etc.) have to be preserved in translated text. This is required for app functionality to work correctly.
+
+2. If you translate XML file directly and do not use Qt Linquist make sure you handle XML correclty (i.e. &apos; &quot; &lt; &gt; has special meaning, it has to be preserved)
+
+3. Some phrases will contain HTML formatting, like <i> (italic), <b> (bold). It has to be preserved. Note, that this formatting is intermixed with &lt; &gt; to escape special meaning of < and > characters in XML.  If you use Qt Linguist you do still need to preserve this HTML formatting.
+
+4. Once you translate the text in 'translation', mark it as finished by removing ' type="unfinished"'.  Qt Linguist does this automatically.
+
+5. Qt Linguist significanly simlifies the translation and rendering, you do not need to escape XML special charcaters, etc.  Consider it as a tool to use.
+
+Example
+=======
+
+If you translate XML directly:
+
+...
+<context>
+    <name>FilesList</name>
+    <message>
+        <location filename="../assets/FilesList.qml" line="13"/>
+        <source>Select Songs</source>                                <---- translate this original
+        <translation>Select Songs</translation>		                 <---- place translation here
+    </message>
+    <message>
+        <location filename="../assets/FilesList.qml" line="77"/>
+        <source>Play %1</source>                                         <---- translate this original
+        <translation>Play %1</translation>                               <---- place translation here
+    </message>
+    <message>
+        <location filename="../assets/FilesList.qml" line="118"/>
+        <source>No songs in &apos;this&apos; directory</source>             <---- translate this original
+        <translation>No songs in &apos;this&apos; directory</translation>   <---- place translation here
+    </message>
+</context>
+...
+
+
+Explanation
+===========
+Here we need to translate 3 phrases: "Select Songs", "Play %1" and "No songs in &apos;this&apos; directory".
+
+The second phrase "Play %1" will traslate into "Играть %1" (in Russian, for example). Note, %1 is a placeholder that the app will substitute it with some value in run time. In the translation the order of %1 %2 may change depending on the target language grammar.
+
+The last phrase contains the &apos; - it has to be preserved. For example, Russian translation will be "Нет песни в &apos;этом&apos; каталоге" (this => этом). If you use Qt 
+Lingust it does that autimatically.
