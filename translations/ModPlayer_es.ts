@@ -982,7 +982,7 @@
     <message>
         <location filename="../assets/PlayerActionItem.qml" line="7"/>
         <source>Now Playing</source>
-        <translation>Ahora Reproduciendo</translation>
+        <translation>Reproduciendo</translation>
     </message>
 </context>
 <context>
