@@ -473,7 +473,11 @@
     </message>
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
-        <translation>Спасибо за помощь: Mr.Time (перевод на китайский).</translation>
+        <translation type="obsolete">Спасибо за помощь: Mr.Time (перевод на китайский).</translation>
+    </message>
+    <message>
+        <source>Thank you, contributors: Mr.Time (Chinese translation), Ramiro Yaben (Spanish translation)</source>
+        <translation>Спасибо за помощь: Mr.Time (перевод на китайский), Ramiro Yaben (перевод на испанский)</translation>
     </message>
 </context>
 <context>
@@ -1303,7 +1307,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="unfinished">Купить ModPlayer Plus</translation>
+        <translation>Купить ModPlayer Plus</translation>
     </message>
     <message>
         <source>Playlist Control</source>

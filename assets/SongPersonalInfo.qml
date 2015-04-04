@@ -26,6 +26,7 @@ GroupContainer {
         }
         BlackLabel {
             textFormat: TextFormat.Html
+            multiline: true
             text: {
                 if(song) {
                     if(song.playCount > 0) {
@@ -59,6 +60,7 @@ GroupContainer {
             text: song && song.lastPlayed > 0 ? 
             qsTr("Last played %1").arg(Global.formatTimeStamp(song.lastPlayed)) + Retranslate.onLanguageChanged : 
                 ""
+            multiline: true
         }
         onCreationCompleted: {
             var thisSong = song
@@ -78,6 +80,7 @@ GroupContainer {
         }
         BlackLabel {
             text: song && song.myFavourite > 0 ? qsTr("You liked this song") + Retranslate.onLanguageChanged : ""
+            multiline: true
         }
         onCreationCompleted: {
             var thisSong = song
