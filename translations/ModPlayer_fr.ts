@@ -1590,7 +1590,7 @@
     <message>
         <location filename="../assets/SongDynamicInfo.qml" line="39"/>
         <source>Pattern</source>
-        <translation>Schèma</translation>
+        <translation>Patron</translation>
     </message>
     <message>
         <location filename="../assets/SongDynamicInfo.qml" line="54"/>
@@ -1771,7 +1771,7 @@
     <message>
         <location filename="../assets/SongParametersInfo.qml" line="40"/>
         <source>Patterns</source>
-        <translation type="unfinished">Patrons</translation>
+        <translation>Patrons</translation>
     </message>
     <message>
         <location filename="../assets/SongParametersInfo.qml" line="55"/>
@@ -1832,7 +1832,7 @@
     <message>
         <location filename="../assets/SongPlayer.qml" line="144"/>
         <source>Pattern</source>
-        <translation>Schéma</translation>
+        <translation>Patron</translation>
     </message>
     <message>
         <location filename="../assets/SongPlayer.qml" line="149"/>
