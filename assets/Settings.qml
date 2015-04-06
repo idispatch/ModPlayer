@@ -244,7 +244,7 @@ Sheet {
                                     color: Color.Black
                                 }
                             }
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: keepScreenAwake
                                 text: qsTr("Keep screen awake") + Retranslate.onLanguageChanged
                                 checked: app.keepScreenAwake
@@ -540,7 +540,7 @@ Sheet {
                                     }
                                 }
                             }
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: oversampling
                                 text: qsTr("Enable Oversampling") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.oversamplingEnabled
@@ -548,7 +548,7 @@ Sheet {
                                     settingsRoot.configuration.oversamplingEnabled = oversampling.checked
                                 }
                             }
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: noiseReduction
                                 text: qsTr("Enable Noise Reduction") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.noiseReductionEnabled
@@ -563,7 +563,7 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: reverbEnabled
                                 text: qsTr("Enable Reverb") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.reverbEnabled
@@ -620,7 +620,7 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: megabassEnabled
                                 text: qsTr("Enable MegaBass") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.bassEnabled
@@ -677,7 +677,7 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: surroundEnabled
                                 text: qsTr("Enable Surround Sound") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.surroundEnabled

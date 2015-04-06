@@ -86,6 +86,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/LockIcon.qml) \
         $$quote($$BASEDIR/assets/ModPlayerListItem.qml) \
         $$quote($$BASEDIR/assets/Mouse.qml) \
+        $$quote($$BASEDIR/assets/MultilineCheckBox.qml) \
         $$quote($$BASEDIR/assets/NextActionItem.qml) \
         $$quote($$BASEDIR/assets/OpenSongActionItem.qml) \
         $$quote($$BASEDIR/assets/PatternDisplay.qml) \

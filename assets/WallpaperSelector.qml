@@ -4,12 +4,11 @@ import bb.cascades.pickers 1.0
 
 VerticalContainer {
     horizontalAlignment: HorizontalAlignment.Center
-    CheckBox {
+    MultilineCheckBox {
         id: animationEnabled
         text: qsTr("Enable Background Animation") + Retranslate.onLanguageChanged
         checked: app.player.playback.configuration.animationEnabled
         visible: backgroundOption.isWallpaper
-        bottomMargin: 40
         onCheckedChanged: {
             app.player.playback.configuration.animationEnabled = checked
         }
