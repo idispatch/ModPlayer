@@ -652,17 +652,17 @@
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="57"/>
         <source>Jazz Radio</source>
-        <translation>Radio de jazz</translation>
+        <translation>Jazz Radio</translation>
     </message>
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="62"/>
         <source>Rock Radio</source>
-        <translation>Radio Rock</translation>
+        <translation>Rock Radio</translation>
     </message>
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="67"/>
         <source>Fresca Radio</source>
-        <translation>Radio de Fresca</translation>
+        <translation>Fresca Radio</translation>
     </message>
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="72"/>
@@ -1191,9 +1191,8 @@
         <translation>Application</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="76"/>
-        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Version: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <source>Version : &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="obsolete">Version : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="90"/>
@@ -1250,6 +1249,11 @@
         <location filename="../assets/Settings.qml" line="202"/>
         <source>Purge Cache</source>
         <translation>Vider le cache</translation>
+    </message>
+    <message>
+        <location filename="../assets/Settings.qml" line="76"/>
+        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">Version : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="124"/>
@@ -1557,7 +1561,7 @@
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="37"/>
         <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Artiste: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Artiste : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="46"/>
@@ -1572,7 +1576,7 @@
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="62"/>
         <source>Format: %1</source>
-        <translation>Format: %1</translation>
+        <translation>Format : %1</translation>
     </message>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="70"/>
@@ -1753,7 +1757,7 @@
     <message>
         <location filename="../assets/SongMainInfo.qml" line="49"/>
         <source>Length: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Longueur : &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Durée : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/SongMainInfo.qml" line="55"/>
@@ -1860,7 +1864,7 @@
     <message>
         <location filename="../assets/SongPublicInfo.qml" line="76"/>
         <source>Rated &lt;b&gt;%1&lt;/b&gt; of &lt;b&gt;10&lt;/b&gt; by others</source>
-        <translation>Classé &lt;b&gt;%1&lt;/b&gt; de &lt;b&gt;10&lt;/b&gt;par d&apos;autres utilisateurs</translation>
+        <translation>Classé &lt;b&gt;%1&lt;/b&gt; sur &lt;b&gt;10&lt;/b&gt; par d&apos;autres utilisateurs</translation>
     </message>
     <message>
         <location filename="../assets/SongPublicInfo.qml" line="78"/>
