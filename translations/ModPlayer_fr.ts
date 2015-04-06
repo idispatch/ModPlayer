@@ -376,7 +376,7 @@
     <message>
         <location filename="../assets/FilesList.qml" line="66"/>
         <source>Play</source>
-        <translation>Lecture</translation>
+        <translation>Play</translation>
     </message>
     <message>
         <location filename="../assets/FilesList.qml" line="107"/>
@@ -848,7 +848,7 @@
     <message>
         <location filename="../src/PlayActionItem.cpp" line="86"/>
         <source>Play</source>
-        <translation>Lire</translation>
+        <translation>Play</translation>
     </message>
 </context>
 <context>
