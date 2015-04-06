@@ -395,12 +395,12 @@
 <context>
     <name>FormatsList</name>
     <message>
-        <location filename="../assets/FormatsList.qml" line="10"/>
+        <location filename="../assets/FormatsList.qml" line="11"/>
         <source>Select Songs by Format</source>
         <translation>Sélectionner des Chansons en fonction du Format</translation>
     </message>
     <message>
-        <location filename="../assets/FormatsList.qml" line="34"/>
+        <location filename="../assets/FormatsList.qml" line="41"/>
         <source>%1 songs</source>
         <translation>%1 chansons</translation>
     </message>
@@ -652,17 +652,17 @@
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="57"/>
         <source>Jazz Radio</source>
-        <translation>Jazz Radio</translation>
+        <translation>Radio de jazz</translation>
     </message>
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="62"/>
         <source>Rock Radio</source>
-        <translation>Rock Radio</translation>
+        <translation>Radio Rock</translation>
     </message>
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="67"/>
         <source>Fresca Radio</source>
-        <translation>Fresca Radio</translation>
+        <translation>Radio de Fresca</translation>
     </message>
     <message>
         <location filename="../assets/InitialViewSelector.qml" line="72"/>
@@ -742,12 +742,12 @@
 <context>
     <name>InternetRadioList</name>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="11"/>
+        <location filename="../assets/InternetRadioList.qml" line="12"/>
         <source>Select Internet Radio Channel</source>
         <translation>Sélectionner une chaînel de radio Internet</translation>
     </message>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="54"/>
+        <location filename="../assets/InternetRadioList.qml" line="61"/>
         <source>Tuning Internet Radio</source>
         <translation>Recherche de radio Internet</translation>
     </message>
@@ -1014,13 +1014,13 @@
         <translation>Contrôle de playlist</translation>
     </message>
     <message>
-        <location filename="../assets/PlaylistSensorControl.qml" line="29"/>
+        <location filename="../assets/PlaylistSensorControl.qml" line="23"/>
         <source>On Device Shake Play Next</source>
         <translatorcomment>meaning: On device shake sensor triggered...</translatorcomment>
         <translation>Lire la piste suivante en sécouant le périphérique</translation>
     </message>
     <message>
-        <location filename="../assets/PlaylistSensorControl.qml" line="48"/>
+        <location filename="../assets/PlaylistSensorControl.qml" line="30"/>
         <source>On Proximity Sensor Play Next</source>
         <translatorcomment>meaning: On face/hand proximity sensor triggered...</translatorcomment>
         <translation>Lire la piste suivant en activant le capteur de proximité</translation>
@@ -1191,8 +1191,9 @@
         <translation>Application</translation>
     </message>
     <message>
-        <source>Version : &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="obsolete">Version : &lt;b&gt;%1&lt;/b&gt;</translation>
+        <location filename="../assets/Settings.qml" line="76"/>
+        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Version: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="90"/>
@@ -1249,11 +1250,6 @@
         <location filename="../assets/Settings.qml" line="202"/>
         <source>Purge Cache</source>
         <translation>Vider le cache</translation>
-    </message>
-    <message>
-        <location filename="../assets/Settings.qml" line="76"/>
-        <source>Version: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished">Version : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="124"/>
@@ -1561,27 +1557,27 @@
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="37"/>
         <source>Artist: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Artiste : &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Artiste: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="46"/>
         <source>Album: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Album : &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Album: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="54"/>
         <source>Genre: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Genre : &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Genre: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="62"/>
         <source>Format: %1</source>
-        <translation>Format : %1</translation>
+        <translation>Format: %1</translation>
     </message>
     <message>
         <location filename="../assets/SongArtistInfo.qml" line="70"/>
         <source>Tracker: %1</source>
-        <translation>Tracker : %1</translation>
+        <translation>Tracker: %1</translation>
     </message>
 </context>
 <context>
@@ -1757,7 +1753,7 @@
     <message>
         <location filename="../assets/SongMainInfo.qml" line="49"/>
         <source>Length: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation>Durée : &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Durée: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../assets/SongMainInfo.qml" line="55"/>
@@ -1883,17 +1879,17 @@
 <context>
     <name>WallpaperSelector</name>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="61"/>
+        <location filename="../assets/WallpaperSelector.qml" line="60"/>
         <source>Background</source>
         <translation>Arrière plan</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="41"/>
+        <location filename="../assets/WallpaperSelector.qml" line="40"/>
         <source>Wallpaper</source>
         <translation>Fond d&apos;écran</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="45"/>
+        <location filename="../assets/WallpaperSelector.qml" line="44"/>
         <source>Color</source>
         <translation>Couleur</translation>
     </message>
@@ -1903,73 +1899,73 @@
         <translation>Permettre animation du fond d&apos;écran</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="20"/>
+        <location filename="../assets/WallpaperSelector.qml" line="19"/>
         <source>Theme</source>
         <translation>Thème</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="22"/>
+        <location filename="../assets/WallpaperSelector.qml" line="21"/>
         <source>Bright</source>
         <translation>Clair</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="27"/>
+        <location filename="../assets/WallpaperSelector.qml" line="26"/>
         <source>Dark</source>
         <translation>Foncé</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="359"/>
+        <location filename="../assets/WallpaperSelector.qml" line="358"/>
         <source>Scaling</source>
         <translation>Redimensionnement</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="363"/>
+        <location filename="../assets/WallpaperSelector.qml" line="362"/>
         <source>Fill</source>
         <translation type="unfinished">Remplir la taille</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="365"/>
+        <location filename="../assets/WallpaperSelector.qml" line="364"/>
         <source>Stretch wallpaper to fit whole screen</source>
         <translation type="unfinished">Taille extensible</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="369"/>
+        <location filename="../assets/WallpaperSelector.qml" line="368"/>
         <source>Aspect Fit</source>
         <translation>Aspect ajustement</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="371"/>
+        <location filename="../assets/WallpaperSelector.qml" line="370"/>
         <source>Fit wallpaper and preserve aspect ratio</source>
         <translation type="unfinished">Fit wallpaper and preserve aspect ratio</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="375"/>
+        <location filename="../assets/WallpaperSelector.qml" line="374"/>
         <source>Aspect Fill</source>
         <translation>Aspect remplissage</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="377"/>
+        <location filename="../assets/WallpaperSelector.qml" line="376"/>
         <source>Resize wallpaper preserve the aspect ratio</source>
         <translation type="unfinished">Resize wallpaper preserve the aspect ratio</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="381"/>
+        <location filename="../assets/WallpaperSelector.qml" line="380"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="383"/>
+        <location filename="../assets/WallpaperSelector.qml" line="382"/>
         <source>Do not scale wallpaper</source>
         <translation>Pas de redimensionnement</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="394"/>
-        <location filename="../assets/WallpaperSelector.qml" line="405"/>
+        <location filename="../assets/WallpaperSelector.qml" line="393"/>
+        <location filename="../assets/WallpaperSelector.qml" line="404"/>
         <source>Browse for wallpaper</source>
         <translation>Chercher fond d&apos;écran</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="444"/>
+        <location filename="../assets/WallpaperSelector.qml" line="443"/>
         <source>Browse for color</source>
         <translation>Chercher couleur</translation>
     </message>

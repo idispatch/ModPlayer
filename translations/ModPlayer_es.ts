@@ -395,12 +395,12 @@
 <context>
     <name>FormatsList</name>
     <message>
-        <location filename="../assets/FormatsList.qml" line="10"/>
+        <location filename="../assets/FormatsList.qml" line="11"/>
         <source>Select Songs by Format</source>
         <translation>Selecciona Canciones por Formato</translation>
     </message>
     <message>
-        <location filename="../assets/FormatsList.qml" line="34"/>
+        <location filename="../assets/FormatsList.qml" line="41"/>
         <source>%1 songs</source>
         <translation>%1 canciones</translation>
     </message>
@@ -509,7 +509,7 @@
     <message>
         <location filename="../assets/Help.qml" line="163"/>
         <source>Thank you, contributors: Mr.Time (Chinese translation), Ramiro Yaben (Spanish translation)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gracias, contribuyentes: Mr.Time (traducción al chino), Ramiro Yaben (lengua española), Martina Menis-Pitouli (traducción al francés).</translation>
     </message>
     <message>
         <source>Thank you, contributors: Mr.Time (Chinese translation).</source>
@@ -742,12 +742,12 @@
 <context>
     <name>InternetRadioList</name>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="11"/>
+        <location filename="../assets/InternetRadioList.qml" line="12"/>
         <source>Select Internet Radio Channel</source>
         <translation>Seleccionar Canal de Radio de Internet</translation>
     </message>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="54"/>
+        <location filename="../assets/InternetRadioList.qml" line="61"/>
         <source>Tuning Internet Radio</source>
         <translation>Sintonizando Radio por Internet</translation>
     </message>
@@ -1014,13 +1014,13 @@
         <translation>Control de Lista de Reproducción</translation>
     </message>
     <message>
-        <location filename="../assets/PlaylistSensorControl.qml" line="29"/>
+        <location filename="../assets/PlaylistSensorControl.qml" line="23"/>
         <source>On Device Shake Play Next</source>
         <translatorcomment>meaning: On device shake sensor triggered...</translatorcomment>
         <translation>Al Agitar el Dispositivo Reproducir la Siguiente</translation>
     </message>
     <message>
-        <location filename="../assets/PlaylistSensorControl.qml" line="48"/>
+        <location filename="../assets/PlaylistSensorControl.qml" line="30"/>
         <source>On Proximity Sensor Play Next</source>
         <translatorcomment>meaning: On face/hand proximity sensor triggered...</translatorcomment>
         <translation>Tras el Sensor de Proximidad Reproducir la Siguiente</translation>
@@ -1879,17 +1879,17 @@
 <context>
     <name>WallpaperSelector</name>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="61"/>
+        <location filename="../assets/WallpaperSelector.qml" line="60"/>
         <source>Background</source>
         <translation>Fondo</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="41"/>
+        <location filename="../assets/WallpaperSelector.qml" line="40"/>
         <source>Wallpaper</source>
         <translation>Fondo de pantalla</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="45"/>
+        <location filename="../assets/WallpaperSelector.qml" line="44"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
@@ -1899,73 +1899,73 @@
         <translation>Habilitar Animación de Fondo</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="20"/>
+        <location filename="../assets/WallpaperSelector.qml" line="19"/>
         <source>Theme</source>
         <translation>Tema</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="22"/>
+        <location filename="../assets/WallpaperSelector.qml" line="21"/>
         <source>Bright</source>
         <translation>Brillante</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="27"/>
+        <location filename="../assets/WallpaperSelector.qml" line="26"/>
         <source>Dark</source>
         <translation>Oscuridad</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="359"/>
+        <location filename="../assets/WallpaperSelector.qml" line="358"/>
         <source>Scaling</source>
         <translation>Escalar</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="363"/>
+        <location filename="../assets/WallpaperSelector.qml" line="362"/>
         <source>Fill</source>
         <translation>Completar</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="365"/>
+        <location filename="../assets/WallpaperSelector.qml" line="364"/>
         <source>Stretch wallpaper to fit whole screen</source>
         <translation>Estirar fondo de pantalla para que abarque toda la pantalla</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="369"/>
+        <location filename="../assets/WallpaperSelector.qml" line="368"/>
         <source>Aspect Fit</source>
         <translation>Ajustar Proporcionalmente</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="371"/>
+        <location filename="../assets/WallpaperSelector.qml" line="370"/>
         <source>Fit wallpaper and preserve aspect ratio</source>
         <translation>Ajustar fondo de pantalla y preservar la relación de proporción</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="375"/>
+        <location filename="../assets/WallpaperSelector.qml" line="374"/>
         <source>Aspect Fill</source>
         <translation>Completar Proporcionalmente</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="377"/>
+        <location filename="../assets/WallpaperSelector.qml" line="376"/>
         <source>Resize wallpaper preserve the aspect ratio</source>
         <translation>Redimensionar fondo de pantalla y preservar la relación de proporción</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="381"/>
+        <location filename="../assets/WallpaperSelector.qml" line="380"/>
         <source>None</source>
         <translation>Ninguna</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="383"/>
+        <location filename="../assets/WallpaperSelector.qml" line="382"/>
         <source>Do not scale wallpaper</source>
         <translation>No escalar</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="394"/>
-        <location filename="../assets/WallpaperSelector.qml" line="405"/>
+        <location filename="../assets/WallpaperSelector.qml" line="393"/>
+        <location filename="../assets/WallpaperSelector.qml" line="404"/>
         <source>Browse for wallpaper</source>
         <translation>Elegir un fondo de pantalla</translation>
     </message>
     <message>
-        <location filename="../assets/WallpaperSelector.qml" line="444"/>
+        <location filename="../assets/WallpaperSelector.qml" line="443"/>
         <source>Browse for color</source>
         <translation>Elegir un color</translation>
     </message>
