@@ -7,7 +7,14 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
+        id: titleBar
         title: qsTr("Select Songs by Format") + Retranslate.onLanguageChanged
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            TitleBarText {
+                title: titleBar.title
+            }
+        }
     }
     Container {
         layout: DockLayout {}
