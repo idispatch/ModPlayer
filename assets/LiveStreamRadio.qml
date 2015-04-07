@@ -285,7 +285,6 @@ Page {
                         type: "item"
                         ModPlayerListItem {
                             title: ListItem.data.name
-                            favourite: false
                             description: ListItem.data.location + ", " + ListItem.data.country
                             text: ListItem.data.url
                             upperStatus: "Mp3"

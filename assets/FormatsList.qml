@@ -36,7 +36,6 @@ Page {
                 listItemComponents: ListItemComponent {
                     ModPlayerListItem {
                         title: ListItem.data.name
-                        favourite: false
                         description: ListItem.data.description
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                         lowerStatus: Global.formatDuration(ListItem.data.duration)

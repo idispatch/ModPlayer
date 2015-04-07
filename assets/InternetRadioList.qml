@@ -48,7 +48,6 @@ Page {
                         type: "item"
                         ModPlayerListItem {
                             title: ListItem.data.name
-                            favourite: false
                             description: ListItem.data.description
                             imageSource: Global.getRadioIcon(ListItem.view.channelList)
                         }

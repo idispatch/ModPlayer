@@ -75,7 +75,6 @@ Page {
                             id: playlistEntry
                             title: ListItem.data.name
                             description: " "
-                            favourite: false
                             middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                             lowerStatus: Global.formatDuration(ListItem.data.duration)
                             imageSource: "asset:///images/formats/icon_playlist.png"
