@@ -302,12 +302,48 @@ VerticalContainer {
                             animatable: false
                         },
                         {
+                            name: "Metal Hole",
+                            path:"asset:///images/wallpapers/metalhole.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Binary Code",
+                            path:"asset:///images/wallpapers/binarycode.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Digital Space",
+                            path:"asset:///images/wallpapers/digitalspace.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Stripes",
+                            path:"asset:///images/wallpapers/stripes.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
+                            name: "BlackBerry",
+                            path:"asset:///images/wallpapers/bb.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
+                            name: "BlackBerries",
+                            path:"asset:///images/wallpapers/berries.png",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
                             name: "Custom",
                             path:"",
                             repeatable: false,
                             animatable: false
                         }
-                        ]
+                    ]
                     attachedObjects: [
                         ComponentDefinition {
                             id: optionDefinition

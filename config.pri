@@ -361,6 +361,10 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/asphalt.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/asphalt.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/aurora.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/bb.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/bb.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/berries.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/binarycode.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/blue.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/blueprint.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/blueprint.jpg) \
@@ -375,6 +379,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/dawn.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/denim.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/digital.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/digitalspace.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/dolphins.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/drops.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/flower.jpg) \
@@ -389,6 +394,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/jeans.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/linen.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/linen.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/metalhole.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/plaidbluemodern.jpg) \
@@ -400,6 +406,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/sound.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/sparkle.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/stars.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/stripes.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/stripes.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/techno.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/water.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/waves.jpg) \
