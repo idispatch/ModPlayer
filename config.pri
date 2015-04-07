@@ -193,10 +193,14 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_twitter.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_unlike.png) \
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark_85.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator2.png) \

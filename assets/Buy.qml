@@ -100,7 +100,6 @@ Sheet {
                             textStyle {
                                 base: SystemDefaults.TextStyles.TitleText
                                 fontWeight: FontWeight.Bold
-                                color: Color.Black
                             }
                         }
                         BlackLabel {

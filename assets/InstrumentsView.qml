@@ -60,7 +60,6 @@ VerticalContainer {
                                     textStyle {
                                         base: SystemDefaults.TextStyles.BodyText
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                             }

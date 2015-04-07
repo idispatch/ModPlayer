@@ -7,14 +7,13 @@ GroupContainer {
     leftPadding: 20
     rightPadding: 20
     semiTransparent: true
-    Label {
+    BlackLabel {
         text: qsTr("Playlist Control") + Retranslate.onLanguageChanged
         horizontalAlignment: HorizontalAlignment.Center
         bottomMargin: 40
         textStyle {
             base: SystemDefaults.TextStyles.TitleText
             fontWeight: FontWeight.Bold
-            color: Color.Black
         }
     }
     PlusFeature {

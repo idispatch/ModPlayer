@@ -103,7 +103,7 @@ Page {
                     visible: !filesList.dataModel || filesList.dataModel.size() == 0
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Center
-                    Label {
+                    BlackLabel {
                         text: qsTr("No songs in this directory") + Retranslate.onLanguageChanged
                         horizontalAlignment: HorizontalAlignment.Center
                         verticalAlignment: VerticalAlignment.Center
@@ -112,7 +112,6 @@ Page {
                             base: SystemDefaults.TextStyles.TitleText
                             fontWeight: FontWeight.Bold
                             fontSize: FontSize.Medium
-                            color: Color.Black
                         }
                     }
                 }

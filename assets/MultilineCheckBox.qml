@@ -9,13 +9,12 @@ HorizontalContainer {
 
     horizontalAlignment: HorizontalAlignment.Fill
     bottomMargin: 40
-    Label {
+    BlackLabel {
         id: labelText
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1.0
         }
         textStyle {
-            color: Color.Black
             fontSize: FontSize.Medium
         }
         textFormat: TextFormat.Html

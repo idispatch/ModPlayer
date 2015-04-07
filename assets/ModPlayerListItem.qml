@@ -45,16 +45,15 @@ GroupContainer {
                         spaceQuota: 10
                     }
                     rightPadding: 20
-                    Label {
+                    BlackLabel {
                         id: titleField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
                         textStyle {
                             base: SystemDefaults.TextStyles.PrimaryText
-                            color: Color.Black
                         }
                     }
-                    Label {
+                    BlackLabel {
                         id: descriptionField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
@@ -62,10 +61,9 @@ GroupContainer {
                         textStyle {
                             base: SystemDefaults.TextStyles.BodyText
                             fontWeight: FontWeight.W100
-                            color: Color.Black
                         }
                     }
-                    Label {
+                    BlackLabel {
                         id: textField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
@@ -73,7 +71,6 @@ GroupContainer {
                             base: SystemDefaults.TextStyles.SmallText
                             fontWeight: FontWeight.W100
                             fontStyle: FontStyle.Italic
-                            color: Color.Black
                         }
                     }
                 }
@@ -109,7 +106,7 @@ GroupContainer {
                                 imageSource: "asset:///images/backgrounds/infoback.amd"
                             }
                         ]
-                        Label {
+                        BlackLabel {
                             id: statusUpperField
                             visible: text.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
@@ -117,7 +114,6 @@ GroupContainer {
                                 base: SystemDefaults.TextStyles.SubtitleText
                                 fontWeight: FontWeight.W100
                                 fontStyle: FontStyle.Italic
-                                color: Color.Black
                             }
                         }
                     }
@@ -138,7 +134,7 @@ GroupContainer {
                                 imageSource: "asset:///images/backgrounds/infoback.amd"
                             }
                         ]
-                        Label {
+                        BlackLabel {
                             id: statusMiddleField
                             visible: text.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
@@ -146,7 +142,6 @@ GroupContainer {
                                 base: SystemDefaults.TextStyles.SubtitleText
                                 fontWeight: FontWeight.W100
                                 fontStyle: FontStyle.Italic
-                                color: Color.Black
                             }
                         }
                     }
@@ -166,7 +161,7 @@ GroupContainer {
                                 imageSource: "asset:///images/backgrounds/infoback.amd"
                             }
                         ]
-                        Label {
+                        BlackLabel {
                             id: statusLowerField
                             visible: text.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
@@ -174,7 +169,6 @@ GroupContainer {
                                 base: SystemDefaults.TextStyles.SubtitleText
                                 fontWeight: FontWeight.W100
                                 fontStyle: FontStyle.Italic
-                                color: Color.Black
                             }
                         }
                     }
