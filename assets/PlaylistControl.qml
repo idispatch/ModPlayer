@@ -92,6 +92,7 @@ Container {
                     textAlign: TextAlign.Center
                     fontStyle: FontStyle.Italic
                     fontSize: FontSize.XSmall
+                    color: Color.Black
                 }
             }
         }
