@@ -5,4 +5,5 @@ TitleBar {
     appearance: TitleBarAppearance.Default
     kind: TitleBarKind.Default
     visibility: ChromeVisibility.Visible
+    
 }

@@ -86,6 +86,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/LockIcon.qml) \
         $$quote($$BASEDIR/assets/ModPlayerListItem.qml) \
         $$quote($$BASEDIR/assets/Mouse.qml) \
+        $$quote($$BASEDIR/assets/MultilineCheckBox.qml) \
         $$quote($$BASEDIR/assets/NextActionItem.qml) \
         $$quote($$BASEDIR/assets/OpenSongActionItem.qml) \
         $$quote($$BASEDIR/assets/PatternDisplay.qml) \
@@ -192,10 +193,14 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_twitter.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_unlike.png) \
         $$quote($$BASEDIR/assets/images/animation/modplayer.gif) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back.png) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.amd) \
-        $$quote($$BASEDIR/assets/images/backgrounds/container_back_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_bright_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_dark_85.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator2.png) \
@@ -356,12 +361,18 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/asphalt.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/asphalt.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/aurora.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/bb.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/bb.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/berries.png) \
+        $$quote($$BASEDIR/assets/images/wallpapers/binarycode.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/blue.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/blueprint.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/blueprint.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/carbon.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/chroma.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/clouds.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/coffee.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/coffee.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/cork.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/cork.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/crystals.jpg) \
@@ -370,6 +381,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/dawn.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/denim.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/digital.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/digitalspace.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/dolphins.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/drops.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/flower.jpg) \
@@ -384,6 +396,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/jeans.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/linen.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/linen.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/metalhole.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/modplayer.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/plaidbluemodern.jpg) \
@@ -395,6 +408,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/sound.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/sparkle.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/stars.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/stripes.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/stripes.png) \
         $$quote($$BASEDIR/assets/images/wallpapers/techno.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/water.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/waves.jpg) \
@@ -835,6 +850,7 @@ lupdate_inclusion {
 }
 
 TRANSLATIONS = $$quote($${TARGET}_es.ts) \
+    $$quote($${TARGET}_fr.ts) \
     $$quote($${TARGET}_ru.ts) \
     $$quote($${TARGET}_zh.ts) \
     $$quote($${TARGET}.ts)

@@ -2,6 +2,7 @@ import bb.cascades 1.3
 import player 1.0
 
 GroupContainer {
+    id: modPlayerListItem
     property alias title: titleField.text
     property alias description: descriptionField.text
     property alias text: textField.text
@@ -11,7 +12,7 @@ GroupContainer {
     property alias lowerStatus: statusLowerField.text
     property alias imageSource: imageView.imageSource
 
-    property alias favourite: favouriteImage.visible
+    property int   favouriteScore: 0
 
     leftPadding: 10
     rightPadding: 10
@@ -34,147 +35,195 @@ GroupContainer {
                 minHeight: 128
                 maxHeight: 128
             }
-            HorizontalContainer {
+            VerticalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Center
-                leftPadding: 10
-                rightPadding: 10
-                bottomPadding: 5
-                VerticalContainer {
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 10
-                    }
+                HorizontalContainer {
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    leftPadding: 10
                     rightPadding: 20
-                    Label {
+                    BlackLabel {
+                        layoutProperties: StackLayoutProperties {
+                            spaceQuota: 10
+                        }
                         id: titleField
                         visible: text.length > 0
                         horizontalAlignment: HorizontalAlignment.Left
                         textStyle {
                             base: SystemDefaults.TextStyles.PrimaryText
-                            color: Color.Black
                         }
                     }
-                    Label {
-                        id: descriptionField
-                        visible: text.length > 0
-                        horizontalAlignment: HorizontalAlignment.Left
-                        multiline: true
-                        textStyle {
-                            base: SystemDefaults.TextStyles.BodyText
-                            fontWeight: FontWeight.W100
-                            color: Color.Black
-                        }
+                    ImageView {
+                        id: favouriteImage5
+                        visible: modPlayerListItem.favouriteScore > 4
+                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Center
+                        scalingMethod: ScalingMethod.Fill
+                        loadEffect: ImageViewLoadEffect.None
+                        preferredWidth: 32
+                        preferredHeight: 32
                     }
-                    Label {
-                        id: textField
-                        visible: text.length > 0
-                        horizontalAlignment: HorizontalAlignment.Left
-                        textStyle {
-                            base: SystemDefaults.TextStyles.SmallText
-                            fontWeight: FontWeight.W100
-                            fontStyle: FontStyle.Italic
-                            color: Color.Black
-                        }
+                    ImageView {
+                        id: favouriteImage4
+                        visible: modPlayerListItem.favouriteScore > 3
+                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Center
+                        scalingMethod: ScalingMethod.Fill
+                        loadEffect: ImageViewLoadEffect.None
+                        preferredWidth: 32
+                        preferredHeight: 32
+                    }
+                    ImageView {
+                        id: favouriteImage3
+                        visible: modPlayerListItem.favouriteScore > 2
+                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Center
+                        scalingMethod: ScalingMethod.Fill
+                        loadEffect: ImageViewLoadEffect.None
+                        preferredWidth: 32
+                        preferredHeight: 32
+                    }
+                    ImageView {
+                        id: favouriteImage2
+                        visible: modPlayerListItem.favouriteScore > 1
+                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Center
+                        scalingMethod: ScalingMethod.Fill
+                        loadEffect: ImageViewLoadEffect.None
+                        preferredWidth: 32
+                        preferredHeight: 32
+                    }
+                    ImageView {
+                        id: favouriteImage1
+                        visible: modPlayerListItem.favouriteScore > 0
+                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Center
+                        scalingMethod: ScalingMethod.Fill
+                        loadEffect: ImageViewLoadEffect.None
+                        preferredWidth: 32
+                        preferredHeight: 32
                     }
                 }
-                ImageView {
-                    id: favouriteImage
-                    imageSource: "asset:///images/badges/badge_myfavourite.png"
-                    horizontalAlignment: HorizontalAlignment.Right
+                HorizontalContainer {
+                    horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Center
-                    scalingMethod: ScalingMethod.None
-                    loadEffect: ImageViewLoadEffect.FadeZoom
-                    preferredWidth: 32
-                    preferredHeight: 32
-                    minWidth: 32
-                    maxWidth: 32
-                    minHeight: 32
-                    maxHeight: 32
-                }
-                VerticalContainer {
-                    verticalAlignment: VerticalAlignment.Center
-                    Container {
-                        visible: upperStatus.length > 0
-                        horizontalAlignment: HorizontalAlignment.Right
-                        background: upperInfoPaint.imagePaint
-                        bottomMargin: 10
-                        topPadding: 4
-                        bottomPadding: 8
-                        leftPadding: 20
-                        rightPadding: 16
-                        attachedObjects: [
-                            ImagePaintDefinition {
-                                id: upperInfoPaint
-                                repeatPattern: RepeatPattern.Fill
-                                imageSource: "asset:///images/backgrounds/infoback.amd"
-                            }
-                        ]
-                        Label {
-                            id: statusUpperField
+                    leftPadding: 10
+                    rightPadding: 10
+                    bottomPadding: 5
+                    VerticalContainer {
+                        layoutProperties: StackLayoutProperties {
+                            spaceQuota: 10
+                        }
+                        verticalAlignment: VerticalAlignment.Bottom
+                        rightPadding: 20
+                        BlackLabel {
+                            id: descriptionField
                             visible: text.length > 0
-                            horizontalAlignment: HorizontalAlignment.Right
+                            horizontalAlignment: HorizontalAlignment.Left
+                            multiline: true
                             textStyle {
-                                base: SystemDefaults.TextStyles.SubtitleText
+                                base: SystemDefaults.TextStyles.BodyText
+                                fontWeight: FontWeight.W100
+                            }
+                        }
+                        BlackLabel {
+                            id: textField
+                            visible: text.length > 0
+                            horizontalAlignment: HorizontalAlignment.Left
+                            textStyle {
+                                base: SystemDefaults.TextStyles.SmallText
                                 fontWeight: FontWeight.W100
                                 fontStyle: FontStyle.Italic
-                                color: Color.Black
                             }
                         }
                     }
-                    Container {
-                        visible: middleStatus.length > 0
-                        horizontalAlignment: HorizontalAlignment.Right
-                        background: middleInfoPaint.imagePaint
-                        topMargin: 10
-                        bottomMargin: 10
-                        topPadding: 4
-                        bottomPadding: 8
-                        leftPadding: 20
-                        rightPadding: 16
-                        attachedObjects: [
-                            ImagePaintDefinition {
-                                id: middleInfoPaint
-                                repeatPattern: RepeatPattern.Fill
-                                imageSource: "asset:///images/backgrounds/infoback.amd"
-                            }
-                        ]
-                        Label {
-                            id: statusMiddleField
-                            visible: text.length > 0
+                    
+                    VerticalContainer {
+                        verticalAlignment: VerticalAlignment.Center
+                        Container {
+                            visible: upperStatus.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
-                            textStyle {
-                                base: SystemDefaults.TextStyles.SubtitleText
-                                fontWeight: FontWeight.W100
-                                fontStyle: FontStyle.Italic
-                                color: Color.Black
+                            background: upperInfoPaint.imagePaint
+                            bottomMargin: 10
+                            topPadding: 4
+                            bottomPadding: 8
+                            leftPadding: 20
+                            rightPadding: 16
+                            attachedObjects: [
+                                ImagePaintDefinition {
+                                    id: upperInfoPaint
+                                    repeatPattern: RepeatPattern.Fill
+                                    imageSource: "asset:///images/backgrounds/infoback.amd"
+                                }
+                            ]
+                            BlackLabel {
+                                id: statusUpperField
+                                visible: text.length > 0
+                                horizontalAlignment: HorizontalAlignment.Right
+                                textStyle {
+                                    base: SystemDefaults.TextStyles.SubtitleText
+                                    fontWeight: FontWeight.W100
+                                    fontStyle: FontStyle.Italic
+                                }
                             }
                         }
-                    }
-                    Container {
-                        visible: lowerStatus.length > 0
-                        horizontalAlignment: HorizontalAlignment.Right
-                        background: lowerInfoPaint.imagePaint
-                        topMargin: 10
-                        topPadding: 4
-                        bottomPadding: 8
-                        leftPadding: 20
-                        rightPadding: 16
-                        attachedObjects: [
-                            ImagePaintDefinition {
-                                id: lowerInfoPaint
-                                repeatPattern: RepeatPattern.Fill
-                                imageSource: "asset:///images/backgrounds/infoback.amd"
-                            }
-                        ]
-                        Label {
-                            id: statusLowerField
-                            visible: text.length > 0
+                        Container {
+                            visible: middleStatus.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
-                            textStyle {
-                                base: SystemDefaults.TextStyles.SubtitleText
-                                fontWeight: FontWeight.W100
-                                fontStyle: FontStyle.Italic
-                                color: Color.Black
+                            background: middleInfoPaint.imagePaint
+                            topMargin: 10
+                            bottomMargin: 10
+                            topPadding: 4
+                            bottomPadding: 8
+                            leftPadding: 20
+                            rightPadding: 16
+                            attachedObjects: [
+                                ImagePaintDefinition {
+                                    id: middleInfoPaint
+                                    repeatPattern: RepeatPattern.Fill
+                                    imageSource: "asset:///images/backgrounds/infoback.amd"
+                                }
+                            ]
+                            BlackLabel {
+                                id: statusMiddleField
+                                visible: text.length > 0
+                                horizontalAlignment: HorizontalAlignment.Right
+                                textStyle {
+                                    base: SystemDefaults.TextStyles.SubtitleText
+                                    fontWeight: FontWeight.W100
+                                    fontStyle: FontStyle.Italic
+                                }
+                            }
+                        }
+                        Container {
+                            visible: lowerStatus.length > 0
+                            horizontalAlignment: HorizontalAlignment.Right
+                            background: lowerInfoPaint.imagePaint
+                            topMargin: 10
+                            topPadding: 4
+                            bottomPadding: 8
+                            leftPadding: 20
+                            rightPadding: 16
+                            attachedObjects: [
+                                ImagePaintDefinition {
+                                    id: lowerInfoPaint
+                                    repeatPattern: RepeatPattern.Fill
+                                    imageSource: "asset:///images/backgrounds/infoback.amd"
+                                }
+                            ]
+                            BlackLabel {
+                                id: statusLowerField
+                                visible: text.length > 0
+                                horizontalAlignment: HorizontalAlignment.Right
+                                textStyle {
+                                    base: SystemDefaults.TextStyles.SubtitleText
+                                    fontWeight: FontWeight.W100
+                                    fontStyle: FontStyle.Italic
+                                }
                             }
                         }
                     }

@@ -59,7 +59,6 @@ Sheet {
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
                             Animation {
@@ -147,13 +146,12 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Cache") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
                             HorizontalContainer {
@@ -235,16 +233,15 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Device Screen") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: keepScreenAwake
                                 text: qsTr("Keep screen awake") + Retranslate.onLanguageChanged
                                 checked: app.keepScreenAwake
@@ -260,13 +257,12 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Song List") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
                             InitialViewSelector {}
@@ -299,13 +295,12 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Personal") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
                             Button {
@@ -369,13 +364,12 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Background") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
                             WallpaperSelector {}
@@ -386,13 +380,12 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Mixer Configuration") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
                                 textStyle {
                                     base: SystemDefaults.TextStyles.TitleText
                                     fontWeight: FontWeight.Bold
-                                    color: Color.Black
                                 }
                             }
                             DropDown {
@@ -499,11 +492,10 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Master Volume") + Retranslate.onLanguageChanged
                                 textStyle {
                                     fontSize: FontSize.Large
-                                    color: Color.Black
                                 }
                             }
                             VerticalContainer {
@@ -520,11 +512,10 @@ Sheet {
                                     }
                                 }
                             }
-                            Label {
+                            BlackLabel {
                                 text: qsTr("Stereo Separation") + Retranslate.onLanguageChanged
                                 textStyle {
                                     fontSize: FontSize.Large
-                                    color: Color.Black
                                 }
                             }
                             VerticalContainer {
@@ -540,7 +531,7 @@ Sheet {
                                     }
                                 }
                             }
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: oversampling
                                 text: qsTr("Enable Oversampling") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.oversamplingEnabled
@@ -548,7 +539,7 @@ Sheet {
                                     settingsRoot.configuration.oversamplingEnabled = oversampling.checked
                                 }
                             }
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: noiseReduction
                                 text: qsTr("Enable Noise Reduction") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.noiseReductionEnabled
@@ -563,7 +554,7 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: reverbEnabled
                                 text: qsTr("Enable Reverb") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.reverbEnabled
@@ -574,13 +565,12 @@ Sheet {
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
-                                Label {
+                                BlackLabel {
                                     text: qsTr("Reverb Depth") + Retranslate.onLanguageChanged
                                     visible: reverbEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                                 Slider {
@@ -593,13 +583,12 @@ Sheet {
                                         settingsRoot.configuration.reverbLevel = reverbLevel.value
                                     }
                                 }
-                                Label {
+                                BlackLabel {
                                     text: qsTr("Reverb Delay") + Retranslate.onLanguageChanged
                                     visible: reverbEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                                 Slider {
@@ -620,7 +609,7 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: megabassEnabled
                                 text: qsTr("Enable MegaBass") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.bassEnabled
@@ -631,13 +620,12 @@ Sheet {
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
-                                Label {
+                                BlackLabel {
                                     text: qsTr("Bass Amount") + Retranslate.onLanguageChanged
                                     visible: megabassEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                                 Slider {
@@ -650,13 +638,12 @@ Sheet {
                                         settingsRoot.configuration.bassLevel = megabassLevel.value
                                     }
                                 }
-                                Label {
+                                BlackLabel {
                                     text: qsTr("Bass Cutoff") + Retranslate.onLanguageChanged
                                     visible: megabassEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                                 Slider {
@@ -677,7 +664,7 @@ Sheet {
                             leftPadding: 20
                             rightPadding: leftPadding
                             semiTransparent: true
-                            CheckBox {
+                            MultilineCheckBox {
                                 id: surroundEnabled
                                 text: qsTr("Enable Surround Sound") + Retranslate.onLanguageChanged
                                 checked: settingsRoot.configuration.surroundEnabled
@@ -688,13 +675,12 @@ Sheet {
                             VerticalContainer {
                                 leftPadding: groupSettingIndent
                                 rightPadding: leftPadding
-                                Label {
+                                BlackLabel {
                                     text: qsTr("Surround Depth") + Retranslate.onLanguageChanged
                                     visible: surroundEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                                 Slider {
@@ -707,13 +693,12 @@ Sheet {
                                         settingsRoot.configuration.surroundLevel = surroundLevel.value
                                     }
                                 }
-                                Label {
+                                BlackLabel {
                                     text: qsTr("Surround Delay") + Retranslate.onLanguageChanged
                                     visible: surroundEnabled.checked
                                     textStyle {
                                         fontStyle: FontStyle.Italic
                                         fontWeight: FontWeight.W100
-                                        color: Color.Black
                                     }
                                 }
                                 Slider {

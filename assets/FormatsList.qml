@@ -7,17 +7,24 @@ Page {
     property variant navigationPane
     property int requestId
     titleBar: PlayerTitleBar {
+        id: titleBar
         title: qsTr("Select Songs by Format") + Retranslate.onLanguageChanged
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            TitleBarText {
+                title: titleBar.title
+            }
+        }
     }
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
             ListView {
                 id: formatsList
                 horizontalAlignment: HorizontalAlignment.Fill
@@ -29,7 +36,6 @@ Page {
                 listItemComponents: ListItemComponent {
                     ModPlayerListItem {
                         title: ListItem.data.name
-                        favourite: false
                         description: ListItem.data.description
                         middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                         lowerStatus: Global.formatDuration(ListItem.data.duration)

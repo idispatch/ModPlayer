@@ -31,12 +31,12 @@ Page {
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
             ListView {
                 id: albumsList
                 visible: !progress.running
@@ -74,7 +74,6 @@ Page {
                             middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
                             lowerStatus: Global.formatDuration(ListItem.data.duration)
                             imageSource: "asset:///images/formats/icon_album.png"
-                            favourite: false
                             contextActions: [
                                 ActionSet {
                                     title: albumEntry.ListItem.data.name

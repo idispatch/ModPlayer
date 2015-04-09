@@ -74,6 +74,31 @@ GroupContainer {
     HorizontalContainer {
         visible: song && song.myFavourite > 0
         ImageView {
+            visible: song && song.myFavourite > 0
+            imageSource: "asset:///images/badges/badge_myfavourite.png"
+            verticalAlignment: VerticalAlignment.Center
+            rightMargin: 5
+        }
+        ImageView {
+            visible: song && song.myFavourite > 1
+            imageSource: "asset:///images/badges/badge_myfavourite.png"
+            verticalAlignment: VerticalAlignment.Center
+            rightMargin: 5
+        }
+        ImageView {
+            visible: song && song.myFavourite > 2
+            imageSource: "asset:///images/badges/badge_myfavourite.png"
+            verticalAlignment: VerticalAlignment.Center
+            rightMargin: 5
+        }
+        ImageView {
+            visible: song && song.myFavourite > 3
+            imageSource: "asset:///images/badges/badge_myfavourite.png"
+            verticalAlignment: VerticalAlignment.Center
+            rightMargin: 5
+        }
+        ImageView {
+            visible: song && song.myFavourite > 4
             imageSource: "asset:///images/badges/badge_myfavourite.png"
             verticalAlignment: VerticalAlignment.Center
             rightMargin: 5

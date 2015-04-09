@@ -12,7 +12,13 @@ Container {
     property bool   isDirectory
     property int    itemIndex
 
-    background: ((itemIndex % 2 == 1) ? Color.create("#f3f6f9") : Color.White)
+    background: {
+        if(Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright) {
+            return ((itemIndex % 2 == 1) ? Color.create("#f3f6f9") : Color.White)
+        } else {
+            return ((itemIndex % 2 == 1) ? Color.create("#545454") : Color.create("#4e4e4e"))
+        }
+    }
 
     leftPadding: 20
     rightPadding: 20
@@ -34,18 +40,19 @@ Container {
             layoutProperties: StackLayoutProperties {
                 spaceQuota: 10
             }
-            Label {
+            BlackLabel {
                 text: fileEntryView.fileName
                 textStyle {
-                    color: Color.Black
                     fontWeight: fileEntryView.isDirectory ? FontWeight.Bold : FontWeight.Normal
                 }
             }
-            Label {
+            BlackLabel {
                 text: fileEntryView.fileType
                 visible: !fileEntryView.isDirectory
-                textStyle.color: Color.Gray
-                textStyle.fontSize: FontSize.Small
+                textStyle {
+                    color: Color.Gray
+                    fontSize: FontSize.Small
+                }
             }
         }
         HorizontalContainer {
@@ -63,8 +70,8 @@ Container {
                 ImageView {
                     visible: fileEntryView.isDirectory
                     imageSource: "asset:///images/objects/cursor.png"
-                    preferredWidth: 32
-                    preferredHeight: 48
+                    preferredWidth: 24
+                    preferredHeight: 40
                 }
             }
         }

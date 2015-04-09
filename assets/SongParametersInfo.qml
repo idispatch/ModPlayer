@@ -28,6 +28,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.orders : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -43,6 +44,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.patterns : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -58,6 +60,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.channels : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -81,6 +84,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.instruments : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -96,6 +100,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.samples : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3

@@ -254,12 +254,12 @@ Page {
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
             ListView {
                 id: radioList
                 visible: !progress.running
@@ -285,7 +285,6 @@ Page {
                         type: "item"
                         ModPlayerListItem {
                             title: ListItem.data.name
-                            favourite: false
                             description: ListItem.data.location + ", " + ListItem.data.country
                             text: ListItem.data.url
                             upperStatus: "Mp3"
