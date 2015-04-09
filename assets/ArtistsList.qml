@@ -31,12 +31,12 @@ Page {
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
             ListView {
                 id: artistsList
                 visible: !progress.running
@@ -62,7 +62,6 @@ Page {
                         type: "item"
                         ModPlayerListItem {
                             title: ListItem.data.name
-                            favourite: false
                             upperStatus: ListItem.data.count > 0 ? qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged : ""
                             middleStatus: ListItem.data.score > 0 ? qsTr("score %1 of 10").arg(ListItem.data.score) + Retranslate.onLanguageChanged : ""
                             lowerStatus: {

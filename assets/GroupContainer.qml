@@ -16,7 +16,21 @@ Container {
         ImagePaintDefinition {
             id: backgroundImagePaint
             repeatPattern: RepeatPattern.Fill
-            imageSource: groupContainer.semiTransparent ? "asset:///images/backgrounds/container_back_85.amd" : "asset:///images/backgrounds/container_back.amd"
+            imageSource: {
+                if(groupContainer.semiTransparent) {
+                    if(Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright) {
+                        return "asset:///images/backgrounds/container_bright_85.amd"
+                    } else {
+                        return "asset:///images/backgrounds/container_dark_85.amd"
+                    }
+                } else {
+                    if(Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright) {
+                        return "asset:///images/backgrounds/container_bright.amd"
+                    } else {
+                        return "asset:///images/backgrounds/container_dark.amd"
+                    }
+                }
+            }
         }
     ]
 }

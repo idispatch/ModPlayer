@@ -4,12 +4,11 @@ import bb.cascades.pickers 1.0
 
 VerticalContainer {
     horizontalAlignment: HorizontalAlignment.Center
-    CheckBox {
+    MultilineCheckBox {
         id: animationEnabled
         text: qsTr("Enable Background Animation") + Retranslate.onLanguageChanged
         checked: app.player.playback.configuration.animationEnabled
         visible: backgroundOption.isWallpaper
-        bottomMargin: 40
         onCheckedChanged: {
             app.player.playback.configuration.animationEnabled = checked
         }
@@ -303,12 +302,54 @@ VerticalContainer {
                             animatable: false
                         },
                         {
+                            name: "Metal Hole",
+                            path:"asset:///images/wallpapers/metalhole.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Binary Code",
+                            path:"asset:///images/wallpapers/binarycode.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Digital Space",
+                            path:"asset:///images/wallpapers/digitalspace.jpg",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Stripes",
+                            path:"asset:///images/wallpapers/stripes.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
+                            name: "BlackBerry",
+                            path:"asset:///images/wallpapers/bb.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
+                            name: "BlackBerries",
+                            path:"asset:///images/wallpapers/berries.png",
+                            repeatable: false,
+                            animatable: false
+                        },
+                        {
+                            name: "Coffee",
+                            path:"asset:///images/wallpapers/coffee.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
                             name: "Custom",
                             path:"",
                             repeatable: false,
                             animatable: false
                         }
-                        ]
+                    ]
                     attachedObjects: [
                         ComponentDefinition {
                             id: optionDefinition
@@ -358,7 +399,7 @@ VerticalContainer {
                 DropDown {
                     title: qsTr("Scaling") + Retranslate.onLanguageChanged
                     enabled: app.isExtendedVersion
-                    visible: backgroundOption.isWallpaper && !app.wallpaper.repeatable && !app.wallpaper.animatable 
+                    visible: backgroundOption.isWallpaper 
                     Option {
                         text: qsTr("Fill") + Retranslate.onLanguageChanged
                         value: 2

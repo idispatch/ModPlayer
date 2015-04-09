@@ -27,6 +27,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.currentOrder : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -42,6 +43,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.currentPattern : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -57,6 +59,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.currentRow : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -72,6 +75,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.playingChannels : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -95,6 +99,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.currentSpeed : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -110,6 +115,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.currentTempo : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3
@@ -125,6 +131,7 @@ HorizontalContainer {
                 }
                 LCDDigits {
                     number: song ? song.masterVolume : -1
+                    colorScheme: Application.themeSupport.theme.colorTheme.style == VisualStyle.Bright ? 0 : 1
                     verticalAlignment: VerticalAlignment.Center
                     horizontalAlignment: HorizontalAlignment.Right
                     numDigits: 3

@@ -59,27 +59,28 @@ Page {
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        HorizontalContainer {
+            id: listEmpty
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            layout: DockLayout {}
+            Label {
+                text: qsTr("No songs in this list") + Retranslate.onLanguageChanged
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+                textStyle {
+                    fontWeight: FontWeight.Bold
+                    fontSize: FontSize.Large
+                    color: Color.White
+                }
+            }
+        }
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
-            HorizontalContainer {
-                id: listEmpty
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                Label {
-                    text: qsTr("No songs in this list") + Retranslate.onLanguageChanged
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    textStyle {
-                        fontWeight: FontWeight.Bold
-                        fontSize: FontSize.Large
-                        color: Color.White
-                    }
-                }
-            }
             ListView {
                 id: songs
                 property string mode
@@ -118,7 +119,7 @@ Page {
                     ListItemComponent {
                         ModPlayerListItem {
                             id: songEntry
-                            favourite: ListItem.data.myFavourite > 0
+                            favouriteScore: ListItem.data.myFavourite
                             title: ListItem.data.title
                             description: Global.fileNameOnly(ListItem.data.fileName)
                             text: "%1   (%2)".arg(ListItem.data.songLengthText).arg(Global.getSizeKb(ListItem.data.fileSize))

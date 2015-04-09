@@ -8,7 +8,14 @@ Page {
     property alias channelList : internetRadioList.channelList
     property string playlistURL
     titleBar: PlayerTitleBar {
+        id: titleBar
         title: qsTr("Select Internet Radio Channel") + Retranslate.onLanguageChanged
+        kind: TitleBarKind.FreeForm
+        kindProperties: FreeFormTitleBarKindProperties {
+            TitleBarText {
+                title: titleBar.title
+            }
+        }
     }
     Container {
         layout: DockLayout {}
@@ -41,7 +48,6 @@ Page {
                         type: "item"
                         ModPlayerListItem {
                             title: ListItem.data.name
-                            favourite: false
                             description: ListItem.data.description
                             imageSource: Global.getRadioIcon(ListItem.view.channelList)
                         }

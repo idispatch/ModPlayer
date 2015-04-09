@@ -13,7 +13,7 @@ Container {
         implicitLayoutAnimationsEnabled: false
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        visible: !app.wallpaper.solidColor && !coverScreen
+        visible: !app.wallpaper.solidColor && !coverScreen && !app.wallpaper.animatable
         imageSource: app.wallpaper.path
         loadEffect: ImageViewLoadEffect.None
         scalingMethod: app.wallpaper.stretchMode
@@ -30,39 +30,39 @@ Container {
                 positionX: -layoutHandler.layoutFrame.width/2
                 positionY: -layoutHandler.layoutFrame.height/2
             }
-            
+
             property double scalePhase: 0
             property double rotatePhase: 63
             property double angleX: 0.0
             property double angleY: 0.0
-            
+
             property double scaleStep: 0.25
             property double rotateStep: 0.10
             property double angleStepX: 2.2
             property double angleStepY: 1.1
-            
+
             property double rotateMin: -180.0
             property double rotateMax: 360
-            
+
             property double scaleMax: 2.5
             property double scaleMin: 1.0
-            
+
             preferredWidth: layoutHandler.layoutFrame.width * 2
             preferredHeight: layoutHandler.layoutFrame.height * 2
-            
+
             background: backgroundPaint.imagePaint
             implicitLayoutAnimationsEnabled: false
-            
+
             visible: app.wallpaper.animatable && !app.wallpaper.solidColor && !coverScreen
-            
+
             translationX: app.player.playback.configuration.animationEnabled ? Math.sin(angleX * 0.01745329251) * 117 : 0
             translationY: app.player.playback.configuration.animationEnabled ? Math.cos(angleY * 0.01745329251) * 97 : 0
-            
+
             rotationZ: app.player.playback.configuration.animationEnabled ? (Math.sin(rotatePhase * 0.01745329251) * (rotateMax - rotateMin)/2 + rotateMin) : 0 
-            
+
             scaleX: app.player.playback.configuration.animationEnabled ? (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin : 1.0
             scaleY: app.player.playback.configuration.animationEnabled ? (Math.sin(scalePhase * 0.01745329251) + 1) * (scaleMax - scaleMin)/2 + scaleMin : 1.0
-            
+
             attachedObjects: [
                 Timer {
                     id: rotozoomTimer
