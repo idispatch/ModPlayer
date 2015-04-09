@@ -59,26 +59,27 @@ Page {
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        HorizontalContainer {
+            id: listEmpty
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            layout: DockLayout {}
+            Label {
+                text: qsTr("No songs in this list") + Retranslate.onLanguageChanged
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+                textStyle {
+                    fontWeight: FontWeight.Bold
+                    fontSize: FontSize.Large
+                    color: Color.White
+                }
+            }
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             ProgressComponent {
                 id: progress
-            }
-            HorizontalContainer {
-                id: listEmpty
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                Label {
-                    text: qsTr("No songs in this list") + Retranslate.onLanguageChanged
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    textStyle {
-                        fontWeight: FontWeight.Bold
-                        fontSize: FontSize.Large
-                        color: Color.White
-                    }
-                }
             }
             ListView {
                 id: songs

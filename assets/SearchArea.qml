@@ -5,39 +5,20 @@ import player 1.0
 HorizontalContainer {
     id: searchArea
 
-    signal search(string term)
+    signal search()
 
-    property string searchTerm
-    property string hintText
+    property alias searchTerm: searchCriteria.text
+    property alias hintText: searchCriteria.hintText
 
     leftPadding: 20.0
     rightPadding: 20.0
     topPadding: 20.0
     bottomPadding: 20.0
-    attachedObjects: [
-        Timer {
-            id: searchTimer
-            interval: 1000
-            repeat: false
-            property string previousSearchTerm
-            onTriggered : {
-                if(previousSearchTerm == searchArea.searchTerm) {
-                    stop()
-                    searchButton.enabled = false
-                    searchArea.search(searchArea.searchTerm)
-                } else {
-                    previousSearchTerm = searchArea.searchTerm
-                    start()
-                }
-            }
-        }
-    ]
     leftMargin: 20.0
     rightMargin: 20.0
+
     TextField {
         id: searchCriteria
-        text: searchArea.searchTerm
-        hintText: searchArea.hintText
         content {
             flags: TextContentFlag.ActiveTextOff | TextContentFlag.EmoticonsOff 
         }
@@ -46,7 +27,8 @@ HorizontalContainer {
             spaceQuota: 5
         }
         leftMargin: 10
-        rightMargin: leftMargin
+        rightMargin: 10
+        rightPadding: 20.0
         inputMode: TextFieldInputMode.Text
         input {
             submitKey: SubmitKey.Search
@@ -58,18 +40,15 @@ HorizontalContainer {
                    TextInputFlag.WordSubstitutionOff
             onSubmitted: {
                 searchButton.enabled = false
-                searchArea.search(searchArea.searchTerm)
+                searchArea.search()
             }
         }
         clearButtonVisible: true
         autoFit: TextAutoFit.None
         onTextChanging: {
             searchButton.enabled = text.length > 0
-            if(!searchTimer.running) {
-                searchTimer.start()
-            }
+            searchTimer.startTimer()
         }
-        rightPadding: 20.0
     }
     Button {
         id: searchButton
@@ -83,7 +62,29 @@ HorizontalContainer {
         }
         onClicked: {
             enabled = false
-            searchArea.search(searchArea.searchTerm)
+            searchTimer.stop()
+            searchArea.search()
         }
     }
+    attachedObjects: [
+        Timer {
+            id: searchTimer
+            interval: 1000
+            repeat: false
+            property string previousText
+            function startTimer() {
+                stop()
+                previousText = searchCriteria.text
+                start()
+            }
+            onTriggered : {
+                if(previousText == searchCriteria.text) {
+                    searchArea.search()
+                } else {
+                    previousText = searchCriteria.text
+                    start()
+                }
+            }
+        }
+    ]
 }
