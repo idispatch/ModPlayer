@@ -9,7 +9,6 @@ Container {
     visible: running
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
-    topPadding: 200
     GroupContainer {
         horizontalAlignment: HorizontalAlignment.Center
         verticalAlignment: VerticalAlignment.Center

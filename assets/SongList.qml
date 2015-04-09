@@ -75,12 +75,12 @@ Page {
                 }
             }
         }
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
             ListView {
                 id: songs
                 property string mode

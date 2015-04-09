@@ -254,12 +254,12 @@ Page {
     Container {
         layout: DockLayout {}
         WallpaperView {}
+        ProgressComponent {
+            id: progress
+        }
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
-            ProgressComponent {
-                id: progress
-            }
             ListView {
                 id: radioList
                 visible: !progress.running
