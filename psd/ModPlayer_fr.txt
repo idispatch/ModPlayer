@@ -1,13 +1,14 @@
-ModPlayer est un lecteur tracker de musique originaire de BlackBerry® 10 qui lit des modules de pistes d’une des plus larges collections de modules de musique – le site de l’archive Mod, ainsi que de vos périphériques ou cartes SD. En plus ModPlayer supporte les formats MP3, FLAC, OGG, WMA, MP4, AAC, ASF, M4A, MKA, WAV et l’écoute streaming de Radios Internet en direct, du catalogue Live Streaming Internet Radio, des stations numériquement importées : Sky.FM, JazzRadio.com, RockRadio.com et Fresca Radio!
+ModPlayer est un lecteur de trackers musicaux originaire de BlackBerry® 10 qui lit des modules de pistes d’une des plus larges collections de modules de musique – le site de l’archive Mod, ainsi que de vos périphériques ou cartes SD. En plus ModPlayer supporte les formats MP3, FLAC, OGG, WMA, MP4, AAC, ASF, M4A, MKA, WAV, MOD, 669, IT, MED, MTM, S3M, STM, XM, OCT, OKT et l’écoute streaming de Radios Internet en direct, du catalogue Live Streaming Internet Radio et de stations de radio Internet : Digitally Imported, Sky.FM, JazzRadio.com, RockRadio.com et Fresca Radio !  
 ModPlayer Plus est une amélioration payante uniquement une fois qui active des fonctions étendues, qui donne droit aux mises à jour futures et qui est valable de façon indéfinie.
+
 ✔ Plus de 140 000 pistes tracker qui peuvent être écoutées sur la bibliothèque de musique de ModPlayer.
 ✔ Synthèse de trackers de musique multi chaînes et en temps réel avec une grande variété d’options de configuration de qualité de mixage (jusqu’à 64 chaînes qui peuvent être mélangées en temps réel sur votre périphérique !) ;
 ✔ 5000 et plus de Stations de Radios européennes sur Internet sur le catalogue ModPlayer ;
-✔ 75 et plus des chaînes de musique numériquement importées de stations de radio Internet ;
-✔ 65 et plus chaînes de musique de station de radio Internet Sky.fm ;
-✔ 30 + chaînes de musique de station de radio Internet de JazzRadio ;
-✔ 40 chaînes de musique de station de radio Internet de RockRadio ;
-✔ ModPlayer t’amène la collection la plus fraîche de chaînes de musiques Latine, Hispanique et Caribéenne dans tout le monde ! 40 chaînes de musique de station de Radio Internet Fresca ;
+✔ 75 et plus des chaînes de musique de la radio Internet, Digitally Imported ;
+✔ 65 et plus chaînes de musique de la radio Internet, Sky.fm ;
+✔ 30 + chaînes de musique de la radio Internet, JazzRadio ;
+✔ 40 chaînes de musique de la radio Internet, RockRadio ;
+✔ ModPlayer vous amène la collection la plus fraîche de chaînes de musiques Latine, Hispanique et Caribéenne dans tout le monde ! 40 chaînes de musique de la radio Internet, FrescaRadio ;
 ✔ ModPlayer organise la musique sur votre périphérique, une fois qu’elle est indexée votre musique est facilement trouvable sur ModPlayer ;
 ✔ Créez vos propres playlists ou importez votre propre musique MP3 dans ModPlayer. ModPlayer pourra organiser la musique et les playlists ;
 ✔ Intégration complète au système BlackBerry 10, qui inclut la connexion Now Playing et l’intégration File Manager ;
@@ -21,3 +22,9 @@ ModPlayer Plus est une amélioration payante uniquement une fois qui active des 
 ✔ Vous pouvez importer votre tracker de musique personnel et vos playlists de la mémoire de votre périphérique ou de la carte SD, ModPlayer pourra scanner et indexer toutes les musiques tracker et playlists qu’il trouvera sur votre périphérique.
 ✔ Vous pouvez exporter vos musiques du cache ou des musiques individuelles en format d’origine ou en MP3, sur votre périphérique ou sur votre carte SD.
 ✔ Des fonctions pour intégrer les pochettes des albums sur plusieurs formats.
+
+★ ModPlayer propose plusieurs options  de configuration de la qualité de lecture ce qui inclut la qualité de mixage, la réduction de bruitage, réverbération, megabass et son surround :
+★ Des fonds d’écran et des arrières plans ModPlayer personnalisables ;
+★ ModPlayer peut continuer à marcher à partir de l’arrière-plan ;
+★ ModPlayer s’intègre avec la fenêtre pop-up de BlackBerry Now Playing. Vous pouvez ainsi lire, mettre en pause ou arrêter plus facilement, directement sur la fenêtre pop-up qui règle le son ;
+★ ModPlayer affiche les pochettes des albums quand celles-ci sont disponibles.
