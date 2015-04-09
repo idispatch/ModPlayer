@@ -338,6 +338,12 @@ VerticalContainer {
                             animatable: false
                         },
                         {
+                            name: "Coffee",
+                            path:"asset:///images/wallpapers/coffee.amd",
+                            repeatable: true,
+                            animatable: true
+                        },
+                        {
                             name: "Custom",
                             path:"",
                             repeatable: false,
@@ -393,7 +399,7 @@ VerticalContainer {
                 DropDown {
                     title: qsTr("Scaling") + Retranslate.onLanguageChanged
                     enabled: app.isExtendedVersion
-                    visible: backgroundOption.isWallpaper && !app.wallpaper.repeatable && !app.wallpaper.animatable 
+                    visible: backgroundOption.isWallpaper 
                     Option {
                         text: qsTr("Fill") + Retranslate.onLanguageChanged
                         value: 2

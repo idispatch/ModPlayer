@@ -371,6 +371,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/carbon.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/chroma.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/clouds.jpg) \
+        $$quote($$BASEDIR/assets/images/wallpapers/coffee.amd) \
+        $$quote($$BASEDIR/assets/images/wallpapers/coffee.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/cork.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/cork.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/crystals.jpg) \
