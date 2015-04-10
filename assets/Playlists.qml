@@ -73,6 +73,7 @@ Page {
                         type: "item"
                         ModPlayerListItem {
                             id: playlistEntry
+                            implicitLayoutAnimationsEnabled: false
                             title: ListItem.data.name
                             description: " "
                             middleStatus: qsTr("%1 songs").arg(ListItem.data.count) + Retranslate.onLanguageChanged
@@ -98,6 +99,35 @@ Page {
                                             }
                                         }
                                     ]
+                                }
+                            ]
+                            function viewInitialized(initialized) {
+                                if(initialized) {
+                                    scaleX = 0
+                                    scaleY = 0
+                                    listItemAnimation.play()
+                                }
+                            }
+                            onCreationCompleted: {
+                                ListItem.initializedChanged.connect(viewInitialized)
+                            }
+                            animations: [
+                                ParallelAnimation {
+                                    id: listItemAnimation
+                                    FadeTransition {
+                                        fromOpacity: 0.0
+                                        toOpacity: 1.0
+                                        duration: 600
+                                        easingCurve: StockCurve.Linear
+                                    }
+                                    ScaleTransition {
+                                        toX: 1.0
+                                        toY: 1.0
+                                        fromX: 0.0
+                                        fromY: 0.0
+                                        duration: 600
+                                        easingCurve: StockCurve.CubicInOut
+                                    }
                                 }
                             ]
                         }
