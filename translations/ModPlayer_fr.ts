@@ -747,7 +747,7 @@
         <translation>Sélectionner une chaînel de radio Internet</translation>
     </message>
     <message>
-        <location filename="../assets/InternetRadioList.qml" line="60"/>
+        <location filename="../assets/InternetRadioList.qml" line="90"/>
         <source>Tuning Internet Radio</source>
         <translation>Recherche de radio Internet</translation>
     </message>
@@ -770,7 +770,7 @@
         <translation>Recherche de stations</translation>
     </message>
     <message>
-        <location filename="../assets/LiveStreamRadio.qml" line="300"/>
+        <location filename="../assets/LiveStreamRadio.qml" line="330"/>
         <source>Tuning Internet Radio</source>
         <translation>Recherche de radio Internet</translation>
     </message>
@@ -1039,22 +1039,22 @@
         <translation>Chercher dans les playlists</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="78"/>
+        <location filename="../assets/Playlists.qml" line="79"/>
         <source>%1 songs</source>
         <translation>%1 pistes</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="84"/>
+        <location filename="../assets/Playlists.qml" line="85"/>
         <source>Playlist %1</source>
         <translation>Playlist %1</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="87"/>
+        <location filename="../assets/Playlists.qml" line="88"/>
         <source>Play Playlist</source>
         <translation>Jouer Playlist</translation>
     </message>
     <message>
-        <location filename="../assets/Playlists.qml" line="95"/>
+        <location filename="../assets/Playlists.qml" line="96"/>
         <source>Delete Playlist</source>
         <translation>Supprimer Playlist</translation>
     </message>
@@ -1254,7 +1254,7 @@
     <message>
         <location filename="../assets/Settings.qml" line="123"/>
         <source>Buy ModPlayer Plus</source>
-        <translation>Acheter ModPlayer Plus</translation>
+        <translation type="unfinished">Acheter ModPlayer Plus</translation>
     </message>
     <message>
         <location filename="../assets/Settings.qml" line="212"/>
@@ -1703,37 +1703,37 @@
         <translation>pas de pistes sur cette liste</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="143"/>
-        <location filename="../assets/SongList.qml" line="187"/>
-        <location filename="../assets/SongList.qml" line="223"/>
+        <location filename="../assets/SongList.qml" line="144"/>
+        <location filename="../assets/SongList.qml" line="188"/>
+        <location filename="../assets/SongList.qml" line="224"/>
         <source>favourited %1 times</source>
         <translation>Préférées %1 fois</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="154"/>
-        <location filename="../assets/SongList.qml" line="172"/>
+        <location filename="../assets/SongList.qml" line="155"/>
+        <location filename="../assets/SongList.qml" line="173"/>
         <source>score %1 of 10</source>
         <translation>Score %1 de 10</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="159"/>
-        <location filename="../assets/SongList.qml" line="177"/>
-        <location filename="../assets/SongList.qml" line="216"/>
+        <location filename="../assets/SongList.qml" line="160"/>
+        <location filename="../assets/SongList.qml" line="178"/>
+        <location filename="../assets/SongList.qml" line="217"/>
         <source>%1 downloads</source>
         <translation>%1 téléchargements</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="236"/>
+        <location filename="../assets/SongList.qml" line="237"/>
         <source>Play</source>
         <translation>Jouer</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="248"/>
+        <location filename="../assets/SongList.qml" line="249"/>
         <source>Add to Favourites</source>
         <translation>Ajouter aux marque pages</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="255"/>
+        <location filename="../assets/SongList.qml" line="256"/>
         <source>Remove from Favourites</source>
         <translation>Enlever des marque pages</translation>
     </message>
