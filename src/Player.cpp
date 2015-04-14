@@ -599,7 +599,26 @@ void Player::playByModuleFileName(QString const& fileName, QString const& icon) 
             }
         } else {
             // otherwise play from the absolute path
-            beginPlay(false, fileName, SongFormat::getIconPath(fileName));
+            int id = m_catalog->resolveModuleIdByFileName(fileName);
+            if(id == 0) {
+                // module is not in the catalog
+                beginPlay(false, fileName, SongFormat::getIconPath(fileName));
+            } else {
+                if(id > 0) {
+                    // module is in the catalog, it is a tracker song
+                    if(m_cache->fileExists(fileName)) {
+                        // play cached file from Catalog
+                        beginPlay(true, fileName, SongFormat::getIconPath(fileName));
+                    } else {
+                        // not in the cache
+                        changeStatus(Downloading, tr("Downloading song"));
+                        m_downloader->download(id);
+                    }
+                } else {
+                    // module is in the catalog, it is a local song
+                    beginPlay(true, fileName, SongFormat::getIconPath(fileName));
+                }
+            }
         }
     }
 }

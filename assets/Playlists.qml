@@ -42,9 +42,9 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 topPadding: 20
-                bottomPadding: topPadding
+                bottomPadding: 20
                 leftPadding: 10
-                rightPadding: leftPadding
+                rightPadding: 10
                 function playPlaylist(playlist) {
                     var songs = app.catalog.getPlaylistSongs(playlist.id)
                     if(songs.length > 0) {
