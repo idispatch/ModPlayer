@@ -69,7 +69,7 @@ Page {
                                 FadeTransition {
                                     fromOpacity: 0.0
                                     toOpacity: 1.0
-                                    duration: 700
+                                    duration: 650
                                     easingCurve: StockCurve.CubicIn
                                 }
                             }
