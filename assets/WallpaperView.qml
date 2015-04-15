@@ -13,7 +13,7 @@ Container {
         implicitLayoutAnimationsEnabled: false
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        visible: !app.wallpaper.solidColor && !coverScreen && !app.wallpaper.animatable
+        visible: !app.wallpaper.solidColor && !coverScreen
         imageSource: app.wallpaper.path
         loadEffect: ImageViewLoadEffect.None
         scalingMethod: app.wallpaper.stretchMode
