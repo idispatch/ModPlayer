@@ -110,10 +110,10 @@ VerticalContainer {
                             animatable: false
                         },
                         {
-                            name: "Gray Grid",
-                            path:"asset:///images/wallpapers/grid.amd",
-                            repeatable: true,
-                            animatable: true
+                            name: "Dark Grid",
+                            path:"asset:///images/wallpapers/dark_grid.jpg",
+                            repeatable: false,
+                            animatable: false
                         },
                         {
                             name: "Plaid Blue Modern",
