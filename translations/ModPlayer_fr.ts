@@ -436,78 +436,78 @@
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="65"/>
+        <location filename="../assets/Help.qml" line="40"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is a tracker music player.</source>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; est un tracker lecteur de musique.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="72"/>
+        <location filename="../assets/Help.qml" line="47"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; plays tracker music songs in multiple formats available from &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; site - &lt;i&gt;The Mod Archive&lt;/i&gt;.</source>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; joue des pistes de tracker dans plusieurs formats disponibles sur le site &lt;a href=&apos;http://www.modarchive.org&apos;&gt;www.modarchive.org&lt;/a&gt; - &lt;i&gt;archive Mod&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="79"/>
+        <location filename="../assets/Help.qml" line="54"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; has a library of most popular, most downloaded and most scored songs from &lt;i&gt;The Mod Archive&lt;/i&gt; site on your device, but does not store all the songs on your device.</source>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; a une bibliothèque des musiques les plus populaires, téléchargées et bien notées du site &lt;i&gt;archive Mod&lt;/i&gt;sur votre périphérique, mais ne sauvegarde pas toutes musiques sur votre périphérique.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="86"/>
+        <location filename="../assets/Help.qml" line="61"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; keeps a cache of most recent songs you listened to, and automatically downloads the songs to your device from &lt;i&gt;The Mod Archive&lt;/i&gt; site once you start playing them.</source>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; garde un cache des pistes les plus récemment lues et télécharge automatiquement les pistes sur votre périphérique à partir du site &lt;i&gt;archive Mod&lt;/i&gt; une fois que vous avez commencé à les lire.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="93"/>
+        <location filename="../assets/Help.qml" line="68"/>
         <source>The &lt;b&gt;ModPlayer&lt;/b&gt; allows you to listen to the songs you liked while you are &lt;i&gt;offline&lt;/i&gt; when the song is &lt;i&gt;already in cache&lt;/i&gt;, you don&apos;t have to download it again.</source>
         <translation>Le &lt;b&gt;ModPlayer&lt;/b&gt; vous permet d&apos;écouter à toutes les pistes que vous avez aimé pendant que vous etiez &lt;i&gt;offline&lt;/i&gt; quand la piste est &lt;i&gt;déjà en cache&lt;/i&gt;,vous n&apos;avez pas à le télécharger à nouveau.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="100"/>
+        <location filename="../assets/Help.qml" line="75"/>
         <source>The song cache on your device is limited by the amount of songs you recently listened to, and will automatically delete the older songs once the cache size grows too large.</source>
         <translation>Le cache de pistes sur votre périphérique est limité par la somme des pistes que vous avez récemment lues et supprimera automatiquement les pistes plus anciennes une fois que la taille du cache devient trop importante.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="107"/>
+        <location filename="../assets/Help.qml" line="82"/>
         <source>You can configure the song cache size and song count it keeps in &lt;b&gt;ModPlayer&lt;/b&gt; settings.</source>
         <translation>Vous pouvez configurer le taille du cache de la piste et le nombre de pistes qu&apos;il peu avoir dans les réglages du &lt;b&gt;ModPlayer&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="114"/>
+        <location filename="../assets/Help.qml" line="89"/>
         <source>You can configure various options of &lt;b&gt;ModPlayer&lt;/b&gt;, such as &lt;i&gt;mixing frequency&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; playback, &lt;i&gt;mixer quality&lt;/i&gt; and more.</source>
         <translation>Vous pouvez configurer les diverses options de &lt;b&gt;ModPlayer&lt;/b&gt;,comme &lt;i&gt;mixage frequence&lt;/i&gt;, &lt;i&gt;stereo/mono&lt;/i&gt; lecture, &lt;i&gt;qualité du mixeur&lt;/i&gt; et bien plus.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="121"/>
+        <location filename="../assets/Help.qml" line="96"/>
         <source>You can add the songs from the &lt;b&gt;ModPlayer&lt;/b&gt; library to the list of your favourite songs and listen to them later.</source>
         <translation>Vous pouvez ajouter les pistes de la bibliothèque de &lt;b&gt;ModPlayer&lt;/b&gt; à la liste de vos pistes préférées et les écouter plus tard.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="128"/>
+        <location filename="../assets/Help.qml" line="103"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; knows the songs you listened to and you can locate them in the &lt;i&gt;&quot;Recent&quot;&lt;/i&gt;, &lt;i&gt;&quot;Most Played&quot;&lt;/i&gt; and &lt;i&gt;&quot;My Favourite&quot;&lt;/i&gt; tabs.</source>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; connaît les pistes que vous avez écouté et vous pouvez les localiser dans les onglets &lt;i&gt;&quot;Recents&quot;&lt;/i&gt;, &lt;i&gt;&quot;Les plus lues&quot;&lt;/i&gt; et &lt;i&gt;&quot;Mes préférées&quot;&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="135"/>
+        <location filename="../assets/Help.qml" line="110"/>
         <source>There are thousands of songs &lt;b&gt;ModPlayer&lt;/b&gt; has in its library, and I hope you will enjoy many songs. A good start is to look in &lt;i&gt;&quot;Downloads&quot;&lt;/i&gt;, &lt;i&gt;&quot;Favourited&quot;&lt;/i&gt; and &lt;i&gt;&quot;Scored&quot;&lt;/i&gt; tabs.</source>
         <translation>Il y a des milliers de pistes dans la bibliothèque de &lt;b&gt;ModPlayer&lt;/b&gt; etj&apos;espère que vous allez prendre plaisir à écouter plusieurs musiques. Un bon début pour chercher est dans les onglets &lt;i&gt;&quot;Téléchargements&quot;&lt;/i&gt;, &lt;i&gt;&quot;Préférées&quot;&lt;/i&gt; et &lt;i&gt;&quot;Notés&quot;&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="142"/>
+        <location filename="../assets/Help.qml" line="117"/>
         <source>These are the songs that were downloaded, rated and favourited by other users of &lt;i&gt;The Mod Archive&lt;/i&gt; site and it is quite possible you will also enjoy them.</source>
         <translation>Il ya les pistes qui ont été téléchargées, notées et préférées par d&apos;autres utilisateurs du site de&lt;i&gt;L&apos;archive Mod&lt;/i&gt; et il est probable que vous allez les aimer aussi.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="149"/>
+        <location filename="../assets/Help.qml" line="124"/>
         <source>&lt;b&gt;ModPlayer&lt;/b&gt; is using the &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; library, one of the best libraries that provides high quality tracker song modules mixing and playback.</source>
         <translatorcomment>Preserve &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; hyperlink</translatorcomment>
         <translation>&lt;b&gt;ModPlayer&lt;/b&gt; utilise le &lt;a href=&apos;http://www.modplug.com/&apos;&gt;modplug&lt;/a&gt; bibliothèque, une des meilleures librairies qui fournit le mixage et la lecture de modules de pistes tracker de haute qualité.</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="156"/>
+        <location filename="../assets/Help.qml" line="131"/>
         <source>I made &lt;b&gt;ModPlayer&lt;/b&gt; for fun and hope you will enjoy it too :)</source>
         <translation>J&apos;ai crée &lt;b&gt;ModPlayer&lt;/b&gt; pour le plaisir et j&apos;espère que vous allez l&apos;apprécier aussi :)</translation>
     </message>
     <message>
-        <location filename="../assets/Help.qml" line="163"/>
+        <location filename="../assets/Help.qml" line="138"/>
         <source>Thank you, contributors: Mr.Time (Chinese translation), Ramiro Yaben (Spanish translation)</source>
         <translation>Merci aux collaborateurs : M. Time (traduction chinoise), Ramiro Yaben (traduction espagnol), Martina Menis-Pitouli (traduction française).</translation>
     </message>
@@ -1209,276 +1209,275 @@
         <translation>Pistes personnelles : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="138"/>
+        <location filename="../assets/Settings.qml" line="123"/>
         <source>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;</source>
         <translatorcomment>Preserve hyperlink formatting &lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Privacy Policy&lt;/a&gt;, translate &apos;Privacy Policy&apos; only</translatorcomment>
         <translation>&lt;a href=&apos;http://www.kosenkov.ca/policy.html&apos;&gt;Politique de Confidentialité&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="150"/>
+        <location filename="../assets/Settings.qml" line="135"/>
         <source>Cache</source>
         <translation>Cache</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="164"/>
+        <location filename="../assets/Settings.qml" line="149"/>
         <source>Cached Songs: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>Pistes en cache : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="168"/>
+        <location filename="../assets/Settings.qml" line="153"/>
         <source>Used Cache Size: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>Taille du cache utilisé : &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="174"/>
-        <location filename="../assets/Settings.qml" line="273"/>
+        <location filename="../assets/Settings.qml" line="159"/>
+        <location filename="../assets/Settings.qml" line="258"/>
         <source>Maximum Songs: %1</source>
         <translation>Pistes maximum :  %1</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="187"/>
+        <location filename="../assets/Settings.qml" line="172"/>
         <source>Maximum Cache Size: %1</source>
         <translation>Taille maximum du cache : %1</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="211"/>
-        <location filename="../assets/Settings.qml" line="317"/>
-        <location filename="../assets/Settings.qml" line="343"/>
+        <location filename="../assets/Settings.qml" line="196"/>
+        <location filename="../assets/Settings.qml" line="302"/>
+        <location filename="../assets/Settings.qml" line="328"/>
         <source>Confirm</source>
         <translation>Confirmer</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="200"/>
+        <location filename="../assets/Settings.qml" line="185"/>
         <source>Purge Cache</source>
         <translation>Vider le cache</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="123"/>
         <source>Buy ModPlayer Plus</source>
-        <translation>Acheter ModPlayer Plus</translation>
+        <translation type="obsolete">Acheter ModPlayer Plus</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="212"/>
+        <location filename="../assets/Settings.qml" line="197"/>
         <source>Confirm purging the song cache</source>
         <translation>Confirmer l&apos;élimination du cache des pistes</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="223"/>
+        <location filename="../assets/Settings.qml" line="208"/>
         <source>The song cache has been purged</source>
         <translation>Le cache des pistes a été vidé</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="237"/>
+        <location filename="../assets/Settings.qml" line="222"/>
         <source>Device Screen</source>
         <translation>Ecran du périphérique</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="246"/>
+        <location filename="../assets/Settings.qml" line="231"/>
         <source>Keep screen awake</source>
         <translation>Garder l&apos;écran allumé</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="261"/>
+        <location filename="../assets/Settings.qml" line="246"/>
         <source>Song List</source>
         <translation>Liste de pistes</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="299"/>
+        <location filename="../assets/Settings.qml" line="284"/>
         <source>Personal</source>
         <translation>Personnel</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="307"/>
+        <location filename="../assets/Settings.qml" line="292"/>
         <source>Reset Play Counts</source>
         <translation>Réinitialiser compteurs de lecture</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="318"/>
+        <location filename="../assets/Settings.qml" line="303"/>
         <source>Confirm resetting song play counts</source>
         <translation>Confirmer la réinitialisation des compteurs de lecture</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="328"/>
+        <location filename="../assets/Settings.qml" line="313"/>
         <source>Song play counts have been reset</source>
         <translation>Les compteurs de lecture ont été réinitialisés</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="333"/>
+        <location filename="../assets/Settings.qml" line="318"/>
         <source>Reset My Favourites</source>
         <translation>Réinitialiser mes marque pages</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="344"/>
+        <location filename="../assets/Settings.qml" line="329"/>
         <source>Confirm resetting my favoruites list</source>
         <translation>Confirmer la réinitialisation des la liste des marque page</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="354"/>
+        <location filename="../assets/Settings.qml" line="339"/>
         <source>My favourites list is reset</source>
         <translation>Ma liste de marque pages a été réinitialisée</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="368"/>
+        <location filename="../assets/Settings.qml" line="353"/>
         <source>Background</source>
         <translation>Fond d&apos;écran</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="384"/>
+        <location filename="../assets/Settings.qml" line="369"/>
         <source>Mixer Configuration</source>
         <translation>Configuration du mixeur</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="393"/>
+        <location filename="../assets/Settings.qml" line="378"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="395"/>
+        <location filename="../assets/Settings.qml" line="380"/>
         <source>Stereo</source>
         <translation>Stereo</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="400"/>
+        <location filename="../assets/Settings.qml" line="385"/>
         <source>Mono</source>
         <translation>Mono</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="411"/>
+        <location filename="../assets/Settings.qml" line="396"/>
         <source>Bits per Sample</source>
         <translation>Octets par échantillon</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="434"/>
+        <location filename="../assets/Settings.qml" line="419"/>
         <source>Frequency</source>
         <translation>Frequence</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="437"/>
+        <location filename="../assets/Settings.qml" line="422"/>
         <source>44100 Hz sampling rate</source>
         <translatorcomment>Hz  = Herz</translatorcomment>
         <translation>44100 Hz taux d&apos;échantillonage</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="443"/>
+        <location filename="../assets/Settings.qml" line="428"/>
         <source>22050 Hz sampling rate</source>
         <translatorcomment>Hz  = Herz</translatorcomment>
         <translation>22050 Hz taux d&apos;échantillonage</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="449"/>
+        <location filename="../assets/Settings.qml" line="434"/>
         <source>11025 Hz sampling rate</source>
         <translatorcomment>Hz  = Herz</translatorcomment>
         <translation>11025 Hz taux d&apos;échantillonage</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="459"/>
+        <location filename="../assets/Settings.qml" line="444"/>
         <source>Resampling</source>
         <translation>Rééchantillonnage</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="461"/>
+        <location filename="../assets/Settings.qml" line="446"/>
         <source>Nearest</source>
         <translation>Le plus proche</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="462"/>
+        <location filename="../assets/Settings.qml" line="447"/>
         <source>No interpolation (very fast)</source>
         <translation>Pas d&apos;interpolation ( très rapide)</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="467"/>
+        <location filename="../assets/Settings.qml" line="452"/>
         <source>Linear</source>
         <translation>Linéaire</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="468"/>
+        <location filename="../assets/Settings.qml" line="453"/>
         <source>Linear interpolation (fast, good quality)</source>
         <translation>Interpolation linéaire (rapide, bonne qualité)</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="473"/>
+        <location filename="../assets/Settings.qml" line="458"/>
         <source>Spline</source>
         <translation>Spline</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="474"/>
+        <location filename="../assets/Settings.qml" line="459"/>
         <source>Cubic spline interpolation (high quality)</source>
         <translation>Interpolation cubique de spline (haute qualité)</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="479"/>
+        <location filename="../assets/Settings.qml" line="464"/>
         <source>FIR</source>
         <translatorcomment>8-tap fir filter (Finite impulse response filter)</translatorcomment>
         <translation>filtre FIR</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="480"/>
+        <location filename="../assets/Settings.qml" line="465"/>
         <source>8-tap fir filter (extremely high quality)</source>
         <translatorcomment>Finite impulse response filter</translatorcomment>
         <translation>filtre FIR à 8 tapes (très haute qualité)</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="496"/>
+        <location filename="../assets/Settings.qml" line="481"/>
         <source>Master Volume</source>
         <translation>Volume central</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="516"/>
+        <location filename="../assets/Settings.qml" line="501"/>
         <source>Stereo Separation</source>
         <translation>Séparation du stereo</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="536"/>
+        <location filename="../assets/Settings.qml" line="521"/>
         <source>Enable Oversampling</source>
         <translation>Activer Suréchantillonage</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="544"/>
+        <location filename="../assets/Settings.qml" line="529"/>
         <source>Enable Noise Reduction</source>
         <translation>Activer la Réduction de bruit</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="559"/>
+        <location filename="../assets/Settings.qml" line="544"/>
         <source>Enable Reverb</source>
         <translation>Activer la Réverbération</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="569"/>
+        <location filename="../assets/Settings.qml" line="554"/>
         <source>Reverb Depth</source>
         <translation>Profondeur de la Réverbération</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="587"/>
+        <location filename="../assets/Settings.qml" line="572"/>
         <source>Reverb Delay</source>
         <translation>Retard de la Réverbération</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="614"/>
+        <location filename="../assets/Settings.qml" line="599"/>
         <source>Enable MegaBass</source>
         <translation>Activer le MegaBass</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="624"/>
+        <location filename="../assets/Settings.qml" line="609"/>
         <source>Bass Amount</source>
         <translation>Montant de Basse</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="642"/>
+        <location filename="../assets/Settings.qml" line="627"/>
         <source>Bass Cutoff</source>
         <translation>Suspension de Basse</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="669"/>
+        <location filename="../assets/Settings.qml" line="654"/>
         <source>Enable Surround Sound</source>
         <translation>Activer son surround</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="679"/>
+        <location filename="../assets/Settings.qml" line="664"/>
         <source>Surround Depth</source>
         <translation>Profondeur du Surround</translation>
     </message>
     <message>
-        <location filename="../assets/Settings.qml" line="697"/>
+        <location filename="../assets/Settings.qml" line="682"/>
         <source>Surround Delay</source>
         <translation>Retard du Surround</translation>
     </message>

@@ -1307,7 +1307,7 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
-        <translation type="unfinished">Купить ModPlayer Plus</translation>
+        <translation type="obsolete">Купить ModPlayer Plus</translation>
     </message>
     <message>
         <source>Playlist Control</source>
