@@ -1,6 +1,7 @@
 #include "FileSystem.hpp"
 #include "FileEntry.hpp"
 #include "FileUtils.hpp"
+#include <unistd.h>
 
 namespace {
     struct FileNameLess {
@@ -10,17 +11,17 @@ namespace {
     };
 }
 
-FileSystem::FileSystem(QStringList const& filters, QObject * parent)
-    : QObject(parent),
-      m_filters(filters)
+FileSystem::FileSystem(const QStringList& filters, QObject *parent)
+: QObject(parent),
+  m_filters(filters)
 {}
 
-bool FileSystem::fileMatches(QString const& fileName) const {
-    QString const& extension = FileUtils::extension(fileName);
+bool FileSystem::fileMatches(const QString& fileName) const {
+    const QString& extension = FileUtils::extension(fileName);
     return m_filters.contains(extension, Qt::CaseInsensitive);
 }
 
-bb::cascades::ArrayDataModel* FileSystem::listRoot() {
+bb::cascades::ArrayDataModel* FileSystem::listRoot(QObject *parent) {
     static const char * locations[] = {
         "/accounts/1000/shared/music",
         "/accounts/1000/shared/documents",
@@ -31,29 +32,31 @@ bb::cascades::ArrayDataModel* FileSystem::listRoot() {
         "/accounts/1000/shared/OneDrive"
     };
 
-    QList<FileEntry*> roots;
+    bb::cascades::ArrayDataModel * model = new bb::cascades::ArrayDataModel(parent);
+
     for(size_t i = 0; i < sizeof(locations)/sizeof(locations[0]); ++i) {
-        struct stat64 st;
-        QString absoluteFileName(locations[i]);
-        if(0 == ::stat64(absoluteFileName.toUtf8().constData(), &st)) {
-            FileEntry * fileEntry = new FileEntry(absoluteFileName, st);
-            roots << fileEntry;
+        // Note, not using stat64 here
+        if(0 == ::access(locations[i], F_OK)) {
+            struct stat64 st;
+            ::memset(&st, 0, sizeof(struct stat64));
+            st.st_mode = S_IFDIR; // file system access performance improvement
+
+            FileEntry *fileEntry = new FileEntry(locations[i], st, parent);
+            QObject   *obj       = static_cast<QObject*>(fileEntry);
+
+            model->append(QVariant::fromValue(obj));
         }
     }
 
-    bb::cascades::ArrayDataModel * model = new bb::cascades::ArrayDataModel();
-    foreach(FileEntry * root, roots) {
-        model->append(QVariant::fromValue(static_cast<QObject*>(root)));
-    }
     return model;
 }
 
-bb::cascades::ArrayDataModel* FileSystem::listFiles(QString const& path) {
+bb::cascades::ArrayDataModel* FileSystem::listFiles(const QString& path, QObject *parent) {
     if(path.isEmpty() || path == "/") {
         return listRoot();
     }
 
-    bb::cascades::ArrayDataModel * model = new bb::cascades::ArrayDataModel();
+    bb::cascades::ArrayDataModel * model = new bb::cascades::ArrayDataModel(parent);
 
     QList<FileEntry*> foundFiles;
     QList<FileEntry*> foundDirectories;
@@ -86,8 +89,8 @@ bb::cascades::ArrayDataModel* FileSystem::listFiles(QString const& path) {
         ::closedir(dirp);
     }
 
-    qSort(foundDirectories.begin(), foundDirectories.end(), FileNameLess());
-    qSort(foundFiles.begin(), foundFiles.end(), FileNameLess());
+    ::qSort(foundDirectories.begin(), foundDirectories.end(), FileNameLess());
+    ::qSort(foundFiles.begin(), foundFiles.end(), FileNameLess());
 
     foreach(FileEntry * directory, foundDirectories) {
         model->append(QVariant::fromValue(static_cast<QObject*>(directory)));
