@@ -81,6 +81,8 @@ Page {
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
+            leftPadding: 15
+            rightPadding: 15
             ListView {
                 id: songs
                 property string mode
@@ -89,9 +91,7 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 topPadding: 20
-                bottomPadding: topPadding
-                leftPadding: 10
-                rightPadding: leftPadding
+                bottomPadding: 20
                 function updateList() {
                     if (mode == 'playlist') {
                         loadSongsByPlaylist(listId, modelName)
