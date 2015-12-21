@@ -65,6 +65,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/DeleteAllPlaylistsActionItem.qml) \
         $$quote($$BASEDIR/assets/EqualizerActionItem.qml) \
         $$quote($$BASEDIR/assets/ExportCacheButton.qml) \
+        $$quote($$BASEDIR/assets/FallingBlocks.qml) \
         $$quote($$BASEDIR/assets/FileEntryView.qml) \
         $$quote($$BASEDIR/assets/FilesList.qml) \
         $$quote($$BASEDIR/assets/FirstLaunchHint.qml) \
@@ -346,6 +347,13 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/lcd-light/lcd-9.png) \
         $$quote($$BASEDIR/assets/images/led/led_off.png) \
         $$quote($$BASEDIR/assets/images/led/led_on.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-blue.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-brown.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-cyan.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-green.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-purple.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-red.png) \
+        $$quote($$BASEDIR/assets/images/objects/block-yellow.png) \
         $$quote($$BASEDIR/assets/images/objects/cache.png) \
         $$quote($$BASEDIR/assets/images/objects/cursor.png) \
         $$quote($$BASEDIR/assets/images/objects/left-arrow-disabled.png) \

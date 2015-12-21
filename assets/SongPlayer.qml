@@ -169,6 +169,14 @@ Page {
                             song: app.player.currentSong
                             visible: app.player.currentSong.songLoaded && app.player.currentSong.id != 0 && !app.player.currentSong.isLocal && viewOption.selectedOption == basicViewOption 
                         }
+                        FallingBlocks {
+                            visible: app.player.currentSong.isHttpSong
+                            onVisibleChanged: {
+                                if(visible) {
+                                    run()
+                                }
+                            }
+                        }
                         SongAlbumArt {
                             id: albumArt
                             song: app.player.currentSong
