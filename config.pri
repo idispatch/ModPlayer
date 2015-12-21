@@ -201,6 +201,10 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/backgrounds/container_dark.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_dark_85.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/container_dark_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_selected_bright_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_selected_bright_85.png) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_selected_dark_85.amd) \
+        $$quote($$BASEDIR/assets/images/backgrounds/container_selected_dark_85.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator.amd) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator.png) \
         $$quote($$BASEDIR/assets/images/backgrounds/indicator2.png) \

@@ -115,10 +115,25 @@ Page {
                 function getRootObject() {
                     return app
                 }
+                multiSelectAction: MultiSelectActionItem {
+                }
+                multiSelectHandler {
+                    actions: [
+                        AppendPlaylistActionItem {
+                            songList: songs
+                            rootObject: songs.getRootObject()
+                        }
+                    ]
+                    status: qsTr("No songs in this list") + Retranslate.onLanguageChanged
+                }
+                onSelectionChanged: {
+                    multiSelectHandler.status = qsTr("%1 songs").arg(selectionList().length)
+                }
                 listItemComponents: [
                     ListItemComponent {
                         ModPlayerListItem {
                             id: songEntry
+                            showAsSelected: ListItem.selected
                             implicitLayoutAnimationsEnabled: false
                             favouriteScore: ListItem.data.myFavourite
                             title: ListItem.data.title
@@ -557,7 +572,7 @@ Page {
         },
         AppendPlaylistActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
-            songList: songs.dataModel
+            songList: songs
             currentSong: null
         },
         PlayModeActionItem {

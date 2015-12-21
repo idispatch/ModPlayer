@@ -8,9 +8,9 @@ ActionItem {
     property variant rootObject
     title: qsTr("Append to Playlist") + Retranslate.onLanguageChanged
     imageSource: "asset:///images/actions/icon_append_playlist.png"
-    enabled: (songList && songList.size() > 0) || (currentSong && currentSong.id!=0)
+    enabled: (songList != null && songList.dataModel != null && songList.dataModel.size() > 0) || (currentSong != null && currentSong.id!=0)
     onTriggered: {
-        if(songList || currentSong) {
+        if((songList && songList.dataModel != null && songList.dataModel.size() > 0) || currentSong) {
             playlistSelection.run()
         }
     }
@@ -36,19 +36,28 @@ ActionItem {
                     notificationToast.body = qsTr("Song '%1' was added to playlist '%2'").arg(currentSong.title).arg(playlistName) + Retranslate.onLanguageChanged
                     notificationToast.show()
                 } else if(songList != null) {
-                    var songCount = songList.size()
+                    var songs = []
+                    var selectedSongs = songList.selectionList()
+                    var songCount = selectedSongs.length
                     if(songCount > 0) {
                         if(songCount > 1000) {
                             songCount = 1000
                         }
-                        var songs = []
                         for(var i = 0; i < songCount; i++) {
-                            songs.push(songList.value(i).id)
+                            songs.push(songList.dataModel.value(selectedSongs[i]).id)
                         }
-                        root.catalog.appendSongsToPlaylist(playlistId, songs)
-                        notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName) + Retranslate.onLanguageChanged
-                        notificationToast.show()
+                    } else {
+                        songCount = songList.dataModel.size()
+                        if(songCount > 1000) {
+                            songCount = 1000
+                        }
+                        for(var i = 0; i < songCount; i++) {
+                            songs.push(songList.dataModel.value(i).id)
+                        }
                     }
+                    root.catalog.appendSongsToPlaylist(playlistId, songs)
+                    notificationToast.body = qsTr("%1 songs added to playlist '%2'").arg(songCount).arg(playlistName) + Retranslate.onLanguageChanged
+                    notificationToast.show()
                 }
             }
             function run() {
@@ -88,10 +97,18 @@ ActionItem {
                     if(selectedOptionIndex == 0) {
                         // Add to current playlist
                         if(songList != null) {
-                            var songCount = songList.size()
                             var songs = []
-                            for(var i = 0; i < songCount; i++) {
-                                songs.push(songList.value(i).id)
+                            var selectionList = songList.selectionList()
+                            var songCount = selectionList.length
+                            if (songCount > 0) {
+                                for(var i = 0; i < songCount; i++) {
+                                    songs.push(songList.dataModel.value(selectionList[i]).id)
+                                }
+                            } else {
+                                songCount = songList.dataModel.size()
+                                for(var i = 0; i < songCount; i++) {
+                                    songs.push(songList.dataModel.value(i).id)
+                                }
                             }
                             root.player.playlist.add(songs)
                         } else if(currentSong != null) {
