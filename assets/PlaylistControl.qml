@@ -22,7 +22,7 @@ Container {
             showAnimation.stop()
             hideAnimation.play()
         }
-        playlistInfo.text = qsTr("%1 of %2").arg(app.player.playlist.position + 1).arg(app.player.playlist.count) + Retranslate.onLanguageChanged
+        playlistInfo.text = qsTr("Playlist: %1 of %2").arg(app.player.playlist.position + 1).arg(app.player.playlist.count) + Retranslate.onLanguageChanged
     }
     onCreationCompleted: {
         var thisObject = playlistCounter
