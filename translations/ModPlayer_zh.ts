@@ -880,7 +880,11 @@
     <name>PlaylistControl</name>
     <message>
         <source>%1 of %2</source>
-        <translation>%1 / %2</translation>
+        <translation type="obsolete">%1 / %2</translation>
+    </message>
+    <message>
+        <source>Playlist: %1 of %2</source>
+        <translation>播放列表: %1 / %2</translation>
     </message>
 </context>
 <context>
@@ -1530,6 +1534,10 @@
     <message>
         <source>No songs in this list</source>
         <translation>列表中无歌曲</translation>
+    </message>
+    <message>
+        <source>%1 songs</source>
+        <translation>%1 首歌曲</translation>
     </message>
 </context>
 <context>

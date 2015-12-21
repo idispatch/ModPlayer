@@ -888,7 +888,11 @@
     <name>PlaylistControl</name>
     <message>
         <source>%1 of %2</source>
-        <translation>%1 из %2</translation>
+        <translation type="obsolete">Плейлист: %1 из %2</translation>
+    </message>
+    <message>
+        <source>Playlist: %1 of %2</source>
+        <translation>Плейлист: %1 из %2</translation>
     </message>
 </context>
 <context>
@@ -1562,6 +1566,10 @@
     <message>
         <source>search songs</source>
         <translation>найти песни</translation>
+    </message>
+    <message>
+        <source>%1 songs</source>
+        <translation>%1 песен</translation>
     </message>
 </context>
 <context>
