@@ -171,11 +171,6 @@ Page {
                         }
                         FallingBlocks {
                             visible: app.player.currentSong.isHttpSong
-                            onVisibleChanged: {
-                                if(visible) {
-                                    run()
-                                }
-                            }
                         }
                         SongAlbumArt {
                             id: albumArt
