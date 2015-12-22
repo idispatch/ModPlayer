@@ -3,11 +3,17 @@ import QtQuick 1.0
 import player 1.0
 
 GroupContainer {
-    function run() {
-        scene.run()
+    onCreationCompleted: {
+        var sceneObject = scene
+        app.player.currentSong.isHttpSongChanged.connect(function() {
+            if (app.player.currentSong.isHttpSong && !sceneObject.isRunning) {
+                sceneObject.run()
+            }
+        })
     }
     Container {
         id: scene
+        property bool isRunning: false
         horizontalAlignment: HorizontalAlignment.Center
         verticalAlignment: VerticalAlignment.Fill
         preferredHeight: 500
@@ -79,6 +85,7 @@ GroupContainer {
             }
         ]
         function run() {
+            isRunning = true
             startFall()
             displayTimer.start()
         }
