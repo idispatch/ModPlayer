@@ -1311,7 +1311,11 @@
     </message>
     <message>
         <source>Buy ModPlayer Plus</source>
+<<<<<<< HEAD
         <translation type="obsolete">Купить ModPlayer Plus</translation>
+=======
+        <translation>Купить ModPlayer Plus</translation>
+>>>>>>> refs/heads/4.7.8.0
     </message>
     <message>
         <source>Playlist Control</source>
