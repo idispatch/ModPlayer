@@ -127,9 +127,6 @@
 							<tool id="com.qnx.qcc.tool.archiver.2005869840" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.qnx.qcc.toolChain.993892250.143986280" name="FileSystem.cpp" rcbsApplicability="disable" resourcePath="src/FileSystem.cpp" toolsToInvoke="com.qnx.qcc.tool.compiler.15541525.1036014068">
-						<tool id="com.qnx.qcc.tool.compiler.15541525.1036014068" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler.15541525"/>
-					</fileInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
