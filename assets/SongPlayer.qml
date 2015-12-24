@@ -171,6 +171,7 @@ Page {
                         }
                         FallingBlocks {
                             visible: app.player.currentSong.isHttpSong
+                            navigationPane: songPlayer.navigationPane
                         }
                         SongAlbumArt {
                             id: albumArt
@@ -193,6 +194,7 @@ Page {
                         }
                         InstrumentsView {
                             id: instrumentsView
+                            navigationPane: songPlayer.navigationPane
                             visible: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong && viewOption.selectedOption == samplesViewOption
                             maxHeight: 600
                             preferredHeight: 600
@@ -202,7 +204,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: songPlayer.navigationPane
+        }
         Mouse {
             id: mouse
         }

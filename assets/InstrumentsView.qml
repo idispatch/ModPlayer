@@ -5,6 +5,7 @@ import "functions.js" as Global
 VerticalContainer {
     id: instrumentsView
     property string mode: "samples"
+    property variant navigationPane
     function load() {
         if(mode == 'samples') {
             instrumentsSamplesList.dataModel = app.player.currentSong.getSampleNames()
@@ -13,14 +14,19 @@ VerticalContainer {
         }
     }
     onCreationCompleted: {
-        var thisInstrumentsView = instrumentsView
+        var thisMainTabPane = mainTabPane
+        var thisObject = instrumentsView
         selector.selectedIndexChanged.connect(function() {
-            thisInstrumentsView.load()
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                thisObject.load()
+            }
         })
         app.player.currentSong.songLoadedChanged.connect(function() {
-            thisInstrumentsView.load()
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                thisObject.load()
+            }
         })
-        thisInstrumentsView.load()
+        thisObject.load()
     }
     GroupContainer {
         SegmentedControl {

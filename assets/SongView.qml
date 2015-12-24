@@ -34,6 +34,7 @@ Page {
                     }
                     SongPersonalInfo {
                         song: songView.song
+                        navigationPane: songView.navigationPane
                     }
                     SongPublicInfo {
                         song: songView.song
@@ -79,7 +80,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: songView.navigationPane
+        }
         Mouse {
             id: mouse
         }

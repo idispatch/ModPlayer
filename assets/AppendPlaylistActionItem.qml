@@ -124,7 +124,7 @@ ActionItem {
                         addToPlaylist(playlistId, playlistName)
                     } else if(selectedOptionIndex >= 3) {
                         // Add to existing playlist
-                        addToPlaylist(playlists[item].id, playlists[item].name)
+                        addToPlaylist(playlists[selectedOptionIndex].id, playlists[selectedOptionIndex].name)
                     }
                 }
                 playlists = undefined

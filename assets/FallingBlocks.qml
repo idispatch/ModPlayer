@@ -1,13 +1,19 @@
 import bb.cascades 1.3
-import QtQuick 1.0
 import player 1.0
 
 GroupContainer {
+    id: fallingBlocks
+    property variant navigationPane
     onCreationCompleted: {
         var sceneObject = scene
-        app.player.currentSong.isHttpSongChanged.connect(function() {
-            if (app.player.currentSong.isHttpSong && !sceneObject.isRunning) {
-                sceneObject.run()
+        var currentSong = app.player.currentSong
+        var thisMainTabPane = mainTabPane
+        var thisObject = fallingBlocks
+        currentSong.isHttpSongChanged.connect(function() {
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                if (currentSong.isHttpSong && !sceneObject.isRunning) {
+                    sceneObject.run()
+                }
             }
         })
     }
@@ -20,11 +26,11 @@ GroupContainer {
         preferredWidth: 500
         layout: AbsoluteLayout {}
         attachedObjects: [
-            Timer {
+            QTimer {
                 id: displayTimer
                 interval: 26000
-                repeat: true
-                onTriggered: { 
+                singleShot: false
+                onTimeout: { 
                     scene.startFall() 
                 }
             },

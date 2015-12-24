@@ -10,6 +10,7 @@ ActionItem {
         if(navigationPane) {
             var view = patternsViewDefinition.createObject()
             if(view) {
+                view.navigationPane = navigationPane
                 navigationPane.push(view)
             }
         }

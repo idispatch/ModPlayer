@@ -4,6 +4,7 @@ import player 1.0
 
 Container {
     id: playlistCounter
+    property variant navigationPane
     layout: DockLayout {}
     horizontalAlignment: HorizontalAlignment.Fill
     verticalAlignment: VerticalAlignment.Fill
@@ -12,8 +13,8 @@ Container {
     leftPadding: 20
     rightPadding: 20
     bottomPadding: 20
-    function updateDisplay() {
-        if(app.player.playlist.count > 0) {
+    function updateDisplay(player) {
+        if(player.playlist.count > 0) {
             hideAnimation.stop()
             showAnimation.play()
             displayTimer.restart()
@@ -22,17 +23,25 @@ Container {
             showAnimation.stop()
             hideAnimation.play()
         }
-        playlistInfo.text = qsTr("Playlist: %1 of %2").arg(app.player.playlist.position + 1).arg(app.player.playlist.count) + Retranslate.onLanguageChanged
+        playlistInfo.text = qsTr("Playlist: %1 of %2").arg(player.playlist.position + 1).arg(player.playlist.count) + Retranslate.onLanguageChanged
     }
     onCreationCompleted: {
+        var player = app.player
+        var thisMainTabPane = mainTabPane
         var thisObject = playlistCounter
-        app.player.playlist.countChanged.connect(function() {
-            thisObject.updateDisplay()
+        
+        player.playlist.countChanged.connect(function() {
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                thisObject.updateDisplay(player)
+            }
         })
-        app.player.playlist.positionChanged.connect(function() {
-            thisObject.updateDisplay()
+        player.playlist.positionChanged.connect(function() {
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                thisObject.updateDisplay(player)
+            }
         })
-        updateDisplay()
+        
+        updateDisplay(player)
     }
     attachedObjects: [
         Timer {
