@@ -14,6 +14,7 @@ GroupContainer {
 
     property int   favouriteScore: 0
     property bool  playing: false
+    property bool  paused: false
 
     leftPadding: 10
     rightPadding: 10
@@ -40,7 +41,7 @@ GroupContainer {
                 }
                 ImageView {
                     id: animationView
-                    visible: modPlayerListItem.playing
+                    visible: modPlayerListItem.playing || modPlayerListItem.paused
                     topMargin: 20
                     scaleX: 1.4
                     imageSource: "asset:///images/objects/music-playing.gif"
@@ -166,85 +167,71 @@ GroupContainer {
                     
                     VerticalContainer {
                         verticalAlignment: VerticalAlignment.Center
+                        attachedObjects: [
+                            ImagePaintDefinition {
+                                id: infoPaint
+                                repeatPattern: RepeatPattern.Fill
+                                imageSource: "asset:///images/backgrounds/infoback.amd"
+                            },
+                            TextStyleDefinition {
+                                id: smallTextStyle
+                                base: SystemDefaults.TextStyles.SubtitleText
+                                fontWeight: FontWeight.W100
+                                fontStyle: FontStyle.Italic
+                            }
+                        ]
                         Container {
                             visible: upperStatus.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
-                            background: upperInfoPaint.imagePaint
+                            background: infoPaint.imagePaint
                             bottomMargin: 10
                             topPadding: 4
                             bottomPadding: 8
                             leftPadding: 20
                             rightPadding: 16
-                            attachedObjects: [
-                                ImagePaintDefinition {
-                                    id: upperInfoPaint
-                                    repeatPattern: RepeatPattern.Fill
-                                    imageSource: "asset:///images/backgrounds/infoback.amd"
-                                }
-                            ]
                             BlackLabel {
                                 id: statusUpperField
                                 visible: text.length > 0
                                 horizontalAlignment: HorizontalAlignment.Right
                                 textStyle {
-                                    base: SystemDefaults.TextStyles.SubtitleText
-                                    fontWeight: FontWeight.W100
-                                    fontStyle: FontStyle.Italic
+                                    base: smallTextStyle.style
                                 }
                             }
                         }
                         Container {
                             visible: middleStatus.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
-                            background: middleInfoPaint.imagePaint
+                            background: infoPaint.imagePaint
                             topMargin: 10
                             bottomMargin: 10
                             topPadding: 4
                             bottomPadding: 8
                             leftPadding: 20
                             rightPadding: 16
-                            attachedObjects: [
-                                ImagePaintDefinition {
-                                    id: middleInfoPaint
-                                    repeatPattern: RepeatPattern.Fill
-                                    imageSource: "asset:///images/backgrounds/infoback.amd"
-                                }
-                            ]
                             BlackLabel {
                                 id: statusMiddleField
                                 visible: text.length > 0
                                 horizontalAlignment: HorizontalAlignment.Right
                                 textStyle {
-                                    base: SystemDefaults.TextStyles.SubtitleText
-                                    fontWeight: FontWeight.W100
-                                    fontStyle: FontStyle.Italic
+                                    base: smallTextStyle.style
                                 }
                             }
                         }
                         Container {
                             visible: lowerStatus.length > 0
                             horizontalAlignment: HorizontalAlignment.Right
-                            background: lowerInfoPaint.imagePaint
+                            background: infoPaint.imagePaint
                             topMargin: 10
                             topPadding: 4
                             bottomPadding: 8
                             leftPadding: 20
                             rightPadding: 16
-                            attachedObjects: [
-                                ImagePaintDefinition {
-                                    id: lowerInfoPaint
-                                    repeatPattern: RepeatPattern.Fill
-                                    imageSource: "asset:///images/backgrounds/infoback.amd"
-                                }
-                            ]
                             BlackLabel {
                                 id: statusLowerField
                                 visible: text.length > 0
                                 horizontalAlignment: HorizontalAlignment.Right
                                 textStyle {
-                                    base: SystemDefaults.TextStyles.SubtitleText
-                                    fontWeight: FontWeight.W100
-                                    fontStyle: FontStyle.Italic
+                                    base: smallTextStyle.style
                                 }
                             }
                         }

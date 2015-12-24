@@ -141,6 +141,13 @@ Page {
                                         ListItem.data.id == ListItem.view.getRootObject().player.currentSong.id && 
                                         ListItem.view.getRootObject().player.state == Player.Playing
                             }
+                            paused: {
+                                return ListItem !== undefined && 
+                                       ListItem.data !== undefined && 
+                                       ListItem.view !== undefined && 
+                                       ListItem.data.id == ListItem.view.getRootObject().player.currentSong.id && 
+                                       ListItem.view.getRootObject().player.state == Player.Paused
+                            }
                             showAsSelected: ListItem.selected
                             implicitLayoutAnimationsEnabled: false
                             favouriteScore: ListItem.data.myFavourite

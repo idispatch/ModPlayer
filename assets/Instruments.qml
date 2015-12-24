@@ -28,6 +28,7 @@ Page {
             verticalAlignment: VerticalAlignment.Fill
             InstrumentsView {
                 id: instrumentsChildView
+                navigationPane: instrumentsPage.navigationPane
                 leftPadding: 20
                 rightPadding: 20
                 topPadding: 20

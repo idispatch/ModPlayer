@@ -729,12 +729,12 @@
 <context>
     <name>InstrumentsView</name>
     <message>
-        <location filename="../assets/InstrumentsView.qml" line="29"/>
+        <location filename="../assets/InstrumentsView.qml" line="35"/>
         <source>Samples</source>
         <translation>Muestras</translation>
     </message>
     <message>
-        <location filename="../assets/InstrumentsView.qml" line="35"/>
+        <location filename="../assets/InstrumentsView.qml" line="41"/>
         <source>Instruments</source>
         <translation>Instrumentos</translation>
     </message>
@@ -1713,37 +1713,37 @@
         <translation>%1 canciones</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="167"/>
-        <location filename="../assets/SongList.qml" line="211"/>
-        <location filename="../assets/SongList.qml" line="247"/>
+        <location filename="../assets/SongList.qml" line="174"/>
+        <location filename="../assets/SongList.qml" line="218"/>
+        <location filename="../assets/SongList.qml" line="254"/>
         <source>favourited %1 times</source>
         <translation>hecha favorita %1 veces</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="178"/>
-        <location filename="../assets/SongList.qml" line="196"/>
+        <location filename="../assets/SongList.qml" line="185"/>
+        <location filename="../assets/SongList.qml" line="203"/>
         <source>score %1 of 10</source>
         <translation>puntaje de %1 de 10</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="183"/>
-        <location filename="../assets/SongList.qml" line="201"/>
-        <location filename="../assets/SongList.qml" line="240"/>
+        <location filename="../assets/SongList.qml" line="190"/>
+        <location filename="../assets/SongList.qml" line="208"/>
+        <location filename="../assets/SongList.qml" line="247"/>
         <source>%1 downloads</source>
         <translation>%1 descargas</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="260"/>
+        <location filename="../assets/SongList.qml" line="267"/>
         <source>Play</source>
         <translation>Reproducir</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="272"/>
+        <location filename="../assets/SongList.qml" line="279"/>
         <source>Add to Favourites</source>
         <translation>Agregar a Favoritos</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="279"/>
+        <location filename="../assets/SongList.qml" line="286"/>
         <source>Remove from Favourites</source>
         <translation>Remover de Favoritos</translation>
     </message>
@@ -1802,32 +1802,32 @@
 <context>
     <name>SongPersonalInfo</name>
     <message>
-        <location filename="../assets/SongPersonalInfo.qml" line="34"/>
+        <location filename="../assets/SongPersonalInfo.qml" line="36"/>
         <source>You played this song once</source>
         <translation>Has reproducido esta canción una sola vez</translation>
     </message>
     <message>
-        <location filename="../assets/SongPersonalInfo.qml" line="36"/>
+        <location filename="../assets/SongPersonalInfo.qml" line="38"/>
         <source>You played this song &lt;b&gt;%1&lt;/b&gt; times</source>
         <translation>Has reproducido esta canción &lt;b&gt;%1&lt;/b&gt; veces</translation>
     </message>
     <message>
-        <location filename="../assets/SongPersonalInfo.qml" line="38"/>
+        <location filename="../assets/SongPersonalInfo.qml" line="40"/>
         <source>You did not play this song yet</source>
         <translation>No has reproducido esta canción aún</translation>
     </message>
     <message>
-        <location filename="../assets/SongPersonalInfo.qml" line="61"/>
+        <location filename="../assets/SongPersonalInfo.qml" line="68"/>
         <source>Last played %1</source>
         <translation>Última reproducción %1</translation>
     </message>
     <message>
-        <location filename="../assets/SongPersonalInfo.qml" line="107"/>
+        <location filename="../assets/SongPersonalInfo.qml" line="115"/>
         <source>You liked this song</source>
         <translation>Te gusta esta canción</translation>
     </message>
     <message>
-        <location filename="../assets/SongPersonalInfo.qml" line="133"/>
+        <location filename="../assets/SongPersonalInfo.qml" line="142"/>
         <source>&lt;i&gt;You have this song in the cache already&lt;/i&gt;</source>
         <translation>&lt;i&gt;Ya tienes esta canción en el caché&lt;/i&gt;</translation>
     </message>
@@ -1881,7 +1881,7 @@
 <context>
     <name>SongView</name>
     <message>
-        <location filename="../assets/SongView.qml" line="135"/>
+        <location filename="../assets/SongView.qml" line="136"/>
         <source>Play</source>
         <translation>Reproducir</translation>
     </message>

@@ -31,12 +31,12 @@ Container {
         var thisObject = playlistCounter
         
         player.playlist.countChanged.connect(function() {
-            if (thisMainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
                 thisObject.updateDisplay(player)
             }
         })
         player.playlist.positionChanged.connect(function() {
-            if (thisMainTabPane.activePane == thisObject.navigationPane && thisObject.navigationPane.top == thisObject) {
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
                 thisObject.updateDisplay(player)
             }
         })

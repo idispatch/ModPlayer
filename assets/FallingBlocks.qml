@@ -3,12 +3,18 @@ import QtQuick 1.0
 import player 1.0
 
 GroupContainer {
+    id: fallingBlocks
+    property variant navigationPane
     onCreationCompleted: {
         var sceneObject = scene
-        var currentSong = app.player.currentSong 
+        var currentSong = app.player.currentSong
+        var thisMainTabPane = mainTabPane
+        var thisObject = fallingBlocks
         currentSong.isHttpSongChanged.connect(function() {
-            if (currentSong.isHttpSong && !sceneObject.isRunning) {
-                sceneObject.run()
+            if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                if (currentSong.isHttpSong && !sceneObject.isRunning) {
+                    sceneObject.run()
+                }
             }
         })
     }

@@ -3,7 +3,9 @@ import player 1.0
 import "functions.js" as Global
 
 GroupContainer {
+    id: songPersonalInfo
     property variant song
+    property variant navigationPane
     onCreationCompleted: {
         personalInfoAnimation.play()
     }
@@ -42,9 +44,14 @@ GroupContainer {
         }
         onCreationCompleted: {
             var thisSong = song
-            app.player.currentSong.playCountChanged.connect(function(){
-                if(thisSong.id == app.player.currentSong.id) {
-                    thisSong.playCount = app.player.currentSong.playCount
+            var player = app.player
+            var thisMainTabPane = mainTabPane
+            var thisObject = songPersonalInfo
+            player.currentSong.playCountChanged.connect(function(){
+                if (thisMainTabPane.activePane == thisObject.navigationPane) {
+                    if(thisSong.id == player.currentSong.id) {
+                        thisSong.playCount = player.currentSong.playCount
+                    }
                 }
             })
         }
@@ -64,9 +71,10 @@ GroupContainer {
         }
         onCreationCompleted: {
             var thisSong = song
-            app.player.currentSong.lastPlayedChanged.connect(function(){
-                if(thisSong && thisSong.id == app.player.currentSong.id) {
-                    thisSong.lastPlayed = app.player.currentSong.lastPlayed
+            var player = app.player
+            player.currentSong.lastPlayedChanged.connect(function(){
+                if(thisSong && thisSong.id == player.currentSong.id) {
+                    thisSong.lastPlayed = player.currentSong.lastPlayed
                 }
             })
         }
@@ -109,9 +117,10 @@ GroupContainer {
         }
         onCreationCompleted: {
             var thisSong = song
-            app.player.currentSong.myFavouriteChanged.connect(function(){
-                if(thisSong && thisSong.id == app.player.currentSong.id) {
-                    thisSong.myFavourite = app.player.currentSong.myFavourite
+            var player = app.player
+            player.currentSong.myFavouriteChanged.connect(function(){
+                if(thisSong && thisSong.id == player.currentSong.id) {
+                    thisSong.myFavourite = player.currentSong.myFavourite
                 }
             })
         }
@@ -139,8 +148,9 @@ GroupContainer {
         onCreationCompleted: {
             var thisSong = song
             var thisObject = songCacheStatus
-            app.cache.currentFilesChanged.connect(function() {
-                thisObject.visible = thisSong && app.cache.fileExists(thisSong.fileName)
+            var cache = app.cache
+            cache.currentFilesChanged.connect(function() {
+                thisObject.visible = thisSong && cache.fileExists(thisSong.fileName)
                 thisObject.text = thisObject.getLabelText()
             })
         }

@@ -34,6 +34,7 @@ Page {
                     }
                     SongPersonalInfo {
                         song: songView.song
+                        navigationPane: songView.navigationPane
                     }
                     SongPublicInfo {
                         song: songView.song
