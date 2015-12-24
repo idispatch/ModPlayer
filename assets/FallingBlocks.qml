@@ -1,5 +1,4 @@
 import bb.cascades 1.3
-import QtQuick 1.0
 import player 1.0
 
 GroupContainer {
@@ -27,11 +26,11 @@ GroupContainer {
         preferredWidth: 500
         layout: AbsoluteLayout {}
         attachedObjects: [
-            Timer {
+            QTimer {
                 id: displayTimer
                 interval: 26000
-                repeat: true
-                onTriggered: { 
+                singleShot: false
+                onTimeout: { 
                     scene.startFall() 
                 }
             },

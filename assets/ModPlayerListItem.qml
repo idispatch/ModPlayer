@@ -44,7 +44,7 @@ GroupContainer {
                     visible: modPlayerListItem.playing || modPlayerListItem.paused
                     topMargin: 20
                     scaleX: 1.4
-                    imageSource: "asset:///images/objects/music-playing.gif"
+                    imageSource: visible ? "asset:///images/objects/music-playing.gif" : ""
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
                     scalingMethod: ScalingMethod.None
@@ -64,6 +64,12 @@ GroupContainer {
                     horizontalAlignment: HorizontalAlignment.Fill
                     leftPadding: 10
                     rightPadding: 20
+                    attachedObjects: [
+                        ImageTracker {
+                            id: badgeMyFavourite
+                            imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        }
+                    ]
                     BlackLabel {
                         layoutProperties: StackLayoutProperties {
                             spaceQuota: 10
@@ -78,7 +84,7 @@ GroupContainer {
                     ImageView {
                         id: favouriteImage5
                         visible: modPlayerListItem.favouriteScore > 4
-                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        image: badgeMyFavourite.image
                         horizontalAlignment: HorizontalAlignment.Right
                         verticalAlignment: VerticalAlignment.Center
                         scalingMethod: ScalingMethod.Fill
@@ -89,7 +95,7 @@ GroupContainer {
                     ImageView {
                         id: favouriteImage4
                         visible: modPlayerListItem.favouriteScore > 3
-                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        image: badgeMyFavourite.image
                         horizontalAlignment: HorizontalAlignment.Right
                         verticalAlignment: VerticalAlignment.Center
                         scalingMethod: ScalingMethod.Fill
@@ -100,7 +106,7 @@ GroupContainer {
                     ImageView {
                         id: favouriteImage3
                         visible: modPlayerListItem.favouriteScore > 2
-                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        image: badgeMyFavourite.image
                         horizontalAlignment: HorizontalAlignment.Right
                         verticalAlignment: VerticalAlignment.Center
                         scalingMethod: ScalingMethod.Fill
@@ -111,7 +117,7 @@ GroupContainer {
                     ImageView {
                         id: favouriteImage2
                         visible: modPlayerListItem.favouriteScore > 1
-                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        image: badgeMyFavourite.image
                         horizontalAlignment: HorizontalAlignment.Right
                         verticalAlignment: VerticalAlignment.Center
                         scalingMethod: ScalingMethod.Fill
@@ -122,7 +128,7 @@ GroupContainer {
                     ImageView {
                         id: favouriteImage1
                         visible: modPlayerListItem.favouriteScore > 0
-                        imageSource: "asset:///images/badges/badge_myfavourite.png"
+                        image: badgeMyFavourite.image
                         horizontalAlignment: HorizontalAlignment.Right
                         verticalAlignment: VerticalAlignment.Center
                         scalingMethod: ScalingMethod.Fill

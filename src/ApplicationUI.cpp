@@ -300,6 +300,7 @@ void ApplicationUI::initTypes() {
     qmlRegisterUncreatableType<bb::multimedia::MediaState>(MULTIMEDIA_NAMESPACE, 1, 0, "MediaState", "");
     qmlRegisterUncreatableType<bb::multimedia::BufferStatus>(MULTIMEDIA_NAMESPACE, 1, 0, "BufferStatus", "");
 
+    qmlRegisterType<QTimer>(QmlNamespace, versionMajor, versionMinor, "QTimer");
     qmlRegisterType<PlayActionItem>(QmlNamespace, versionMajor, versionMinor, "PlayActionItem");
     qmlRegisterType<PauseActionItem>(QmlNamespace, versionMajor, versionMinor, "PauseActionItem");
     qmlRegisterType<WebImageView>(QmlNamespace, versionMajor, versionMinor, "WebImageView");

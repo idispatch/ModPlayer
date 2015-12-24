@@ -94,25 +94,25 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="532"/>
+        <location filename="../src/ApplicationUI.cpp" line="533"/>
         <source>Hello, ModPlayer Author!</source>
         <translatorcomment>This is the contents of the email template (subject)</translatorcomment>
         <translation>Bonjour auteur ModPlayer!</translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="551"/>
+        <location filename="../src/ApplicationUI.cpp" line="552"/>
         <source>Enjoying the ModPlayer #app on my #BlackBerry 10 device, check it out at #BlackBerry World #BlackBerry10!</source>
         <translatorcomment>This is the contents of the email template (body), # - Twitter hash tags</translatorcomment>
         <translation>S&apos;amusant avec l&apos; #appli Mod Playersur mon périphériquel #BlackBerry 10, retrouvez là à la boutique #BlackBerry World #Blackberry10!</translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="563"/>
+        <location filename="../src/ApplicationUI.cpp" line="564"/>
         <source>Enjoying the ModPlayer app on my BlackBerry 10 device, check it out at BlackBerry World!</source>
         <translatorcomment>This is the contents of the email template (body)</translatorcomment>
         <translation>S&apos;amusant avec l&apos;appli Mod Player sur mon BlackBerry 10, retrouvez la sur la boutique BlackBerry World!</translation>
     </message>
     <message>
-        <location filename="../src/ApplicationUI.cpp" line="598"/>
+        <location filename="../src/ApplicationUI.cpp" line="599"/>
         <source>This feature is available in ModPlayer Plus.</source>
         <translation>Cette option est disponible sur ModPlayer Plus.</translation>
     </message>
