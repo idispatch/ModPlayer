@@ -3,47 +3,44 @@ import player 1.0
 
 GroupContainer {
     property variant song
-    visible: song != null && !song.isLocal
-    onCreationCompleted: {
-        publicInfoAnimation.play()
-    }
-    animations: [
-        ScaleTransition {
-            id: publicInfoAnimation
-            fromY: 0.0
-            toY: 1.0
-            duration: 400
-            easingCurve: StockCurve.CubicInOut
-        }
-    ]
+    visible: song && !song.isLocal
     VerticalContainer {
         horizontalAlignment: HorizontalAlignment.Fill
-        visible: song != null && !song.isLocal
+        visible: song && !song.isLocal
+        onCreationCompleted: {
+            publicInfoAnimation.play()
+        }
+        animations: [
+            ScaleTransition {
+                id: publicInfoAnimation
+                fromY: 0.0
+                toY: 1.0
+                duration: 400
+                easingCurve: StockCurve.CubicInOut
+            }
+        ]
         HorizontalContainer {
-            visible: song != null && song.downloads > 0 && !song.isLocal
+            visible: song && song.downloads > 0
             ImageView {
                 imageSource: "asset:///images/badges/badge_downloads.png"
-                visible: song && song.downloads > 0 && !song.isLocal
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
             }
             BlackLabel {
                 textFormat: TextFormat.Html
                 text: {
-                    if(song) {
-                        if(song.downloads > 0) {
-                            return qsTr("Dowloaded <b>%1</b> times by others").arg(song.downloads) + Retranslate.onLanguageChanged
-                        }
+                    if(song && song.downloads > 0) {
+                        return qsTr("Dowloaded <b>%1</b> times by others").arg(song.downloads) + Retranslate.onLanguageChanged
                     }
                     return ""
                 }
             }
         }
         HorizontalContainer {
-            visible: song != null && !song.isLocal
+            visible: song && !song.isLocal
             ImageView {
                 imageSource: "asset:///images/badges/badge_favourite.png"
-                visible: song && song.favourited > 0 && !song.isLocal
+                visible: song && song.favourited > 0
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
             }
@@ -61,12 +58,12 @@ GroupContainer {
             }
         }
         HorizontalContainer {
-            visible: song != null && !song.isLocal
+            visible: song && !song.isLocal
             ImageView {
                 imageSource: "asset:///images/badges/badge_score.png"
                 verticalAlignment: VerticalAlignment.Center
                 rightMargin: 5
-                visible: song && song.score > 0 && !song.isLocal
+                visible: song && song.score > 0
             }
             BlackLabel {
                 textFormat: TextFormat.Html

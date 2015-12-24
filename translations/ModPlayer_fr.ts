@@ -1853,27 +1853,27 @@
 <context>
     <name>SongPublicInfo</name>
     <message>
-        <location filename="../assets/SongPublicInfo.qml" line="35"/>
+        <location filename="../assets/SongPublicInfo.qml" line="33"/>
         <source>Dowloaded &lt;b&gt;%1&lt;/b&gt; times by others</source>
         <translation>Téléchargé &lt;b&gt;%1&lt;/b&gt; fois par d&apos;autres</translation>
     </message>
     <message>
-        <location filename="../assets/SongPublicInfo.qml" line="55"/>
+        <location filename="../assets/SongPublicInfo.qml" line="52"/>
         <source>Favourited by &lt;b&gt;%1&lt;/b&gt; people</source>
         <translation>Mis en marque page par &lt;b&gt;%1&lt;/b&gt; utilisateurs</translation>
     </message>
     <message>
-        <location filename="../assets/SongPublicInfo.qml" line="57"/>
+        <location filename="../assets/SongPublicInfo.qml" line="54"/>
         <source>Not favourited by anyone yet</source>
         <translation>N&apos;a pas encore été mis en page par un utiisateur</translation>
     </message>
     <message>
-        <location filename="../assets/SongPublicInfo.qml" line="76"/>
+        <location filename="../assets/SongPublicInfo.qml" line="73"/>
         <source>Rated &lt;b&gt;%1&lt;/b&gt; of &lt;b&gt;10&lt;/b&gt; by others</source>
         <translation>Classé &lt;b&gt;%1&lt;/b&gt; sur &lt;b&gt;10&lt;/b&gt; par d&apos;autres utilisateurs</translation>
     </message>
     <message>
-        <location filename="../assets/SongPublicInfo.qml" line="78"/>
+        <location filename="../assets/SongPublicInfo.qml" line="75"/>
         <source>Not rated by anyone yet</source>
         <translation>N&apos;a pas encore été classé par un utilisateur</translation>
     </message>
