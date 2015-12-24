@@ -58,7 +58,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: formatsPage.navigationPane
+        }
     }
     function load() {
         if(formatsList.dataModel == null || formatsList.dataModel.size() == 0) {

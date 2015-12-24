@@ -694,17 +694,17 @@
 <context>
     <name>Instruments</name>
     <message>
-        <location filename="../assets/Instruments.qml" line="12"/>
+        <location filename="../assets/Instruments.qml" line="14"/>
         <source>Samples of %1 (%2)</source>
         <translation>Samples of %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../assets/Instruments.qml" line="14"/>
+        <location filename="../assets/Instruments.qml" line="16"/>
         <source>Instruments of %1 (%2)</source>
         <translation>Instruments of %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../assets/Instruments.qml" line="17"/>
+        <location filename="../assets/Instruments.qml" line="19"/>
         <source>Instruments and Samples</source>
         <translation>Instruments and Samples</translation>
     </message>
@@ -746,22 +746,22 @@
 <context>
     <name>LiveStreamRadio</name>
     <message>
-        <location filename="../assets/LiveStreamRadio.qml" line="23"/>
+        <location filename="../assets/LiveStreamRadio.qml" line="22"/>
         <source>Select Internet Radio Channel</source>
         <translation>Select Internet Radio Channel</translation>
     </message>
     <message>
-        <location filename="../assets/LiveStreamRadio.qml" line="38"/>
+        <location filename="../assets/LiveStreamRadio.qml" line="37"/>
         <source>Country</source>
         <translation>Country</translation>
     </message>
     <message>
-        <location filename="../assets/LiveStreamRadio.qml" line="242"/>
+        <location filename="../assets/LiveStreamRadio.qml" line="241"/>
         <source>search stations</source>
         <translation>search stations</translation>
     </message>
     <message>
-        <location filename="../assets/LiveStreamRadio.qml" line="330"/>
+        <location filename="../assets/LiveStreamRadio.qml" line="329"/>
         <source>Tuning Internet Radio</source>
         <translation>Tuning Internet Radio</translation>
     </message>
@@ -798,12 +798,12 @@
 <context>
     <name>Patterns</name>
     <message>
-        <location filename="../assets/Patterns.qml" line="11"/>
+        <location filename="../assets/Patterns.qml" line="13"/>
         <source>Pattern %1 (%2)</source>
         <translation>Pattern %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../assets/Patterns.qml" line="13"/>
+        <location filename="../assets/Patterns.qml" line="15"/>
         <source>Patterns</source>
         <translation>Patterns</translation>
     </message>
@@ -984,7 +984,7 @@
         <translation type="obsolete">Playlist: %1 of %2</translation>
     </message>
     <message>
-        <location filename="../assets/PlaylistControl.qml" line="25"/>
+        <location filename="../assets/PlaylistControl.qml" line="26"/>
         <source>Playlist: %1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1686,47 +1686,47 @@
     </message>
     <message>
         <location filename="../assets/SongList.qml" line="68"/>
-        <location filename="../assets/SongList.qml" line="127"/>
+        <location filename="../assets/SongList.qml" line="128"/>
         <source>No songs in this list</source>
         <translation>No songs in this list</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="130"/>
+        <location filename="../assets/SongList.qml" line="131"/>
         <source>%1 songs</source>
         <translation type="unfinished">%1 songs</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="159"/>
-        <location filename="../assets/SongList.qml" line="203"/>
-        <location filename="../assets/SongList.qml" line="239"/>
+        <location filename="../assets/SongList.qml" line="167"/>
+        <location filename="../assets/SongList.qml" line="211"/>
+        <location filename="../assets/SongList.qml" line="247"/>
         <source>favourited %1 times</source>
         <translation>favourited %1 times</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="170"/>
-        <location filename="../assets/SongList.qml" line="188"/>
+        <location filename="../assets/SongList.qml" line="178"/>
+        <location filename="../assets/SongList.qml" line="196"/>
         <source>score %1 of 10</source>
         <translation>score %1 of 10</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="175"/>
-        <location filename="../assets/SongList.qml" line="193"/>
-        <location filename="../assets/SongList.qml" line="232"/>
+        <location filename="../assets/SongList.qml" line="183"/>
+        <location filename="../assets/SongList.qml" line="201"/>
+        <location filename="../assets/SongList.qml" line="240"/>
         <source>%1 downloads</source>
         <translation>%1 downloads</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="252"/>
+        <location filename="../assets/SongList.qml" line="260"/>
         <source>Play</source>
         <translation>Play</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="264"/>
+        <location filename="../assets/SongList.qml" line="272"/>
         <source>Add to Favourites</source>
         <translation>Add to Favourites</translation>
     </message>
     <message>
-        <location filename="../assets/SongList.qml" line="271"/>
+        <location filename="../assets/SongList.qml" line="279"/>
         <source>Remove from Favourites</source>
         <translation>Remove from Favourites</translation>
     </message>
@@ -1864,7 +1864,7 @@
 <context>
     <name>SongView</name>
     <message>
-        <location filename="../assets/SongView.qml" line="133"/>
+        <location filename="../assets/SongView.qml" line="135"/>
         <source>Play</source>
         <translation>Play</translation>
     </message>

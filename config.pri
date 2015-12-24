@@ -361,6 +361,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/objects/lock.png) \
         $$quote($$BASEDIR/assets/images/objects/memory.png) \
         $$quote($$BASEDIR/assets/images/objects/mouse.png) \
+        $$quote($$BASEDIR/assets/images/objects/music-playing.gif) \
         $$quote($$BASEDIR/assets/images/objects/pulldown.png) \
         $$quote($$BASEDIR/assets/images/objects/right-arrow-disabled.png) \
         $$quote($$BASEDIR/assets/images/objects/right-arrow.png) \

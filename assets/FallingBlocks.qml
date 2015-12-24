@@ -5,8 +5,9 @@ import player 1.0
 GroupContainer {
     onCreationCompleted: {
         var sceneObject = scene
-        app.player.currentSong.isHttpSongChanged.connect(function() {
-            if (app.player.currentSong.isHttpSong && !sceneObject.isRunning) {
+        var currentSong = app.player.currentSong 
+        currentSong.isHttpSongChanged.connect(function() {
+            if (currentSong.isHttpSong && !sceneObject.isRunning) {
                 sceneObject.run()
             }
         })

@@ -4,7 +4,6 @@ import "functions.js" as Global
 
 Page {
     id: liveStreamRadioPage
-
     property variant navigationPane
     property variant selectedRadio
     property string playlistURL
@@ -348,7 +347,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: liveStreamRadioPage.navigationPane
+        }
     }
      function unload() {
          progress.start()

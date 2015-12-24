@@ -79,7 +79,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: songView.navigationPane
+        }
         Mouse {
             id: mouse
         }

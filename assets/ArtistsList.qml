@@ -136,7 +136,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: artistsPage.navigationPane
+        }
     }
     function unload() {
         progress.start()

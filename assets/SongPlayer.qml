@@ -202,7 +202,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: songPlayer.navigationPane
+        }
         Mouse {
             id: mouse
         }

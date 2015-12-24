@@ -13,6 +13,7 @@ GroupContainer {
     property alias imageSource: imageView.imageSource
 
     property int   favouriteScore: 0
+    property bool  playing: false
 
     leftPadding: 10
     rightPadding: 10
@@ -21,19 +22,40 @@ GroupContainer {
 
     VerticalContainer {
         HorizontalContainer {
-            ImageView {
-                id: imageView
-                visible: image!=null
-                horizontalAlignment: HorizontalAlignment.Left
+            VerticalContainer {
                 verticalAlignment: VerticalAlignment.Center
-                scalingMethod: ScalingMethod.None
-                loadEffect: ImageViewLoadEffect.FadeZoom
-                preferredWidth: 128
-                preferredHeight: 128
-                minWidth: 128
-                maxWidth: 128
-                minHeight: 128
-                maxHeight: 128
+                ImageView {
+                    id: imageView
+                    visible: image!=null
+                    horizontalAlignment: HorizontalAlignment.Left
+                    verticalAlignment: VerticalAlignment.Center
+                    scalingMethod: ScalingMethod.None
+                    loadEffect: ImageViewLoadEffect.FadeZoom
+                    preferredWidth: 128
+                    preferredHeight: 128
+                    minWidth: 128
+                    maxWidth: 128
+                    minHeight: 128
+                    maxHeight: 128
+                }
+                ImageView {
+                    id: animationView
+                    visible: modPlayerListItem.playing
+                    topMargin: 20
+                    scaleX: 1.4
+                    imageSource: "asset:///images/objects/music-playing.gif"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Center
+                    scalingMethod: ScalingMethod.None
+                    loadEffect: ImageViewLoadEffect.None
+                    attachedObjects: [
+                        ImageAnimator {
+                            id: imageAnimator
+                            animatedImage: animationView.image
+                            started: true
+                        }
+                    ]
+                }
             }
             VerticalContainer {
                 horizontalAlignment: HorizontalAlignment.Fill

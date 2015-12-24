@@ -3,6 +3,8 @@ import player 1.0
 import "functions.js" as Global
 
 Page {
+    id: instrumentsPage
+    property variant navigationPane
     titleBar: PlayerTitleBar {
         title: {
             var currentSong = app.player.currentSong
@@ -33,7 +35,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: instrumentsPage.navigationPane
+        }
     }
     function addBuyButton() {
         if(!app.isExtendedVersion) {

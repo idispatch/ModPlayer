@@ -92,6 +92,7 @@ Page {
                 verticalAlignment: VerticalAlignment.Fill
                 topPadding: 20
                 bottomPadding: 20
+
                 function updateList() {
                     if (mode == 'playlist') {
                         loadSongsByPlaylist(listId, modelName)
@@ -133,6 +134,13 @@ Page {
                     ListItemComponent {
                         ModPlayerListItem {
                             id: songEntry
+                            playing: {
+                                return ListItem !== undefined && 
+                                        ListItem.data !== undefined && 
+                                        ListItem.view !== undefined && 
+                                        ListItem.data.id == ListItem.view.getRootObject().player.currentSong.id && 
+                                        ListItem.view.getRootObject().player.state == Player.Playing
+                            }
                             showAsSelected: ListItem.selected
                             implicitLayoutAnimationsEnabled: false
                             favouriteScore: ListItem.data.myFavourite
@@ -353,7 +361,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: songListPage.navigationPane
+        }
         FirstLaunchHint{}
     }
     function unload() {
