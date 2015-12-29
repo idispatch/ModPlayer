@@ -364,7 +364,7 @@ VerticalContainer {
                             items[i].index = i
                         }
                         items.sort(function(a,b) { 
-                                return a.name.localeCompare(b.name)
+                            return a.name.localeCompare(b.name)
                         })
                         var selectedName = app.wallpaper.name
                         for(var i = 0; i < items.length; ++i) {

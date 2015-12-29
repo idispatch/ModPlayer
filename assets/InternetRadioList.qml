@@ -111,7 +111,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: internetRadioPage.navigationPane
+        }
     }
     function load() {
         var model

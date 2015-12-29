@@ -136,7 +136,9 @@ Page {
             }
         }
         SleepTimerDisplay {}
-        PlaylistControl {}
+        PlaylistControl {
+            navigationPane: filesPage.navigationPane
+        }
     }
     function unload() {
         songFilesModel.clear()

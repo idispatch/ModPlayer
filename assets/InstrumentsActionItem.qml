@@ -8,7 +8,10 @@ ActionItem {
     enabled: app.player.currentSong.songLoaded && app.player.currentSong.isTrackerSong
     onTriggered : {
         var view = instrumentsViewDefinition.createObject()
-        navigationPane.push(view)
+        if(view) {
+            view.navigationPane = navigationPane
+            navigationPane.push(view)
+        }
     }
     attachedObjects: [
         ComponentDefinition {

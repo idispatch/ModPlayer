@@ -119,6 +119,21 @@ Sheet {
                                     }
                                 }
                             }
+                            Button {
+                                text: qsTr("Buy ModPlayer Plus") + Retranslate.onLanguageChanged
+                                horizontalAlignment: HorizontalAlignment.Center
+                                topMargin: 60
+                                visible: !app.isExtendedVersion
+                                onClicked: {
+                                    buyView.createObject().open()
+                                }
+                                attachedObjects: [
+                                    ComponentDefinition {
+                                        id: buyView
+                                        source: "Buy.qml"
+                                    }
+                                ]
+                            }
                             BlackLabel {
                                 text: qsTr("<a href='http://www.kosenkov.ca/policy.html'>Privacy Policy</a>") + Retranslate.onLanguageChanged
                                 horizontalAlignment: HorizontalAlignment.Center
@@ -164,7 +179,7 @@ Sheet {
                                 Slider {
                                     id: maxCacheSongs
                                     fromValue: 5
-                                    toValue: 2000
+                                    toValue: app.isExtendedVersion ? 1000 : 100
                                     value: app.cache.maxFiles
                                 }
                             }
@@ -177,7 +192,7 @@ Sheet {
                                 Slider {
                                     id: maxCacheSize
                                     fromValue: 5 * 1024 * 1024
-                                    toValue: 1024 * 1024 * 1024
+                                    toValue: app.isExtendedVersion ? 1000 * 1024 * 1024 : 100 * 1024 * 1024
                                     value: app.cache.maxSize
                                 }
                             }
