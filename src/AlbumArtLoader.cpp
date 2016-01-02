@@ -4,13 +4,11 @@
 #include "FileEntry.hpp"
 #include "SongFormat.hpp"
 
-#ifndef __X86__
 #include "taglib/attachedpictureframe.h"
 #include "taglib/commentsframe.h"
 #include "taglib/id3v1genres.h"
 #include "taglib/textidentificationframe.h"
 #include "taglib/tstring.h"
-#endif
 
 #include <dirent.h>
 #include <errno.h>
@@ -22,7 +20,7 @@ int InstanceCounter<AlbumArtLoader>::s_maxCount;
 
 void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
     QByteArray data;
-#ifndef __X86__
+
     if(fileName.isEmpty() || SongFormat::isTrackerSong(fileName))
     {
         emit resultReady(data);
@@ -172,14 +170,13 @@ void AlbumArtLoader::loadAlbumArt(QString const& fileName) {
 
         } while(false);
     }
-#endif
+
     emit resultReady(data);
 }
 
 bool AlbumArtLoader::extractAPE(TagLib::APE::Tag* tag, QByteArray& target)
 {
     bool rc = false;
-#ifndef __X86__
     const TagLib::APE::ItemListMap& listMap = tag->itemListMap();
     if(listMap.contains("COVER ART (FRONT)"))
     {
@@ -195,7 +192,7 @@ bool AlbumArtLoader::extractAPE(TagLib::APE::Tag* tag, QByteArray& target)
             rc =  true;
         }
     }
-#endif
+
     return rc;
 }
 
@@ -203,7 +200,6 @@ bool AlbumArtLoader::extractAPE(TagLib::APE::Tag* tag, QByteArray& target)
 bool AlbumArtLoader::extractID3(TagLib::ID3v2::Tag* tag, QByteArray& target)
 {
     bool rc = false;
-#ifndef __X86__
     const TagLib::ID3v2::FrameList& frameList = tag->frameList("APIC");
     if(!frameList.isEmpty())
     {
@@ -215,7 +211,7 @@ bool AlbumArtLoader::extractID3(TagLib::ID3v2::Tag* tag, QByteArray& target)
             rc =  true;
         }
     }
-#endif
+
     return rc;
 }
 
@@ -223,7 +219,6 @@ bool AlbumArtLoader::extractID3(TagLib::ID3v2::Tag* tag, QByteArray& target)
 bool AlbumArtLoader::extractASF(TagLib::ASF::File* file, QByteArray& target)
 {
     bool rc = false;
-#ifndef __X86__
     const TagLib::ASF::AttributeListMap& attrListMap = file->tag()->attributeListMap();
     if(attrListMap.contains("WM/Picture"))
     {
@@ -239,7 +234,7 @@ bool AlbumArtLoader::extractASF(TagLib::ASF::File* file, QByteArray& target)
             }
         }
     }
-#endif
+
     return rc;
 }
 
@@ -247,7 +242,6 @@ bool AlbumArtLoader::extractASF(TagLib::ASF::File* file, QByteArray& target)
 bool AlbumArtLoader::extractFLAC(TagLib::FLAC::File* file, QByteArray& target)
 {
     bool rc = false;
-#ifndef __X86__
     const TagLib::List<TagLib::FLAC::Picture*>& picList = file->pictureList();
     if(!picList.isEmpty())
     {
@@ -256,7 +250,7 @@ bool AlbumArtLoader::extractFLAC(TagLib::FLAC::File* file, QByteArray& target)
         target.append(pic->data().data(), pic->data().size());
         rc = true;
     }
-#endif
+
     return rc;
 }
 
@@ -264,7 +258,6 @@ bool AlbumArtLoader::extractFLAC(TagLib::FLAC::File* file, QByteArray& target)
 bool AlbumArtLoader::extractMP4(TagLib::MP4::File* file, QByteArray& target)
 {
     bool rc = false;
-#ifndef __X86__
     TagLib::MP4::Tag* tag = file->tag();
     if(tag->itemListMap().contains("covr"))
     {
@@ -275,7 +268,7 @@ bool AlbumArtLoader::extractMP4(TagLib::MP4::File* file, QByteArray& target)
             rc = true;
         }
     }
-#endif
+
     return rc;
 }
 
