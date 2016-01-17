@@ -34,6 +34,8 @@ device {
 simulator {
     CONFIG(debug, debug|release) {
         !profile {
+            LIBS += -lFlurry
+
             LIBS += $$quote(-L$$BASEDIR/libs/x86)
 
             PRE_TARGETDEPS += $$quote($$BASEDIR/libs/x86)
@@ -311,7 +313,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/indicators/32bit.png) \
         $$quote($$BASEDIR/assets/images/indicators/44khz.png) \
         $$quote($$BASEDIR/assets/images/indicators/8bit.png) \
-        $$quote($$BASEDIR/assets/images/indicators/Thumbs.db) \
         $$quote($$BASEDIR/assets/images/indicators/fir.png) \
         $$quote($$BASEDIR/assets/images/indicators/highquality.png) \
         $$quote($$BASEDIR/assets/images/indicators/linear.png) \
@@ -346,7 +347,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/lcd-light/lcd-9.png) \
         $$quote($$BASEDIR/assets/images/led/led_off.png) \
         $$quote($$BASEDIR/assets/images/led/led_on.png) \
-        $$quote($$BASEDIR/assets/images/objects/Thumbs.db) \
         $$quote($$BASEDIR/assets/images/objects/block-blue.png) \
         $$quote($$BASEDIR/assets/images/objects/block-brown.png) \
         $$quote($$BASEDIR/assets/images/objects/block-cyan.png) \
@@ -368,7 +368,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/objects/wallpaper.png) \
         $$quote($$BASEDIR/assets/images/vu/vu-off.png) \
         $$quote($$BASEDIR/assets/images/vu/vu-on.png) \
-        $$quote($$BASEDIR/assets/images/wallpapers/Thumbs.db) \
         $$quote($$BASEDIR/assets/images/wallpapers/abstract.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/aluminium.amd) \
         $$quote($$BASEDIR/assets/images/wallpapers/aluminium.jpg) \

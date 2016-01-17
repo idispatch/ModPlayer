@@ -6,14 +6,11 @@
 #include "Catalog.hpp"
 #include <QByteArray>
 #include "modplug/modplug.h"
-
-#ifndef __X86__
 #include "taglib/taglib.h"
 #include "taglib/fileref.h"
 #include "taglib/tag.h"
 #include "taglib/audioproperties.h"
 #include "taglib/tpropertymap.h"
-#endif
 
 #ifdef _DEBUG
 //#define VERBOSE_LOGGING
@@ -261,7 +258,6 @@ void Importer::onFoundPlaylist(QString const& playlistName,
 
 bool Importer::importTaggedSong(QString const& fileName)
 {
-#ifndef __X86__
     QString fileNameOnly = FileUtils::fileNameOnly(fileName);
     m_messageBox.setBody(tr("Importing %1").arg(fileNameOnly));
 
@@ -357,7 +353,6 @@ bool Importer::importTaggedSong(QString const& fileName)
 
     m_catalog->addPersonalSong(info);
     ++m_numImportedSongs;
-#endif
     return true;
 }
 

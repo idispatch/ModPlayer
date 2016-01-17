@@ -535,59 +535,59 @@
 <context>
     <name>Importer</name>
     <message>
-        <location filename="../src/Importer.cpp" line="32"/>
+        <location filename="../src/Importer.cpp" line="29"/>
         <source>Importing Songs and Playlists</source>
         <translation>Importando Canciones y Listas de reproducción</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="55"/>
-        <location filename="../src/Importer.cpp" line="68"/>
+        <location filename="../src/Importer.cpp" line="52"/>
+        <location filename="../src/Importer.cpp" line="65"/>
         <source>Removing missing songs from library...</source>
         <translation>Eliminando canciones perdidas de la librería...</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="73"/>
+        <location filename="../src/Importer.cpp" line="70"/>
         <source>Removing missing %1</source>
         <translation>Eliminando la perdida %1</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="89"/>
+        <location filename="../src/Importer.cpp" line="86"/>
         <source>Updating songs library...</source>
         <translation>Actualizando la librería de canciones...</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="151"/>
+        <location filename="../src/Importer.cpp" line="148"/>
         <source>No new songs or playlists found</source>
         <translation>No se han encontrado nuevas canciones o listas de reproducción</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="154"/>
+        <location filename="../src/Importer.cpp" line="151"/>
         <source>Imported %1 song(s)</source>
         <translation>%1 canción(es) importada(s)</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="156"/>
+        <location filename="../src/Importer.cpp" line="153"/>
         <source>Imported %1 playlist(s)</source>
         <translation>%1 lista(s) de reproducción importada (s)</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="158"/>
+        <location filename="../src/Importer.cpp" line="155"/>
         <source>Imported %1 song(s) and %2 playlist(s)</source>
         <translation>%1 canción(es) y %2 lista(s) de reproducción importadas</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="187"/>
+        <location filename="../src/Importer.cpp" line="184"/>
         <source>Searching for songs and playlists in %1...</source>
         <translation>Buscando canciones y listas de reproducción en %1...</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="235"/>
+        <location filename="../src/Importer.cpp" line="232"/>
         <source>Processing playlist %1...</source>
         <translation>Procesando la lista de reproducción %1...</translation>
     </message>
     <message>
-        <location filename="../src/Importer.cpp" line="266"/>
-        <location filename="../src/Importer.cpp" line="367"/>
+        <location filename="../src/Importer.cpp" line="262"/>
+        <location filename="../src/Importer.cpp" line="362"/>
         <source>Importing %1</source>
         <translation>Importando %1</translation>
     </message>
