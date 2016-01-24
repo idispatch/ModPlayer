@@ -117,7 +117,8 @@ Page {
     }
     function load() {
         var model
-        if(channelList.indexOf("difm") != -1) {
+        if(channelList.indexOf("difm") != -1 || 
+           channelList.indexOf("diforfree") != -1) {
             model = app.player.catalog.findDigitallyImported()
         } else if(channelList.indexOf("skyfm") != -1) {
             model = app.player.catalog.findSkyFm()
@@ -158,11 +159,15 @@ Page {
                 thisObject.showPlayer()
             }
         })
-        app.player.radio.downloadFinished.connect(function(playlist,result) {
+        app.player.radio.downloadFinished.connect(function(playlist, result) {
             if(thisObject.playlistURL == playlist && result.length > 0) {
                 app.analytics.playRadio(playlist)
                 var iconURL = Global.getRadioIcon(channelList)
-                app.player.playRadio(result[0], iconURL)
+                console.log('Using stream candidates: ' + result)
+                var candidateIndex = Math.floor(Math.random() * result.length)
+                var candidateURL = result[candidateIndex]
+                console.log('Using stream URL: ' + candidateURL)
+                app.player.playRadio(candidateURL, iconURL)
             }
         })
         addBuyButton()

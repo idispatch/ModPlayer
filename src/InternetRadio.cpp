@@ -55,10 +55,9 @@ bool InternetRadio::isNetworkAvailable() const {
 }
 
 void InternetRadio::cancelAllPendingDownloads() {
-    if(m_pendingDownloads.size() > 0)
-    {
+    if(m_pendingDownloads.size() > 0) {
 #ifdef VERBOSE_LOGGING
-        qDebug() << "Cancelling" << m_pendingDownloads.size() << "downloads";
+        qDebug() << "Canceling" << m_pendingDownloads.size() << "downloads";
 #endif
         QSet<QUrl>::const_iterator i;
         for(i = m_pendingDownloads.begin();
@@ -73,34 +72,29 @@ void InternetRadio::cancelAllPendingDownloads() {
 }
 
 void InternetRadio::onOnlineStateChanged(bool isOnline) {
-    if(!isOnline)
-    {
+    if(!isOnline) {
         cancelAllPendingDownloads();
     }
 }
 
 void InternetRadio::download(QUrl const& url) {
-    if(!isNetworkAvailable())
-    {
+    if(!isNetworkAvailable()) {
         openNetworkConfiguration();
         emit downloadFailure(url);
-    }
-    else
-    {
+    } else {
+#if 0
         if(url.host().indexOf("diforfree.org") > 0) {
             QStringList result;
             result << url.toString();
             emit downloadFinished(url, result);
             return;
         }
-
+#endif
         if(m_pendingDownloads.contains(url)) {
 #ifdef VERBOSE_LOGGING
             qDebug() << "Already downloading" << url;
 #endif
-        }
-        else
-        {
+        } else {
             m_pendingDownloads.insert(url);
 #ifdef VERBOSE_LOGGING
             qDebug() << "Starting downloading" << url;
@@ -118,8 +112,7 @@ void InternetRadio::onNetworkAccessibleChanged(QNetworkAccessManager::NetworkAcc
 #ifdef VERBOSE_LOGGING
     qDebug() << "Network accessible changed to" << a;
 #endif
-    if(a != QNetworkAccessManager::Accessible)
-    {
+    if(a != QNetworkAccessManager::Accessible) {
         cancelAllPendingDownloads();
     }
 }
@@ -129,8 +122,7 @@ void InternetRadio::handleRedirect(QNetworkReply * reply) {
     QUrl redirectURL = redirect.toUrl();
     QUrl originalURL = reply->request().url();
 
-    if(!redirectURL.isEmpty() && redirectURL != originalURL)
-    {
+    if(!redirectURL.isEmpty() && redirectURL != originalURL) {
 #ifdef VERBOSE_LOGGING
         qDebug() << "Redirected from" << originalURL << "to" << redirectURL;
 #endif
@@ -140,9 +132,7 @@ void InternetRadio::handleRedirect(QNetworkReply * reply) {
         QNetworkRequest request;
         request.setUrl(redirectURL);
         m_networkManager->get(request);
-    }
-    else
-    {
+    } else {
         m_pendingDownloads.remove(originalURL);
         emit downloadFailure(originalURL);
         emit pendingDownloadCountChanged();
@@ -152,8 +142,7 @@ void InternetRadio::handleRedirect(QNetworkReply * reply) {
 
 void InternetRadio::onHttpFinished(QNetworkReply * reply) {
     QUrl originalURL = reply->request().url();
-    if (reply->error() == QNetworkReply::NoError)
-    {
+    if (reply->error() == QNetworkReply::NoError) {
         QVariant statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
 #ifdef VERBOSE_LOGGING
         qDebug() << "URL=" << originalURL;
@@ -168,9 +157,7 @@ void InternetRadio::onHttpFinished(QNetworkReply * reply) {
             finishDownload(reply);
             return;
         }
-    }
-    else
-    {
+    } else {
 #ifdef VERBOSE_LOGGING
         qDebug() << "Could not download" << originalURL;
 #endif
@@ -186,13 +173,10 @@ void InternetRadio::finishDownload(QNetworkReply * reply) {
 #ifdef VERBOSE_LOGGING
     qDebug() << "Reading reply from" << originalURL << "(bytes=" << reply->size() << ")";
 #endif
-    if(m_pendingDownloads.contains(originalURL))
-    {
+    if(m_pendingDownloads.contains(originalURL)) {
         m_pendingDownloads.remove(originalURL);
         emit pendingDownloadCountChanged();
-    }
-    else
-    {
+    } else {
 #ifdef VERBOSE_LOGGING
         qDebug() << "Could not match download URL " << originalURL;
 #endif
