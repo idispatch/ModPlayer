@@ -87,6 +87,13 @@ void InternetRadio::download(QUrl const& url) {
     }
     else
     {
+        if(url.host().indexOf("diforfree.org") > 0) {
+            QStringList result;
+            result << url.toString();
+            emit downloadFinished(url, result);
+            return;
+        }
+
         if(m_pendingDownloads.contains(url)) {
 #ifdef VERBOSE_LOGGING
             qDebug() << "Already downloading" << url;

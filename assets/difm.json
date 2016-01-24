@@ -1,548 +1,407 @@
 [
   {
-    "id":290,
-    "key":"bassnjackinhouse",
+    "name":"Liquid Trap",
+    "description":"Liquid Trap",
+    "playlist":"http://pub2.diforfree.org:8000/di_liquidtrap_hi"
+  },
+  {
+    "name":"Tech House",
+    "description":"Tech House",
+    "playlist":"http://pub2.diforfree.org:8000/di_techhouse_hi"
+  },
+  {
+    "name":"Melodic Progressive",
+    "description":"Melodic Progressive",
+    "playlist":"http://pub2.diforfree.org:8000/di_melodicprogressive_hi"
+  },
+  {
+    "name":"00's Club Hits",
+    "description":"00's Club Hits",
+    "playlist":"http://pub2.diforfree.org:8000/di_00sclubhits_hi"
+  },
+  {
+    "name":"Big Beat",
+    "description":"Big Beat",
+    "playlist":"http://pub2.diforfree.org:8000/di_bigbeat_hi"
+  },
+  {
+    "name":"Chill & Tropical House",
+    "description":"Chill & Tropical House",
+    "playlist":"http://pub2.diforfree.org:8000/di_chillntropicalhouse_hi"
+  },
+  {
+    "name":"Indie Dance",
+    "description":"Indie Dance",
+    "playlist":"http://pub2.diforfree.org:8000/di_indiedance_hi"
+  },
+  {
+    "name":"Jazz House",
+    "description":"Jazz House",
+    "playlist":"http://pub2.diforfree.org:8000/di_jazzhouse_hi"
+  },
+  {
+    "name":"Dub",
+    "description":"Dub",
+    "playlist":"http://pub2.diforfree.org:8000/di_dub_hi"
+  },
+  {
+    "name":"Dub Techno",
+    "description":"Dub Techno",
+    "playlist":"http://pub2.diforfree.org:8000/di_dubtechno_hi"
+  },
+  {
+    "name":"Electro Swing",
+    "description":"Electro Swing",
+    "playlist":"http://pub2.diforfree.org:8000/di_electroswing_hi"
+  },
+  {
     "name":"Bass & Jackin' House",
     "description":"Booty shaking bass-heavy House!",
-    "playlist":"http://listen.di.fm/public1/bassnjackinhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_bassnjackinhouse_hi"
   },
   {
-    "id":292,
-    "key":"futuregarage",
     "name":"Future Garage",
     "description":"2step Garage with atmospheric broken beats.",
-    "playlist":"http://listen.di.fm/public1/futuregarage.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_futuregarage_hi"
   },
   {
-    "id":293,
-    "key":"jungle",
     "name":"Jungle",
     "description":"The Amen Break at its finest, Jungle is massive!",
-    "playlist":"http://listen.di.fm/public1/jungle.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_jungle_hi"
   },
   {
-    "id":294,
-    "key":"nightcore",
     "name":"Nightcore",
     "description":"Pitched up vocals and Happy Hardcore beats!",
-    "playlist":"http://listen.di.fm/public1/nightcore.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_nightcore_hi"
   },
   {
-    "id":295,
-    "key":"nudisco",
     "name":"Nu Disco",
     "description":"A modern twist on 70s & 80s Disco and Funk.",
-    "playlist":"http://listen.di.fm/public1/nudisco.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_nudisco_hi"
   },
   {
-    "id":289,
-    "key":"bassline",
     "name":"Bassline",
     "description":"Vocal-driven, bass-laden speed garage!",
-    "playlist":"http://listen.di.fm/public1/bassline.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_bassline_hi"
   },
   {
-    "id":104,
-    "key":"oldschoolhouse",
     "name":"Oldschool House",
     "description":"The sounds of old school house music!",
-    "playlist":"http://listen.di.fm/public1/oldschoolhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_oldschoolhouse_hi"
   },
   {
-    "id":296,
-    "key":"oldschoolrave",
+    "name":"Oldschool Techno & Trance",
+    "description":"Oldschool Techno & Trance",
+    "playlist":"http://pub2.diforfree.org:8000/di_classicelectronica_hi"
+  },
+  {
     "name":"Oldschool Rave",
     "description":"Relive the early sounds of rave!",
-    "playlist":"http://listen.di.fm/public1/oldschoolrave.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_oldschoolrave_hi"
   },
   {
-    "id":1,
-    "key":"trance",
     "name":"Trance",
     "description":"The hottest, freshest trance music from around the globe!",
-    "playlist":"http://listen.di.fm/public1/trance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_trance_hi"
   },
   {
-    "id":2,
-    "key":"vocaltrance",
     "name":"Vocal Trance",
     "description":"A fusion of trance, dance, and chilling vocals together!",
-    "playlist":"http://listen.di.fm/public1/vocaltrance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_vocaltrance_hi"
   },
   {
-    "id":11,
-    "key":"lounge",
     "name":"Lounge",
     "description":"Sit back and enjoy the lounge grooves!",
-    "playlist":"http://listen.di.fm/public1/lounge.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_lounge_hi"
   },
   {
-    "id":3,
-    "key":"chillout",
     "name":"Chillout",
     "description":"Full of trippy flavors, this channel is just what you need to relax.",
-    "playlist":"http://listen.di.fm/public1/chillout.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_chillout_hi"
   },
   {
-    "id":142,
-    "key":"vocalchillout",
     "name":"Vocal Chillout",
     "description":"Enjoy the relaxing vocal sounds of Ibiza chillout",
-    "playlist":"http://listen.di.fm/public1/vocalchillout.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_vocalchillout_hi"
   },
   {
-    "id":224,
-    "key":"chillhop",
     "name":"ChillHop",
     "description":"Trip Hop infused, downtempo nujazz and chillout beats.",
-    "playlist":"http://listen.di.fm/public1/chillhop.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_chillhop_hi"
   },
   {
-    "id":275,
-    "key":"chillstep",
     "name":"Chillstep",
     "description":"Chillout with a Dubstep influence",
-    "playlist":"http://listen.di.fm/public1/chillstep.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_chillstep_hi"
   },
   {
-    "id":7,
-    "key":"progressive",
     "name":"Progressive",
     "description":"Forward thinking house, trance and techno for your mind",
-    "playlist":"http://listen.di.fm/public1/progressive.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_progressive_hi"
   },
   {
-    "id":4,
-    "key":"house",
     "name":"House",
     "description":"Silky sexy deep house music direct from New York city!",
-    "playlist":"http://listen.di.fm/public1/house.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_house_hi"
   },
   {
-    "id":210,
-    "key":"mainstage",
     "name":"Mainstage",
     "description":"The biggest DJs from the best festivals around the world!",
-    "playlist":"http://listen.di.fm/public1/mainstage.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_mainstage_hi"
   },
   {
-    "id":59,
-    "key":"minimal",
     "name":"Minimal",
     "description":"Finest selection of Minimal Techno & House!!",
-    "playlist":"http://listen.di.fm/public1/minimal.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_minimal_hi"
   },
   {
-    "id":5,
-    "key":"harddance",
     "name":"Hard Dance",
     "description":"Enjoy the harder side of throbbing house and trance. ",
-    "playlist":"http://listen.di.fm/public1/harddance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_harddance_hi"
   },
   {
-    "id":6,
-    "key":"eurodance",
     "name":"EuroDance",
     "description":"The newest and best of Eurodance hits",
-    "playlist":"http://listen.di.fm/public1/eurodance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_eurodance_hi"
   },
   {
-    "id":278,
-    "key":"vocallounge",
     "name":"Vocal Lounge",
     "description":"Relaxing Vocals and Lounge Grooves",
-    "playlist":"http://listen.di.fm/public1/vocallounge.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_vocallounge_hi"
   },
   {
-    "id":215,
-    "key":"umfradio",
     "name":"UMF Radio",
     "description":"UMF Radio 24/7",
-    "playlist":"http://listen.di.fm/public1/umfradio.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_umfradio_hi"
   },
   {
-    "id":66,
-    "key":"techhouse",
     "name":"Tech House",
     "description":"A fusion of techno and house with a deep, soulful vibe.",
-    "playlist":"http://listen.di.fm/public1/techhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_techhouse_hi"
   },
   {
-    "id":56,
-    "key":"electro",
     "name":"Electro House",
     "description":"An eclectic mix of electro and dirty house",
-    "playlist":"http://listen.di.fm/public1/electro.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_electrohouse_hi"
   },
   {
-    "id":209,
-    "key":"bigroomhouse",
     "name":"Big Room House",
     "description":"The most uplifting, floor-filling Big Room House!",
-    "playlist":"http://listen.di.fm/public1/bigroomhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_bigroomhouse_hi"
   },
   {
-    "id":230,
-    "key":"trap",
     "name":"Trap",
     "description":"Electronic 808 beats with Hip Hop roots.",
-    "playlist":"http://listen.di.fm/public1/trap.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_trap_hi"
   },
   {
-    "id":67,
-    "key":"psychill",
     "name":"PsyChill",
     "description":"Downtempo psychedelic dub grooves, goa ambient, and world beats.",
-    "playlist":"http://listen.di.fm/public1/psychill.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_psychill_hi"
   },
   {
-    "id":8,
-    "key":"goapsy",
     "name":"Goa-Psy Trance",
     "description":"A psychedelic voyage out of this world!",
-    "playlist":"http://listen.di.fm/public1/goapsy.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_goapsy_hi"
   },
   {
-    "id":178,
-    "key":"progressivepsy",
     "name":"Progressive Psy",
     "description":"Progress your mind to undiscovered psychedelic dimensions.",
-    "playlist":"http://listen.di.fm/public1/progressivepsy.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_progressivepsy_hi"
   },
   {
-    "id":9,
-    "key":"hardcore",
     "name":"Hardcore",
     "description":"DJ mixes, hard dance and NuNRG",
-    "playlist":"http://listen.di.fm/public1/hardcore.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_hardcore_hi"
   },
   {
-    "id":180,
-    "key":"downtempolounge",
     "name":"Downtempo Lounge",
     "description":"Relax with some Downtempo grooves.",
-    "playlist":"http://listen.di.fm/public1/downtempolounge.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_downtempolounge_hi"
   },
   {
-    "id":277,
-    "key":"moombahton",
-    "name":"Moombahton",
-    "description":"Hot House meets Dancehall Reggaeton",
-    "playlist":"http://listen.di.fm/public1/moombahton.pls"
-  },
-  {
-    "id":10,
-    "key":"djmixes",
     "name":"DJ Mixes",
     "description":"Non-stop DJ sets featuring various forms of techno & trance!",
-    "playlist":"http://listen.di.fm/public1/djmixes.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_djmixes_hi"
   },
   {
-    "id":213,
-    "key":"russianclubhits",
     "name":"Russian Club Hits",
     "description":"Russia's hottest club hits.",
-    "playlist":"http://listen.di.fm/public1/russianclubhits.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_russianclubhits_hi"
   },
   {
-    "id":12,
-    "key":"ambient",
     "name":"Ambient",
     "description":"A blend of ambient, downtempo, and chillout",
-    "playlist":"http://listen.di.fm/public1/ambient.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_ambient_hi"
   },
   {
-    "id":285,
-    "key":"psybient",
     "name":"Psybient",
     "description":"The Psychedelic side of Ambient",
-    "playlist":"http://listen.di.fm/public1/psybient.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_psybient_hi"
   },
   {
-    "id":13,
-    "key":"drumandbass",
     "name":"Drum 'n Bass",
     "description":"Representing the finest drum n' bass selection.",
-    "playlist":"http://listen.di.fm/public1/drumandbass.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_drumandbass_hi"
   },
   {
-    "id":208,
-    "key":"eclectronica",
     "name":"EcLectronica",
     "description":"An eclectic mixture of modern electronica.",
-    "playlist":"http://listen.di.fm/public1/eclectronica.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_eclectronica_hi"
   },
   {
-    "id":279,
-    "key":"scousehouse",
-    "name":"Scouse House",
-    "description":"Bouncy and Pumping House Beats",
-    "playlist":"http://listen.di.fm/public1/scousehouse.pls"
-  },
-  {
-    "id":14,
-    "key":"classictechno",
-    "name":"Oldschool Techno & Trance ",
-    "description":"Techno & trance from early to mid 90s!",
-    "playlist":"http://listen.di.fm/public1/classictechno.pls"
-  },
-  {
-    "id":175,
-    "key":"epictrance",
     "name":"Epic Trance",
     "description":"The best in uplifting and euphoric Trance",
-    "playlist":"http://listen.di.fm/public1/epictrance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_epictrance_hi"
   },
   {
-    "id":123,
-    "key":"ukgarage",
-    "name":"UK Garage",
-    "description":"The latest and greatest in UK Garage!!",
-    "playlist":"http://listen.di.fm/public1/ukgarage.pls"
-  },
-  {
-    "id":15,
-    "key":"breaks",
     "name":"Breaks",
     "description":"A fine assortment of trance and house breaks",
-    "playlist":"http://listen.di.fm/public1/breaks.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_breaks_hi"
   },
   {
-    "id":16,
-    "key":"gabber",
     "name":"Gabber",
     "description":"Banging to the hardest sounds of gabber!",
-    "playlist":"http://listen.di.fm/public1/gabber.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_gabber_hi"
   },
   {
-    "id":136,
-    "key":"cosmicdowntempo",
-    "name":"Cosmic Downtempo",
-    "description":"A downtempo journey into the cosmos",
-    "playlist":"http://listen.di.fm/public1/cosmicdowntempo.pls"
-  },
-  {
-    "id":276,
-    "key":"hardtechno",
     "name":"Hard Techno",
     "description":"Heavy hitting Hard Techno & Schranz!",
-    "playlist":"http://listen.di.fm/public1/hardtechno.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_hardtechno_hi"
   },
   {
-    "id":36,
-    "key":"techno",
     "name":"Techno",
     "description":"Pure techno grooves!",
-    "playlist":"http://listen.di.fm/public1/techno.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_techno_hi"
   },
   {
-    "id":280,
-    "key":"electronicpioneers",
-    "name":"Electronic Pioneers",
-    "description":"Rediscover the earliest sounds of Electronica",
-    "playlist":"http://listen.di.fm/public1/electronicpioneers.pls"
-  },
-  {
-    "id":47,
-    "key":"soulfulhouse",
     "name":"Soulful House",
     "description":"House music selected from Paris with love!",
-    "playlist":"http://listen.di.fm/public1/soulfulhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_soulfulhouse_hi"
   },
   {
-    "id":174,
-    "key":"deephouse",
     "name":"Deep House",
     "description":"Only the sexiest, silky smooth and groovy Deep House.",
-    "playlist":"http://listen.di.fm/public1/deephouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_deephouse_hi"
   },
   {
-    "id":182,
-    "key":"deeptech",
     "name":"Deep Tech",
     "description":"Deeper shades of house and techno with dub and blues influences.",
-    "playlist":"http://listen.di.fm/public1/deeptech.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_deeptech_hi"
   },
   {
-    "id":57,
-    "key":"tribalhouse",
     "name":"Tribal House",
     "description":"Finest selection of tribal and tech house!!",
-    "playlist":"http://listen.di.fm/public1/tribalhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_tribalhouse_hi"
   },
   {
-    "id":58,
-    "key":"funkyhouse",
     "name":"Funky House",
     "description":"A fine selection of funky house music!!",
-    "playlist":"http://listen.di.fm/public1/funkyhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_funkyhouse_hi"
   },
   {
-    "id":137,
-    "key":"deepnudisco",
     "name":"Deep Nu-Disco",
     "description":"Slo-mo house with ear perking space disco and low-slung bass beats!",
-    "playlist":"http://listen.di.fm/public1/deepnudisco.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_deepnudisco_hi"
   },
   {
-    "id":288,
-    "key":"undergroundtechno",
     "name":"Underground Techno",
     "description":"Alternative Techno sounds",
-    "playlist":"http://listen.di.fm/public1/undergroundtechno.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_undergroundtechno_hi"
   },
   {
-    "id":64,
-    "key":"spacemusic",
     "name":"Space Dreams",
     "description":"Ambient space music for expanding minds",
-    "playlist":"http://listen.di.fm/public1/spacemusic.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_spacemusic_hi"
   },
   {
-    "id":60,
-    "key":"hardstyle",
     "name":"Hardstyle",
     "description":"Banging Hardstyle for your ears!!!",
-    "playlist":"http://listen.di.fm/public1/hardstyle.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_hardstyle_hi"
   },
   {
-    "id":68,
-    "key":"chilloutdreams",
     "name":"Chillout Dreams",
     "description":"Relax to the sounds of dream and Ibiza style chillout",
-    "playlist":"http://listen.di.fm/public1/chilloutdreams.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_chilloutdreams_hi"
   },
   {
-    "id":105,
-    "key":"liquiddnb",
     "name":"Liquid DnB",
     "description":"Flowing with the freshest Liquid DnB!!",
-    "playlist":"http://listen.di.fm/public1/liquiddnb.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_liquiddnb_hi"
   },
   {
-    "id":181,
-    "key":"darkdnb",
     "name":"Dark DnB",
     "description":"A twisted blend of heavy hitting Dark Drum and Bass!",
-    "playlist":"http://listen.di.fm/public1/darkdnb.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_darkdnb_hi"
   },
   {
-    "id":69,
-    "key":"classiceurodance",
     "name":"Classic EuroDance",
     "description":"The finest imported cheese on the net!",
-    "playlist":"http://listen.di.fm/public1/classiceurodance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_classiceurodance_hi"
   },
   {
-    "id":176,
-    "key":"handsup",
     "name":"Hands Up",
     "description":"Hands Up beats blending harder dance, trance and happy hardcore",
-    "playlist":"http://listen.di.fm/public1/handsup.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_handsup_hi"
   },
   {
-    "id":70,
-    "key":"club",
     "name":"Club Sounds",
     "description":"The hottest club and dance tunes 24/7",
-    "playlist":"http://listen.di.fm/public1/club.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_club_hi"
   },
   {
-    "id":90,
-    "key":"classictrance",
     "name":"Classic Trance",
     "description":"Relive the classic trance hits!!",
-    "playlist":"http://listen.di.fm/public1/classictrance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_classictrance_hi"
   },
   {
-    "id":125,
-    "key":"classicvocaltrance",
     "name":"Classic Vocal Trance",
     "description":"Classic sounds of Vocal Trance",
-    "playlist":"http://listen.di.fm/public1/classicvocaltrance.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_classicvocaltrance_hi"
   },
   {
-    "id":177,
-    "key":"clubdubstep",
     "name":"Club Dubstep",
     "description":"Bass fuelled, club shaking Dubstep.",
-    "playlist":"http://listen.di.fm/public1/clubdubstep.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_clubdubstep_hi"
   },
   {
-    "id":91,
-    "key":"dubstep",
     "name":"Dubstep",
     "description":"Dubstep hits and mixes!!!!",
-    "playlist":"http://listen.di.fm/public1/dubstep.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_dubstep_hi"
   },
   {
-    "id":184,
-    "key":"liquiddubstep",
     "name":"Liquid Dubstep",
     "description":"Mellow out to the rolling, soothing deep bass of Liquid Dubstep.",
-    "playlist":"http://listen.di.fm/public1/liquiddubstep.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_liquiddubstep_hi"
   },
   {
-    "id":198,
-    "key":"glitchhop",
-    "name":"Glitch Hop",
-    "description":"Bit-crushing, dub-infused Hip Hop sounds!",
-    "playlist":"http://listen.di.fm/public1/glitchhop.pls"
-  },
-  {
-    "id":286,
-    "key":"electropop",
     "name":"Electropop",
     "description":"Catchy Pop fused with Electro Synth",
-    "playlist":"http://listen.di.fm/public1/electropop.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_electropop_hi"
   },
   {
-    "id":92,
-    "key":"discohouse",
     "name":"Disco House",
     "description":"The grooviest Disco House tunes on the web.",
-    "playlist":"http://listen.di.fm/public1/discohouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_discohouse_hi"
   },
   {
-    "id":183,
-    "key":"classiceurodisco",
     "name":"Classic EuroDisco",
     "description":"Relive the sounds of Euro & Italo Disco.",
-    "playlist":"http://listen.di.fm/public1/classiceurodisco.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_classiceurodisco_hi"
   },
   {
-    "id":53,
-    "key":"futuresynthpop",
     "name":"Future Synthpop",
     "description":"Finest selection of futurepop and synthpop!!",
-    "playlist":"http://listen.di.fm/public1/futuresynthpop.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_futuresynthpop_hi"
   },
   {
-    "id":117,
-    "key":"latinhouse",
     "name":"Latin House",
     "description":"Finest selection of Latin house!!",
-    "playlist":"http://listen.di.fm/public1/latinhouse.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_latinhouse_hi"
   },
   {
-    "id":124,
-    "key":"oldschoolacid",
     "name":"Oldschool Acid",
     "description":"Oldschool sounds of Acid Techno, House, and Trance!",
-    "playlist":"http://listen.di.fm/public1/oldschoolacid.pls"
-  },
-  {
-    "id":106,
-    "key":"chiptunes",
-    "name":"Chiptunes",
-    "description":"Playing the best chiptunes and video game music.",
-    "playlist":"http://listen.di.fm/public1/chiptunes.pls"
-  },
-  {
-    "id":225,
-    "key":"sankeys",
-    "name":"Sankeys Radio",
-    "description":"The sound of Sankeys Worldwide.",
-    "playlist":"http://listen.di.fm/public1/sankeys.pls"
+    "playlist":"http://pub2.diforfree.org:8000/di_oldschoolacid_hi"
   }
 ]

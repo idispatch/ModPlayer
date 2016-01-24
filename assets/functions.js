@@ -5,7 +5,7 @@ function getRadioIcon(name) {
         return "asset:///images/formats/icon-jazzradio.png";
     } else if(name.indexOf("skyfm") != -1) {
         return "asset:///images/formats/icon-skyfm.png";
-    } else if(name.indexOf("difm") != -1) {
+    } else if(name.indexOf("difm") != -1 || name.indexOf("diforfree") != -1) {
         return "asset:///images/formats/icon-difm.png";
     } else if(name.indexOf("fresca") != -1) {
         return "asset:///images/formats/icon-fresca.png";

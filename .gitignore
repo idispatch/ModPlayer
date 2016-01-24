@@ -6,6 +6,7 @@ Thumbs.db
 .moc
 .obj
 *.gch
+*.bar
 arm
 x86
 Makefile
