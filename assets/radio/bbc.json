@@ -1,0 +1,46 @@
+[
+  {
+    "name":"BBC - Radio 1",
+    "playlist":"http://www.listenlive.eu/bbcradio1.m3u"
+  },
+  {
+    "name":"BBC - Radio 2",
+    "playlist":"http://www.listenlive.eu/bbcradio2.m3u"
+  },
+  {
+    "name":"BBC - Radio 3",
+    "playlist":"http://www.listenlive.eu/bbcradio3.m3u"
+  },
+  {
+    "name":"BBC - Radio 4",
+    "playlist":"http://www.listenlive.eu/bbcradio4.m3u"
+  },
+  {
+    "name":"BBC - Radio 5 Live",
+    "playlist":"http://www.listenlive.eu/bbc5live.m3u"
+  },
+  {
+    "name":"BBC - Radio 6 Music",
+    "playlist":"http://www.listenlive.eu/bbc6music.m3u"
+  },
+  {
+    "name":"BBC - Radio 1 Extra",
+    "playlist":"http://www.bbc.co.uk/radio/listen/live/r1x_aaclca.pls"
+  },
+  {
+    "name":"BBC - Radio 4 Extra",
+    "playlist":"http://www.bbc.co.uk/radio/listen/live/r4x_aaclca.pls"
+  },
+  {
+    "name":"BBC - Radio 5 Live sports extra",
+    "playlist":"http://www.bbc.co.uk/radio/listen/live/r5lsp_aaclca.pls"
+  },
+  {
+    "name":"BBC - Radio Asian Network",
+    "playlist":"http://www.bbc.co.uk/radio/listen/live/ran_aaclca.pls"
+  },
+  {
+    "name":"BBC - World Service",
+    "playlist":"http://www.bbc.co.uk/worldservice/meta/live/mp3/eneuk.pls"
+  }
+]

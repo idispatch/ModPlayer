@@ -301,6 +301,11 @@ GroupDataModel* Catalog::findInternetRadio(QString const & channelList) {
     return model;
 }
 
+GroupDataModel* Catalog::findBbcRadio()
+{
+    return findInternetRadio("bbc.json");
+}
+
 GroupDataModel* Catalog::findDigitallyImported()
 {
     return findInternetRadio("difm.json");

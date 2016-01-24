@@ -144,6 +144,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/actions/icon_append_playlist.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_artist.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_artists.png) \
+        $$quote($$BASEDIR/assets/images/actions/icon_bbc.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_bbm.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_buy.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_delete.png) \
@@ -285,6 +286,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/formats/icon_aac.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_album.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_asf.png) \
+        $$quote($$BASEDIR/assets/images/formats/icon_bbc.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_directory.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_flac.png) \
         $$quote($$BASEDIR/assets/images/formats/icon_it.png) \
@@ -426,6 +428,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/wood.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/yellow.jpg) \
         $$quote($$BASEDIR/assets/main.qml) \
+        $$quote($$BASEDIR/assets/radio/bbc.json) \
         $$quote($$BASEDIR/assets/radio/difm.json) \
         $$quote($$BASEDIR/assets/radio/fresca.json) \
         $$quote($$BASEDIR/assets/radio/jazzradio.json) \

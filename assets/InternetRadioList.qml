@@ -47,8 +47,8 @@ Page {
                     ListItemComponent {
                         type: "item"
                         ModPlayerListItem {
-                            title: ListItem.data.name
-                            description: ListItem.data.description
+                            title: ListItem.data.name ? ListItem.data.name : ListItem.data.playlist
+                            description: ListItem.data.description ? ListItem.data.description : title
                             imageSource: Global.getRadioIcon(ListItem.view.channelList)
                             implicitLayoutAnimationsEnabled: false
                             function viewInitialized(initialized) {
@@ -117,17 +117,18 @@ Page {
     }
     function load() {
         var model
-        if(channelList.indexOf("difm") != -1 || 
-           channelList.indexOf("diforfree") != -1) {
+        if(/difm|diforfree/.test(channelList)) {
             model = app.player.catalog.findDigitallyImported()
-        } else if(channelList.indexOf("skyfm") != -1) {
+        } else if(/skyfm/.test(channelList)) {
             model = app.player.catalog.findSkyFm()
-        } else if(channelList.indexOf("jazzradio") != -1) {
+        } else if(/jazzradio/.test(channelList)) {
             model = app.player.catalog.findJazzRadio()
-        } else if(channelList.indexOf("rockradio") != -1) {
+        } else if(/rockradio/.test(channelList)) {
             model = app.player.catalog.findRockRadio()
-        } else if(channelList.indexOf("fresca") != -1) {
+        } else if(/fresca/.test(channelList)) {
             model = app.player.catalog.findFrescaRadio()
+        } else if(/[\/.]bbc/.test(channelList)) {
+            model = app.player.catalog.findBbcRadio()
         } else {
             model = null
         }

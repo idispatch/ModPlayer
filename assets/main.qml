@@ -348,6 +348,33 @@ TabbedPane {
         }
     }
     Tab {
+        id: bbcTab
+        title: "BBC Radio"
+        description: "BBC Radio"
+        imageSource: "asset:///images/actions/icon_bbc.png"
+        onTriggered: {
+            load()
+        }
+        function load() {
+            app.analytics.showPage(title)
+            bbc.load()
+        }
+        function unload() {
+            bbc.unload()
+        }
+        NavigationPane {
+            id: bbcNavigationPane 
+            InternetRadioList {
+                id: bbc
+                channelList: "app/native/assets/radio/bbc.json"
+                navigationPane: bbcNavigationPane
+            }
+            onPopTransitionEnded: {
+                page.destroy()
+            }
+        }
+    }
+    Tab {
         id: mostPlayedTab
         title: qsTr("Most Played") + Retranslate.onLanguageChanged
         imageSource: "asset:///images/actions/icon_mostplayed.png"

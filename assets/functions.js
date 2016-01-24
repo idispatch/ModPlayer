@@ -1,14 +1,16 @@
 function getRadioIcon(name) {
-    if(name.indexOf("rockradio") != -1) {
+    if(/rockradio/.test(name)) {
         return "asset:///images/formats/icon-rockradio.png";
-    } else if(name.indexOf("jazzradio") != -1) {
+    } else if(/jazzradio/.test(name)) {
         return "asset:///images/formats/icon-jazzradio.png";
-    } else if(name.indexOf("skyfm") != -1) {
+    } else if(/skyfm/.test(name)) {
         return "asset:///images/formats/icon-skyfm.png";
-    } else if(name.indexOf("difm") != -1 || name.indexOf("diforfree") != -1) {
+    } else if(/difm|diforfree/.test(name)) {
         return "asset:///images/formats/icon-difm.png";
-    } else if(name.indexOf("fresca") != -1) {
+    } else if(/fresca/.test(name)) {
         return "asset:///images/formats/icon-fresca.png";
+    } else if(/[\/.]bbc/.test(name)) {
+        return "asset:///images/formats/icon_bbc.png";
     }
     return "";
 }

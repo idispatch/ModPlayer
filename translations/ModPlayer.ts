@@ -1967,78 +1967,78 @@
 <context>
     <name>functions</name>
     <message>
-        <location filename="../assets/functions.js" line="46"/>
+        <location filename="../assets/functions.js" line="48"/>
         <source>%1 bytes</source>
         <translation>%1 bytes</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="50"/>
+        <location filename="../assets/functions.js" line="52"/>
         <source>%1 kB</source>
         <translation>%1 kB</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="54"/>
+        <location filename="../assets/functions.js" line="56"/>
         <source>%1 MB</source>
         <translation>%1 MB</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="57"/>
+        <location filename="../assets/functions.js" line="59"/>
         <source>%1 GB</source>
         <translation>%1 GB</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="69"/>
+        <location filename="../assets/functions.js" line="71"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="71"/>
         <location filename="../assets/functions.js" line="73"/>
+        <location filename="../assets/functions.js" line="75"/>
         <source>just now</source>
         <translation>just now</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="74"/>
+        <location filename="../assets/functions.js" line="76"/>
         <source>1 minute ago</source>
         <translation>1 minute ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="75"/>
+        <location filename="../assets/functions.js" line="77"/>
         <source>%1 minutes ago</source>
         <translation>%1 minutes ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="76"/>
+        <location filename="../assets/functions.js" line="78"/>
         <source>1 hour ago</source>
         <translation>1 hour ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="77"/>
+        <location filename="../assets/functions.js" line="79"/>
         <source>%1 hours ago</source>
         <translation>%1 hours ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="79"/>
+        <location filename="../assets/functions.js" line="81"/>
         <source>yesterday</source>
         <translation>yesterday</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="80"/>
+        <location filename="../assets/functions.js" line="82"/>
         <source>%1 days ago</source>
         <translation>%1 days ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="81"/>
+        <location filename="../assets/functions.js" line="83"/>
         <source>%1 weeks ago</source>
         <translation>%1 weeks ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="82"/>
+        <location filename="../assets/functions.js" line="84"/>
         <source>%1 months ago</source>
         <translation>%1 months ago</translation>
     </message>
     <message>
-        <location filename="../assets/functions.js" line="83"/>
+        <location filename="../assets/functions.js" line="85"/>
         <source>long ago</source>
         <translation>long ago</translation>
     </message>
@@ -2155,97 +2155,97 @@
         <translation>Fresca Radio</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="352"/>
+        <location filename="../assets/main.qml" line="379"/>
         <source>Most Played</source>
         <translation>Most Played</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="354"/>
+        <location filename="../assets/main.qml" line="381"/>
         <source>Most Played Songs</source>
         <translation>Most Played Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="378"/>
+        <location filename="../assets/main.qml" line="405"/>
         <source>Downloads</source>
         <translation>Downloads</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="380"/>
+        <location filename="../assets/main.qml" line="407"/>
         <source>Top Downloaded Songs</source>
         <translation>Top Downloaded Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="404"/>
+        <location filename="../assets/main.qml" line="431"/>
         <source>Favourited</source>
         <translation>Favourited</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="406"/>
+        <location filename="../assets/main.qml" line="433"/>
         <source>Top Favourited Songs</source>
         <translation>Top Favourited Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="430"/>
+        <location filename="../assets/main.qml" line="457"/>
         <source>Scored</source>
         <translation>Scored</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="432"/>
+        <location filename="../assets/main.qml" line="459"/>
         <source>Top Scored Songs</source>
         <translation>Top Scored Songs</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="456"/>
+        <location filename="../assets/main.qml" line="483"/>
         <source>Artists</source>
         <translation>Artists</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="457"/>
+        <location filename="../assets/main.qml" line="484"/>
         <source>Songs By Artist</source>
         <translation>Songs By Artist</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="482"/>
+        <location filename="../assets/main.qml" line="509"/>
         <source>Genres</source>
         <translation>Genres</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="483"/>
+        <location filename="../assets/main.qml" line="510"/>
         <source>Songs By Genre</source>
         <translation>Songs By Genre</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="508"/>
+        <location filename="../assets/main.qml" line="535"/>
         <source>Formats</source>
         <translation>Formats</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="509"/>
+        <location filename="../assets/main.qml" line="536"/>
         <source>Songs By Module Format</source>
         <translation>Songs By Module Format</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="597"/>
+        <location filename="../assets/main.qml" line="624"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="611"/>
+        <location filename="../assets/main.qml" line="638"/>
         <source>Twit!</source>
         <translation>Twit!</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="620"/>
+        <location filename="../assets/main.qml" line="647"/>
         <source>BBM</source>
         <translation>BBM</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="629"/>
+        <location filename="../assets/main.qml" line="656"/>
         <source>Email Author</source>
         <translation>Email Author</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="640"/>
+        <location filename="../assets/main.qml" line="667"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
