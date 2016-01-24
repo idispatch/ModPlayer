@@ -139,8 +139,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/WallpaperView.qml) \
         $$quote($$BASEDIR/assets/catalog.sqlite) \
         $$quote($$BASEDIR/assets/colors.json) \
-        $$quote($$BASEDIR/assets/difm.json) \
-        $$quote($$BASEDIR/assets/fresca.json) \
         $$quote($$BASEDIR/assets/functions.js) \
         $$quote($$BASEDIR/assets/images/actions/icon_albums.png) \
         $$quote($$BASEDIR/assets/images/actions/icon_append_playlist.png) \
@@ -427,10 +425,12 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/wallpapers/waves.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/wood.jpg) \
         $$quote($$BASEDIR/assets/images/wallpapers/yellow.jpg) \
-        $$quote($$BASEDIR/assets/jazzradio.json) \
         $$quote($$BASEDIR/assets/main.qml) \
-        $$quote($$BASEDIR/assets/rockradio.json) \
-        $$quote($$BASEDIR/assets/skyfm.json)
+        $$quote($$BASEDIR/assets/radio/difm.json) \
+        $$quote($$BASEDIR/assets/radio/fresca.json) \
+        $$quote($$BASEDIR/assets/radio/jazzradio.json) \
+        $$quote($$BASEDIR/assets/radio/rockradio.json) \
+        $$quote($$BASEDIR/assets/radio/skyfm.json)
 }
 
 config_pri_source_group1 {
@@ -851,7 +851,10 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/vu/*.qs) \
         $$quote($$BASEDIR/../assets/images/wallpapers/*.qml) \
         $$quote($$BASEDIR/../assets/images/wallpapers/*.js) \
-        $$quote($$BASEDIR/../assets/images/wallpapers/*.qs)
+        $$quote($$BASEDIR/../assets/images/wallpapers/*.qs) \
+        $$quote($$BASEDIR/../assets/radio/*.qml) \
+        $$quote($$BASEDIR/../assets/radio/*.js) \
+        $$quote($$BASEDIR/../assets/radio/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \

@@ -231,7 +231,7 @@ TabbedPane {
             id: difmNavigationPane 
             InternetRadioList {
                 id: difm
-                channelList: "app/native/assets/difm.json"
+                channelList: "app/native/assets/radio/difm.json"
                 navigationPane: difmNavigationPane
             }
             onPopTransitionEnded: {
@@ -258,7 +258,7 @@ TabbedPane {
             id: skyfmNavigationPane 
             InternetRadioList {
                 id: skyfm
-                channelList: "app/native/assets/skyfm.json"
+                channelList: "app/native/assets/radio/skyfm.json"
                 navigationPane: skyfmNavigationPane
             }
             onPopTransitionEnded: {
@@ -285,7 +285,7 @@ TabbedPane {
             id: jazzRadioNavigationPane 
             InternetRadioList {
                 id: jazzRadio
-                channelList: "app/native/assets/jazzradio.json"
+                channelList: "app/native/assets/radio/jazzradio.json"
                 navigationPane: jazzRadioNavigationPane
             }
             onPopTransitionEnded: {
@@ -312,7 +312,7 @@ TabbedPane {
             id: rockRadioNavigationPane 
             InternetRadioList {
                 id: rockRadio
-                channelList: "app/native/assets/rockradio.json"
+                channelList: "app/native/assets/radio/rockradio.json"
                 navigationPane: rockRadioNavigationPane
             }
             onPopTransitionEnded: {
@@ -339,7 +339,7 @@ TabbedPane {
             id: frescaNavigationPane 
             InternetRadioList {
                 id: frescaFM
-                channelList: "app/native/assets/fresca.json"
+                channelList: "app/native/assets/radio/fresca.json"
                 navigationPane: frescaNavigationPane
             }
             onPopTransitionEnded: {

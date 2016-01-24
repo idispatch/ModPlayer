@@ -295,7 +295,7 @@ GroupDataModel* Catalog::findInternetRadio(QString const & channelList) {
     JsonDataAccess jsonDataAccess;
     QString appFolder(QDir::homePath());
     appFolder.chop(4);
-    QString originalFileName = FileUtils::joinPath(appFolder, "app/native/assets/");
+    QString originalFileName = FileUtils::joinPath(appFolder, "app/native/assets/radio/");
     originalFileName = FileUtils::joinPath(originalFileName, channelList);
     model->insertList(jsonDataAccess.load(originalFileName).value<QVariantList>());
     return model;
